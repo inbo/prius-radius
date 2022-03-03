@@ -16,10 +16,16 @@ noKey <- species_list %>%
   filter(is.na(gbifapi_acceptedKey))
 ```
 
+```{r get shapes}
+vla_1km <- readOGR("./data/spatial/grids/vla_1km.geojson")
+vla_10km <- readOGR("./data/spatial/grids/vla_10km.geojson")
+```
+
 ```{r get cube data}
 IAS_Cube <- read_csv(file = "https://zenodo.org/record/4299976/files/be_alientaxa_cube.csv?download=1") %>% 
   filter(year >= 2015) %>% 
-  filter(taxonKey %in% species_list$gbifapi_acceptedKey)
+  filter(taxonKey %in% species_list$gbifapi_acceptedKey) %>% 
+  filter(eea_cell_code %in% vla_1km$CELLCODE)
 ```
 
 ```{r test data completeness}
@@ -32,11 +38,6 @@ not_in_cube <- species_list %>%
   filter(is.na(n_tot))
 
 write_csv(not_in_cube, "./data/intermediate/not_in_cube.csv")
-```
-
-```{r get grids}
-be_1km <- readOGR("./data/spatial/grids/be_1km.geojson")
-be_10km <- readOGR("./data/spatial/grids/be_10km.geojson")
 ```
 
 ```{r}
