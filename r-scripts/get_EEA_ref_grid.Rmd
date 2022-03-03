@@ -11,6 +11,47 @@ tempdir <- tempdir()
 
 ```{r download zip}
 download.file("https://www.eea.europa.eu/data-and-maps/data/eea-reference-grids-2/gis-files/belgium-shapefile/at_download/file",
-              destfile = tempzip)
+              destfile = tempzip,
+              mode = "wb")
+```
+
+```{r get filelist to unzip}
+filelist <- unzip(zipfile = tempzip,
+                  list = TRUE)
+
+filelist_10km <- subset(filelist, grepl(pattern = "be_10km", filelist$Name))
+filelist_1km <- subset(filelist, grepl(pattern = "be_1km", filelist$Name))
+
+filelist <- rbind(filelist_1km, filelist_10km)
+```
+
+```{r unzip files}
+unzip(zipfile = tempzip,
+      files = unique(filelist$Name),
+      exdir = tempdir)
+```
+
+```{r read files}
+be_1km <- readOGR(paste0(tempdir, "/be_1km.shp"))
+be_10km <- readOGR(paste0(tempdir, "/be_10km.shp"))
+```
+
+```{r transfrom shapes}
+crs_wgs <- CRS("+proj=longlat +datum=WGS84 +no_defs ")
+
+be_1km <- spTransform(be_1km, crs_wgs)
+be_10km <- spTransform(be_10km, crs_wgs)
+```
+
+```{r export geojsons}
+writeOGR(obj = be_1km,
+         dsn = "./data/spatial/grids/be_1km.geojson",
+         layer = "be_1km.geojson",
+         driver = "GeoJSON")
+
+writeOGR(obj = be_10km,
+         dsn = "./data/spatial/grids/be_10km.geojson",
+         layer = "be_10km.geojson",
+         driver = "GeoJSON")
 ```
 
