@@ -1,0 +1,45 @@
+```{r libraries}
+library(rgdal)
+library(sp)
+library(leaflet)
+library(tidyverse)
+```
+
+```{r get species list}
+bram_codes <- c("anb", "b4", "new_1", "new_anb", "new_b4", "ok")
+
+species_list <- read_csv2("./data/input/prius_species_list_bd.csv") %>% 
+  filter(Bram %in% bram_codes) %>% 
+  distinct(gbifapi_acceptedKey, .keep_all = TRUE)
+
+noKey <- species_list %>% 
+  filter(is.na(gbifapi_acceptedKey))
+```
+
+```{r get cube data}
+IAS_Cube <- read_csv(file = "https://zenodo.org/record/4299976/files/be_alientaxa_cube.csv?download=1") %>% 
+  filter(year >= 2015) %>% 
+  filter(taxonKey %in% species_list$gbifapi_acceptedKey)
+```
+
+```{r test data completeness}
+IAS_Cube_summarise <- IAS_Cube %>% 
+  group_by(taxonKey) %>% 
+  summarise(n_tot = sum(n, na.rm = TRUE))
+
+not_in_cube <- species_list %>% 
+  left_join(IAS_Cube_summarise, by = c("gbifapi_acceptedKey" = "taxonKey")) %>% 
+  filter(is.na(n_tot))
+
+write_csv(not_in_cube, "./data/intermediate/not_in_cube.csv")
+```
+
+```{r get grids}
+be_1km <- readOGR("./data/spatial/grids/be_1km.geojson")
+be_10km <- readOGR("./data/spatial/grids/be_10km.geojson")
+```
+
+```{r}
+
+```
+
