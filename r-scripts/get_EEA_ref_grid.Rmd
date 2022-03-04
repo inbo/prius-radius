@@ -52,6 +52,14 @@ vla_1km <- raster::intersect(be_1km, vla)
 vla_10km <- raster::intersect(be_10km, vla)
 ```
 
+```{r calculate 10km for 1km squares}
+vla_1km@data <- vla_1km@data %>% 
+  mutate(CELLCODE_10k = paste0("10kmE",
+                               str_sub(EOFORIGIN, 0, 3),
+                               "N",
+                               str_sub(NOFORIGIN, 0, 3)))
+```
+
 ```{r test vla_xkm, eval=FALSE}
 library(leaflet)
 
@@ -61,6 +69,16 @@ leaflet(vla_1km) %>%
 leaflet(vla_10km) %>% 
   addTiles() %>% 
   addPolylines()
+
+vla_1km_10km_test <- subset(vla_1km, vla_1km@data$CELLCODE_10k == "10kmE389N311")
+vla_10km_test <- subset(vla_10km, vla_10km@data$CELLCODE == "10kmE389N311")
+
+leaflet() %>% 
+  addTiles() %>% 
+  addPolygons(data = vla_1km_10km_test,
+              color = "red") %>% 
+  addPolygons(data = vla_10km_test,
+              color = "blue")
 ```
 
 ```{r export geojsons}
