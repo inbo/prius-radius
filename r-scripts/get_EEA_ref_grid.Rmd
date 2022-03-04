@@ -85,12 +85,14 @@ leaflet() %>%
 writeOGR(obj = vla_1km,
          dsn = "./data/spatial/grids/vla_1km.geojson",
          layer = "be_1km.geojson",
-         driver = "GeoJSON")
+         driver = "GeoJSON",
+         overwrite_layer = TRUE)
 
 writeOGR(obj = vla_10km,
          dsn = "./data/spatial/grids/vla_10km.geojson",
          layer = "be_10km.geojson",
-         driver = "GeoJSON")
+         driver = "GeoJSON",
+         overwrite_layer = TRUE)
 ```
 
 
