@@ -40,7 +40,31 @@ not_in_cube <- species_list %>%
 write_csv(not_in_cube, "./data/intermediate/not_in_cube.csv")
 ```
 
-```{r}
+```{r merge data with shapes}
+IAS_Cube_1km <- sp::merge(vla_1km, 
+                          IAS_Cube,
+                          by.x = "CELLCODE",
+                          by.y = "eea_cell_code",
+                          duplicateGeoms = TRUE)
 
+IAS_Cube_1km <- subset(IAS_Cube_1km, !is.na(IAS_Cube_1km@data$taxonKey))
+
+nrow(IAS_Cube) == nrow(IAS_Cube_1km@data)
+
+IAS_Cube_10km_data <- IAS_Cube_1km@data %>% 
+  group_by(taxonKey, year, CELLCODE_10k) %>% 
+  summarise(n = sum(n, na.rm = TRUE))
+
+sum(IAS_Cube_1km$n) == sum(IAS_Cube_10km_data$n)
+
+IAS_Cube_10km <- sp::merge(vla_10km,
+                           IAS_Cube_10km_data,
+                           by.x = "CELLCODE",
+                           by.y = "CELLCODE_10k",
+                           duplicateGeoms = TRUE)
+
+IAS_Cube_10km <- subset(IAS_Cube_10km, !is.na(IAS_Cube_10km@data$taxonKey))
+
+nrow(IAS_Cube_10km_data) == nrow(IAS_Cube_10km@data)
 ```
 
