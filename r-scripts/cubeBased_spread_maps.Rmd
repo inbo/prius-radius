@@ -6,14 +6,8 @@ library(tidyverse)
 ```
 
 ```{r get species list}
-bram_codes <- c("anb", "b4", "new_1", "new_anb", "new_b4", "ok")
-
-species_list <- read_csv2("./data/input/prius_species_list_bd.csv") %>% 
-  filter(Bram %in% bram_codes) %>% 
+species_list <- read_csv2("./data/input/prius_species_list_v22-06-01.csv") %>% 
   distinct(gbifapi_acceptedKey, .keep_all = TRUE)
-
-noKey <- species_list %>% 
-  filter(is.na(gbifapi_acceptedKey))
 ```
 
 ```{r get shapes}
