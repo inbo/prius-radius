@@ -1,0 +1,98 @@
+```{r libraries}
+library(rgdal)
+library(sp)
+library(raster)
+library(tidyverse)
+```
+
+```{r prep}
+tempzip <- tempfile(fileext = ".zip")
+tempdir <- tempdir()
+```
+
+```{r download zip}
+download.file("https://www.eea.europa.eu/data-and-maps/data/eea-reference-grids-2/gis-files/belgium-shapefile/at_download/file",
+              destfile = tempzip,
+              mode = "wb")
+```
+
+```{r get filelist to unzip}
+filelist <- unzip(zipfile = tempzip,
+                  list = TRUE)
+
+filelist_10km <- subset(filelist, grepl(pattern = "be_10km", filelist$Name))
+filelist_1km <- subset(filelist, grepl(pattern = "be_1km", filelist$Name))
+
+filelist <- rbind(filelist_1km, filelist_10km)
+```
+
+```{r unzip files}
+unzip(zipfile = tempzip,
+      files = unique(filelist$Name),
+      exdir = tempdir)
+```
+
+```{r read files}
+be_1km <- readOGR(paste0(tempdir, "/be_1km.shp"))
+be_10km <- readOGR(paste0(tempdir, "/be_10km.shp"))
+```
+
+```{r transfrom shapes}
+crs_wgs <- CRS("+proj=longlat +datum=WGS84 +no_defs ")
+
+be_1km <- spTransform(be_1km, crs_wgs)
+be_10km <- spTransform(be_10km, crs_wgs)
+```
+
+```{r subset flanders}
+vla <- readOGR(dsn = "./data/spatial/flanders.geojson")
+vla <- spTransform(vla, crs_wgs)
+
+vla_1km <- raster::intersect(be_1km, vla)
+vla_10km <- raster::intersect(be_10km, vla)
+```
+
+```{r calculate 10km for 1km squares}
+vla_1km@data <- vla_1km@data %>% 
+  mutate(CELLCODE_10k = paste0("10kmE",
+                               str_sub(EOFORIGIN, 0, 3),
+                               "N",
+                               str_sub(NOFORIGIN, 0, 3)))
+```
+
+```{r test vla_xkm, eval=FALSE}
+library(leaflet)
+
+leaflet(vla_1km) %>% 
+  addTiles() %>% 
+  addPolylines()
+leaflet(vla_10km) %>% 
+  addTiles() %>% 
+  addPolylines()
+
+vla_1km_10km_test <- subset(vla_1km, vla_1km@data$CELLCODE_10k == "10kmE389N311")
+vla_10km_test <- subset(vla_10km, vla_10km@data$CELLCODE == "10kmE389N311")
+
+leaflet() %>% 
+  addTiles() %>% 
+  addPolygons(data = vla_1km_10km_test,
+              color = "red") %>% 
+  addPolygons(data = vla_10km_test,
+              color = "blue")
+```
+
+```{r export geojsons}
+writeOGR(obj = vla_1km,
+         dsn = "./data/spatial/grids/vla_1km.geojson",
+         layer = "vla_1km.geojson",
+         driver = "GeoJSON",
+         overwrite_layer = TRUE)
+
+writeOGR(obj = vla_10km,
+         dsn = "./data/spatial/grids/vla_10km.geojson",
+         layer = "vla_10km.geojson",
+         driver = "GeoJSON",
+         overwrite_layer = TRUE)
+```
+
+
