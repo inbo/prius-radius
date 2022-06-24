@@ -43,7 +43,7 @@ gbif_pwd <- get_cred("GBIF password")
 # Get species list
 
 ```{r get species list}
-species_list <- read_csv2("./data/input/prius_species_list_v22-06-01.csv")
+species_list <- read_csv2("./data/input/prius_species_list_v22-06-24.csv")
 ```
 
 # Get shapes
