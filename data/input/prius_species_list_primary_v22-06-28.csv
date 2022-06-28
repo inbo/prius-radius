@@ -1,0 +1,110 @@
+Groep;Species;Soort;Lijst;GBIF_code
+plant;Acacia saligna (Labill.) H.L.Wendl.;wilgacacia;3;2978552
+plant;Acacia cyanophylla Lindl.;wilgacacia;3;2980328
+plant;Ailanthus altissima (Mill.) Swingle;hemelboom;3;3190653
+plant;Alternanthera philoxeroides (Mart.) Griseb.;alligatorkruid;2;3084923
+plant;Andropogon virginicus L.;Amerikaans bezemgras;3;2706080
+plant;Asclepias syriaca L.;zijdeplant;2;3170247
+plant;Baccharis halimifolia L.;struikaster;1;3129663
+plant;Cabomba caroliniana Gray;waterwaaier ;1;2882443
+plant;Cardiospermum grandiflorum Sw.;ballonrank;3;3189935
+plant;Cortaderia jubata (Lemoine ex Carrière) Stapf;hoog pampagras;3;2704521
+plant;Ehrharta calycina Sm.;roze rimpelgras;3;2702865
+plant;Eichhornia crassipes (Martius) Solms;waterhyacint;1;2765940
+plant;Elodea nuttallii (Planch.) St. John;smalle waterpest;2;5329212
+plant;Gunnera tinctoria (Molina) Mirbel;gewone gunnera;2;2984306
+plant;Gymnocoronis spilanthoides (D.Don ex Hook. & Arn.) DC.;smalle theeplant;3;6063677
+plant;Heracleum mantegazzianum Sommier & Levier;reuzenberenklauw;2;3034825
+plant;Heracleum persicum Fischer;Perzische berenklauw;1;3628745
+plant;Heracleum sosnowskyi Mandenova;Sosnowsky's berenklauw;1;3642949
+plant;Humulus scandens (Lour.) Merr.;oosterse hop;3;2984537
+plant;Hydrocotyle ranunculoides L. f.;grote waternavel;1;7978544
+plant;Impatiens glandulifera Royle;reuzenbalsemien;2;2891770
+plant;Lagarosiphon major (Ridley) Moss;verspreidbladige waterpest;1;2865565
+plant;Lespedeza cuneata (Dum.Cours.) G.Don;Chinese struikklaver;3;8114276
+plant;Lespedeza juncea var. sericea (Thunb.) Lace & Hauech;Chinese struikklaver;3;2955720
+plant;Ludwigia grandiflora (Michx.) Greuter & Burdet;grote waterteunisbloem;1;5421039
+plant;Ludwigia peploides (Kunth) P.H. Raven;kleine waterteunisbloem;1;5420991
+plant;Lygodium japonicum (Thunb.) Sw.;Japanse klimvaren;3;2650436
+plant;Lysichiton americanus Hultén & H. St. John;moerasaronskelk;1;2869311
+plant;Microstegium vimineum (Trin.) A. Camus;Japans steltgras;2;5289808
+plant;Myriophyllum aquaticum (Vell.) Verdc.;parelvederkruid;1;5361785
+plant;Myriophyllum heterophyllum Michaux;ongelijkbladig vederkruid;2;5361762
+plant;Parthenium hysterophorus L.;schijnambrosia;1;3086784
+plant;Pennisetum setaceum (Forssk.) Chiov.;fraai lampenpoetsersgras;2;2706134
+plant;Persicaria perfoliata (L.) H. Gross;gestekelde duizendknoop;1;4033648
+plant;Polygonum perfoliatum L.;gestekelde duizendknoop;1;5334406
+plant;Prosopis juliflora (Sw.) DC.;mesquite;3;5358460
+plant;Pueraria montana (Lour.) Merr. var. lobata (Willd.);kudzu;1;2977647
+plant;Pueraria lobata (Willd.) Ohwi;kudzu;1;2977636
+plant;Salvinia molesta D.S.Mitch.;grote vlotvaren;3;5274863
+plant;Salvinia adnata Desv.;grote vlotvaren;3;5579439
+plant;Salvinia auriculata Aubl.;grote vlotvaren;3;5274861
+plant;Triadica sebífera (L.) Small;talgboom;3;3054399
+plant;Sapium sebiferum (L.) Roxb.;talgboom;3;7748792
+dier;Acridotheres tristis Linnaeus, 1766;treurmaina;3;2489005
+dier;Alopochen aegyptiacus Linnaeus, 1766;nijlgans;2;2498252
+dier;Arthurdendyus triangulatus (Dendy, 1894) Jones & Gerard (1999);.;3;2502792
+dier;Callosciurus erythraeus Pallas, 1779;Pallas' eekhoorn;1;2437394
+dier;Corvus splendens Viellot, 1817;huiskraai;1;2482499
+dier;Eriocheir sinensis H. Milne Edwards, 1854;Chinese wolhandkrab;1;2225776
+dier;Herpestes javanicus É. Geoffroy Saint-Hilaire, 1818;Indische mangoeste;1;2434271
+dier;Lepomis gibbosus Linnaeus, 1758;zonnebaars;3;2394486
+dier;Lithobates (Rana) catesbeianus Shaw, 1802;Amerikaanse stierkikker;1;2427091
+dier;Muntiacus reevesi Ogilby, 1839;Chinese muntjak;1;2440946
+dier;Myocastor coypus Molina, 1782;beverrat ;1;4264680
+dier;Nasua nasua L., 1766;rode neusbeer;1;2433536
+dier;Nyctereutes procyonoides Gray, 1834;wasbeerhond;2;2434552
+dier;Ondatra zibethicus Linnaeus, 1766;muskusrat;2;5219858
+dier;Orconectes limosus Rafinesque, 1817;gevlekte rivierkreeft;1;2227000
+dier;Faxonius limosus Rafinesque, 1817;gevlekte rivierkreeft;1;8909595
+dier;Orconectes virilis Hagen, 1870;geknobbelde Amerikaanse rivierkreeft;1;2227064
+dier;Faxonius virilis Hagen, 1870;geknobbelde Amerikaanse rivierkreeft;1;8971201
+dier;Oxyura jamaicensis Gmelin, 1789;rosse stekelstaart;1;2498305
+dier;Pacifastacus leniusculus Dana, 1852;Californische rivierkreeft;1;2226990
+dier;Perccottus glenii Dybowski, 1877;amoergrondel;1;2390064
+dier;Plotosus lineatus (Thunberg, 1787);gestreepte koraalmeerval;3;7965247
+dier;Procambarus clarkii Girard, 1852;rode rivierkreeft;1;2227300
+dier;Procambarus fallax (Hagen, 1870) f. virginalis;marmerkreeft;1;2227309
+dier;Procambarus virginalis Lyko, 2017;marmerkreeft;1;9442269
+dier;Procyon lotor L., 1758;wasbeer;1;5218786
+dier;Pseudorasbora parva Temminck & Schlegel, 1846;blauwbandgrondel;1;2362868
+dier;Sciurus carolinensis Gmelin, 1788;grijze eekhoorn;1;5219681
+dier;Sciurus niger L., 1758;Amerikaanse voseekhoorn;1;5219683
+dier;Tamias sibiricus Laxmann, 1769;Siberische grondeekhoorn;1;2437450
+dier;Threskiornis aethiopicus Latham, 1790;heilige ibis;1;2480764
+dier;Trachemys scripta Schoepff, 1792;lettersierschildpad ;1;2443002
+dier;Vespa velutina nigrithorax de Buysson, 1905;Aziatische hoornaar;1;1311477
+dier;Ameiurus melas (Rafinesque, 1820);CONT;4;2340977
+dier;Axis axis (Erxleben, 1777);CONT;4;2440934
+dier;Callosciurus finlaysonii (Horsfield, 1823);CONT;4;2437399
+plant;Celastrus orbiculatus C.P. Thunberg ex A. Murray;CONT;4;8104460
+dier;Channa argus (Cantor, 1842);CONT;4;4284921
+dier;Faxonius rusticus (Girard, 1852);CONT;4;8979506
+dier;Fundulus heteroclitus (Linnaeus, 1766);CONT;4;5712056
+dier;Gambusia affinis (Baird & Girard, 1853);CONT;4;2350580
+dier;Gambusia holbrooki Girard, 1859;CONT;4;2350570
+plant;Hakea sericea Schrad. & J.C.Wendl.;CONT;4;7287606
+plant;Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal;CONT;4;8848208
+dier;Lampropeltis getula (Linnaeus, 1766);CONT;4;9799308
+dier;Limnoperna fortunei (Dunker, 1857);CONT;4;5855350
+dier;Morone americana (Gmelin, 1789);CONT;4;2394604
+plant;Pistia stratiotes L.;CONT;4;2870583
+dier;Pycnonotus cafer (Linnaeus, 1766);CONT;4;2486131
+plant;Rugulopteryx okamurae (E.Y.Dawson) I.K.Hwang, W.J.Lee & H.S.Kim, 2009;CONT;4;5824863
+dier;Solenopsis geminata (Fabricius, 1804);CONT;4;5035187
+dier;Solenopsis invicta Buren, 1972;CONT;4;5035230
+dier;Solenopsis richteri Forel, 1909;CONT;4;5035017
+dier;Wasmannia auropunctata (Roger, 1863);CONT;4;1315391
+dier;Xenopus laevis (Daudin, 1802);CONT;4;5217334
+plant;Ambrosia artemisiifolia L.;alsemambrosia;ANB;8002952
+plant;Crassula helmsii (Kirk) A. Berger;watercrassula;ANB;8035075
+plant;Reynoutria japonica Houtt.;'invasieve duizendknopen';ANB;2889173
+plant;Fallopia japonica (Houtt.) Ronse Decr.;'invasieve duizendknopen';ANB;5334357
+plant;Reynoutria sachalinensis (F.Schmidt) Nakai;'invasieve duizendknopen';ANB;2889088
+plant;Fallopia sachalinensis (F.Schmidt) Ronse Decr.;'invasieve duizendknopen';ANB;5334293
+plant;Reynoutria ×bohemica Chrtek & Chrtková;'invasieve duizendknopen';ANB;4038485
+plant;Fallopia ×bohemica (Chrtek & Chrtková) J.P.Bailey;'invasieve duizendknopen';ANB;5652296
+dier;Aedes albopictus (Skuse, 1894);Aziatische tijgermug;ANB;1651430
+dier;Branta canadensis (Linnaeus, 1758);Canadese gans;ANB;5232437
+dier;Neovison vison (Schreber, 1777);Amerikaanse nerts;ANB;2433652
