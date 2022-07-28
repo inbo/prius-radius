@@ -85,6 +85,8 @@ test <- specieslist_2 %>%
 ```{r climate match}
 groups <- unique(specieslist_2$group)
 
+output <- data.frame()
+
 for(a in groups){
   taxonkeys <- specieslist_2 %>% 
     filter(group == a) %>% 
@@ -95,21 +97,27 @@ for(a in groups){
   zip_file <- paste0("./group_", a, ".zip")
   
   if(file.exists(zip_file)){
-  cm_output <- climate_match(region = "belgium",
-                             taxon_key = taxonkeys,
-                             zip_file = zip_file,
-                             maps = FALSE)
+    cm_output <- climate_match(region = "belgium",
+                               taxon_key = taxonkeys,
+                               zip_file = zip_file,
+                               n_limit = 90,
+                               cm_limit = 0.2,
+                               maps = FALSE)
   }else{
     cm_output <- climate_match(region = "belgium",
-                             taxon_key = taxonkeys,
-                             maps = FALSE)
+                               taxon_key = taxonkeys,
+                               n_limit = 90,
+                               cm_limit = 0.2,
+                               maps = FALSE)
   }
   
-  output <- cm_output$cm
+  if(nrow(output) == 0){
+    output <- cm_output$cm
+  }else{
+    output <- rbind(output, cm_output$cm)
+  }
   
-  assign(paste0("cm_output_", a), output)
   remove(cm_output)
-  remove(output)
   gc(reset = TRUE)
 }
 ```
