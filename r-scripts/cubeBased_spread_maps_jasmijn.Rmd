@@ -1,0 +1,52 @@
+```{r libraries}
+library(rgdal)
+library(sp)
+library(leaflet)
+library(tidyverse)
+```
+
+```{r get species list}
+species_list <- read.csv("./data/input/prius_species_list.csv") %>% distinct(GBIF_code,.keep_all=TRUE)
+```
+
+```{r get shapes}
+vla_1km <- readOGR("./data/spatial/grids/vla_1km.geojson")
+```
+
+```{r get cube data}
+IAS_Cube <- read_csv(file = "https://zenodo.org/record/4299976/files/be_alientaxa_cube.csv?download=1") %>% 
+  filter(year >= 2015) %>% 
+  filter(taxonKey %in% species_list$GBIF_code) %>% 
+  filter(eea_cell_code %in% vla_1km$CELLCODE)
+```
+
+```{r test data completeness}
+IAS_Cube_summarise <- IAS_Cube %>% 
+  group_by(taxonKey) %>% 
+  summarise(n_tot = sum(n, na.rm = TRUE))
+
+not_in_cube <- species_list %>% 
+  left_join(IAS_Cube_summarise, by = c("GBIF_code" = "taxonKey")) %>% 
+  filter(is.na(n_tot))
+
+write_csv(not_in_cube, "./data/intermediate/not_in_cube_jas.csv")
+```
+
+```{r merge data with shapes}
+IAS_Cube_1km <- sp::merge(vla_1km, 
+                          IAS_Cube,
+                          by.x = "CELLCODE",
+                          by.y = "eea_cell_code",
+                          duplicateGeoms = TRUE)
+
+IAS_Cube_1km <- subset(IAS_Cube_1km, !is.na(IAS_Cube_1km@data$taxonKey))
+
+nrow(IAS_Cube) == nrow(IAS_Cube_1km@data)
+
+IAS_Cube_10km_data <- IAS_Cube_1km@data %>% 
+  group_by(taxonKey, year, CELLCODE_10k) %>% 
+  summarise(n = sum(n, na.rm = TRUE))
+
+sum(IAS_Cube_1km$n) == sum(IAS_Cube_10km_data$n)
+```
+
