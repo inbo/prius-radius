@@ -1,16 +1,16 @@
 ```{r libraries}
-library(rgdal)
-library(sp)
+library(sf)
 library(leaflet)
 library(tidyverse)
+library(dplyr)
 ```
 
 ```{r get species list}
-species_list <- read.csv("./data/input/prius_species_list.csv") %>% distinct(GBIF_code,.keep_all=TRUE)
+species_list <- read.csv("./data/input/prius_species_list.csv") 
 ```
 
 ```{r get shapes}
-vla_1km <- readOGR("./data/spatial/grids/vla_1km.geojson")
+vla_1km <- st_read("./data/spatial/grids/vla_1km.geojson")
 ```
 
 ```{r get cube data}
@@ -29,7 +29,13 @@ not_in_cube <- species_list %>%
   left_join(IAS_Cube_summarise, by = c("GBIF_code" = "taxonKey")) %>% 
   filter(is.na(n_tot))
 
-write_csv(not_in_cube, "./data/intermediate/not_in_cube_jas.csv")
+write_csv(not_in_cube, "./data/intermediate/taxonkeys_not_in_cube_jas.csv")
+
+in_cube <- species_list %>% 
+  left_join(IAS_Cube_summarise, by = c("GBIF_code" = "taxonKey")) %>% 
+  filter(!is.na(n_tot))
+
+
 ```
 
 ```{r merge data with shapes}
@@ -43,10 +49,21 @@ IAS_Cube_1km <- subset(IAS_Cube_1km, !is.na(IAS_Cube_1km@data$taxonKey))
 
 nrow(IAS_Cube) == nrow(IAS_Cube_1km@data)
 
-IAS_Cube_10km_data <- IAS_Cube_1km@data %>% 
-  group_by(taxonKey, year, CELLCODE_10k) %>% 
-  summarise(n = sum(n, na.rm = TRUE))
+```
 
-sum(IAS_Cube_1km$n) == sum(IAS_Cube_10km_data$n)
+```{r}
+for (species_name in unique(in_cube$Soort)){
+  print(species_name)
+  GBIF_codes<- in_cube[which(in_cube$Soort==species_name),]$GBIF_code
+  print(GBIF_codes)
+  IAS_Cube_temp <- IAS_Cube %>%
+    filter(taxonKey %in% GBIF_codes)
+  print(IAS_Cube_temp)
+  IAS_Cube_1km_spec <- merge(vla_1km,
+                      IAS_Cube_temp,
+                      by.x='CELLCODE',
+                      by.y='eea_cell_code',
+                      all.y=TRUE)
+}
 ```
 
