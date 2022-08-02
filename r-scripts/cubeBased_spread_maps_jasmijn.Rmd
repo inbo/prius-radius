@@ -11,7 +11,9 @@ species_list <- read.csv("./data/input/prius_species_list.csv")
 
 ```{r get shapes}
 vla_1km <- st_read("./data/spatial/grids/vla_1km.geojson")
-Vlaanderen_grenzen <- st_read("./data/spatial/flanders.geojson")
+Vlaanderen_grenzen <- st_read("./data/spatial/flanders_wgs84.geojson")
+#Vlaanderen_grenzen2 <- st_transform(Vlaanderen_grenzen, crs=st_crs(vla_1km))
+#st_write(Vlaanderen_grenzen2,  "./data/spatial/flanders_wgs84.geojson")
 ```
 
 ```{r get cube data}
