@@ -11,6 +11,7 @@ species_list <- read.csv("./data/input/prius_species_list.csv")
 
 ```{r get shapes}
 vla_1km <- st_read("./data/spatial/grids/vla_1km.geojson")
+Vlaanderen_grenzen <- st_read("./data/spatial/flanders.geojson")
 ```
 
 ```{r get cube data}
@@ -64,6 +65,7 @@ for (species_name in unique(in_cube$Soort)){
                       by.x='CELLCODE',
                       by.y='eea_cell_code',
                       all.y=TRUE)
+  
 }
 ```
 
