@@ -155,6 +155,9 @@ cm_extra <- climate_match(region = "belgium",
 output <- rbind(output, cm_extra$cm)
 ```
 ```{r export results}
+output <- output %>% 
+  arrange(acceptedTaxonKey)
+
 write_csv(output, 
           "./data/output/cm_output.csv")
 ```
