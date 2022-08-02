@@ -67,11 +67,15 @@ for (species_name in unique(in_cube$Soort)){
                       by.x='CELLCODE',
                       by.y='eea_cell_code',
                       all.y=TRUE)
-   a<- ggplot() +
+  temp_plot<- ggplot() +
   geom_sf(data = Vlaanderen_grenzen) +
+  geom_sf(data=IAS_Cube_1km_spec,  colour="red")+
+  ggtitle(species_name)+
   theme_void() + # Zonder "assen" (coördinaten)
   theme(legend.position="bottom", legend.title = element_blank()) +
   coord_sf()
+  
+  ggsave(temp_plot, file=paste0("./data/output/spread_maps/plot_", species_name,".png"), width = 14, height = 10, units = "cm")
 }
 ```
 
