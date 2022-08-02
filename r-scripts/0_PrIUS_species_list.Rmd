@@ -29,7 +29,7 @@ rm(list=ls())
 # Inlezen soortenlijst
 
 ```{r}
-list <- read_delim("./data/input/prius_species_list_primary_v22-06-29.csv", delim = ";")
+list <- read_delim("./data/input/prius_species_list_primary_v22-08-02.csv", delim = ";")
 ```
 
 # GBIF-gegevens toevoegen
