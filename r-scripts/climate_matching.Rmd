@@ -134,14 +134,17 @@ write_csv(species_not_in_cm,
           "./data/intermediate/species_not_in_cm.csv")
 ```
 
+Door issues met de gbifbackbone moeten deze soorten opnieuw gerund worden. 
+5828232,
+5362054,
+5218823
+
 ```{r species to double check, eval=FALSE}
-specieslist_to_check <- c(2977647,
-                          5828232,
-                          5362054,
-                          5218823)
+specieslist_to_check <- c(2977647)
 
 cm_rerun <- climate_match(region = "belgium",
                           taxon_key = specieslist_to_check,
+                          zip_file = "./cm_extra.zip",
                           maps = FALSE)
 
 output <- rbind(output, cm_rerun$cm)
