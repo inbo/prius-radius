@@ -6,7 +6,7 @@ library(dplyr)
 ```
 
 ```{r get species list}
-species_list <- read.csv("./data/input/prius_species_list.csv") 
+species_list <- read_csv('https://raw.githubusercontent.com/inbo/prius/f52fc4e0bb060d5a3d372d1650502602a0a562fd/data/input/prius_species_list.csv') 
 ```
 
 ```{r get shapes}
@@ -38,7 +38,7 @@ in_cube <- species_list %>%
   left_join(IAS_Cube_summarise, by = c("GBIF_code" = "taxonKey")) %>% 
   filter(!is.na(n_tot))
 
-
+not_in_cube$Soort %in% in_cube$Soort
 ```
 
 ```{r merge data with shapes}
