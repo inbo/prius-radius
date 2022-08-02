@@ -12,8 +12,8 @@ species_list <- read.csv("./data/input/prius_species_list.csv")
 ```{r get shapes}
 vla_1km <- st_read("./data/spatial/grids/vla_1km.geojson")
 Vlaanderen_grenzen <- st_read("./data/spatial/flanders_wgs84.geojson")
-#Vlaanderen_grenzen2 <- st_transform(Vlaanderen_grenzen, crs=st_crs(vla_1km))
-#st_write(Vlaanderen_grenzen2,  "./data/spatial/flanders_wgs84.geojson")
+#Vlaanderen_grenzen <- st_transform(Vlaanderen_grenzen, crs=st_crs(vla_1km))
+#st_write(Vlaanderen_grenzen,  "./data/spatial/flanders_wgs84.geojson")
 ```
 
 ```{r get cube data}
@@ -67,7 +67,11 @@ for (species_name in unique(in_cube$Soort)){
                       by.x='CELLCODE',
                       by.y='eea_cell_code',
                       all.y=TRUE)
-  
+   a<- ggplot() +
+  geom_sf(data = Vlaanderen_grenzen) +
+  theme_void() + # Zonder "assen" (coördinaten)
+  theme(legend.position="bottom", legend.title = element_blank()) +
+  coord_sf()
 }
 ```
 
