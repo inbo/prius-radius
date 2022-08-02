@@ -136,11 +136,15 @@ write_csv(species_not_in_cm,
 
 ```{r species to double check, eval=FALSE}
 specieslist_to_check <- c(2977647,
-                          5828232)
+                          5828232,
+                          5362054,
+                          5218823)
 
 cm_rerun <- climate_match(region = "belgium",
                           taxon_key = specieslist_to_check,
                           maps = FALSE)
+
+output <- rbind(output, cm_rerun$cm)
 ```
 
 *The chunck below should not be run after PR*
@@ -154,6 +158,7 @@ cm_extra <- climate_match(region = "belgium",
 
 output <- rbind(output, cm_extra$cm)
 ```
+
 ```{r export results}
 output <- output %>% 
   arrange(acceptedTaxonKey)
