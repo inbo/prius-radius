@@ -134,6 +134,17 @@ write_csv(species_not_in_cm,
           "./data/intermediate/species_not_in_cm.csv")
 ```
 
+*The chunck below should not be run after PR*
+
+```{r temp fix for Celastrus, eval = FALSE}
+cm_extra <- climate_match(region = "belgium",
+                          taxon_key =  3169169,
+                          n_limit = 90,
+                          cm_limit = 0.2,
+                          maps = FALSE)
+
+output <- rbind(output, cm_extra$cm)
+```
 ```{r export results}
 write_csv(output, 
           "./data/output/cm_output.csv")
