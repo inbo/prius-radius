@@ -118,11 +118,11 @@ for(a in groups){
 }
 
 write_csv(output_raw, 
-          "./data/output/cm_output_raw.csv")
+          "./data/intermediate/cm_output_raw.csv")
 ```
 
 ```{r read previous output, eval=FALSE}
-output_raw <- read_csv("./data/output/cm_output.csv")
+output_raw <- read_csv("./data/intermediate/cm_output_raw.csv")
 ```
 
 Door issues met de gbifbackbone moeten deze soorten opnieuw gerund worden. 
