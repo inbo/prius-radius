@@ -164,7 +164,9 @@ output <- rbind(output, cm_extra$cm)
 
 ```{r export results}
 output <- output %>% 
-  arrange(acceptedTaxonKey)
+  arrange(acceptedTaxonKey) %>% 
+  filter(n_totaal >= 90,
+         perc_climate >= 0.2)
 
 write_csv(output, 
           "./data/output/cm_output.csv")
