@@ -138,7 +138,7 @@ cm_rerun <- climate_match(region = "belgium",
                           zip_file = "./cm_extra.zip",
                           maps = FALSE)
 
-output <- rbind(output, cm_rerun$cm)
+output_raw <- rbind(output_raw, cm_rerun$cm)
 ```
 
 *The chunck below should not be run after PR*
@@ -148,7 +148,7 @@ cm_extra <- climate_match(region = "belgium",
                           taxon_key =  3169169,
                           maps = FALSE)
 
-output <- rbind(output, cm_extra$cm)
+output_raw <- rbind(output_raw, cm_extra$cm)
 ```
 
 ```{r filter output}
