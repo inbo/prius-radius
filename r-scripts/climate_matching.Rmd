@@ -1,0 +1,182 @@
+# Rationale
+Dit script voert een ruwe climate match uit op de prius soortenlijst.
+
+```{r update Trias, eval=FALSE}
+devtools::install_github("trias-project/trias",
+                         "93-errors-while-running-climate-matching",
+                         force = TRUE)
+```
+
+```{r setup}
+library(rgbif)
+library(trias)
+library(tidyverse)
+```
+
+```{r get credentials}
+gbif_user <- Sys.getenv("gbif_user")
+gbif_email <- Sys.getenv("gbif_email")
+gbif_pwd <- Sys.getenv("gbif_pwd")
+```
+
+```{r read specieslist}
+specieslist <- read_csv("./data/input/prius_species_list.csv")
+
+taxonkeys <- specieslist$GBIF_code
+
+occ_counts <- data.frame() %>% 
+  mutate(GBIF_code = NA_integer_,
+         n = NA_integer_
+  )
+
+for(i in taxonkeys){
+  count <- occ_count(taxonKey = i,
+                     georeferenced = TRUE,
+                     from = 1900)
+  
+  occ_counts <- occ_counts %>% 
+    add_row(GBIF_code = i,
+            n = count) %>% 
+    arrange(desc(n))
+}
+
+max(occ_counts$n)/sum(occ_counts$n, na.rm = TRUE)
+
+test <- head(occ_counts$GBIF_code, 1)
+
+specieslist_1 <- specieslist %>% 
+  left_join(occ_counts) %>% 
+  filter(!GBIF_code %in% test)
+
+sum(specieslist_1$n)
+
+limit <- 1500000
+x <- 1
+sum <- 0
+
+specieslist_2 <- data.frame()
+
+for(y in specieslist_1$GBIF_code){
+  temp <- specieslist_1 %>% 
+    filter(GBIF_code == y)
+  
+  sum <- sum + temp$n
+  if(sum < limit){
+    temp <- temp %>% 
+      mutate(group = x)
+  }else{
+    sum <- temp$n
+    x <- x + 1 
+    temp <- temp %>% 
+      mutate(group = x)
+  }
+  if(nrow(specieslist_2) == 0){
+    specieslist_2 <- temp
+  }else{
+    specieslist_2 <- rbind(specieslist_2, temp)
+  }
+}
+
+test <- specieslist_2 %>% 
+  group_by(group) %>% 
+  summarise(sum(n))
+```
+
+```{r climate match}
+groups <- unique(specieslist_2$group)
+
+output_raw <- data.frame()
+
+for(a in groups){
+  taxonkeys <- specieslist_2 %>% 
+    filter(group == a) %>% 
+    distinct(GBIF_code)
+  
+  taxonkeys <- taxonkeys$GBIF_code
+  
+  zip_file <- paste0("./group_", a, ".zip")
+  
+  if(file.exists(zip_file)){
+    cm_output <- climate_match(region = "belgium",
+                               taxon_key = taxonkeys,
+                               zip_file = zip_file,
+                               maps = FALSE)
+  }else{
+    cm_output <- climate_match(region = "belgium",
+                               taxon_key = taxonkeys,
+                               maps = FALSE)
+  }
+  
+  if(nrow(output) == 0){
+    output_raw <- cm_output$cm
+  }else{
+    output_raw <- rbind(output_raw, cm_output$cm)
+  }
+  
+  remove(cm_output)
+  gc(reset = TRUE)
+}
+
+write_csv(output_raw, 
+          "./data/intermediate/cm_output_raw.csv")
+```
+
+```{r read previous output, eval=FALSE}
+output_raw <- read_csv("./data/intermediate/cm_output_raw.csv")
+```
+
+Door issues met de gbifbackbone moeten deze soorten opnieuw gerund worden. 
+5828232,
+5362054,
+5218823
+
+```{r species to double check, eval=FALSE}
+specieslist_to_check <- c(2977647)
+
+cm_rerun <- climate_match(region = "belgium",
+                          taxon_key = specieslist_to_check,
+                          zip_file = "./cm_extra.zip",
+                          maps = FALSE)
+
+output_raw <- rbind(output_raw, cm_rerun$cm)
+```
+
+*The chunck below should not be run after PR*
+
+```{r temp fix for Celastrus, eval = FALSE}
+cm_extra <- climate_match(region = "belgium",
+                          taxon_key =  3169169,
+                          maps = FALSE)
+
+output_raw <- rbind(output_raw, cm_extra$cm)
+```
+
+```{r filter output}
+output <- output_raw %>% 
+  arrange(acceptedTaxonKey) %>% 
+  mutate(perc_climate = round(perc_climate*100, 2)) %>% 
+  select(acceptedTaxonKey, acceptedScientificName, Classification, perc_climate, n_totaal) %>% 
+  pivot_wider(id_cols = c(acceptedTaxonKey,
+                          acceptedScientificName,
+                          n_totaal),
+              names_from = Classification,
+              values_from = perc_climate,
+              values_fn = first) %>% 
+  select(-Csa) %>% 
+  filter(Cfb >= 25 | Cfa >= 25)
+```
+
+
+```{r checks - species not in cm}
+species_not_in_cm <- specieslist_2 %>% 
+  filter(!GBIF_code %in% output$acceptedTaxonKey)
+
+write_csv(species_not_in_cm,
+          "./data/intermediate/species_not_in_cm.csv")
+```
+
+```{r export results}
+write_csv(output, 
+          "./data/output/cm_output.csv")
+```
+
