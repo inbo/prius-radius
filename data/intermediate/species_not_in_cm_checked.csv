@@ -1,0 +1,30 @@
+Species;GBIF_code;Cfb;Cfa;Csa;Output Species;Output GBIF_Code;Relation;OK ?
+Acacia cyanophylla Lindl.;2980328;nvt;nvt;nvt;Acacia saligna;https://www.gbif.org/species/2978552;SYNONIEM;Y
+Ehrharta calycina Sm.;2702865;11%;1%;9%;FILTERED OUT;;;Y
+Heracleum persicum Fischer;3628745;2%;0%;1%;FILTERED OUT;;;Y
+Heracleum sosnowskyi Mandenova;3642949;1%;0.01%;0%;FILTERED OUT;;;Y
+Lespedeza juncea var. sericea (Thunb.) Lace & Hauech;2955720;nvt;nvt;nvt;Lespedeza cuneata (Dum.Cours.) G.Don;https://www.gbif.org/species/8114276;VARIETEIT/SYNONIEM;Y
+Polygonum perfoliatum L.;5334406;;;;Polygonum perfoliatum (L.) L.;;;
+Prosopis juliflora (Sw.) DC.;5358460;;;;Prosopis juliflora (Sw.) DC.;;;
+Pueraria lobata (Willd.) Ohwi;2977654;;;;Pueraria lobata (Willd.) Ohwi;;;
+Salvinia adnata Desv.;5579439;;;;Salvinia adnata Desv.;;;
+Sapium sebiferum (L.) Roxb.;7748792;;;;Sapium sebiferum (L.) Roxb.;;;
+Acridotheres tristis Linnaeus, 1766;2489005;;;;Acridotheres tristis (Linnaeus, 1766);;;
+Corvus splendens Viellot, 1817;2482499;;;;Corvus splendens Vieillot, 1817;;;
+Herpestes javanicus É. Geoffroy Saint-Hilaire, 1818;2434271;;;;Herpestes javanicus (Ã‰.Geoffroy Saint-Hilaire, 1818);;;
+Orconectes limosus Rafinesque, 1817;2227000;;;;Orconectes limosus (Rafinesque, 1817);;;
+Orconectes virilis Hagen, 1870;2227064;;;;Orconectes virilis (Hagen, 1870);;;
+Perccottus glenii Dybowski, 1877;2390064;;;;Perccottus glenii Dybowski, 1877;;;
+Procambarus fallax (Hagen, 1870) f. virginalis;8879526;;;;Procambarus fallax f. virginalis Martin, Dorn, Kawai, van der Heiden & Scholtz, 2010;;;
+Threskiornis aethiopicus Latham, 1790;2480764;;;;Threskiornis aethiopicus (Latham, 1790);;;
+Vespa velutina nigrithorax de Buysson, 1905;6247411;;;;Vespa velutina nigrithorax Buysson, 1905;;;
+Axis axis (Erxleben, 1777);2440934;;;;Axis axis (Erxleben, 1777);;;
+Callosciurus finlaysonii (Horsfield, 1823);2437399;;;;Callosciurus finlaysonii (Horsfield, 1823);;;
+Faxonius rusticus (Girard, 1852);8979506;;;;Faxonius rusticus (Girard, 1852);;;
+Pycnonotus cafer (Linnaeus, 1766);2486131;;;;Pycnonotus cafer (Linnaeus, 1766);;;
+Rugulopteryx okamurae (E.Y.Dawson) I.K.Hwang, W.J.Lee & H.S.Kim, 2009;5824863;;;;Rugulopteryx okamurae (Dawson) I.K.Hwang, W.J.Lee & H.S.Kim, 2009;;;
+Solenopsis geminata (Fabricius, 1804);5035187;;;;Solenopsis geminata (Fabricius, 1804);;;
+Wasmannia auropunctata (Roger, 1863);1315391;;;;Wasmannia auropunctata (Roger, 1863);;;
+Fallopia japonica (Houtt.) Ronse Decr.;5334357;;;;Fallopia japonica (Houtt.) Ronse Decr.;;;
+Fallopia sachalinensis (F.Schmidt) Ronse Decr.;5334293;;;;Fallopia sachalinensis (F.Schmidt) Ronse Decr.;;;
+Fallopia ×bohemica (Chrtek & Chrtková) J.P.Bailey;5652296;;;;Fallopia Ã—bohemica (Chrtek & ChrtkovÃ¡) J.P.Bailey;;;
