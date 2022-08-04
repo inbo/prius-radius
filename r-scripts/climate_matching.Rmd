@@ -139,16 +139,33 @@ cm_rerun <- climate_match(region = "belgium",
                           maps = FALSE)
 
 output_raw <- rbind(output_raw, cm_rerun$cm)
+
+write_csv(output_raw, 
+          "./data/intermediate/cm_output_raw.csv")
 ```
 
 *The chunck below should not be run after PR*
 
 ```{r temp fix for Celastrus, eval = FALSE}
-cm_extra <- climate_match(region = "belgium",
+cm_Celastrus <- climate_match(region = "belgium",
                           taxon_key =  3169169,
                           maps = FALSE)
 
-output_raw <- rbind(output_raw, cm_extra$cm)
+output_raw <- rbind(output_raw, cm_Celastrus$cm)
+
+write_csv(output_raw, 
+          "./data/intermediate/cm_output_raw.csv")
+```
+
+```{r temp fix for Misgurnus, eval = FALSE}
+cm_Misgurnus <- climate_match(region = "belgium",
+                          taxon_key =  2367911,
+                          maps = FALSE)
+
+output_raw <- rbind(output_raw, cm_Misgurnus$cm)
+
+write_csv(output_raw, 
+          "./data/intermediate/cm_output_raw.csv")
 ```
 
 ```{r filter output}
