@@ -6,12 +6,13 @@ library(dplyr)
 ```
 
 ```{r get species list}
-species_list <- read_csv('https://raw.githubusercontent.com/inbo/prius/f52fc4e0bb060d5a3d372d1650502602a0a562fd/data/input/prius_species_list.csv') 
+species_list <- read_csv('https://raw.githubusercontent.com/inbo/prius/f52fc4e0bb060d5a3d372d1650502602a0a562fd/data/input/prius_species_list.csv') #species_list in main branch
 ```
 
 ```{r get shapes}
 vla_1km <- st_read("./data/spatial/grids/vla_1km.geojson")
 Vlaanderen_grenzen <- st_read("./data/spatial/flanders_wgs84.geojson")
+Provincies_grenzen <- st_read("./data/spatial/Provincies.geojson")
 #Vlaanderen_grenzen <- st_transform(Vlaanderen_grenzen, crs=st_crs(vla_1km))
 #st_write(Vlaanderen_grenzen,  "./data/spatial/flanders_wgs84.geojson")
 ```
@@ -41,18 +42,7 @@ in_cube <- species_list %>%
 not_in_cube$Soort %in% in_cube$Soort
 ```
 
-```{r merge data with shapes}
-IAS_Cube_1km <- sp::merge(vla_1km, 
-                          IAS_Cube,
-                          by.x = "CELLCODE",
-                          by.y = "eea_cell_code",
-                          duplicateGeoms = TRUE)
 
-IAS_Cube_1km <- subset(IAS_Cube_1km, !is.na(IAS_Cube_1km@data$taxonKey))
-
-nrow(IAS_Cube) == nrow(IAS_Cube_1km@data)
-
-```
 
 ```{r}
 for (species_name in unique(in_cube$Soort)){
@@ -69,6 +59,7 @@ for (species_name in unique(in_cube$Soort)){
                       all.y=TRUE)
   temp_plot<- ggplot() +
   geom_sf(data = Vlaanderen_grenzen) +
+  geom_sf(data = Provincies_grenzen) +
   geom_sf(data=IAS_Cube_1km_spec,  colour="red")+
   ggtitle(species_name)+
   theme_void() + # Zonder "assen" (coördinaten)
