@@ -4,7 +4,7 @@ plant,Acacia cyanophylla Lindl.,wilgacacia,3,2980328,Acacia cyanophylla Lindl.,N
 plant,Alternanthera philoxeroides (Mart.) Griseb.,alligatorkruid,2,3084923,Alternanthera philoxeroides (Mart.) Griseb.,NA
 plant,Andropogon virginicus L.,Amerikaans bezemgras,3,2706080,Andropogon virginicus L.,NA
 plant,Cardiospermum grandiflorum Sw.,ballonrank,3,3189935,Cardiospermum grandiflorum Sw.,NA
-plant,Cortaderia jubata (Lemoine ex Carrière) Stapf,hoog pampagras,3,2704521,Cortaderia jubata (Lemoine) Stapf,NA
+plant,Cortaderia jubata (Lemoine ex Carri\xe8re) Stapf,hoog pampagras,3,2704521,Cortaderia jubata (Lemoine) Stapf,NA
 plant,Ehrharta calycina Sm.,roze rimpelgras,3,2702865,Ehrharta calycina Sm.,NA
 plant,Gunnera tinctoria (Molina) Mirbel,gewone gunnera,2,2984306,Gunnera tinctoria (Molina) Mirb.,NA
 plant,Gymnocoronis spilanthoides (D.Don ex Hook. & Arn.) DC.,smalle theeplant,3,6063677,Gymnocoronis spilanthoides DC.,NA
@@ -24,11 +24,11 @@ plant,Pueraria montana (Lour.) Merr. var. lobata (Willd.),kudzu,1,2977647,Puerar
 plant,Pueraria lobata (Willd.) Ohwi,kudzu,1,2977654,Pueraria lobata (Willd.) Ohwi,NA
 plant,Salvinia molesta D.S.Mitch.,grote vlotvaren,3,5274863,Salvinia Ã—molesta D.S.Mitch.,NA
 plant,Salvinia adnata Desv.,grote vlotvaren,3,5579439,Salvinia adnata Desv.,NA
-plant,Triadica sebífera (L.) Small,talgboom,3,3054399,Triadica sebifera (L.) Small,NA
+plant,Triadica seb\xedfera (L.) Small,talgboom,3,3054399,Triadica sebifera (L.) Small,NA
 plant,Sapium sebiferum (L.) Roxb.,talgboom,3,7748792,Sapium sebiferum (L.) Roxb.,NA
 dier,"Arthurdendyus triangulatus (Dendy, 1894) Jones & Gerard (1999)",Arthurdendyus triangulatus,3,2502792,"Arthurdendyus triangulatus (Dendy, 1895)",NA
 dier,"Corvus splendens Viellot, 1817",huiskraai,1,2482499,"Corvus splendens Vieillot, 1817",NA
-dier,"Herpestes javanicus É. Geoffroy Saint-Hilaire, 1818",Indische mangoeste,1,2434271,"Herpestes javanicus (Ã‰.Geoffroy Saint-Hilaire, 1818)",NA
+dier,"Herpestes javanicus \xc9. Geoffroy Saint-Hilaire, 1818",Indische mangoeste,1,2434271,"Herpestes javanicus (Ã‰.Geoffroy Saint-Hilaire, 1818)",NA
 dier,"Nasua nasua L., 1766",rode neusbeer,1,2433536,"Nasua nasua (Linnaeus, 1766)",NA
 dier,"Faxonius limosus Rafinesque, 1817",gevlekte rivierkreeft,1,8909595,"Faxonius limosus (Rafinesque, 1817)",NA
 dier,"Orconectes virilis Hagen, 1870",geknobbelde Amerikaanse rivierkreeft,1,2227064,"Orconectes virilis (Hagen, 1870)",NA
@@ -63,6 +63,6 @@ dier,"Xenopus laevis (Daudin, 1802)",Afrikaanse klauwkikker,4,5217334,"Xenopus l
 plant,Crassula helmsii (Kirk) Cockayne,watercrassula,ANB,5362054,Crassula helmsii (Kirk) Cockayne,NA
 plant,Fallopia japonica (Houtt.) Ronse Decr.,'invasieve duizendknopen',ANB,5334357,Fallopia japonica (Houtt.) Ronse Decr.,NA
 plant,Fallopia sachalinensis (F.Schmidt) Ronse Decr.,'invasieve duizendknopen',ANB,5334293,Fallopia sachalinensis (F.Schmidt) Ronse Decr.,NA
-plant,Fallopia ×bohemica (Chrtek & Chrtková) J.P.Bailey,'invasieve duizendknopen',ANB,5652296,Fallopia Ã—bohemica (Chrtek & ChrtkovÃ¡) J.P.Bailey,NA
+plant,Fallopia \xd7bohemica (Chrtek & Chrtkov\xe1) J.P.Bailey,'invasieve duizendknopen',ANB,5652296,Fallopia Ã—bohemica (Chrtek & ChrtkovÃ¡) J.P.Bailey,NA
 dier,"Aedes albopictus (Skuse, 1894)",Aziatische tijgermug,ANB,1651430,"Aedes albopictus (Skuse, 1894)",NA
 dier,"Mustela vison Schreber, 1777",Amerikaanse nerts,ANB,5218823,"Mustela vison Schreber, 1777",NA
