@@ -3,18 +3,27 @@ library(sf)
 library(leaflet)
 library(tidyverse)
 library(dplyr)
+library(vecsets)
 ```
 
 ```{r get species list}
+aqua_vs_terr <- read_csv('./data/input/aqua_vs_terr.csv') %>%
+  mutate_if(is.character, trimws)
 species_list <- read_csv('https://raw.githubusercontent.com/inbo/prius/f52fc4e0bb060d5a3d372d1650502602a0a562fd/data/input/prius_species_list.csv') #species_list in main branch
+species_list <- species_list %>%
+  mutate_if(is.character, utf8::utf8_encode)%>%
+  mutate_if(is.character, trimws)
 ```
 
 ```{r get shapes}
 vla_1km <- st_read("./data/spatial/grids/vla_1km.geojson")
 Vlaanderen_grenzen <- st_read("./data/spatial/flanders_wgs84.geojson")
 Provincies_grenzen <- st_read("./data/spatial/Provincies.geojson")
-#Vlaanderen_grenzen <- st_transform(Vlaanderen_grenzen, crs=st_crs(vla_1km))
-#st_write(Vlaanderen_grenzen,  "./data/spatial/flanders_wgs84.geojson")
+Waterlopen <- st_read("data/spatial/Waterlopen.geojson")
+ps_vglrl <- st_read("data/spatial/ps_vglrl.geojson")
+ps_hbtrl_deel <- st_read("data/spatial/ps_hbtrl_deel.geojson")
+#ps_hbtrl_deel <- st_transform(ps_hbtrl_deel, crs=st_crs(vla_1km))
+#st_write(ps_hbtrl_deel,  "./data/spatial/ps_hbtrl_deel.geojson")
 ```
 
 ```{r get cube data}
@@ -40,6 +49,9 @@ in_cube <- species_list %>%
   filter(!is.na(n_tot))
 
 not_in_cube$Soort %in% in_cube$Soort
+
+List_species_present <- unique(in_cube$Soort)
+List_species_not_present <- vsetdiff(unique(species_list$Soort) , List_species_present)
 ```
 
 
@@ -57,16 +69,34 @@ for (species_name in unique(in_cube$Soort)){
                       by.x='CELLCODE',
                       by.y='eea_cell_code',
                       all.y=TRUE)
+  if (aqua_vs_terr[which(aqua_vs_terr$Soort==species_name),]$NICH == "TERR") {
+  print('TERR')
   temp_plot<- ggplot() +
-  geom_sf(data = Vlaanderen_grenzen) +
-  geom_sf(data = Provincies_grenzen) +
+  #geom_sf(data = Vlaanderen_grenzen)+ #te activeren indien achterkleur grijs
+  geom_sf(data= ps_vglrl, colour= "lightgreen", fill="lightgreen") + 
+  geom_sf(data= ps_hbtrl_deel, colour="lightgreen", fill="lightgreen")+
+  #geom_sf(data = Vlaanderen_grenzen) +
+  geom_sf(data = Provincies_grenzen, fill=NA) +
   geom_sf(data=IAS_Cube_1km_spec,  colour="red")+
-  ggtitle(species_name)+
+  ggtitle('TERR')+
   theme_void() + # Zonder "assen" (coördinaten)
   theme(legend.position="bottom", legend.title = element_blank()) +
   coord_sf()
+  } else
+  {
+    print('AQUA')
+    temp_plot<- ggplot() +
+  #geom_sf(data = Vlaanderen_grenzen) + #te activeren indien achterkleur grijs
+  geom_sf(data = Provincies_grenzen, fill=NA) +
+  geom_sf(data = Waterlopen, colour= "lightblue")+
+  geom_sf(data=IAS_Cube_1km_spec,  colour="red")+
+  ggtitle('AQUA')+
+  theme_void() + # Zonder "assen" (coördinaten)
+  theme(legend.position="bottom", legend.title = element_blank()) +
+  coord_sf()
+  }
   
-  ggsave(temp_plot, file=paste0("./data/output/spread_maps/plot_", species_name,".png"), width = 14, height = 10, units = "cm")
+  ggsave(temp_plot, file=paste0("./data/output/spread_maps/plot_", species_name,".png"), width = 16, height = 10, units = "cm", dpi=200)
 }
 ```
 
