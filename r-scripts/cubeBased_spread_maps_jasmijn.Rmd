@@ -47,7 +47,7 @@ write_csv(not_in_cube, "./data/intermediate/taxonkeys_not_in_cube_jas.csv")
 in_cube <- species_list %>% 
   left_join(IAS_Cube_summarise, by = c("GBIF_code" = "taxonKey")) %>% 
   filter(!is.na(n_tot))
-à
+
 not_in_cube$Soort %in% in_cube$Soort
 
 List_species_present <- unique(in_cube$Soort)
