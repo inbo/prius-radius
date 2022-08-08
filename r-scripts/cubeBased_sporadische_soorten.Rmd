@@ -72,8 +72,7 @@ for (species_name in unique(in_cube$Soort)){
   
   IAS_Cube_sporadic$year <- as.factor(IAS_Cube_sporadic$year)
   
-  data<- data.frame(year = c(2015, 2016, 2017, 2018, 2019, 2020),
-                   y = c(0, 0, 0, 0, 0,0))
+  data<- data.frame(year = c(2015, 2016, 2017, 2018, 2019, 2020))
   
   data$year <- as.factor(data$year)
   
