@@ -22,25 +22,29 @@ vla_1km <- st_read("./data/spatial/grids/vla_1km.geojson")
 ```
 
 ```{r get cube data}
-IAS_Cube <- read_csv(file = "https://zenodo.org/record/4299976/files/be_alientaxa_cube.csv?download=1") %>% 
+IAS_Cube <- read_csv(file = "./data/input/be_species_cube.csv")
+                       #"https://zenodo.org/record/6341688/files/be_species_cube.csv?download=1") %>%
+                       #"https://zenodo.org/record/5819028/files/be_alientaxa_cube.csv?download=1") %>% 
+gc()
+IAS_Cube <- IAS_Cube %>%
   filter(year >= 2015) %>% 
-  filter(taxonKey %in% species_list$GBIF_code) %>% 
+  filter(speciesKey %in% species_list$GBIF_code) %>% 
   filter(eea_cell_code %in% vla_1km$CELLCODE)
 ```
 
 ```{r test data completeness}
 IAS_Cube_summarise <- IAS_Cube %>% 
-  group_by(taxonKey) %>% 
+  group_by(speciesKey) %>% 
   summarise(n_tot = sum(n, na.rm = TRUE))
 
 not_in_cube <- species_list %>% 
-  left_join(IAS_Cube_summarise, by = c("GBIF_code" = "taxonKey")) %>% 
+  left_join(IAS_Cube_summarise, by = c("GBIF_code" = "speciesKey")) %>% 
   filter(is.na(n_tot))
 
 write_csv(not_in_cube, "./data/intermediate/taxonkeys_not_in_cube_jas.csv")
 
 in_cube <- species_list %>% 
-  left_join(IAS_Cube_summarise, by = c("GBIF_code" = "taxonKey")) %>% 
+  left_join(IAS_Cube_summarise, by = c("GBIF_code" = "speciesKey")) %>% 
   filter(!is.na(n_tot))
 
 not_in_cube$Soort %in% in_cube$Soort
@@ -59,7 +63,7 @@ for (species_name in unique(in_cube$Soort)){
   GBIF_codes<- in_cube[which(in_cube$Soort==species_name),]$GBIF_code
   print(GBIF_codes)
   IAS_Cube_temp <- IAS_Cube %>%
-    filter(taxonKey %in% GBIF_codes)
+    filter(speciesKey %in% GBIF_codes)
   print(IAS_Cube_temp)
   IAS_Cube_1km_spec <- merge(vla_1km,
                       IAS_Cube_temp,
@@ -72,7 +76,7 @@ for (species_name in unique(in_cube$Soort)){
   
   IAS_Cube_sporadic$year <- as.factor(IAS_Cube_sporadic$year)
   
-  data<- data.frame(year = c(2015, 2016, 2017, 2018, 2019, 2020))
+  data<- data.frame(year = c(2015, 2016, 2017, 2018, 2019, 2020, 2021))
   
   data$year <- as.factor(data$year)
   

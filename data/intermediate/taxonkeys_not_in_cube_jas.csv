@@ -6,7 +6,6 @@ plant,Andropogon virginicus L.,Amerikaans bezemgras,3,2706080,Andropogon virgini
 plant,Cardiospermum grandiflorum Sw.,ballonrank,3,3189935,Cardiospermum grandiflorum Sw.,NA
 plant,Cortaderia jubata (Lemoine ex Carri\xe8re) Stapf,hoog pampagras,3,2704521,Cortaderia jubata (Lemoine) Stapf,NA
 plant,Ehrharta calycina Sm.,roze rimpelgras,3,2702865,Ehrharta calycina Sm.,NA
-plant,Gunnera tinctoria (Molina) Mirbel,gewone gunnera,2,2984306,Gunnera tinctoria (Molina) Mirb.,NA
 plant,Gymnocoronis spilanthoides (D.Don ex Hook. & Arn.) DC.,smalle theeplant,3,6063677,Gymnocoronis spilanthoides DC.,NA
 plant,Heracleum persicum Fischer,Perzische berenklauw,1,3628745,Heracleum persicum Desf.,NA
 plant,Heracleum sosnowskyi Mandenova,Sosnowsky's berenklauw,1,3642949,Heracleum sosnowskyi Manden.,NA
@@ -31,13 +30,11 @@ dier,"Corvus splendens Viellot, 1817",huiskraai,1,2482499,"Corvus splendens Viei
 dier,"Herpestes javanicus \xc9. Geoffroy Saint-Hilaire, 1818",Indische mangoeste,1,2434271,"Herpestes javanicus (É.Geoffroy Saint-Hilaire, 1818)",NA
 dier,"Nasua nasua L., 1766",rode neusbeer,1,2433536,"Nasua nasua (Linnaeus, 1766)",NA
 dier,"Orconectes limosus Rafinesque, 1817",gevlekte rivierkreeft,1,2227000,"Orconectes limosus (Rafinesque, 1817)",NA
-dier,"Faxonius limosus Rafinesque, 1817",gevlekte rivierkreeft,1,8909595,"Faxonius limosus (Rafinesque, 1817)",NA
 dier,"Orconectes virilis Hagen, 1870",geknobbelde Amerikaanse rivierkreeft,1,2227064,"Orconectes virilis (Hagen, 1870)",NA
 dier,"Faxonius virilis Hagen, 1870",geknobbelde Amerikaanse rivierkreeft,1,8971201,"Faxonius virilis (Hagen, 1870)",NA
 dier,"Perccottus glenii Dybowski, 1877",amoergrondel,1,2390064,"Perccottus glenii Dybowski, 1877",NA
 dier,"Plotosus lineatus (Thunberg, 1787)",gestreepte koraalmeerval,3,7965247,"Plotosus lineatus (Thunberg, 1787)",NA
 dier,"Procambarus fallax (Hagen, 1870) f. virginalis",marmerkreeft,1,8879526,"Procambarus fallax f. virginalis Martin, Dorn, Kawai, van der Heiden & Scholtz, 2010",NA
-dier,"Procambarus virginalis Lyko, 2017",marmerkreeft,1,9442269,"Procambarus virginalis Lyko, 2017",NA
 dier,"Vespa velutina nigrithorax de Buysson, 1905",Aziatische hoornaar,1,6247411,"Vespa velutina nigrithorax Buysson, 1905",NA
 dier,"Ameiurus melas (Rafinesque, 1820)",zwarte dwergmeerval,4,2340977,"Ameiurus melas (Rafinesque, 1820)",NA
 dier,"Axis axis (Erxleben, 1777)",axishert,4,2440934,"Axis axis (Erxleben, 1777)",NA
@@ -49,7 +46,6 @@ dier,"Fundulus heteroclitus (Linnaeus, 1766)",Fundulus heteroclitus,4,5712056,"F
 dier,"Gambusia affinis (Baird & Girard, 1853)",Gambusia affinis,4,2350580,"Gambusia affinis (Baird & Girard, 1853)",NA
 dier,"Gambusia holbrooki Girard, 1859",Gambusia holbrooki,4,2350570,"Gambusia holbrooki Girard, 1859",NA
 plant,Hakea sericea Schrad. & J.C.Wendl.,hakea,4,7287606,Hakea sericea Schrad. & J.C.Wendl.,NA
-plant,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Afghaanse duizendknoop,4,8848208,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,NA
 dier,"Lampropeltis getula (Linnaeus, 1766)",gewone koningsslang,4,9799308,"Lampropeltis getula (Linnaeus, 1766)",NA
 dier,"Limnoperna fortunei (Dunker, 1857)",Limnoperna fortunei,4,5855350,"Limnoperna fortunei (Dunker, 1857)",NA
 dier,"Morone americana (Gmelin, 1789)",Morone americana,4,2394604,"Morone americana (Gmelin, 1789)",NA

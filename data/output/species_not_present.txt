@@ -4,7 +4,6 @@ Amerikaans bezemgras
 ballonrank
 hoog pampagras
 roze rimpelgras
-gewone gunnera
 smalle theeplant
 Perzische berenklauw
 Sosnowsky's berenklauw
@@ -23,11 +22,9 @@ Arthurdendyus triangulatus
 huiskraai
 Indische mangoeste
 rode neusbeer
-gevlekte rivierkreeft
 geknobbelde Amerikaanse rivierkreeft
 amoergrondel
 gestreepte koraalmeerval
-marmerkreeft
 Aziatische hoornaar
 zwarte dwergmeerval
 axishert
@@ -39,7 +36,6 @@ Fundulus heteroclitus
 Gambusia affinis
 Gambusia holbrooki
 hakea
-Afghaanse duizendknoop
 gewone koningsslang
 Limnoperna fortunei
 Morone americana

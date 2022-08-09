@@ -4,6 +4,7 @@ struikaster
 waterwaaier
 waterhyacint
 smalle waterpest
+gewone gunnera
 reuzenberenklauw
 grote waternavel
 reuzenbalsemien
@@ -23,9 +24,11 @@ Chinese muntjak
 beverrat
 wasbeerhond
 muskusrat
+gevlekte rivierkreeft
 rosse stekelstaart
 Californische rivierkreeft
 rode rivierkreeft
+marmerkreeft
 wasbeer
 blauwbandgrondel
 grijze eekhoorn
@@ -33,6 +36,7 @@ Amerikaanse voseekhoorn
 Siberische grondeekhoorn
 heilige ibis
 lettersierschildpad
+Afghaanse duizendknoop
 watersla
 alsemambrosia
 watercrassula
