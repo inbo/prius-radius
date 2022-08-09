@@ -23,11 +23,11 @@ Arthurdendyus triangulatus
 huiskraai
 Indische mangoeste
 rode neusbeer
+gevlekte rivierkreeft
 geknobbelde Amerikaanse rivierkreeft
 amoergrondel
 gestreepte koraalmeerval
 marmerkreeft
-lettersierschildpad
 Aziatische hoornaar
 zwarte dwergmeerval
 axishert
@@ -50,6 +50,3 @@ Solenopsis invicta
 Solenopsis richteri
 Wasmannia auropunctata
 Afrikaanse klauwkikker
-watercrassula
-Aziatische tijgermug
-Amerikaanse nerts

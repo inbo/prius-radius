@@ -30,6 +30,7 @@ dier,"Arthurdendyus triangulatus (Dendy, 1894) Jones & Gerard (1999)",Arthurdend
 dier,"Corvus splendens Viellot, 1817",huiskraai,1,2482499,"Corvus splendens Vieillot, 1817",NA
 dier,"Herpestes javanicus \xc9. Geoffroy Saint-Hilaire, 1818",Indische mangoeste,1,2434271,"Herpestes javanicus (É.Geoffroy Saint-Hilaire, 1818)",NA
 dier,"Nasua nasua L., 1766",rode neusbeer,1,2433536,"Nasua nasua (Linnaeus, 1766)",NA
+dier,"Orconectes limosus Rafinesque, 1817",gevlekte rivierkreeft,1,2227000,"Orconectes limosus (Rafinesque, 1817)",NA
 dier,"Faxonius limosus Rafinesque, 1817",gevlekte rivierkreeft,1,8909595,"Faxonius limosus (Rafinesque, 1817)",NA
 dier,"Orconectes virilis Hagen, 1870",geknobbelde Amerikaanse rivierkreeft,1,2227064,"Orconectes virilis (Hagen, 1870)",NA
 dier,"Faxonius virilis Hagen, 1870",geknobbelde Amerikaanse rivierkreeft,1,8971201,"Faxonius virilis (Hagen, 1870)",NA
@@ -37,7 +38,6 @@ dier,"Perccottus glenii Dybowski, 1877",amoergrondel,1,2390064,"Perccottus gleni
 dier,"Plotosus lineatus (Thunberg, 1787)",gestreepte koraalmeerval,3,7965247,"Plotosus lineatus (Thunberg, 1787)",NA
 dier,"Procambarus fallax (Hagen, 1870) f. virginalis",marmerkreeft,1,8879526,"Procambarus fallax f. virginalis Martin, Dorn, Kawai, van der Heiden & Scholtz, 2010",NA
 dier,"Procambarus virginalis Lyko, 2017",marmerkreeft,1,9442269,"Procambarus virginalis Lyko, 2017",NA
-dier,"Trachemys scripta Schoepff, 1792",lettersierschildpad,1,2443002,"Trachemys scripta (Thunberg In Schoepff, 1792)",NA
 dier,"Vespa velutina nigrithorax de Buysson, 1905",Aziatische hoornaar,1,6247411,"Vespa velutina nigrithorax Buysson, 1905",NA
 dier,"Ameiurus melas (Rafinesque, 1820)",zwarte dwergmeerval,4,2340977,"Ameiurus melas (Rafinesque, 1820)",NA
 dier,"Axis axis (Erxleben, 1777)",axishert,4,2440934,"Axis axis (Erxleben, 1777)",NA
@@ -60,9 +60,6 @@ dier,"Solenopsis invicta Buren, 1972",Solenopsis invicta,4,5035230,"Solenopsis i
 dier,"Solenopsis richteri Forel, 1909",Solenopsis richteri,4,5035017,"Solenopsis richteri Forel, 1909",NA
 dier,"Wasmannia auropunctata (Roger, 1863)",Wasmannia auropunctata,4,1315391,"Wasmannia auropunctata (Roger, 1863)",NA
 dier,"Xenopus laevis (Daudin, 1802)",Afrikaanse klauwkikker,4,5217334,"Xenopus laevis (Daudin, 1802)",NA
-plant,Crassula helmsii (Kirk) Cockayne,watercrassula,ANB,5362054,Crassula helmsii (Kirk) Cockayne,NA
 plant,Fallopia japonica (Houtt.) Ronse Decr.,'invasieve duizendknopen',ANB,5334357,Fallopia japonica (Houtt.) Ronse Decr.,NA
 plant,Fallopia sachalinensis (F.Schmidt) Ronse Decr.,'invasieve duizendknopen',ANB,5334293,Fallopia sachalinensis (F.Schmidt) Ronse Decr.,NA
 plant,Fallopia \xd7bohemica (Chrtek & Chrtkov\xe1) J.P.Bailey,'invasieve duizendknopen',ANB,5652296,Fallopia ×bohemica (Chrtek & Chrtková) J.P.Bailey,NA
-dier,"Aedes albopictus (Skuse, 1894)",Aziatische tijgermug,ANB,1651430,"Aedes albopictus (Skuse, 1894)",NA
-dier,"Mustela vison Schreber, 1777",Amerikaanse nerts,ANB,5218823,"Mustela vison Schreber, 1777",NA

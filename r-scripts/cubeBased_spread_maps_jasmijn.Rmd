@@ -27,7 +27,9 @@ ps_hbtrl_deel <- st_read("data/spatial/ps_hbtrl_deel.geojson")
 ```
 
 ```{r get cube data}
-IAS_Cube <- read_csv(file = "https://zenodo.org/record/5819028/files/be_alientaxa_cube.csv?download=1") %>% 
+IAS_Cube <- read_csv(file =
+                       "https://zenodo.org/record/6341688/files/be_species_cube.csv?download=1") %>%
+                       #"https://zenodo.org/record/5819028/files/be_alientaxa_cube.csv?download=1") %>% 
   filter(year >= 2015) %>% 
   filter(taxonKey %in% species_list$GBIF_code) %>% 
   filter(eea_cell_code %in% vla_1km$CELLCODE)
