@@ -17,17 +17,12 @@ species_list <- species_list %>%
 
 ```{r get shapes}
 vla_1km <- st_read("./data/spatial/grids/vla_1km.geojson")
-Vlaanderen_grenzen <- st_read("./data/spatial/flanders_wgs84.geojson")
-Provincies_grenzen <- st_read("./data/spatial/Provincies.geojson")
-Waterlopen <- st_read("data/spatial/Waterlopen.geojson")
-ps_vglrl <- st_read("data/spatial/ps_vglrl.geojson")
-ps_hbtrl_deel <- st_read("data/spatial/ps_hbtrl_deel.geojson")
 #ps_hbtrl_deel <- st_transform(ps_hbtrl_deel, crs=st_crs(vla_1km))
 #st_write(ps_hbtrl_deel,  "./data/spatial/ps_hbtrl_deel.geojson")
 ```
 
 ```{r get cube data}
-IAS_Cube <- read_csv(file = "https://zenodo.org/record/5819028/files/be_alientaxa_cube.csv?download=1") %>% 
+IAS_Cube <- read_csv(file = "https://zenodo.org/record/4299976/files/be_alientaxa_cube.csv?download=1") %>% 
   filter(year >= 2015) %>% 
   filter(taxonKey %in% species_list$GBIF_code) %>% 
   filter(eea_cell_code %in% vla_1km$CELLCODE)
@@ -71,36 +66,27 @@ for (species_name in unique(in_cube$Soort)){
                       by.x='CELLCODE',
                       by.y='eea_cell_code',
                       all.y=TRUE)
+  IAS_Cube_sporadic <- IAS_Cube_1km_spec %>% 
+  group_by(year)%>%
+  summarize(n=n())
+  
+  IAS_Cube_sporadic$year <- as.factor(IAS_Cube_sporadic$year)
+  
+  data<- data.frame(year = c(2015, 2016, 2017, 2018, 2019, 2020))
+  
+  data$year <- as.factor(data$year)
+  
+  x<- merge(data, IAS_Cube_sporadic)
+  x <- replace(x, is.na(x), 0)
+                  
+  temp_plot<- ggplot(data=x, aes(x=year, y=n)) +
+  geom_bar(stat="identity")+
+  labs(y = expression ("Occupancy in"~km^2))+
+  scale_x_discrete(drop = FALSE)
   
   
-  if (aqua_vs_terr[which(aqua_vs_terr$Soort==species_name),]$NICH == "TERR") {
-  print('TERR')
-  temp_plot<- ggplot() +
-  geom_sf(data = Vlaanderen_grenzen, fill= "#f0f0f0", size = 0.2)+ #te activeren indien achterkleur grijs
-  geom_sf(data= ps_vglrl, colour= "#a4e98f", fill="#a4e98f") + 
-  geom_sf(data= ps_hbtrl_deel, colour="#a4e98f", fill="#a4e98f")+
-  #geom_sf(data = Vlaanderen_grenzen) +
-  geom_sf(data = Provincies_grenzen, fill= NA, size=0.2) +
-  geom_sf(data=IAS_Cube_1km_spec,  colour="red")+
-  theme_void() + # Zonder "assen" (coördinaten)
-  theme(legend.position="bottom", legend.title = element_blank()) +
-  theme(plot.margin=grid::unit(c(0,0,0,0), "mm"))+
-  coord_sf()
-  } else
-  {
-    print('AQUA')
-    temp_plot<- ggplot() +
-  geom_sf(data = Vlaanderen_grenzen, fill ="#f0f0f0", size=0.2) +
-  geom_sf(data = Waterlopen, colour= "lightblue")+
-  geom_sf(data = Provincies_grenzen, fill=NA, size=0.2) +
-  geom_sf(data=IAS_Cube_1km_spec,  colour="red")+
-  theme_void() + # Zonder "assen" (coördinaten)
-  theme(legend.position="bottom", legend.title = element_blank()) +
-  theme(plot.margin=grid::unit(c(0,0,0,0), "mm"))+
-  coord_sf()
-  }
   
-  ggsave(temp_plot, file=paste0("./data/output/spread_maps/", species_name,".png"), width = 15, height = 6.4, units = "cm", dpi=200)
+  ggsave(temp_plot, file=paste0("./data/output/sporadic_species/", species_name,".png"), dpi=200)
 }
 ```
 
