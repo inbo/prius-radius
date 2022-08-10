@@ -62,9 +62,9 @@ for (species_name in unique(in_cube$Soort)){
   N_spa <- as.numeric(n_distinct(spa$CELLCODE))
   N_habitat <- as.numeric(n_distinct(habitat$CELLCODE))
   
-  N_occ_spec_in_Natura2000 <- as.numeric(n_distinct( IAS_Cube_temp[which(IAS_Cube_temp$eea_cell_code%in%Natura2000$CELLCODE),]))
-  N_occ_spec_in_spa <- as.numeric(n_distinct( IAS_Cube_temp[which(IAS_Cube_temp$eea_cell_code%in%spa$CELLCODE),]))
-  N_occ_spec_in_habitat <- as.numeric(n_distinct( IAS_Cube_temp[which(IAS_Cube_temp$eea_cell_code%in%habitat$CELLCODE),]))
+  N_occ_spec_in_Natura2000 <- as.numeric(n_distinct( IAS_Cube_temp[which(IAS_Cube_temp$eea_cell_code%in%Natura2000$CELLCODE),]$eea_cell_code))
+  N_occ_spec_in_spa <- as.numeric(n_distinct( IAS_Cube_temp[which(IAS_Cube_temp$eea_cell_code%in%spa$CELLCODE),]$eea_cell_code))
+  N_occ_spec_in_habitat <- as.numeric(n_distinct( IAS_Cube_temp[which(IAS_Cube_temp$eea_cell_code%in%habitat$CELLCODE),]$eea_cell_code))
                   
 df <-rbind(df, data.frame(
   species_name,
