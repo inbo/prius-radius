@@ -58,6 +58,9 @@ write(List_species_not_present, "./data/output/species_not_present.txt")
 
 
 ```{r}
+keep_all <- data.frame(year = c(2015, 2016, 2017, 2018, 2019, 2020, 2021)) ## Keep all species
+keep_all$year <- as.factor(keep_all$year)                                  ## For compatibility with below
+
 for (species_name in unique(in_cube$Soort)){
   print(species_name)
   GBIF_codes<- in_cube[which(in_cube$Soort==species_name),]$GBIF_code
@@ -76,11 +79,11 @@ for (species_name in unique(in_cube$Soort)){
   
   IAS_Cube_sporadic$year <- as.factor(IAS_Cube_sporadic$year)
   
-  data<- data.frame(year = c(2015, 2016, 2017, 2018, 2019, 2020, 2021))
+  data <- data.frame(year = c(2015, 2016, 2017, 2018, 2019, 2020, 2021))
   
   data$year <- as.factor(data$year)
   
-  x<- merge(data, IAS_Cube_sporadic)
+  x <- merge(data, IAS_Cube_sporadic)
   x <- replace(x, is.na(x), 0)
                   
   temp_plot<- ggplot(data=x, aes(x=year, y=n)) +
@@ -88,9 +91,20 @@ for (species_name in unique(in_cube$Soort)){
   labs(y = expression ("Occupancy in"~km^2))+
   scale_x_discrete(drop = FALSE)
   
+  # ggsave(temp_plot, file=paste0("./data/output/sporadic_species/", species_name,".png"), dpi=200)
   
-  
-  ggsave(temp_plot, file=paste0("./data/output/sporadic_species/", species_name,".png"), dpi=200)
+  keep_all <- keep_all %>% 
+    left_join(x[,1:2], by = "year") %>% 
+    rename(!!species_name:=n)  ## Geef kolom naam van soort (m.o.: gebruik !! := want variabele)
+    
 }
 ```
 
+```{r summary across species}
+showme <- t(keep_all)             ## Transpose
+colnames(showme) <- showme[1,]  ## First row to column names...
+showme <- showme[-1,]           ## ... and delete first row
+showme <- as.data.frame(showme)
+
+write.csv(showme, "./data/output/sporadic_species/sporadische_soorten.csv")
+```

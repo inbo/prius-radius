@@ -26,6 +26,8 @@ ps_hbtrl_deel <- st_read("data/spatial/ps_hbtrl_deel.geojson")
 #st_write(ps_hbtrl_deel,  "./data/spatial/ps_hbtrl_deel.geojson")
 ```
 
+NOTE: the species cube is (too) heavy to push to the git. This will give an error when running the script. I needed to download it locally (making connection with zenodo within the script was too slow). So maybe best to download the most recent version of the species cube and put it in the folder data/input before running it.
+
 ```{r get cube data}
 IAS_Cube <- read_csv(file = "./data/input/be_species_cube.csv")
                        #"https://zenodo.org/record/6341688/files/be_species_cube.csv?download=1") %>%
