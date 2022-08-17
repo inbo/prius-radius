@@ -1,0 +1,50 @@
+---
+title: "PrIUS_species_list"
+author: "Bram D'hondt"
+date: '2022-06-28'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Inleiding
+
+Opmaak van de PrIUS-lijst voor verdere analyses, vertrekkend van de tabellen in het PrIUS-rapport.
+
+# Bibliotheken
+
+```{r}
+library(rgbif)
+library(tidyverse)
+```
+
+# Hoofd leegmaken
+
+```{r}
+rm(list=ls())
+```
+
+# Inlezen soortenlijst
+
+```{r}
+list <- read_delim("./data/input/prius_species_list_primary_v22-08-04.csv", delim = ";")
+```
+
+# GBIF-gegevens toevoegen
+
+```{r add GBIF scientific name}
+list$GBIF_scientific_name <- 0
+
+for(i in 1:nrow(list)) {
+  name_usage(key = list$GBIF_code[i]) -> temp
+  temp$data$scientificName -> list$GBIF_scientific_name[i]}
+rm(i,temp)
+```
+
+# Wegschrijven soortenlijst
+
+```{r}
+write_csv(list, "./data/input/prius_species_list.csv")
+```

@@ -37,4 +37,5 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
+*.zip
 data/input/be_species_cube.csv
