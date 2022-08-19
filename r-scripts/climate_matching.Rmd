@@ -107,7 +107,7 @@ for(a in groups){
                                maps = FALSE)
   }
   
-  if(nrow(output) == 0){
+  if(nrow(output_raw) == 0){
     output_raw <- cm_output$cm
   }else{
     output_raw <- rbind(output_raw, cm_output$cm)
