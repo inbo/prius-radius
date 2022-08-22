@@ -168,6 +168,14 @@ write_csv(output_raw,
           "./data/intermediate/cm_output_raw.csv")
 ```
 
+```{r}
+output_raw <- output_raw %>% 
+  arrange(acceptedTaxonKey)
+
+write_csv(output_raw, 
+          "./data/intermediate/cm_output_raw.csv")
+```
+
 ```{r filter output}
 output <- output_raw %>% 
   arrange(acceptedTaxonKey) %>% 
