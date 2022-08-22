@@ -107,7 +107,7 @@ for(a in groups){
                                maps = FALSE)
   }
   
-  if(nrow(output) == 0){
+  if(nrow(output_raw) == 0){
     output_raw <- cm_output$cm
   }else{
     output_raw <- rbind(output_raw, cm_output$cm)
@@ -168,6 +168,14 @@ write_csv(output_raw,
           "./data/intermediate/cm_output_raw.csv")
 ```
 
+```{r}
+output_raw <- output_raw %>% 
+  arrange(acceptedTaxonKey)
+
+write_csv(output_raw, 
+          "./data/intermediate/cm_output_raw.csv")
+```
+
 ```{r filter output}
 output <- output_raw %>% 
   arrange(acceptedTaxonKey) %>% 
@@ -186,7 +194,8 @@ output <- output_raw %>%
 
 ```{r checks - species not in cm}
 species_not_in_cm <- specieslist_2 %>% 
-  filter(!GBIF_code %in% output$acceptedTaxonKey)
+  filter(!GBIF_code %in% output$acceptedTaxonKey) %>% 
+  select(-n)
 
 write_csv(species_not_in_cm,
           "./data/intermediate/species_not_in_cm.csv")
