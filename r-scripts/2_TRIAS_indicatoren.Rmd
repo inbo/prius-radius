@@ -91,7 +91,8 @@ df_prot_areas <-
   select(
     CELLCODE,
     natura2000
-  )
+  )%>%
+   filter(eea_cell_code %in% vla_1km$CELLCODE)%>%
 ```
 ```{r}
 #Add informative columns

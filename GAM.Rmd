@@ -1,0 +1,281 @@
+---
+title: "2_TRIAS_indicatoren_emerging_status.Rmd"
+author: "Jasmijn"
+date: '2022-08-22'
+output: html_document
+---
+```{r}
+library(tidyverse) # To do data science
+```
+
+```{r}
+#read in preprocessing files
+df_ts <- read_tsv(
+  "./data/intermediate/df_timeseries.tsv",
+  na = ""
+)
+
+taxon <-
+  df_ts$taxonKey[10]
+
+# Preview
+df_ts %>%
+  filter(
+    taxonKey == taxon,
+    year %in% c(2016, 2017),
+    eea_cell_code == "1kmE3924N3102"
+  )
+```
+```{r}
+spec_names <- read_tsv(
+  file = here::here("./data/intermediate/timeseries_taxonomic_info.tsv"),
+  na = ""
+) %>%
+  select(taxonKey, canonicalName) %>%
+  filter(taxonKey %in% df_ts$taxonKey)
+```
+```{r}
+df_ts_compact <-
+  df_ts %>%
+  group_by(taxonKey, year, classKey) %>%
+  summarise(
+    obs = sum(obs),
+    cobs = sum(cobs),
+    ncells = sum(pa_obs),
+    c_ncells = sum(pa_cobs)
+  ) %>%
+  ungroup()
+
+df_ts_compact_prot_areas <-
+  df_ts %>%
+  filter(natura2000 == TRUE) %>%
+  group_by(taxonKey, year, classKey) %>%
+  summarise(
+    obs = sum(obs),
+    cobs = sum(cobs),
+    ncells = sum(pa_cobs),
+    c_ncells = sum(pa_cobs)
+  ) %>%
+  ungroup()
+
+df_ts_compact <-
+  df_ts_compact %>%
+  left_join(spec_names, by = "taxonKey")
+df_ts_compact_prot_areas <-
+  df_ts_compact_prot_areas %>%
+  left_join(spec_names, by = "taxonKey")
+```
+```{r}
+# Last evaluation year
+last_year <- lubridate::year(Sys.Date()) - 2
+
+# First evalution year
+first_year <- last_year - 2
+
+# Evaluation years
+evaluation_years <- seq(first_year, last_year)
+evaluation_years
+
+df_ts_compact <-
+  df_ts_compact %>%
+  filter(year <= last_year)
+df_ts_compact_prot_areas <-
+  df_ts_compact_prot_areas %>%
+  filter(year <= last_year)
+```
+```{r}
+appearing_taxa_to_remove <-
+  df_ts_compact %>%
+  group_by(taxonKey) %>%
+  summarize(begin_year = min(year)) %>%
+  filter(begin_year > min(evaluation_years)) %>%
+  pull(taxonKey)
+
+df_ts_compact <-
+  df_ts_compact %>%
+  filter(!taxonKey %in% appearing_taxa_to_remove)
+
+df_ts_compact_prot_areas <-
+  df_ts_compact_prot_areas %>%
+  filter(!taxonKey %in% appearing_taxa_to_remove)
+
+spec_names <-
+  spec_names %>%
+  filter(!taxonKey %in% appearing_taxa_to_remove)
+```
+```{r}
+library(trias)
+
+em_decision_rules_occs_BE <- map_dfr(
+  evaluation_years,
+  ~ apply_decision_rules(
+    df = df_ts_compact,
+    y_var = "obs",
+    eval_year = .
+  )
+)
+
+em_decision_rules_occs_pa <- map_dfr(
+  evaluation_years,
+  ~ apply_decision_rules(
+    df = df_ts_compact_prot_areas,
+    y_var = "obs",
+    eval_year = .
+  )
+)
+
+em_decision_rules_occupancy_BE <- map_dfr(
+  evaluation_years,
+  ~ apply_decision_rules(
+    df = df_ts_compact,
+    y_var = "ncells",
+    eval_year = .
+  )
+)
+
+em_decision_rules_occupancy_pa <- map_dfr(
+  evaluation_years,
+  ~ apply_decision_rules(
+    df = df_ts_compact_prot_areas,
+    y_var = "ncells",
+    eval_year = .
+  )
+)
+```
+
+```{r}
+#GAM for occupancy data in all of Flanders
+
+dir_name <- "./data/output/GAM_outputs"
+taxon_keys <- unique(df_ts_compact$taxonKey)
+taxon_names <- unique(df_ts_compact$canonicalName)
+gam_occupancy_BE <- map2(
+  taxon_keys, taxon_names,
+  function(t, n) {
+    df_key <- df_ts_compact %>%
+      filter(taxonKey == t) %>%
+      filter(year <= max(evaluation_years))
+    class_key <- unique(df_key[["classKey"]])
+    if (!is.na(class_key)) {
+      apply_gam(
+        df = df_key,
+        y_var = "ncells",
+        eval_years = evaluation_years,
+        type_indicator = "occupancy",
+        taxon_key = t,
+        name = n,
+        baseline_var = "c_ncells",
+        dir_name = dir_name,
+        saveplot = TRUE,
+        y_label = "occupancy (km2)"
+      )
+    } else {
+      apply_gam(
+        df = df_key,
+        y_var = "ncells",
+        eval_years = evaluation_years,
+        type_indicator = "occupancy",
+        taxon_key = t,
+        name = n,
+        dir_name = dir_name,
+        saveplot = TRUE,
+        y_label = "occupancy (km2)"
+      )
+    }
+  }
+)
+names(gam_occupancy_BE) <- taxon_keys
+```
+
+```{r}
+taxon_keys <- unique(df_ts_compact_prot_areas$taxonKey)
+taxon_names <- unique(df_ts_compact_prot_areas$canonicalName)
+gam_occupancy_pa <- map2(
+  taxon_keys, taxon_names,
+  function(t, n) {
+    df_key <- df_ts_compact_prot_areas %>%
+      dplyr::filter(taxonKey == t)
+    class_key <- unique(df_key[["classKey"]])
+    if (!is.na(class_key)) {
+      apply_gam(
+        df = df_key,
+        y_var = "ncells",
+        eval_years = evaluation_years,
+        type_indicator = "occupancy",
+        taxon_key = t,
+        name = n,
+        baseline_var = "c_ncells",
+        df_title = "Natura2000",
+        dir_name = dir_name,
+        saveplot = TRUE,
+        y_label = "occupancy (km2)"
+      )
+    } else {
+      apply_gam(
+        df = df_key,
+        y_var = "ncells",
+        eval_years = evaluation_years,
+        type_indicator = "occupancy",
+        taxon_key = t,
+        name = n,
+        df_title = "Natura2000",
+        dir_name = dir_name,
+        saveplot = TRUE,
+        y_label = "occupancy (km2)"
+      )
+    }
+  }
+)
+names(gam_occupancy_pa) <- taxon_keys
+```
+```{r}
+#Save results
+write_tsv(em_decision_rules_occs_BE,
+  './data/output/output_decision_rules_occs_Flanders.tsv',
+  na = ""
+)
+
+method_em <- gam_occupancy_BE[[1]]$em_summary$method[1]
+write_tsv(map_dfr(gam_occupancy_BE, function(x) {
+  x$output
+}),
+na = "",
+path = here::here(
+  "data",
+  "output",
+  "GAM_outputs",
+  paste0(
+    "output_GAM_occupancy_belgium_",
+    method_em, ".tsv"
+  )
+)
+)
+
+method_em <- gam_occupancy_pa[[1]]$em_summary$method[1]
+write_tsv(map_dfr(gam_occupancy_pa, function(x) {
+  x$output
+}),
+na = "",
+path = here::here(
+  "data",
+  "output",
+  "GAM_outputs",
+  paste0(
+    "output_GAM_occupancy_pa_",
+    method_em, ".tsv"
+  )
+)
+)
+```
+
+```{r}
+for (test in species_list$GBIF_code) {
+  print(test)
+  ggsave(gam_occupancy_pa$test$plot,
+         paste0('./data/output/GAM_outputs/',
+                test,
+                '_Natura2000.png'),
+         dpi=200)
+}
+```
+
