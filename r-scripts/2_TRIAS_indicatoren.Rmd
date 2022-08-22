@@ -32,7 +32,7 @@ df <- read_csv(
 )
 
 #species list prius 
-species_list <- read_csv('https://raw.githubusercontent.com/inbo/prius/f52fc4e0bb060d5a3d372d1650502602a0a562fd/data/input/prius_species_list.csv')
+species_list <- read_csv('https://raw.githubusercontent.com/inbo/prius/main/data/input/prius_species_list.csv')
 
 #eea_1km_vlaanderen
 vla_1km <- st_read("./data/spatial/grids/vla_1km.geojson")
