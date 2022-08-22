@@ -186,7 +186,8 @@ output <- output_raw %>%
 
 ```{r checks - species not in cm}
 species_not_in_cm <- specieslist_2 %>% 
-  filter(!GBIF_code %in% output$acceptedTaxonKey)
+  filter(!GBIF_code %in% output$acceptedTaxonKey) %>% 
+  select(-n)
 
 write_csv(species_not_in_cm,
           "./data/intermediate/species_not_in_cm.csv")
