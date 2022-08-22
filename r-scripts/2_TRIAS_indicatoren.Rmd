@@ -49,7 +49,7 @@ df <-
   df %>%
   filter(taxonKey %in% species_list$GBIF_code)%>%
   filter(eea_cell_code %in% vla_1km$CELLCODE)%>%
-  filter(year>=2015)
+  filter(year>=2000)
 
 
 #baseline
@@ -76,7 +76,7 @@ df_bl <-
 df_bl <-
   df_bl %>%
   filter(eea_cell_code %in% vla_1km$CELLCODE)%>%
-  filter(year>=2015)
+  filter(year>=2000)
 
 ```
 ```{r}
