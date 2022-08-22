@@ -236,46 +236,55 @@ write_tsv(em_decision_rules_occs_BE,
 )
 
 method_em <- gam_occupancy_BE[[1]]$em_summary$method[1]
+
 write_tsv(map_dfr(gam_occupancy_BE, function(x) {
   x$output
 }),
 na = "",
-path = here::here(
-  "data",
-  "output",
-  "GAM_outputs",
-  paste0(
-    "output_GAM_occupancy_belgium_",
+path = paste0(
+    "./data/output/GAM_outputs/output_GAM_occupancy_belgium_",
     method_em, ".tsv"
   )
 )
-)
+
 
 method_em <- gam_occupancy_pa[[1]]$em_summary$method[1]
 write_tsv(map_dfr(gam_occupancy_pa, function(x) {
   x$output
 }),
 na = "",
-path = here::here(
-  "data",
-  "output",
-  "GAM_outputs",
-  paste0(
-    "output_GAM_occupancy_pa_",
+path = paste0(
+    "./data/output/GAM_outputs/output_GAM_occupancy_pa_",
     method_em, ".tsv"
   )
+
 )
-)
+
+species_list <- read_csv('https://raw.githubusercontent.com/inbo/prius/main/data/input/prius_species_list.csv')
+
+test <-map_dfr(gam_occupancy_BE, function(x) {
+  x$em_summary
+})
+
+test<- test %>% 
+  filter(year==2020) %>%
+  left_join(species_list, by= c('taxonKey'='GBIF_code'))
+
+write_csv(test, './data/output/GAM_outputs/emergency_status_final_year_occupancy_flanders.csv')
+
+
+test <-map_dfr(gam_occupancy_pa, function(x) {
+  x$em_summary
+})
+
+test<- test %>% 
+  filter(year==2020) %>%
+  left_join(species_list, by= c('taxonKey'='GBIF_code'))
+
+write_csv(test, './data/output/GAM_outputs/emergency_status_final_year_occupancy_pa.csv')
 ```
 
 ```{r}
-for (test in species_list$GBIF_code) {
-  print(test)
-  ggsave(gam_occupancy_pa$test$plot,
-         paste0('./data/output/GAM_outputs/',
-                test,
-                '_Natura2000.png'),
-         dpi=200)
-}
+
 ```
 
