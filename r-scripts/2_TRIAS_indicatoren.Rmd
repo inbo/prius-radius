@@ -92,8 +92,9 @@ df_prot_areas <-
     CELLCODE,
     natura2000
   )%>%
-   filter(eea_cell_code %in% vla_1km$CELLCODE)%>%
+   filter(CELLCODE %in% vla_1km$CELLCODE)
 ```
+
 ```{r}
 #Add informative columns
 
@@ -319,12 +320,12 @@ df_ts <-
 ```{r}
 #save data
 write_tsv(df_ts, 
-          path = "./data/intermediate/df_timeseries.tsv", 
+          file = "./data/intermediate/df_timeseries.tsv", 
           na = ""
 )
 
 write_tsv(spec_names,
-          path = "./data/intermediate/timeseries_taxonomic_info.tsv",
+          file = "./data/intermediate/timeseries_taxonomic_info.tsv",
           na = ""
 )
 ```
