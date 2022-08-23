@@ -200,7 +200,7 @@ for (tK in unique(df_ts_compact$taxonKey)) {
     ggplot(data = gam_occupancy_BE[[tK]]$output, aes(x = year, y = ncells)) +
     theme_bw() +
     xlab("Jaar") + ylab("# cellen (1-km²)") +
-    theme(axis.text=element_text(size = 9)) +
+    theme(axis.text = element_text(size = 6), axis.title = element_text(size = 6)) +
     geom_point(color = "black", size = 1) +                                             # Ruwe data
     geom_line(aes(x = .data$year, y = .data$fit), color = "grey50", size = 0.5) +       # De GAM-lijn
     geom_point(aes(x = year, y = fit), shape = 1, size = 1) +                           # Punten op de GAM-lijn
@@ -268,11 +268,11 @@ for (tK in unique(df_ts_compact_prot_areas$taxonKey)) {
   print(tK)
   if (!is.null(gam_occupancy_pa[[tK]]$plot)) {
     
-    ##
+    ## Zie hoger voor toelichtingen
     ggplot(data = gam_occupancy_pa[[tK]]$output, aes(x = year, y = ncells)) +
       theme_bw() +
       xlab("Jaar") + ylab("# cellen (1-km²)") +
-      theme(axis.text = element_text(size = 9)) +
+      theme(axis.text = element_text(size = 6), axis.title = element_text(size = 6)) +
       geom_point(color = "black", size = 1) +
       geom_line(aes(x = .data$year, y = .data$fit), color = "grey50", size = 0.5) +
       geom_point(aes(x = year, y = fit), shape = 1, size = 1) +
