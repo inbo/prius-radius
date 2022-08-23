@@ -192,13 +192,23 @@ for (tK in unique(df_ts_compact$taxonKey)) {
   print(tK)
   if (!is.null(gam_occupancy_BE[[tK]]$plot)) {
   gam_occupancy_BE[[tK]]$plot 
-  ggsave(gam_occupancy_BE[[tK]]$plot,
-         paste0('./data/output/GAM_output/',tK,'_occupancy_corrected_Flanders.jpeg'),
-         dpi=200,
-         width=7,
-         height= 4,
-         units= "cm"
-         )
+  
+  ##
+    ggplot(data = gam_occupancy_BE[[tK]]$output, aes(x = year, y = ncells)) +
+    theme_bw() +
+    xlab("Jaar") + ylab("# cellen (1-km²)") +
+    theme(axis.text=element_text(size = 9)) +
+    geom_point(color = "black", size = 1) +                                             # Ruwe data
+    geom_line(aes(x = .data$year, y = .data$fit), color = "grey50", size = 0.5) +       # De GAM-lijn
+    geom_point(aes(x = year, y = fit), shape = 1, size = 1) +                           # Punten op de GAM-lijn
+    geom_ribbon(aes(ymax = ucl, ymin = lcl), fill = grey(0.5), alpha = 0.4)             # Fout op de GAM-lijn
+    
+    ggsave(filename = paste0("./data/output/GAM_outputs/",
+                             first(gam_occupancy_BE[[tK]]$output$canonicalName),
+                             "_occupancy_corrected_Flanders.jpeg"),
+           width = 7, height = 4, units= "cm")
+  ##
+    
   }
   else {print('no plot')}
   }
