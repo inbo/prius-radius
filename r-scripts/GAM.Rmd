@@ -6,6 +6,7 @@ output: html_document
 ---
 ```{r}
 library(tidyverse) # To do data science
+library(trias)
 ```
 
 ```{r}
@@ -26,6 +27,7 @@ df_ts %>%
     eea_cell_code == "1kmE3924N3102"
   )
 ```
+
 ```{r}
 spec_names <- read_tsv(
   file = here::here("./data/intermediate/timeseries_taxonomic_info.tsv"),
@@ -34,6 +36,7 @@ spec_names <- read_tsv(
   select(taxonKey, canonicalName) %>%
   filter(taxonKey %in% df_ts$taxonKey)
 ```
+
 ```{r}
 df_ts_compact <-
   df_ts %>%
@@ -65,6 +68,7 @@ df_ts_compact_prot_areas <-
   df_ts_compact_prot_areas %>%
   left_join(spec_names, by = "taxonKey")
 ```
+
 ```{r}
 # Last evaluation year
 last_year <- lubridate::year(Sys.Date()) - 2
@@ -83,6 +87,7 @@ df_ts_compact_prot_areas <-
   df_ts_compact_prot_areas %>%
   filter(year <= last_year)
 ```
+
 ```{r}
 appearing_taxa_to_remove <-
   df_ts_compact %>%
@@ -103,9 +108,8 @@ spec_names <-
   spec_names %>%
   filter(!taxonKey %in% appearing_taxa_to_remove)
 ```
-```{r}
-library(trias)
 
+```{r}
 em_decision_rules_occs_BE <- map_dfr(
   evaluation_years,
   ~ apply_decision_rules(
@@ -191,9 +195,8 @@ for (tK in unique(df_ts_compact$taxonKey)) {
   tK <- as.character(tK)
   print(tK)
   if (!is.null(gam_occupancy_BE[[tK]]$plot)) {
-  gam_occupancy_BE[[tK]]$plot 
   
-  ##
+    ##
     ggplot(data = gam_occupancy_BE[[tK]]$output, aes(x = year, y = ncells)) +
     theme_bw() +
     xlab("Jaar") + ylab("# cellen (1-km²)") +
@@ -207,7 +210,7 @@ for (tK in unique(df_ts_compact$taxonKey)) {
                              first(gam_occupancy_BE[[tK]]$output$canonicalName),
                              "_occupancy_corrected_Flanders.jpeg"),
            width = 7, height = 4, units= "cm")
-  ##
+    ##
     
   }
   else {print('no plot')}
@@ -216,6 +219,9 @@ for (tK in unique(df_ts_compact$taxonKey)) {
 ```
 
 ```{r}
+# GAM for occupancy data in protected areas
+
+dir_name <- "./data/output/GAM_outputs"
 taxon_keys <- unique(df_ts_compact_prot_areas$taxonKey)
 taxon_names <- unique(df_ts_compact_prot_areas$canonicalName)
 gam_occupancy_pa <- map2(
@@ -235,7 +241,7 @@ gam_occupancy_pa <- map2(
         baseline_var = "c_ncells",
         df_title = "Natura2000",
         dir_name = dir_name,
-        saveplot = TRUE,
+        saveplot = FALSE,
         y_label = "occupancy (km2)"
       )
     } else {
@@ -248,14 +254,40 @@ gam_occupancy_pa <- map2(
         name = n,
         df_title = "Natura2000",
         dir_name = dir_name,
-        saveplot = TRUE,
+        saveplot = FALSE,
         y_label = "occupancy (km2)"
       )
     }
   }
 )
+
 names(gam_occupancy_pa) <- taxon_keys
+
+for (tK in unique(df_ts_compact_prot_areas$taxonKey)) {
+  tK <- as.character(tK)
+  print(tK)
+  if (!is.null(gam_occupancy_pa[[tK]]$plot)) {
+    
+    ##
+    ggplot(data = gam_occupancy_pa[[tK]]$output, aes(x = year, y = ncells)) +
+      theme_bw() +
+      xlab("Jaar") + ylab("# cellen (1-km²)") +
+      theme(axis.text = element_text(size = 9)) +
+      geom_point(color = "black", size = 1) +
+      geom_line(aes(x = .data$year, y = .data$fit), color = "grey50", size = 0.5) +
+      geom_point(aes(x = year, y = fit), shape = 1, size = 1) +
+      geom_ribbon(aes(ymax = ucl, ymin = lcl), fill = grey(0.5), alpha = 0.4)
+    
+    ggsave(filename = paste0("./data/output/GAM_outputs/",
+                             first(gam_occupancy_pa[[tK]]$output$canonicalName),
+                             "_occupancy_corrected_ProtectedAreas.jpeg"),
+           width = 7, height = 4, units = "cm")
+    ##
+  }
+  else {print('no plot')}
+}
 ```
+
 ```{r}
 #Save results
 write_tsv(em_decision_rules_occs_BE,
@@ -311,8 +343,3 @@ test<- test %>%
 
 write_csv(test, './data/output/GAM_outputs/emergency_status_final_year_occupancy_pa.csv')
 ```
-
-```{r}
-
-```
-
