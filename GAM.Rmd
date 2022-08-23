@@ -166,7 +166,7 @@ gam_occupancy_BE <- map2(
         name = n,
         baseline_var = "c_ncells",
         dir_name = dir_name,
-        saveplot = TRUE,
+        saveplot = FALSE,
         y_label = "occupancy (km2)"
       )
     } else {
@@ -178,13 +178,31 @@ gam_occupancy_BE <- map2(
         taxon_key = t,
         name = n,
         dir_name = dir_name,
-        saveplot = TRUE,
+        saveplot = FALSE,
         y_label = "occupancy (km2)"
       )
     }
   }
 )
+
 names(gam_occupancy_BE) <- taxon_keys
+
+for (tK in unique(df_ts_compact$taxonKey)) {
+  tK <- as.character(tK)
+  print(tK)
+  if (!is.null(gam_occupancy_BE[[tK]]$plot)) {
+  gam_occupancy_BE[[tK]]$plot 
+  ggsave(gam_occupancy_BE[[tK]]$plot,
+         paste0('./data/output/GAM_output/',tK,'_occupancy_corrected_Flanders.jpeg'),
+         dpi=200,
+         width=7,
+         height= 4,
+         units= "cm"
+         )
+  }
+  else {print('no plot')}
+  }
+
 ```
 
 ```{r}
