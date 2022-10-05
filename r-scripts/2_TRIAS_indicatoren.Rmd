@@ -16,8 +16,14 @@ library(rgbif) # To get taxa from publisehd unified checklist
 library(sf)# To perform spatial operations
 ```
 
+```{r download be_species_cube.csv}
+if(!file.exists("./data/input/be_species_cube.csv")){
+  download.file(url = "https://zenodo.org/record/4299787/files/be_species_cube.csv?download=1",
+                destfile = "./data/input/be_species_cube.csv")
+}
+```
 
-```{r cars}
+```{r}
 #get alien occurence data
 df <- read_csv(
   file = "./data/input/be_species_cube.csv",
