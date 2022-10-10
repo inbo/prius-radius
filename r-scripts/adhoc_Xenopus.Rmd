@@ -1,0 +1,10 @@
+# Probleemstelling
+
+Er is een vraag vanuit de opdrachtgever (ANB) om Xenopus goed te behandelen, cf. recente problematiek. Xenopus zit in de cube, maar niet de recente waarnemingen op Vlaamse bodem.
+
+In uitzondering op de PrIUS-data worden de data best ruw betrokken van GBIF.
+
+De volgende analyses worden toegepast:
+
+- idem aan cubeBased_distribution.maps.Rmd
+- idem aan occupancy_Natura2000.Rmd

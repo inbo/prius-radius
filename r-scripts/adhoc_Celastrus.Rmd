@@ -1,0 +1,10 @@
+# Probleemstelling
+
+Er was recent aandacht rond Celastrus vanuit de landbouwsector, wat het dus belang geeft binnen PrIUS. Celastrus zit in de cube, maar niet de ene waarneming van https://waarnemingen.be/observation/104660699/
+
+In uitzondering op de PrIUS-data wordt deze even best op kaart gezet, op te halen als ruwe data van GBIF.
+
+De volgende analyses worden toegepast:
+
+- idem aan cubeBased_distribution.maps.Rmd
+- idem aan occupancy_Natura2000.Rmd
