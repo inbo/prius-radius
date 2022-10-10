@@ -6,19 +6,23 @@ library(dplyr)
 library(vecsets)
 ```
 
-```{r get species list}
+```{r clear memory}
+rm(list=ls())
+```
 
-species_list <- read_csv('https://raw.githubusercontent.com/inbo/prius/main/data/input/prius_species_list.csv') #species_list in main branch
+```{r get species list}
+species_list <- read_csv('./data/input/prius_species_list.csv')
 species_list <- species_list %>%
-  mutate_if(is.character, utf8::utf8_encode)%>%
+  mutate_if(is.character, utf8::utf8_encode) %>%
   mutate_if(is.character, trimws)
+
 df_prot_areas <- read_tsv(
   "https://raw.githubusercontent.com/trias-project/indicators/master/data/interim/intersect_EEA_ref_grid_protected_areas.tsv",
-  na = ""
-)
-Natura2000 <-  df_prot_areas %>% filter(natura2000==TRUE)
-spa <- df_prot_areas %>% filter(spa==TRUE)
-habitat <- df_prot_areas %>% filter(habitat==TRUE)
+  na = "")
+
+Natura2000 <-  df_prot_areas %>% filter(natura2000 == TRUE)
+spa <- df_prot_areas %>% filter(spa == TRUE)
+habitat <- df_prot_areas %>% filter(habitat == TRUE)
 ```
 
 ```{r get shapes}
@@ -26,7 +30,7 @@ vla_1km <- st_read("./data/spatial/grids/vla_1km.geojson")
 ```
 
 ```{r get cube data}
-IAS_Cube <- read_csv(file = "./data/input/be_species_cube.csv")%>%
+IAS_Cube <- read_csv(file = "./data/input/be_species_cube.csv") %>%
   filter(year >= 2015) %>% 
   filter(speciesKey %in% species_list$GBIF_code) %>% 
   filter(eea_cell_code %in% vla_1km$CELLCODE)
@@ -40,19 +44,15 @@ IAS_Cube_summarise <- IAS_Cube %>%
 in_cube <- species_list %>% 
   left_join(IAS_Cube_summarise, by = c("GBIF_code" = "speciesKey")) %>% 
   filter(!is.na(n_tot))
-
 ```
-
-
 
 ```{r}
 df <- data.frame()
 
-
 for (species_name in unique(in_cube$Soort)){
   
   print(species_name)
-  GBIF_codes<- in_cube[which(in_cube$Soort==species_name),]$GBIF_code
+  GBIF_codes <- in_cube[which(in_cube$Soort==species_name),]$GBIF_code
   print(GBIF_codes)
   IAS_Cube_temp <- IAS_Cube %>%
     filter(speciesKey %in% GBIF_codes)
@@ -66,20 +66,16 @@ for (species_name in unique(in_cube$Soort)){
   N_occ_spec_in_spa <- as.numeric(n_distinct( IAS_Cube_temp[which(IAS_Cube_temp$eea_cell_code%in%spa$CELLCODE),]$eea_cell_code))
   N_occ_spec_in_habitat <- as.numeric(n_distinct( IAS_Cube_temp[which(IAS_Cube_temp$eea_cell_code%in%habitat$CELLCODE),]$eea_cell_code))
                   
-df <-rbind(df, data.frame(
-  species_name,
+df <- rbind(df, data.frame(species_name,
   N_occ_spec_in_Natura2000/N_occ_spec,
   N_occ_spec_in_habitat/N_occ_spec,
   N_occ_spec_in_spa/N_occ_spec,
   N_occ_spec_in_Natura2000/N_Natura2000,
   N_occ_spec_in_habitat/N_habitat,
-  N_occ_spec_in_spa/N_spa
-))
-  
+  N_occ_spec_in_spa/N_spa))
 }
 
 colnames(df) <- c("species", "% in Natura2000", "% in habitat", "% in spa", "bezet Natura2000", "bezet habitat", "bezet spa")
 
-write.csv(df, "./data/output/occurence_Natura2000.csv")
+write.csv(df, "./data/output/occupancy_Natura2000.csv")
 ```
-
