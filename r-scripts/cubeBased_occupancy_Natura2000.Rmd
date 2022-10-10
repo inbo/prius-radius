@@ -77,5 +77,5 @@ df <- rbind(df, data.frame(species_name,
 
 colnames(df) <- c("species", "% in Natura2000", "% in habitat", "% in spa", "bezet Natura2000", "bezet habitat", "bezet spa")
 
-write.csv(df, "./data/output/occupancy_Natura2000.csv")
+write.csv(df, "./data/output/occupancy_Natura2000/occupancy_Natura2000.csv")
 ```
