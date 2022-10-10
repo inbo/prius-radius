@@ -6,12 +6,14 @@ library(dplyr)
 library(vecsets)
 ```
 
+```{r clear memory}
+rm(list=ls())
+```
+
 ```{r get species list}
-aqua_vs_terr <- read_csv('./data/input/aqua_vs_terr.csv') %>%
-  mutate_if(is.character, trimws)
-species_list <- read_csv('https://raw.githubusercontent.com/inbo/prius/f52fc4e0bb060d5a3d372d1650502602a0a562fd/data/input/prius_species_list.csv') #species_list in main branch
+species_list <- read_csv('./data/input/prius_species_list.csv')
 species_list <- species_list %>%
-  mutate_if(is.character, utf8::utf8_encode)%>%
+  mutate_if(is.character, utf8::utf8_encode ) %>%
   mutate_if(is.character, trimws)
 ```
 
@@ -20,6 +22,8 @@ vla_1km <- st_read("./data/spatial/grids/vla_1km.geojson")
 #ps_hbtrl_deel <- st_transform(ps_hbtrl_deel, crs=st_crs(vla_1km))
 #st_write(ps_hbtrl_deel,  "./data/spatial/ps_hbtrl_deel.geojson")
 ```
+
+NOTE: the species cube is (too) heavy to push to the git. This will give an error when running the script. I needed to download it locally (making connection with zenodo within the script was too slow). So maybe best to download the most recent version of the species cube and put it in the folder data/input before running it.
 
 ```{r get cube data}
 IAS_Cube <- read_csv(file = "./data/input/be_species_cube.csv")
@@ -55,8 +59,6 @@ write(List_species_present, "./data/output/species_present.txt")
 write(List_species_not_present, "./data/output/species_not_present.txt")
 ```
 
-
-
 ```{r}
 keep_all <- data.frame(year = c(2015, 2016, 2017, 2018, 2019, 2020, 2021)) ## Keep all species
 keep_all$year <- as.factor(keep_all$year)                                  ## For compatibility with below
@@ -91,7 +93,7 @@ for (species_name in unique(in_cube$Soort)){
   labs(y = expression ("Occupancy in"~km^2))+
   scale_x_discrete(drop = FALSE)
   
-  # ggsave(temp_plot, file=paste0("./data/output/sporadic_species/", species_name,".png"), dpi=200)
+  # ggsave(temp_plot, file=paste0("./data/output/absent-sporadic-present/", species_name,".png"), dpi=200)
   
   keep_all <- keep_all %>% 
     left_join(x[,1:2], by = "year") %>% 
@@ -102,9 +104,9 @@ for (species_name in unique(in_cube$Soort)){
 
 ```{r summary across species}
 showme <- t(keep_all)             ## Transpose
-colnames(showme) <- showme[1,]  ## First row to column names...
-showme <- showme[-1,]           ## ... and delete first row
+colnames(showme) <- showme[1,]    ## First row to column names...
+showme <- showme[-1,]             ## ... and delete first row
 showme <- as.data.frame(showme)
 
-write.csv(showme, "./data/output/sporadic_species/sporadische_soorten.csv")
+write.csv(showme, "./data/output/absent-sporadic-present/absent-sporadic-present.csv")
 ```
