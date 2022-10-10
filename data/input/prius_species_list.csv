@@ -6,7 +6,7 @@ plant,Alternanthera philoxeroides (Mart.) Griseb.,alligatorkruid,2,3084923,Alter
 plant,Andropogon virginicus L.,Amerikaans bezemgras,3,2706080,Andropogon virginicus L.
 plant,Asclepias syriaca L.,zijdeplant,2,3170247,Asclepias syriaca L.
 plant,Baccharis halimifolia L.,struikaster,1,3129663,Baccharis halimifolia L.
-plant,Cabomba caroliniana Gray,waterwaaier ,1,2882443,Cabomba caroliniana A.Gray
+plant,Cabomba caroliniana Gray,waterwaaier,1,2882443,Cabomba caroliniana A.Gray
 plant,Cardiospermum grandiflorum Sw.,ballonrank,3,3189935,Cardiospermum grandiflorum Sw.
 plant,Cortaderia jubata (Lemoine ex Carrière) Stapf,hoog pampagras,3,2704521,Cortaderia jubata (Lemoine) Stapf
 plant,Ehrharta calycina Sm.,roze rimpelgras,3,2702865,Ehrharta calycina Sm.
@@ -51,7 +51,7 @@ dier,"Herpestes javanicus É. Geoffroy Saint-Hilaire, 1818",Indische mangoeste,1,
 dier,"Lepomis gibbosus Linnaeus, 1758",zonnebaars,3,2394486,"Lepomis gibbosus (Linnaeus, 1758)"
 dier,"Lithobates (Rana) catesbeianus Shaw, 1802",Amerikaanse stierkikker,1,2427091,"Lithobates catesbeianus (Shaw, 1802)"
 dier,"Muntiacus reevesi Ogilby, 1839",Chinese muntjak,1,2440946,"Muntiacus reevesi (Ogilby, 1839)"
-dier,"Myocastor coypus Molina, 1782",beverrat ,1,4264680,"Myocastor coypus (Molina, 1782)"
+dier,"Myocastor coypus Molina, 1782",beverrat,1,4264680,"Myocastor coypus (Molina, 1782)"
 dier,"Nasua nasua L., 1766",rode neusbeer,1,2433536,"Nasua nasua (Linnaeus, 1766)"
 dier,"Nyctereutes procyonoides Gray, 1834",wasbeerhond,2,2434552,"Nyctereutes procyonoides (Gray, 1834)"
 dier,"Ondatra zibethicus Linnaeus, 1766",muskusrat,2,5219858,"Ondatra zibethicus (Linnaeus, 1766)"
@@ -72,8 +72,9 @@ dier,"Sciurus carolinensis Gmelin, 1788",grijze eekhoorn,1,5219681,"Sciurus caro
 dier,"Sciurus niger L., 1758",Amerikaanse voseekhoorn,1,5219683,"Sciurus niger Linnaeus, 1758"
 dier,"Tamias sibiricus Laxmann, 1769",Siberische grondeekhoorn,1,2437450,"Tamias sibiricus (Laxmann, 1769)"
 dier,"Threskiornis aethiopicus Latham, 1790",heilige ibis,1,2480764,"Threskiornis aethiopicus (Latham, 1790)"
-dier,"Trachemys scripta Schoepff, 1792",lettersierschildpad ,1,2443002,"Trachemys scripta (Thunberg In Schoepff, 1792)"
-dier,"Vespa velutina nigrithorax de Buysson, 1905",Aziatische hoornaar,1,6247411,"Vespa velutina nigrithorax Buysson, 1905"
+dier,"Trachemys scripta Schoepff, 1792",lettersierschildpad,1,2443002,"Trachemys scripta (Thunberg In Schoepff, 1792)"
+dier,"Vespa velutina nigrithorax de Buysson, 1905",Aziatische hoornaar (ondersoort),1,6247411,"Vespa velutina nigrithorax Buysson, 1905"
+dier,"Vespa velutina Lepeletier, 1836",Aziatische hoornaar (soort),1,1311477,"Vespa velutina Lepeletier, 1836"
 dier,"Ameiurus melas (Rafinesque, 1820)",zwarte dwergmeerval,4,2340977,"Ameiurus melas (Rafinesque, 1820)"
 dier,"Axis axis (Erxleben, 1777)",axishert,4,2440934,"Axis axis (Erxleben, 1777)"
 dier,"Callosciurus finlaysonii (Horsfield, 1823)",Thailandeekhoorn,4,2437399,"Callosciurus finlaysonii (Horsfield, 1823)"
@@ -98,12 +99,12 @@ dier,"Wasmannia auropunctata (Roger, 1863)",Wasmannia auropunctata,4,1315391,"Wa
 dier,"Xenopus laevis (Daudin, 1802)",Afrikaanse klauwkikker,4,5217334,"Xenopus laevis (Daudin, 1802)"
 plant,Ambrosia artemisiifolia L.,alsemambrosia,ANB,8002952,Ambrosia artemisiifolia L.
 plant,Crassula helmsii (Kirk) Cockayne,watercrassula,ANB,5362054,Crassula helmsii (Kirk) Cockayne
-plant,Reynoutria japonica Houtt.,'invasieve duizendknopen',ANB,2889173,Reynoutria japonica Houtt.
-plant,Fallopia japonica (Houtt.) Ronse Decr.,'invasieve duizendknopen',ANB,5334357,Fallopia japonica (Houtt.) Ronse Decr.
-plant,Reynoutria sachalinensis (F.Schmidt) Nakai,'invasieve duizendknopen',ANB,2889088,Reynoutria sachalinensis (F.Schmidt) Nakai
-plant,Fallopia sachalinensis (F.Schmidt) Ronse Decr.,'invasieve duizendknopen',ANB,5334293,Fallopia sachalinensis (F.Schmidt) Ronse Decr.
-plant,Reynoutria ×bohemica Chrtek & Chrtková,'invasieve duizendknopen',ANB,4038485,Reynoutria Ã—bohemica Chrtek & ChrtkovÃ¡
-plant,Fallopia ×bohemica (Chrtek & Chrtková) J.P.Bailey,'invasieve duizendknopen',ANB,5652296,Fallopia Ã—bohemica (Chrtek & ChrtkovÃ¡) J.P.Bailey
+plant,Reynoutria japonica Houtt.,invasieve duizendknopen,ANB,2889173,Reynoutria japonica Houtt.
+plant,Fallopia japonica (Houtt.) Ronse Decr.,invasieve duizendknopen,ANB,5334357,Fallopia japonica (Houtt.) Ronse Decr.
+plant,Reynoutria sachalinensis (F.Schmidt) Nakai,invasieve duizendknopen,ANB,2889088,Reynoutria sachalinensis (F.Schmidt) Nakai
+plant,Fallopia sachalinensis (F.Schmidt) Ronse Decr.,invasieve duizendknopen,ANB,5334293,Fallopia sachalinensis (F.Schmidt) Ronse Decr.
+plant,Reynoutria ×bohemica Chrtek & Chrtková,invasieve duizendknopen,ANB,4038485,Reynoutria Ã—bohemica Chrtek & ChrtkovÃ¡
+plant,Fallopia ×bohemica (Chrtek & Chrtková) J.P.Bailey,invasieve duizendknopen,ANB,5652296,Fallopia Ã—bohemica (Chrtek & ChrtkovÃ¡) J.P.Bailey
 dier,"Aedes albopictus (Skuse, 1894)",Aziatische tijgermug,ANB,1651430,"Aedes albopictus (Skuse, 1894)"
 dier,"Branta canadensis (Linnaeus, 1758)",Canadese gans,ANB,5232437,"Branta canadensis (Linnaeus, 1758)"
 dier,"Mustela vison Schreber, 1777",Amerikaanse nerts,ANB,5218823,"Mustela vison Schreber, 1777"

@@ -1,14 +1,3 @@
----
-title: "PrIUS_species_list"
-author: "Bram D'hondt"
-date: '2022-06-28'
-output: html_document
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 # Inleiding
 
 Opmaak van de PrIUS-lijst voor verdere analyses, vertrekkend van de tabellen in het PrIUS-rapport.
@@ -29,7 +18,7 @@ rm(list=ls())
 # Inlezen soortenlijst
 
 ```{r}
-list <- read_delim("./data/input/prius_species_list_primary_v22-08-04.csv", delim = ";")
+list <- read_delim("./data/input/prius_species_list_primary_v22-10-10.csv", delim = ";")
 ```
 
 # GBIF-gegevens toevoegen
