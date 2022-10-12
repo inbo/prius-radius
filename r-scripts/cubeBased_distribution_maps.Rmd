@@ -44,8 +44,12 @@ IAS_Cube <- IAS_Cube %>%
 ```{r test data completeness}
 IAS_Cube_summarise <- IAS_Cube %>% 
   group_by(speciesKey) %>% 
-  summarise(n_tot = sum(n, na.rm = TRUE))
+  summarise(n_tot = sum(n, na.rm = TRUE), unique_cells = n_distinct(eea_cell_code))
 
+cells_per_species <- IAS_Cube_summarise %>% 
+  left_join(species_list, by = c("speciesKey" = "GBIF_code")) %>% 
+  select(speciesKey, unique_cells, Soort)
+  
 not_in_cube <- species_list %>% 
   left_join(IAS_Cube_summarise, by = c("GBIF_code" = "speciesKey")) %>% 
   filter(is.na(n_tot))
@@ -60,8 +64,9 @@ not_in_cube$Soort %in% in_cube$Soort
 
 List_species_present <- unique(in_cube$Soort)
 List_species_not_present <- vsetdiff(unique(species_list$Soort) , List_species_present)
-write(List_species_present, "./data/output/species_present.txt")
-write(List_species_not_present, "./data/output/species_not_present.txt")
+write_csv2(cells_per_species, "./data/output/distribution_maps/cells_per_species.csv")
+write(List_species_present, "./data/output/distribution_maps/species_present.txt")
+write(List_species_not_present, "./data/output/distribution_maps/species_not_present.txt")
 ```
 
 ```{r maps}
