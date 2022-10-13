@@ -1,6 +1,6 @@
 # Introduction
 
-This figure in the report shows the number of unique grid cells occupied by the species in Flanders. It is based on output regarding the distribution maps (cubeBased_distribution_maps.Rmd).
+This figure in the report shows the number of unique grid cells occupied by the species in Flanders. It is based on output regarding the distribution maps (cubeBased_distribution_maps.Rmd). (Can also from cubeBased_occupancy_Natura2000.Rmd and its output.)
 
 Note: the data is not fully correct for 'invasieve duizendknopen'. The unique cells should have been calculated after having grouped the respective taxa. Now, grid cells may have been double-counted. Since it ends up at the same rank (coming up 3rd), the error is neglected here.
 
@@ -9,7 +9,12 @@ Note: the data is not fully correct for 'invasieve duizendknopen'. The unique ce
 ```{r}
 library(tidyverse)
 library(ggplot2)
-library(INBOtheme)
+```
+
+# Clear memory
+
+```{r}
+rm(list=ls())
 ```
 
 # Data
@@ -17,37 +22,11 @@ library(INBOtheme)
 ```{r}
 data <- read.csv("./data/output/distribution_maps/cells_per_species.csv", sep = ";")
 
+# data <- read.csv("./data/output/occupancy_Natura2000/occupancy_Natura2000.csv") # Alternatief
+
 # Manipulation
 data$Soort[data$Soort == 'Aziatische hoornaar (soort)'] <- 'Aziatische hoornaar'
 ```
-
-# Omit sporadic species
-
-According to report structure, the graph only pertains to "present" species, and not "sporadic" species.
-
-```{r}
-
-spor <- c("Amerikaanse nerts",
-          "Amerikaanse voseekhoorn",
-          "Aziatische boomwurger",
-          "Aziatische tijgermug",
-          "Californische rivierkreeft",
-          "gewone gunnera",
-          "grijze eekhoorn",
-          "heilige ibis",
-          "Noord-Aziatische modderkruiper",
-          "Pallas' eekhoorn",
-          "treurmaina",
-          "wasbeerhond",
-          "waterhyacint",
-          "watersla",
-          "waterwaaier")
-
-data <- data %>% 
-  filter(!Soort %in% spor) %>% 
-  arrange(Soort)
-```
-
 
 # Plot
 

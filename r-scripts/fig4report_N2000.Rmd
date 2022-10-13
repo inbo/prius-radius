@@ -1,0 +1,92 @@
+# Introduction
+
+This figure in the report shows statistics on the number of unique grid cells occupied by the species in Flanders within the Natura 2000 network. It is based on output regarding N2000 (cubeBased_occupancy_Natura2000.Rmd).
+
+# Libraries
+
+```{r}
+library(ggplot2)
+library(dplyr)
+```
+
+# Clear memory
+
+```{r}
+rm(list=ls())
+```
+
+# Data
+
+```{r}
+data <- read.csv("./data/output/occupancy_Natura2000/occupancy_Natura2000.csv")
+abbr <- read.csv("./data/input/prius_species_list_abbreviations.csv", sep = ";")
+
+# Manipulation
+data$species[data$species == 'Aziatische hoornaar (soort)'] <- 'Aziatische hoornaar'
+```
+
+# Absolute values
+
+Bar plot. 
+
+```{r}
+ggplot(data, aes(x = reorder(species, N_occ_in_N2000, sum), y = N_occ_in_N2000)) +
+  geom_col(colour = "#c04384", fill = "#c04384") +
+  theme_bw() +
+  xlab("") + ylab("# cellen (1-km²)") +
+  theme(axis.text = element_text(size = 9),
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+        axis.title = element_text(size = 9))
+
+ggsave(filename = "./data/output/figures_for_report/grid_cells_N2000.jpeg",
+           width = 14, height = 10, units = "cm")
+```
+
+# Relative values
+
+## Omit sporadic species
+
+Since the relative values are strongly biased for rare species (e.g. species with only one observation are either 0% or 100% in N2000), these species have to be deleted. According to report logic, these are the "sporadic" species.
+
+```{r}
+spor <- c("Amerikaanse nerts",
+          "Amerikaanse voseekhoorn",
+          "Aziatische boomwurger",
+          "Aziatische tijgermug",
+          "Californische rivierkreeft",
+          "gewone gunnera",
+          "grijze eekhoorn",
+          "heilige ibis",
+          "Noord-Aziatische modderkruiper",
+          "Pallas' eekhoorn",
+          "treurmaina",
+          "wasbeerhond",
+          "waterhyacint",
+          "watersla",
+          "waterwaaier")
+
+sel <- data %>% 
+  filter(!species %in% spor)
+```
+
+## Add Abbreviations
+
+```{r}
+sel <- sel %>%
+  left_join(abbr, by = c("species" = "soort"))
+```
+
+## Plot
+
+```{r}
+ggplot(sel, aes(x = share_in_N2000, y = share_of_N2000)) +
+  geom_text(aes(label = abbr)) +
+  theme(legend.position="none") +
+  xlim(0,1) +
+  coord_trans(y="log2") +
+  xlab("Proportie van bezette hokken dat in Natura2000 ligt") + ylab("Proportie van Natura2000 met bezette hokken") +
+  theme_bw()
+
+ggsave(filename = "./data/output/figures_for_report/share_N2000.jpeg",
+           width = 14, height = 10, units = "cm")
+```
