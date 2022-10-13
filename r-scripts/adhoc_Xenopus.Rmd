@@ -8,3 +8,87 @@ De volgende analyses worden toegepast:
 
 - idem aan cubeBased_distribution.maps.Rmd
 - idem aan occupancy_Natura2000.Rmd
+
+# VOORBEREIDING: hoofd leegmaken
+
+```{r}
+rm(list=ls())
+```
+
+# VOORBEREIDNG: packages
+
+```{r}
+# library(sf)
+library(rgbif)
+library(tidyverse)
+# library(lubridate)
+# library(ggplot2)
+```
+
+# Data m.b.t. VERSPREIDING (punten)
+
+## GBIF-gegevens
+
+```{r get cred}
+gbif_email <- Sys.getenv("gbif_email")
+gbif_user <- Sys.getenv("gbif_user")
+gbif_pwd <- Sys.getenv("gbif_pwd")
+```
+
+```{r}
+taxonKey <- 5217334 # Xenopus laeves
+```
+
+## GBIF download
+
+Download gaat er van uit dat mapje leeg is.
+
+```{r}
+  set1 <- occ_download(pred("taxonKey", taxonKey), 
+                       pred("hasCoordinate", TRUE), 
+                       pred("country", "BE"),                 # SELECTIE op LAND (BE) !
+                       pred_gte("year", 2015),                # SELECTIE op JAAR (2015) !
+                       user = gbif_user, 
+                       pwd = gbif_pwd, 
+                       email = gbif_email)
+
+data_raw <- occ_download_get(set1, overwrite = TRUE) %>% 
+        occ_download_import()
+
+# verplaatsen van root naar bedoelde map
+file.copy(from = paste0("./", test_set1$key, ".zip"),
+          to = paste0("./data/adhoc_species/Xenopus/", test_set1$key, ".zip"))
+file.remove(paste0("./", test_set1$key, ".zip"))
+```
+
+********************** TOT HIER GESCRIPT voor PRIUS *********************************
+
+## Filteren van zinvolle gegevens (en mutatie)
+
+ - Filter records with the same occurenceID => most straightforward way to get rid of duplicates (#1)
+ - Filter records without coordinates (assuming decimalLatitude & decimalLongitude are equally missing) (#2)
+ - On top, the following mutation is added: Day of year, for module MuntjacWatch (#3)
+
+```{r}
+data_subset <- data_raw %>% 
+  distinct(occurrenceID, .keep_all = TRUE) %>% #1
+  filter(!is.na(decimalLatitude)) %>% #2 
+  select(gbifID, eventDate, year, month, day, taxonKey, acceptedTaxonKey, species, decimalLatitude, decimalLongitude,
+         coordinateUncertaintyInMeters, countryCode, identificationVerificationStatus) %>% 
+  mutate(dayOfYear = yday(eventDate), .after = day) #3
+```
+
+## Converteren naar SF
+
+```{r}
+PUNTEN <- st_as_sf(data_subset, coords = c("decimalLongitude", "decimalLatitude"), crs = "+proj=longlat +datum=WGS84")
+```
+
+## Filteren van gegevens volgens geografisch bereik
+
+```{r}
+PUNTENcrs <- st_transform(PUNTEN, crs = st_crs(KAART)) # Gelijkstellen van de crs
+PUNTEN_OP_KAART <- st_join(PUNTENcrs, KAART) %>%  # spatial join to get intersection of points and polygons
+  filter(!is.na(gml_id)) # any (newly added) column name. Idea is to get only the points that fall in the polygons
+  # me: 'inner join' i.p.v. 'left join' (left = FALSE) als alternatief ?
+```
