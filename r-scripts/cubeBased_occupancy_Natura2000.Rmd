@@ -57,25 +57,63 @@ for (species_name in unique(in_cube$Soort)){
   IAS_Cube_temp <- IAS_Cube %>%
     filter(speciesKey %in% GBIF_codes)
 
-  N_occ_spec <- as.numeric(n_distinct(IAS_Cube_temp$eea_cell_code)) #deze stap is hier zeker nodig, zelfde cel voor verschillende jaren in tabel
-  N_Natura2000 <-  as.numeric(n_distinct(Natura2000$CELLCODE))
+  N_occ_spec <- as.numeric(n_distinct(IAS_Cube_temp$eea_cell_code)) # nodig, want zelfde cel voor verschillende jaren
+  N_Natura2000 <- as.numeric(n_distinct(Natura2000$CELLCODE))
   N_spa <- as.numeric(n_distinct(spa$CELLCODE))
   N_habitat <- as.numeric(n_distinct(habitat$CELLCODE))
   
-  N_occ_spec_in_Natura2000 <- as.numeric(n_distinct( IAS_Cube_temp[which(IAS_Cube_temp$eea_cell_code%in%Natura2000$CELLCODE),]$eea_cell_code))
-  N_occ_spec_in_spa <- as.numeric(n_distinct( IAS_Cube_temp[which(IAS_Cube_temp$eea_cell_code%in%spa$CELLCODE),]$eea_cell_code))
-  N_occ_spec_in_habitat <- as.numeric(n_distinct( IAS_Cube_temp[which(IAS_Cube_temp$eea_cell_code%in%habitat$CELLCODE),]$eea_cell_code))
+  N_occ_spec_in_Natura2000 <- as.numeric(n_distinct(
+    IAS_Cube_temp[which(IAS_Cube_temp$eea_cell_code %in% Natura2000$CELLCODE),]$eea_cell_code))
+  N_occ_spec_in_spa <- as.numeric(n_distinct(
+    IAS_Cube_temp[which(IAS_Cube_temp$eea_cell_code %in% spa$CELLCODE),]$eea_cell_code))
+  N_occ_spec_in_habitat <- as.numeric(n_distinct(
+    IAS_Cube_temp[which(IAS_Cube_temp$eea_cell_code %in% habitat$CELLCODE),]$eea_cell_code))
                   
 df <- rbind(df, data.frame(species_name,
-  N_occ_spec_in_Natura2000/N_occ_spec,
-  N_occ_spec_in_habitat/N_occ_spec,
-  N_occ_spec_in_spa/N_occ_spec,
-  N_occ_spec_in_Natura2000/N_Natura2000,
-  N_occ_spec_in_habitat/N_habitat,
-  N_occ_spec_in_spa/N_spa))
+                           
+                           N_occ_spec,
+                           N_occ_spec_in_Natura2000,
+                           
+                           N_occ_spec_in_Natura2000/N_occ_spec,
+                           N_occ_spec_in_habitat/N_occ_spec,
+                           N_occ_spec_in_spa/N_occ_spec,
+                           
+                           round(100*(N_occ_spec_in_Natura2000/N_occ_spec), digits = 1),  # Idem, as percent (%), for report
+                           round(100*(N_occ_spec_in_habitat/N_occ_spec), digits = 1),     # Idem, as percent (%), for report
+                           round(100*(N_occ_spec_in_spa/N_occ_spec), digits = 1),         # Idem, as percent (%), for report
+                           
+                           N_occ_spec_in_Natura2000/N_Natura2000,
+                           N_occ_spec_in_habitat/N_habitat,
+                           N_occ_spec_in_spa/N_spa,
+                           
+                           round(1000*(N_occ_spec_in_Natura2000/N_Natura2000), digits = 1), # Idem, as promille (‰), for report
+                           round(1000*(N_occ_spec_in_habitat/N_habitat), digits = 1),       # Idem, as promille (‰), for report
+                           round(1000*(N_occ_spec_in_spa/N_spa), digits = 1)))              # Idem, as promille (‰), for report
 }
 
-colnames(df) <- c("species", "% in Natura2000", "% in habitat", "% in spa", "bezet Natura2000", "bezet habitat", "bezet spa")
+colnames(df) <- c("species",
+                  
+                  "N_occ",
+                  "N_occ_in_N2000",
+                  
+                  "share_in_N2000",
+                  "share_in_HRL",           # HRL = Habitatrichtlijn
+                  "share_in_VRL",           # VRL = Vogelrichtlijn
+                  
+                  "%_in_N2000",
+                  "%_in_HRL",
+                  "%_in_VRL",
+                  
+                  "share_of_N2000",
+                  "share_of_HRL",
+                  "share_of_VRL",
+                  
+                  "‰_of_N2000",
+                  "‰_of_HRL",
+                  "‰_of_VRL")
+```
 
+```{r}
 write.csv(df, "./data/output/occupancy_Natura2000/occupancy_Natura2000.csv")
 ```
+
