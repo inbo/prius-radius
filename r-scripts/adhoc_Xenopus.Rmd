@@ -18,11 +18,10 @@ rm(list=ls())
 # VOORBEREIDNG: packages
 
 ```{r}
-# library(sf)
+library(sf)
 library(rgbif)
 library(tidyverse)
-# library(lubridate)
-# library(ggplot2)
+library(ggplot2)
 ```
 
 # Data m.b.t. VERSPREIDING (punten)
@@ -36,7 +35,7 @@ gbif_pwd <- Sys.getenv("gbif_pwd")
 ```
 
 ```{r}
-taxonKey <- 5217334 # Xenopus laeves
+taxonKey <- 5217334 # Xenopus laevis
 ```
 
 ## GBIF download
@@ -44,7 +43,7 @@ taxonKey <- 5217334 # Xenopus laeves
 Download gaat er van uit dat mapje leeg is.
 
 ```{r}
-  set1 <- occ_download(pred("taxonKey", taxonKey), 
+set1 <- occ_download(pred("taxonKey", taxonKey), 
                        pred("hasCoordinate", TRUE), 
                        pred("country", "BE"),                 # SELECTIE op LAND (BE) !
                        pred_gte("year", 2015),                # SELECTIE op JAAR (2015) !
@@ -56,26 +55,22 @@ data_raw <- occ_download_get(set1, overwrite = TRUE) %>%
         occ_download_import()
 
 # verplaatsen van root naar bedoelde map
-file.copy(from = paste0("./", test_set1$key, ".zip"),
-          to = paste0("./data/adhoc_species/Xenopus/", test_set1$key, ".zip"))
-file.remove(paste0("./", test_set1$key, ".zip"))
+file.copy(from = paste0("./", occ_download_meta(set1)$key, ".zip"),
+          to = paste0("./data/adhoc_species/Xenopus.zip"))
+file.remove(paste0("./", occ_download_meta(set1)$key, ".zip"))
 ```
-
-********************** TOT HIER GESCRIPT voor PRIUS *********************************
 
 ## Filteren van zinvolle gegevens (en mutatie)
 
  - Filter records with the same occurenceID => most straightforward way to get rid of duplicates (#1)
  - Filter records without coordinates (assuming decimalLatitude & decimalLongitude are equally missing) (#2)
- - On top, the following mutation is added: Day of year, for module MuntjacWatch (#3)
 
 ```{r}
 data_subset <- data_raw %>% 
   distinct(occurrenceID, .keep_all = TRUE) %>% #1
   filter(!is.na(decimalLatitude)) %>% #2 
-  select(gbifID, eventDate, year, month, day, taxonKey, acceptedTaxonKey, species, decimalLatitude, decimalLongitude,
-         coordinateUncertaintyInMeters, countryCode, identificationVerificationStatus) %>% 
-  mutate(dayOfYear = yday(eventDate), .after = day) #3
+  select(gbifID, eventDate, year, taxonKey, acceptedTaxonKey, species, decimalLatitude, decimalLongitude,
+         coordinateUncertaintyInMeters, countryCode)
 ```
 
 ## Converteren naar SF
@@ -84,11 +79,48 @@ data_subset <- data_raw %>%
 PUNTEN <- st_as_sf(data_subset, coords = c("decimalLongitude", "decimalLatitude"), crs = "+proj=longlat +datum=WGS84")
 ```
 
-## Filteren van gegevens volgens geografisch bereik
+# M.b.t. kaart
+
+## Inlezen kaarten
 
 ```{r}
-PUNTENcrs <- st_transform(PUNTEN, crs = st_crs(KAART)) # Gelijkstellen van de crs
-PUNTEN_OP_KAART <- st_join(PUNTENcrs, KAART) %>%  # spatial join to get intersection of points and polygons
-  filter(!is.na(gml_id)) # any (newly added) column name. Idea is to get only the points that fall in the polygons
-  # me: 'inner join' i.p.v. 'left join' (left = FALSE) als alternatief ?
+vla_1km <- st_read("./data/spatial/grids/vla_1km.geojson")
+Vlaanderen_grenzen <- st_read("./data/spatial/flanders_wgs84.geojson")
+Provincies_grenzen <- st_read("./data/spatial/Provincies.geojson")
+ps_vglrl <- st_read("data/spatial/ps_vglrl.geojson")
+ps_hbtrl_deel <- st_read("data/spatial/ps_hbtrl_deel.geojson")
 ```
+
+## Filteren van gegevens volgens kaart
+
+```{r}
+PUNTENcrs <- st_transform(PUNTEN, crs = st_crs(vla_1km)) # Gelijkstellen van de crs
+PUNTEN_OP_KAART <- st_join(PUNTENcrs, vla_1km) %>%  # spatial join to get intersection of points and polygons
+  filter(!is.na(CELLCODE)) # any (newly added) column name. Idea is to get only the points that fall in the polygons
+```
+
+## Van punten naar cellen
+
+```{r}
+RASTERcrs <- st_transform(vla_1km, crs = st_crs(PUNTEN_OP_KAART)) # Gelijkstellen van de crs
+CELLEN_VOOR_KAART <- st_join(RASTERcrs, PUNTEN_OP_KAART, left = FALSE) # inner join
+```
+
+## Plot
+
+```{r}
+ggplot() +
+  geom_sf(data = Vlaanderen_grenzen, fill= "#f0f0f0", size = 0.2)+ #te activeren indien achterkleur grijs
+  geom_sf(data= ps_vglrl, colour= "#a4e98f", fill="#a4e98f") + 
+  geom_sf(data= ps_hbtrl_deel, colour="#a4e98f", fill="#a4e98f")+
+  geom_sf(data = Provincies_grenzen, fill= NA, size=0.2) +
+  geom_sf(data = CELLEN_VOOR_KAART, colour="red")+
+  theme_void() + # Zonder "assen" (coördinaten)
+  theme(legend.position="bottom", legend.title = element_blank()) +
+  theme(plot.margin=grid::unit(c(0,0,0,0), "mm"))+
+  coord_sf()
+  
+  ggsave(file = "./data/output/distribution_maps/Afrikaanse klauwkikker.png", width = 15, height = 6.4, units = "cm", dpi=200)
+```
+
+
