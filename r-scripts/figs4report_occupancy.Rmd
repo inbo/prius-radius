@@ -23,14 +23,18 @@ abbr <- read.csv("./data/input/prius_species_list_abbreviations.csv", sep = ";")
 
 # Manipulation
 data$species[data$species == 'Aziatische hoornaar (soort)'] <- 'Aziatische hoornaar'
+
+# Add output from Xenopus (data generated outside of cube)
+data[nrow(data) + 1,] = read.csv("./data/intermediate/adhoc_Xenopus_output.csv")
+
+# Add output from Celastrus (data generated outside of cube)
+data[nrow(data) + 1,] = read.csv("./data/intermediate/adhoc_Celastrus_output.csv")
 ```
 
-# Absolute values
-
-Bar plot. 
+# Occupancy in FLANDERS
 
 ```{r}
-ggplot(data, aes(x = reorder(species, N_occ_in_N2000, sum), y = N_occ_in_N2000)) +
+ggplot(data, aes(x = reorder(species, N_occ, sum), y = N_occ)) +
   geom_col(colour = "#c04384", fill = "#c04384") +
   theme_bw() +
   xlab("") + ylab("# cellen (1-km²)") +
@@ -38,19 +42,43 @@ ggplot(data, aes(x = reorder(species, N_occ_in_N2000, sum), y = N_occ_in_N2000))
         axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
         axis.title = element_text(size = 9))
 
-ggsave(filename = "./data/output/figures_for_report/grid_cells_N2000.jpeg",
+ggsave(filename = "./data/output/figures_for_report/occupancy_FL.jpeg",
+           width = 14, height = 14, units = "cm")
+```
+
+# Occupancy in NATURA2000
+## Absolute values
+
+Bar plot. 
+
+```{r omit zero-value-species}
+data_sub <- data %>% 
+  filter(N_occ_in_N2000 > 0)
+```
+
+```{r}
+ggplot(data_sub, aes(x = reorder(species, N_occ_in_N2000, sum), y = N_occ_in_N2000)) +
+  geom_col(colour = "#c04384", fill = "#c04384") +
+  theme_bw() +
+  xlab("") + ylab("# cellen (1-km²)") +
+  theme(axis.text = element_text(size = 9),
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+        axis.title = element_text(size = 9))
+
+ggsave(filename = "./data/output/figures_for_report/occupancy_N2000.jpeg",
            width = 14, height = 10, units = "cm")
 ```
 
-# Relative values
+## Relative values
 
-## Omit sporadic species
+### Omit sporadic species
 
 Since the relative values are strongly biased for rare species (e.g. species with only one observation are either 0% or 100% in N2000), these species have to be deleted. According to report logic, these are the "sporadic" species.
 
 ```{r}
 spor <- c("Amerikaanse nerts",
           "Amerikaanse voseekhoorn",
+          "Afrikaanse klauwkikker",
           "Aziatische boomwurger",
           "Aziatische tijgermug",
           "Californische rivierkreeft",
@@ -69,14 +97,14 @@ sel <- data %>%
   filter(!species %in% spor)
 ```
 
-## Add Abbreviations
+### Add Abbreviations
 
 ```{r}
 sel <- sel %>%
   left_join(abbr, by = c("species" = "soort"))
 ```
 
-## Plot
+### Plot
 
 ```{r}
 ggplot(sel, aes(x = share_in_N2000, y = share_of_N2000)) +

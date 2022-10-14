@@ -157,7 +157,8 @@ N_occ_spec_in_habitat <- as.numeric(n_distinct(
   occupied_cells_FL[which(occupied_cells_FL$CELLCODE.x %in% habitat$CELLCODE),]$CELLCODE.x))
 
 df <- data.frame()                  
-df <- rbind(df, data.frame(N_occ_spec,
+df <- rbind(df, data.frame("Aziatische boomwurger",
+                           N_occ_spec,
                            N_occ_spec_in_Natura2000,
                            
                            N_occ_spec_in_Natura2000/N_occ_spec,
@@ -176,7 +177,8 @@ df <- rbind(df, data.frame(N_occ_spec,
                            round(1000*(N_occ_spec_in_habitat/N_habitat), digits = 1),       # Idem, as promille (‰), for report
                            round(1000*(N_occ_spec_in_spa/N_spa), digits = 1)))              # Idem, as promille (‰), for report
 
-colnames(df) <- c("N_occ",
+colnames(df) <- c("species",
+                  "N_occ",
                   "N_occ_in_N2000",
                   
                   "share_in_N2000",
@@ -194,6 +196,12 @@ colnames(df) <- c("N_occ",
                   "‰_of_N2000",
                   "‰_of_HRL",
                   "‰_of_VRL")
-
 view(df)
+
+# Note: output structure is important for compatibility with the other species
+
+```
+
+```{r}
+write.csv(df, "./data/intermediate/adhoc_Celastrus_output.csv")
 ```
