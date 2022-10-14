@@ -103,7 +103,15 @@ PUNTEN_OP_KAART <- st_join(PUNTENcrs, vla_1km) %>%  # spatial join to get inters
 
 ```{r}
 RASTERcrs <- st_transform(vla_1km, crs = st_crs(PUNTEN_OP_KAART)) # Gelijkstellen van de crs
-CELLEN_VOOR_KAART <- st_join(RASTERcrs, PUNTEN_OP_KAART, left = FALSE) # inner join
+occupied_cells_FL <- st_join(RASTERcrs, PUNTEN_OP_KAART, left = FALSE) # inner join
+```
+
+## Exploratory plot
+
+```{r}
+ggplot() +
+  geom_sf(data = occupied_cells_FL, colour = "red")
+# Merk op: twee cellen, beide afgesneden !
 ```
 
 ## Plot
@@ -114,7 +122,7 @@ ggplot() +
   geom_sf(data= ps_vglrl, colour= "#a4e98f", fill="#a4e98f") + 
   geom_sf(data= ps_hbtrl_deel, colour="#a4e98f", fill="#a4e98f")+
   geom_sf(data = Provincies_grenzen, fill= NA, size=0.2) +
-  geom_sf(data = CELLEN_VOOR_KAART, colour="red")+
+  geom_sf(data = occupied_cells_FL, colour="red")+
   theme_void() + # Zonder "assen" (coördinaten)
   theme(legend.position="bottom", legend.title = element_blank()) +
   theme(plot.margin=grid::unit(c(0,0,0,0), "mm"))+
@@ -123,4 +131,69 @@ ggplot() +
   ggsave(file = "./data/output/distribution_maps/Afrikaanse klauwkikker.png", width = 15, height = 6.4, units = "cm", dpi=200)
 ```
 
+# Bezetting in N2000
 
+```{r}
+df_prot_areas <- read_tsv(
+  "https://raw.githubusercontent.com/trias-project/indicators/master/data/interim/intersect_EEA_ref_grid_protected_areas.tsv",
+  na = "")
+
+Natura2000 <-  df_prot_areas %>% filter(natura2000 == TRUE)
+spa <- df_prot_areas %>% filter(spa == TRUE)
+habitat <- df_prot_areas %>% filter(habitat == TRUE)
+
+N_occ_spec <- as.numeric(n_distinct(occupied_cells_FL$CELLCODE.x)) # nodig, want zelfde cel voor verschillende jaren
+N_Natura2000 <- as.numeric(n_distinct(Natura2000$CELLCODE))
+N_spa <- as.numeric(n_distinct(spa$CELLCODE))
+N_habitat <- as.numeric(n_distinct(habitat$CELLCODE))
+  
+N_occ_spec_in_Natura2000 <- as.numeric(n_distinct(
+  occupied_cells_FL[which(occupied_cells_FL$CELLCODE.x %in% Natura2000$CELLCODE),]$CELLCODE.x))
+
+N_occ_spec_in_spa <- as.numeric(n_distinct(
+  occupied_cells_FL[which(occupied_cells_FL$CELLCODE.x %in% spa$CELLCODE),]$CELLCODE.x))
+
+N_occ_spec_in_habitat <- as.numeric(n_distinct(
+  occupied_cells_FL[which(occupied_cells_FL$CELLCODE.x %in% habitat$CELLCODE),]$CELLCODE.x))
+
+df <- data.frame()                  
+df <- rbind(df, data.frame(N_occ_spec,
+                           N_occ_spec_in_Natura2000,
+                           
+                           N_occ_spec_in_Natura2000/N_occ_spec,
+                           N_occ_spec_in_habitat/N_occ_spec,
+                           N_occ_spec_in_spa/N_occ_spec,
+                           
+                           round(100*(N_occ_spec_in_Natura2000/N_occ_spec), digits = 1),  # Idem, as percent (%), for report
+                           round(100*(N_occ_spec_in_habitat/N_occ_spec), digits = 1),     # Idem, as percent (%), for report
+                           round(100*(N_occ_spec_in_spa/N_occ_spec), digits = 1),         # Idem, as percent (%), for report
+                           
+                           N_occ_spec_in_Natura2000/N_Natura2000,
+                           N_occ_spec_in_habitat/N_habitat,
+                           N_occ_spec_in_spa/N_spa,
+                           
+                           round(1000*(N_occ_spec_in_Natura2000/N_Natura2000), digits = 1), # Idem, as promille (‰), for report
+                           round(1000*(N_occ_spec_in_habitat/N_habitat), digits = 1),       # Idem, as promille (‰), for report
+                           round(1000*(N_occ_spec_in_spa/N_spa), digits = 1)))              # Idem, as promille (‰), for report
+
+colnames(df) <- c("N_occ",
+                  "N_occ_in_N2000",
+                  
+                  "share_in_N2000",
+                  "share_in_HRL",           # HRL = Habitatrichtlijn
+                  "share_in_VRL",           # VRL = Vogelrichtlijn
+                  
+                  "%_in_N2000",
+                  "%_in_HRL",
+                  "%_in_VRL",
+                  
+                  "share_of_N2000",
+                  "share_of_HRL",
+                  "share_of_VRL",
+                  
+                  "‰_of_N2000",
+                  "‰_of_HRL",
+                  "‰_of_VRL")
+
+view(df)
+```

@@ -8,3 +8,192 @@ De volgende analyses worden toegepast:
 
 - idem aan cubeBased_distribution.maps.Rmd
 - idem aan occupancy_Natura2000.Rmd
+
+# VOORBEREIDING: hoofd leegmaken
+
+```{r}
+rm(list=ls())
+```
+
+# VOORBEREIDNG: packages
+
+```{r}
+library(sf)
+library(rgbif)
+library(tidyverse)
+library(ggplot2)
+```
+
+# Data m.b.t. VERSPREIDING (punten)
+
+## GBIF-gegevens
+
+```{r get cred}
+gbif_email <- Sys.getenv("gbif_email")
+gbif_user <- Sys.getenv("gbif_user")
+gbif_pwd <- Sys.getenv("gbif_pwd")
+```
+
+```{r}
+taxonKey <- 3169169 # Celastrus orbiculatus
+```
+
+## GBIF download
+
+Download gaat er van uit dat mapje leeg is.
+
+```{r}
+set1 <- occ_download(pred("taxonKey", taxonKey), 
+                       pred("hasCoordinate", TRUE), 
+                       pred("country", "BE"),                 # SELECTIE op LAND (BE) !
+                       pred_gte("year", 2015),                # SELECTIE op JAAR (2015) !
+                       user = gbif_user, 
+                       pwd = gbif_pwd, 
+                       email = gbif_email)
+
+data_raw <- occ_download_get(set1, overwrite = TRUE) %>% 
+        occ_download_import()
+
+# verplaatsen van root naar bedoelde map
+file.copy(from = paste0("./", occ_download_meta(set1)$key, ".zip"),
+          to = paste0("./data/adhoc_species/Celastrus.zip"))
+file.remove(paste0("./", occ_download_meta(set1)$key, ".zip"))
+```
+
+## Filteren van zinvolle gegevens (en mutatie)
+
+ - Filter records with the same occurenceID => most straightforward way to get rid of duplicates (#1)
+ - Filter records without coordinates (assuming decimalLatitude & decimalLongitude are equally missing) (#2)
+
+```{r}
+data_subset <- data_raw %>% 
+  distinct(occurrenceID, .keep_all = TRUE) %>% #1
+  filter(!is.na(decimalLatitude)) %>% #2 
+  select(gbifID, eventDate, year, taxonKey, acceptedTaxonKey, species, decimalLatitude, decimalLongitude,
+         coordinateUncertaintyInMeters, countryCode)
+```
+
+## Converteren naar SF
+
+```{r}
+PUNTEN <- st_as_sf(data_subset, coords = c("decimalLongitude", "decimalLatitude"), crs = "+proj=longlat +datum=WGS84")
+```
+
+# M.b.t. kaart
+
+## Inlezen kaarten
+
+```{r}
+vla_1km <- st_read("./data/spatial/grids/vla_1km.geojson")
+Vlaanderen_grenzen <- st_read("./data/spatial/flanders_wgs84.geojson")
+Provincies_grenzen <- st_read("./data/spatial/Provincies.geojson")
+ps_vglrl <- st_read("data/spatial/ps_vglrl.geojson")
+ps_hbtrl_deel <- st_read("data/spatial/ps_hbtrl_deel.geojson")
+```
+
+## Filteren van gegevens volgens kaart
+
+```{r}
+PUNTENcrs <- st_transform(PUNTEN, crs = st_crs(vla_1km)) # Gelijkstellen van de crs
+PUNTEN_OP_KAART <- st_join(PUNTENcrs, vla_1km) %>%  # spatial join to get intersection of points and polygons
+  filter(!is.na(CELLCODE)) # any (newly added) column name. Idea is to get only the points that fall in the polygons
+```
+
+## Van punten naar cellen
+
+```{r}
+RASTERcrs <- st_transform(vla_1km, crs = st_crs(PUNTEN_OP_KAART)) # Gelijkstellen van de crs
+occupied_cells_FL <- st_join(RASTERcrs, PUNTEN_OP_KAART, left = FALSE) # inner join
+```
+
+## Exploratory plot
+
+```{r}
+ggplot() +
+  geom_sf(data = vla_1km) +
+  geom_sf(data = occupied_cells_FL, colour = "red")
+```
+
+## Plot
+
+```{r}
+ggplot() +
+  geom_sf(data = Vlaanderen_grenzen, fill= "#f0f0f0", size = 0.2)+ #te activeren indien achterkleur grijs
+  geom_sf(data= ps_vglrl, colour= "#a4e98f", fill="#a4e98f") + 
+  geom_sf(data= ps_hbtrl_deel, colour="#a4e98f", fill="#a4e98f")+
+  geom_sf(data = Provincies_grenzen, fill= NA, size=0.2) +
+  geom_sf(data = occupied_cells_FL, colour="red")+
+  theme_void() + # Zonder "assen" (coördinaten)
+  theme(legend.position="bottom", legend.title = element_blank()) +
+  theme(plot.margin=grid::unit(c(0,0,0,0), "mm"))+
+  coord_sf()
+  
+  ggsave(file = "./data/output/distribution_maps/Aziatische boomwurger.png", width = 15, height = 6.4, units = "cm", dpi=200)
+```
+
+# Bezetting in N2000
+
+```{r}
+df_prot_areas <- read_tsv(
+  "https://raw.githubusercontent.com/trias-project/indicators/master/data/interim/intersect_EEA_ref_grid_protected_areas.tsv",
+  na = "")
+
+Natura2000 <-  df_prot_areas %>% filter(natura2000 == TRUE)
+spa <- df_prot_areas %>% filter(spa == TRUE)
+habitat <- df_prot_areas %>% filter(habitat == TRUE)
+
+N_occ_spec <- as.numeric(n_distinct(occupied_cells_FL$CELLCODE.x)) # nodig, want zelfde cel voor verschillende jaren
+N_Natura2000 <- as.numeric(n_distinct(Natura2000$CELLCODE))
+N_spa <- as.numeric(n_distinct(spa$CELLCODE))
+N_habitat <- as.numeric(n_distinct(habitat$CELLCODE))
+  
+N_occ_spec_in_Natura2000 <- as.numeric(n_distinct(
+  occupied_cells_FL[which(occupied_cells_FL$CELLCODE.x %in% Natura2000$CELLCODE),]$CELLCODE.x))
+
+N_occ_spec_in_spa <- as.numeric(n_distinct(
+  occupied_cells_FL[which(occupied_cells_FL$CELLCODE.x %in% spa$CELLCODE),]$CELLCODE.x))
+
+N_occ_spec_in_habitat <- as.numeric(n_distinct(
+  occupied_cells_FL[which(occupied_cells_FL$CELLCODE.x %in% habitat$CELLCODE),]$CELLCODE.x))
+
+df <- data.frame()                  
+df <- rbind(df, data.frame(N_occ_spec,
+                           N_occ_spec_in_Natura2000,
+                           
+                           N_occ_spec_in_Natura2000/N_occ_spec,
+                           N_occ_spec_in_habitat/N_occ_spec,
+                           N_occ_spec_in_spa/N_occ_spec,
+                           
+                           round(100*(N_occ_spec_in_Natura2000/N_occ_spec), digits = 1),  # Idem, as percent (%), for report
+                           round(100*(N_occ_spec_in_habitat/N_occ_spec), digits = 1),     # Idem, as percent (%), for report
+                           round(100*(N_occ_spec_in_spa/N_occ_spec), digits = 1),         # Idem, as percent (%), for report
+                           
+                           N_occ_spec_in_Natura2000/N_Natura2000,
+                           N_occ_spec_in_habitat/N_habitat,
+                           N_occ_spec_in_spa/N_spa,
+                           
+                           round(1000*(N_occ_spec_in_Natura2000/N_Natura2000), digits = 1), # Idem, as promille (‰), for report
+                           round(1000*(N_occ_spec_in_habitat/N_habitat), digits = 1),       # Idem, as promille (‰), for report
+                           round(1000*(N_occ_spec_in_spa/N_spa), digits = 1)))              # Idem, as promille (‰), for report
+
+colnames(df) <- c("N_occ",
+                  "N_occ_in_N2000",
+                  
+                  "share_in_N2000",
+                  "share_in_HRL",           # HRL = Habitatrichtlijn
+                  "share_in_VRL",           # VRL = Vogelrichtlijn
+                  
+                  "%_in_N2000",
+                  "%_in_HRL",
+                  "%_in_VRL",
+                  
+                  "share_of_N2000",
+                  "share_of_HRL",
+                  "share_of_VRL",
+                  
+                  "‰_of_N2000",
+                  "‰_of_HRL",
+                  "‰_of_VRL")
+
+view(df)
+```
