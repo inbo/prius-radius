@@ -4,6 +4,11 @@
 Toepassing van het GAM-model op soorten van de PrIUS-lijst.
 Zie https://trias-project.github.io/indicators/07_occurrence_indicators_modelling.html .
 
+    3: emerging
+    2: potentially emerging
+    1: unclear
+    0: not emerging
+
 ```{r}
 library(tidyverse) # To do data science
 library(trias)
@@ -11,6 +16,11 @@ library(trias)
 
 ```{r clear memory}
 rm(list=ls())
+```
+
+```{r}
+# PrIUS species list
+species_list <- read_csv('./data/input/prius_species_list.csv')
 ```
 
 ```{r}
@@ -84,22 +94,34 @@ spec_names <- spec_names %>%
   filter(!taxonKey %in% appearing_taxa_to_remove)
 ```
 
-```{r}
-em_decision_rules_occs_BE <- map_dfr(evaluation_years, ~ apply_decision_rules(df = df_ts_compact,
-                                                                              y_var = "obs",
-                                                                              eval_year = .))
+```{r decision rules}
+# See https://trias-project.github.io/trias/reference/apply_decision_rules.html
+# GAM output has priority (below), but these decision rules allow to output em_status for those without GAM output
 
-em_decision_rules_occs_pa <- map_dfr(evaluation_years, ~ apply_decision_rules(df = df_ts_compact_prot_areas,
-                                                                              y_var = "obs",
-                                                                              eval_year = .))
+# Only interested in occupancy
+# Can also be done for observations (... y_var = "obs" ...)
 
-em_decision_rules_occupancy_BE <- map_dfr(evaluation_years, ~ apply_decision_rules(df = df_ts_compact,
-                                                                                   y_var = "ncells",
-                                                                                   eval_year = .))
+em_decision_rules_occupancy_FL <- map_dfr(evaluation_years,
+                                          ~ apply_decision_rules(df = df_ts_compact, y_var = "ncells", eval_year = .))
 
-em_decision_rules_occupancy_pa <- map_dfr(evaluation_years, ~ apply_decision_rules(df = df_ts_compact_prot_areas,
-                                                                                   y_var = "ncells",
-                                                                                   eval_year = .))
+em_decision_rules_occupancy_pa <- map_dfr(evaluation_years,
+                                          ~ apply_decision_rules(df = df_ts_compact_prot_areas, y_var = "ncells", eval_year = .))
+```
+
+```{r decision rules write output}
+em_decision_rules_occupancy_FL_2020 <- em_decision_rules_occupancy_FL %>% 
+  filter(year == 2020) %>% 
+  left_join(species_list, by= c('taxonKey'='GBIF_code'))
+
+write_tsv(em_decision_rules_occupancy_FL_2020,
+          './data/output/emerging_status/output_decision_rules_occupancy_FL_2020.tsv', na = "")
+
+em_decision_rules_occupancy_pa_2020 <- em_decision_rules_occupancy_pa %>% 
+  filter(year == 2020) %>% 
+  left_join(species_list, by= c('taxonKey'='GBIF_code'))
+
+write_tsv(em_decision_rules_occupancy_pa_2020,
+          './data/output/emerging_status/output_decision_rules_occupancy_pa_2020.tsv', na = "")
 ```
 
 ```{r}
@@ -244,35 +266,31 @@ for (tK in unique(df_ts_compact_prot_areas$taxonKey)) {
 ```
 
 ```{r}
-# Save results
-
-write_tsv(em_decision_rules_occs_BE, './data/output/emerging_status/output_decision_rules_occs_Flanders.tsv', na = "")
+# Save results GAM
 
 method_em <- gam_occupancy_BE[[1]]$em_summary$method[1]
 
 write_tsv(map_dfr(gam_occupancy_BE, function(x) {x$output}), na = "",
-          path = paste0("./data/output/emerging_status/output_GAM_occupancy_belgium_", method_em, ".tsv"))
+          path = paste0("./data/output/emerging_status/output_GAM_", method_em, "_occupancy_FL.tsv"))
 
 method_em <- gam_occupancy_pa[[1]]$em_summary$method[1]
 
 write_tsv(map_dfr(gam_occupancy_pa, function(x) {x$output}), na = "",
-          path = paste0("./data/output/emerging_status/output_GAM_occupancy_pa_", method_em, ".tsv"))
-
-species_list <- read_csv('./data/input/prius_species_list.csv')
+          path = paste0("./data/output/emerging_status/output_GAM_", method_em, "_occupancy_pa.tsv"))
 
 test <-map_dfr(gam_occupancy_BE, function(x) {x$em_summary})
 
 test <- test %>% 
-  filter(year==2020) %>%
+  filter(year == 2020) %>%
   left_join(species_list, by= c('taxonKey'='GBIF_code'))
 
-write_csv(test, './data/output/emerging_status/emergency_status_final_year_occupancy_flanders.csv')
+write_csv(test, paste0("./data/output/emerging_status/output_GAM_", method_em, "_occupancy_FL_2020.csv"))
 
 test <-map_dfr(gam_occupancy_pa, function(x) {x$em_summary})
 
 test <- test %>% 
-  filter(year==2020) %>%
+  filter(year == 2020) %>%
   left_join(species_list, by= c('taxonKey'='GBIF_code'))
 
-write_csv(test, './data/output/emerging_status/emergency_status_final_year_occupancy_pa.csv')
+write_csv(test, paste0("./data/output/emerging_status/output_GAM_", method_em, "_occupancy_pa_2020.csv"))
 ```
