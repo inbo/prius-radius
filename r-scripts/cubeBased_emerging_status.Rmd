@@ -113,15 +113,13 @@ em_decision_rules_occupancy_FL_2020 <- em_decision_rules_occupancy_FL %>%
   filter(year == 2020) %>% 
   left_join(species_list, by= c('taxonKey'='GBIF_code'))
 
-write_tsv(em_decision_rules_occupancy_FL_2020,
-          './data/output/emerging_status/output_decision_rules_occupancy_FL_2020.tsv', na = "")
+write_csv(em_decision_rules_occupancy_FL_2020, "./data/output/emerging_status/output_decision_rules_occupancy_FL_2020.csv")
 
 em_decision_rules_occupancy_pa_2020 <- em_decision_rules_occupancy_pa %>% 
   filter(year == 2020) %>% 
   left_join(species_list, by= c('taxonKey'='GBIF_code'))
 
-write_tsv(em_decision_rules_occupancy_pa_2020,
-          './data/output/emerging_status/output_decision_rules_occupancy_pa_2020.tsv', na = "")
+write_csv(em_decision_rules_occupancy_pa_2020, "./data/output/emerging_status/output_decision_rules_occupancy_pa_2020.csv")
 ```
 
 ```{r}
@@ -278,19 +276,52 @@ method_em <- gam_occupancy_pa[[1]]$em_summary$method[1]
 write_tsv(map_dfr(gam_occupancy_pa, function(x) {x$output}), na = "",
           path = paste0("./data/output/emerging_status/output_GAM_", method_em, "_occupancy_pa.tsv"))
 
-test <-map_dfr(gam_occupancy_BE, function(x) {x$em_summary})
+em_GAM_occ_FL <- map_dfr(gam_occupancy_BE, function(x) {x$em_summary})
 
-test <- test %>% 
+em_GAM_occ_FL_2020 <- em_GAM_occ_FL %>% 
   filter(year == 2020) %>%
   left_join(species_list, by= c('taxonKey'='GBIF_code'))
 
-write_csv(test, paste0("./data/output/emerging_status/output_GAM_", method_em, "_occupancy_FL_2020.csv"))
+write_csv(em_GAM_occ_FL_2020, paste0("./data/output/emerging_status/output_GAM_",
+                                     method_em, "_occupancy_FL_2020.csv"))
 
-test <-map_dfr(gam_occupancy_pa, function(x) {x$em_summary})
+em_GAM_occ_pa <- map_dfr(gam_occupancy_pa, function(x) {x$em_summary})
 
-test <- test %>% 
+em_GAM_occ_pa_2020 <- em_GAM_occ_pa %>% 
   filter(year == 2020) %>%
   left_join(species_list, by= c('taxonKey'='GBIF_code'))
 
-write_csv(test, paste0("./data/output/emerging_status/output_GAM_", method_em, "_occupancy_pa_2020.csv"))
+write_csv(em_GAM_occ_pa_2020, paste0("./data/output/emerging_status/output_GAM_",
+                                     method_em, "_occupancy_pa_2020.csv"))
 ```
+
+```{r}
+# Make master output
+
+strip_decrules_FL <- em_decision_rules_occupancy_FL_2020 %>% 
+  select("taxonKey", "em_status")
+
+strip_decrules_PA <- em_decision_rules_occupancy_pa_2020 %>% 
+  select("taxonKey", "em_status")
+
+strip_GAM_FL <- em_GAM_occ_FL_2020 %>% 
+  select("taxonKey", "em_status")
+
+strip_GAM_PA <- em_GAM_occ_pa_2020 %>% 
+  select("taxonKey", "em_status")
+
+master <- species_list %>% 
+  select("Species", "Soort", "GBIF_code") %>% 
+  full_join(strip_decrules_FL, by = c("GBIF_code" = "taxonKey")) %>% 
+  rename("dec_rules_FL" = "em_status") %>% 
+  full_join(strip_decrules_PA, by = c("GBIF_code" = "taxonKey")) %>% 
+  rename("dec_rules_PA" = "em_status") %>% 
+  full_join(strip_GAM_FL, by = c("GBIF_code" = "taxonKey")) %>%
+  rename("GAM_FL" = "em_status") %>% 
+  full_join(strip_GAM_PA, by = c("GBIF_code" = "taxonKey")) %>% 
+  rename("GAM_PA" = "em_status")
+
+rm(strip_decrules_FL, strip_decrules_PA, strip_GAM_FL, strip_GAM_PA)
+write_delim(master, "./data/output/emerging_status/output_em-status_all.csv", delim = ";")
+```
+
