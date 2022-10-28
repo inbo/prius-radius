@@ -19,15 +19,15 @@ rm(list=ls())
 ```
 
 ```{r}
-# PrIUS species list
+# read in PrIUS species list
 species_list <- read_csv('./data/input/prius_species_list.csv')
-```
 
-```{r}
 # read in preprocessing files
 df_ts <- read_tsv("./data/intermediate/df_timeseries.tsv", na = "")
+```
 
-# preview
+```{r optional}
+# preview df_timeseries
 df_ts %>%
   filter(taxonKey == "5219858", # Bv. Muskusrat
     year %in% c(2016, 2017),
@@ -96,10 +96,9 @@ spec_names <- spec_names %>%
 
 ```{r decision rules}
 # See https://trias-project.github.io/trias/reference/apply_decision_rules.html
-# GAM output has priority (below), but these decision rules allow to output em_status for those without GAM output
+# GAM output has priority (below), but these decision rules allow to output em_status for species with failed GAM output
 
-# Only interested in occupancy
-# Can also be done for observations (... y_var = "obs" ...)
+# Only interested in occupancy. Can also be done for observations (... y_var = "obs" ...)
 
 em_decision_rules_occupancy_FL <- map_dfr(evaluation_years,
                                           ~ apply_decision_rules(df = df_ts_compact, y_var = "ncells", eval_year = .))
@@ -299,29 +298,36 @@ write_csv(em_GAM_occ_pa_2020, paste0("./data/output/emerging_status/output_GAM_"
 # Make master output
 
 strip_decrules_FL <- em_decision_rules_occupancy_FL_2020 %>% 
-  select("taxonKey", "em_status")
+  transmute(taxonKey, dec_rules_FL = em_status)
 
 strip_decrules_PA <- em_decision_rules_occupancy_pa_2020 %>% 
-  select("taxonKey", "em_status")
+  transmute(taxonKey, dec_rules_PA = em_status)
 
 strip_GAM_FL <- em_GAM_occ_FL_2020 %>% 
-  select("taxonKey", "em_status")
+  transmute(taxonKey, GAM_FL = em_status)
 
 strip_GAM_PA <- em_GAM_occ_pa_2020 %>% 
-  select("taxonKey", "em_status")
+  transmute(taxonKey, GAM_PA = em_status)
 
 master <- species_list %>% 
   select("Species", "Soort", "GBIF_code") %>% 
   full_join(strip_decrules_FL, by = c("GBIF_code" = "taxonKey")) %>% 
-  rename("dec_rules_FL" = "em_status") %>% 
   full_join(strip_decrules_PA, by = c("GBIF_code" = "taxonKey")) %>% 
-  rename("dec_rules_PA" = "em_status") %>% 
   full_join(strip_GAM_FL, by = c("GBIF_code" = "taxonKey")) %>%
-  rename("GAM_FL" = "em_status") %>% 
-  full_join(strip_GAM_PA, by = c("GBIF_code" = "taxonKey")) %>% 
-  rename("GAM_PA" = "em_status")
+  full_join(strip_GAM_PA, by = c("GBIF_code" = "taxonKey"))
 
-rm(strip_decrules_FL, strip_decrules_PA, strip_GAM_FL, strip_GAM_PA)
+
+# Consensus value: if GAM available, then GAM; if GAM not available, then dec_rules
+master$consensus_FL <- master$GAM_FL
+data.table::setDT(master)[is.na(consensus_FL), consensus_FL := dec_rules_FL] # Maybe other options possible
+
+master$consensus_PA <- master$GAM_PA
+data.table::setDT(master)[is.na(consensus_PA), consensus_PA := dec_rules_PA] # Maybe other options possible
+
+rep_string = c("3" = "opkomend", "2" = "potentieel opkomend", "1" = "onduidelijk", "0" = "niet opkomend")
+master$FL <- str_replace_all(master$consensus_FL, rep_string)
+master$PA <- str_replace_all(master$consensus_PA, rep_string)
+
+rm(strip_decrules_FL, strip_decrules_PA, strip_GAM_FL, strip_GAM_PA, rep_string)
 write_delim(master, "./data/output/emerging_status/output_em-status_all.csv", delim = ";")
 ```
-
