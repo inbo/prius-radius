@@ -29,6 +29,10 @@ data[nrow(data) + 1,] = read.csv("./data/intermediate/adhoc_Xenopus_output.csv")
 
 # Add output from Celastrus (data generated outside of cube)
 data[nrow(data) + 1,] = read.csv("./data/intermediate/adhoc_Celastrus_output.csv")
+
+# Replace data for Aedes (data generated from cube but 2nd source also)
+data <- data %>% filter(species != 'Aziatische tijgermug')
+data[nrow(data) + 1,] = read.csv("./data/intermediate/adhoc_Aedes_output.csv")
 ```
 
 # Occupancy in FLANDERS
