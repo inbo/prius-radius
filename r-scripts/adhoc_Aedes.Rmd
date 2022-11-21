@@ -1,0 +1,173 @@
+# Probleemstelling
+
+Er is een vraag vanuit de opdrachtgever (ANB) om Aedes goed te behandelen, cf. data-aanvullingen via https://muggensurveillance.be/.
+
+Dit script vult de cube-data (GBIF) aan met data verleend door ITG (ITM, Institute of Tropical Medicine).
+
+De volgende analyses worden toegepast:
+
+- idem aan cubeBased_distribution.maps.Rmd
+- idem aan occupancy_Natura2000.Rmd
+
+# VOORBEREIDING: hoofd leegmaken
+
+```{r}
+rm(list=ls())
+```
+
+# VOORBEREIDNG: packages
+
+```{r}
+library(readxl)
+library(sf)
+library(rgbif)
+library(tidyverse)
+library(ggplot2)
+```
+
+# Data m.b.t. VERSPREIDING
+
+```{r taxon key}
+taxonKey <- 1651430 # Aedes albopictus
+```
+
+```{r get flanders grid}
+vla_1km <- st_read("./data/spatial/grids/vla_1km.geojson")
+```
+
+```{r get cube data}
+Aedes_cube <- read_csv(file = "./data/input/be_species_cube.csv") %>%
+  filter(year >= 2015) %>% 
+  filter(speciesKey == taxonKey) %>% 
+  filter(eea_cell_code %in% vla_1km$CELLCODE)
+```
+
+```{r cube data as cells}
+Aedes_cube_cells <- merge(vla_1km, Aedes_cube,
+                              by.x='CELLCODE', by.y='eea_cell_code', all.y=TRUE)
+```
+
+```{r get ITM data}
+Aedes_ITM <- read_excel("./data/adhoc_species/AlboPosSitesBelgium.xlsx",
+                        sheet = "Sheet1", range = "A1:E20", col_names = TRUE)
+```
+
+```{r ITM data as cells in Flanders}
+Aedes_ITM <- st_as_sf(Aedes_ITM, coords = c("Longitude", "Latitude"), crs = "+proj=longlat +datum=WGS84")
+Aedes_ITM <- st_transform(Aedes_ITM, crs = st_crs(vla_1km)) # Gelijkstellen van de crs
+
+Aedes_ITM_FL <- st_join(Aedes_ITM, vla_1km) %>%  # spatial join to get intersection of points and polygons
+  filter(!is.na(CELLCODE))
+
+Aedes_ITM_FL_cells <- st_join(vla_1km, Aedes_ITM_FL, left = FALSE) # inner join
+```
+
+# M.b.t. kaart
+
+## Inlezen kaarten
+
+```{r}
+Vlaanderen_grenzen <- st_read("./data/spatial/flanders_wgs84.geojson")
+Provincies_grenzen <- st_read("./data/spatial/Provincies.geojson")
+ps_vglrl <- st_read("data/spatial/ps_vglrl.geojson")
+ps_hbtrl_deel <- st_read("data/spatial/ps_hbtrl_deel.geojson")
+```
+
+## Plot
+
+```{r}
+ggplot() +
+  geom_sf(data = Vlaanderen_grenzen, fill= "#f0f0f0", size = 0.2) + # te activeren indien achterkleur grijs
+  geom_sf(data = ps_vglrl, colour = "#a4e98f", fill = "#a4e98f") + 
+  geom_sf(data = ps_hbtrl_deel, colour = "#a4e98f", fill = "#a4e98f") +
+  geom_sf(data = Provincies_grenzen, fill = NA, size =0.2) +
+  geom_sf(data = Aedes_cube_cells, colour = "red") +                      # GBIF data
+  geom_sf(data = Aedes_ITM_FL_cells, colour = "red") +                    # ITM data
+  theme_void() + # Zonder "assen" (coördinaten)
+  theme(legend.position="bottom", legend.title = element_blank()) +
+  theme(plot.margin=grid::unit(c(0,0,0,0), "mm")) +
+  coord_sf()
+  
+  ggsave(file = "./data/output/distribution_maps/Aziatische tijgermug.png",
+         width = 15, height = 6.4, units = "cm", dpi=200)
+```
+
+# Bezetting in N2000
+
+```{r collate data}
+Aedes_ITM_FL_cells <- rename(Aedes_ITM_FL_cells, CELLCODE = CELLCODE.x) # ditch the .x in column name
+Aedes_all <- bind_rows(Aedes_cube_cells, Aedes_ITM_FL_cells)
+```
+
+```{r}
+df_prot_areas <- read_tsv(
+  "https://raw.githubusercontent.com/trias-project/indicators/master/data/interim/intersect_EEA_ref_grid_protected_areas.tsv",
+  na = "")
+
+Natura2000 <-  df_prot_areas %>% filter(natura2000 == TRUE)
+spa <- df_prot_areas %>% filter(spa == TRUE)
+habitat <- df_prot_areas %>% filter(habitat == TRUE)
+
+N_occ_spec <- as.numeric(n_distinct(Aedes_all$CELLCODE)) # zelfde cel in versch. datasets en jaren
+N_Natura2000 <- as.numeric(n_distinct(Natura2000$CELLCODE))
+N_spa <- as.numeric(n_distinct(spa$CELLCODE))
+N_habitat <- as.numeric(n_distinct(habitat$CELLCODE))
+  
+N_occ_spec_in_Natura2000 <- as.numeric(n_distinct(
+  Aedes_all[which(Aedes_all$CELLCODE %in% Natura2000$CELLCODE),]$CELLCODE))
+
+N_occ_spec_in_spa <- as.numeric(n_distinct(
+  Aedes_all[which(Aedes_all$CELLCODE %in% spa$CELLCODE),]$CELLCODE))
+
+N_occ_spec_in_habitat <- as.numeric(n_distinct(
+  Aedes_all[which(Aedes_all$CELLCODE %in% habitat$CELLCODE),]$CELLCODE))
+
+df <- data.frame()                  
+df <- rbind(df, data.frame("Aziatische tijgermug",
+                           N_occ_spec,
+                           N_occ_spec_in_Natura2000,
+                           
+                           N_occ_spec_in_Natura2000/N_occ_spec,
+                           N_occ_spec_in_habitat/N_occ_spec,
+                           N_occ_spec_in_spa/N_occ_spec,
+                           
+                           round(100*(N_occ_spec_in_Natura2000/N_occ_spec), digits = 1),  # Idem, as percent (%), for report
+                           round(100*(N_occ_spec_in_habitat/N_occ_spec), digits = 1),     # Idem, as percent (%), for report
+                           round(100*(N_occ_spec_in_spa/N_occ_spec), digits = 1),         # Idem, as percent (%), for report
+                           
+                           N_occ_spec_in_Natura2000/N_Natura2000,
+                           N_occ_spec_in_habitat/N_habitat,
+                           N_occ_spec_in_spa/N_spa,
+                           
+                           round(1000*(N_occ_spec_in_Natura2000/N_Natura2000), digits = 1), # Idem, as promille (‰), for report
+                           round(1000*(N_occ_spec_in_habitat/N_habitat), digits = 1),       # Idem, as promille (‰), for report
+                           round(1000*(N_occ_spec_in_spa/N_spa), digits = 1)))              # Idem, as promille (‰), for report
+
+colnames(df) <- c("species",
+                  "N_occ",
+                  "N_occ_in_N2000",
+                  
+                  "share_in_N2000",
+                  "share_in_HRL",           # HRL = Habitatrichtlijn
+                  "share_in_VRL",           # VRL = Vogelrichtlijn
+                  
+                  "%_in_N2000",
+                  "%_in_HRL",
+                  "%_in_VRL",
+                  
+                  "share_of_N2000",
+                  "share_of_HRL",
+                  "share_of_VRL",
+                  
+                  "‰_of_N2000",
+                  "‰_of_HRL",
+                  "‰_of_VRL")
+view(df)
+
+# Note: output structure is important for compatibility with the other species
+
+```
+
+```{r}
+write.csv(df, "./data/intermediate/adhoc_Aedes_output.csv")
+```
