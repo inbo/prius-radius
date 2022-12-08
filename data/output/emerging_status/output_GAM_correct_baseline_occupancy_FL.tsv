@@ -1,11 +1,19 @@
 taxonKey	year	classKey	obs	cobs	ncells	c_ncells	canonicalName	fit	ucl	lcl	em1	em2	em	em_status	growth	method
-1311477	2017	216	17	153	10	10	Vespa velutina									correct_baseline
-1311477	2018	216	416	2555	142	137	Vespa velutina									correct_baseline
-1311477	2019	216	235	515	138	83	Vespa velutina									correct_baseline
-1311477	2020	216	750	2068	473	287	Vespa velutina									correct_baseline
-1651430	2010	216	1	0	1	0	Aedes albopictus									correct_baseline
-1651430	2011	216	0	0	0	0	Aedes albopictus									correct_baseline
-1651430	2012	216	0	0	0	0	Aedes albopictus									correct_baseline
+1311477	2007	216	1	3	1	1	Vespa velutina									correct_baseline
+1311477	2008	216	0	0	0	0	Vespa velutina									correct_baseline
+1311477	2009	216	0	0	0	0	Vespa velutina									correct_baseline
+1311477	2010	216	0	0	0	0	Vespa velutina									correct_baseline
+1311477	2011	216	0	0	0	0	Vespa velutina									correct_baseline
+1311477	2012	216	0	0	0	0	Vespa velutina									correct_baseline
+1311477	2013	216	0	0	0	0	Vespa velutina									correct_baseline
+1311477	2014	216	0	0	0	0	Vespa velutina									correct_baseline
+1311477	2015	216	0	0	0	0	Vespa velutina									correct_baseline
+1311477	2016	216	0	0	0	0	Vespa velutina									correct_baseline
+1311477	2017	216	16	172	10	10	Vespa velutina									correct_baseline
+1311477	2018	216	415	2605	144	140	Vespa velutina									correct_baseline
+1311477	2019	216	233	484	137	73	Vespa velutina									correct_baseline
+1311477	2020	216	749	1847	470	254	Vespa velutina									correct_baseline
+1311477	2021	216	976	2947	665	416	Vespa velutina									correct_baseline
 1651430	2013	216	8	360	2	2	Aedes albopictus									correct_baseline
 1651430	2014	216	7	135	2	2	Aedes albopictus									correct_baseline
 1651430	2015	216	8	58	1	1	Aedes albopictus									correct_baseline
@@ -14,27 +22,29 @@ taxonKey	year	classKey	obs	cobs	ncells	c_ncells	canonicalName	fit	ucl	lcl	em1	em
 1651430	2018	216	59	189	2	2	Aedes albopictus									correct_baseline
 1651430	2019	216	13	13	2	2	Aedes albopictus									correct_baseline
 1651430	2020	216	0	0	0	0	Aedes albopictus									correct_baseline
-2225776	2000	229	7	13	3	2	Eriocheir sinensis	3.660354886125689	8.184348718793009	1.6370512001302058	1	0	3	3	1.2705552567343958	correct_baseline
-2225776	2001	229	11	35	4	3	Eriocheir sinensis	5.434601670068426	10.236310474653287	2.885306711382345	1	0	3	3	1.2766274553862629	correct_baseline
-2225776	2002	229	72	7	8	3	Eriocheir sinensis	7.862069352849961	13.17015423167181	4.693349327707623	1	0	3	3	1.2799894589454817	correct_baseline
-2225776	2003	229	3	11	3	3	Eriocheir sinensis	11.077489223904333	17.198093612912857	7.1351377814097745	1	0	3	3	1.2775161087973606	correct_baseline
-2225776	2004	229	24	27	14	10	Eriocheir sinensis	15.1859299409331	22.35829469501461	10.314403281496675	1	-1	2	2	1.265123295364863	correct_baseline
-2225776	2005	229	19	36	13	9	Eriocheir sinensis	20.223011585886773	28.451853332751092	14.374114502134828	1	-1	2	2	1.240158264283895	correct_baseline
-2225776	2006	229	32	2	5	1	Eriocheir sinensis	26.110753744056137	35.11876564858153	19.413309337376408	1	-1	2	2	1.2048700509687953	correct_baseline
-2225776	2007	229	676	7	34	5	Eriocheir sinensis	32.62629577694548	41.99563296113653	25.34728258792561	1	-1	2	2	1.1653703892975524	correct_baseline
-2225776	2008	229	597	81	44	8	Eriocheir sinensis	39.4051493630227	48.86850564588207	31.77436624671933	1	-1	2	2	1.1266847608421882	correct_baseline
-2225776	2009	229	386	112	48	26	Eriocheir sinensis	45.993109521371366	55.72861889465674	37.95834466028159	1	-1	2	2	1.0911534385502955	correct_baseline
-2225776	2010	229	519	226	57	31	Eriocheir sinensis	51.94038302962983	62.6239856922333	43.07939457132387	1	-1	2	2	1.0595331438297453	correct_baseline
-2225776	2011	229	988	233	63	40	Eriocheir sinensis	56.90786277596	69.40701624171408	46.659617731573526	1	-1	2	2	1.032309286006071	correct_baseline
-2225776	2012	229	3408	136	98	36	Eriocheir sinensis	60.745084458327284	75.75641412530162	48.70828864399637	1	-1	2	2	1.010494838931609	correct_baseline
-2225776	2013	229	267	120	78	36	Eriocheir sinensis	63.511384990247805	81.40360111033608	49.551813044635715	0	-1	-1	0	0.9954756570444874	correct_baseline
-2225776	2014	229	380	206	73	39	Eriocheir sinensis	65.43880830851433	86.21110793094378	49.67152998739572	0	0	0	1	0.9879386893824224	correct_baseline
-2225776	2015	229	178	126	56	28	Eriocheir sinensis	66.85941936042872	90.1386772116443	49.59227376631841	0	0	0	1	0.9863055153869713	correct_baseline
-2225776	2016	229	390	194	123	56	Eriocheir sinensis	68.12763323599475	93.27578774797166	49.75969136684292	0	0	0	1	0.9853683391936503	correct_baseline
-2225776	2017	229	349	312	92	41	Eriocheir sinensis	69.56041478028266	96.02323332434504	50.390422576805776	0	0	0	1	0.9797190338566039	correct_baseline
-2225776	2018	229	262	211	84	40	Eriocheir sinensis	71.40479237162481	99.43577196621098	51.27575592581921	0	0	0	1	0.9694819430235058	correct_baseline
-2225776	2019	229	191	60	89	29	Eriocheir sinensis	73.83251555719319	105.6066371920941	51.61834992991579	0	0	0	1	0.9568255912234352	correct_baseline
-2225776	2020	229	260	81	133	53	Eriocheir sinensis	76.9582382742713	117.64939132256245	50.34085065549935	0	0	0	1	0.9430668482883366	correct_baseline
+1651430	2021	216	0	0	0	0	Aedes albopictus									correct_baseline
+2225776	2000	229	7	13	3	2	Eriocheir sinensis	8.261528746902284	20.197045290333822	3.379348625244614	0	1	1	2	0.8250932527617028	correct_baseline
+2225776	2001	229	11	35	4	3	Eriocheir sinensis	8.569386184270051	16.86997749799525	4.352962508923622	0	1	1	2	0.906974051657545	correct_baseline
+2225776	2002	229	72	8	9	4	Eriocheir sinensis	9.413666329282336	15.943299491234935	5.558266894991375	0	1	1	2	0.9936180029120137	correct_baseline
+2225776	2003	229	3	11	3	3	Eriocheir sinensis	10.921975436612488	16.784471431040323	7.107137566295876	1	1	4	3	1.0789346629223524	correct_baseline
+2225776	2004	229	24	27	14	10	Eriocheir sinensis	13.293923734639613	19.127686845591217	9.239403054277258	1	1	4	3	1.1520288365117544	correct_baseline
+2225776	2005	229	19	36	13	9	Eriocheir sinensis	16.78040475681933	22.848423049205035	12.323913260722032	1	0	3	3	1.2004602370511537	correct_baseline
+2225776	2006	229	32	1	4	1	Eriocheir sinensis	21.620396451540223	27.88534283998218	16.76298352880756	1	0	3	3	1.2182535235181153	correct_baseline
+2225776	2007	229	676	8	34	9	Eriocheir sinensis	27.91133955152474	34.24407414500574	22.749713490914377	1	-1	2	2	1.2090880498143615	correct_baseline
+2225776	2008	229	597	32	45	11	Eriocheir sinensis	35.426821724163084	42.098716994569976	29.812302774868765	1	-1	2	2	1.1802656749580431	correct_baseline
+2225776	2009	229	385	107	46	22	Eriocheir sinensis	43.47411295433165	51.61365071192396	36.61819055805237	1	-1	2	2	1.1389090812981661	correct_baseline
+2225776	2010	229	519	234	55	32	Eriocheir sinensis	50.94735908707559	61.90227649606677	41.931146072024504	1	-1	2	2	1.091515012538522	correct_baseline
+2225776	2011	229	988	224	62	35	Eriocheir sinensis	56.666849085365854	70.88761360687585	45.298912205899974	1	-1	2	2	1.0437098597523804	correct_baseline
+2225776	2012	229	3408	146	101	38	Eriocheir sinensis	59.874910258319666	76.71242135179496	46.733042905807714	1	-1	2	2	1.0001831649627404	correct_baseline
+2225776	2013	229	267	112	74	35	Eriocheir sinensis	60.577441020408266	78.81598860177282	46.55941549020296	0	-1	-1	0	0.9658215958595413	correct_baseline
+2225776	2014	229	380	200	71	37	Eriocheir sinensis	59.510672896392464	78.02980167756242	45.38676393432114	0	-1	-1	0	0.9464925502723167	correct_baseline
+2225776	2015	229	178	118	54	26	Eriocheir sinensis	57.81150448989599	75.93191757810348	44.01535162005505	-1	0	-3	0	0.9467044703030155	correct_baseline
+2225776	2016	229	391	193	126	56	Eriocheir sinensis	56.665013824974515	74.11531070936331	43.32335331327028	0	1	1	2	0.9670612734437056	correct_baseline
+2225776	2017	229	348	320	96	46	Eriocheir sinensis	57.14250440658229	73.88197121202565	44.195705072427636	1	1	4	3	1.0025806360821403	correct_baseline
+2225776	2018	229	262	177	79	35	Eriocheir sinensis	60.27242415682516	76.45183872589939	47.51704045686447	1	1	4	3	1.045665078154438	correct_baseline
+2225776	2019	229	191	63	90	37	Eriocheir sinensis	67.2950058992779	83.73054469161069	54.08561279116566	1	1	4	3	1.0933636495152943	correct_baseline
+2225776	2020	229	267	76	139	50	Eriocheir sinensis	80.08770263058747	100.11293509976757	64.06804581499378	1	1	4	3	1.1445291435405247	correct_baseline
+2225776	2021	229	187	38	137	15	Eriocheir sinensis	101.87955154273007	135.24124491501667	76.74761518995231	1	1	4	3	1.1979204042655855	correct_baseline
 2226990	2009	229	1	1	1	1	Pacifastacus leniusculus									correct_baseline
 2226990	2010	229	0	0	0	0	Pacifastacus leniusculus									correct_baseline
 2226990	2011	229	0	0	0	0	Pacifastacus leniusculus									correct_baseline
@@ -47,106 +57,115 @@ taxonKey	year	classKey	obs	cobs	ncells	c_ncells	canonicalName	fit	ucl	lcl	em1	em
 2226990	2018	229	0	0	0	0	Pacifastacus leniusculus									correct_baseline
 2226990	2019	229	0	0	0	0	Pacifastacus leniusculus									correct_baseline
 2226990	2020	229	0	0	0	0	Pacifastacus leniusculus									correct_baseline
+2226990	2021	229	0	0	0	0	Pacifastacus leniusculus									correct_baseline
 2227300	2003	229	1	0	1	0	Procambarus clarkii									correct_baseline
 2227300	2004	229	0	0	0	0	Procambarus clarkii									correct_baseline
 2227300	2005	229	0	0	0	0	Procambarus clarkii									correct_baseline
 2227300	2006	229	0	0	0	0	Procambarus clarkii									correct_baseline
 2227300	2007	229	0	0	0	0	Procambarus clarkii									correct_baseline
 2227300	2008	229	2	0	2	0	Procambarus clarkii									correct_baseline
-2227300	2009	229	3	0	3	0	Procambarus clarkii									correct_baseline
+2227300	2009	229	3	-1	2	0	Procambarus clarkii									correct_baseline
 2227300	2010	229	2	0	2	0	Procambarus clarkii									correct_baseline
 2227300	2011	229	3	0	2	0	Procambarus clarkii									correct_baseline
-2227300	2012	229	8	8	8	3	Procambarus clarkii									correct_baseline
+2227300	2012	229	8	7	8	2	Procambarus clarkii									correct_baseline
 2227300	2013	229	7	0	7	0	Procambarus clarkii									correct_baseline
 2227300	2014	229	6	0	4	0	Procambarus clarkii									correct_baseline
-2227300	2015	229	10	15	5	2	Procambarus clarkii									correct_baseline
-2227300	2016	229	28	10	10	2	Procambarus clarkii									correct_baseline
+2227300	2015	229	10	9	6	3	Procambarus clarkii									correct_baseline
+2227300	2016	229	28	6	10	1	Procambarus clarkii									correct_baseline
 2227300	2017	229	22	5	12	2	Procambarus clarkii									correct_baseline
 2227300	2018	229	36	18	15	7	Procambarus clarkii									correct_baseline
-2227300	2019	229	36	6	25	4	Procambarus clarkii									correct_baseline
-2227300	2020	229	52	12	35	7	Procambarus clarkii									correct_baseline
-2340977	2003	204	2	0	2	0	Ameiurus melas									correct_baseline
-2340977	2004	204	0	0	0	0	Ameiurus melas									correct_baseline
-2340977	2005	204	0	0	0	0	Ameiurus melas									correct_baseline
-2340977	2006	204	0	0	0	0	Ameiurus melas									correct_baseline
-2340977	2007	204	0	0	0	0	Ameiurus melas									correct_baseline
-2340977	2008	204	0	0	0	0	Ameiurus melas									correct_baseline
-2340977	2009	204	0	0	0	0	Ameiurus melas									correct_baseline
-2340977	2010	204	0	0	0	0	Ameiurus melas									correct_baseline
-2340977	2011	204	0	0	0	0	Ameiurus melas									correct_baseline
-2340977	2012	204	0	0	0	0	Ameiurus melas									correct_baseline
-2340977	2013	204	0	0	0	0	Ameiurus melas									correct_baseline
-2340977	2014	204	0	0	0	0	Ameiurus melas									correct_baseline
-2340977	2015	204	0	0	0	0	Ameiurus melas									correct_baseline
-2340977	2016	204	0	0	0	0	Ameiurus melas									correct_baseline
-2340977	2017	204	0	0	0	0	Ameiurus melas									correct_baseline
-2340977	2018	204	0	0	0	0	Ameiurus melas									correct_baseline
-2340977	2019	204	0	0	0	0	Ameiurus melas									correct_baseline
-2340977	2020	204	0	0	0	0	Ameiurus melas									correct_baseline
-2362868	2000	204	219	5262	28	28	Pseudorasbora parva	64.56636740786796	77.67149789721661	53.67240124253074	0	0	0	1	0.9706469494715608	correct_baseline
-2362868	2001	204	1071	5497	77	71	Pseudorasbora parva	64.74886613980324	74.82997880794795	56.02588338492043	0	0	0	1	0.9742952332706826	correct_baseline
-2362868	2002	204	290	5638	45	45	Pseudorasbora parva	64.97000421244957	72.72546896303761	58.041584434623175	0	0	0	1	0.9779407770120517	correct_baseline
-2362868	2003	204	292	4086	61	57	Pseudorasbora parva	65.23017371275652	71.43738883582856	59.56230528490929	0	0	0	1	0.9815766323881696	correct_baseline
-2362868	2004	204	742	6700	64	62	Pseudorasbora parva	65.52983706909235	71.03467587455535	60.451596258215076	0	0	0	1	0.9851915023784887	correct_baseline
-2362868	2005	204	362	10998	76	75	Pseudorasbora parva	65.86952842339818	71.40992988535464	60.75898382321053	0	0	0	1	0.9887659013336192	correct_baseline
-2362868	2006	204	1167	7535	89	83	Pseudorasbora parva	66.24985521880423	72.25629865441425	60.74270891599825	0	0	0	1	0.9922636868332332	correct_baseline
-2362868	2007	204	1507	16759	91	88	Pseudorasbora parva	66.67150000932968	73.26876017889491	60.66826984161875	0	0	0	1	0.9956117774649936	correct_baseline
-2362868	2008	204	661	21531	111	109	Pseudorasbora parva	67.13522249953398	74.25182878812205	60.70070156686744	0	0	0	1	0.9986489265464724	correct_baseline
-2362868	2009	204	1139	9699	94	93	Pseudorasbora parva	67.64186182309898	75.0992445331492	60.924999969548274	1	0	3	3	1.0010122999437077	correct_baseline
-2362868	2010	204	815	13212	108	104	Pseudorasbora parva	68.19233907037207	75.75842958575574	61.38188361764738	1	0	3	3	1.0020904182781194	correct_baseline
-2362868	2011	204	1087	16076	138	127	Pseudorasbora parva	68.78766007594535	76.2120681478815	62.08652112080674	1	0	3	3	1.0016175187245084	correct_baseline
-2362868	2012	204	926	9319	104	100	Pseudorasbora parva	69.42891847842651	76.47496511959343	63.03206171517402	1	0	3	3	1.0001016299329004	correct_baseline
-2362868	2013	204	517	7009	57	49	Pseudorasbora parva	70.11729906568527	76.60568273362362	64.17847152883392	0	0	0	1	0.9980785944917119	correct_baseline
-2362868	2014	204	1030	12709	59	52	Pseudorasbora parva	70.85408142005082	76.74021640804143	65.41942528784847	0	0	0	1	0.995815635976855	correct_baseline
-2362868	2015	204	678	6265	38	29	Pseudorasbora parva	71.64064387919296	77.15194775600497	66.5230367437597	0	0	0	1	0.993430400160813	correct_baseline
-2362868	2016	204	590	8581	66	60	Pseudorasbora parva	72.47846782974202	78.26199043734088	67.12234469876887	0	0	0	1	0.9909779550355631	correct_baseline
-2362868	2017	204	731	10400	77	65	Pseudorasbora parva	73.36914235210989	80.41437504109149	66.9411538264577	0	0	0	1	0.9884865178597609	correct_baseline
-2362868	2018	204	375	7704	62	54	Pseudorasbora parva	74.31436923648907	83.65349231773497	66.0178711253446	0	0	0	1	0.9859717791898853	correct_baseline
-2362868	2019	204	623	5626	72	62	Pseudorasbora parva	75.31596839168044	87.8913650096048	64.53984523003729	0	0	0	1	0.9834430750678952	correct_baseline
-2362868	2020	204	59	316	34	17	Pseudorasbora parva	76.37588367031739	93.09092624227337	62.66212875829048	0	0	0	1	0.980906275684011	correct_baseline
-2394486	2000	204	127	7844	29	29	Lepomis gibbosus	37.93228507011957	45.84046354856107	31.388387883917495	0	0	0	1	0.9630435130977327	correct_baseline
-2394486	2001	204	427	7279	54	52	Lepomis gibbosus	37.62162306527215	43.99471444739728	32.17174017023656	0	0	0	1	0.9681129601854433	correct_baseline
-2394486	2002	204	213	2363	25	24	Lepomis gibbosus	37.41328923004524	42.61307385909686	32.84799908214566	0	0	0	1	0.9731868150528665	correct_baseline
-2394486	2003	204	277	4740	46	45	Lepomis gibbosus	37.30560574242451	41.68617917822065	33.38536290071719	0	0	0	1	0.978256461610508	correct_baseline
-2394486	2004	204	353	4030	40	38	Lepomis gibbosus	37.29770780363776	41.19868372116304	33.76610322846183	0	0	0	1	0.9833084923722514	correct_baseline
-2394486	2005	204	475	7619	37	37	Lepomis gibbosus	37.38953205391499	41.10425791056118	34.010518089211025	0	0	0	1	0.9883211642855866	correct_baseline
-2394486	2006	204	417	8293	30	30	Lepomis gibbosus	37.58181572639601	41.31955153719793	34.18219270897167	0	0	0	1	0.9932575577798995	correct_baseline
-2394486	2007	204	739	11469	59	59	Lepomis gibbosus	37.87610652297702	41.74989909153959	34.36174641271449	0	0	0	1	0.9980520823283763	correct_baseline
-2394486	2008	204	376	11760	60	58	Lepomis gibbosus	38.274783397087326	42.31764527629911	34.6181606875568	1	0	3	3	1.0025850238339362	correct_baseline
-2394486	2009	204	265	6478	40	33	Lepomis gibbosus	38.7810886341209	42.971239083153115	34.99952218592584	1	0	3	3	1.0066466884032677	correct_baseline
-2394486	2010	204	287	6451	42	39	Lepomis gibbosus	39.39917183546526	43.6820643584871	35.536203797083594	1	0	3	3	1.0099454518786728	correct_baseline
-2394486	2011	204	241	6485	49	47	Lepomis gibbosus	40.134146642024234	44.4399818666374	36.245508189389014	1	0	3	3	1.0122863321338997	correct_baseline
-2394486	2012	204	423	4815	52	45	Lepomis gibbosus	40.99216128352463	45.25221186552725	37.133152555899215	1	0	3	3	1.0137793217089497	correct_baseline
-2394486	2013	204	123	2689	27	23	Lepomis gibbosus	41.980484317061006	46.14707976685424	38.19008856895955	1	0	3	3	1.0147070877995563	correct_baseline
-2394486	2014	204	386	6898	48	42	Lepomis gibbosus	43.10760722940289	47.18351859900453	39.38379027721925	1	0	3	3	1.015302389622862	correct_baseline
-2394486	2015	204	52	3510	23	10	Lepomis gibbosus	44.38336593074032	48.46435885533785	40.646017359312246	1	0	3	3	1.0157037131865634	correct_baseline
-2394486	2016	204	262	3280	36	29	Lepomis gibbosus	45.81908357223207	50.13988195128604	41.87062948091641	1	0	3	3	1.01598730374589	correct_baseline
-2394486	2017	204	370	4292	44	34	Lepomis gibbosus	47.427737586992265	52.37706828792741	42.94609007619981	1	0	3	3	1.0161957901001992	correct_baseline
-2394486	2018	204	395	5135	62	51	Lepomis gibbosus	49.224154396986776	55.30685853049455	43.810432204577545	1	0	3	3	1.0163540603562233	correct_baseline
-2394486	2019	204	191	2856	46	37	Lepomis gibbosus	51.22523586205459	59.013141803172324	44.46509216328601	1	0	3	3	1.016477352345295	correct_baseline
-2394486	2020	204	91	2970	50	26	Lepomis gibbosus	53.4502222901208	63.56936661767518	44.94187082350087	1	0	3	3	1.01657541735312	correct_baseline
+2227300	2019	229	39	6	27	4	Procambarus clarkii									correct_baseline
+2227300	2020	229	54	13	37	8	Procambarus clarkii									correct_baseline
+2227300	2021	229	116	11	71	8	Procambarus clarkii									correct_baseline
+2340977	2003		2	0	2	0	Ameiurus melas									basic
+2340977	2004		0	0	0	0	Ameiurus melas									basic
+2340977	2005		0	0	0	0	Ameiurus melas									basic
+2340977	2006		0	0	0	0	Ameiurus melas									basic
+2340977	2007		0	0	0	0	Ameiurus melas									basic
+2340977	2008		0	0	0	0	Ameiurus melas									basic
+2340977	2009		0	0	0	0	Ameiurus melas									basic
+2340977	2010		0	0	0	0	Ameiurus melas									basic
+2340977	2011		0	0	0	0	Ameiurus melas									basic
+2340977	2012		0	0	0	0	Ameiurus melas									basic
+2340977	2013		0	0	0	0	Ameiurus melas									basic
+2340977	2014		0	0	0	0	Ameiurus melas									basic
+2340977	2015		0	0	0	0	Ameiurus melas									basic
+2340977	2016		0	0	0	0	Ameiurus melas									basic
+2340977	2017		0	0	0	0	Ameiurus melas									basic
+2340977	2018		0	0	0	0	Ameiurus melas									basic
+2340977	2019		0	0	0	0	Ameiurus melas									basic
+2340977	2020		0	0	0	0	Ameiurus melas									basic
+2340977	2021		0	0	0	0	Ameiurus melas									basic
+2362868	2000		219	-14	30	0	Pseudorasbora parva	45.78489171291177	65.38681215216482	32.05931349405379	1	-1	2	2	1.0940220874009037	basic
+2362868	2001		1071	-13	82	0	Pseudorasbora parva	52.36054960716432	70.35445199149342	38.96877990742941	1	-1	2	2	1.0846002635704652	basic
+2362868	2002		292	-130	47	1	Pseudorasbora parva	59.09828008451479	75.54035086487892	46.23498129092723	1	-1	2	2	1.0752173817621542	basic
+2362868	2003		292	-43	57	0	Pseudorasbora parva	65.83155752481544	81.0439580026403	53.474609001720935	1	-1	2	2	1.0658589232909559	basic
+2362868	2004		745	-204	65	2	Pseudorasbora parva	72.37391550917627	86.9566908778397	60.236694764384694	1	-1	2	2	1.056503349395588	basic
+2362868	2005		369	-35	77	4	Pseudorasbora parva	78.52693991241257	93.25035098937994	66.12822607723956	1	-1	2	2	1.0471173004327885	basic
+2362868	2006		1171	-53	90	2	Pseudorasbora parva	84.08992620826245	99.6664872558344	70.94777677435488	1	-1	2	2	1.0376465976110534	basic
+2362868	2007		1528	-115	98	2	Pseudorasbora parva	88.8705772270236	105.73993838160906	74.6924919528611	1	-1	2	2	1.0279991291446802	basic
+2362868	2008		667	-97	110	1	Pseudorasbora parva	92.69596207098256	110.94029079257574	77.45194575278741	1	-1	2	2	1.0180134588054914	basic
+2362868	2009		1139	-4	90	4	Pseudorasbora parva	95.42287215118138	114.79977067667673	79.31657420488759	1	-1	2	2	1.0074124093913632	basic
+2362868	2010		815	-350	105	2	Pseudorasbora parva	96.94671201443893	116.97917906490238	80.34476772311756	0	-1	-1	0	0.9957905935301804	basic
+2362868	2011		1087	-114	138	4	Pseudorasbora parva	97.20815601939158	117.2953752081976	80.56093925201893	0	-1	-1	0	0.9827959291315516	basic
+2362868	2012		931	-75	113	0	Pseudorasbora parva	96.19698040039259	115.73241433587168	79.95909435793435	-1	-1	-4	0	0.9684816050640854	basic
+2362868	2013		516	-48	61	3	Pseudorasbora parva	93.95272578031195	112.44381338680554	78.50244860680164	-1	-1	-4	0	0.9532850161901769	basic
+2362868	2014		1034	-159	63	3	Pseudorasbora parva	90.56213044659506	107.74586028844668	76.1189288300251	-1	-1	-4	0	0.9376578062600485	basic
+2362868	2015		680	-155	38	2	Pseudorasbora parva	86.1535668121798	102.09421705650699	72.70183648455394	-1	-1	-4	0	0.9218957549384011	basic
+2362868	2016		643	14	78	3	Pseudorasbora parva	80.88897861432974	96.02065908351696	68.14186575806039	-1	-1	-4	0	0.9061654099463432	basic
+2362868	2017		745	-223	88	8	Pseudorasbora parva	74.95402454648597	90.00341697998161	62.42102782569677	-1	-1	-4	0	0.8905581782175759	basic
+2362868	2018		391	-71	71	5	Pseudorasbora parva	68.54726310596325	84.31702756005122	55.72690849391817	-1	-1	-4	0	0.8751250337656735	basic
+2362868	2019		670	-44	94	5	Pseudorasbora parva	61.869252184853366	78.99924641380137	48.453682024544705	-1	-1	-4	0	0.8598950139594584	basic
+2362868	2020		81	6	40	5	Pseudorasbora parva	55.11238591914909	73.96034990718839	41.06761373509961	-1	-1	-4	0	0.844884818577742	basic
+2362868	2021		107	-18	51	1	Pseudorasbora parva	48.45216226940191	69.09911818897139	33.97455843300682	-1	-1	-4	0	0.8301038947650706	basic
+2367911	2019		2	0	1	0	Misgurnus mohoity									basic
+2367911	2020		0	0	0	0	Misgurnus mohoity									basic
+2367911	2021		0	0	0	0	Misgurnus mohoity									basic
+2394486	2000		131	1	30	2	Lepomis gibbosus									basic
+2394486	2001		427	0	57	2	Lepomis gibbosus									basic
+2394486	2002		213	-1	26	0	Lepomis gibbosus									basic
+2394486	2003		278	-10	51	2	Lepomis gibbosus									basic
+2394486	2004		354	-11	42	3	Lepomis gibbosus									basic
+2394486	2005		481	-3	38	4	Lepomis gibbosus									basic
+2394486	2006		418	13	32	1	Lepomis gibbosus									basic
+2394486	2007		744	-30	58	3	Lepomis gibbosus									basic
+2394486	2008		377	-91	61	4	Lepomis gibbosus									basic
+2394486	2009		267	-137	44	1	Lepomis gibbosus									basic
+2394486	2010		287	-110	43	0	Lepomis gibbosus									basic
+2394486	2011		244	-136	54	0	Lepomis gibbosus									basic
+2394486	2012		422	-41	48	2	Lepomis gibbosus									basic
+2394486	2013		124	-6	28	0	Lepomis gibbosus									basic
+2394486	2014		389	-66	50	2	Lepomis gibbosus									basic
+2394486	2015		90	-5	24	2	Lepomis gibbosus									basic
+2394486	2016		263	4	38	2	Lepomis gibbosus									basic
+2394486	2017		388	120	50	5	Lepomis gibbosus									basic
+2394486	2018		399	-76	64	4	Lepomis gibbosus									basic
+2394486	2019		221	1	56	6	Lepomis gibbosus									basic
+2394486	2020		104	4	55	5	Lepomis gibbosus									basic
+2394486	2021		99	1	57	4	Lepomis gibbosus									basic
 2427091	2000	131	1	0	1	0	Lithobates catesbeianus									correct_baseline
 2427091	2001	131	37	0	16	0	Lithobates catesbeianus									correct_baseline
-2427091	2002	131	43	0	15	0	Lithobates catesbeianus									correct_baseline
-2427091	2003	131	53	0	10	0	Lithobates catesbeianus									correct_baseline
+2427091	2002	131	43	-2	14	3	Lithobates catesbeianus									correct_baseline
+2427091	2003	131	53	1	11	2	Lithobates catesbeianus									correct_baseline
 2427091	2004	131	17	0	7	0	Lithobates catesbeianus									correct_baseline
-2427091	2005	131	35	0	17	0	Lithobates catesbeianus									correct_baseline
-2427091	2006	131	29	0	11	0	Lithobates catesbeianus									correct_baseline
-2427091	2007	131	40	2	19	2	Lithobates catesbeianus									correct_baseline
-2427091	2008	131	83	0	24	0	Lithobates catesbeianus									correct_baseline
-2427091	2009	131	86	1	28	1	Lithobates catesbeianus									correct_baseline
-2427091	2010	131	250	14	38	5	Lithobates catesbeianus									correct_baseline
-2427091	2011	131	496	10	26	4	Lithobates catesbeianus									correct_baseline
-2427091	2012	131	473	1	22	1	Lithobates catesbeianus									correct_baseline
-2427091	2013	131	369	1	21	1	Lithobates catesbeianus									correct_baseline
-2427091	2014	131	540	4	14	1	Lithobates catesbeianus									correct_baseline
+2427091	2005	131	35	-1	16	0	Lithobates catesbeianus									correct_baseline
+2427091	2006	131	29	-1	10	0	Lithobates catesbeianus									correct_baseline
+2427091	2007	131	40	2	19	3	Lithobates catesbeianus									correct_baseline
+2427091	2008	131	83	0	24	1	Lithobates catesbeianus									correct_baseline
+2427091	2009	131	87	5	31	9	Lithobates catesbeianus									correct_baseline
+2427091	2010	131	253	8	35	10	Lithobates catesbeianus									correct_baseline
+2427091	2011	131	496	5	23	5	Lithobates catesbeianus									correct_baseline
+2427091	2012	131	473	2	23	3	Lithobates catesbeianus									correct_baseline
+2427091	2013	131	369	1	21	2	Lithobates catesbeianus									correct_baseline
+2427091	2014	131	540	7	17	4	Lithobates catesbeianus									correct_baseline
 2427091	2015	131	242	18	13	3	Lithobates catesbeianus									correct_baseline
-2427091	2016	131	173	2	34	2	Lithobates catesbeianus									correct_baseline
+2427091	2016	131	173	1	33	3	Lithobates catesbeianus									correct_baseline
 2427091	2017	131	260	7	22	3	Lithobates catesbeianus									correct_baseline
-2427091	2018	131	221	28	30	8	Lithobates catesbeianus									correct_baseline
-2427091	2019	131	72	1	21	1	Lithobates catesbeianus									correct_baseline
-2427091	2020	131	118	1	28	1	Lithobates catesbeianus									correct_baseline
-2434552	2002	359	1	1	1	1	Nyctereutes procyonoides									correct_baseline
+2427091	2018	131	221	20	28	7	Lithobates catesbeianus									correct_baseline
+2427091	2019	131	73	1	22	1	Lithobates catesbeianus									correct_baseline
+2427091	2020	131	122	0	30	2	Lithobates catesbeianus									correct_baseline
+2427091	2021	131	102	-22	32	0	Lithobates catesbeianus									correct_baseline
+2434552	2002	359	1	0	1	0	Nyctereutes procyonoides									correct_baseline
 2434552	2003	359	0	0	0	0	Nyctereutes procyonoides									correct_baseline
 2434552	2004	359	0	0	0	0	Nyctereutes procyonoides									correct_baseline
 2434552	2005	359	0	0	0	0	Nyctereutes procyonoides									correct_baseline
@@ -158,19 +177,20 @@ taxonKey	year	classKey	obs	cobs	ncells	c_ncells	canonicalName	fit	ucl	lcl	em1	em
 2434552	2011	359	0	0	0	0	Nyctereutes procyonoides									correct_baseline
 2434552	2012	359	0	0	0	0	Nyctereutes procyonoides									correct_baseline
 2434552	2013	359	0	0	0	0	Nyctereutes procyonoides									correct_baseline
-2434552	2014	359	2	0	2	0	Nyctereutes procyonoides									correct_baseline
+2434552	2014	359	3	-1	2	0	Nyctereutes procyonoides									correct_baseline
 2434552	2015	359	0	0	0	0	Nyctereutes procyonoides									correct_baseline
 2434552	2016	359	1	0	1	0	Nyctereutes procyonoides									correct_baseline
 2434552	2017	359	0	0	0	0	Nyctereutes procyonoides									correct_baseline
 2434552	2018	359	0	0	0	0	Nyctereutes procyonoides									correct_baseline
 2434552	2019	359	0	0	0	0	Nyctereutes procyonoides									correct_baseline
 2434552	2020	359	0	0	0	0	Nyctereutes procyonoides									correct_baseline
+2434552	2021	359	0	0	0	0	Nyctereutes procyonoides									correct_baseline
 2437394	2008	359	1	0	1	0	Callosciurus erythraeus									correct_baseline
 2437394	2009	359	1	0	1	0	Callosciurus erythraeus									correct_baseline
-2437394	2010	359	2	0	2	0	Callosciurus erythraeus									correct_baseline
+2437394	2010	359	2	0	1	0	Callosciurus erythraeus									correct_baseline
 2437394	2011	359	1	0	1	0	Callosciurus erythraeus									correct_baseline
 2437394	2012	359	1	0	1	0	Callosciurus erythraeus									correct_baseline
-2437394	2013	359	6	1	6	1	Callosciurus erythraeus									correct_baseline
+2437394	2013	359	6	0	5	0	Callosciurus erythraeus									correct_baseline
 2437394	2014	359	0	0	0	0	Callosciurus erythraeus									correct_baseline
 2437394	2015	359	0	0	0	0	Callosciurus erythraeus									correct_baseline
 2437394	2016	359	1	0	1	0	Callosciurus erythraeus									correct_baseline
@@ -178,28 +198,30 @@ taxonKey	year	classKey	obs	cobs	ncells	c_ncells	canonicalName	fit	ucl	lcl	em1	em
 2437394	2018	359	0	0	0	0	Callosciurus erythraeus									correct_baseline
 2437394	2019	359	0	0	0	0	Callosciurus erythraeus									correct_baseline
 2437394	2020	359	0	0	0	0	Callosciurus erythraeus									correct_baseline
+2437394	2021	359	0	0	0	0	Callosciurus erythraeus									correct_baseline
 2437450	2000	359	4	0	4	0	Tamias sibiricus									correct_baseline
 2437450	2001	359	0	0	0	0	Tamias sibiricus									correct_baseline
-2437450	2002	359	3	2	3	1	Tamias sibiricus									correct_baseline
+2437450	2002	359	3	1	3	1	Tamias sibiricus									correct_baseline
 2437450	2003	359	1	0	1	0	Tamias sibiricus									correct_baseline
 2437450	2004	359	2	0	2	0	Tamias sibiricus									correct_baseline
-2437450	2005	359	3	4	2	2	Tamias sibiricus									correct_baseline
+2437450	2005	359	3	3	2	1	Tamias sibiricus									correct_baseline
 2437450	2006	359	1	0	1	0	Tamias sibiricus									correct_baseline
-2437450	2007	359	7	0	6	0	Tamias sibiricus									correct_baseline
-2437450	2008	359	12	2	8	2	Tamias sibiricus									correct_baseline
-2437450	2009	359	23	1	11	1	Tamias sibiricus									correct_baseline
-2437450	2010	359	69	2	24	1	Tamias sibiricus									correct_baseline
-2437450	2011	359	61	2	15	2	Tamias sibiricus									correct_baseline
-2437450	2012	359	93	6	20	3	Tamias sibiricus									correct_baseline
-2437450	2013	359	44	3	8	2	Tamias sibiricus									correct_baseline
-2437450	2014	359	74	14	10	6	Tamias sibiricus									correct_baseline
-2437450	2015	359	88	3	17	3	Tamias sibiricus									correct_baseline
-2437450	2016	359	61	6	10	4	Tamias sibiricus									correct_baseline
-2437450	2017	359	67	4	14	3	Tamias sibiricus									correct_baseline
-2437450	2018	359	79	1	7	1	Tamias sibiricus									correct_baseline
-2437450	2019	359	69	5	7	2	Tamias sibiricus									correct_baseline
+2437450	2007	359	6	0	5	1	Tamias sibiricus									correct_baseline
+2437450	2008	359	12	2	9	2	Tamias sibiricus									correct_baseline
+2437450	2009	359	24	2	12	2	Tamias sibiricus									correct_baseline
+2437450	2010	359	81	-8	26	4	Tamias sibiricus									correct_baseline
+2437450	2011	359	62	2	16	3	Tamias sibiricus									correct_baseline
+2437450	2012	359	93	0	18	3	Tamias sibiricus									correct_baseline
+2437450	2013	359	45	2	8	3	Tamias sibiricus									correct_baseline
+2437450	2014	359	72	17	10	8	Tamias sibiricus									correct_baseline
+2437450	2015	359	89	0	17	2	Tamias sibiricus									correct_baseline
+2437450	2016	359	62	1	9	1	Tamias sibiricus									correct_baseline
+2437450	2017	359	69	1	13	3	Tamias sibiricus									correct_baseline
+2437450	2018	359	77	3	7	1	Tamias sibiricus									correct_baseline
+2437450	2019	359	71	4	8	2	Tamias sibiricus									correct_baseline
 2437450	2020	359	60	0	8	0	Tamias sibiricus									correct_baseline
-2440946	2004	359	2	0	2	0	Muntiacus reevesi									correct_baseline
+2437450	2021	359	105	-4	12	3	Tamias sibiricus									correct_baseline
+2440946	2004	359	2	1	2	1	Muntiacus reevesi									correct_baseline
 2440946	2005	359	4	0	4	0	Muntiacus reevesi									correct_baseline
 2440946	2006	359	0	0	0	0	Muntiacus reevesi									correct_baseline
 2440946	2007	359	0	0	0	0	Muntiacus reevesi									correct_baseline
@@ -209,56 +231,59 @@ taxonKey	year	classKey	obs	cobs	ncells	c_ncells	canonicalName	fit	ucl	lcl	em1	em
 2440946	2011	359	2	0	2	0	Muntiacus reevesi									correct_baseline
 2440946	2012	359	1	0	1	0	Muntiacus reevesi									correct_baseline
 2440946	2013	359	3	2	3	1	Muntiacus reevesi									correct_baseline
-2440946	2014	359	34	4	13	2	Muntiacus reevesi									correct_baseline
-2440946	2015	359	69	26	9	5	Muntiacus reevesi									correct_baseline
-2440946	2016	359	23	2	17	1	Muntiacus reevesi									correct_baseline
+2440946	2014	359	34	2	11	3	Muntiacus reevesi									correct_baseline
+2440946	2015	359	69	23	7	4	Muntiacus reevesi									correct_baseline
+2440946	2016	359	23	3	17	2	Muntiacus reevesi									correct_baseline
 2440946	2017	359	22	1	17	1	Muntiacus reevesi									correct_baseline
-2440946	2018	359	35	9	21	4	Muntiacus reevesi									correct_baseline
-2440946	2019	359	38	7	20	5	Muntiacus reevesi									correct_baseline
-2440946	2020	359	41	7	36	4	Muntiacus reevesi									correct_baseline
-2443002	2000	358	5	0	5	0	Trachemys scripta									correct_baseline
-2443002	2001	358	8	0	7	0	Trachemys scripta									correct_baseline
-2443002	2002	358	5	0	5	0	Trachemys scripta									correct_baseline
-2443002	2003	358	4	0	4	0	Trachemys scripta									correct_baseline
-2443002	2004	358	11	0	9	0	Trachemys scripta									correct_baseline
-2443002	2005	358	10	0	10	0	Trachemys scripta									correct_baseline
-2443002	2006	358	9	0	8	0	Trachemys scripta									correct_baseline
-2443002	2007	358	12	0	12	0	Trachemys scripta									correct_baseline
-2443002	2008	358	22	0	18	0	Trachemys scripta									correct_baseline
-2443002	2009	358	35	0	28	0	Trachemys scripta									correct_baseline
-2443002	2010	358	67	1	60	1	Trachemys scripta									correct_baseline
-2443002	2011	358	47	0	35	0	Trachemys scripta									correct_baseline
-2443002	2012	358	81	3	62	2	Trachemys scripta									correct_baseline
-2443002	2013	358	77	0	60	0	Trachemys scripta									correct_baseline
-2443002	2014	358	141	2	93	1	Trachemys scripta									correct_baseline
-2443002	2015	358	138	3	91	3	Trachemys scripta									correct_baseline
-2443002	2016	358	126	2	88	2	Trachemys scripta									correct_baseline
-2443002	2017	358	149	4	94	4	Trachemys scripta									correct_baseline
-2443002	2018	358	222	1	119	1	Trachemys scripta									correct_baseline
-2443002	2019	358	245	0	143	0	Trachemys scripta									correct_baseline
-2443002	2020	358	461	2	270	2	Trachemys scripta									correct_baseline
-2480764	2000	212	7	335	5	5	Threskiornis aethiopicus	8.225671985040702	17.273323001404968	3.917120035327308	0	0	0	1	0.849044213421582	correct_baseline
-2480764	2001	212	4	1054	3	3	Threskiornis aethiopicus	7.765202786543296	14.282005183193666	4.221982385715404	0	0	0	1	0.8588189093830214	correct_baseline
-2480764	2002	212	5	227	5	5	Threskiornis aethiopicus	7.35219922060312	12.081895440192136	4.474035853647274	0	0	0	1	0.8686270573059978	correct_baseline
-2480764	2003	212	1	16	1	1	Threskiornis aethiopicus	6.981757841944411	10.491089552875245	4.646318413152138	0	0	0	1	0.8784418480360421	correct_baseline
-2480764	2004	212	0	0	0	0	Threskiornis aethiopicus	6.649597322104595	9.387961035336186	4.709983816475989	0	0	0	1	0.8882238374224589	correct_baseline
-2480764	2005	212	1	22	1	1	Threskiornis aethiopicus	6.351977657084491	8.67922383242693	4.648759029045385	0	0	0	1	0.8979136163671179	correct_baseline
-2480764	2006	212	0	0	0	0	Threskiornis aethiopicus	6.085631156852026	8.267824256438663	4.479401766239378	0	0	0	1	0.9074194541783193	correct_baseline
-2480764	2007	212	68	1826	8	8	Threskiornis aethiopicus	5.847703457691061	8.047704774863726	4.2491165724541675	0	0	0	1	0.9165965144860432	correct_baseline
-2480764	2008	212	20	364	9	9	Threskiornis aethiopicus	5.635703082891803	7.927732613559591	4.006334570895077	0	0	0	1	0.9252136385860583	correct_baseline
-2480764	2009	212	8	327	5	5	Threskiornis aethiopicus	5.447458314828456	7.847232235315873	3.7815628749005907	0	0	0	1	0.9329095545652785	correct_baseline
-2480764	2010	212	46	1925	16	16	Threskiornis aethiopicus	5.281080340311692	7.772675102862809	3.5881867171515203	0	0	0	1	0.9391706890979475	correct_baseline
-2480764	2011	212	171	7081	46	46	Threskiornis aethiopicus	5.134931798012264	7.689232123469534	3.4291492501256307	0	0	0	1	0.9434297891663048	correct_baseline
-2480764	2012	212	93	5507	17	17	Threskiornis aethiopicus	5.007599997304598	7.594658490746542	3.3018018866230907	0	0	0	1	0.9453617386664169	correct_baseline
-2480764	2013	212	37	1717	10	10	Threskiornis aethiopicus	4.897874196681555	7.496050010156374	3.2002416758180825	0	0	0	1	0.94513032789468	correct_baseline
-2480764	2014	212	130	6232	30	29	Threskiornis aethiopicus	4.804726430761078	7.4084333537949565	3.1160968820254875	0	0	0	1	0.9432430413071644	correct_baseline
-2480764	2015	212	194	10264	42	42	Threskiornis aethiopicus	4.727295461019005	7.354219662805515	3.038707490448517	0	0	0	1	0.9402295219856167	correct_baseline
-2480764	2016	212	167	40326	33	33	Threskiornis aethiopicus	4.6648734993984595	7.362637697293454	2.9556044531961017	0	0	0	1	0.9364850023646611	correct_baseline
-2480764	2017	212	102	5920	23	23	Threskiornis aethiopicus	4.6168954181038115	7.468356886724783	2.854138283026789	0	0	0	1	0.9322683098284197	correct_baseline
-2480764	2018	212	30	1469	12	12	Threskiornis aethiopicus	4.582930215088931	7.7092348505517885	2.724427230916668	0	0	0	1	0.927742868826241	correct_baseline
-2480764	2019	212	0	0	0	0	Threskiornis aethiopicus	4.562674554630238	8.12464614987909	2.562326864140422	0	0	0	1	0.9230124152768809	correct_baseline
-2480764	2020	212	0	0	0	0	Threskiornis aethiopicus	4.555948247360721	8.756658783986412	2.370386347654384	0	0	0	1	0.9181442539496911	correct_baseline
-2482499	2012	212	1	32	1	1	Corvus splendens									correct_baseline
+2440946	2018	359	36	9	22	4	Muntiacus reevesi									correct_baseline
+2440946	2019	359	39	6	20	6	Muntiacus reevesi									correct_baseline
+2440946	2020	359	40	5	33	3	Muntiacus reevesi									correct_baseline
+2440946	2021	359	30	7	26	3	Muntiacus reevesi									correct_baseline
+2443002	2000	11418114	5	0	5	0	Trachemys scripta									correct_baseline
+2443002	2001	11418114	8	0	7	0	Trachemys scripta									correct_baseline
+2443002	2002	11418114	5	0	5	0	Trachemys scripta									correct_baseline
+2443002	2003	11418114	7	0	7	0	Trachemys scripta									correct_baseline
+2443002	2004	11418114	11	0	9	0	Trachemys scripta									correct_baseline
+2443002	2005	11418114	13	0	13	0	Trachemys scripta									correct_baseline
+2443002	2006	11418114	9	0	9	0	Trachemys scripta									correct_baseline
+2443002	2007	11418114	13	0	13	0	Trachemys scripta									correct_baseline
+2443002	2008	11418114	25	0	18	0	Trachemys scripta									correct_baseline
+2443002	2009	11418114	36	0	32	0	Trachemys scripta									correct_baseline
+2443002	2010	11418114	68	0	58	0	Trachemys scripta									correct_baseline
+2443002	2011	11418114	49	0	35	0	Trachemys scripta									correct_baseline
+2443002	2012	11418114	81	0	61	0	Trachemys scripta									correct_baseline
+2443002	2013	11418114	79	0	59	0	Trachemys scripta									correct_baseline
+2443002	2014	11418114	141	0	94	0	Trachemys scripta									correct_baseline
+2443002	2015	11418114	141	0	95	0	Trachemys scripta									correct_baseline
+2443002	2016	11418114	126	0	90	0	Trachemys scripta									correct_baseline
+2443002	2017	11418114	149	0	95	0	Trachemys scripta									correct_baseline
+2443002	2018	11418114	222	0	120	0	Trachemys scripta									correct_baseline
+2443002	2019	11418114	246	0	144	0	Trachemys scripta									correct_baseline
+2443002	2020	11418114	470	0	272	0	Trachemys scripta									correct_baseline
+2443002	2021	11418114	610	0	373	0	Trachemys scripta									correct_baseline
+2480764	2000	212	7	452	6	6	Threskiornis aethiopicus	9.489488945591717	18.318635146484024	4.915781100962161	-1	1	-2	0	0.8439202509729176	correct_baseline
+2480764	2001	212	4	1054	3	3	Threskiornis aethiopicus	8.731135581594073	15.14640975014207	5.033056004804243	-1	1	-2	0	0.8542931095995362	correct_baseline
+2480764	2002	212	5	209	5	5	Threskiornis aethiopicus	8.08382288134726	12.782671689203907	5.112248359799916	-1	1	-2	0	0.8647585808582698	correct_baseline
+2480764	2003	212	1	16	1	1	Threskiornis aethiopicus	7.531491597104671	11.036095998266807	5.139803576026028	-1	1	-2	0	0.875307385414924	correct_baseline
+2480764	2004	212	0	0	0	0	Threskiornis aethiopicus	7.060953501857735	9.776077480775303	5.099904788340839	-1	1	-2	0	0.885926071184221	correct_baseline
+2480764	2005	212	1	39	1	1	Threskiornis aethiopicus	6.6613745964319255	8.90849966780158	4.981075733141841	-1	1	-2	0	0.8965949015053506	correct_baseline
+2480764	2006	212	0	0	0	0	Threskiornis aethiopicus	6.323863843458732	8.351333772112572	4.788606826390604	-1	1	-2	0	0.9072844229595715	correct_baseline
+2480764	2007	212	68	1786	8	7	Threskiornis aethiopicus	6.041145758407758	8.02101092282061	4.549980348548675	0	1	1	2	0.9179497575474467	correct_baseline
+2480764	2008	212	20	432	12	12	Threskiornis aethiopicus	5.80730007366426	7.840021312399132	4.301612559680757	0	1	1	2	0.928520970788819	correct_baseline
+2480764	2009	212	9	439	9	9	Threskiornis aethiopicus	5.617555476269495	7.749962370549497	4.071881645372159	0	1	1	2	0.9388869396896926	correct_baseline
+2480764	2010	212	46	2147	19	19	Threskiornis aethiopicus	5.468127372193345	7.713633505066152	3.8763077010195173	0	1	1	2	0.9488700290454789	correct_baseline
+2480764	2011	212	171	6589	41	41	Threskiornis aethiopicus	5.356091953662315	7.709728488616596	3.7209768227822244	0	1	1	2	0.9581947187489968	correct_baseline
+2480764	2012	212	94	5627	18	18	Threskiornis aethiopicus	5.279290696869398	7.727275141394268	3.606822554143309	0	1	1	2	0.9664792288318975	correct_baseline
+2480764	2013	212	37	1727	10	10	Threskiornis aethiopicus	5.236260915697651	7.762072075468782	3.53235941520253	0	1	1	2	0.9733264812825867	correct_baseline
+2480764	2014	212	130	6561	30	29	Threskiornis aethiopicus	5.226189237359347	7.814892157029462	3.495000749322267	0	1	1	2	0.9785453208366639	correct_baseline
+2480764	2015	212	194	10209	42	42	Threskiornis aethiopicus	5.2488859239147585	7.890886939121923	3.49147106717211	0	1	1	2	0.9822899372195769	correct_baseline
+2480764	2016	212	167	40731	34	34	Threskiornis aethiopicus	5.304778902344133	7.999819291593696	3.517664359284462	0	1	1	2	0.9849215610811018	correct_baseline
+2480764	2017	212	102	5563	22	22	Threskiornis aethiopicus	5.3949272396544465	8.156914555169012	3.5681678071179057	0	1	1	2	0.9867937946305	correct_baseline
+2480764	2018	212	30	1458	11	11	Threskiornis aethiopicus	5.5210546583236555	8.384146840855879	3.6356763686030154	0	1	1	2	0.9881643923232573	correct_baseline
+2480764	2019	212	0	0	0	0	Threskiornis aethiopicus	5.685604580089925	8.71167510791014	3.7106640273794946	0	1	1	2	0.9892013075296173	correct_baseline
+2480764	2020	212	0	0	0	0	Threskiornis aethiopicus	5.891819163913689	9.179048709310493	3.7818225133776626	0	1	1	2	0.9900109228062276	correct_baseline
+2480764	2021	212	65	324	25	20	Threskiornis aethiopicus	6.143845924070572	9.83604730369052	3.8376028066229226	0	1	1	2	0.9906611966194231	correct_baseline
+2482499	2012	212	1	29	1	1	Corvus splendens									correct_baseline
 2482499	2013	212	0	0	0	0	Corvus splendens									correct_baseline
 2482499	2014	212	0	0	0	0	Corvus splendens									correct_baseline
 2482499	2015	212	0	0	0	0	Corvus splendens									correct_baseline
@@ -267,7 +292,8 @@ taxonKey	year	classKey	obs	cobs	ncells	c_ncells	canonicalName	fit	ucl	lcl	em1	em
 2482499	2018	212	0	0	0	0	Corvus splendens									correct_baseline
 2482499	2019	212	0	0	0	0	Corvus splendens									correct_baseline
 2482499	2020	212	0	0	0	0	Corvus splendens									correct_baseline
-2486131	2005	212	1	9	1	1	Pycnonotus cafer									correct_baseline
+2482499	2021	212	0	0	0	0	Corvus splendens									correct_baseline
+2486131	2005	212	1	4	1	1	Pycnonotus cafer									correct_baseline
 2486131	2006	212	0	0	0	0	Pycnonotus cafer									correct_baseline
 2486131	2007	212	0	0	0	0	Pycnonotus cafer									correct_baseline
 2486131	2008	212	0	0	0	0	Pycnonotus cafer									correct_baseline
@@ -283,6 +309,7 @@ taxonKey	year	classKey	obs	cobs	ncells	c_ncells	canonicalName	fit	ucl	lcl	em1	em
 2486131	2018	212	0	0	0	0	Pycnonotus cafer									correct_baseline
 2486131	2019	212	0	0	0	0	Pycnonotus cafer									correct_baseline
 2486131	2020	212	0	0	0	0	Pycnonotus cafer									correct_baseline
+2486131	2021	212	0	0	0	0	Pycnonotus cafer									correct_baseline
 2489005	2006	212	1	0	1	0	Acridotheres tristis									correct_baseline
 2489005	2007	212	0	0	0	0	Acridotheres tristis									correct_baseline
 2489005	2008	212	0	0	0	0	Acridotheres tristis									correct_baseline
@@ -298,112 +325,121 @@ taxonKey	year	classKey	obs	cobs	ncells	c_ncells	canonicalName	fit	ucl	lcl	em1	em
 2489005	2018	212	0	0	0	0	Acridotheres tristis									correct_baseline
 2489005	2019	212	0	0	0	0	Acridotheres tristis									correct_baseline
 2489005	2020	212	0	0	0	0	Acridotheres tristis									correct_baseline
-2498252	2000	212	941	15990	615	599	Alopochen aegyptiaca	1464.5879110091212	1617.205609642286	1326.3729338340127	0	0	0	1	0.9808524541827698	correct_baseline
-2498252	2001	212	1184	18296	703	691	Alopochen aegyptiaca	1470.4330482440082	1615.4437340671252	1338.4392806579315	0	0	0	1	0.9866694109915687	correct_baseline
-2498252	2002	212	1371	20128	753	735	Alopochen aegyptiaca	1476.2542866146425	1618.6348952335181	1346.3979586537323	0	0	0	1	0.9915353108228981	correct_baseline
-2498252	2003	212	1044	16277	526	514	Alopochen aegyptiaca	1481.8892998895801	1617.9942056817515	1357.2334742706537	0	0	0	1	0.994020475499202	correct_baseline
-2498252	2004	212	1262	20836	660	639	Alopochen aegyptiaca	1486.969356897247	1609.389966547343	1373.8608505773668	0	0	0	1	0.99303005836954406	correct_baseline
-2498252	2005	212	1206	19207	669	646	Alopochen aegyptiaca	1490.9385100970533	1592.4032516710035	1395.9388983649728	0	0	0	1	0.9900652341597962	correct_baseline
-2498252	2006	212	1473	21667	758	732	Alopochen aegyptiaca	1493.1777808841687	1569.4780343150899	1420.586868104302	0	0	0	1	0.9870382825456195	correct_baseline
-2498252	2007	212	1878	32870	936	896	Alopochen aegyptiaca	1493.2023919215314	1546.2677180106282	1441.9581792141232	0	-1	-1	0	0.9849022075494196	correct_baseline
-2498252	2008	212	3097	57017	1365	1311	Alopochen aegyptiaca	1490.8811997772195	1533.473033718746	1449.472343480956	0	0	0	1	0.9840943282485267	correct_baseline
-2498252	2009	212	5488	110091	2210	2152	Alopochen aegyptiaca	1486.6247240047803	1537.2531808555948	1437.6636832146487	0	0	0	1	0.9847937513221127	correct_baseline
-2498252	2010	212	7133	170448	2530	2490	Alopochen aegyptiaca	1481.4994866194843	1547.131444608613	1418.651748371023	0	0	0	1	0.9869825965230445	correct_baseline
-2498252	2011	212	8637	189197	2316	2282	Alopochen aegyptiaca	1477.2488488689296	1555.812486758731	1402.6524276270284	0	0	0	1	0.9904423428472146	correct_baseline
-2498252	2012	212	8899	233358	2435	2411	Alopochen aegyptiaca	1476.227698126834	1563.0769244163325	1394.2040744607643	0	1	1	2	0.9948471107619378	correct_baseline
-2498252	2013	212	9267	346141	2396	2387	Alopochen aegyptiaca	1481.2813186164572	1572.0467985046364	1395.7563775895687	1	1	4	3	1.0002864166786176	correct_baseline
-2498252	2014	212	10181	461674	2440	2430	Alopochen aegyptiaca	1495.6103164136337	1587.3361326912473	1409.1849687629954	1	1	4	3	1.0075164538045547	correct_baseline
-2498252	2015	212	11607	432262	2630	2617	Alopochen aegyptiaca	1522.66175030515	1613.933760815906	1436.5514013848078	1	1	4	3	1.0170341394469251	correct_baseline
-2498252	2016	212	13028	1560860	2803	2794	Alopochen aegyptiaca	1566.0762253937457	1656.5862454680919	1480.5113530630017	1	1	4	3	1.0284140933901047	correct_baseline
-2498252	2017	212	14564	472126	3042	3030	Alopochen aegyptiaca	1629.710326159409	1720.0239904351592	1544.1387805984389	1	1	4	3	1.0403940759348105	correct_baseline
-2498252	2018	212	13650	435692	2911	2909	Alopochen aegyptiaca	1717.7522236215873	1810.3615706380408	1629.880323142839	1	1	4	3	1.0519529922570807	correct_baseline
-2498252	2019	212	13964	65396	2790	2153	Alopochen aegyptiaca	1834.960043686729	1937.42304185673	1737.9159270759794	1	1	4	3	1.0630207779214136	correct_baseline
-2498252	2020	212	18816	91003	3616	2941	Alopochen aegyptiaca	1987.0715456731104	2115.9132754639268	1866.0752183985433	1	1	4	3	1.073818574671037	correct_baseline
-2498305	2000	212	1	26	1	1	Oxyura jamaicensis	13.44952141378067	29.13362606396128	6.20896368555742	1	-1	2	2	1.0004282491721213	correct_baseline
-2498305	2001	212	40	1056	9	9	Oxyura jamaicensis	15.213988707345829	27.463219857125008	8.428197916756488	1	-1	2	2	1.0002640323191783	correct_baseline
-2498305	2002	212	6	230	6	6	Oxyura jamaicensis	17.00521651112299	26.128007206547455	11.067716963799079	1	-1	2	2	1.0000839941555222	correct_baseline
-2498305	2003	212	29	1713	13	13	Oxyura jamaicensis	18.781231218773407	25.177648388935612	14.009832874147177	0	-1	-1	0	0.9998821490317404	correct_baseline
-2498305	2004	212	30	594	23	23	Oxyura jamaicensis	20.4959838700542	24.829137295911806	16.919047560733826	0	-1	-1	0	0.9996490821196948	correct_baseline
-2498305	2005	212	41	1778	24	24	Oxyura jamaicensis	22.101222651073925	25.691776772574205	19.01246640106943	0	-1	-1	0	0.9993691096069778	correct_baseline
-2498305	2006	212	104	2540	16	16	Oxyura jamaicensis	23.54868428445272	28.089824503875082	19.741687295067646	0	-1	-1	0	0.9990141028929702	correct_baseline
-2498305	2007	212	152	3345	23	23	Oxyura jamaicensis	24.792470971764274	31.116084870345038	19.753983171307578	0	-1	-1	0	0.9985284186844898	correct_baseline
-2498305	2008	212	214	5735	45	45	Oxyura jamaicensis	25.791452377886436	33.96139668784271	19.586915752463966	0	-1	-1	0	0.9977860523984088	correct_baseline
-2498305	2009	212	380	9756	78	78	Oxyura jamaicensis	26.511518552439192	36.19407098447143	19.419219690923413	0	-1	-1	0	0.9964412391013354	correct_baseline
-2498305	2010	212	394	9520	57	57	Oxyura jamaicensis	26.92751212165468	37.5547777050325	19.3075542812944	0	-1	-1	0	0.9932778262248217	correct_baseline
-2498305	2011	212	256	13884	57	57	Oxyura jamaicensis	27.024687228920083	37.90049353550065	19.269768060853004	0	-1	-1	0	0.9841654150669429	correct_baseline
-2498305	2012	212	294	20989	73	73	Oxyura jamaicensis	26.79957725445003	37.19998165276297	19.306927291559315	0	-1	-1	0	0.9666233298241573	correct_baseline
-2498305	2013	212	156	13725	52	52	Oxyura jamaicensis	26.260200111343565	35.53549054515085	19.40589814038491	0	-1	-1	0	0.9457869570409244	correct_baseline
-2498305	2014	212	111	13125	45	45	Oxyura jamaicensis	25.425584164454673	33.10429025885172	19.527992445961353	0	-1	-1	0	0.9243669938480257	correct_baseline
-2498305	2015	212	85	11102	29	29	Oxyura jamaicensis	24.324653860620344	30.23801504921448	19.567712512741906	0	-1	-1	0	0.9030593491038132	correct_baseline
-2498305	2016	212	91	40993	35	35	Oxyura jamaicensis	22.994566073581137	27.494998387568018	19.230772864906413	0	-1	-1	0	0.8820744642968799	correct_baseline
-2498305	2017	212	90	8800	26	26	Oxyura jamaicensis	21.47863056467599	25.739592782444706	17.92303300340003	0	-1	-1	0	0.8614887443885741	correct_baseline
-2498305	2018	212	17	957	11	11	Oxyura jamaicensis	19.823976663012633	25.3803090026614	15.484053038694691	0	-1	-1	0	0.8413318955880941	correct_baseline
-2498305	2019	212	16	632	8	8	Oxyura jamaicensis	18.079140809366386	25.931977976023127	12.604334798799751	0	-1	-1	0	0.8216143002929865	correct_baseline
-2498305	2020	212	12	1334	5	5	Oxyura jamaicensis	16.291745478637257	27.000023722354758	9.830397686685782	0	-1	-1	0	0.8023373139271042	correct_baseline
-2765940	2001	196	1	8	1	1	Eichhornia crassipes									correct_baseline
-2765940	2002	196	0	0	0	0	Eichhornia crassipes									correct_baseline
-2765940	2003	196	1	5	1	1	Eichhornia crassipes									correct_baseline
-2765940	2004	196	0	0	0	0	Eichhornia crassipes									correct_baseline
-2765940	2005	196	0	0	0	0	Eichhornia crassipes									correct_baseline
-2765940	2006	196	0	0	0	0	Eichhornia crassipes									correct_baseline
-2765940	2007	196	0	0	0	0	Eichhornia crassipes									correct_baseline
-2765940	2008	196	0	0	0	0	Eichhornia crassipes									correct_baseline
-2765940	2009	196	3	36	3	3	Eichhornia crassipes									correct_baseline
-2765940	2010	196	0	0	0	0	Eichhornia crassipes									correct_baseline
-2765940	2011	196	2	8	1	1	Eichhornia crassipes									correct_baseline
-2765940	2012	196	1	0	1	0	Eichhornia crassipes									correct_baseline
-2765940	2013	196	3	46	2	2	Eichhornia crassipes									correct_baseline
-2765940	2014	196	1	10	1	1	Eichhornia crassipes									correct_baseline
-2765940	2015	196	0	0	0	0	Eichhornia crassipes									correct_baseline
-2765940	2016	196	4	52	3	3	Eichhornia crassipes									correct_baseline
-2765940	2017	196	15	115	8	8	Eichhornia crassipes									correct_baseline
-2765940	2018	196	0	0	0	0	Eichhornia crassipes									correct_baseline
-2765940	2019	196	0	0	0	0	Eichhornia crassipes									correct_baseline
-2765940	2020	196	0	0	0	0	Eichhornia crassipes									correct_baseline
-2865565	2004	196	1	0	1	0	Lagarosiphon major									correct_baseline
+2489005	2021	212	1	0	1	0	Acridotheres tristis									correct_baseline
+2498252	2000	212	940	15592	614	577	Alopochen aegyptiaca	1530.2054788112573	1686.1824376245186	1388.6568589118494	0	0	0	1	0.989908522999981	correct_baseline
+2498252	2001	212	1182	18226	697	679	Alopochen aegyptiaca	1545.6124368533572	1694.7532806836803	1409.596212135409	0	0	0	1	0.9923778215209489	correct_baseline
+2498252	2002	212	1369	20139	766	733	Alopochen aegyptiaca	1556.817887986319	1703.1057009673852	1423.0954279452537	0	0	0	1	0.9940202844944354	correct_baseline
+2498252	2003	212	1046	16647	540	513	Alopochen aegyptiaca	1563.7205601060982	1703.3971901406833	1435.4972546928877	0	0	0	1	0.9937540167321555	correct_baseline
+2498252	2004	212	1273	20145	663	622	Alopochen aegyptiaca	1566.2751477263666	1692.0279479818046	1449.8683909514434	0	0	0	1	0.9907779032515613	correct_baseline
+2498252	2005	212	1212	18912	668	641	Alopochen aegyptiaca	1564.5598351611723	1669.0878616231817	1466.5779639779012	0	0	0	1	0.9864008419706933	correct_baseline
+2498252	2006	212	1490	22390	790	745	Alopochen aegyptiaca	1558.8726898839175	1637.5748617226411	1483.9529599945142	0	0	0	1	0.9824392789290305	correct_baseline
+2498252	2007	212	1889	32759	959	902	Alopochen aegyptiaca	1549.8321986652472	1603.411009135272	1498.0437519354161	0	-1	-1	0	0.9798960708209759	correct_baseline
+2498252	2008	212	3090	54805	1359	1285	Alopochen aegyptiaca	1538.4559527506954	1577.5598848318862	1500.3213135115152	0	0	0	1	0.9792521031842468	correct_baseline
+2498252	2009	212	5485	110523	2214	2109	Alopochen aegyptiaca	1526.199308107886	1570.5563509648193	1483.0950361240282	0	0	0	1	0.9806998243278287	correct_baseline
+2498252	2010	212	7126	167847	2528	2455	Alopochen aegyptiaca	1514.9490545641102	1573.9639028152933	1458.146933242611	0	0	0	1	0.9842108407391504	correct_baseline
+2498252	2011	212	8614	188097	2312	2274	Alopochen aegyptiaca	1506.9812142376231	1579.2172218030573	1438.0494011281207	0	1	1	2	0.9895219065717747	correct_baseline
+2498252	2012	212	8942	234589	2447	2415	Alopochen aegyptiaca	1504.9027934538822	1585.606153532173	1428.3070311629847	0	1	1	2	0.9960704178454077	correct_baseline
+2498252	2013	212	9279	348481	2402	2386	Alopochen aegyptiaca	1511.6019918115308	1595.942633036025	1431.7184931026338	1	1	4	3	1.003308226162993	correct_baseline
+2498252	2014	212	10207	465505	2439	2429	Alopochen aegyptiaca	1530.2298677726901	1614.7498998636215	1450.1338247002782	1	1	4	3	1.0117548866974757	correct_baseline
+2498252	2015	212	11643	453990	2642	2629	Alopochen aegyptiaca	1564.230940858228	1647.4149792044786	1485.247170400116	1	1	4	3	1.0223622405587085	correct_baseline
+2498252	2016	212	13007	1649927	2796	2785	Alopochen aegyptiaca	1617.4341946618706	1699.5527361945394	1539.283435193177	1	1	4	3	1.035378798841143	correct_baseline
+2498252	2017	212	14543	470870	3068	3055	Alopochen aegyptiaca	1694.2131692090404	1776.6722258963134	1615.5812090062211	1	1	4	3	1.0502411447620954	correct_baseline
+2498252	2018	212	14296	463152	3119	3117	Alopochen aegyptiaca	1799.727549224307	1884.6454058943893	1718.6358989901341	1	1	4	3	1.0654122965484598	correct_baseline
+2498252	2019	212	14519	67310	2975	2211	Alopochen aegyptiaca	1940.2713595878458	2031.4040734730565	1853.2270354270313	1	1	4	3	1.0795731228965348	correct_baseline
+2498252	2020	212	18805	91015	3640	2940	Alopochen aegyptiaca	2123.775621833038	2229.5529699652443	2023.0167000529334	1	1	4	3	1.0930526380549015	correct_baseline
+2498252	2021	212	20918	39366	4116	2773	Alopochen aegyptiaca	2360.542832061229	2498.173063411499	2230.4949739496096	1	1	4	3	1.1063343263517833	correct_baseline
+2498305	2000	212	1	26	1	1	Oxyura jamaicensis	13.818170071210226	27.027584542942307	7.064701761029196	0	0	0	1	0.9994327250135489	correct_baseline
+2498305	2001	212	41	966	9	9	Oxyura jamaicensis	15.332745587033621	25.722118889364637	9.139724773370178	0	0	0	1	0.9995096828893976	correct_baseline
+2498305	2002	212	7	282	7	7	Oxyura jamaicensis	16.849306034067606	24.690844304825106	11.498153336708182	0	0	0	1	0.9995711082843517	correct_baseline
+2498305	2003	212	29	1933	13	13	Oxyura jamaicensis	18.337359539455264	23.988842038011153	14.017298306705982	0	0	0	1	0.9996113297719043	correct_baseline
+2498305	2004	212	30	576	21	21	Oxyura jamaicensis	19.764429141650886	23.79944199733251	16.413521768246568	0	0	0	1	0.9996215627927777	correct_baseline
+2498305	2005	212	41	1482	21	19	Oxyura jamaicensis	21.097181693257728	24.535116663417874	18.140980599532448	0	0	0	1	0.99958746100942	correct_baseline
+2498305	2006	212	104	2233	15	15	Oxyura jamaicensis	22.30269291695757	26.37362094986171	18.860137267223354	0	0	0	1	0.9994839687293712	correct_baseline
+2498305	2007	212	152	2700	20	20	Oxyura jamaicensis	23.349783607236965	28.725524652054002	18.980067417700134	0	0	0	1	0.9992633301991045	correct_baseline
+2498305	2008	212	214	5390	45	45	Oxyura jamaicensis	24.21035234104856	30.997963539544	18.909021546850237	0	0	0	1	0.9988232109717688	correct_baseline
+2498305	2009	212	377	9831	77	77	Oxyura jamaicensis	24.86062568094564	32.854444249159414	18.81178401804519	0	0	0	1	0.997906384407179	correct_baseline
+2498305	2010	212	394	10036	60	60	Oxyura jamaicensis	25.282248436610658	34.094593357107236	18.7476084350265	0	0	0	1	0.9957247803449563	correct_baseline
+2498305	2011	212	258	12192	49	49	Oxyura jamaicensis	25.463144263581864	34.60187078663725	18.738053782871585	0	0	0	1	0.9897791297075325	correct_baseline
+2498305	2012	212	293	21824	74	74	Oxyura jamaicensis	25.39809030028377	34.33313748553423	18.788349627911412	0	0	0	1	0.9772205089199631	correct_baseline
+2498305	2013	212	156	14852	52	52	Oxyura jamaicensis	25.088967685994596	33.318415381858856	18.892143949066863	0	0	0	1	0.9607862438943158	correct_baseline
+2498305	2014	212	111	12938	43	43	Oxyura jamaicensis	24.54467119108645	31.663162521858705	19.02655438990509	0	0	0	1	0.9432885555081179	correct_baseline
+2498305	2015	212	85	10709	26	26	Oxyura jamaicensis	23.78068401804793	29.55930146389692	19.131742103478153	0	0	0	1	0.9256257514472084	correct_baseline
+2498305	2016	212	91	41994	38	38	Oxyura jamaicensis	22.81834613840843	27.330340792531597	19.0512414186398	0	0	0	1	0.9080793419457351	correct_baseline
+2498305	2017	212	90	9423	27	27	Oxyura jamaicensis	21.683864412189724	25.525824789897595	18.42016779933066	0	0	0	1	0.8907548160136324	correct_baseline
+2498305	2018	212	18	916	12	12	Oxyura jamaicensis	20.407128540977983	24.727398722004597	16.84167833300653	0	0	0	1	0.8736970782234732	correct_baseline
+2498305	2019	212	17	773	9	8	Oxyura jamaicensis	19.020407400918767	24.87951478656615	14.541115483983175	0	0	0	1	0.8569263263218445	correct_baseline
+2498305	2020	212	12	1472	6	6	Oxyura jamaicensis	17.557004791588312	25.606582845647885	12.03785835501456	0	0	0	1	0.840451312267011	correct_baseline
+2498305	2021	212	17	694	10	9	Oxyura jamaicensis	16.049952012926862	26.706928219906747	9.645473170712501	0	0	0	1	0.8242749590104169	correct_baseline
+2765942	2001	196	1	20	1	1	Pontederia crassipes									correct_baseline
+2765942	2002	196	0	0	0	0	Pontederia crassipes									correct_baseline
+2765942	2003	196	1	5	1	1	Pontederia crassipes									correct_baseline
+2765942	2004	196	0	0	0	0	Pontederia crassipes									correct_baseline
+2765942	2005	196	0	0	0	0	Pontederia crassipes									correct_baseline
+2765942	2006	196	0	0	0	0	Pontederia crassipes									correct_baseline
+2765942	2007	196	0	0	0	0	Pontederia crassipes									correct_baseline
+2765942	2008	196	0	0	0	0	Pontederia crassipes									correct_baseline
+2765942	2009	196	3	36	3	3	Pontederia crassipes									correct_baseline
+2765942	2010	196	0	0	0	0	Pontederia crassipes									correct_baseline
+2765942	2011	196	2	8	1	1	Pontederia crassipes									correct_baseline
+2765942	2012	196	1	0	1	0	Pontederia crassipes									correct_baseline
+2765942	2013	196	3	53	3	3	Pontederia crassipes									correct_baseline
+2765942	2014	196	1	10	1	1	Pontederia crassipes									correct_baseline
+2765942	2015	196	1	3	1	1	Pontederia crassipes									correct_baseline
+2765942	2016	196	3	97	3	3	Pontederia crassipes									correct_baseline
+2765942	2017	196	15	102	8	8	Pontederia crassipes									correct_baseline
+2765942	2018	196	1	158	1	1	Pontederia crassipes									correct_baseline
+2765942	2019	196	0	0	0	0	Pontederia crassipes									correct_baseline
+2765942	2020	196	0	0	0	0	Pontederia crassipes									correct_baseline
+2765942	2021	196	0	0	0	0	Pontederia crassipes									correct_baseline
+2865565	2004	196	3	0	3	0	Lagarosiphon major									correct_baseline
 2865565	2005	196	0	0	0	0	Lagarosiphon major									correct_baseline
-2865565	2006	196	8	16	5	3	Lagarosiphon major									correct_baseline
+2865565	2006	196	8	22	7	4	Lagarosiphon major									correct_baseline
 2865565	2007	196	4	46	2	2	Lagarosiphon major									correct_baseline
-2865565	2008	196	3	7	3	1	Lagarosiphon major									correct_baseline
+2865565	2008	196	4	7	4	1	Lagarosiphon major									correct_baseline
 2865565	2009	196	0	0	0	0	Lagarosiphon major									correct_baseline
 2865565	2010	196	0	0	0	0	Lagarosiphon major									correct_baseline
 2865565	2011	196	0	0	0	0	Lagarosiphon major									correct_baseline
 2865565	2012	196	0	0	0	0	Lagarosiphon major									correct_baseline
-2865565	2013	196	2	0	2	0	Lagarosiphon major									correct_baseline
-2865565	2014	196	60	61	9	7	Lagarosiphon major									correct_baseline
-2865565	2015	196	14	24	5	5	Lagarosiphon major									correct_baseline
-2865565	2016	196	3	26	3	2	Lagarosiphon major									correct_baseline
+2865565	2013	196	3	0	3	0	Lagarosiphon major									correct_baseline
+2865565	2014	196	60	59	8	7	Lagarosiphon major									correct_baseline
+2865565	2015	196	13	21	4	4	Lagarosiphon major									correct_baseline
+2865565	2016	196	3	14	3	2	Lagarosiphon major									correct_baseline
 2865565	2017	196	3	17	3	3	Lagarosiphon major									correct_baseline
-2865565	2018	196	5	22	4	4	Lagarosiphon major									correct_baseline
+2865565	2018	196	5	27	4	4	Lagarosiphon major									correct_baseline
 2865565	2019	196	5	4	3	1	Lagarosiphon major									correct_baseline
-2865565	2020	196	7	106	5	3	Lagarosiphon major									correct_baseline
-2869311	2011	196	1	3	1	1	Lysichiton americanus									correct_baseline
+2865565	2020	196	8	105	5	3	Lagarosiphon major									correct_baseline
+2865565	2021	196	4	8	3	2	Lagarosiphon major									correct_baseline
+2869311	2009	196	1	0	1	0	Lysichiton americanus									correct_baseline
+2869311	2010	196	0	0	0	0	Lysichiton americanus									correct_baseline
+2869311	2011	196	2	2	1	1	Lysichiton americanus									correct_baseline
 2869311	2012	196	1	6	1	1	Lysichiton americanus									correct_baseline
-2869311	2013	196	1	2	1	1	Lysichiton americanus									correct_baseline
+2869311	2013	196	1	1	1	1	Lysichiton americanus									correct_baseline
 2869311	2014	196	1	16	1	1	Lysichiton americanus									correct_baseline
 2869311	2015	196	0	0	0	0	Lysichiton americanus									correct_baseline
 2869311	2016	196	3	184	2	2	Lysichiton americanus									correct_baseline
-2869311	2017	196	5	214	4	4	Lysichiton americanus									correct_baseline
-2869311	2018	196	3	10	3	2	Lysichiton americanus									correct_baseline
-2869311	2019	196	2	31	2	2	Lysichiton americanus									correct_baseline
-2869311	2020	196	2	11	2	2	Lysichiton americanus									correct_baseline
+2869311	2017	196	10	251	8	8	Lysichiton americanus									correct_baseline
+2869311	2018	196	4	10	4	2	Lysichiton americanus									correct_baseline
+2869311	2019	196	6	33	5	3	Lysichiton americanus									correct_baseline
+2869311	2020	196	8	11	7	4	Lysichiton americanus									correct_baseline
+2869311	2021	196	27	30	20	8	Lysichiton americanus									correct_baseline
 2870583	2005	196	2	21	2	2	Pistia stratiotes									correct_baseline
 2870583	2006	196	0	0	0	0	Pistia stratiotes									correct_baseline
-2870583	2007	196	2	19	2	2	Pistia stratiotes									correct_baseline
+2870583	2007	196	2	17	2	2	Pistia stratiotes									correct_baseline
 2870583	2008	196	0	0	0	0	Pistia stratiotes									correct_baseline
 2870583	2009	196	0	0	0	0	Pistia stratiotes									correct_baseline
-2870583	2010	196	1	40	1	1	Pistia stratiotes									correct_baseline
+2870583	2010	196	1	90	1	1	Pistia stratiotes									correct_baseline
 2870583	2011	196	1	4	1	1	Pistia stratiotes									correct_baseline
 2870583	2012	196	1	6	1	1	Pistia stratiotes									correct_baseline
 2870583	2013	196	3	56	3	3	Pistia stratiotes									correct_baseline
 2870583	2014	196	1	18	1	1	Pistia stratiotes									correct_baseline
-2870583	2015	196	1	10	1	1	Pistia stratiotes									correct_baseline
-2870583	2016	196	1	4	1	1	Pistia stratiotes									correct_baseline
-2870583	2017	196	33	65	10	10	Pistia stratiotes									correct_baseline
-2870583	2018	196	9	257	8	7	Pistia stratiotes									correct_baseline
+2870583	2015	196	2	13	2	2	Pistia stratiotes									correct_baseline
+2870583	2016	196	1	7	1	1	Pistia stratiotes									correct_baseline
+2870583	2017	196	35	66	9	9	Pistia stratiotes									correct_baseline
+2870583	2018	196	8	301	7	5	Pistia stratiotes									correct_baseline
 2870583	2019	196	1	0	1	0	Pistia stratiotes									correct_baseline
-2870583	2020	196	6	23	4	4	Pistia stratiotes									correct_baseline
-2882443	2001	220	1	13	1	1	Cabomba caroliniana									correct_baseline
+2870583	2020	196	7	37	5	4	Pistia stratiotes									correct_baseline
+2870583	2021	196	2	0	2	0	Pistia stratiotes									correct_baseline
+2882443	2001	220	2	13	2	1	Cabomba caroliniana									correct_baseline
 2882443	2002	220	0	0	0	0	Cabomba caroliniana									correct_baseline
 2882443	2003	220	0	0	0	0	Cabomba caroliniana									correct_baseline
 2882443	2004	220	0	0	0	0	Cabomba caroliniana									correct_baseline
@@ -418,74 +454,78 @@ taxonKey	year	classKey	obs	cobs	ncells	c_ncells	canonicalName	fit	ucl	lcl	em1	em
 2882443	2013	220	4	0	1	0	Cabomba caroliniana									correct_baseline
 2882443	2014	220	5	1	1	1	Cabomba caroliniana									correct_baseline
 2882443	2015	220	0	0	0	0	Cabomba caroliniana									correct_baseline
-2882443	2016	220	3	0	2	0	Cabomba caroliniana									correct_baseline
-2882443	2017	220	6	188	2	2	Cabomba caroliniana									correct_baseline
-2882443	2018	220	3	81	3	3	Cabomba caroliniana									correct_baseline
-2882443	2019	220	1	40	1	1	Cabomba caroliniana									correct_baseline
-2882443	2020	220	4	80	3	3	Cabomba caroliniana									correct_baseline
-2889088	2000	220	2	61	2	2	Reynoutria sachalinensis	7.330857207179494	12.454980646265414	4.314857559266439	0	0	0	1	0.9303309556167637	correct_baseline
-2889088	2001	220	9	420	9	7	Reynoutria sachalinensis	7.314490891664681	11.49885339754482	4.65279233977094	0	0	0	1	0.935696490609831	correct_baseline
-2889088	2002	220	6	303	6	6	Reynoutria sachalinensis	7.294840061844065	10.764402170470616	4.94358076604254	0	0	0	1	0.9409626455760765	correct_baseline
-2889088	2003	220	7	357	7	7	Reynoutria sachalinensis	7.271931402051016	10.221366732465391	5.173572937968616	0	0	0	1	0.9460815588127025	correct_baseline
-2889088	2004	220	3	202	3	3	Reynoutria sachalinensis	7.245795959632385	9.840855669679778	5.335060369840116	0	0	0	1	0.950982909563471	correct_baseline
-2889088	2005	220	2	291	2	2	Reynoutria sachalinensis	7.216469074826374	9.590549956006262	5.430077122460631	0	0	0	1	0.9555618918395633	correct_baseline
-2889088	2006	220	7	294	7	6	Reynoutria sachalinensis	7.183990301150279	9.433700066244421	5.470782013908909	0	0	0	1	0.9596620852303852	correct_baseline
-2889088	2007	220	7	342	7	7	Reynoutria sachalinensis	7.148403316543271	9.33313241936508	5.475082499626964	0	0	0	1	0.963056300144559	correct_baseline
-2889088	2008	220	3	53	3	2	Reynoutria sachalinensis	7.109755825534247	9.257203671208917	5.460464055244979	0	0	0	1	0.9654416654427367	correct_baseline
-2889088	2009	220	3	23	3	2	Reynoutria sachalinensis	7.068099452732015	9.183930704488134	5.439721997172344	0	0	0	1	0.9664879217621347	correct_baseline
-2889088	2010	220	8	375	8	8	Reynoutria sachalinensis	7.023489627962937	9.102530531944693	5.419306903831289	0	0	0	1	0.9659688808150052	correct_baseline
-2889088	2011	220	4	38	4	4	Reynoutria sachalinensis	6.975985463408515	9.013661526212648	5.398957243309608	0	0	0	1	0.963899978732534	correct_baseline
-2889088	2012	220	3	138	3	3	Reynoutria sachalinensis	6.925649623121612	8.929475054931487	5.371494114399823	0	0	0	1	0.9605286614467087	correct_baseline
-2889088	2013	220	7	297	7	6	Reynoutria sachalinensis	6.8725481853245345	8.87337967843277	5.322878122121528	0	0	0	1	0.9561895560189656	correct_baseline
-2889088	2014	220	21	1134	16	16	Reynoutria sachalinensis	6.816750497915056	8.877985533009406	5.234080093738752	0	0	0	1	0.9511803761784204	correct_baseline
-2889088	2015	220	17	322	10	10	Reynoutria sachalinensis	6.7583290276273225	8.979367059531537	5.086662672641983	0	0	0	1	0.9457213745006011	correct_baseline
-2889088	2016	220	19	843	16	16	Reynoutria sachalinensis	6.697359203313495	9.209062126254516	4.870704495556608	0	0	0	1	0.9399633332849195	correct_baseline
-2889088	2017	220	28	1185	20	20	Reynoutria sachalinensis	6.633919253828365	9.589805886706673	4.589131958063877	0	0	0	1	0.934007108075434	correct_baseline
-2889088	2018	220	30	1367	15	15	Reynoutria sachalinensis	6.568090041012676	10.138476758523137	4.255058014566482	0	0	0	1	0.9279203738527504	correct_baseline
-2889088	2019	220	19	730	13	13	Reynoutria sachalinensis	6.499954888280371	10.872620444097432	3.885853807452315	0	0	0	1	0.9217492238942729	correct_baseline
-2889088	2020	220	30	693	20	20	Reynoutria sachalinensis	6.429599405319521	11.815986893462563	3.498628500997847	0	0	0	1	0.9155256648361975	correct_baseline
-2889173	2000	220	114	6649	108	102	Reynoutria japonica	312.35577034334983	365.8047603754029	266.71639583547625	0	0	0	1	0.9742190993694018	correct_baseline
-2889173	2001	220	180	9385	164	157	Reynoutria japonica	310.6755100489546	359.18852292186523	268.71480123871896	0	0	0	1	0.9761702322795583	correct_baseline
-2889173	2002	220	204	11444	195	190	Reynoutria japonica	308.9175770187213	354.0116430005427	269.56760117342054	0	0	0	1	0.9780111530197755	correct_baseline
-2889173	2003	220	102	6512	94	92	Reynoutria japonica	307.08339444388906	349.7886206479476	269.59199235383835	0	0	0	1	0.9796896621469243	correct_baseline
-2889173	2004	220	92	5814	88	87	Reynoutria japonica	305.1744410734473	346.0340302872196	269.13953927360507	0	0	0	1	0.9811262303383168	correct_baseline
-2889173	2005	220	80	3548	75	73	Reynoutria japonica	303.19224917823124	342.3248115213451	268.53309157820945	0	0	0	1	0.9822055914960672	correct_baseline
-2889173	2006	220	90	4815	86	85	Reynoutria japonica	301.1384025068502	338.3352447993674	268.0310102429721	0	0	0	1	0.9827828591598249	correct_baseline
-2889173	2007	220	121	7869	118	117	Reynoutria japonica	299.01453423123127	333.84642819302087	267.8168287300829	0	0	0	1	0.9827279089251664	correct_baseline
-2889173	2008	220	157	6815	151	151	Reynoutria japonica	296.82232486962204	328.7454153180583	267.9991520361374	0	0	0	1	0.982000830243085	correct_baseline
-2889173	2009	220	547	11940	311	272	Reynoutria japonica	294.563500172195	323.0313393896196	268.6044511893045	0	0	0	1	0.9806817099208932	correct_baseline
-2889173	2010	220	393	9350	263	252	Reynoutria japonica	292.2398289559009	316.8507655635627	269.5405121596321	0	0	0	1	0.9789145342530902	correct_baseline
-2889173	2011	220	752	15708	471	458	Reynoutria japonica	289.8531208788133	310.60601056700983	270.48681875092905	0	0	0	1	0.9768369305736455	correct_baseline
-2889173	2012	220	412	15811	311	303	Reynoutria japonica	287.4052241486511	305.20314402262994	270.6451898864177	0	0	0	1	0.9745514429157167	correct_baseline
-2889173	2013	220	909	18668	518	470	Reynoutria japonica	284.89802316475226	302.23367684222796	268.55671562224506	0	0	0	1	0.972127048143769	correct_baseline
-2889173	2014	220	3460	26665	604	584	Reynoutria japonica	282.33343609731503	302.9888094327658	263.08618225124604	0	0	0	1	0.9696087565459838	correct_baseline
-2889173	2015	220	765	32623	520	508	Reynoutria japonica	279.7134124121472	307.1656175360107	254.7146835992329	0	0	0	1	0.9670260398063362	correct_baseline
-2889173	2016	220	1050	50133	635	631	Reynoutria japonica	277.03993035335924	313.8886105208253	244.51706891448998	0	0	0	1	0.9643985439587054	correct_baseline
-2889173	2017	220	11178	78356	962	955	Reynoutria japonica	274.31499440008736	322.6503829038901	233.22060081092408	0	0	0	1	0.9617396718260037	correct_baseline
-2889173	2018	220	10135	96943	1022	1019	Reynoutria japonica	271.5406327156645	333.27387502347955	221.24240974612468	0	0	0	1	0.959058790023205	correct_baseline
-2889173	2019	220	3805	59520	1096	1084	Reynoutria japonica	268.7188946074658	345.75561444576516	208.84648376515395	0	0	0	1	0.9563625972686167	correct_baseline
-2889173	2020	220	2356	67382	1148	1143	Reynoutria japonica	265.85184801119414	360.1861384489918	196.2241117754067	0	0	0	1	0.9536559867407269	correct_baseline
-2891770	2000	220	79	6728	74	74	Impatiens glandulifera	189.1073566646407	230.88195100970714	154.89124285502973	0	0	0	1	0.9744430029967398	correct_baseline
-2891770	2001	220	82	5012	75	74	Impatiens glandulifera	188.99938358263677	224.58481420659598	159.05245918255662	0	0	0	1	0.9764544825315629	correct_baseline
-2891770	2002	220	98	5823	91	90	Impatiens glandulifera	188.85930094034185	219.45360155202374	162.53018997830932	0	0	0	1	0.9783973031754358	correct_baseline
-2891770	2003	220	73	4631	66	65	Impatiens glandulifera	188.6871799999048	215.38560059617762	165.29819912644757	0	0	0	1	0.9802461068977311	correct_baseline
-2891770	2004	220	65	3383	63	62	Impatiens glandulifera	188.4831079657508	212.24613802164845	167.38058143043972	0	0	0	1	0.9819647749297127	correct_baseline
-2891770	2005	220	34	1491	34	33	Impatiens glandulifera	188.247187804392	209.85901760114098	168.8610006914917	0	0	0	1	0.9835021077681021	correct_baseline
-2891770	2006	220	56	3475	53	50	Impatiens glandulifera	187.97953814740865	208.0158916576051	169.8731115230213	0	0	0	1	0.9847876103196587	correct_baseline
-2891770	2007	220	61	4054	58	56	Impatiens glandulifera	187.68029327128565	206.5053500292419	170.5713313355221	0	0	0	1	0.9857312158366266	correct_baseline
-2891770	2008	220	86	2815	76	71	Impatiens glandulifera	187.34960312889245	205.14965886876865	171.09399053403453	0	0	0	1	0.986234739194147	correct_baseline
-2891770	2009	220	140	8149	132	126	Impatiens glandulifera	186.98763340087498	203.8365464271309	171.53143367918744	0	0	0	1	0.9862212884101205	correct_baseline
-2891770	2010	220	257	8643	234	222	Impatiens glandulifera	186.59456553617045	202.5440586429073	171.90102795864684	0	0	0	1	0.9856710173546026	correct_baseline
-2891770	2011	220	588	10766	409	398	Impatiens glandulifera	186.17059675577198	201.36385651318705	172.12369536700078	0	0	0	1	0.9846322277155871	correct_baseline
-2891770	2012	220	553	13071	340	327	Impatiens glandulifera	185.71594000061452	200.52057809741308	172.0043433824352	0	0	0	1	0.9831959342751784	correct_baseline
-2891770	2013	220	668	12921	382	362	Impatiens glandulifera	185.23082381190642	200.35597438083477	171.24749185078213	0	0	0	1	0.9814596548109936	correct_baseline
-2891770	2014	220	433	13157	341	326	Impatiens glandulifera	184.71549214001402	201.2276949659316	169.55823621745586	0	0	0	1	0.9795057458216291	correct_baseline
-2891770	2015	220	699	24211	401	397	Impatiens glandulifera	184.17020408607044	203.3603777060037	166.7909179542376	0	0	0	1	0.9773961285023178	correct_baseline
-2891770	2016	220	973	34831	477	471	Impatiens glandulifera	183.5952335886779	206.80157282364635	162.9930050156128	0	0	0	1	0.9751750111579508	correct_baseline
-2891770	2017	220	964	33296	455	452	Impatiens glandulifera	182.99086907580846	211.50835294431494	158.318372295848	0	0	0	1	0.9728734369202571	correct_baseline
-2891770	2018	220	1336	61212	595	587	Impatiens glandulifera	182.35741310788018	217.43817201743366	152.93646836182853	0	0	0	1	0.970513245963616	correct_baseline
-2891770	2019	220	1845	35512	835	810	Impatiens glandulifera	181.69518203954465	224.58560639906722	146.99579240943012	0	0	0	1	0.968109973173479	correct_baseline
-2891770	2020	220	2067	43613	962	954	Impatiens glandulifera	181.00450572136538	232.9863158320692	140.62040929069107	0	0	0	1	0.9656748325851787	correct_baseline
+2882443	2016	220	4	2	2	1	Cabomba caroliniana									correct_baseline
+2882443	2017	220	6	263	4	4	Cabomba caroliniana									correct_baseline
+2882443	2018	220	3	79	3	3	Cabomba caroliniana									correct_baseline
+2882443	2019	220	2	148	2	2	Cabomba caroliniana									correct_baseline
+2882443	2020	220	5	215	5	5	Cabomba caroliniana									correct_baseline
+2882443	2021	220	0	0	0	0	Cabomba caroliniana									correct_baseline
+2889088	2000	220	2	60	2	1	Reynoutria sachalinensis	7.955162643023113	13.44449632749508	4.7071017861434	0	0	0	1	0.9260825995504938	correct_baseline
+2889088	2001	220	9	358	9	7	Reynoutria sachalinensis	7.8649250471430605	12.376557021643968	4.997920333498519	0	0	0	1	0.931923727366995	correct_baseline
+2889088	2002	220	7	254	6	6	Reynoutria sachalinensis	7.782257101469853	11.543864225093468	5.246382356241513	0	0	0	1	0.9376819540847985	correct_baseline
+2889088	2003	220	7	405	6	6	Reynoutria sachalinensis	7.70694078337493	10.911028067159453	5.443752492693479	0	0	0	1	0.9433160928767683	correct_baseline
+2889088	2004	220	6	285	6	6	Reynoutria sachalinensis	7.638778745870702	10.446453714896474	5.585717634029095	0	0	0	1	0.9487672370367732	correct_baseline
+2889088	2005	220	2	291	2	2	Reynoutria sachalinensis	7.5775934559630995	10.118647664614786	5.674663698851178	0	0	0	1	0.9539503144620769	correct_baseline
+2889088	2006	220	7	310	7	6	Reynoutria sachalinensis	7.523226424099501	9.89486633319966	5.720030359416367	0	0	0	1	0.9587427143233331	correct_baseline
+2889088	2007	220	7	294	6	6	Reynoutria sachalinensis	7.475537520013865	9.74289910563626	5.735834950893249	0	0	0	1	0.962972268433614	correct_baseline
+2889088	2008	220	4	38	4	3	Reynoutria sachalinensis	7.434404370808091	9.634624123194317	5.736639815105293	0	0	0	1	0.9664140848261424	correct_baseline
+2889088	2009	220	3	28	3	2	Reynoutria sachalinensis	7.3997218376225264	9.549085797753825	5.734149261395013	0	0	0	1	0.968817471225334	correct_baseline
+2889088	2010	220	7	257	5	5	Reynoutria sachalinensis	7.371401567739151	9.47411001300771	5.735373665522475	0	0	0	1	0.9699824967614186	correct_baseline
+2889088	2011	220	4	77	4	4	Reynoutria sachalinensis	7.349371619429239	9.406924760218299	5.741861934401028	0	0	0	1	0.9698567037269114	correct_baseline
+2889088	2012	220	3	41	3	3	Reynoutria sachalinensis	7.333576157305079	9.354560557928504	5.749210657406124	0	0	0	1	0.9685647059658616	correct_baseline
+2889088	2013	220	9	428	9	7	Reynoutria sachalinensis	7.323975216366031	9.334202507290255	5.746673369047771	0	0	0	1	0.9663377865847057	correct_baseline
+2889088	2014	220	23	1213	16	16	Reynoutria sachalinensis	7.3205445333453865	9.372602860004818	5.717768379302211	0	0	0	1	0.963418074737251	correct_baseline
+2889088	2015	220	18	282	11	11	Reynoutria sachalinensis	7.323275444370128	9.502850708193629	5.643607889985358	0	0	0	1	0.9600052403086705	correct_baseline
+2889088	2016	220	18	568	13	13	Reynoutria sachalinensis	7.332174848343589	9.758166659036103	5.509312341668157	0	0	0	1	0.9562463107183514	correct_baseline
+2889088	2017	220	28	1186	19	19	Reynoutria sachalinensis	7.3472652358544135	10.166407626979344	5.309870352113168	0	0	0	1	0.9522444980855753	correct_baseline
+2889088	2018	220	32	1305	15	15	Reynoutria sachalinensis	7.368584783805958	10.749986453191699	5.05080094310408	0	0	0	1	0.9480713172221531	correct_baseline
+2889088	2019	220	18	625	13	13	Reynoutria sachalinensis	7.396187516350043	11.530761834581217	4.7441435840738615	0	0	0	1	0.943776547748709	correct_baseline
+2889088	2020	220	36	574	24	23	Reynoutria sachalinensis	7.430143533097609	12.535848251936995	4.403932770477005	0	0	0	1	0.9393952902835552	correct_baseline
+2889088	2021	220	29	248	20	18	Reynoutria sachalinensis	7.470539305965406	13.802144679625941	4.04349895015639	0	0	0	1	0.9349527023511194	correct_baseline
+2889173	2000	220	114	6791	107	101	Reynoutria japonica	337.601355489398	395.61195120481347	288.09714893894267	0	0	0	1	0.985879693399463	correct_baseline
+2889173	2001	220	187	9999	177	168	Reynoutria japonica	338.6054394873912	389.93525516739396	294.03251470870487	0	0	0	1	0.9864795992261907	correct_baseline
+2889173	2002	220	208	11506	195	187	Reynoutria japonica	339.32248933039824	385.06803814498346	299.01144826262237	0	0	0	1	0.9870130056257481	correct_baseline
+2889173	2003	220	109	7183	102	101	Reynoutria japonica	339.75067117275813	380.8807485900154	303.06209749285705	0	0	0	1	0.9874589819566663	correct_baseline
+2889173	2004	220	95	6572	91	89	Reynoutria japonica	339.8888886688097	377.2132064264404	306.2577202292273	0	0	0	1	0.9877893469754915	correct_baseline
+2889173	2005	220	91	3745	87	82	Reynoutria japonica	339.73678765106195	373.88218649804327	308.7097728954434	0	0	0	1	0.98796714257995355	correct_baseline
+2889173	2006	220	93	4575	85	80	Reynoutria japonica	339.2947576584522	370.6984156303872	310.55145563204036	0	0	0	1	0.9879466265126453	correct_baseline
+2889173	2007	220	132	7640	125	119	Reynoutria japonica	338.5639303013662	367.48979802751376	311.9148763213459	0	0	0	1	0.9876771694637007	correct_baseline
+2889173	2008	220	174	7570	162	154	Reynoutria japonica	337.54617446649115	364.12677420539467	312.9059107109044	0	0	0	1	0.9871133365679207	correct_baseline
+2889173	2009	220	559	12035	321	269	Reynoutria japonica	336.2440883832239	360.5487606670158	313.5777994729588	0	0	0	1	0.9862294856582717	correct_baseline
+2889173	2010	220	427	8879	296	262	Reynoutria japonica	334.6609885931572	356.7955937736323	313.8995526867577	0	0	0	1	0.9850304811847246	correct_baseline
+2889173	2011	220	804	15336	519	476	Reynoutria japonica	332.800895884359	353.0496847609102	313.71345474062	0	0	0	1	0.9835497957289813	correct_baseline
+2889173	2012	220	483	15126	384	357	Reynoutria japonica	330.66851827209183	349.6790957414478	312.691465712059	0	0	0	1	0.9818366237656285	correct_baseline
+2889173	2013	220	990	19439	600	526	Reynoutria japonica	328.26923112689553	347.2134021312135	310.3586654293946	0	0	0	1	0.979941853805584	correct_baseline
+2889173	2014	220	3541	26779	675	640	Reynoutria japonica	325.6090545693598	346.14188710376226	306.29421161551176	0	0	0	1	0.977909696613986	correct_baseline
+2889173	2015	220	787	34598	559	538	Reynoutria japonica	322.6946282682031	346.6440113035836	300.3998907165809	0	0	0	1	0.9757751241384757	correct_baseline
+2889173	2016	220	1101	49957	674	664	Reynoutria japonica	319.5331837943115	348.59024198803615	292.89820324125265	0	0	0	1	0.9735645160286129	correct_baseline
+2889173	2017	220	11217	76983	980	966	Reynoutria japonica	316.13251469790816	351.75869298216486	284.11456161025234	0	0	0	1	0.971297371352195	correct_baseline
+2889173	2018	220	10010	93507	950	944	Reynoutria japonica	312.5009444886453	355.97489344788744	274.33631445300716	0	0	0	1	0.9689880384172712	correct_baseline
+2889173	2019	220	3470	52059	885	865	Reynoutria japonica	308.6472927086473	361.1354351937522	263.78788125642643	0	0	0	1	0.9666471208112992	correct_baseline
+2889173	2020	220	2163	61450	1058	1042	Reynoutria japonica	304.58083929572575	367.19138817812774	252.6461421831751	0	0	0	1	0.9642825251766016	correct_baseline
+2889173	2021	220	3705	25960	1623	1422	Reynoutria japonica	300.3112874373789	374.13008401220793	241.0575177358718	0	0	0	1	0.9619002133805072	correct_baseline
+2891770	2000	220	78	6589	71	70	Impatiens glandulifera	193.52863215968065	238.8568295559784	156.80243070805489	1	-1	2	2	1.0079025421103927	correct_baseline
+2891770	2001	220	82	5084	78	76	Impatiens glandulifera	199.63473543854178	240.51329315347826	165.7040534894036	1	-1	2	2	1.006816320120001	correct_baseline
+2891770	2002	220	97	4938	89	86	Impatiens glandulifera	205.26653432778963	242.43685541994407	173.7951519044305	1	-1	2	2	1.0056439540582867	correct_baseline
+2891770	2003	220	67	4126	62	60	Impatiens glandulifera	210.3736537820916	244.537667393737	180.98264646635306	1	-1	2	2	1.0043564963352085	correct_baseline
+2891770	2004	220	63	2833	60	57	Impatiens glandulifera	214.90954569008684	246.67193404268008	187.23699965285974	1	-1	2	2	1.0029135968237288	correct_baseline
+2891770	2005	220	37	1589	37	34	Impatiens glandulifera	218.83219375925464	248.6479658891213	192.59167817540995	1	-1	2	2	1.0012599789182886	correct_baseline
+2891770	2006	220	66	2996	63	52	Impatiens glandulifera	222.10476086468816	250.24804559220414	197.12651374367852	0	-1	-1	0	0.9993234967208527	correct_baseline
+2891770	2007	220	69	3182	66	56	Impatiens glandulifera	224.6961649309662	251.2605429723328	200.9402906537674	0	-1	-1	0	0.9970193281542782	correct_baseline
+2891770	2008	220	257	3257	116	88	Impatiens glandulifera	226.58157070787757	251.51368424325554	204.12093417070452	0	-1	-1	0	0.9942665358538199	correct_baseline
+2891770	2009	220	143	8594	135	119	Impatiens glandulifera	227.74278647657164	250.90670651542666	206.71737919019847	0	-1	-1	0	0.991016820440547	correct_baseline
+2891770	2010	220	270	8081	239	218	Impatiens glandulifera	228.16855673440796	249.44180959628758	208.70955982287566	0	-1	-1	0	0.9872785538412049	correct_baseline
+2891770	2011	220	601	10854	414	381	Impatiens glandulifera	227.85474419341367	247.26592201800364	209.96740686193627	0	-1	-1	0	0.983114092048843	correct_baseline
+2891770	2012	220	574	12866	351	328	Impatiens glandulifera	226.80439691853712	244.7251470681439	210.19594871162852	0	-1	-1	0	0.9786127382047756	correct_baseline
+2891770	2013	220	699	13170	409	372	Impatiens glandulifera	225.02769905136827	242.38546198870907	208.91296418888356	0	-1	-1	0	0.9738627810927345	correct_baseline
+2891770	2014	220	463	12990	358	342	Impatiens glandulifera	222.54180623282107	240.87480434647637	205.60413388080846	0	-1	-1	0	0.9689370996522653	correct_baseline
+2891770	2015	220	724	25083	413	408	Impatiens glandulifera	219.3705694736265	240.52902357818996	200.0733468056484	0	-1	-1	0	0.9638905894547284	correct_baseline
+2891770	2016	220	1169	36216	583	559	Impatiens glandulifera	215.54415374469937	241.26340324187825	192.56663708312578	0	-1	-1	0	0.9587629100851595	correct_baseline
+2891770	2017	220	1116	34864	550	542	Impatiens glandulifera	211.0985598942616	242.81420136410043	183.52551761422484	0	-1	-1	0	0.9535823235525672	correct_baseline
+2891770	2018	220	1307	61431	581	566	Impatiens glandulifera	206.07506057434074	244.95124210005775	173.36891304013596	0	-1	-1	0	0.9483689996949077	correct_baseline
+2891770	2019	220	1542	31097	691	658	Impatiens glandulifera	200.51956261344256	247.5248610728126	162.44063249411778	0	-1	-1	0	0.9431374664963389	correct_baseline
+2891770	2020	220	1734	40452	867	849	Impatiens glandulifera	194.48190965333907	250.44699866227967	151.02282472713125	-1	-1	-4	0	0.9378983205366547	correct_baseline
+2891770	2021	220	3594	14774	1441	1204	Impatiens glandulifera	188.01513983837677	253.66779657467953	139.35427865017726	-1	-1	-4	0	0.9326593944361014	correct_baseline
 2984306	2009	220	1	7	1	1	Gunnera tinctoria									correct_baseline
 2984306	2010	220	0	0	0	0	Gunnera tinctoria									correct_baseline
 2984306	2011	220	0	0	0	0	Gunnera tinctoria									correct_baseline
@@ -497,29 +537,53 @@ taxonKey	year	classKey	obs	cobs	ncells	c_ncells	canonicalName	fit	ucl	lcl	em1	em
 2984306	2017	220	0	0	0	0	Gunnera tinctoria									correct_baseline
 2984306	2018	220	1	203	1	1	Gunnera tinctoria									correct_baseline
 2984306	2019	220	0	0	0	0	Gunnera tinctoria									correct_baseline
-2984306	2020	220	2	105	2	2	Gunnera tinctoria									correct_baseline
-3034825	2000	220	71	4480	69	60	Heracleum mantegazzianum	167.94559530819026	210.63398215487857	133.90870122126273	0	0	0	1	0.8657629669752419	correct_baseline
-3034825	2001	220	82	4366	79	77	Heracleum mantegazzianum	159.69663491722008	198.3454237438914	128.57879311001403	0	0	0	1	0.9006193893630328	correct_baseline
-3034825	2002	220	96	6599	93	93	Heracleum mantegazzianum	154.65325645083752	196.47681404359074	121.73258125786843	0	0	0	1	0.9354676832392932	correct_baseline
-3034825	2003	220	41	2435	40	40	Heracleum mantegazzianum	152.37052600152796	197.5342229704889	117.53293603939622	0	0	0	1	0.967062704972719	correct_baseline
-3034825	2004	220	40	2390	40	39	Heracleum mantegazzianum	152.3400655108304	198.28489759964833	117.04116572055692	0	0	0	1	0.9876439424300482	correct_baseline
-3034825	2005	220	47	1753	46	45	Heracleum mantegazzianum	153.90241017543477	197.44879646958867	119.95997079402765	0	0	0	1	0.9907458034751239	correct_baseline
-3034825	2006	220	39	1729	35	35	Heracleum mantegazzianum	156.21667084306824	194.5218755527546	125.45451857250485	0	0	0	1	0.9843946524791908	correct_baseline
-3034825	2007	220	38	2756	37	37	Heracleum mantegazzianum	158.30374069433697	189.43419314250778	132.28907570539627	0	-1	-1	0	0.9738387478238215	correct_baseline
-3034825	2008	220	140	2419	115	93	Heracleum mantegazzianum	159.1758318803656	182.55219584808927	138.7928824252026	0	-1	-1	0	0.9607548592826758	correct_baseline
-3034825	2009	220	124	7267	113	103	Heracleum mantegazzianum	158.03505395013167	174.97171740007397	142.73780156089654	0	-1	-1	0	0.9463199202485385	correct_baseline
-3034825	2010	220	192	5356	168	158	Heracleum mantegazzianum	154.4776552461804	168.81298545664032	141.35965847536696	0	-1	-1	0	0.9319079950666231	correct_baseline
-3034825	2011	220	251	7465	200	186	Heracleum mantegazzianum	148.61411306292038	165.04516260051625	133.818854509156	-1	-1	-4	0	0.9193145106733618	correct_baseline
-3034825	2012	220	260	8897	218	213	Heracleum mantegazzianum	141.0414256210188	161.7659526002954	122.97200629332583	-1	-1	-4	0	0.9107735609379344	correct_baseline
-3034825	2013	220	516	10802	444	352	Heracleum mantegazzianum	132.67622066490213	157.71017835328186	111.6160016666134	-1	0	-3	0	0.9086316506245028	correct_baseline
-3034825	2014	220	350	11940	271	254	Heracleum mantegazzianum	124.52651956483271	152.92759894560905	101.39997084794292	-1	0	-3	0	0.9147113385213239	correct_baseline
-3034825	2015	220	479	14516	307	298	Heracleum mantegazzianum	117.49786611447254	147.93312315353887	93.32425522528591	-1	1	-2	0	0.929425833258327	correct_baseline
-3034825	2016	220	511	23534	349	345	Heracleum mantegazzianum	112.29242620390592	143.31322445505234	87.98622060669936	-1	1	-2	0	0.9495168808697421	correct_baseline
-3034825	2017	220	505	26675	353	347	Heracleum mantegazzianum	109.40472027804663	139.67342155723077	85.6955653099198	0	1	1	2	0.9660445090768627	correct_baseline
-3034825	2018	220	495	30681	317	315	Heracleum mantegazzianum	109.18325894904419	137.8287869337572	86.49124975948212	0	1	1	2	0.978356272746711	correct_baseline
-3034825	2019	220	491	16692	298	294	Heracleum mantegazzianum	111.92544874872623	139.35342569692855	89.89593197980388	0	1	1	2	0.9897666156499646	correct_baseline
-3034825	2020	220	1067	33762	451	445	Heracleum mantegazzianum	117.99205028438293	147.59867334312193	94.32418066487396	1	1	4	3	1.0009018424286642	correct_baseline
-3086784	2013	220	5	16	1	1	Parthenium hysterophorus									correct_baseline
+2984306	2020	220	7	146	7	6	Gunnera tinctoria									correct_baseline
+2984306	2021	220	2	12	2	1	Gunnera tinctoria									correct_baseline
+3034613	2000	220	18	181	17	7	Hydrocotyle ranunculoides	218.89427100019176	298.7372831054601	160.39076669178442	-1	1	-2	0	0.7377437514845738	correct_baseline
+3034613	2001	220	14	341	13	10	Hydrocotyle ranunculoides	169.45527646432666	219.86435563490383	130.6036653312021	-1	1	-2	0	0.7532823883020652	correct_baseline
+3034613	2002	220	20	316	19	12	Hydrocotyle ranunculoides	133.55438920751922	165.7510973433119	107.61180566816468	-1	1	-2	0	0.7691165241984302	correct_baseline
+3034613	2003	220	13	1143	12	9	Hydrocotyle ranunculoides	107.1626890357176	128.07452432830317	89.66530995601049	-1	1	-2	0	0.7852418647316717	correct_baseline
+3034613	2004	220	99	387	84	25	Hydrocotyle ranunculoides	87.54098099179848	101.51852823327351	75.48792803021225	-1	1	-2	0	0.8016498082013566	correct_baseline
+3034613	2005	220	161	926	118	41	Hydrocotyle ranunculoides	72.80506355230035	82.62629280993579	64.15121747077947	-1	1	-2	0	0.8183253006344979	correct_baseline
+3034613	2006	220	77	561	65	26	Hydrocotyle ranunculoides	61.64447146205422	69.08771354850582	55.003135386265825	-1	1	-2	0	0.8352435595597594	correct_baseline
+3034613	2007	220	61	1250	54	33	Hydrocotyle ranunculoides	53.138471148806744	59.30011932847125	47.617056221956865	-1	1	-2	0	0.8523652062045183	correct_baseline
+3034613	2008	220	59	723	44	26	Hydrocotyle ranunculoides	46.63439566417275	52.133609393123564	41.71525594100658	-1	1	-2	0	0.8696296050710817	correct_baseline
+3034613	2009	220	39	720	36	29	Hydrocotyle ranunculoides	41.666404869669165	46.81815641539235	37.08153903711634	-1	1	-2	0	0.8869476384364168	correct_baseline
+3034613	2010	220	27	431	25	20	Hydrocotyle ranunculoides	37.900774652658335	42.855395618306	33.51896998141327	-1	1	-2	0	0.9041992626255307	correct_baseline
+3034613	2011	220	440	1088	66	53	Hydrocotyle ranunculoides	35.098820803705024	39.93223475468866	30.85044524501473	-1	1	-2	0	0.9212476662570537	correct_baseline
+3034613	2012	220	90	856	55	43	Hydrocotyle ranunculoides	33.09172060192959	37.85524783375642	28.92761334452758	-1	1	-2	0	0.9379799827884595	correct_baseline
+3034613	2013	220	63	875	38	29	Hydrocotyle ranunculoides	31.76351498921152	36.51095991995023	27.633370546321157	-1	1	-2	0	0.9543569347730056	correct_baseline
+3034613	2014	220	191	1181	48	44	Hydrocotyle ranunculoides	31.0398881314179	35.845156699060254	26.87879601977572	0	1	1	2	0.9704263289532633	correct_baseline
+3034613	2015	220	153	2968	64	60	Hydrocotyle ranunculoides	30.881196776369293	35.85401805216304	26.598087638417653	0	1	1	2	0.9862880097521128	correct_baseline
+3034613	2016	220	373	4008	131	113	Hydrocotyle ranunculoides	31.278828677813483	36.58239061908772	26.744154958137766	1	1	4	3	1.0020488768808773	correct_baseline
+3034613	2017	220	291	3793	115	99	Hydrocotyle ranunculoides	32.25441892814454	38.12656923860949	27.286681208618255	1	1	4	3	1.0177985214757206	correct_baseline
+3034613	2018	220	256	5645	104	90	Hydrocotyle ranunculoides	33.861823761725304	40.641084209402216	28.21339860329996	1	1	4	3	1.0336043395980363	correct_baseline
+3034613	2019	220	229	3411	101	84	Hydrocotyle ranunculoides	36.19210545857273	44.351894817021886	29.533540853856223	1	1	4	3	1.0495150563761866	correct_baseline
+3034613	2020	220	323	5020	110	93	Hydrocotyle ranunculoides	39.38217820352067	49.58097159268081	31.281274049958554	1	1	4	3	1.0655657800637732	correct_baseline
+3034613	2021	220	310	701	96	59	Hydrocotyle ranunculoides	43.6282705645158	56.788198935166314	33.517984865547334	1	1	4	3	1.081782213569465	correct_baseline
+3034825	2000	220	70	4699	68	60	Heracleum mantegazzianum	208.46148835738575	264.80651641388187	164.10544844846717	0	0	0	1	0.8555371714966487	correct_baseline
+3034825	2001	220	84	4045	82	79	Heracleum mantegazzianum	197.39663449600266	251.11301848115144	155.17089295501106	0	0	0	1	0.8948704595271684	correct_baseline
+3034825	2002	220	95	5914	91	91	Heracleum mantegazzianum	191.0721723452378	250.63453476021397	145.6645832133891	0	0	0	1	0.9344854430293645	correct_baseline
+3034825	2003	220	43	2353	43	40	Heracleum mantegazzianum	188.80070101347562	253.6712218385742	140.51930859489946	0	0	0	1	0.97066051247746	correct_baseline
+3034825	2004	220	43	2745	40	36	Heracleum mantegazzianum	189.80392726293252	256.16156229637664	140.63597395908818	0	0	0	1	0.9938987046710172	correct_baseline
+3034825	2005	220	48	1546	44	43	Heracleum mantegazzianum	193.0389791320863	256.2345478734727	145.42944256977728	0	0	0	1	0.9957965705188484	correct_baseline
+3034825	2006	220	42	1887	38	37	Heracleum mantegazzianum	197.11144521124177	252.85368196349788	153.65772620575564	0	0	0	1	0.986090511795144	correct_baseline
+3034825	2007	220	38	3155	37	36	Heracleum mantegazzianum	200.3264457178625	245.5550176774786	163.42848634704296	0	-1	-1	0	0.9704456112358546	correct_baseline
+3034825	2008	220	140	2849	118	95	Heracleum mantegazzianum	200.93025026847874	234.60424783965044	172.0896609704527	0	-1	-1	0	0.950863071906703	correct_baseline
+3034825	2009	220	133	6796	126	109	Heracleum mantegazzianum	197.5241625730974	221.4362397303297	176.19426182325788	0	-1	-1	0	0.9291145376837407	correct_baseline
+3034825	2010	220	198	5105	182	166	Heracleum mantegazzianum	189.50702488383388	208.90976690745433	171.9063355052769	-1	-1	-4	0	0.9072511404224227	correct_baseline
+3034825	2011	220	263	6990	209	195	Heracleum mantegazzianum	177.3201010662218	198.3602548120801	158.51168507482822	-1	-1	-4	0	0.8876692284957872	correct_baseline
+3034825	2012	220	268	8781	228	221	Heracleum mantegazzianum	162.3342153744251	187.53000288329736	140.5236339575471	-1	-1	-4	0	0.873153216041779	correct_baseline
+3034825	2013	220	520	9961	439	314	Heracleum mantegazzianum	146.42107964725187	175.40384447832403	122.22726718921074	-1	0	-3	0	0.8667419482458708	correct_baseline
+3034825	2014	220	355	11410	278	261	Heracleum mantegazzianum	131.43412849647248	162.91490015795688	106.03652653549821	-1	0	-3	0	0.8712247865856922	correct_baseline
+3034825	2015	220	490	15550	326	313	Heracleum mantegazzianum	118.84308187380071	151.4641080739015	93.24768942865165	-1	1	-2	0	0.8883221268084668	correct_baseline
+3034825	2016	220	724	24718	408	389	Heracleum mantegazzianum	109.63327486670916	142.24983197472932	84.49538949286533	-1	1	-2	0	0.9170847668034278	correct_baseline
+3034825	2017	220	605	25556	404	386	Heracleum mantegazzianum	104.42941650691579	136.2202590287638	80.05786444490701	-1	1	-2	0	0.9508816571312008	correct_baseline
+3034825	2018	220	573	29486	353	343	Heracleum mantegazzianum	103.73923960082854	134.39092866231192	80.07854354515015	0	1	1	2	0.9841796637235087	correct_baseline
+3034825	2019	220	598	18657	372	355	Heracleum mantegazzianum	108.24053323546333	138.59597490483628	84.53357352651815	1	1	4	3	1.0186449701927283	correct_baseline
+3034825	2020	220	1289	34424	516	497	Heracleum mantegazzianum	119.1069716625791	153.05599270612822	92.68811006876967	1	1	4	3	1.05478638346425	correct_baseline
+3034825	2021	220	1346	9700	641	519	Heracleum mantegazzianum	138.4512664606398	186.5018788200023	102.78048299478706	1	1	4	3	1.0921300939955654	correct_baseline
+3086784	2013	220	5	18	2	2	Parthenium hysterophorus									correct_baseline
 3086784	2014	220	0	0	0	0	Parthenium hysterophorus									correct_baseline
 3086784	2015	220	0	0	0	0	Parthenium hysterophorus									correct_baseline
 3086784	2016	220	0	0	0	0	Parthenium hysterophorus									correct_baseline
@@ -527,119 +591,126 @@ taxonKey	year	classKey	obs	cobs	ncells	c_ncells	canonicalName	fit	ucl	lcl	em1	em
 3086784	2018	220	0	0	0	0	Parthenium hysterophorus									correct_baseline
 3086784	2019	220	0	0	0	0	Parthenium hysterophorus									correct_baseline
 3086784	2020	220	0	0	0	0	Parthenium hysterophorus									correct_baseline
-3129663	2000	220	6	394	6	6	Baccharis halimifolia	8.278082548979132	13.572554270761858	5.048913367422202	0	0	0	1	0.9212000613859096	correct_baseline
-3129663	2001	220	10	178	8	8	Baccharis halimifolia	8.157376111670398	12.461691535646908	5.339787526990533	0	0	0	1	0.9277797509629615	correct_baseline
-3129663	2002	220	3	33	3	3	Baccharis halimifolia	8.046773894659362	11.620167834352522	5.57225773627385	0	0	0	1	0.9342739814425125	correct_baseline
-3129663	2003	220	12	855	9	7	Baccharis halimifolia	7.945910838555889	11.005363388129728	5.736975402591378	0	0	0	1	0.9406319100827834	correct_baseline
-3129663	2004	220	2	68	2	2	Baccharis halimifolia	7.854456780710024	10.576679682979925	5.832878858884013	0	0	0	1	0.9467778267657002	correct_baseline
-3129663	2005	220	0	0	0	0	Baccharis halimifolia	7.772114654988577	10.291319909328928	5.869583954486856	0	0	0	1	0.9525974124025343	correct_baseline
-3129663	2006	220	11	244	8	8	Baccharis halimifolia	7.698618884105335	10.105276975463207	5.8651269892566695	0	0	0	1	0.9579182911544113	correct_baseline
-3129663	2007	220	2	1	2	1	Baccharis halimifolia	7.633733952305801	9.978448381092697	5.839975498094927	0	0	0	1	0.9624896538378463	correct_baseline
-3129663	2008	220	18	1230	11	11	Baccharis halimifolia	7.5772531476340825	9.879642454983507	5.811421367214495	0	0	0	1	0.9659833549575974	correct_baseline
-3129663	2009	220	7	1086	7	7	Baccharis halimifolia	7.528997464344278	9.78895066698475	5.790794615942556	0	0	0	1	0.9680641331809728	correct_baseline
-3129663	2010	220	12	968	11	11	Baccharis halimifolia	7.488814657268294	9.698116264844515	5.7828080669865605	0	0	0	1	0.968546578201031	correct_baseline
-3129663	2011	220	8	115	3	3	Baccharis halimifolia	7.456578441125461	9.610495769706704	5.785399981540583	0	0	0	1	0.9675167063997137	correct_baseline
-3129663	2012	220	12	263	8	8	Baccharis halimifolia	7.432187828866127	9.541491704198878	5.789180312260581	0	0	0	1	0.9652696314567575	correct_baseline
-3129663	2013	220	14	453	5	5	Baccharis halimifolia	7.415566604191698	9.519016955597806	5.776923007670985	0	0	0	1	0.9621442895003239	correct_baseline
-3129663	2014	220	15	1102	8	8	Baccharis halimifolia	7.406662924397553	9.581846147392241	5.725269935645484	0	0	0	1	0.9584186272089272	correct_baseline
-3129663	2015	220	22	967	16	16	Baccharis halimifolia	7.405449050652924	9.77321670418267	5.611322996485485	0	0	0	1	0.9542894137719256	correct_baseline
-3129663	2016	220	31	1538	25	25	Baccharis halimifolia	7.411921203772233	10.131520022665391	5.4223429266318295	0	0	0	1	0.9498883820670683	correct_baseline
-3129663	2017	220	27	2093	13	13	Baccharis halimifolia	7.4260995444540185	10.686088526215627	5.160630506555417	0	0	0	1	0.9453027796068656	correct_baseline
-3129663	2018	220	37	1246	18	17	Baccharis halimifolia	7.448028277873273	11.462062004759606	4.839716030585488	0	0	0	1	0.9405909791702995	correct_baseline
-3129663	2019	220	42	1520	22	20	Baccharis halimifolia	7.477775883416169	12.489039264295174	4.477296530123141	0	0	0	1	0.9357927766887847	correct_baseline
-3129663	2020	220	42	2095	31	30	Baccharis halimifolia	7.51543547124645	13.808170901777967	4.090459969263319	0	0	0	1	0.9309358949306492	correct_baseline
-3169169	2005	220	3	72	3	2	Celastrus orbiculatus									correct_baseline
+3086784	2021	220	0	0	0	0	Parthenium hysterophorus									correct_baseline
+3129663	2000	220	6	383	6	5	Baccharis halimifolia	9.862470311443229	15.968003411661222	6.0914516446724525	0	0	0	1	0.9240591394084948	correct_baseline
+3129663	2001	220	10	211	9	9	Baccharis halimifolia	9.731464106153691	14.800885437555747	6.398360020344625	0	0	0	1	0.930045030230713	correct_baseline
+3129663	2002	220	3	58	3	3	Baccharis halimifolia	9.605439368155112	13.927457736375333	6.624645157912088	0	0	0	1	0.9359259304485541	correct_baseline
+3129663	2003	220	13	1345	10	8	Baccharis halimifolia	9.484247056071391	13.294982240649876	6.765781299471818	0	0	0	1	0.9416449456124047	correct_baseline
+3129663	2004	220	2	68	2	2	Baccharis halimifolia	9.367744895688794	12.849561643065227	6.829388182130221	0	0	0	1	0.9471165606132653	correct_baseline
+3129663	2005	220	0	0	0	0	Baccharis halimifolia	9.255797103553235	12.535609237394251	6.834113795330175	0	0	0	1	0.9522106644457239	correct_baseline
+3129663	2006	220	11	127	7	6	Baccharis halimifolia	9.148274125137052	12.300468803317072	6.803880470481185	0	0	0	1	0.9567307371930485	correct_baseline
+3129663	2007	220	2	14	2	2	Baccharis halimifolia	9.045052386818332	12.100243010843904	6.7612669106702645	0	0	0	1	0.9603945748821151	correct_baseline
+3129663	2008	220	18	1306	11	10	Baccharis halimifolia	8.946014060921405	11.903271338704664	6.723459904503246	0	0	0	1	0.962849551397185	correct_baseline
+3129663	2009	220	7	2133	7	7	Baccharis halimifolia	8.851046843103205	11.690939869505302	6.701003605634162	0	0	0	1	0.9637763466888597	correct_baseline
+3129663	2010	220	12	1062	11	11	Baccharis halimifolia	8.76004374142174	11.457394244254981	6.6977154417201525	0	0	0	1	0.9630658134245459	correct_baseline
+3129663	2011	220	9	146	5	5	Baccharis halimifolia	8.672902876479085	11.209696690081104	6.710194431165735	0	0	0	1	0.9608962397821084	correct_baseline
+3129663	2012	220	14	255	8	8	Baccharis halimifolia	8.589527292087233	10.969291330971256	6.726047916440811	0	0	0	1	0.9576099771846273	correct_baseline
+3129663	2013	220	14	465	6	6	Baccharis halimifolia	8.509824775957426	10.774414623297844	6.7212113371717805	0	0	0	1	0.953545045304814	correct_baseline
+3129663	2014	220	15	1426	11	11	Baccharis halimifolia	8.43370768996223	10.679924297529855	6.659918499251817	0	0	0	1	0.9489590869284814	correct_baseline
+3129663	2015	220	22	1187	15	15	Baccharis halimifolia	8.361092809565113	10.74711329538226	6.504804690223087	0	0	0	1	0.9440281283898463	correct_baseline
+3129663	2016	220	31	1500	25	25	Baccharis halimifolia	8.291901172054647	11.02357173401031	6.237145882127658	0	0	0	1	0.9388682139195633	correct_baseline
+3129663	2017	220	27	2047	12	12	Baccharis halimifolia	8.226057933259622	11.53315392011408	5.867261426497483	0	0	0	1	0.9335558159665861	correct_baseline
+3129663	2018	220	37	1431	19	18	Baccharis halimifolia	8.163492232454802	12.287725783098887	5.423510143839087	0	0	0	1	0.9281421016216699	correct_baseline
+3129663	2019	220	44	1794	27	26	Baccharis halimifolia	8.104137065190624	13.304104592105713	4.93659961230066	0	0	0	1	0.9226620360053607	correct_baseline
+3129663	2020	220	46	2382	37	34	Baccharis halimifolia	8.047929163786407	14.613387190936004	4.432180094803553	0	0	0	1	0.9171400533400985	correct_baseline
+3129663	2021	220	64	1903	34	32	Baccharis halimifolia	7.99480888520638	16.264847430645084	3.929761369328741	0	0	0	1	0.9115936011589447	correct_baseline
+3169169	2005	220	3	46	3	3	Celastrus orbiculatus									correct_baseline
 3169169	2006	220	0	0	0	0	Celastrus orbiculatus									correct_baseline
 3169169	2007	220	0	0	0	0	Celastrus orbiculatus									correct_baseline
 3169169	2008	220	0	0	0	0	Celastrus orbiculatus									correct_baseline
-3169169	2009	220	1	4	1	1	Celastrus orbiculatus									correct_baseline
+3169169	2009	220	1	9	1	1	Celastrus orbiculatus									correct_baseline
 3169169	2010	220	0	0	0	0	Celastrus orbiculatus									correct_baseline
 3169169	2011	220	0	0	0	0	Celastrus orbiculatus									correct_baseline
 3169169	2012	220	1	68	1	1	Celastrus orbiculatus									correct_baseline
-3169169	2013	220	2	20	2	2	Celastrus orbiculatus									correct_baseline
+3169169	2013	220	3	19	3	3	Celastrus orbiculatus									correct_baseline
 3169169	2014	220	0	0	0	0	Celastrus orbiculatus									correct_baseline
-3169169	2015	220	0	0	0	0	Celastrus orbiculatus									correct_baseline
+3169169	2015	220	1	56	1	1	Celastrus orbiculatus									correct_baseline
 3169169	2016	220	0	0	0	0	Celastrus orbiculatus									correct_baseline
 3169169	2017	220	0	0	0	0	Celastrus orbiculatus									correct_baseline
 3169169	2018	220	0	0	0	0	Celastrus orbiculatus									correct_baseline
 3169169	2019	220	0	0	0	0	Celastrus orbiculatus									correct_baseline
 3169169	2020	220	0	0	0	0	Celastrus orbiculatus									correct_baseline
+3169169	2021	220	0	0	0	0	Celastrus orbiculatus									correct_baseline
 3170247	2007	220	1	14	1	1	Asclepias syriaca									correct_baseline
 3170247	2008	220	0	0	0	0	Asclepias syriaca									correct_baseline
 3170247	2009	220	0	0	0	0	Asclepias syriaca									correct_baseline
 3170247	2010	220	0	0	0	0	Asclepias syriaca									correct_baseline
 3170247	2011	220	0	0	0	0	Asclepias syriaca									correct_baseline
-3170247	2012	220	1	81	1	1	Asclepias syriaca									correct_baseline
-3170247	2013	220	2	184	2	2	Asclepias syriaca									correct_baseline
+3170247	2012	220	1	27	1	1	Asclepias syriaca									correct_baseline
+3170247	2013	220	3	184	3	2	Asclepias syriaca									correct_baseline
 3170247	2014	220	0	0	0	0	Asclepias syriaca									correct_baseline
-3170247	2015	220	1	9	1	1	Asclepias syriaca									correct_baseline
-3170247	2016	220	3	107	2	2	Asclepias syriaca									correct_baseline
-3170247	2017	220	2	9	2	2	Asclepias syriaca									correct_baseline
-3170247	2018	220	7	591	4	4	Asclepias syriaca									correct_baseline
-3170247	2019	220	3	170	3	3	Asclepias syriaca									correct_baseline
-3170247	2020	220	9	168	8	8	Asclepias syriaca									correct_baseline
-3190653	2000	220	7	368	7	7	Ailanthus altissima	29.04233224288855	39.219505249333515	21.506060740545863	0	0	0	1	0.9819733151521006	correct_baseline
-3190653	2001	220	27	527	25	25	Ailanthus altissima	29.773238050082373	38.24848620125206	23.175968306893548	0	0	0	1	0.9837534473919225	correct_baseline
-3190653	2002	220	20	1117	19	18	Ailanthus altissima	30.450277852173194	37.58931008807508	24.66710400116395	0	0	0	1	0.9854701572874585	correct_baseline
-3190653	2003	220	21	1160	21	20	Ailanthus altissima	31.06898458172127	37.24832145983927	25.91477320608904	0	0	0	1	0.9870972774802709	correct_baseline
-3190653	2004	220	30	1047	20	20	Ailanthus altissima	31.62521373032364	37.21152130117919	26.877539765001682	0	0	0	1	0.9885944338581785	correct_baseline
-3190653	2005	220	40	1297	29	29	Ailanthus altissima	32.115189521535186	37.42256714044622	27.560519676091506	0	0	0	1	0.9898973423396121	correct_baseline
-3190653	2006	220	37	757	29	29	Ailanthus altissima	32.53554756032677	37.781675212769436	28.017864456484258	0	0	0	1	0.990901156380498	correct_baseline
-3190653	2007	220	13	799	13	13	Ailanthus altissima	32.88337328576807	38.17312362216232	28.326637593350654	0	0	0	1	0.9914349119049427	correct_baseline
-3190653	2008	220	31	1326	30	29	Ailanthus altissima	33.15623561310465	38.496760478822424	28.556583628289143	0	0	0	1	0.99123691191562735	correct_baseline
-3190653	2009	220	18	816	17	17	Ailanthus altissima	33.35221522311292	38.68365686002059	28.755561148575794	0	0	0	1	0.9899818674800883	correct_baseline
-3190653	2010	220	28	1498	26	26	Ailanthus altissima	33.46992703929875	38.69921526221857	28.947254057361988	0	0	0	1	0.9874390371855365	correct_baseline
-3190653	2011	220	76	3271	57	57	Ailanthus altissima	33.50853652560829	38.543686226735666	29.131152985289308	0	0	0	1	0.9836655182990814	correct_baseline
-3190653	2012	220	30	2223	25	25	Ailanthus altissima	33.46776953703768	38.256087916451285	29.278780418700208	0	0	0	1	0.9789587111503754	correct_baseline
-3190653	2013	220	25	2021	24	24	Ailanthus altissima	33.347915560837194	37.922590433966306	29.32509249834005	0	0	0	1	0.9736424255079108	correct_baseline
-3190653	2014	220	44	2732	36	36	Ailanthus altissima	33.14982429472291	37.68063446801722	29.163809640831317	0	0	0	1	0.9679536504937696	correct_baseline
-3190653	2015	220	39	2750	30	30	Ailanthus altissima	32.87489561835339	37.6923420349049	28.673165517727643	0	0	0	1	0.9620419550847946	correct_baseline
-3190653	2016	220	49	2911	38	38	Ailanthus altissima	32.525063123001686	38.075961962047096	27.783401302105116	0	0	0	1	0.9559983113959044	correct_baseline
-3190653	2017	220	70	6680	52	52	Ailanthus altissima	32.10277146959701	38.86286118869429	26.5185810953359	0	0	0	1	0.9498786066372581	correct_baseline
-3190653	2018	220	95	7125	72	72	Ailanthus altissima	31.610947944991025	40.03082405556018	24.96206494760226	0	0	0	1	0.9437181122033608	correct_baseline
-3190653	2019	220	316	12717	189	188	Ailanthus altissima	31.05296867844408	41.553479646274354	23.205923353542453	0	0	0	1	0.9375397909972631	correct_baseline
-3190653	2020	220	238	10931	146	145	Ailanthus altissima	30.432620063170983	43.42069040608612	21.329563285329584	0	0	0	1	0.9313590481329492	correct_baseline
-4038485	2000	220	1	19	1	1	Reynoutria bohemica	2.6909787997612584	7.909010353161109	0.9155844508245311	0	0	0	1	0.9828180056524141	correct_baseline
-4038485	2001	220	1	9	1	1	Reynoutria bohemica	3.01504200409088	7.347676767684002	1.2371908255972017	0	0	0	1	0.9835439368094265	correct_baseline
-4038485	2002	220	2	64	1	1	Reynoutria bohemica	3.3437979725243814	6.896626427649343	1.6212252466267203	0	0	0	1	0.9842253853647864	correct_baseline
-4038485	2003	220	1	7	1	1	Reynoutria bohemica	3.670711614295616	6.552363418910559	2.056376133905746	0	0	0	1	0.9848480062780856	correct_baseline
-4038485	2004	220	1	0	1	0	Reynoutria bohemica	3.988632966493529	6.320687666973424	2.5170034938645958	0	0	0	1	0.985390851264977	correct_baseline
-4038485	2005	220	0	0	0	0	Reynoutria bohemica	4.29004112701012	6.21877417993733	2.9594985022633082	0	0	0	1	0.9858222014864608	correct_baseline
-4038485	2006	220	12	232	10	10	Reynoutria bohemica	4.567330190789607	6.26990991730498	3.3270821027465076	0	0	0	1	0.9860919379658657	correct_baseline
-4038485	2007	220	13	189	13	8	Reynoutria bohemica	4.813122738415878	6.478116544755486	3.57606263101436	0	0	0	1	0.9861168085846028	correct_baseline
-4038485	2008	220	1	102	1	1	Reynoutria bohemica	5.020593239076336	6.798792046709612	3.7074757249647097	0	0	0	1	0.9857503852438152	correct_baseline
-4038485	2009	220	4	459	4	4	Reynoutria bohemica	5.183781777262205	7.152142413569631	3.75713904455995	0	0	0	1	0.9847191949636642	correct_baseline
-4038485	2010	220	29	1825	28	28	Reynoutria bohemica	5.297878062763843	7.461350282098573	3.7617201855881945	0	0	0	1	0.982489576520365	correct_baseline
-4038485	2011	220	47	1182	38	38	Reynoutria bohemica	5.35945686675739	7.671354830957737	3.744290094719408	0	0	0	1	0.9780571473403717	correct_baseline
-4038485	2012	220	6	501	6	6	Reynoutria bohemica	5.366648811948657	7.751198508632667	3.7156730586519973	0	0	0	1	0.9700104518872592	correct_baseline
-4038485	2013	220	6	447	6	6	Reynoutria bohemica	5.31923463523767	7.6929041685841595	3.67796822690948	0	0	0	1	0.9577110164816632	correct_baseline
-4038485	2014	220	6	500	6	6	Reynoutria bohemica	5.218656290966421	7.510517751515862	3.6261645846914674	0	0	0	1	0.9422266160882915	correct_baseline
-4038485	2015	220	7	386	6	6	Reynoutria bohemica	5.067944110295309	7.239061455575997	3.547981691092479	0	0	0	1	0.9250684177153154	correct_baseline
-4038485	2016	220	7	981	7	7	Reynoutria bohemica	4.871565150746199	6.9319901212317125	3.4235690765450753	0	0	0	1	0.9072041478589966	correct_baseline
-4038485	2017	220	4	388	4	4	Reynoutria bohemica	4.635203324748473	6.653678281924286	3.229057515468822	0	0	0	1	0.889128688766063	correct_baseline
-4038485	2018	220	7	964	7	7	Reynoutria bohemica	4.365486403440774	6.462802472341282	2.9487937501085817	0	0	0	1	0.8710901994515556	correct_baseline
-4038485	2019	220	10	574	10	10	Reynoutria bohemica	4.069678171576326	6.392843369083858	2.5907533571526136	0	0	0	1	0.8532180188115818	correct_baseline
-4038485	2020	220	15	1045	15	15	Reynoutria bohemica	3.755355622942893	6.448445743831768	2.1869914728302824	0	0	0	1	0.8355824944183174	correct_baseline
-4264680	2001	359	1	5	1	1	Myocastor coypus									correct_baseline
+3170247	2015	220	2	8	1	1	Asclepias syriaca									correct_baseline
+3170247	2016	220	5	121	3	3	Asclepias syriaca									correct_baseline
+3170247	2017	220	2	10	2	2	Asclepias syriaca									correct_baseline
+3170247	2018	220	6	592	4	4	Asclepias syriaca									correct_baseline
+3170247	2019	220	4	169	3	3	Asclepias syriaca									correct_baseline
+3170247	2020	220	9	163	8	7	Asclepias syriaca									correct_baseline
+3170247	2021	220	25	171	17	16	Asclepias syriaca									correct_baseline
+3190653	2000	220	7	218	7	7	Ailanthus altissima	34.022573258365405	47.04424549086783	24.60525148278848	0	0	0	1	0.9770028891675752	correct_baseline
+3190653	2001	220	28	666	27	25	Ailanthus altissima	34.59531767749098	45.531287027594786	26.286013054741087	0	0	0	1	0.9786493158954661	correct_baseline
+3190653	2002	220	19	1183	17	16	Ailanthus altissima	35.12035685333818	44.31028887371507	27.836412193590913	0	0	0	1	0.9802424447063784	correct_baseline
+3190653	2003	220	19	789	19	19	Ailanthus altissima	35.595241948272644	43.3788660987167	29.208261148936568	0	0	0	1	0.981764305552486	correct_baseline
+3190653	2004	220	28	1003	23	22	Ailanthus altissima	36.017736010979284	42.734737547793316	30.356505779537212	0	0	0	1	0.9831892672893641	correct_baseline
+3190653	2005	220	41	1234	28	26	Ailanthus altissima	36.38583152297769	42.36501013955836	31.250523279877555	0	0	0	1	0.9844801106924238	correct_baseline
+3190653	2006	220	38	676	29	28	Ailanthus altissima	36.697766287833495	42.23279767675361	31.888156234028827	0	0	0	1	0.9855821152765898	correct_baseline
+3190653	2007	220	13	705	11	11	Ailanthus altissima	36.952037486303865	42.27205483731117	32.30155429264814	0	0	0	1	0.9864148950721198	correct_baseline
+3190653	2008	220	40	1253	34	32	Ailanthus altissima	37.14741373971228	42.399466331941944	32.54593670462743	0	0	0	1	0.9868637263137611	correct_baseline
+3190653	2009	220	20	712	19	16	Ailanthus altissima	37.282945045341435	42.535993601329345	32.67862987478229	0	0	0	1	0.9867782038317384	correct_baseline
+3190653	2010	220	34	1459	29	26	Ailanthus altissima	37.35797047119833	42.62349332534477	32.74292764026135	0	0	0	1	0.9859958015400971	correct_baseline
+3190653	2011	220	91	3690	75	70	Ailanthus altissima	37.372123522749085	42.63177584664681	32.76137549661728	0	0	0	1	0.9844032759718272	correct_baseline
+3190653	2012	220	35	1935	28	28	Ailanthus altissima	37.325335120743084	42.560229838817285	32.73433078608799	0	0	0	1	0.9820022840474407	correct_baseline
+3190653	2013	220	38	1907	37	34	Ailanthus altissima	37.21783415663416	42.438069319346454	32.63973129614692	0	0	0	1	0.9789099401916154	correct_baseline
+3190653	2014	220	53	3075	46	45	Ailanthus altissima	37.050145619949284	42.32325450003878	32.434020178154995	0	0	0	1	0.9752932424943761	correct_baseline
+3190653	2015	220	50	2780	40	38	Ailanthus altissima	36.82308631983251	42.29592030956442	32.05840365202353	0	0	0	1	0.9713066354392219	correct_baseline
+3190653	2016	220	51	2883	39	39	Ailanthus altissima	36.537758250482625	42.44161506030491	31.455159660484416	0	0	0	1	0.9670678138044231	correct_baseline
+3190653	2017	220	76	7257	54	53	Ailanthus altissima	36.19553967687836	42.82861739271651	30.58975919038834	0	0	0	1	0.9626590997656498	correct_baseline
+3190653	2018	220	91	7274	72	72	Ailanthus altissima	35.79807404261926	43.49488890334053	29.4632803410248	0	0	0	1	0.9581363983259771	correct_baseline
+3190653	2019	220	238	10256	142	141	Ailanthus altissima	35.34725682547875	44.45324106461336	28.10657974905123	0	0	0	1	0.9535376273662902	correct_baseline
+3190653	2020	220	203	9020	125	125	Ailanthus altissima	34.8452204879649	45.705467055493905	26.56551763010461	0	0	0	1	0.9488888157822202	correct_baseline
+3190653	2021	220	271	7254	146	135	Ailanthus altissima	34.29431768943479	47.25362040031102	24.88910301095446	0	0	0	1	0.9442081464703175	correct_baseline
+4038485	2000	220	1	19	1	1	Reynoutria bohemica	3.9180937739361728	9.934239182086994	1.545307953631569	0	0	0	1	0.9372626518168391	correct_baseline
+4038485	2001	220	1	21	1	1	Reynoutria bohemica	4.113941526030632	8.906651335952203	1.9002107796992669	0	0	0	1	0.941256319770958	correct_baseline
+4038485	2002	220	2	100	2	2	Reynoutria bohemica	4.299107400855539	8.087626821420095	2.2852593043908014	0	0	0	1	0.9452297686771228	correct_baseline
+4038485	2003	220	1	52	1	1	Reynoutria bohemica	4.4713160353187815	7.451429231792037	2.6830647471492806	0	0	0	1	0.9491713102132229	correct_baseline
+4038485	2004	220	1	0	1	0	Reynoutria bohemica	4.628383447858523	6.9855672441500065	3.0665989735265002	0	0	0	1	0.9530641189708229	correct_baseline
+4038485	2005	220	0	0	0	0	Reynoutria bohemica	4.768262869655718	6.689809956950678	3.398651223345209	0	0	0	1	0.9568831830839081	correct_baseline
+4038485	2006	220	12	231	12	11	Reynoutria bohemica	4.889088990089117	6.567968837377094	3.639358185894851	0	0	0	1	0.9605898910005823	correct_baseline
+4038485	2007	220	13	188	13	7	Reynoutria bohemica	4.989219283681786	6.606024657142345	3.76812233568474	0	0	0	1	0.9641219671138519	correct_baseline
+4038485	2008	220	1	102	1	1	Reynoutria bohemica	5.067271140370685	6.755371644218047	3.801010242273034	0	0	0	1	0.9673738680933266	correct_baseline
+4038485	2009	220	4	516	4	4	Reynoutria bohemica	5.122153626274572	6.949139938681605	3.775497112256361	0	0	0	1	0.9701572097416181	correct_baseline
+4038485	2010	220	29	2013	28	26	Reynoutria bohemica	5.153092855078285	7.129235444809432	3.724714407123733	0	0	0	1	0.9721217333693066	correct_baseline
+4038485	2011	220	45	1302	38	37	Reynoutria bohemica	5.159650145172337	7.256234860921282	3.668843433383148	0	0	0	1	0.972623987101111	correct_baseline
+4038485	2012	220	5	463	5	5	Reynoutria bohemica	5.141732367148722	7.307962870945428	3.6176171393115752	0	0	0	1	0.9706739496736635	correct_baseline
+4038485	2013	220	6	388	5	5	Reynoutria bohemica	5.099594140770288	7.276606489777424	3.573899514438923	0	0	0	1	0.965454727395477	correct_baseline
+4038485	2014	220	6	491	6	6	Reynoutria bohemica	5.033831809433985	7.167035860185109	3.535556843860268	0	0	0	1	0.9572379455880459	correct_baseline
+4038485	2015	220	7	420	7	7	Reynoutria bohemica	4.945369392032061	6.9962049797131	3.4957063857569373	0	0	0	1	0.9470788705688814	correct_baseline
+4038485	2016	220	7	978	7	7	Reynoutria bohemica	4.835436975424204	6.793046021075865	3.4419685470637336	0	0	0	1	0.9358832196678177	correct_baseline
+4038485	2017	220	3	390	3	3	Reynoutria bohemica	4.705542254358823	6.597609873565504	3.3560832380030057	0	0	0	1	0.9241790101532515	correct_baseline
+4038485	2018	220	7	662	7	7	Reynoutria bohemica	4.557436139533121	6.456628005427685	3.2168841303018114	0	0	0	1	0.9122465885934159	correct_baseline
+4038485	2019	220	10	808	10	10	Reynoutria bohemica	4.39307352999946	6.412914484365021	3.009410945215938	0	0	0	1	0.9002369788271612	correct_baseline
+4038485	2020	220	15	1050	15	15	Reynoutria bohemica	4.214570476702777	6.493544099311345	2.7354252210250545	0	0	0	1	0.8882352071921417	correct_baseline
+4038485	2021	220	8	66	8	7	Reynoutria bohemica	4.0241590452215	6.7083191294333595	2.4139960709659753	0	0	0	1	0.876291393877286	correct_baseline
+4264680	2001	359	1	0	1	0	Myocastor coypus									correct_baseline
 4264680	2002	359	2	0	2	0	Myocastor coypus									correct_baseline
 4264680	2003	359	1	0	1	0	Myocastor coypus									correct_baseline
 4264680	2004	359	1	1	1	1	Myocastor coypus									correct_baseline
 4264680	2005	359	0	0	0	0	Myocastor coypus									correct_baseline
 4264680	2006	359	0	0	0	0	Myocastor coypus									correct_baseline
 4264680	2007	359	4	1	3	1	Myocastor coypus									correct_baseline
-4264680	2008	359	6	0	3	0	Myocastor coypus									correct_baseline
-4264680	2009	359	7	2	7	2	Myocastor coypus									correct_baseline
+4264680	2008	359	6	1	4	1	Myocastor coypus									correct_baseline
+4264680	2009	359	7	0	7	0	Myocastor coypus									correct_baseline
 4264680	2010	359	1	0	1	0	Myocastor coypus									correct_baseline
 4264680	2011	359	0	0	0	0	Myocastor coypus									correct_baseline
 4264680	2012	359	1	0	1	0	Myocastor coypus									correct_baseline
 4264680	2013	359	0	0	0	0	Myocastor coypus									correct_baseline
-4264680	2014	359	10	1	5	1	Myocastor coypus									correct_baseline
-4264680	2015	359	22	7	9	2	Myocastor coypus									correct_baseline
-4264680	2016	359	19	0	6	0	Myocastor coypus									correct_baseline
-4264680	2017	359	4	0	4	0	Myocastor coypus									correct_baseline
-4264680	2018	359	19	0	2	0	Myocastor coypus									correct_baseline
-4264680	2019	359	14	2	10	2	Myocastor coypus									correct_baseline
-4264680	2020	359	37	631	9	5	Myocastor coypus									correct_baseline
+4264680	2014	359	10	1	5	2	Myocastor coypus									correct_baseline
+4264680	2015	359	22	8	10	3	Myocastor coypus									correct_baseline
+4264680	2016	359	70	0	19	0	Myocastor coypus									correct_baseline
+4264680	2017	359	33	4	21	1	Myocastor coypus									correct_baseline
+4264680	2018	359	56	-19	7	0	Myocastor coypus									correct_baseline
+4264680	2019	359	28	-4	15	1	Myocastor coypus									correct_baseline
+4264680	2020	359	36	182	9	3	Myocastor coypus									correct_baseline
+4264680	2021	359	24	8	10	1	Myocastor coypus									correct_baseline
 5218786	2000	359	1	2	1	1	Procyon lotor									correct_baseline
 5218786	2001	359	1	0	1	0	Procyon lotor									correct_baseline
 5218786	2002	359	2	1	2	1	Procyon lotor									correct_baseline
@@ -652,7 +723,7 @@ taxonKey	year	classKey	obs	cobs	ncells	c_ncells	canonicalName	fit	ucl	lcl	em1	em
 5218786	2009	359	1	0	1	0	Procyon lotor									correct_baseline
 5218786	2010	359	0	0	0	0	Procyon lotor									correct_baseline
 5218786	2011	359	4	0	3	0	Procyon lotor									correct_baseline
-5218786	2012	359	6	0	5	0	Procyon lotor									correct_baseline
+5218786	2012	359	5	0	4	0	Procyon lotor									correct_baseline
 5218786	2013	359	0	0	0	0	Procyon lotor									correct_baseline
 5218786	2014	359	3	1	3	1	Procyon lotor									correct_baseline
 5218786	2015	359	5	0	4	0	Procyon lotor									correct_baseline
@@ -660,21 +731,23 @@ taxonKey	year	classKey	obs	cobs	ncells	c_ncells	canonicalName	fit	ucl	lcl	em1	em
 5218786	2017	359	13	3	7	3	Procyon lotor									correct_baseline
 5218786	2018	359	8	0	6	0	Procyon lotor									correct_baseline
 5218786	2019	359	11	2	11	2	Procyon lotor									correct_baseline
-5218786	2020	359	9	45	7	4	Procyon lotor									correct_baseline
+5218786	2020	359	10	45	8	4	Procyon lotor									correct_baseline
+5218786	2021	359	20	49	17	4	Procyon lotor									correct_baseline
 5218823	2007	359	1	0	1	0	Mustela vison									correct_baseline
 5218823	2008	359	1	0	1	0	Mustela vison									correct_baseline
 5218823	2009	359	1	1	1	1	Mustela vison									correct_baseline
 5218823	2010	359	0	0	0	0	Mustela vison									correct_baseline
 5218823	2011	359	5	0	4	0	Mustela vison									correct_baseline
 5218823	2012	359	1	0	1	0	Mustela vison									correct_baseline
-5218823	2013	359	2	0	2	0	Mustela vison									correct_baseline
+5218823	2013	359	2	-1	1	0	Mustela vison									correct_baseline
 5218823	2014	359	5	10	3	2	Mustela vison									correct_baseline
 5218823	2015	359	2	0	2	0	Mustela vison									correct_baseline
 5218823	2016	359	0	0	0	0	Mustela vison									correct_baseline
 5218823	2017	359	3	0	3	0	Mustela vison									correct_baseline
 5218823	2018	359	1	0	1	0	Mustela vison									correct_baseline
 5218823	2019	359	5	6	4	3	Mustela vison									correct_baseline
-5218823	2020	359	15	24	10	4	Mustela vison									correct_baseline
+5218823	2020	359	15	26	10	5	Mustela vison									correct_baseline
+5218823	2021	359	6	1	5	1	Mustela vison									correct_baseline
 5219681	2002	359	2	5	2	1	Sciurus carolinensis									correct_baseline
 5219681	2003	359	0	0	0	0	Sciurus carolinensis									correct_baseline
 5219681	2004	359	0	0	0	0	Sciurus carolinensis									correct_baseline
@@ -694,6 +767,7 @@ taxonKey	year	classKey	obs	cobs	ncells	c_ncells	canonicalName	fit	ucl	lcl	em1	em
 5219681	2018	359	1	0	1	0	Sciurus carolinensis									correct_baseline
 5219681	2019	359	0	0	0	0	Sciurus carolinensis									correct_baseline
 5219681	2020	359	0	0	0	0	Sciurus carolinensis									correct_baseline
+5219681	2021	359	0	0	0	0	Sciurus carolinensis									correct_baseline
 5219683	2014	359	2	0	1	0	Sciurus niger									correct_baseline
 5219683	2015	359	4	0	1	0	Sciurus niger									correct_baseline
 5219683	2016	359	0	0	0	0	Sciurus niger									correct_baseline
@@ -701,257 +775,250 @@ taxonKey	year	classKey	obs	cobs	ncells	c_ncells	canonicalName	fit	ucl	lcl	em1	em
 5219683	2018	359	1	0	1	0	Sciurus niger									correct_baseline
 5219683	2019	359	0	0	0	0	Sciurus niger									correct_baseline
 5219683	2020	359	0	0	0	0	Sciurus niger									correct_baseline
-5219858	2000	359	660	30	584	19	Ondatra zibethicus	722.5302180388139	1023.5275666777184	510.04968793732115	1	-1	2	2	2.1759771841445508	correct_baseline
-5219858	2001	359	15368	260	7580	176	Ondatra zibethicus	1620.5900842467759	2077.5940086097794	1264.1123387318426	1	-1	2	2	1.7831384965234265	correct_baseline
-5219858	2002	359	13458	298	7505	237	Ondatra zibethicus	2874.452468324622	3686.2254444944447	2241.446465244797	1	-1	2	2	1.4630095639163907	correct_baseline
-5219858	2003	359	10125	72	6471	45	Ondatra zibethicus	4059.9013820496775	5351.877331530806	3079.816335636056	1	-1	2	2	1.2070695574937385	correct_baseline
-5219858	2004	359	8330	53	5784	31	Ondatra zibethicus	4644.899213416329	6178.5652451771	3491.9253656238134	1	-1	2	2	1.0045488491626857	correct_baseline
-5219858	2005	359	5757	49	4295	32	Ondatra zibethicus	4432.735013415267	5796.383609494978	3389.896360028803	-1	-1	-4	0	0.8498430877272978	correct_baseline
-5219858	2006	359	4587	78	3530	33	Ondatra zibethicus	3674.116911865859	4637.991638872323	2910.556148682683	-1	-1	-4	0	0.7485641226807841	correct_baseline
-5219858	2007	359	4344	51	3369	23	Ondatra zibethicus	2774.0580068118998	3368.787192150318	2284.3229287645154	-1	-1	-4	0	0.6958430878059069	correct_baseline
-5219858	2008	359	3394	38	2792	27	Ondatra zibethicus	2004.5444644086692	2372.216282667457	1693.8584138176236	-1	0	-3	0	0.682415305371154	correct_baseline
-5219858	2009	359	1751	83	1583	37	Ondatra zibethicus	1450.4217673988353	1709.8646257120208	1230.3449476114695	-1	1	-2	0	0.6995398607328703	correct_baseline
-5219858	2010	359	500	23	478	11	Ondatra zibethicus	1089.1178667399015	1300.8762170465498	911.829820630527	-1	1	-2	0	0.7383209261925481	correct_baseline
-5219858	2011	359	461	16	439	9	Ondatra zibethicus	867.9489267528659	1058.2808010314548	711.8482530508089	-1	1	-2	0	0.7891454021169583	correct_baseline
-5219858	2012	359	650	23	608	17	Ondatra zibethicus	739.4289360502003	922.6947592514534	592.5634084146012	-1	1	-2	0	0.8424080005852927	correct_baseline
-5219858	2013	359	381	17	366	12	Ondatra zibethicus	668.3274874420179	853.0180767506149	523.625046929861	-1	1	-2	0	0.8883861658299489	correct_baseline
-5219858	2014	359	532	22	494	16	Ondatra zibethicus	628.2388014155334	814.8783182370527	484.3471506984069	-1	0	-3	0	0.9162518422050547	correct_baseline
-5219858	2015	359	557	32	496	15	Ondatra zibethicus	597.2176291986425	775.3947409869025	459.9836415858176	-1	0	-3	0	0.9122776805976541	correct_baseline
-5219858	2016	359	1018	6	211	6	Ondatra zibethicus	556.6729605205439	708.5185146197458	437.37005961095997	-1	-1	-4	0	0.866509293927394	correct_baseline
-5219858	2017	359	1540	33	300	11	Ondatra zibethicus	494.5048960346113	612.655824345321	399.1394229598812	-1	-1	-4	0	0.7904469938415892	correct_baseline
-5219858	2018	359	1911	114	344	20	Ondatra zibethicus	409.60091137498966	524.1119757491883	320.10889726265134	-1	-1	-4	0	0.7027709789802441	correct_baseline
-5219858	2019	359	2240	855	353	127	Ondatra zibethicus	312.19068227242764	466.2488288255095	209.03649740683585	-1	-1	-4	0	0.6168251454002861	correct_baseline
-5219858	2020	359	2153	1114	373	133	Ondatra zibethicus	217.74442279464594	421.2932762352264	112.54068444164058	-1	-1	-4	0	0.5391497918772583	correct_baseline
-5232437	2000	212	1220	17367	585	568	Branta canadensis	1370.5200222820713	1511.136461363724	1242.9884259300818	0	0	0	1	0.9876268625661415	correct_baseline
-5232437	2001	212	1520	22491	758	748	Branta canadensis	1376.1284084079664	1497.7477524350852	1264.384735913346	0	0	0	1	0.9898778008615917	correct_baseline
-5232437	2002	212	1658	22820	766	744	Branta canadensis	1380.712204010033	1487.9041902437887	1281.2425711294559	0	0	0	1	0.9916243903893348	correct_baseline
-5232437	2003	212	1445	20130	581	568	Branta canadensis	1384.2432289188796	1478.7245280842797	1295.7986970637148	0	0	0	1	0.9925191434334836	correct_baseline
-5232437	2004	212	1554	21037	685	665	Branta canadensis	1386.6820087484637	1468.1862572039008	1309.702351422858	0	0	0	1	0.9923730115303842	correct_baseline
-5232437	2005	212	1541	21070	716	698	Branta canadensis	1387.998997581144	1455.6367223470606	1323.5041323908872	0	0	0	1	0.9914813124811108	correct_baseline
-5232437	2006	212	2046	23881	829	812	Branta canadensis	1388.2140789107982	1441.9175283431089	1336.5107858149204	0	0	0	1	0.9904545938425738	correct_baseline
-5232437	2007	212	2426	38077	1058	1030	Branta canadensis	1387.4444697780623	1429.4230303000024	1346.6987140354915	0	0	0	1	0.98980661372961	correct_baseline
-5232437	2008	212	3125	56385	1206	1182	Branta canadensis	1385.9492717619157	1421.8631884114648	1350.9424813532196	0	0	0	1	0.9898157708964826	correct_baseline
-5232437	2009	212	5338	105004	1901	1872	Branta canadensis	1384.1605787805606	1421.53715754258	1347.766745093154	0	0	0	1	0.990563067038949	correct_baseline
-5232437	2010	212	6838	156299	2083	2064	Branta canadensis	1382.6948030984884	1426.380841241403	1340.3467455799932	0	0	0	1	0.9919971813646958	correct_baseline
-5232437	2011	212	7934	180487	1944	1934	Branta canadensis	1382.3424134303839	1433.5329315592774	1332.9798750350667	0	0	0	1	0.9940127331677637	correct_baseline
-5232437	2012	212	9155	217597	2056	2049	Branta canadensis	1384.0384652820323	1442.084017056427	1328.3293141895283	0	1	1	2	0.9965564691495608	correct_baseline
-5232437	2013	212	9654	325075	2062	2059	Branta canadensis	1388.819339185771	1452.5335000852979	1327.899946392379	0	1	1	2	0.9997048177243545	correct_baseline
-5232437	2014	212	11215	496865	2257	2255	Branta canadensis	1397.7726731805853	1465.93198779317	1332.7824634153892	1	1	4	3	1.0035883773367889	correct_baseline
-5232437	2015	212	12869	659316	2304	2301	Branta canadensis	1411.9878170371712	1483.3687578356062	1344.041786595554	1	1	4	3	1.0081645292531	correct_baseline
-5232437	2016	212	12991	1808950	2398	2394	Branta canadensis	1432.5139067111893	1505.8069604751008	1362.7882901228536	1	1	4	3	1.0129748721734047	correct_baseline
-5232437	2017	212	13842	439928	2500	2499	Branta canadensis	1460.3326235304576	1534.2725879936768	1389.9559882876158	1	1	4	3	1.017289210650999	correct_baseline
-5232437	2018	212	13106	399365	2375	2374	Branta canadensis	1496.3532403624558	1570.3923622878776	1425.8048330553231	1	1	4	3	1.0209027006097777	correct_baseline
-5232437	2019	212	13090	66196	2118	1855	Branta canadensis	1541.4379827761873	1617.2193398332847	1469.207667891271	1	1	4	3	1.024079958759353	correct_baseline
-5232437	2020	212	17230	86852	2708	2409	Branta canadensis	1596.4634286571552	1679.833061588154	1517.2314066911877	1	1	4	3	1.0270423960154522	correct_baseline
-5329212	2000	196	14	156	12	10	Elodea nuttallii	22.157345617330048	31.322147706546055	15.674147552251382	0	0	0	1	0.9546420789898431	correct_baseline
-5329212	2001	196	18	239	18	16	Elodea nuttallii	22.064980023756657	29.709667677962425	16.38737089644117	0	0	0	1	0.9592706782195308	correct_baseline
-5329212	2002	196	14	216	13	13	Elodea nuttallii	22.00642282482137	28.421728640309606	17.03916928043486	0	0	0	1	0.9638429082781905	correct_baseline
-5329212	2003	196	19	271	16	12	Elodea nuttallii	21.981406384921673	27.428489769081203	17.616071126298138	0	0	0	1	0.9683335779524936	correct_baseline
-5329212	2004	196	22	229	21	20	Elodea nuttallii	21.98981649911142	26.70444527250975	18.107548190202397	0	0	0	1	0.9727075146894154	correct_baseline
-5329212	2005	196	8	120	8	8	Elodea nuttallii	22.03169152099353	26.22365794108986	18.509829268160637	0	0	0	1	0.97691530140737	correct_baseline
-5329212	2006	196	4	11	4	3	Elodea nuttallii	22.107222653775622	25.9553423948027	18.829622280824672	0	0	0	1	0.9808878351000945	correct_baseline
-5329212	2007	196	13	151	8	8	Elodea nuttallii	22.216755407505882	25.862711201449006	19.084782604280402	0	0	0	1	0.9845309471717014	correct_baseline
-5329212	2008	196	16	80	16	13	Elodea nuttallii	22.36079223756555	25.90691147226548	19.300063229337457	0	0	0	1	0.9877243041881361	correct_baseline
-5329212	2009	196	16	151	16	10	Elodea nuttallii	22.53999639201271	26.054126607857462	19.499845264386128	0	0	0	1	0.9903332724478509	correct_baseline
-5329212	2010	196	17	73	15	12	Elodea nuttallii	22.755197008409557	26.282060449440287	19.701613269158983	0	0	0	1	0.9922421396013172	correct_baseline
-5329212	2011	196	24	148	20	19	Elodea nuttallii	23.007395514429895	26.583929117832206	19.912039563870685	0	0	0	1	0.993399984681231	correct_baseline
-5329212	2012	196	30	230	26	24	Elodea nuttallii	23.29777340098558	26.97031041408371	20.125324370024007	0	0	0	1	0.9938452534053615	correct_baseline
-5329212	2013	196	23	293	23	21	Elodea nuttallii	23.627701452017714	27.469276257299253	20.32337039667489	0	0	0	1	0.9936851488413736	correct_baseline
-5329212	2014	196	119	367	43	38	Elodea nuttallii	23.998750531691414	28.12405959850697	20.478552360660405	0	0	0	1	0.9930504437188029	correct_baseline
-5329212	2015	196	74	2665	57	56	Elodea nuttallii	24.412704047761554	28.987353246294106	20.56000469790344	0	0	0	1	0.9920606066455222	correct_baseline
-5329212	2016	196	146	2225	82	79	Elodea nuttallii	24.87157222961748	30.1137511259357	20.541947849210647	0	0	0	1	0.9908102283753585	correct_baseline
-5329212	2017	196	125	10841	81	78	Elodea nuttallii	25.377608381262498	31.554686216881922	20.409742081610972	0	0	0	1	0.9893691746216092	correct_baseline
-5329212	2018	196	133	9268	86	84	Elodea nuttallii	25.93332729354977	33.35898018341554	20.160612249433402	0	0	0	1	0.9877875972811107	correct_baseline
-5329212	2019	196	74	1053	44	36	Elodea nuttallii	26.54152602669723	35.57776374671827	19.80036206999733	0	0	0	1	0.9861012792667299	correct_baseline
-5329212	2020	196	79	1705	46	36	Elodea nuttallii	27.20530730375298	38.27058438708052	19.339363569830667	0	0	0	1	0.9843358982327758	correct_baseline
-5361762	2006	220	5	5	4	2	Myriophyllum heterophyllum	8.344564195323777	17.39124671021797	4.003838986940966	-1	1	-2	0	0.6829937849594885	correct_baseline
-5361762	2007	220	18	91	14	4	Myriophyllum heterophyllum	6.65309302055925	11.905083298592702	3.7180459497873986	-1	1	-2	0	0.7094254155716719	correct_baseline
-5361762	2008	220	0	0	0	0	Myriophyllum heterophyllum	5.420850196848761	8.748067251555186	3.359098188397125	-1	1	-2	0	0.7366489222873457	correct_baseline
-5361762	2009	220	0	0	0	0	Myriophyllum heterophyllum	4.513724943013584	6.930174343610169	2.9398557454717094	-1	1	-2	0	0.7645578779161943	correct_baseline
-5361762	2010	220	2	131	2	2	Myriophyllum heterophyllum	3.8408438267719758	5.873328239128208	2.5117072809542282	-1	1	-2	0	0.7929386853652862	correct_baseline
-5361762	2011	220	0	0	0	0	Myriophyllum heterophyllum	3.3399662485497887	5.225467499883251	2.1348089030696267	-1	1	-2	0	0.8213696922274789	correct_baseline
-5361762	2012	220	20	104	14	12	Myriophyllum heterophyllum	2.9681194598257954	4.79204794954667	1.8384067147387322	-1	1	-2	0	0.8490311438164849	correct_baseline
-5361762	2013	220	2	49	2	2	Myriophyllum heterophyllum	2.6955322935448427	4.47888467843784	1.622255286125684	-1	1	-2	0	0.8744613427888038	correct_baseline
-5361762	2014	220	1	14	1	1	Myriophyllum heterophyllum	2.5016788820248417	4.245272668490183	1.4742038303501572	-1	1	-2	0	0.8957360152420542	correct_baseline
-5361762	2015	220	4	150	3	3	Myriophyllum heterophyllum	2.372697875283776	4.078428261065831	1.380359012592983	0	1	1	2	0.9118160869980306	correct_baseline
-5361762	2016	220	11	289	8	8	Myriophyllum heterophyllum	2.2997316989083263	3.9831993398625305	1.3277683178031217	0	1	1	2	0.923536431531726	correct_baseline
-5361762	2017	220	14	177	11	11	Myriophyllum heterophyllum	2.2779057405241416	3.9801413319126278	1.3036860076070143	0	1	1	2	0.9324583114572503	correct_baseline
-5361762	2018	220	21	680	14	14	Myriophyllum heterophyllum	2.305781611910477	4.1082929884035835	1.294121148815736	0	1	1	2	0.9397508772728688	correct_baseline
-5361762	2019	220	16	417	11	11	Myriophyllum heterophyllum	2.3851980031729596	4.43074523707332	1.2840209061756378	0	1	1	2	0.946090743847947	correct_baseline
-5361762	2020	220	19	1835	13	13	Myriophyllum heterophyllum	2.521474296068526	5.043567439197528	1.2605824552523188	0	1	1	2	0.951851185007081	correct_baseline
-5361785	2000	220	6	198	5	4	Myriophyllum aquaticum	33.91111288683181	93.26440541991555	12.330144303669027	1	-1	2	2	1.0294754854235684	correct_baseline
-5361785	2001	220	3	98	3	2	Myriophyllum aquaticum	42.66801240394654	85.93240173651306	21.185946694304615	0	-1	-1	0	0.9820516172142879	correct_baseline
-5361785	2002	220	5	217	5	4	Myriophyllum aquaticum	48.93137990490552	77.9454833637545	30.71736598546206	0	-1	-1	0	0.935936345618254	correct_baseline
-5361785	2003	220	4	9	4	3	Myriophyllum aquaticum	51.32367954394806	69.6566335599952	37.815782177602756	0	-1	-1	0	0.8923089509936161	correct_baseline
-5361785	2004	220	20	70	20	9	Myriophyllum aquaticum	49.661474736103166	61.46237583076194	40.126370639422085	0	-1	-1	0	0.8529721562130862	correct_baseline
-5361785	2005	220	161	730	109	50	Myriophyllum aquaticum	44.982278920188584	53.70952636316782	37.67311972129446	-1	-1	-4	0	0.8206984551509748	correct_baseline
-5361785	2006	220	93	339	74	34	Myriophyllum aquaticum	38.90901538725026	46.638843063183856	32.46031374222361	-1	-1	-4	0	0.8004644866935524	correct_baseline
-5361785	2007	220	78	1313	62	52	Myriophyllum aquaticum	32.89509141477667	40.47161634578708	26.736936571577143	-1	0	-3	0	0.7979049050848797	correct_baseline
-5361785	2008	220	28	342	25	17	Myriophyllum aquaticum	27.831586547967664	35.37067888783204	21.89941596070088	-1	1	-2	0	0.8155010864796635	correct_baseline
-5361785	2009	220	23	229	20	16	Myriophyllum aquaticum	24.063976522858656	31.377013750602494	18.45538809701332	-1	1	-2	0	0.8508854693354385	correct_baseline
-5361785	2010	220	20	451	19	18	Myriophyllum aquaticum	21.597179585394674	28.44841103799868	16.395930353395297	-1	1	-2	0	0.8948964869563543	correct_baseline
-5361785	2011	220	28	887	28	27	Myriophyllum aquaticum	20.289542445660746	26.521854646505627	15.521747560309016	-1	1	-2	0	0.9338510859242625	correct_baseline
-5361785	2012	220	37	777	30	29	Myriophyllum aquaticum	19.95979417274031	25.56506648282181	15.583506645126644	0	1	1	2	0.9655835168463655	correct_baseline
-5361785	2013	220	47	544	29	24	Myriophyllum aquaticum	20.412069455857463	25.600337830752558	16.275276608664235	0	1	1	2	0.9909403281091825	correct_baseline
-5361785	2014	220	74	1238	56	53	Myriophyllum aquaticum	21.410102559063535	26.615537616534166	17.22274027276666	1	0	3	3	1.007708843320905	correct_baseline
-5361785	2015	220	177	5137	64	62	Myriophyllum aquaticum	22.638245261328844	28.279609300423164	18.122249959952917	1	0	3	3	1.0124374228017976	correct_baseline
-5361785	2016	220	115	4661	60	59	Myriophyllum aquaticum	23.69338901626282	29.787940484061654	18.845770266539045	0	-1	-1	0	0.998344004783046	correct_baseline
-5361785	2017	220	78	7039	49	49	Myriophyllum aquaticum	24.145758374793132	30.258006200742745	19.268210986075523	0	-1	-1	0	0.9555045959435035	correct_baseline
-5361785	2018	220	95	11321	56	56	Myriophyllum aquaticum	23.664452461876884	29.52375613954426	18.96798996962164	0	-1	-1	0	0.8911981766223608	correct_baseline
-5361785	2019	220	102	3707	52	51	Myriophyllum aquaticum	22.13919363353249	28.690844712429588	17.083634157718016	0	-1	-1	0	0.821084558273355	correct_baseline
-5361785	2020	220	118	7063	79	76	Myriophyllum aquaticum	19.71049398355783	28.92711298871934	13.430430241254061	0	-1	-1	0	0.7534182052409184	correct_baseline
-5362054	2000	220	4	8	3	2	Crassula helmsii	13.459210877217943	29.720561529449895	6.095118938379452	0	0	0	1	0.9820407925771548	correct_baseline
-5362054	2001	220	9	40	8	3	Crassula helmsii	14.348852932117659	28.09146015286744	7.329258762169587	0	0	0	1	0.9832146052424233	correct_baseline
-5362054	2002	220	4	1	3	1	Crassula helmsii	15.2353541071395	26.68265096313007	8.699136194925646	0	0	0	1	0.9843655545050214	correct_baseline
-5362054	2003	220	5	189	5	2	Crassula helmsii	16.111118892797503	25.480778707326873	10.186821798472707	0	0	0	1	0.9854879924629831	correct_baseline
-5362054	2004	220	5	4	4	3	Crassula helmsii	16.96823354083497	24.483256134141524	11.759912485448186	0	0	0	1	0.9865744593531749	correct_baseline
-5362054	2005	220	2	81	2	2	Crassula helmsii	17.798579483281028	23.70526542102659	13.363673681615053	0	0	0	1	0.9876149218996874	correct_baseline
-5362054	2006	220	2	0	2	0	Crassula helmsii	18.593957275708856	23.19460231231756	14.905849322852266	0	0	0	1	0.9885956090261718	correct_baseline
-5362054	2007	220	6	116	5	4	Crassula helmsii	19.346218541392187	23.053295477234318	16.235256786645255	0	0	0	1	0.989497192706753	correct_baseline
-5362054	2008	220	6	123	6	5	Crassula helmsii	20.047403031052962	23.418907066131233	17.1612777297666	0	0	0	1	0.9902918846814227	correct_baseline
-5362054	2009	220	14	311	9	7	Crassula helmsii	20.689877629035163	24.313226150661464	17.606509051979657	0	0	0	1	0.9909387193555362	correct_baseline
-5362054	2010	220	24	757	21	20	Crassula helmsii	21.26647394524984	25.549241510674257	17.701618025530767	0	0	0	1	0.99137583004638	correct_baseline
-5362054	2011	220	33	739	22	22	Crassula helmsii	21.770621044111945	26.898122936369358	17.62055819908093	0	0	0	1	0.9915080244898747	correct_baseline
-5362054	2012	220	69	1087	38	36	Crassula helmsii	22.19646988409714	28.2030646639219	17.46913965509162	0	0	0	1	0.9911883767975784	correct_baseline
-5362054	2013	220	340	2841	141	136	Crassula helmsii	22.539006177372375	29.369931615687076	17.296832900771662	0	0	0	1	0.9901976623639978	correct_baseline
-5362054	2014	220	96	1720	62	62	Crassula helmsii	22.794148626529836	30.342983328641033	17.12333971847461	0	0	0	1	0.9882440139043092	correct_baseline
-5362054	2015	220	106	3421	57	55	Crassula helmsii	22.95882984848372	31.092558630064687	16.952862396533185	0	0	0	1	0.9850345058585311	correct_baseline
-5362054	2016	220	151	4836	73	72	Crassula helmsii	23.031057743290457	31.610414242703474	16.780217326548215	0	0	0	1	0.9804359112141678	correct_baseline
-5362054	2017	220	1247	17654	113	112	Crassula helmsii	23.009955593113936	31.90825167522263	16.593139034571728	0	0	0	1	0.9745811882328843	correct_baseline
-5362054	2018	220	796	26133	150	150	Crassula helmsii	22.89577976531586	32.017136498789874	16.373004846378457	0	0	0	1	0.9677767858948493	correct_baseline
-5362054	2019	220	332	4597	139	134	Crassula helmsii	22.689914522479956	31.986476481333117	16.095308945263042	0	0	0	1	0.9603352725441138	correct_baseline
-5362054	2020	220	395	4712	148	146	Crassula helmsii	22.394844088034997	31.881430058005165	15.731071059701923	0	0	0	1	0.9524935195996068	correct_baseline
+5219683	2021	359	0	0	0	0	Sciurus niger									correct_baseline
+5219858	2000	359	667	17	590	13	Ondatra zibethicus	807.3232557877327	1262.8530847985533	516.1097891602122	1	-1	2	2	1.755920245422065	correct_baseline
+5219858	2001	359	15413	214	7645	1700	Ondatra zibethicus	1508.2934354443385	2149.5646379260647	1058.3301601013463	1	-1	2	2	1.5452850252867651	correct_baseline
+5219858	2002	359	13436	157	7520	1557	Ondatra zibethicus	2397.1458063278787	3319.407725909408	1731.1244930663156	1	-1	2	2	1.3578625549875492	correct_baseline
+5219858	2003	359	10119	22	6485	1024	Ondatra zibethicus	3251.0842544091884	4466.930585063848	2366.177093642092	1	-1	2	2	1.190275436605886	correct_baseline
+5219858	2004	359	8383	71	5800	765	Ondatra zibethicus	3792.4706997891208	5121.451366363518	2808.3511840456113	1	-1	2	2	1.0389725967954764	correct_baseline
+5219858	2005	359	5704	65	4240	432	Ondatra zibethicus	3859.2128257629824	5036.649464800822	2957.0300134282784	0	-1	-1	0	0.9098915795838626	correct_baseline
+5219858	2006	359	4581	23	3524	294	Ondatra zibethicus	3496.3116948271722	4374.894390950142	2794.1692701593183	-1	-1	-4	0	0.8137678802748374	correct_baseline
+5219858	2007	359	4375	29	3413	283	Ondatra zibethicus	2893.019758865713	3510.699351981641	2384.0159711947886	-1	-1	-4	0	0.7517283323123805	correct_baseline
+5219858	2008	359	3371	35	2750	153	Ondatra zibethicus	2250.022074648692	2725.6189423990295	1857.4127357474322	-1	-1	-4	0	0.7198142956658293	correct_baseline
+5219858	2009	359	1780	17	1576	41	Ondatra zibethicus	1693.8593503640388	2096.658780576286	1368.4436997550304	-1	0	-3	0	0.713027664844617	correct_baseline
+5219858	2010	359	486	9	463	7	Ondatra zibethicus	1268.796474059269	1609.2237816592424	1000.3857207015365	-1	0	-3	0	0.725589740072911	correct_baseline
+5219858	2011	359	497	15	475	12	Ondatra zibethicus	968.1837941897429	1244.3000339779862	753.3390932529945	-1	1	-2	0	0.7500122753908268	correct_baseline
+5219858	2012	359	657	56	606	8	Ondatra zibethicus	766.2456402125757	983.9434378335072	596.7135493454335	-1	1	-2	0	0.7803007871002543	correct_baseline
+5219858	2013	359	393	15	376	4	Ondatra zibethicus	636.2406791084886	809.396140067161	500.12865358962756	-1	1	-2	0	0.8162960990005885	correct_baseline
+5219858	2014	359	542	-5	492	6	Ondatra zibethicus	557.0899375472942	703.0580259494225	441.427573630707	-1	1	-2	0	0.85847664825507	correct_baseline
+5219858	2015	359	572	22	498	18	Ondatra zibethicus	514.0984733447342	648.829334266674	407.34477671867745	-1	1	-2	0	0.9051977984651929	correct_baseline
+5219858	2016	359	1291	-186	271	7	Ondatra zibethicus	497.6779171787572	631.208834946009	392.39518766965875	0	1	1	2	0.952148383828211	correct_baseline
+5219858	2017	359	2127	-361	378	11	Ondatra zibethicus	501.8912137375219	636.644167536675	395.6602499031173	0	1	1	2	0.9892168515476175	correct_baseline
+5219858	2018	359	3046	-861	434	19	Ondatra zibethicus	523.4428230871898	658.0122706003028	416.3940420009563	1	0	3	3	1.0050554713450286	correct_baseline
+5219858	2019	359	3747	-408	466	64	Ondatra zibethicus	561.2170275615737	704.5226031911018	447.06096099462405	1	0	3	3	1.003831476193275	correct_baseline
+5219858	2020	359	4046	-542	468	85	Ondatra zibethicus	616.2471993906984	815.4310643738419	465.71761531858243	0	0	0	1	0.994545561142048	correct_baseline
+5219858	2021	359	4812	-362	496	13	Ondatra zibethicus	691.8954530547029	1051.1109314625544	455.4412894285714	0	0	0	1	0.9825369995746046	correct_baseline
+5232437	2000	212	1223	18316	610	576	Branta canadensis	1395.5890649412338	1553.4991415791594	1253.730231356103	0	0	0	1	0.9855836152277548	correct_baseline
+5232437	2001	212	1524	22941	765	735	Branta canadensis	1399.3435545195923	1538.1167081805572	1273.0908995142788	0	0	0	1	0.9878971772738789	correct_baseline
+5232437	2002	212	1659	21682	740	716	Branta canadensis	1402.044699455075	1525.9860223245919	1288.169950780809	0	0	0	1	0.9896944576752214	correct_baseline
+5232437	2003	212	1448	21105	607	581	Branta canadensis	1403.70753520775	1514.1177012406604	1301.3485297638915	0	0	0	1	0.990650903685254	correct_baseline
+5232437	2004	212	1563	21673	701	663	Branta canadensis	1404.3929343306127	1500.551837847277	1314.3961203148297	0	0	0	1	0.9906137185394771	correct_baseline
+5232437	2005	212	1547	20734	738	717	Branta canadensis	1404.240181461028	1484.7875994565327	1328.0623356172018	0	0	0	1	0.9899237744601723	correct_baseline
+5232437	2006	212	2052	23746	827	794	Branta canadensis	1403.4996618749474	1467.8387978182752	1341.9806751333483	0	0	0	1	0.9892449008630554	correct_baseline
+5232437	2007	212	2430	38773	1055	1010	Branta canadensis	1402.559493586304	1452.2475736367683	1354.5714716691225	0	0	0	1	0.9891428591181369	correct_baseline
+5232437	2008	212	3105	57332	1203	1173	Branta canadensis	1401.9617357459174	1442.1509047083166	1362.892539247298	0	0	0	1	0.9899345314432029	correct_baseline
+5232437	2009	212	5318	102171	1863	1811	Branta canadensis	1402.4063146986225	1441.5320972738068	1364.3424764707167	0	0	0	1	0.9917170219962762	correct_baseline
+5232437	2010	212	6828	155113	2081	2045	Branta canadensis	1404.7433785942148	1449.7464214758143	1361.1373206188046	0	1	1	2	0.9944227679410681	correct_baseline
+5232437	2011	212	7914	174885	1889	1876	Branta canadensis	1409.956871476577	1463.3565860825317	1358.5057793370238	0	1	1	2	0.9978814505172285	correct_baseline
+5232437	2012	212	9204	214678	2077	2058	Branta canadensis	1419.1433556976867	1480.7300872765377	1360.1181480178616	1	1	4	3	1.0019187397216096	correct_baseline
+5232437	2013	212	9656	344004	2046	2038	Branta canadensis	1433.4904233131804	1502.1762279042641	1367.9452221111587	1	1	4	3	1.0064899802747858	correct_baseline
+5232437	2014	212	11267	486076	2233	2228	Branta canadensis	1454.258609248063	1528.945471879482	1383.2200961178642	1	1	4	3	1.0117225569044739	correct_baseline
+5232437	2015	212	12943	638205	2314	2308	Branta canadensis	1482.7699407087746	1562.547038930347	1407.0659265237705	1	1	4	3	1.0177585170249845	correct_baseline
+5232437	2016	212	12987	1815057	2447	2443	Branta canadensis	1520.40561038718	1604.3886844136205	1440.8187009506864	1	1	4	3	1.024502039794183	correct_baseline
+5232437	2017	212	13860	439617	2513	2509	Branta canadensis	1568.615195590525	1655.752761150834	1486.0634326391148	1	1	4	3	1.0313454371395585	correct_baseline
+5232437	2018	212	13691	417586	2544	2543	Branta canadensis	1628.940645239479	1718.1443127115783	1544.3683083439798	1	1	4	3	1.0373624030879294	correct_baseline
+5232437	2019	212	13967	66300	2404	1938	Branta canadensis	1703.059858708794	1794.0329114883702	1616.69992995779	1	1	4	3	1.0424737475212404	correct_baseline
+5232437	2020	212	17277	86389	2711	2393	Branta canadensis	1792.8563769119767	1887.969529368166	1702.5348864129492	1	1	4	3	1.047122507978217	correct_baseline
+5232437	2021	212	21388	35088	3052	2336	Branta canadensis	1900.5216237984523	2007.5291649256585	1799.2179170454353	1	1	4	3	1.0515797291282705	correct_baseline
+5329212	2000	196	15	194	13	12	Elodea nuttallii	11.53926393900173	18.212647597226095	7.311106830740304	1	-1	2	2	1.1568407300606662	correct_baseline
+5329212	2001	196	19	277	18	15	Elodea nuttallii	13.960214939617982	20.58610970550466	9.466946594004634	1	-1	2	2	1.1485165515822993	correct_baseline
+5329212	2002	196	14	234	13	13	Elodea nuttallii	16.709769050594335	23.1693825031954	12.051092932049109	1	-1	2	2	1.1402107155835637	correct_baseline
+5329212	2003	196	19	260	18	14	Elodea nuttallii	19.788511478425423	25.975138964633004	15.075383699195825	1	-1	2	2	1.131913065583578	correct_baseline
+5329212	2004	196	22	207	21	18	Elodea nuttallii	23.185695368566837	29.023931669025334	18.521834872485226	1	-1	2	2	1.1236100970001175	correct_baseline
+5329212	2005	196	9	119	8	7	Elodea nuttallii	26.877657131482962	32.35047999552398	22.330687302862568	1	-1	2	2	1.1152835281739115	correct_baseline
+5329212	2006	196	4	31	3	2	Elodea nuttallii	30.826692626355022	36.0093557866833	26.389946654674617	1	-1	2	2	1.10690809272683	correct_baseline
+5329212	2007	196	52	132	43	10	Elodea nuttallii	34.980550097819815	40.06851277842694	30.53866490909276	1	-1	2	2	1.0984481868300193	correct_baseline
+5329212	2008	196	35	281	35	16	Elodea nuttallii	39.27267224826462	44.57146617440621	34.60381535317896	1	-1	2	2	1.0898529818795806	correct_baseline
+5329212	2009	196	56	147	53	16	Elodea nuttallii	43.62328056749193	49.478266663469	38.46114134137894	1	-1	2	2	1.0810499185311224	correct_baseline
+5329212	2010	196	68	141	61	21	Elodea nuttallii	47.941341635525056	54.647066189473854	42.05847446311476	1	-1	2	2	1.0719379339469544	correct_baseline
+5329212	2011	196	63	174	53	25	Elodea nuttallii	52.12739099333124	59.876999350071614	45.38077928529966	1	-1	2	2	1.0623858685460992	correct_baseline
+5329212	2012	196	72	319	65	41	Elodea nuttallii	56.07712042912628	64.96003518822467	48.408893660709765	1	-1	2	2	1.052248406258542	correct_baseline
+5329212	2013	196	61	360	55	35	Elodea nuttallii	59.68556548776334	69.71138182517622	51.10165132758194	1	-1	2	2	1.0414119210786514	correct_baseline
+5329212	2014	196	76	439	63	42	Elodea nuttallii	62.851668624411225	73.985397692838	53.39340426705853	1	-1	2	2	1.0298548375937615	correct_baseline
+5329212	2015	196	108	2295	90	74	Elodea nuttallii	65.48294647108055	77.68587668823824	55.19685767005848	1	-1	2	2	1.0176691361643047	correct_baseline
+5329212	2016	196	181	2888	118	107	Elodea nuttallii	67.49996294292438	80.77179977139392	56.40885816821679	1	-1	2	2	1.0050171018020606	correct_baseline
+5329212	2017	196	144	11113	99	84	Elodea nuttallii	68.84030738032622	83.25555032409245	56.92098486851789	0	-1	-1	0	0.9920677520268852	correct_baseline
+5329212	2018	196	160	9562	106	101	Elodea nuttallii	69.4618002251976	85.19069001767568	56.636959854699676	0	-1	-1	0	0.9789599356550293	correct_baseline
+5329212	2019	196	101	1099	64	39	Elodea nuttallii	69.34469678521036	86.65042343595573	55.49525070453829	0	-1	-1	0	0.965795039249068	correct_baseline
+5329212	2020	196	109	1325	75	47	Elodea nuttallii	68.49272867412554	87.7038732637449	53.4897001312558	0	-1	-1	0	0.952643239803859	correct_baseline
+5329212	2021	196	117	155	81	23	Elodea nuttallii	66.93290642172398	88.39970738063097	50.67905873001637	0	-1	-1	0	0.9395521571388407	correct_baseline
+5361762	2006	220	5	3	4	1	Myriophyllum heterophyllum	16.32376259975643	28.71143489849752	9.280804890289584	-1	1	-2	0	0.6897668174441708	correct_baseline
+5361762	2007	220	18	93	16	5	Myriophyllum heterophyllum	12.717441575798453	19.734013369683872	8.195662848911809	-1	1	-2	0	0.7145098300275697	correct_baseline
+5361762	2008	220	3	0	3	0	Myriophyllum heterophyllum	10.140192949749236	14.364383718965266	7.15822656020992	-1	1	-2	0	0.7399700532706198	correct_baseline
+5361762	2009	220	0	0	0	0	Myriophyllum heterophyllum	8.274841295044467	11.136877452107957	6.148312105671309	-1	1	-2	0	0.7660773304559632	correct_baseline
+5361762	2010	220	3	130	3	3	Myriophyllum heterophyllum	6.9109875852677565	9.185300261921343	5.199802732821546	-1	1	-2	0	0.7926907845938385	correct_baseline
+5361762	2011	220	3	77	2	2	Myriophyllum heterophyllum	5.907279726479529	7.956821418183735	4.38566507061831	-1	1	-2	0	0.8195359322945263	correct_baseline
+5361762	2012	220	20	119	16	14	Myriophyllum heterophyllum	5.167755304158616	7.125690006524569	3.7478047542352675	-1	1	-2	0	0.8460883848505214	correct_baseline
+5361762	2013	220	5	43	5	4	Myriophyllum heterophyllum	4.626827672993107	6.527254138470341	3.2797151545552743	-1	1	-2	0	0.8714154752342479	correct_baseline
+5361762	2014	220	1	14	1	1	Myriophyllum heterophyllum	4.23966636299547	6.085355935670689	2.9537747766161138	-1	1	-2	0	0.8942122125411197	correct_baseline
+5361762	2015	220	5	164	4	4	Myriophyllum heterophyllum	3.976005791402143	5.767955086642732	2.7407671897224972	-1	1	-2	0	0.9135321697052736	correct_baseline
+5361762	2016	220	11	315	9	9	Myriophyllum heterophyllum	3.816183949761447	5.568281571668408	2.615395746600747	0	1	1	2	0.9296378758893559	correct_baseline
+5361762	2017	220	14	166	9	9	Myriophyllum heterophyllum	3.74868160102822	5.499651727773332	2.555182480905393	0	1	1	2	0.9435446136882262	correct_baseline
+5361762	2018	220	22	830	18	18	Myriophyllum heterophyllum	3.768727765506415	5.597054581511161	2.5376398896335566	0	1	1	2	0.9561537111030742	correct_baseline
+5361762	2019	220	20	390	10	10	Myriophyllum heterophyllum	3.8777333018726057	5.9214746398962035	2.5393700851373393	0	1	1	2	0.96802840347478325	correct_baseline
+5361762	2020	220	21	2004	13	13	Myriophyllum heterophyllum	4.083457696411502	6.565326802971638	2.539801484190392	0	1	1	2	0.9794898794885725	correct_baseline
+5361762	2021	220	18	82	11	11	Myriophyllum heterophyllum	4.400936881687247	7.664580906949935	2.5269803622312503	0	1	1	2	0.9907224186748455	correct_baseline
+5361785	2000	220	7	199	6	4	Myriophyllum aquaticum	36.00174709946495	90.81676432616776	14.271878147505964	0	-1	-1	0	0.9721610722017818	correct_baseline
+5361785	2001	220	3	78	3	1	Myriophyllum aquaticum	41.61208744954533	81.05269569017702	21.36345752801977	0	-1	-1	0	0.9544420110022335	correct_baseline
+5361785	2002	220	5	200	5	4	Myriophyllum aquaticum	45.73866060332016	72.56053422589936	28.831445304312506	0	-1	-1	0	0.9363162664438621	correct_baseline
+5361785	2003	220	4	5	4	3	Myriophyllum aquaticum	47.872809544038155	65.28251114703933	35.105970241827734	0	-1	-1	0	0.918060495723333	correct_baseline
+5361785	2004	220	20	33	19	7	Myriophyllum aquaticum	47.87118027512148	59.34544708022494	38.61542904606076	0	-1	-1	0	0.9003348814584407	correct_baseline
+5361785	2005	220	161	742	110	42	Myriophyllum aquaticum	46.00078018863957	54.87037535447033	38.56492258879974	0	-1	-1	0	0.8842904686670622	correct_baseline
+5361785	2006	220	93	287	72	31	Myriophyllum aquaticum	42.829877052202335	51.2978802084175	35.759730438252305	-1	-1	-4	0	0.8718826233513917	correct_baseline
+5361785	2007	220	82	1337	67	50	Myriophyllum aquaticum	39.030527616215366	47.78137112658635	31.882343475750847	-1	0	-3	0	0.8657952324327681	correct_baseline
+5361785	2008	220	30	240	28	16	Myriophyllum aquaticum	35.1972948824302	44.11184278257208	28.0842850557628	-1	0	-3	0	0.8682346663329076	correct_baseline
+5361785	2009	220	25	321	19	12	Myriophyllum aquaticum	31.749339910420293	40.48203901402021	24.900440029670875	-1	0	-3	0	0.8793529163779134	correct_baseline
+5361785	2010	220	23	410	22	21	Myriophyllum aquaticum	28.919212560464036	37.12585388242057	22.5266429633099	-1	1	-2	0	0.8962053376711414	correct_baseline
+5361785	2011	220	31	867	29	28	Myriophyllum aquaticum	26.792734562526178	34.22379716233702	20.97518933778549	-1	1	-2	0	0.9135556760475507	correct_baseline
+5361785	2012	220	34	778	29	27	Myriophyllum aquaticum	25.361395921337493	31.919546604810783	20.150674790032685	-1	1	-2	0	0.9293368058310268	correct_baseline
+5361785	2013	220	43	546	31	25	Myriophyllum aquaticum	24.56437876531373	30.356536782103806	19.877389455095077	0	1	1	2	0.9448774968166948	correct_baseline
+5361785	2014	220	67	1125	52	47	Myriophyllum aquaticum	24.313658913213764	29.6870625147847	19.912849560433727	0	1	1	2	0.960752869425402	correct_baseline
+5361785	2015	220	181	4952	67	61	Myriophyllum aquaticum	24.505461982829445	29.98476658034277	20.02742510543947	0	1	1	2	0.9765267132416082	correct_baseline
+5361785	2016	220	159	4949	76	70	Myriophyllum aquaticum	25.025177347313004	31.090096434811922	20.143375964676594	0	0	0	1	0.9910640196183806	correct_baseline
+5361785	2017	220	119	9273	75	71	Myriophyllum aquaticum	25.752794987606443	32.6234282563525	20.329146417790923	1	0	3	3	1.0018301480929828	correct_baseline
+5361785	2018	220	127	11942	69	67	Myriophyllum aquaticum	26.573060258634197	34.184892016306996	20.656128770925026	1	0	3	3	1.0032302893551401	correct_baseline
+5361785	2019	220	121	3167	54	53	Myriophyllum aquaticum	27.389455710928193	35.563517667811404	21.094153034807583	0	0	0	1	0.9914977734460506	correct_baseline
+5361785	2020	220	159	6887	86	79	Myriophyllum aquaticum	28.13586056081656	36.916746336695745	21.443564995618946	0	0	0	1	0.9717934377139933	correct_baseline
+5361785	2021	220	159	560	85	69	Myriophyllum aquaticum	28.77807737532905	38.85420988503258	21.31500653007633	0	0	0	1	0.9494797355738503	correct_baseline
+5362054	2000	220	4	14	4	3	Crassula helmsii	21.740918025657844	45.778059356806175	10.325197774643085	0	0	0	1	0.9257483037089971	correct_baseline
+5362054	2001	220	9	20	9	3	Crassula helmsii	21.73813950202026	41.006848429598094	11.523604644248078	0	0	0	1	0.9304312849184792	correct_baseline
+5362054	2002	220	4	2	4	2	Crassula helmsii	21.74646196987789	37.039407223027695	12.767715351376742	0	0	0	1	0.9351187912378089	correct_baseline
+5362054	2003	220	5	189	5	2	Crassula helmsii	21.76589817550137	33.748256781511294	14.037890207290241	0	0	0	1	0.9398065268761474	correct_baseline
+5362054	2004	220	5	3	4	2	Crassula helmsii	21.79647789839644	31.039946042792305	15.3056467340607	0	0	0	1	0.9444888727999341	correct_baseline
+5362054	2005	220	2	68	2	2	Crassula helmsii	21.83824802582767	28.85588893668792	16.52727032197629	0	0	0	1	0.9491583702814174	correct_baseline
+5362054	2006	220	2	0	2	0	Crassula helmsii	21.89127267423592	27.18106578317295	17.630942918891176	0	0	0	1	0.9538049530742665	correct_baseline
+5362054	2007	220	6	123	5	5	Crassula helmsii	21.955633357494197	26.059931320633236	18.49774008218677	0	0	0	1	0.958414783103025	correct_baseline
+5362054	2008	220	6	133	5	4	Crassula helmsii	22.031429201583485	25.58255130768922	18.973239487591535	0	0	0	1	0.9629684505709233	correct_baseline
+5362054	2009	220	14	632	10	8	Crassula helmsii	22.11877720530491	25.753442924704576	18.997083476889262	0	0	0	1	0.9674381437057537	correct_baseline
+5362054	2010	220	24	742	21	20	Crassula helmsii	22.217812546911	26.383933751689728	18.709537365255922	0	0	0	1	0.971783150873887	correct_baseline
+5362054	2011	220	36	704	23	21	Crassula helmsii	22.32868893692233	27.240279651149592	18.302688372760407	0	0	0	1	0.9759427468475208	correct_baseline
+5362054	2012	220	69	1053	39	36	Crassula helmsii	22.451579017827445	28.169326285565205	17.894407387799387	0	0	0	1	0.9798253907178762	correct_baseline
+5362054	2013	220	339	2501	150	136	Crassula helmsii	22.586674811813342	29.08870742310236	17.538004409554272	0	0	0	1	0.9832943547012061	correct_baseline
+5362054	2014	220	96	1683	62	62	Crassula helmsii	22.73418821813364	29.955246038121814	17.25384973569499	0	0	0	1	0.9861557513912789	correct_baseline
+5362054	2015	220	106	3310	60	55	Crassula helmsii	22.894351562200818	30.7475263770387	17.04694312727111	0	0	0	1	0.9881700650448401	correct_baseline
+5362054	2016	220	157	4408	77	74	Crassula helmsii	23.067418198992446	31.458496881454394	16.914532959802603	0	0	0	1	0.9891210586423261	correct_baseline
+5362054	2017	220	1250	17703	116	114	Crassula helmsii	23.25366317388244	32.09284878685344	16.84901376614104	0	0	0	1	0.9889311613979899	correct_baseline
+5362054	2018	220	809	27284	150	150	Crassula helmsii	23.45338394450774	32.66662954543634	16.838627862828876	0	0	0	1	0.9877141916692352	correct_baseline
+5362054	2019	220	356	4846	151	143	Crassula helmsii	23.666901167673522	33.207944429622906	16.86711479740894	0	0	0	1	0.9856985110643021	correct_baseline
+5362054	2020	220	406	4577	150	147	Crassula helmsii	23.894559555442267	33.75807589781635	16.912989297044305	0	0	0	1	0.9831155632621978	correct_baseline
+5362054	2021	220	752	2100	135	115	Crassula helmsii	24.13672880422094	34.372361475368514	16.949131580208448	0	0	0	1	0.9801454903272718	correct_baseline
 5420991	2002	220	1	5	1	1	Ludwigia peploides									correct_baseline
-5420991	2003	220	1	7	1	1	Ludwigia peploides									correct_baseline
+5420991	2003	220	1	1	1	1	Ludwigia peploides									correct_baseline
 5420991	2004	220	0	0	0	0	Ludwigia peploides									correct_baseline
 5420991	2005	220	0	0	0	0	Ludwigia peploides									correct_baseline
 5420991	2006	220	0	0	0	0	Ludwigia peploides									correct_baseline
 5420991	2007	220	0	0	0	0	Ludwigia peploides									correct_baseline
-5420991	2008	220	1	1	1	1	Ludwigia peploides									correct_baseline
+5420991	2008	220	1	0	1	0	Ludwigia peploides									correct_baseline
 5420991	2009	220	0	0	0	0	Ludwigia peploides									correct_baseline
 5420991	2010	220	0	0	0	0	Ludwigia peploides									correct_baseline
 5420991	2011	220	0	0	0	0	Ludwigia peploides									correct_baseline
 5420991	2012	220	0	0	0	0	Ludwigia peploides									correct_baseline
-5420991	2013	220	7	73	4	4	Ludwigia peploides									correct_baseline
-5420991	2014	220	9	132	4	4	Ludwigia peploides									correct_baseline
-5420991	2015	220	9	217	5	5	Ludwigia peploides									correct_baseline
+5420991	2013	220	7	58	3	3	Ludwigia peploides									correct_baseline
+5420991	2014	220	10	131	4	4	Ludwigia peploides									correct_baseline
+5420991	2015	220	9	238	6	6	Ludwigia peploides									correct_baseline
 5420991	2016	220	9	426	5	5	Ludwigia peploides									correct_baseline
 5420991	2017	220	24	1131	5	5	Ludwigia peploides									correct_baseline
-5420991	2018	220	4	414	3	3	Ludwigia peploides									correct_baseline
+5420991	2018	220	7	422	4	4	Ludwigia peploides									correct_baseline
 5420991	2019	220	17	50	4	4	Ludwigia peploides									correct_baseline
-5420991	2020	220	32	83	6	6	Ludwigia peploides									correct_baseline
-5421039	2000	220	2	15	2	2	Ludwigia grandiflora	12.583845913743016	26.37980324313593	6.002818767119901	1	-1	2	2	1.1332656742998228	correct_baseline
-5421039	2001	220	14	493	10	9	Ludwigia grandiflora	16.086352247473155	29.7104263112981	8.709761546955011	1	-1	2	2	1.111606548379938	correct_baseline
-5421039	2002	220	9	237	9	8	Ludwigia grandiflora	19.635098302400156	33.52411134088653	11.500292473814527	1	-1	2	2	1.088906429648395	correct_baseline
-5421039	2003	220	6	31	3	3	Ludwigia grandiflora	22.89975635362195	37.37301206742324	14.031484540480728	1	-1	2	2	1.0641960572468148	correct_baseline
-5421039	2004	220	15	156	12	8	Ludwigia grandiflora	25.56144117703949	40.54316868808911	16.115841365877355	1	-1	2	2	1.0362785546576923	correct_baseline
-5421039	2005	220	32	327	27	16	Ludwigia grandiflora	27.390444825228222	42.40347367976102	17.692806806107395	1	-1	2	2	1.0048791787027793	correct_baseline
-5421039	2006	220	16	46	12	3	Ludwigia grandiflora	28.29738936754015	42.696009976922674	18.754498264614842	0	-1	-1	0	0.9727733871265305	correct_baseline
-5421039	2007	220	17	367	17	11	Ludwigia grandiflora	28.33775174291576	41.55812625228926	19.323012037841572	0	-1	-1	0	0.9444142116351419	correct_baseline
-5421039	2008	220	17	110	17	11	Ludwigia grandiflora	27.674026413067494	39.35358099437313	19.460789045364404	0	-1	-1	0	0.9220313224893736	correct_baseline
-5421039	2009	220	22	284	19	19	Ludwigia grandiflora	26.517826689202387	36.49498605616224	19.268266913061026	-1	0	-3	0	0.9051049918833193	correct_baseline
-5421039	2010	220	17	285	15	15	Ludwigia grandiflora	25.076389422027077	33.36447775043522	18.847149688622014	-1	0	-3	0	0.8919427403541078	correct_baseline
-5421039	2011	220	27	99	21	19	Ludwigia grandiflora	23.517976994811317	30.32686096330615	18.237800562270174	-1	0	-3	0	0.8811325287475852	correct_baseline
-5421039	2012	220	39	250	23	22	Ludwigia grandiflora	21.958420062722713	27.772243989364778	17.361658346211723	-1	0	-3	0	0.8719483145230985	correct_baseline
-5421039	2013	220	25	1137	21	21	Ludwigia grandiflora	20.46341987424283	26.079057533976098	16.05700483631366	0	0	0	1	0.8638081172500293	correct_baseline
-5421039	2014	220	37	813	31	27	Ludwigia grandiflora	19.059329207537644	25.408979577209937	14.29644306405419	0	0	0	1	0.8556859165520371	correct_baseline
-5421039	2015	220	53	2586	37	33	Ludwigia grandiflora	17.746630723709163	25.647200970162952	12.27981573545166	0	0	0	1	0.8460445626700213	correct_baseline
-5421039	2016	220	70	2871	36	36	Ludwigia grandiflora	16.512622656053573	26.66589517497055	10.225297339245047	0	0	0	1	0.8333630896010564	correct_baseline
-5421039	2017	220	78	3887	45	44	Ludwigia grandiflora	15.34150787705242	28.50130546957206	8.257932753042956	0	0	0	1	0.8169194847209976	correct_baseline
-5421039	2018	220	82	3065	50	50	Ludwigia grandiflora	14.220981761641703	31.380787675435123	6.444590376654456	0	0	0	1	0.7971441099687995	correct_baseline
-5421039	2019	220	161	2752	53	51	Ludwigia grandiflora	13.144975301195682	35.7358151983695	4.835215727132156	0	0	0	1	0.7752237214974665	correct_baseline
-5421039	2020	220	154	4000	76	76	Ludwigia grandiflora	12.112916852796543	42.26093157890837	3.4718296355773917	0	0	0	1	0.7523671897440196	correct_baseline
-7978544	2000	220	18	111	15	5	Hydrocotyle ranunculoides	85.39050145798339	130.13709374269325	56.029664790752705	-1	1	-2	0	0.8198168818086647	correct_baseline
-7978544	2001	220	14	476	14	11	Hydrocotyle ranunculoides	74.78048577010158	104.70352564238166	53.409099814961714	-1	1	-2	0	0.8301872548575067	correct_baseline
-7978544	2002	220	20	297	18	15	Hydrocotyle ranunculoides	65.9700604056476	85.7660169358978	50.74327834505303	-1	1	-2	0	0.8406667346961116	correct_baseline
-7978544	2003	220	13	1236	13	11	Hydrocotyle ranunculoides	58.62534088859535	71.65736827052099	47.9633940968765	-1	1	-2	0	0.8512486512356008	correct_baseline
-7978544	2004	220	99	256	81	28	Hydrocotyle ranunculoides	52.48120833341543	61.270630424360455	44.952650381744505	-1	1	-2	0	0.8619223952217092	correct_baseline
-7978544	2005	220	161	952	123	50	Hydrocotyle ranunculoides	47.32627247489936	53.86307901675385	41.582770744905716	-1	1	-2	0	0.8726708052584494	correct_baseline
-7978544	2006	220	76	573	65	30	Hydrocotyle ranunculoides	42.991334709644484	48.75004987704174	37.91288141813976	-1	1	-2	0	0.8834650815303615	correct_baseline
-7978544	2007	220	52	946	47	34	Hydrocotyle ranunculoides	39.34049995917767	45.12132371656171	34.30029993712234	-1	1	-2	0	0.8942545041286917	correct_baseline
-7978544	2008	220	41	887	38	31	Hydrocotyle ranunculoides	36.26430272731592	42.307421559553866	31.084372524267838	-1	1	-2	0	0.9049447663281508	correct_baseline
-7978544	2009	220	32	843	27	25	Hydrocotyle ranunculoides	33.674372202472235	39.939988568613785	28.391679213492363	-1	1	-2	0	0.9153514060564047	correct_baseline
-7978544	2010	220	20	591	18	15	Hydrocotyle ranunculoides	31.499279282078774	37.84937861913414	26.214554412494476	-1	1	-2	0	0.9251095572975782	correct_baseline
-7978544	2011	220	439	957	65	55	Hydrocotyle ranunculoides	29.681296174851763	35.96068015803601	24.498406001989935	-1	1	-2	0	0.9335913073920723	correct_baseline
-7978544	2012	220	88	890	54	43	Hydrocotyle ranunculoides	28.17386484734419	34.244317204265336	23.179514887145956	-1	1	-2	0	0.9401784404449868	correct_baseline
-7978544	2013	220	55	498	28	23	Hydrocotyle ranunculoides	26.939619885821628	32.6972086218924	22.195873904252338	-1	1	-2	0	0.9449422763781545	correct_baseline
-7978544	2014	220	186	1571	47	46	Hydrocotyle ranunculoides	25.948848619910144	31.338389496637404	21.486194903897722	-1	1	-2	0	0.948512776648703	correct_baseline
-7978544	2015	220	154	3916	69	65	Hydrocotyle ranunculoides	25.178299740218606	30.212893111375074	20.982657154723558	-1	1	-2	0	0.9514268923469534	correct_baseline
-7978544	2016	220	71	1782	33	32	Hydrocotyle ranunculoides	24.61027345866999	29.400120166703218	20.600785176261166	0	1	1	2	0.9539827800204463	correct_baseline
-7978544	2017	220	44	1800	32	31	Hydrocotyle ranunculoides	24.23194323752853	29.016948153355962	20.2360037990037	0	1	1	2	0.9563326013407049	correct_baseline
-7978544	2018	220	86	4332	47	44	Hydrocotyle ranunculoides	24.034872556325706	29.196947457771444	19.785462149230845	0	1	1	2	0.9585566043894482	correct_baseline
-7978544	2019	220	46	2076	31	29	Hydrocotyle ranunculoides	24.01470109766179	30.04833611481024	19.192605760483065	0	1	1	2	0.9606998012680702	correct_baseline
-7978544	2020	220	37	885	27	27	Hydrocotyle ranunculoides	24.170983905018076	31.640790707810183	18.464660644287576	0	1	1	2	0.9627889976789443	correct_baseline
-8002952	2000	220	7	173	7	6	Ambrosia artemisiifolia	18.44636880664381	29.331299673812136	11.600867535185419	1	-1	2	2	1.0582070474088048	correct_baseline
-8002952	2001	220	13	301	11	11	Ambrosia artemisiifolia	20.528043615352985	30.517755993429674	13.80837355028856	1	-1	2	2	1.0538551117313355	correct_baseline
-8002952	2002	220	11	468	11	11	Ambrosia artemisiifolia	22.652120451640872	31.748967665914464	16.16174000852721	1	-1	2	2	1.049408608362967	correct_baseline
-8002952	2003	220	16	403	15	14	Ambrosia artemisiifolia	24.785334766382118	33.031972823467015	18.59752133984567	1	-1	2	2	1.0448349318184607	correct_baseline
-8002952	2004	220	26	602	22	18	Ambrosia artemisiifolia	26.89090029787915	34.37264396083105	21.037675183046744	1	-1	2	2	1.040088919971886	correct_baseline
-8002952	2005	220	24	616	22	19	Ambrosia artemisiifolia	28.929473031608584	35.77125096590748	23.396285768261407	1	-1	2	2	1.0351076816041498	correct_baseline
-8002952	2006	220	18	474	13	13	Ambrosia artemisiifolia	30.860313283838913	37.21514923647244	25.590625202795962	1	-1	2	2	1.0298041834253289	correct_baseline
-8002952	2007	220	25	1239	24	22	Ambrosia artemisiifolia	32.64260175556589	38.67102229683994	27.553950893600902	1	-1	2	2	1.0240613426454053	correct_baseline
-8002952	2008	220	22	932	21	20	Ambrosia artemisiifolia	34.23685249180309	40.083007173842425	29.243366483501244	1	-1	2	2	1.0177320980664173	correct_baseline
-8002952	2009	220	42	2053	40	39	Ambrosia artemisiifolia	35.60635575645989	41.38255746488001	30.636399679539732	1	-1	2	2	1.0106562300920896	correct_baseline
-8002952	2010	220	36	1636	34	33	Ambrosia artemisiifolia	36.71857787815426	42.50838977748145	31.71736140681358	1	-1	2	2	1.0027036368800493	correct_baseline
-8002952	2011	220	54	2169	43	42	Ambrosia artemisiifolia	37.546443843951906	43.42775910375589	32.461620733387356	0	-1	-1	0	0.9938318665457627	correct_baseline
-8002952	2012	220	30	2445	28	28	Ambrosia artemisiifolia	38.069432162315145	44.14990065025116	32.82638565015366	0	-1	-1	0	0.9841147367471648	correct_baseline
-8002952	2013	220	58	2604	52	52	Ambrosia artemisiifolia	38.274420217523684	44.72494927708225	32.75422927619146	0	-1	-1	0	0.9737127769454522	correct_baseline
-8002952	2014	220	52	2460	44	43	Ambrosia artemisiifolia	38.1562315054681	45.22536716697742	32.19206595545213	0	-1	-1	0	0.9628129450985573	correct_baseline
-8002952	2015	220	60	3585	51	50	Ambrosia artemisiifolia	37.717852891622044	45.71727883107022	31.118134393143155	0	-1	-1	0	0.9515828991134386	correct_baseline
-8002952	2016	220	45	3668	39	39	Ambrosia artemisiifolia	36.97030916090139	46.239944642311514	29.558940219879617	0	-1	-1	0	0.9401538483071554	correct_baseline
-8002952	2017	220	63	4101	53	53	Ambrosia artemisiifolia	35.93220221444848	46.80441979020543	27.585496450277635	0	-1	-1	0	0.9286216705862662	correct_baseline
-8002952	2018	220	86	5354	71	71	Ambrosia artemisiifolia	34.62894180100762	47.404255428226755	25.29653929641797	0	-1	-1	0	0.9170543457027964	correct_baseline
-8002952	2019	220	155	7981	113	113	Ambrosia artemisiifolia	33.091712191978274	48.02627471841284	22.80129829384595	-1	-1	-4	0	0.9054996320484562	correct_baseline
-8002952	2020	220	202	8963	168	168	Ambrosia artemisiifolia	31.35623344426559	48.656704025571166	20.207151213829846	-1	-1	-4	0	0.8939911266928617	correct_baseline
-8848208	2001	220	1	3	1	1	Koenigia polystachya									correct_baseline
-8848208	2002	220	0	0	0	0	Koenigia polystachya									correct_baseline
-8848208	2003	220	1	75	1	1	Koenigia polystachya									correct_baseline
-8848208	2004	220	0	0	0	0	Koenigia polystachya									correct_baseline
-8848208	2005	220	0	0	0	0	Koenigia polystachya									correct_baseline
-8848208	2006	220	0	0	0	0	Koenigia polystachya									correct_baseline
-8848208	2007	220	1	21	1	1	Koenigia polystachya									correct_baseline
-8848208	2008	220	1	31	1	1	Koenigia polystachya									correct_baseline
-8848208	2009	220	1	61	1	1	Koenigia polystachya									correct_baseline
-8848208	2010	220	0	0	0	0	Koenigia polystachya									correct_baseline
-8848208	2011	220	4	21	3	3	Koenigia polystachya									correct_baseline
-8848208	2012	220	3	27	3	3	Koenigia polystachya									correct_baseline
-8848208	2013	220	3	32	3	3	Koenigia polystachya									correct_baseline
-8848208	2014	220	7	88	4	4	Koenigia polystachya									correct_baseline
-8848208	2015	220	8	362	5	5	Koenigia polystachya									correct_baseline
-8848208	2016	220	6	164	5	5	Koenigia polystachya									correct_baseline
-8848208	2017	220	7	607	7	7	Koenigia polystachya									correct_baseline
-8848208	2018	220	13	676	10	10	Koenigia polystachya									correct_baseline
-8848208	2019	220	10	922	9	9	Koenigia polystachya									correct_baseline
-8848208	2020	220	16	742	13	13	Koenigia polystachya									correct_baseline
-8909595	2000	229	9	34	9	8	Faxonius limosus	12.612338586001062	19.62995936854638	8.10348516883918	0	1	1	2	0.7388303210288193	correct_baseline
-8909595	2001	229	30	113	26	20	Faxonius limosus	11.141919077887213	15.206719097705781	8.163651866030474	0	1	1	2	0.8064680184971428	correct_baseline
-8909595	2002	229	46	118	34	29	Faxonius limosus	10.39062992945955	13.557627305156242	7.963428105883926	0	1	1	2	0.8776999907308045	correct_baseline
-8909595	2003	229	28	94	23	18	Faxonius limosus	10.213479756355962	13.39363728428968	7.788412252723276	0	1	1	2	0.9478813272458452	correct_baseline
-8909595	2004	229	55	163	44	35	Faxonius limosus	10.54135840422014	13.963277624158756	7.958033922778015	1	1	4	3	1.0083151809773723	correct_baseline
-8909595	2005	229	9	69	9	8	Faxonius limosus	11.348235760757653	14.997796938682733	8.5867581357619	1	1	4	3	1.0508737331384745	correct_baseline
-8909595	2006	229	0	0	0	0	Faxonius limosus	12.624974150726198	16.465909944599748	9.679997816262752	1	1	4	3	1.0771561800795315	correct_baseline
-8909595	2007	229	1	22	1	1	Faxonius limosus	14.35269035687935	18.415306003481152	11.18633165484821	1	0	3	3	1.092439230864033	correct_baseline
-8909595	2008	229	6	0	4	0	Faxonius limosus	16.475054245999573	20.860559257933964	13.011511774565472	1	0	3	3	1.0987016716973905	correct_baseline
-8909595	2009	229	19	23	18	7	Faxonius limosus	18.876017129613917	23.670529100895706	15.052642936654733	1	0	3	3	1.095561154341443	correct_baseline
-8909595	2010	229	13	31	10	2	Faxonius limosus	21.374807586445247	26.532281454817458	17.219868564095957	1	-1	2	2	1.0818218794321024	correct_baseline
-8909595	2011	229	30	3	11	1	Faxonius limosus	23.74831438791046	29.072051482325687	19.399471571860257	1	-1	2	2	1.0580653182430513	correct_baseline
-8909595	2012	229	78	38	31	13	Faxonius limosus	25.779121900843563	31.07082556478416	21.38865362920294	1	-1	2	2	1.0294138484746218	correct_baseline
-8909595	2013	229	131	71	37	12	Faxonius limosus	27.311068986603637	32.593919265807	22.88446759373033	1	-1	2	2	1.0029485971559837	correct_baseline
-8909595	2014	229	72	30	42	12	Faxonius limosus	28.286235849198043	33.83946878554809	23.64431733804763	0	-1	-1	0	0.983567329074332	correct_baseline
-8909595	2015	229	46	5	21	4	Faxonius limosus	28.746190149226837	34.80279084165521	23.74359722630237	0	0	0	1	0.972498337670402	correct_baseline
-8909595	2016	229	119	52	34	14	Faxonius limosus	28.80015446193485	35.25180115840034	23.52926289650457	0	0	0	1	0.9656685556488571	correct_baseline
-8909595	2017	229	54	82	29	11	Faxonius limosus	28.578506904266135	35.04363695945162	23.30611568149197	0	0	0	1	0.9531373588023329	correct_baseline
-8909595	2018	229	83	48	45	18	Faxonius limosus	28.192503409496773	34.464122360152565	23.062164188850936	0	0	0	1	0.9319534487709082	correct_baseline
-8909595	2019	229	67	57	43	14	Faxonius limosus	27.713224605625467	34.51297721261929	22.253160407182303	0	0	0	1	0.9069815050765735	correct_baseline
-8909595	2020	229	62	49	35	11	Faxonius limosus	27.172475450921834	36.53681088258604	20.208206581129243	0	0	0	1	0.8810180857456282	correct_baseline
+5420991	2020	220	31	68	5	5	Ludwigia peploides									correct_baseline
+5420991	2021	220	23	4	2	1	Ludwigia peploides									correct_baseline
+5421039	2000	220	2	15	2	2	Ludwigia grandiflora	10.637469958158958	19.94812472016212	5.67250148563412	1	-1	2	2	1.1958666097867099	correct_baseline
+5421039	2001	220	16	569	12	7	Ludwigia grandiflora	14.238936367383715	23.386459350216615	8.669431564574337	1	-1	2	2	1.1719322814746949	correct_baseline
+5421039	2002	220	11	192	11	8	Ludwigia grandiflora	18.19675433325132	27.542499611827328	12.02221559159104	1	-1	2	2	1.1472241721278558	correct_baseline
+5421039	2003	220	7	15	4	2	Ludwigia grandiflora	22.214330397333033	32.20657570742131	15.322227345273577	1	-1	2	2	1.120753452033186	correct_baseline
+5421039	2004	220	15	200	15	9	Ludwigia grandiflora	25.943782088221578	36.772077502195046	18.304101230096354	1	-1	2	2	1.0910525202085735	correct_baseline
+5421039	2005	220	32	80	28	11	Ludwigia grandiflora	29.064707790430663	40.50707399311036	20.8545608376157	1	-1	2	2	1.0571521861649062	correct_baseline
+5421039	2006	220	16	52	14	5	Ludwigia grandiflora	31.360975050545356	42.934651480097024	22.90715592688225	1	-1	2	2	1.0217745519826857	correct_baseline
+5421039	2007	220	22	428	21	11	Ludwigia grandiflora	32.764904381670725	43.97744060615905	24.411128622834777	0	-1	-1	0	0.9907270947723338	correct_baseline
+5421039	2008	220	21	106	20	9	Ludwigia grandiflora	33.35489087560594	43.84975241643819	25.371836419001376	0	-1	-1	0	0.9674957360195836	correct_baseline
+5421039	2009	220	33	384	27	23	Ludwigia grandiflora	33.315112427188076	42.87199531467191	25.888618150141145	0	-1	-1	0	0.9521619257580457	correct_baseline
+5421039	2010	220	27	346	25	20	Ludwigia grandiflora	32.87977992588785	41.36778321587941	26.13337829424312	0	0	0	1	0.9429697632407723	correct_baseline
+5421039	2011	220	29	81	23	19	Ludwigia grandiflora	32.28380022304158	39.68289705857022	26.264306139316222	0	0	0	1	0.9380964278462016	correct_baseline
+5421039	2012	220	42	217	27	23	Ludwigia grandiflora	31.73178617988744	38.26846593438178	26.31164405420951	0	0	0	1	0.936959304347229	correct_baseline
+5421039	2013	220	30	903	25	25	Ludwigia grandiflora	31.386584045531126	37.721370191612706	26.115638245458765	0	0	0	1	0.9400275439473325	correct_baseline
+5421039	2014	220	39	774	32	28	Ludwigia grandiflora	31.372164496269818	38.579054753405785	25.511581646362796	0	1	1	2	0.9478061942160626	correct_baseline
+5421039	2015	220	55	2785	36	32	Ludwigia grandiflora	31.784381252285367	40.99517883073371	24.643065853228006	0	1	1	2	0.9601557080529419	correct_baseline
+5421039	2016	220	150	4160	69	65	Ludwigia grandiflora	32.70472976929642	44.87747036021343	23.83377094781545	0	1	1	2	0.9759785241406329	correct_baseline
+5421039	2017	220	154	5252	77	73	Ludwigia grandiflora	34.21468332952994	50.194303333494446	23.322259252452817	0	1	1	2	0.9930841543743052	correct_baseline
+5421039	2018	220	252	4887	103	98	Ludwigia grandiflora	36.410197716453915	57.105622043125244	23.214920883798737	1	0	3	3	1.0085300944621876	correct_baseline
+5421039	2019	220	316	3697	108	100	Ludwigia grandiflora	39.41717033427765	66.06971999241144	23.516269137207075	1	0	3	3	1.0199437333495638	correct_baseline
+5421039	2020	220	836	6622	172	151	Ludwigia grandiflora	43.409100660869626	78.02356634563105	24.151036775711635	1	0	3	3	1.0269001470290013	correct_baseline
+5421039	2021	220	686	1244	164	118	Ludwigia grandiflora	48.628254099883925	94.66103995740652	24.980785103004322	1	0	3	3	1.0305102362974345	correct_baseline
+8002952	2000	220	8	186	8	6	Ambrosia artemisiifolia	19.280288125447576	29.65873112569818	12.53356081299733	1	-1	2	2	1.1153992282351408	correct_baseline
+8002952	2001	220	13	388	12	12	Ambrosia artemisiifolia	22.449789674576166	32.40820602081564	15.551402509259358	1	-1	2	2	1.1054381387651522	correct_baseline
+8002952	2002	220	11	664	11	11	Ambrosia artemisiifolia	25.81003955074143	35.21465294520481	18.917072465470596	1	-1	2	2	1.0954956728224796	correct_baseline
+8002952	2003	220	18	614	18	16	Ambrosia artemisiifolia	29.298318786017525	38.06099920100492	22.553046470320815	1	-1	2	2	1.0855528448350888	correct_baseline
+8002952	2004	220	26	524	20	16	Ambrosia artemisiifolia	32.83782369145546	40.93291160228246	26.343658991777783	1	-1	2	2	1.0755837158858284	correct_baseline
+8002952	2005	220	24	399	22	18	Ambrosia artemisiifolia	36.33989515594568	43.81734200065038	30.1384775901177	1	-1	2	2	1.0655522678572702	correct_baseline
+8002952	2006	220	19	453	13	12	Ambrosia artemisiifolia	39.70732309989726	46.6949795525329	33.765332437630555	1	-1	2	2	1.0554079412022284	correct_baseline
+8002952	2007	220	26	1228	24	21	Ambrosia artemisiifolia	42.838591787965285	49.52384701894965	37.055783361775845	1	-1	2	2	1.045079770955722	correct_baseline
+8002952	2008	220	28	918	25	21	Ambrosia artemisiifolia	45.63282955533419	52.22006501609378	39.8765327577516	1	-1	2	2	1.0344702576624727	correct_baseline
+8002952	2009	220	50	1973	46	39	Ambrosia artemisiifolia	47.99513840805033	54.65417578712475	42.14743480498274	1	-1	2	2	1.023453435668615	correct_baseline
+8002952	2010	220	53	1363	49	36	Ambrosia artemisiifolia	49.841916667716596	56.67540010992227	43.83236205290924	1	-1	2	2	1.0118873594909459	correct_baseline
+8002952	2011	220	82	2412	71	62	Ambrosia artemisiifolia	51.105760814962615	58.151289099095656	44.913858814469265	0	-1	-1	0	0.9996527213038224	correct_baseline
+8002952	2012	220	51	2281	47	43	Ambrosia artemisiifolia	51.739546597315666	59.0007281446844	45.371993978297674	0	-1	-1	0	0.9867095280044204	correct_baseline
+8002952	2013	220	81	2473	73	67	Ambrosia artemisiifolia	51.719345070057315	59.20985420320648	45.1764438617855	0	-1	-1	0	0.9731283529925631	correct_baseline
+8002952	2014	220	69	3042	64	61	Ambrosia artemisiifolia	51.04592201999709	58.829728511983085	44.29199693384389	0	-1	-1	0	0.9590618795992627	correct_baseline
+8002952	2015	220	71	3749	64	63	Ambrosia artemisiifolia	49.74468978508132	57.95639098037622	42.69648471817094	-1	-1	-4	0	0.9446843624472193	correct_baseline
+8002952	2016	220	48	3460	39	39	Ambrosia artemisiifolia	47.86411569637942	56.69841111432737	40.40630991892961	-1	-1	-4	0	0.9301475234026124	correct_baseline
+8002952	2017	220	75	3902	58	57	Ambrosia artemisiifolia	45.47272610781083	55.14643245459496	37.495967148527455	-1	-1	-4	0	0.9155662189357003	correct_baseline
+8002952	2018	220	93	5948	77	76	Ambrosia artemisiifolia	42.6549641824855	53.36015516387789	34.097463993897705	-1	-1	-4	0	0.9010215605296013	correct_baseline
+8002952	2019	220	154	7299	109	108	Ambrosia artemisiifolia	39.50625032607391	51.37391118634139	30.380085510043177	-1	-1	-4	0	0.8865690859738661	correct_baseline
+8002952	2020	220	178	8097	153	150	Ambrosia artemisiifolia	36.12764727479118	49.20941526710001	26.523519747741247	-1	-1	-4	0	0.8722463846006616	correct_baseline
+8002952	2021	220	245	3996	196	178	Ambrosia artemisiifolia	32.62054316636089	46.88589458988611	22.695521665442516	-1	-1	-4	0	0.85807879885803	correct_baseline
+8848208	2001	220	1	0	1	0	Koenigia polystachya	1.1089711597559306	5.832459769284262	0.2108573538127178	1	-1	2	2	1.0140572892739343	correct_baseline
+8848208	2002	220	0	0	0	0	Koenigia polystachya	1.3228743612855864	5.5453705709828025	0.31557793178041793	1	-1	2	2	1.0126073509401152	correct_baseline
+8848208	2003	220	2	125	2	2	Koenigia polystachya	1.5580231595639724	5.308120994702789	0.4573061104221532	1	-1	2	2	1.010921297960886	correct_baseline
+8848208	2004	220	0	0	0	0	Koenigia polystachya	1.8116995673880651	5.116951415031066	0.6414474276289713	1	-1	2	2	1.0089419321640336	correct_baseline
+8848208	2005	220	0	0	0	0	Koenigia polystachya	2.079962063883376	4.9701611533972105	0.8704430407124554	1	-1	2	2	1.0065944535414608	correct_baseline
+8848208	2006	220	0	0	0	0	Koenigia polystachya	2.357662353752483	4.868685044819497	1.1416987796769216	1	-1	2	2	1.0037805997686262	correct_baseline
+8848208	2007	220	1	171	1	1	Koenigia polystachya	2.6385465769236953	4.817093157952688	1.4452550138255245	1	-1	2	2	1.0003714068171727	correct_baseline
+8848208	2008	220	3	108	2	2	Koenigia polystachya	2.915445194472626	4.824828264768709	1.761683569970752	0	-1	-1	0	0.996199366897531	correct_baseline
+8848208	2009	220	6	96	5	3	Koenigia polystachya	3.180548036320523	4.90641645413422	2.0617666490211066	0	-1	-1	0	0.9910525797904888	correct_baseline
+8848208	2010	220	2	8	2	2	Koenigia polystachya	3.4257526069896276	5.077449039249588	2.3113537592551983	0	-1	-1	0	0.9846768723322317	correct_baseline
+8848208	2011	220	6	47	5	5	Koenigia polystachya	3.6430656289115464	5.344434657615934	2.483317324807012	0	-1	-1	0	0.9767959778452192	correct_baseline
+8848208	2012	220	6	35	5	3	Koenigia polystachya	3.825030952289988	5.696565238864369	2.5683655277321407	0	-1	-1	0	0.9671597441039953	correct_baseline
+8848208	2013	220	5	36	5	5	Koenigia polystachya	3.965152307154581	6.110826454803751	2.572881579147746	0	-1	-1	0	0.9556165787007939	correct_baseline
+8848208	2014	220	9	86	4	4	Koenigia polystachya	4.058277645113918	6.56502722789753	2.5086898916192033	0	-1	-1	0	0.9421786268332047	correct_baseline
+8848208	2015	220	10	492	9	8	Koenigia polystachya	4.100913420116871	7.046238492338437	2.386733133938166	0	-1	-1	0	0.9270348964642161	correct_baseline
+8848208	2016	220	7	194	6	6	Koenigia polystachya	4.091442090741145	7.5524133809872875	2.21649657366874	0	-1	-1	0	0.91049928472273	correct_baseline
+8848208	2017	220	7	607	7	7	Koenigia polystachya	4.030223966631932	8.090619104030806	2.007597318865523	0	-1	-1	0	0.8929290146133299	correct_baseline
+8848208	2018	220	13	678	10	10	Koenigia polystachya	3.919574459400501	8.674483280552868	1.771063871576863	0	-1	-1	0	0.8746586206051092	correct_baseline
+8848208	2019	220	9	493	8	8	Koenigia polystachya	3.763618740580524	9.322034253844105	1.519499461033177	0	-1	-1	0	0.8559672654370689	correct_baseline
+8848208	2020	220	17	743	13	13	Koenigia polystachya	3.568036525750571	10.054380735398107	1.2662027611774258	0	-1	-1	0	0.8370725045804199	correct_baseline
+8848208	2021	220	16	141	11	10	Koenigia polystachya	3.3397189952815887	10.895293410748245	1.023719375601347	0	-1	-1	0	0.818137353848708	correct_baseline
+8909595	2000	229	9	34	9	8	Faxonius limosus	12.898301679738472	20.520645628617228	8.107258866628301	-1	1	-2	0	0.6624212620284464	correct_baseline
+8909595	2001	229	30	113	26	20	Faxonius limosus	10.509933217057405	14.68078018993198	7.5240344721432955	-1	1	-2	0	0.7455387032266059	correct_baseline
+8909595	2002	229	46	117	35	28	Faxonius limosus	9.2799325375878	12.548122464534915	6.862950863412109	0	1	1	2	0.8361675877113028	correct_baseline
+8909595	2003	229	28	85	22	17	Faxonius limosus	8.858940004424728	12.136650910375034	6.466431191071611	0	1	1	2	0.9287806051436871	correct_baseline
+8909595	2004	229	55	163	44	34	Faxonius limosus	9.091772653201485	12.57142530656653	6.575255228563921	1	1	4	3	1.0112174515959742	correct_baseline
+8909595	2005	229	9	69	9	8	Faxonius limosus	9.932108543517558	13.596820354784256	7.255135946949835	1	1	4	3	1.0706906077073122	correct_baseline
+8909595	2006	229	0	0	0	0	Faxonius limosus	11.389160093657788	15.209721240605683	8.528293555615596	1	1	4	3	1.1082393085259108	correct_baseline
+8909595	2007	229	1	22	1	1	Faxonius limosus	13.4783712295919	17.51799834936701	10.370276750782715	1	1	4	3	1.1295157318671796	correct_baseline
+8909595	2008	229	6	0	4	0	Faxonius limosus	16.164462707263922	20.639500547134368	12.659698524090695	1	0	3	3	1.1366165044456167	correct_baseline
+8909595	2009	229	18	24	18	9	Faxonius limosus	19.303611199605008	24.50229482604195	15.207939011062406	1	-1	2	2	1.1300342840467548	correct_baseline
+8909595	2010	229	13	32	11	3	Faxonius limosus	22.612493895494886	28.64819288760569	17.848416553876678	1	-1	2	2	1.1096462994906406	correct_baseline
+8909595	2011	229	32	3	13	1	Faxonius limosus	25.699701912805747	32.32620042795921	20.431559220174268	1	-1	2	2	1.075525833679898	correct_baseline
+8909595	2012	229	80	20	33	9	Faxonius limosus	28.1697868677725	34.889160577926056	22.74451087475544	1	-1	2	2	1.0324866956320633	correct_baseline
+8909595	2013	229	131	62	34	12	Faxonius limosus	29.75842480231406	36.201031800026364	24.462392442481036	0	-1	-1	0	0.9911281301517284	correct_baseline
+8909595	2014	229	72	52	38	9	Faxonius limosus	30.423533137229406	36.692647425318015	25.22552700608448	0	-1	-1	0	0.9603954611583878	correct_baseline
+8909595	2015	229	46	5	21	5	Faxonius limosus	30.341543498029083	36.87606511748922	24.964953796173152	0	-1	-1	0	0.9445890369609123	correct_baseline
+8909595	2016	229	120	40	34	9	Faxonius limosus	29.822249759856046	36.838457482873885	24.1423404102275	0	0	0	1	0.943427994290604	correct_baseline
+8909595	2017	229	55	68	31	13	Faxonius limosus	29.200661469980822	36.4271819717	23.40775717833079	0	0	0	1	0.9492963767663588	correct_baseline
+8909595	2018	229	83	43	43	17	Faxonius limosus	28.758672293308525	35.68647909525485	23.175758803952274	0	0	0	1	0.9480142291119498	correct_baseline
+8909595	2019	229	66	62	44	13	Faxonius limosus	28.694529029104775	35.24458993428266	23.361769784736044	0	0	0	1	0.9391299981073453	correct_baseline
+8909595	2020	229	62	52	36	11	Faxonius limosus	29.130506675601428	36.83512871918934	23.037422392260744	0	0	0	1	0.927681508723128	correct_baseline
+8909595	2021	229	42	10	24	6	Faxonius limosus	30.14278605471297	42.695811412169505	21.28048445710592	0	0	0	1	0.9152815468071659	correct_baseline
 9442269	2017	229	1	0	1	0	Procambarus virginalis									correct_baseline
 9442269	2018	229	1	0	1	0	Procambarus virginalis									correct_baseline
 9442269	2019	229	4	1	2	1	Procambarus virginalis									correct_baseline
-9442269	2020	229	16	6	9	5	Procambarus virginalis									correct_baseline
-9799308	2014	358	1	0	1	0	Lampropeltis getula									correct_baseline
-9799308	2015	358	0	0	0	0	Lampropeltis getula									correct_baseline
-9799308	2016	358	0	0	0	0	Lampropeltis getula									correct_baseline
-9799308	2017	358	0	0	0	0	Lampropeltis getula									correct_baseline
-9799308	2018	358	0	0	0	0	Lampropeltis getula									correct_baseline
-9799308	2019	358	0	0	0	0	Lampropeltis getula									correct_baseline
-9799308	2020	358	0	0	0	0	Lampropeltis getula									correct_baseline
+9442269	2020	229	16	4	10	4	Procambarus virginalis									correct_baseline
+9442269	2021	229	9	1	4	1	Procambarus virginalis									correct_baseline
+9799308	2014	11592253	1	0	1	0	Lampropeltis getula									correct_baseline
+9799308	2015	11592253	0	0	0	0	Lampropeltis getula									correct_baseline
+9799308	2016	11592253	0	0	0	0	Lampropeltis getula									correct_baseline
+9799308	2017	11592253	0	0	0	0	Lampropeltis getula									correct_baseline
+9799308	2018	11592253	0	0	0	0	Lampropeltis getula									correct_baseline
+9799308	2019	11592253	0	0	0	0	Lampropeltis getula									correct_baseline
+9799308	2020	11592253	0	0	0	0	Lampropeltis getula									correct_baseline
+9799308	2021	11592253	0	0	0	0	Lampropeltis getula									correct_baseline

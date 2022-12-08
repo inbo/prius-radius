@@ -1,0 +1,57 @@
+taxonKey,year,em_status,growth,method,Groep,Species,Soort,Lijst,GBIF_scientific_name
+1311477,2021,NA,NA,correct_baseline,dier,"Vespa velutina Lepeletier, 1836",Aziatische hoornaar (soort),1,"Vespa velutina Lepeletier, 1836"
+1651430,2021,NA,NA,correct_baseline,dier,"Aedes albopictus (Skuse, 1894)",Aziatische tijgermug,ANB,"Aedes albopictus (Skuse, 1894)"
+2225776,2021,3,1.1979204042655855,correct_baseline,dier,"Eriocheir sinensis H. Milne Edwards, 1854",Chinese wolhandkrab,1,"Eriocheir sinensis H.Milne Edwards, 1853"
+2226990,2021,NA,NA,correct_baseline,dier,"Pacifastacus leniusculus Dana, 1852",Californische rivierkreeft,1,"Pacifastacus leniusculus (Dana, 1852)"
+2227300,2021,NA,NA,correct_baseline,dier,"Procambarus clarkii Girard, 1852",rode rivierkreeft,1,"Procambarus clarkii (Girard, 1852)"
+2340977,2021,NA,NA,basic,dier,"Ameiurus melas (Rafinesque, 1820)",zwarte dwergmeerval,4,"Ameiurus melas (Rafinesque, 1820)"
+2362868,2021,0,0.8301038947650706,basic,dier,"Pseudorasbora parva Temminck & Schlegel, 1846",blauwbandgrondel,1,"Pseudorasbora parva (Temminck & Schlegel, 1846)"
+2367911,2021,NA,NA,basic,dier,"Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)",Noord-Aziatische modderkruiper,ANB,"Misgurnus mohoity (Dybowski, 1869)"
+2394486,2021,NA,NA,basic,dier,"Lepomis gibbosus Linnaeus, 1758",zonnebaars,3,"Lepomis gibbosus (Linnaeus, 1758)"
+2427091,2021,NA,NA,correct_baseline,dier,"Lithobates (Rana) catesbeianus Shaw, 1802",Amerikaanse stierkikker,1,"Lithobates catesbeianus (Shaw, 1802)"
+2434552,2021,NA,NA,correct_baseline,dier,"Nyctereutes procyonoides Gray, 1834",wasbeerhond,2,"Nyctereutes procyonoides (Gray, 1834)"
+2437394,2021,NA,NA,correct_baseline,dier,"Callosciurus erythraeus Pallas, 1779",Pallas' eekhoorn,1,"Callosciurus erythraeus (Pallas, 1779)"
+2437450,2021,NA,NA,correct_baseline,dier,"Tamias sibiricus Laxmann, 1769",Siberische grondeekhoorn,1,"Tamias sibiricus (Laxmann, 1769)"
+2440946,2021,NA,NA,correct_baseline,dier,"Muntiacus reevesi Ogilby, 1839",Chinese muntjak,1,"Muntiacus reevesi (Ogilby, 1839)"
+2443002,2021,NA,NA,correct_baseline,dier,"Trachemys scripta Schoepff, 1792",lettersierschildpad,1,"Trachemys scripta (Thunberg In Schoepff, 1792)"
+2480764,2021,2,0.9906611966194231,correct_baseline,dier,"Threskiornis aethiopicus Latham, 1790",heilige ibis,1,"Threskiornis aethiopicus (Latham, 1790)"
+2482499,2021,NA,NA,correct_baseline,dier,"Corvus splendens Viellot, 1817",huiskraai,1,"Corvus splendens Vieillot, 1817"
+2486131,2021,NA,NA,correct_baseline,dier,"Pycnonotus cafer (Linnaeus, 1766)",Pycnonotus cafer,4,"Pycnonotus cafer (Linnaeus, 1766)"
+2489005,2021,NA,NA,correct_baseline,dier,"Acridotheres tristis Linnaeus, 1766",treurmaina,3,"Acridotheres tristis (Linnaeus, 1766)"
+2498252,2021,3,1.1063343263517833,correct_baseline,dier,"Alopochen aegyptiacus Linnaeus, 1766",nijlgans,2,"Alopochen aegyptiaca (Linnaeus, 1766)"
+2498305,2021,1,0.8242749590104169,correct_baseline,dier,"Oxyura jamaicensis Gmelin, 1789",rosse stekelstaart,1,"Oxyura jamaicensis (Gmelin, 1789)"
+2765942,2021,NA,NA,correct_baseline,plant,Eichhornia crassipes (Martius) Solms,waterhyacint,1,Pontederia crassipes Mart.
+2865565,2021,NA,NA,correct_baseline,plant,Lagarosiphon major (Ridley) Moss,verspreidbladige waterpest,1,Lagarosiphon major (Ridl.) Moss
+2869311,2021,NA,NA,correct_baseline,plant,Lysichiton americanus Hultén & H. St. John,moerasaronskelk,1,Lysichiton americanus HultÃ©n & H.St.John
+2870583,2021,NA,NA,correct_baseline,plant,Pistia stratiotes L.,watersla,4,Pistia stratiotes L.
+2882443,2021,NA,NA,correct_baseline,plant,Cabomba caroliniana Gray,waterwaaier,1,Cabomba caroliniana A.Gray
+2889088,2021,1,0.9349527023511194,correct_baseline,plant,Reynoutria sachalinensis (F.Schmidt) Nakai,invasieve duizendknopen,ANB,Reynoutria sachalinensis (F.Schmidt) Nakai
+2889173,2021,1,0.9619002133805072,correct_baseline,plant,Reynoutria japonica Houtt.,invasieve duizendknopen,ANB,Reynoutria japonica Houtt.
+2891770,2021,0,0.9326593944361014,correct_baseline,plant,Impatiens glandulifera Royle,reuzenbalsemien,2,Impatiens glandulifera Royle
+2984306,2021,NA,NA,correct_baseline,plant,Gunnera tinctoria (Molina) Mirbel,gewone gunnera,2,Gunnera tinctoria (Molina) Mirb.
+3034613,2021,3,1.081782213569465,correct_baseline,plant,Hydrocotyle ranunculoides L. f.,grote waternavel,1,Hydrocotyle ranunculoides L.f.
+3034825,2021,3,1.0921300939955654,correct_baseline,plant,Heracleum mantegazzianum Sommier & Levier,reuzenberenklauw,2,Heracleum mantegazzianum Sommier & Levier
+3086784,2021,NA,NA,correct_baseline,plant,Parthenium hysterophorus L.,schijnambrosia,1,Parthenium hysterophorus L.
+3129663,2021,1,0.9115936011589447,correct_baseline,plant,Baccharis halimifolia L.,struikaster,1,Baccharis halimifolia L.
+3169169,2021,NA,NA,correct_baseline,plant,Celastrus orbiculatus Thunb.,Aziatische boomwurger,4,Celastrus orbiculatus Thunb.
+3170247,2021,NA,NA,correct_baseline,plant,Asclepias syriaca L.,zijdeplant,2,Asclepias syriaca L.
+3190653,2021,1,0.9442081464703175,correct_baseline,plant,Ailanthus altissima (Mill.) Swingle,hemelboom,3,Ailanthus altissima (Mill.) Swingle
+4038485,2021,1,0.876291393877286,correct_baseline,plant,Reynoutria ×bohemica Chrtek & Chrtková,invasieve duizendknopen,ANB,Reynoutria Ã—bohemica Chrtek & ChrtkovÃ¡
+4264680,2021,NA,NA,correct_baseline,dier,"Myocastor coypus Molina, 1782",beverrat,1,"Myocastor coypus (Molina, 1782)"
+5218786,2021,NA,NA,correct_baseline,dier,"Procyon lotor L., 1758",wasbeer,1,"Procyon lotor (Linnaeus, 1758)"
+5218823,2021,NA,NA,correct_baseline,dier,"Mustela vison Schreber, 1777",Amerikaanse nerts,ANB,"Mustela vison Schreber, 1777"
+5219681,2021,NA,NA,correct_baseline,dier,"Sciurus carolinensis Gmelin, 1788",grijze eekhoorn,1,"Sciurus carolinensis Gmelin, 1788"
+5219683,2021,NA,NA,correct_baseline,dier,"Sciurus niger L., 1758",Amerikaanse voseekhoorn,1,"Sciurus niger Linnaeus, 1758"
+5219858,2021,1,0.9825369995746046,correct_baseline,dier,"Ondatra zibethicus Linnaeus, 1766",muskusrat,2,"Ondatra zibethicus (Linnaeus, 1766)"
+5232437,2021,3,1.0515797291282705,correct_baseline,dier,"Branta canadensis (Linnaeus, 1758)",Canadese gans,ANB,"Branta canadensis (Linnaeus, 1758)"
+5329212,2021,0,0.9395521571388407,correct_baseline,plant,Elodea nuttallii (Planch.) St. John,smalle waterpest,2,Elodea nuttallii (Planch.) H.St.John
+5361762,2021,2,0.9907224186748455,correct_baseline,plant,Myriophyllum heterophyllum Michaux,ongelijkbladig vederkruid,2,Myriophyllum heterophyllum Michx.
+5361785,2021,1,0.9494797355738503,correct_baseline,plant,Myriophyllum aquaticum (Vell.) Verdc.,parelvederkruid,1,Myriophyllum aquaticum (Vell.) Verdc.
+5362054,2021,1,0.9801454903272718,correct_baseline,plant,Crassula helmsii (Kirk) Cockayne,watercrassula,ANB,Crassula helmsii (Kirk) Cockayne
+5420991,2021,NA,NA,correct_baseline,plant,Ludwigia peploides (Kunth) P.H. Raven,kleine waterteunisbloem,1,Ludwigia peploides (Kunth) P.H.Raven
+5421039,2021,3,1.0305102362974345,correct_baseline,plant,Ludwigia grandiflora (Michx.) Greuter & Burdet,grote waterteunisbloem,1,Ludwigia grandiflora (Michx.) Greuter & Burdet
+8002952,2021,0,0.85807879885803,correct_baseline,plant,Ambrosia artemisiifolia L.,alsemambrosia,ANB,Ambrosia artemisiifolia L.
+8848208,2021,0,0.818137353848708,correct_baseline,plant,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Afghaanse duizendknoop,4,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal
+8909595,2021,1,0.9152815468071659,correct_baseline,dier,"Faxonius limosus Rafinesque, 1817",gevlekte rivierkreeft,1,"Faxonius limosus (Rafinesque, 1817)"
+9442269,2021,NA,NA,correct_baseline,dier,"Procambarus virginalis Lyko, 2017",marmerkreeft,1,"Procambarus virginalis Lyko, 2017"
+9799308,2021,NA,NA,correct_baseline,dier,"Lampropeltis getula (Linnaeus, 1766)",gewone koningsslang,4,"Lampropeltis getula (Linnaeus, 1766)"

@@ -30,7 +30,7 @@ df_ts <- read_tsv("./data/intermediate/df_timeseries.tsv", na = "")
 # preview df_timeseries
 df_ts %>%
   filter(taxonKey == "5219858", # Bv. Muskusrat
-    year %in% c(2016, 2017),
+    year %in% c(2021, 2022),
     eea_cell_code == "1kmE3924N3102")
 ```
 
@@ -61,7 +61,7 @@ df_ts_compact_prot_areas <- df_ts_compact_prot_areas %>%
 
 ```{r}
 # Last evaluation year
-last_year <- lubridate::year(Sys.Date()) - 2
+last_year <- lubridate::year(Sys.Date()) - 1 # Manually changed to '- 1' instead of '- 2' (Bram)
 
 # First evalution year
 first_year <- last_year - 2
@@ -108,17 +108,17 @@ em_decision_rules_occupancy_pa <- map_dfr(evaluation_years,
 ```
 
 ```{r decision rules write output}
-em_decision_rules_occupancy_FL_2020 <- em_decision_rules_occupancy_FL %>% 
-  filter(year == 2020) %>% 
+em_decision_rules_occupancy_FL_2021 <- em_decision_rules_occupancy_FL %>% 
+  filter(year == 2021) %>% 
   left_join(species_list, by= c('taxonKey'='GBIF_code'))
 
-write_csv(em_decision_rules_occupancy_FL_2020, "./data/output/emerging_status/output_decision_rules_occupancy_FL_2020.csv")
+write_csv(em_decision_rules_occupancy_FL_2021, "./data/output/emerging_status/output_decision_rules_occupancy_FL_2021.csv")
 
-em_decision_rules_occupancy_pa_2020 <- em_decision_rules_occupancy_pa %>% 
-  filter(year == 2020) %>% 
+em_decision_rules_occupancy_pa_2021 <- em_decision_rules_occupancy_pa %>% 
+  filter(year == 2021) %>% 
   left_join(species_list, by= c('taxonKey'='GBIF_code'))
 
-write_csv(em_decision_rules_occupancy_pa_2020, "./data/output/emerging_status/output_decision_rules_occupancy_pa_2020.csv")
+write_csv(em_decision_rules_occupancy_pa_2021, "./data/output/emerging_status/output_decision_rules_occupancy_pa_2021.csv")
 ```
 
 ```{r}
@@ -277,36 +277,36 @@ write_tsv(map_dfr(gam_occupancy_pa, function(x) {x$output}), na = "",
 
 em_GAM_occ_FL <- map_dfr(gam_occupancy_BE, function(x) {x$em_summary})
 
-em_GAM_occ_FL_2020 <- em_GAM_occ_FL %>% 
-  filter(year == 2020) %>%
+em_GAM_occ_FL_2021 <- em_GAM_occ_FL %>% 
+  filter(year == 2021) %>%
   left_join(species_list, by= c('taxonKey'='GBIF_code'))
 
-write_csv(em_GAM_occ_FL_2020, paste0("./data/output/emerging_status/output_GAM_",
-                                     method_em, "_occupancy_FL_2020.csv"))
+write_csv(em_GAM_occ_FL_2021, paste0("./data/output/emerging_status/output_GAM_",
+                                     method_em, "_occupancy_FL_2021.csv"))
 
 em_GAM_occ_pa <- map_dfr(gam_occupancy_pa, function(x) {x$em_summary})
 
-em_GAM_occ_pa_2020 <- em_GAM_occ_pa %>% 
-  filter(year == 2020) %>%
+em_GAM_occ_pa_2021 <- em_GAM_occ_pa %>% 
+  filter(year == 2021) %>%
   left_join(species_list, by= c('taxonKey'='GBIF_code'))
 
-write_csv(em_GAM_occ_pa_2020, paste0("./data/output/emerging_status/output_GAM_",
-                                     method_em, "_occupancy_pa_2020.csv"))
+write_csv(em_GAM_occ_pa_2021, paste0("./data/output/emerging_status/output_GAM_",
+                                     method_em, "_occupancy_pa_2021.csv"))
 ```
 
 ```{r}
 # Make master output
 
-strip_decrules_FL <- em_decision_rules_occupancy_FL_2020 %>% 
+strip_decrules_FL <- em_decision_rules_occupancy_FL_2021 %>% 
   transmute(taxonKey, dec_rules_FL = em_status)
 
-strip_decrules_PA <- em_decision_rules_occupancy_pa_2020 %>% 
+strip_decrules_PA <- em_decision_rules_occupancy_pa_2021 %>% 
   transmute(taxonKey, dec_rules_PA = em_status)
 
-strip_GAM_FL <- em_GAM_occ_FL_2020 %>% 
+strip_GAM_FL <- em_GAM_occ_FL_2021 %>% 
   transmute(taxonKey, GAM_FL = em_status)
 
-strip_GAM_PA <- em_GAM_occ_pa_2020 %>% 
+strip_GAM_PA <- em_GAM_occ_pa_2021 %>% 
   transmute(taxonKey, GAM_PA = em_status)
 
 master <- species_list %>% 
