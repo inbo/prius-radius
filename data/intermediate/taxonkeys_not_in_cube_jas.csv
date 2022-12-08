@@ -1,0 +1,57 @@
+Groep,Species,Soort,Lijst,GBIF_code,GBIF_scientific_name,n_tot,unique_cells
+plant,Acacia saligna (Labill.) H.L.Wendl.,wilgacacia,3,2978552,Acacia saligna (Labill.) H.L.Wendl.,NA,NA
+plant,Acacia cyanophylla Lindl.,wilgacacia,3,2980328,Acacia cyanophylla Lindl.,NA,NA
+plant,Alternanthera philoxeroides (Mart.) Griseb.,alligatorkruid,2,3084923,Alternanthera philoxeroides (Mart.) Griseb.,NA,NA
+plant,Andropogon virginicus L.,Amerikaans bezemgras,3,2706080,Andropogon virginicus L.,NA,NA
+plant,Cardiospermum grandiflorum Sw.,ballonrank,3,3189935,Cardiospermum grandiflorum Sw.,NA,NA
+plant,Cortaderia jubata (Lemoine ex Carrière) Stapf,hoog pampagras,3,2704521,Cortaderia jubata (Lemoine) Stapf,NA,NA
+plant,Ehrharta calycina Sm.,roze rimpelgras,3,2702865,Ehrharta calycina Sm.,NA,NA
+plant,Gymnocoronis spilanthoides (D.Don ex Hook. & Arn.) DC.,smalle theeplant,3,6063677,Gymnocoronis spilanthoides DC.,NA,NA
+plant,Heracleum persicum Fischer,Perzische berenklauw,1,3628745,Heracleum persicum Desf.,NA,NA
+plant,Heracleum sosnowskyi Mandenova,Sosnowsky's berenklauw,1,3642949,Heracleum sosnowskyi Manden.,NA,NA
+plant,Humulus scandens (Lour.) Merr.,oosterse hop,3,2984537,Humulus scandens (Lour.) Merr.,NA,NA
+plant,Lespedeza cuneata (Dum.Cours.) G.Don,Chinese struikklaver,3,8114276,Lespedeza cuneata (Dum.Cours.) G.Don,NA,NA
+plant,Lespedeza juncea var. sericea (Thunb.) Lace & Hauech,Chinese struikklaver,3,2955720,Lespedeza juncea var. sericea (Thunb.) Lace & Hauech,NA,NA
+plant,Lygodium japonicum (Thunb.) Sw.,Japanse klimvaren,3,2650436,Lygodium japonicum (Thunb.) Sw.,NA,NA
+plant,Parthenium hysterophorus L.,schijnambrosia,1,3086784,Parthenium hysterophorus L.,NA,NA
+plant,Persicaria perfoliata (L.) H. Gross,gestekelde duizendknoop,1,4033648,Persicaria perfoliata (L.) H.Gross,NA,NA
+plant,Polygonum perfoliatum L.,gestekelde duizendknoop,1,5334406,Polygonum perfoliatum (L.) L.,NA,NA
+plant,Prosopis juliflora (Sw.) DC.,mesquite,3,5358460,Prosopis juliflora (Sw.) DC.,NA,NA
+plant,Pueraria montana (Lour.) Merr. var. lobata (Willd.),kudzu,1,2977647,Pueraria montana var. lobata (Willd.) Maesen & S.M.Almeida ex Sanjappa & Predeep,NA,NA
+plant,Pueraria lobata (Willd.) Ohwi,kudzu,1,2977654,Pueraria lobata (Willd.) Ohwi,NA,NA
+plant,Salvinia molesta D.S.Mitch.,grote vlotvaren,3,5274863,Salvinia Ã—molesta D.S.Mitch.,NA,NA
+plant,Salvinia adnata Desv.,grote vlotvaren,3,5579439,Salvinia adnata Desv.,NA,NA
+plant,Triadica sebífera (L.) Small,talgboom,3,3054399,Triadica sebifera (L.) Small,NA,NA
+plant,Sapium sebiferum (L.) Roxb.,talgboom,3,7748792,Sapium sebiferum (L.) Roxb.,NA,NA
+dier,"Arthurdendyus triangulatus (Dendy, 1894) Jones & Gerard (1999)",Arthurdendyus triangulatus,3,2502792,"Arthurdendyus triangulatus (Dendy, 1895)",NA,NA
+dier,"Corvus splendens Viellot, 1817",huiskraai,1,2482499,"Corvus splendens Vieillot, 1817",NA,NA
+dier,"Herpestes javanicus É. Geoffroy Saint-Hilaire, 1818",Indische mangoeste,1,2434271,"Herpestes javanicus (Ã‰.Geoffroy Saint-Hilaire, 1818)",NA,NA
+dier,"Nasua nasua L., 1766",rode neusbeer,1,2433536,"Nasua nasua (Linnaeus, 1766)",NA,NA
+dier,"Orconectes limosus Rafinesque, 1817",gevlekte rivierkreeft,1,2227000,"Orconectes limosus (Rafinesque, 1817)",NA,NA
+dier,"Orconectes virilis Hagen, 1870",geknobbelde Amerikaanse rivierkreeft,1,2227064,"Orconectes virilis (Hagen, 1870)",NA,NA
+dier,"Faxonius virilis Hagen, 1870",geknobbelde Amerikaanse rivierkreeft,1,8971201,"Faxonius virilis (Hagen, 1870)",NA,NA
+dier,"Perccottus glenii Dybowski, 1877",amoergrondel,1,2390064,"Perccottus glenii Dybowski, 1877",NA,NA
+dier,"Plotosus lineatus (Thunberg, 1787)",gestreepte koraalmeerval,3,7965247,"Plotosus lineatus (Thunberg, 1787)",NA,NA
+dier,"Procambarus fallax (Hagen, 1870) f. virginalis",marmerkreeft,1,8879526,"Procambarus fallax f. virginalis Martin, Dorn, Kawai, van der Heiden & Scholtz, 2010",NA,NA
+dier,"Vespa velutina nigrithorax de Buysson, 1905",Aziatische hoornaar (ondersoort),1,6247411,"Vespa velutina nigrithorax Buysson, 1905",NA,NA
+dier,"Ameiurus melas (Rafinesque, 1820)",zwarte dwergmeerval,4,2340977,"Ameiurus melas (Rafinesque, 1820)",NA,NA
+dier,"Axis axis (Erxleben, 1777)",axishert,4,2440934,"Axis axis (Erxleben, 1777)",NA,NA
+dier,"Callosciurus finlaysonii (Horsfield, 1823)",Thailandeekhoorn,4,2437399,"Callosciurus finlaysonii (Horsfield, 1823)",NA,NA
+dier,"Channa argus (Cantor, 1842)",noordelijke slangekopvis,4,4284921,"Channa argus (Cantor, 1842)",NA,NA
+dier,"Faxonius rusticus (Girard, 1852)",roestbruine Amerikaanse rivierkreeft,4,8979506,"Faxonius rusticus (Girard, 1852)",NA,NA
+dier,"Fundulus heteroclitus (Linnaeus, 1766)",Fundulus heteroclitus,4,5712056,"Fundulus heteroclitus (Linnaeus, 1766)",NA,NA
+dier,"Gambusia affinis (Baird & Girard, 1853)",Gambusia affinis,4,2350580,"Gambusia affinis (Baird & Girard, 1853)",NA,NA
+dier,"Gambusia holbrooki Girard, 1859",Gambusia holbrooki,4,2350570,"Gambusia holbrooki Girard, 1859",NA,NA
+plant,Hakea sericea Schrad. & J.C.Wendl.,hakea,4,7287606,Hakea sericea Schrad. & J.C.Wendl.,NA,NA
+dier,"Lampropeltis getula (Linnaeus, 1766)",gewone koningsslang,4,9799308,"Lampropeltis getula (Linnaeus, 1766)",NA,NA
+dier,"Limnoperna fortunei (Dunker, 1857)",Limnoperna fortunei,4,5855350,"Limnoperna fortunei (Dunker, 1857)",NA,NA
+dier,"Morone americana (Gmelin, 1789)",Morone americana,4,2394604,"Morone americana (Gmelin, 1789)",NA,NA
+dier,"Pycnonotus cafer (Linnaeus, 1766)",Pycnonotus cafer,4,2486131,"Pycnonotus cafer (Linnaeus, 1766)",NA,NA
+plant,"Rugulopteryx okamurae (E.Y.Dawson) I.K.Hwang, W.J.Lee & H.S.Kim, 2009",stomp gaffelwier,4,5824863,"Rugulopteryx okamurae (E.Y.Dawson) I.K.Hwang, W.J.Lee & H.S.Kim, 2009",NA,NA
+dier,"Solenopsis geminata (Fabricius, 1804)",Solenopsis geminata,4,5035187,"Solenopsis geminata (Fabricius, 1804)",NA,NA
+dier,"Solenopsis invicta Buren, 1972",Solenopsis invicta,4,5035230,"Solenopsis invicta Buren, 1972",NA,NA
+dier,"Solenopsis richteri Forel, 1909",Solenopsis richteri,4,5035017,"Solenopsis richteri Forel, 1909",NA,NA
+dier,"Wasmannia auropunctata (Roger, 1863)",Wasmannia auropunctata,4,1315391,"Wasmannia auropunctata (Roger, 1863)",NA,NA
+plant,Fallopia japonica (Houtt.) Ronse Decr.,invasieve duizendknopen,ANB,5334357,Fallopia japonica (Houtt.) Ronse Decr.,NA,NA
+plant,Fallopia sachalinensis (F.Schmidt) Ronse Decr.,invasieve duizendknopen,ANB,5334293,Fallopia sachalinensis (F.Schmidt) Ronse Decr.,NA,NA
+plant,Fallopia ×bohemica (Chrtek & Chrtková) J.P.Bailey,invasieve duizendknopen,ANB,5652296,Fallopia Ã—bohemica (Chrtek & ChrtkovÃ¡) J.P.Bailey,NA,NA

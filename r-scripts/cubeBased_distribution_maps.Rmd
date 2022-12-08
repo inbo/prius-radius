@@ -12,20 +12,18 @@ rm(list=ls())
 
 ```{r get species list}
 species_list <- read_csv('./data/input/prius_species_list.csv')
-species_list <- species_list %>%
-  mutate_if(is.character, utf8::utf8_encode) %>%
-  mutate_if(is.character, trimws)
+
+# No distribution map needed for Aedes albopictus. See adhoc.
+species_list <- species_list %>% 
+  filter(!Soort == "Aziatische tijgermug")
 ```
 
 ```{r get shapes}
 vla_1km <- st_read("./data/spatial/grids/vla_1km.geojson")
 Vlaanderen_grenzen <- st_read("./data/spatial/flanders_wgs84.geojson")
 Provincies_grenzen <- st_read("./data/spatial/Provincies.geojson")
-#Waterlopen <- st_read("data/spatial/Waterlopen.geojson")
 ps_vglrl <- st_read("data/spatial/ps_vglrl.geojson")
 ps_hbtrl_deel <- st_read("data/spatial/ps_hbtrl_deel.geojson")
-#ps_hbtrl_deel <- st_transform(ps_hbtrl_deel, crs=st_crs(vla_1km))
-#st_write(ps_hbtrl_deel,  "./data/spatial/ps_hbtrl_deel.geojson")
 ```
 
 NOTE: the species cube is (too) heavy to push to the git. This will give an error when running the script. I needed to download it locally (making connection with zenodo within the script was too slow). So maybe best to download the most recent version of the species cube and put it in the folder data/input before running it.
