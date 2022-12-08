@@ -12,23 +12,17 @@ rm(list=ls())
 
 ```{r get species list}
 species_list <- read_csv('./data/input/prius_species_list.csv')
-species_list <- species_list %>%
-  mutate_if(is.character, utf8::utf8_encode ) %>%
-  mutate_if(is.character, trimws)
 ```
 
 ```{r get shapes}
 vla_1km <- st_read("./data/spatial/grids/vla_1km.geojson")
-#ps_hbtrl_deel <- st_transform(ps_hbtrl_deel, crs=st_crs(vla_1km))
-#st_write(ps_hbtrl_deel,  "./data/spatial/ps_hbtrl_deel.geojson")
 ```
 
-NOTE: the species cube is (too) heavy to push to the git. This will give an error when running the script. I needed to download it locally (making connection with zenodo within the script was too slow). So maybe best to download the most recent version of the species cube and put it in the folder data/input before running it.
+NOTE: the species cube is (too) heavy to push to the git, and making connection with zenodo within the script is too slow. It is therefore best to download the cube dataset locally (to be put in the input folder), and include it in gitignore.
 
 ```{r get cube data}
 IAS_Cube <- read_csv(file = "./data/input/be_species_cube.csv")
-                       #"https://zenodo.org/record/6341688/files/be_species_cube.csv?download=1") %>%
-                       #"https://zenodo.org/record/5819028/files/be_alientaxa_cube.csv?download=1") %>% 
+                       #"https://zenodo.org/record/6341688/files/be_species_cube.csv?download=1")
 gc()
 IAS_Cube <- IAS_Cube %>%
   filter(year >= 2015) %>% 
@@ -45,7 +39,7 @@ not_in_cube <- species_list %>%
   left_join(IAS_Cube_summarise, by = c("GBIF_code" = "speciesKey")) %>% 
   filter(is.na(n_tot))
 
-write_csv(not_in_cube, "./data/intermediate/taxonkeys_not_in_cube_jas.csv")
+write_csv(not_in_cube, "./data/intermediate/taxonkeys_not_in_cube.csv")
 
 in_cube <- species_list %>% 
   left_join(IAS_Cube_summarise, by = c("GBIF_code" = "speciesKey")) %>% 
@@ -55,13 +49,13 @@ not_in_cube$Soort %in% in_cube$Soort
 
 List_species_present <- unique(in_cube$Soort)
 List_species_not_present <- vsetdiff(unique(species_list$Soort) , List_species_present)
-write(List_species_present, "./data/output/species_present.txt")
-write(List_species_not_present, "./data/output/species_not_present.txt")
+write(List_species_present, "./data/output/absent-sporadic-present/species_present.txt")
+write(List_species_not_present, "./data/output/absent-sporadic-present/species_not_present.txt")
 ```
 
 ```{r}
-keep_all <- data.frame(year = c(2015, 2016, 2017, 2018, 2019, 2020, 2021)) ## Keep all species
-keep_all$year <- as.factor(keep_all$year)                                  ## For compatibility with below
+keep_all <- data.frame(year = c(2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022)) ## Keep all species
+keep_all$year <- as.factor(keep_all$year)                                        ## For compatibility with below
 
 for (species_name in unique(in_cube$Soort)){
   print(species_name)
@@ -81,7 +75,7 @@ for (species_name in unique(in_cube$Soort)){
   
   IAS_Cube_sporadic$year <- as.factor(IAS_Cube_sporadic$year)
   
-  data <- data.frame(year = c(2015, 2016, 2017, 2018, 2019, 2020, 2021))
+  data <- data.frame(year = c(2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022))
   
   data$year <- as.factor(data$year)
   
