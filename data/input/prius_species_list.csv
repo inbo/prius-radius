@@ -10,7 +10,7 @@ plant,Cabomba caroliniana Gray,waterwaaier,1,2882443,Cabomba caroliniana A.Gray
 plant,Cardiospermum grandiflorum Sw.,ballonrank,3,3189935,Cardiospermum grandiflorum Sw.
 plant,Cortaderia jubata (Lemoine ex Carrière) Stapf,hoog pampagras,3,2704521,Cortaderia jubata (Lemoine) Stapf
 plant,Ehrharta calycina Sm.,roze rimpelgras,3,2702865,Ehrharta calycina Sm.
-plant,Eichhornia crassipes (Martius) Solms,waterhyacint,1,2765940,Eichhornia crassipes (Mart.) Solms
+plant,Eichhornia crassipes (Martius) Solms,waterhyacint,1,2765942,Pontederia crassipes Mart.
 plant,Elodea nuttallii (Planch.) St. John,smalle waterpest,2,5329212,Elodea nuttallii (Planch.) H.St.John
 plant,Gunnera tinctoria (Molina) Mirbel,gewone gunnera,2,2984306,Gunnera tinctoria (Molina) Mirb.
 plant,Gymnocoronis spilanthoides (D.Don ex Hook. & Arn.) DC.,smalle theeplant,3,6063677,Gymnocoronis spilanthoides DC.
@@ -18,7 +18,7 @@ plant,Heracleum mantegazzianum Sommier & Levier,reuzenberenklauw,2,3034825,Herac
 plant,Heracleum persicum Fischer,Perzische berenklauw,1,3628745,Heracleum persicum Desf.
 plant,Heracleum sosnowskyi Mandenova,Sosnowsky's berenklauw,1,3642949,Heracleum sosnowskyi Manden.
 plant,Humulus scandens (Lour.) Merr.,oosterse hop,3,2984537,Humulus scandens (Lour.) Merr.
-plant,Hydrocotyle ranunculoides L. f.,grote waternavel,1,7978544,Hydrocotyle ranunculoides L.fil.
+plant,Hydrocotyle ranunculoides L. f.,grote waternavel,1,3034613,Hydrocotyle ranunculoides L.f.
 plant,Impatiens glandulifera Royle,reuzenbalsemien,2,2891770,Impatiens glandulifera Royle
 plant,Lagarosiphon major (Ridley) Moss,verspreidbladige waterpest,1,2865565,Lagarosiphon major (Ridl.) Moss
 plant,Lespedeza cuneata (Dum.Cours.) G.Don,Chinese struikklaver,3,8114276,Lespedeza cuneata (Dum.Cours.) G.Don
@@ -91,7 +91,7 @@ dier,"Limnoperna fortunei (Dunker, 1857)",Limnoperna fortunei,4,5855350,"Limnope
 dier,"Morone americana (Gmelin, 1789)",Morone americana,4,2394604,"Morone americana (Gmelin, 1789)"
 plant,Pistia stratiotes L.,watersla,4,2870583,Pistia stratiotes L.
 dier,"Pycnonotus cafer (Linnaeus, 1766)",Pycnonotus cafer,4,2486131,"Pycnonotus cafer (Linnaeus, 1766)"
-plant,"Rugulopteryx okamurae (E.Y.Dawson) I.K.Hwang, W.J.Lee & H.S.Kim, 2009",stomp gaffelwier,4,5824863,"Rugulopteryx okamurae (Dawson) I.K.Hwang, W.J.Lee & H.S.Kim, 2009"
+plant,"Rugulopteryx okamurae (E.Y.Dawson) I.K.Hwang, W.J.Lee & H.S.Kim, 2009",stomp gaffelwier,4,5824863,"Rugulopteryx okamurae (E.Y.Dawson) I.K.Hwang, W.J.Lee & H.S.Kim, 2009"
 dier,"Solenopsis geminata (Fabricius, 1804)",Solenopsis geminata,4,5035187,"Solenopsis geminata (Fabricius, 1804)"
 dier,"Solenopsis invicta Buren, 1972",Solenopsis invicta,4,5035230,"Solenopsis invicta Buren, 1972"
 dier,"Solenopsis richteri Forel, 1909",Solenopsis richteri,4,5035017,"Solenopsis richteri Forel, 1909"

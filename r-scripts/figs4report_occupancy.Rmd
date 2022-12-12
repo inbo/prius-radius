@@ -1,6 +1,6 @@
 # Introduction
 
-This figure in the report shows statistics on the number of unique grid cells occupied by the species in Flanders within the Natura 2000 network. It is based on output regarding N2000 (cubeBased_occupancy_Natura2000.Rmd).
+This figure in the report shows statistics on the number of unique grid cells occupied by the species in Flanders, and within the Flemish Natura 2000 network. It is based on output regarding N2000 (cubeBased_occupancy_Natura2000.Rmd).
 
 # Libraries
 
@@ -23,12 +23,6 @@ abbr <- read.csv("./data/input/prius_species_list_abbreviations.csv", sep = ";")
 
 # Manipulation
 data$species[data$species == 'Aziatische hoornaar (soort)'] <- 'Aziatische hoornaar'
-
-# Add output from Xenopus (data generated outside of cube)
-data[nrow(data) + 1,] = read.csv("./data/intermediate/adhoc_Xenopus_output.csv")
-
-# Add output from Celastrus (data generated outside of cube)
-data[nrow(data) + 1,] = read.csv("./data/intermediate/adhoc_Celastrus_output.csv")
 
 # Replace data for Aedes (data generated from cube but 2nd source also)
 data <- data %>% filter(species != 'Aziatische tijgermug')
@@ -80,21 +74,21 @@ ggsave(filename = "./data/output/figures_for_report/occupancy_N2000.jpeg",
 Since the relative values are strongly biased for rare species (e.g. species with only one observation are either 0% or 100% in N2000), these species have to be deleted. According to report logic, these are the "sporadic" species.
 
 ```{r}
-spor <- c("Amerikaanse nerts",
+spor <- c("Afrikaanse klauwkikker",
           "Amerikaanse voseekhoorn",
-          "Afrikaanse klauwkikker",
           "Aziatische boomwurger",
           "Aziatische tijgermug",
           "Californische rivierkreeft",
+          "fraai lampenpoetsersgras",
           "gewone gunnera",
           "grijze eekhoorn",
           "heilige ibis",
+          "Japans steltgras",
           "Noord-Aziatische modderkruiper",
           "Pallas' eekhoorn",
           "treurmaina",
           "wasbeerhond",
           "waterhyacint",
-          "watersla",
           "waterwaaier")
 
 sel <- data %>% 

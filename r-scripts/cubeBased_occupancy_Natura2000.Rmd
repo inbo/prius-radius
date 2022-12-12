@@ -12,9 +12,6 @@ rm(list=ls())
 
 ```{r get species list}
 species_list <- read_csv('./data/input/prius_species_list.csv')
-species_list <- species_list %>%
-  mutate_if(is.character, utf8::utf8_encode) %>%
-  mutate_if(is.character, trimws)
 
 df_prot_areas <- read_tsv(
   "https://raw.githubusercontent.com/trias-project/indicators/master/data/interim/intersect_EEA_ref_grid_protected_areas.tsv",
@@ -117,3 +114,27 @@ colnames(df) <- c("species",
 write.csv(df, "./data/output/occupancy_Natura2000/occupancy_Natura2000.csv")
 ```
 
+```{r}
+# The only purpose of this chunck is to prepare the data for easy copy-paste into the PrIUS report
+helper <- df %>% 
+  left_join(species_list, by = c("species" = "Soort")) %>% 
+  select(species, Species,
+         `%_in_N2000`, `%_in_HRL`, `%_in_VRL`,
+         `‰_of_N2000`, `‰_of_HRL`, `‰_of_VRL`) %>% 
+  arrange(Species)
+
+for (soortje in unique(helper$Species)){
+  
+  A <- subset(helper, Species == soortje)
+  B <- matrix(A[3:8], nrow = 3, ncol = 2, byrow = FALSE)
+
+  # C <- as.data.frame(B)
+  # D <- format(C, decimal.mark = ",", nsmall = 1)
+  # lay-out goed, maar print helaas niet in de Console
+
+  print(soortje)
+  print(B, row.names = FALSE, right = FALSE)
+
+  }
+# Take into account the adhoc species (see elsewhere), viz. Aedes albopictus
+```
