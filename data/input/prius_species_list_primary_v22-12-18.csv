@@ -10,7 +10,7 @@ plant;Cabomba caroliniana Gray;waterwaaier;1;2882443
 plant;Cardiospermum grandiflorum Sw.;ballonrank;3;3189935
 plant;Cortaderia jubata (Lemoine ex Carrière) Stapf;hoog pampagras;3;2704521
 plant;Ehrharta calycina Sm.;roze rimpelgras;3;2702865
-plant;Eichhornia crassipes (Martius) Solms;waterhyacint;1;2765940
+plant;Eichhornia crassipes (Martius) Solms;waterhyacint;1;2765942
 plant;Elodea nuttallii (Planch.) St. John;smalle waterpest;2;5329212
 plant;Gunnera tinctoria (Molina) Mirbel;gewone gunnera;2;2984306
 plant;Gymnocoronis spilanthoides (D.Don ex Hook. & Arn.) DC.;smalle theeplant;3;6063677
@@ -18,7 +18,7 @@ plant;Heracleum mantegazzianum Sommier & Levier;reuzenberenklauw;2;3034825
 plant;Heracleum persicum Fischer;Perzische berenklauw;1;3628745
 plant;Heracleum sosnowskyi Mandenova;Sosnowsky's berenklauw;1;3642949
 plant;Humulus scandens (Lour.) Merr.;oosterse hop;3;2984537
-plant;Hydrocotyle ranunculoides L. f.;grote waternavel;1;7978544
+plant;Hydrocotyle ranunculoides L. f.;grote waternavel;1;3034613
 plant;Impatiens glandulifera Royle;reuzenbalsemien;2;2891770
 plant;Lagarosiphon major (Ridley) Moss;verspreidbladige waterpest;1;2865565
 plant;Lespedeza cuneata (Dum.Cours.) G.Don;Chinese struikklaver;3;8114276
@@ -55,15 +55,15 @@ dier;Myocastor coypus Molina, 1782;beverrat;1;4264680
 dier;Nasua nasua L., 1766;rode neusbeer;1;2433536
 dier;Nyctereutes procyonoides Gray, 1834;wasbeerhond;2;2434552
 dier;Ondatra zibethicus Linnaeus, 1766;muskusrat;2;5219858
-dier;Orconectes limosus Rafinesque, 1817;gevlekte rivierkreeft;1;2227000
-dier;Faxonius limosus Rafinesque, 1817;gevlekte rivierkreeft;1;8909595
+dier;Orconectes limosus Rafinesque, 1817;gevlekte Amerikaanse rivierkreeft;1;2227000
+dier;Faxonius limosus Rafinesque, 1817;gevlekte Amerikaanse rivierkreeft;1;8909595
 dier;Orconectes virilis Hagen, 1870;geknobbelde Amerikaanse rivierkreeft;1;2227064
 dier;Faxonius virilis Hagen, 1870;geknobbelde Amerikaanse rivierkreeft;1;8971201
 dier;Oxyura jamaicensis Gmelin, 1789;rosse stekelstaart;1;2498305
 dier;Pacifastacus leniusculus Dana, 1852;Californische rivierkreeft;1;2226990
 dier;Perccottus glenii Dybowski, 1877;amoergrondel;1;2390064
 dier;Plotosus lineatus (Thunberg, 1787);gestreepte koraalmeerval;3;7965247
-dier;Procambarus clarkii Girard, 1852;rode rivierkreeft;1;2227300
+dier;Procambarus clarkii Girard, 1852;rode Amerikaanse rivierkreeft;1;2227300
 dier;Procambarus fallax (Hagen, 1870) f. virginalis;marmerkreeft;1;8879526
 dier;Procambarus virginalis Lyko, 2017;marmerkreeft;1;9442269
 dier;Procyon lotor L., 1758;wasbeer;1;5218786
