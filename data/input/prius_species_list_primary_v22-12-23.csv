@@ -43,7 +43,7 @@ plant;Triadica sebífera (L.) Small;talgboom;3;3054399
 plant;Sapium sebiferum (L.) Roxb.;talgboom;3;7748792
 dier;Acridotheres tristis Linnaeus, 1766;treurmaina;3;2489005
 dier;Alopochen aegyptiacus Linnaeus, 1766;nijlgans;2;2498252
-dier;Arthurdendyus triangulatus (Dendy, 1894) Jones & Gerard (1999);Arthurdendyus triangulatus;3;2502792
+dier;Arthurdendyus triangulatus (Dendy, 1894) Jones & Gerard (1999);Nieuw-Zeelandse platworm;3;2502792
 dier;Callosciurus erythraeus Pallas, 1779;Pallas' eekhoorn;1;2437394
 dier;Corvus splendens Viellot, 1817;huiskraai;1;2482499
 dier;Eriocheir sinensis H. Milne Edwards, 1854;Chinese wolhandkrab;1;2225776
@@ -55,15 +55,15 @@ dier;Myocastor coypus Molina, 1782;beverrat;1;4264680
 dier;Nasua nasua L., 1766;rode neusbeer;1;2433536
 dier;Nyctereutes procyonoides Gray, 1834;wasbeerhond;2;2434552
 dier;Ondatra zibethicus Linnaeus, 1766;muskusrat;2;5219858
-dier;Orconectes limosus Rafinesque, 1817;gevlekte rivierkreeft;1;2227000
-dier;Faxonius limosus Rafinesque, 1817;gevlekte rivierkreeft;1;8909595
+dier;Orconectes limosus Rafinesque, 1817;gevlekte Amerikaanse rivierkreeft;1;2227000
+dier;Faxonius limosus Rafinesque, 1817;gevlekte Amerikaanse rivierkreeft;1;8909595
 dier;Orconectes virilis Hagen, 1870;geknobbelde Amerikaanse rivierkreeft;1;2227064
 dier;Faxonius virilis Hagen, 1870;geknobbelde Amerikaanse rivierkreeft;1;8971201
 dier;Oxyura jamaicensis Gmelin, 1789;rosse stekelstaart;1;2498305
 dier;Pacifastacus leniusculus Dana, 1852;Californische rivierkreeft;1;2226990
 dier;Perccottus glenii Dybowski, 1877;amoergrondel;1;2390064
 dier;Plotosus lineatus (Thunberg, 1787);gestreepte koraalmeerval;3;7965247
-dier;Procambarus clarkii Girard, 1852;rode rivierkreeft;1;2227300
+dier;Procambarus clarkii Girard, 1852;rode Amerikaanse rivierkreeft;1;2227300
 dier;Procambarus fallax (Hagen, 1870) f. virginalis;marmerkreeft;1;8879526
 dier;Procambarus virginalis Lyko, 2017;marmerkreeft;1;9442269
 dier;Procyon lotor L., 1758;wasbeer;1;5218786
@@ -81,21 +81,21 @@ dier;Callosciurus finlaysonii (Horsfield, 1823);Thailandeekhoorn;4;2437399
 plant;Celastrus orbiculatus Thunb.;Aziatische boomwurger;4;3169169
 dier;Channa argus (Cantor, 1842);noordelijke slangekopvis;4;4284921
 dier;Faxonius rusticus (Girard, 1852);roestbruine Amerikaanse rivierkreeft;4;8979506
-dier;Fundulus heteroclitus (Linnaeus, 1766);Fundulus heteroclitus;4;5712056
-dier;Gambusia affinis (Baird & Girard, 1853);Gambusia affinis;4;2350580
-dier;Gambusia holbrooki Girard, 1859;Gambusia holbrooki;4;2350570
+dier;Fundulus heteroclitus (Linnaeus, 1766);mummichog;4;5712056
+dier;Gambusia affinis (Baird & Girard, 1853);westelijk muskietenvisje;4;2350580
+dier;Gambusia holbrooki Girard, 1859;oostelijk muskietenvisje;4;2350570
 plant;Hakea sericea Schrad. & J.C.Wendl.;hakea;4;7287606
 plant;Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal;Afghaanse duizendknoop;4;8848208
 dier;Lampropeltis getula (Linnaeus, 1766);gewone koningsslang;4;9799308
-dier;Limnoperna fortunei (Dunker, 1857);Limnoperna fortunei;4;5855350
-dier;Morone americana (Gmelin, 1789);Morone americana;4;2394604
+dier;Limnoperna fortunei (Dunker, 1857);gouden mossel;4;5855350
+dier;Morone americana (Gmelin, 1789);Amerikaanse baars;4;2394604
 plant;Pistia stratiotes L.;watersla;4;2870583
-dier;Pycnonotus cafer (Linnaeus, 1766);Pycnonotus cafer;4;2486131
+dier;Pycnonotus cafer (Linnaeus, 1766);roodbuikbuulbuul;4;2486131
 plant;Rugulopteryx okamurae (E.Y.Dawson) I.K.Hwang, W.J.Lee & H.S.Kim, 2009;stomp gaffelwier;4;5824863
-dier;Solenopsis geminata (Fabricius, 1804);Solenopsis geminata;4;5035187
-dier;Solenopsis invicta Buren, 1972;Solenopsis invicta;4;5035230
-dier;Solenopsis richteri Forel, 1909;Solenopsis richteri;4;5035017
-dier;Wasmannia auropunctata (Roger, 1863);Wasmannia auropunctata;4;1315391
+dier;Solenopsis geminata (Fabricius, 1804);tropische vuurmier;4;5035187
+dier;Solenopsis invicta Buren, 1972;rode vuurmier;4;5035230
+dier;Solenopsis richteri Forel, 1909;zwarte vuurmier;4;5035017
+dier;Wasmannia auropunctata (Roger, 1863);dwergvuurmier;4;1315391
 dier;Xenopus laevis (Daudin, 1802);Afrikaanse klauwkikker;4;5217334
 plant;Ambrosia artemisiifolia L.;alsemambrosia;ANB;8002952
 plant;Crassula helmsii (Kirk) Cockayne;watercrassula;ANB;5362054

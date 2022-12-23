@@ -43,7 +43,7 @@ plant,Triadica sebífera (L.) Small,talgboom,3,3054399,Triadica sebifera (L.) Sma
 plant,Sapium sebiferum (L.) Roxb.,talgboom,3,7748792,Sapium sebiferum (L.) Roxb.
 dier,"Acridotheres tristis Linnaeus, 1766",treurmaina,3,2489005,"Acridotheres tristis (Linnaeus, 1766)"
 dier,"Alopochen aegyptiacus Linnaeus, 1766",nijlgans,2,2498252,"Alopochen aegyptiaca (Linnaeus, 1766)"
-dier,"Arthurdendyus triangulatus (Dendy, 1894) Jones & Gerard (1999)",Arthurdendyus triangulatus,3,2502792,"Arthurdendyus triangulatus (Dendy, 1895)"
+dier,"Arthurdendyus triangulatus (Dendy, 1894) Jones & Gerard (1999)",Nieuw-Zeelandse platworm,3,2502792,"Arthurdendyus triangulatus (Dendy, 1895)"
 dier,"Callosciurus erythraeus Pallas, 1779",Pallas' eekhoorn,1,2437394,"Callosciurus erythraeus (Pallas, 1779)"
 dier,"Corvus splendens Viellot, 1817",huiskraai,1,2482499,"Corvus splendens Vieillot, 1817"
 dier,"Eriocheir sinensis H. Milne Edwards, 1854",Chinese wolhandkrab,1,2225776,"Eriocheir sinensis H.Milne Edwards, 1853"
@@ -81,21 +81,21 @@ dier,"Callosciurus finlaysonii (Horsfield, 1823)",Thailandeekhoorn,4,2437399,"Ca
 plant,Celastrus orbiculatus Thunb.,Aziatische boomwurger,4,3169169,Celastrus orbiculatus Thunb.
 dier,"Channa argus (Cantor, 1842)",noordelijke slangekopvis,4,4284921,"Channa argus (Cantor, 1842)"
 dier,"Faxonius rusticus (Girard, 1852)",roestbruine Amerikaanse rivierkreeft,4,8979506,"Faxonius rusticus (Girard, 1852)"
-dier,"Fundulus heteroclitus (Linnaeus, 1766)",Fundulus heteroclitus,4,5712056,"Fundulus heteroclitus (Linnaeus, 1766)"
-dier,"Gambusia affinis (Baird & Girard, 1853)",Gambusia affinis,4,2350580,"Gambusia affinis (Baird & Girard, 1853)"
-dier,"Gambusia holbrooki Girard, 1859",Gambusia holbrooki,4,2350570,"Gambusia holbrooki Girard, 1859"
+dier,"Fundulus heteroclitus (Linnaeus, 1766)",mummichog,4,5712056,"Fundulus heteroclitus (Linnaeus, 1766)"
+dier,"Gambusia affinis (Baird & Girard, 1853)",westelijk muskietenvisje,4,2350580,"Gambusia affinis (Baird & Girard, 1853)"
+dier,"Gambusia holbrooki Girard, 1859",oostelijk muskietenvisje,4,2350570,"Gambusia holbrooki Girard, 1859"
 plant,Hakea sericea Schrad. & J.C.Wendl.,hakea,4,7287606,Hakea sericea Schrad. & J.C.Wendl.
 plant,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Afghaanse duizendknoop,4,8848208,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal
 dier,"Lampropeltis getula (Linnaeus, 1766)",gewone koningsslang,4,9799308,"Lampropeltis getula (Linnaeus, 1766)"
-dier,"Limnoperna fortunei (Dunker, 1857)",Limnoperna fortunei,4,5855350,"Limnoperna fortunei (Dunker, 1857)"
-dier,"Morone americana (Gmelin, 1789)",Morone americana,4,2394604,"Morone americana (Gmelin, 1789)"
+dier,"Limnoperna fortunei (Dunker, 1857)",gouden mossel,4,5855350,"Limnoperna fortunei (Dunker, 1857)"
+dier,"Morone americana (Gmelin, 1789)",Amerikaanse baars,4,2394604,"Morone americana (Gmelin, 1789)"
 plant,Pistia stratiotes L.,watersla,4,2870583,Pistia stratiotes L.
-dier,"Pycnonotus cafer (Linnaeus, 1766)",Pycnonotus cafer,4,2486131,"Pycnonotus cafer (Linnaeus, 1766)"
+dier,"Pycnonotus cafer (Linnaeus, 1766)",roodbuikbuulbuul,4,2486131,"Pycnonotus cafer (Linnaeus, 1766)"
 plant,"Rugulopteryx okamurae (E.Y.Dawson) I.K.Hwang, W.J.Lee & H.S.Kim, 2009",stomp gaffelwier,4,5824863,"Rugulopteryx okamurae (E.Y.Dawson) I.K.Hwang, W.J.Lee & H.S.Kim, 2009"
-dier,"Solenopsis geminata (Fabricius, 1804)",Solenopsis geminata,4,5035187,"Solenopsis geminata (Fabricius, 1804)"
-dier,"Solenopsis invicta Buren, 1972",Solenopsis invicta,4,5035230,"Solenopsis invicta Buren, 1972"
-dier,"Solenopsis richteri Forel, 1909",Solenopsis richteri,4,5035017,"Solenopsis richteri Forel, 1909"
-dier,"Wasmannia auropunctata (Roger, 1863)",Wasmannia auropunctata,4,1315391,"Wasmannia auropunctata (Roger, 1863)"
+dier,"Solenopsis geminata (Fabricius, 1804)",tropische vuurmier,4,5035187,"Solenopsis geminata (Fabricius, 1804)"
+dier,"Solenopsis invicta Buren, 1972",rode vuurmier,4,5035230,"Solenopsis invicta Buren, 1972"
+dier,"Solenopsis richteri Forel, 1909",zwarte vuurmier,4,5035017,"Solenopsis richteri Forel, 1909"
+dier,"Wasmannia auropunctata (Roger, 1863)",dwergvuurmier,4,1315391,"Wasmannia auropunctata (Roger, 1863)"
 dier,"Xenopus laevis (Daudin, 1802)",Afrikaanse klauwkikker,4,5217334,"Xenopus laevis (Daudin, 1802)"
 plant,Ambrosia artemisiifolia L.,alsemambrosia,ANB,8002952,Ambrosia artemisiifolia L.
 plant,Crassula helmsii (Kirk) Cockayne,watercrassula,ANB,5362054,Crassula helmsii (Kirk) Cockayne
