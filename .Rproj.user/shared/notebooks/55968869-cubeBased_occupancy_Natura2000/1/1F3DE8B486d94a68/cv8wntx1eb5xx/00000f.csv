@@ -1,0 +1,6 @@
+"0","IAS_Cube <- read_csv(file = ""./data/input/be_species_cube.csv"") %>%"
+"0","  filter(year >= 2015) %>% "
+"0","  filter(speciesKey %in% species_list$GBIF_code) %>% "
+"0","  filter(eea_cell_code %in% vla_1km$CELLCODE)"
+"2","Error: './data/input/be_species_cube.csv' does not exist in current working directory ('C:/Users/fleur_petersen/Documents/GitHub/prius-radius').
+"

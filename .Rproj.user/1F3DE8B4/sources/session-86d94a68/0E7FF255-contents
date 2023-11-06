@@ -1,0 +1,140 @@
+```{r libraries}
+library(sf)
+library(leaflet)
+library(tidyverse)
+library(dplyr)
+library(vecsets)
+```
+
+```{r clear memory}
+rm(list=ls())
+```
+
+```{r get species list}
+species_list <- read_csv('./data/input/prius_species_list.csv')
+
+df_prot_areas <- read_tsv(
+  "https://raw.githubusercontent.com/trias-project/indicators/master/data/interim/intersect_EEA_ref_grid_protected_areas.tsv",
+  na = "")
+
+Natura2000 <-  df_prot_areas %>% filter(natura2000 == TRUE)
+spa <- df_prot_areas %>% filter(spa == TRUE)
+habitat <- df_prot_areas %>% filter(habitat == TRUE)
+```
+
+```{r get shapes}
+vla_1km <- st_read("./data/spatial/grids/vla_1km.geojson")
+```
+
+```{r get cube data}
+IAS_Cube <- read_csv(file = "./data/input/be_species_cube.csv") %>%
+  filter(year >= 2015) %>% 
+  filter(speciesKey %in% species_list$GBIF_code) %>% 
+  filter(eea_cell_code %in% vla_1km$CELLCODE)
+```
+
+```{r test data completeness}
+IAS_Cube_summarise <- IAS_Cube %>% 
+  group_by(speciesKey) %>% 
+  summarise(n_tot = sum(n, na.rm = TRUE))
+
+in_cube <- species_list %>% 
+  left_join(IAS_Cube_summarise, by = c("GBIF_code" = "speciesKey")) %>% 
+  filter(!is.na(n_tot))
+```
+
+```{r}
+df <- data.frame()
+
+for (species_name in unique(in_cube$Soort)){
+  
+  print(species_name)
+  GBIF_codes <- in_cube[which(in_cube$Soort==species_name),]$GBIF_code
+  print(GBIF_codes)
+  IAS_Cube_temp <- IAS_Cube %>%
+    filter(speciesKey %in% GBIF_codes)
+
+  N_occ_spec <- as.numeric(n_distinct(IAS_Cube_temp$eea_cell_code)) # nodig, want zelfde cel voor verschillende jaren
+  N_Natura2000 <- as.numeric(n_distinct(Natura2000$CELLCODE))
+  N_spa <- as.numeric(n_distinct(spa$CELLCODE))
+  N_habitat <- as.numeric(n_distinct(habitat$CELLCODE))
+  
+  N_occ_spec_in_Natura2000 <- as.numeric(n_distinct(
+    IAS_Cube_temp[which(IAS_Cube_temp$eea_cell_code %in% Natura2000$CELLCODE),]$eea_cell_code))
+  N_occ_spec_in_spa <- as.numeric(n_distinct(
+    IAS_Cube_temp[which(IAS_Cube_temp$eea_cell_code %in% spa$CELLCODE),]$eea_cell_code))
+  N_occ_spec_in_habitat <- as.numeric(n_distinct(
+    IAS_Cube_temp[which(IAS_Cube_temp$eea_cell_code %in% habitat$CELLCODE),]$eea_cell_code))
+                  
+df <- rbind(df, data.frame(species_name,
+                           
+                           N_occ_spec,
+                           N_occ_spec_in_Natura2000,
+                           
+                           N_occ_spec_in_Natura2000/N_occ_spec,
+                           N_occ_spec_in_habitat/N_occ_spec,
+                           N_occ_spec_in_spa/N_occ_spec,
+                           
+                           round(100*(N_occ_spec_in_Natura2000/N_occ_spec), digits = 1),  # Idem, as percent (%), for report
+                           round(100*(N_occ_spec_in_habitat/N_occ_spec), digits = 1),     # Idem, as percent (%), for report
+                           round(100*(N_occ_spec_in_spa/N_occ_spec), digits = 1),         # Idem, as percent (%), for report
+                           
+                           N_occ_spec_in_Natura2000/N_Natura2000,
+                           N_occ_spec_in_habitat/N_habitat,
+                           N_occ_spec_in_spa/N_spa,
+                           
+                           round(1000*(N_occ_spec_in_Natura2000/N_Natura2000), digits = 1), # Idem, as promille (‰), for report
+                           round(1000*(N_occ_spec_in_habitat/N_habitat), digits = 1),       # Idem, as promille (‰), for report
+                           round(1000*(N_occ_spec_in_spa/N_spa), digits = 1)))              # Idem, as promille (‰), for report
+}
+
+colnames(df) <- c("species",
+                  
+                  "N_occ",
+                  "N_occ_in_N2000",
+                  
+                  "share_in_N2000",
+                  "share_in_HRL",           # HRL = Habitatrichtlijn
+                  "share_in_VRL",           # VRL = Vogelrichtlijn
+                  
+                  "%_in_N2000",
+                  "%_in_HRL",
+                  "%_in_VRL",
+                  
+                  "share_of_N2000",
+                  "share_of_HRL",
+                  "share_of_VRL",
+                  
+                  "‰_of_N2000",
+                  "‰_of_HRL",
+                  "‰_of_VRL")
+```
+
+```{r}
+write.csv(df, "./data/output/occupancy_Natura2000/occupancy_Natura2000.csv")
+```
+
+```{r}
+# The only purpose of this chunck is to prepare the data for easy copy-paste into the PrIUS report
+helper <- df %>% 
+  left_join(species_list, by = c("species" = "Soort")) %>% 
+  select(species, Species,
+         `%_in_N2000`, `%_in_HRL`, `%_in_VRL`,
+         `‰_of_N2000`, `‰_of_HRL`, `‰_of_VRL`) %>% 
+  arrange(Species)
+
+for (soortje in unique(helper$Species)){
+  
+  A <- subset(helper, Species == soortje)
+  B <- matrix(A[3:8], nrow = 3, ncol = 2, byrow = FALSE)
+
+  # C <- as.data.frame(B)
+  # D <- format(C, decimal.mark = ",", nsmall = 1)
+  # lay-out goed, maar print helaas niet in de Console
+
+  print(soortje)
+  print(B, row.names = FALSE, right = FALSE)
+
+  }
+# Take into account the adhoc species (see elsewhere), viz. Aedes albopictus
+```

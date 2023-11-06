@@ -1,0 +1,26 @@
+{
+    "id": "A9E3E907",
+    "path": "~/GitHub/prius-radius/r-scripts/preparation_species_list.Rmd",
+    "project_path": "r-scripts/preparation_species_list.Rmd",
+    "type": "r_markdown",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1697615504141.0,
+    "source_on_save": false,
+    "relative_order": 4,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "32,0",
+        "scrollLine": "22"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1696841941,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1697616775536,
+    "read_only": false,
+    "read_only_alternatives": []
+}
