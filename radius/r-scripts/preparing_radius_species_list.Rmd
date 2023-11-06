@@ -35,7 +35,6 @@ prius_list <- read_csv("data/input/prius_species_list.csv", locale = locale(enco
 
 ```{r union_list}
 datasetKey <- "79d65658-526c-4c78-9d24-1870d67f8439" #linked to unionlist dataset ("https://www.gbif.org/dataset/79d65658-526c-4c78-9d24-1870d67f8439")
-
 union_list <- name_usage(datasetKey = datasetKey, limit = 10000)$data 
 ```
 
@@ -107,7 +106,19 @@ Resultaat:
   - 4 GBIF verschillen (code_check = FALSE): 
           --> waterhyacint, Perzische berenklauw, gewone koningsslang: PrIUS code is ACCEPTED, Union code is DOUBTFUL of (HOMOTYPIC) SYNONYM
           --> grote waternavel: PrIUS code deleted op Aug 22, 2023 --> Union-list code gebruiken (7978544)
-  - 2 soorten: synoniemen aanwezig in Union-list: Amerikaanse stierkikker (Lithobates catesbeianus, Rana catesbeiana) & Fraai lampenpoetsersgras (Pennisetum setaceum, Cenchrus setaceus)
-  
-  
+  - 2 soorten: synoniemen aanwezig in Union-list: Amerikaanse stierkikker (Lithobates catesbeianus 2427091, Rana catesbeiana 2427092) & Fraai lampenpoetsersgras (Pennisetum setaceum 2706134, Cenchrus setaceus 5828232)
+
+```{r adjusting-hydrocotyle-ranunculoides-GBIF-code}
+prius_list$GBIF_code[prius_list$GBIF_code == 3034613] <- 7978544
+```
+
+# Checking GBIF keys
+```{r prius_key_check}
+prius_key_check <- gbif_verify_keys(prius_list, col_keys = "GBIF_code") %>%
+  full_join(prius_list, by = c("key" = "GBIF_code"))
+```
+
+```{r export-prius-list}
+write.csv2(prius_list, "data/input/radius_species_list.csv")
+```
 
