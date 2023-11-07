@@ -1,7 +1,0 @@
-"0","library(tidyverse)"
-"0","library(rgbif)"
-"2","Warning: package ‘rgbif’ was built under R version 4.3.1"
-"2","Registered S3 method overwritten by 'data.table':
-  method           from
-  print.data.table     
-"

@@ -1,4 +1,0 @@
-"0","IAS_Cube <- read_csv(file = ""./data/input/be_species_cube.csv"")
-"
-"2","Error: './data/input/be_species_cube.csv' does not exist in current working directory ('C:/Users/fleur_petersen/Documents/GitHub/prius-radius').
-"
