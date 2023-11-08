@@ -17,8 +17,6 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r load_libraries}
 library(tidyverse)   
 library(rgbif)        
-library(knitr)
-library(readr)
 library(trias)
 ```
 
@@ -30,7 +28,7 @@ rm(list=ls())
 
 ## Get PrIUS species list and Union list
 ```{r prius_list}
-prius_list <- read_csv("data/input/prius_species_list.csv", locale = locale(encoding = "ISO-8859-1"), show_col_types = FALSE)  
+prius_list <- read_csv("./prius/data/input/prius_species_list.csv", locale = locale(encoding = "ISO-8859-1"), show_col_types = FALSE)  
 ```
 
 ```{r union_list}
@@ -119,6 +117,6 @@ prius_key_check <- gbif_verify_keys(prius_list, col_keys = "GBIF_code") %>%
 ```
 
 ```{r export-prius-list}
-write.csv2(prius_list, "data/input/radius_species_list.csv")
+write.csv2(prius_list, "./radius/data/input/radius_species_list.csv")
 ```
 
