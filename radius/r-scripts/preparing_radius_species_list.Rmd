@@ -1,0 +1,122 @@
+---
+title: "Preparing species list"
+author: "Fleur Petersen"
+date: "2023-11-06"
+output: html_document
+---
+
+Double-checking the GBIF codes for the RadIUS species list
+1. comparison to the Union list dataset (Adriaens & Oldoni, 2023)
+2. checking if the GBIF codes are still up to date
+
+# Setup
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r load_libraries}
+library(tidyverse)   
+library(rgbif)        
+library(trias)
+```
+
+```{r clear_memory}
+rm(list=ls())
+```
+
+# Comparison PrIUS list and Union list
+
+## Get PrIUS species list and Union list
+```{r prius_list}
+prius_list <- read_csv("./prius/data/input/prius_species_list.csv", locale = locale(encoding = "ISO-8859-1"), show_col_types = FALSE)  
+```
+
+```{r union_list}
+datasetKey <- "79d65658-526c-4c78-9d24-1870d67f8439" #linked to unionlist dataset ("https://www.gbif.org/dataset/79d65658-526c-4c78-9d24-1870d67f8439")
+union_list <- name_usage(datasetKey = datasetKey, limit = 10000)$data 
+```
+
+## small adjustments of species names in both datasets to assure comparability
+```{r union_list_adjustments}
+union_list$scientificName[union_list$scientificName == "Sciurus carolinensis Gmelin,1788"] <- "Sciurus carolinensis Gmelin, 1788"
+union_list$scientificName[union_list$scientificName == "Sciurus niger Linnaeus, 1758"] <- "Sciurus niger L., 1758"
+union_list$scientificName[union_list$scientificName == "Nasua nasua Linnaeus, 1766"] <- "Nasua nasua L., 1766"
+union_list$scientificName[union_list$scientificName == "Procyon lotor Linnaeus, 1758"] <- "Procyon lotor L., 1758"
+union_list$scientificName[union_list$scientificName == "Salvinia molesta D.S. Mitch."] <- "Salvinia molesta D.S.Mitch."
+union_list$scientificName[union_list$scientificName == "Lysichiton americanus Hultén and St. John"] <- "Lysichiton americanus Hultén & H. St. John"
+```
+
+```{r prius_list_adjustments}
+prius_list$Species[prius_list$Species == "Triadica sebífera (L.) Small"] <- "Triadica sebifera (L.) Small"
+```
+
+## Combining both lists for comparison of GBIF codes
+```{r joining_species_lists}
+full_join(prius_list, union_list, by = c("Species" = "scientificName")) %>%
+  transmute(groep = Groep, Species, canonicalName, vernacularName, soortnaam = Soort, prius_gbif_code = GBIF_code, union_gbif_code = nubKey, list = Lijst, status_union = taxonomicStatus, accepted) %>%
+  mutate(code_check = if_else(
+    prius_gbif_code == union_gbif_code, "TRUE", "FALSE"
+  )) -> list_comb
+```
+
+## Compare GBIF codes, taxonomic status and deleted column
+```{r check-taxonomic-status-and-deleted}
+# Define a function to check the taxonomicStatus and whether the GBIF code was (recently) deleted
+check_status_and_deleted <- function(code_column, status_column, deleted_column) {
+  result <- lapply(code_column, function(code) {
+    if (is.na(code)) {
+      status <- "NA"
+      deleted <- "NA"
+    } else {
+      name_usage(key = code) -> temp
+      status <- temp$data$taxonomicStatus
+      deleted <- if ("deleted" %in% colnames(temp$data)) "TRUE" else "FALSE"
+    }
+    return(data.frame(Status = status, Deleted = deleted))
+  })
+  return(do.call(rbind, result))
+}
+
+# Check the status and deleted columns for Prius list
+prius_result <- check_status_and_deleted(list_comb$prius_gbif_code, "prius_status_check", "prius_deleted")
+
+# Check the status and deleted columns for Union list
+union_result <- check_status_and_deleted(list_comb$union_gbif_code, "union_status_check", "union_deleted")
+
+# Assign the results back to the data frame
+list_comb$prius_status_check <- prius_result$Status
+list_comb$union_status_check <- union_result$Status
+list_comb$prius_deleted <- prius_result$Deleted
+list_comb$union_deleted <- union_result$Deleted
+
+# Remove unnecessary variables
+rm(prius_result, union_result)
+```
+
+## Extract inconsistent rows
+```{r get_inconsistencies}
+inconsistenties <- list_comb[list_comb$code_check == "FALSE" | is.na(list_comb$code_check),]  %>%
+  filter(list != "ANB" | is.na(list)) %>%
+  arrange(code_check)
+```
+
+Resultaat: 
+  - 4 GBIF verschillen (code_check = FALSE): 
+          --> waterhyacint, Perzische berenklauw, gewone koningsslang: PrIUS code is ACCEPTED, Union code is DOUBTFUL of (HOMOTYPIC) SYNONYM
+          --> grote waternavel: PrIUS code deleted op Aug 22, 2023 --> Union-list code gebruiken (7978544)
+  - 2 soorten: synoniemen aanwezig in Union-list: Amerikaanse stierkikker (Lithobates catesbeianus 2427091, Rana catesbeiana 2427092) & Fraai lampenpoetsersgras (Pennisetum setaceum 2706134, Cenchrus setaceus 5828232)
+
+```{r adjusting-hydrocotyle-ranunculoides-GBIF-code}
+prius_list$GBIF_code[prius_list$GBIF_code == 3034613] <- 7978544
+```
+
+# Checking GBIF keys
+```{r prius_key_check}
+prius_key_check <- gbif_verify_keys(prius_list, col_keys = "GBIF_code") %>%
+  full_join(prius_list, by = c("key" = "GBIF_code"))
+```
+
+```{r export-prius-list}
+write.csv2(prius_list, "./radius/data/input/radius_species_list.csv")
+```
+
