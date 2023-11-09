@@ -181,7 +181,9 @@ occ_flanders_taxa %>%
   filter(n > 1) %>%
   select(-n) %>%
   left_join(occ_flanders_taxa, by = "speciesKey") %>%
-  arrange(speciesKey, taxonKey)
+  arrange(speciesKey, taxonKey) %>%
+  pull(taxonKey) -> List_multiple_taxonKeys
+
 ```
 
 Some species have occurrences only from taxa linked to their infraspecific taxa or synonyms. In these cases `speciesKey` is never equal to `taxonKey`:
@@ -271,8 +273,9 @@ occ_flanders_summary <- occ_flanders %>%
 
 not_in_flanders <- species_list %>%
   left_join(occ_flanders_summary, by = c("GBIF_code" = "speciesKey")) %>%
-  filter(is.na(unique_obs))
-  
+  filter(is.na(unique_obs)) %>%
+  filter(!GBIF_code %in% List_multiple_taxonKeys) #wegfilteren van synoniemen/subspecies/... die onder speciesKey van aanwezige soorten vallen
+
 in_flanders <- species_list %>%
   left_join(occ_flanders_summary, by = c("GBIF_code" = "speciesKey")) %>%
   filter(!is.na(unique_obs))
