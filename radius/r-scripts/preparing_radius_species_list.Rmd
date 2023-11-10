@@ -125,6 +125,10 @@ list_check <- list_check %>%
   arrange(issue)
 ```
 
+```{r export-list-check}
+write.csv2(list_check, "./radius/data/input/prius_species_list_check.csv")
+```
+
 ## Reformatting PrIUS list to attain RadIUS list
 ```{r adjusting-hydrocotyle-ranunculoides-GBIF-code}
 radius_list <- prius_list %>%
