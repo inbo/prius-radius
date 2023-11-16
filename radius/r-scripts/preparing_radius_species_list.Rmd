@@ -169,3 +169,32 @@ ANB_extra <- ANB_extra %>%
 radius_list_update <- rbind(radius_list, ANB_extra)
 ```
 
+# 3. Adding RIPARIAS alert list species
+
+```{r adding-riparias-alert-species}
+datasetKey <- "fd004d9a-2ea4-4244-bb60-0df508d20a15" #linked to RIPARIAS alert list ("https://www.gbif.org/dataset/fd004d9a-2ea4-4244-bb60-0df508d20a15")
+riparias_list <- name_usage(datasetKey = datasetKey)$data %>%
+  subset(rank != "KINGDOM")
+
+riparias_species <- riparias_list[!riparias_list$nubKey %in% radius_list_update$GBIF_code,] %>%   #only select species that are not already present in the radius_list_update
+  transmute(Groep = ifelse(kingdom == 'Plantae',"plant","dier"), Species = scientificName, Soort = vernacularName, Lijst = "RIPARIAS", GBIF_code = nubKey) %>%
+  mutate(Soort = case_when(Soort == "Kentucky river crayfish" ~ "Kentuckyrivierkreeft",
+                           Soort == "calico crayfish" ~ "Calicotrivierkreeft", 
+                           Soort == "white river crayfish" ~ "Gestreepte Amerikaanse rivierkreeft",
+                           Soort == "Australian yabbi" ~ "Gewone yabby",
+                           Soort == "Chinese lizard tail" ~ "Moerasanemoon",
+                           Soort == "Cape-pondweed" ~ "Kaapse waterlelie", 
+                           Soort == "greater pondweed" ~ "Egeria",
+                           Soort == "pickerelweed" ~ "Moerashyacint",
+                           Soort == "giant butterbur" ~ "Japans hoefblad", 
+                           Soort == "lizard's tail" ~ "Leidse plant",
+                           Soort == "monkeyflower" ~ "Gele maskerbloem",
+                           Soort == "Manchurian wildrice" ~ "Mantsjoerese wilde rijst"
+  ))
+```
+
+## Combining radius list and RIPARIAS species
+```{r}
+radius_list_update <- rbind(radius_list_update, riparias_species)
+```
+
