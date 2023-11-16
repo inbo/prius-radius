@@ -194,7 +194,16 @@ riparias_species <- riparias_list[!riparias_list$nubKey %in% radius_list_update$
 ```
 
 ## Combining radius list and RIPARIAS species
-```{r}
+```{r combining-radius-riparias}
 radius_list_update <- rbind(radius_list_update, riparias_species)
 ```
+
+# 4. verifying GBIF keys against GBIF Backbone
+
+```{r radius_list_key_check}
+radius_key_check <- gbif_verify_keys(radius_list_update, col_keys = "GBIF_code") %>%
+  mutate(key = as.character(key)) %>%
+  full_join(radius_list_update, by = c("key" = "GBIF_code"))
+```
+
 
