@@ -206,4 +206,19 @@ radius_key_check <- gbif_verify_keys(radius_list_update, col_keys = "GBIF_code")
   full_join(radius_list_update, by = c("key" = "GBIF_code"))
 ```
 
+# add GBIF scientific name as a column
+```{r add-gbif-scientific-name}
+radius_list_update$GBIF_scientific_name <- 0
+
+for(i in 1:nrow(radius_list_update)) {
+  name_usage(key = radius_list_update$GBIF_code[i]) -> temp
+  temp$data$scientificName -> radius_list_update$GBIF_scientific_name[i]}
+rm(i,temp)
+```
+
+# Export RadIUS species list
+
+```{r export-radius-list}
+write.csv(radius_list_update, "./radius/data/input/radius_species_list.csv", row.names = FALSE)
+```
 
