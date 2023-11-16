@@ -5,9 +5,12 @@ date: "2023-11-06"
 output: html_document
 ---
 
-Double-checking the GBIF codes for the RadIUS species list
-1. comparison to the Union list dataset (Adriaens & Oldoni, 2023)
-2. checking if the GBIF codes are still up to date
+Preparation RadIUS species list
+1. Comparison to the Union list dataset (Adriaens & Oldoni, 2023)
+2. Updating ANB species selection
+3. Adding RIPARIAS alert list species
+4. Checking GBIF codes 
+
 
 # Setup
 ```{r setup, include=FALSE}
@@ -24,7 +27,7 @@ library(trias)
 rm(list=ls())
 ```
 
-# Comparison PrIUS list and Union list
+# 1. Comparison PrIUS list and Union list
 
 ## Get PrIUS species list and Union list
 ```{r prius_list}
@@ -69,7 +72,6 @@ for(i in 1:nrow(union_list)) {
 rm(i,temp)
 ```
 
-
 ## Combining both lists for comparison
 ```{r joining_species_lists}
 full_join(prius_list, union_list, by = c("Species" = "scientificName")) %>%
@@ -113,7 +115,6 @@ list_check$union_deleted <- union_result$Deleted
 rm(prius_result, union_result)
 ```
 
-
 ## Add issue column that separates different issues
 ```{r add-issue-column}
 list_check <- list_check %>%
@@ -126,24 +127,45 @@ list_check <- list_check %>%
 ```
 
 ```{r export-list-check}
-write.csv2(list_check, "./radius/data/input/prius_species_list_check.csv")
+#write.csv2(list_check, "./radius/data/input/prius_species_list_check.csv")
 ```
 
-## Reformatting PrIUS list to attain RadIUS list
+
+## Adjusting PrIUS list based on Union list check
 ```{r adjusting-hydrocotyle-ranunculoides-GBIF-code}
 radius_list <- prius_list %>%
-  mutate(GBIF_code = if_else(GBIF_code == 3034613, 7978544, GBIF_code))
+  mutate(GBIF_code = if_else(GBIF_code == 3034613, 7978544, GBIF_code))  %>%  #aanpassing obv check met union list
+  select(Groep, Species, Soort, Lijst, GBIF_code) 
 ```
 
-# Checking GBIF keys
+# 2. Updating ANB species selection
 
-```{r prius_key_check}
-radius_key_check <- gbif_verify_keys(radius_list, col_keys = "GBIF_code") %>%
-  full_join(prius_list, by = c("key" = "GBIF_code"))
+## Weglaten niet-relevante soorten: Aziatische tijgermug, alsemambrosia
+```{r removing-non-relevant-species}
+radius_list <- radius_list %>%
+  subset(!Soort %in% c("Aziatische tijgermug", "alsemambrosia") )
 ```
-# Export radius list
 
-```{r export-radius-list}
-write.csv2(radius_list, "./radius/data/input/radius_species_list.csv")
+## Toevoegen Sikahert (2440954), Chinese moerasslak (9738098), wilde rijst (10919373)
+```{r expanding-anb-species-selection}
+ANB_extra <- data.frame(matrix(ncol=5,nrow=3, dimnames=list(NULL, c("Groep","Species","Soort","Lijst","GBIF_code")))) %>%
+  mutate(GBIF_code = c("2440954","9738098","10919373"))
+
+for(i in 1:nrow(ANB_extra)) {
+  name_usage(key = ANB_extra$GBIF_code[i]) -> temp
+  temp$data$kingdom -> ANB_extra$Groep[i]
+  temp$data$scientificName -> ANB_extra$Species[i]
+}
+rm(i,temp)
+
+ANB_extra <- ANB_extra %>%
+  mutate(Groep = ifelse(Groep == 'Plantae',"plant","dier"), 
+         Lijst = "ANB", 
+         Soort = c("Sikahert", "Chinese moerasslak", "Mantsjoerese wilde rijst")) 
+```
+
+## ANB uitbreiding toevoegen aan radius lijst
+```{r combining-anb-radius}
+radius_list_update <- rbind(radius_list, ANB_extra)
 ```
 
