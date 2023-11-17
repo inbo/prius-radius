@@ -1,0 +1,165 @@
+---
+title: "Importing WFS layers"
+author: "Fleur Petersen"
+date: "2023-11-17"
+output: html_document
+---
+
+Importing WFS maps needed for RadIUS: 
+    1. [habitatrichtlijnkaart](https://www.vlaanderen.be/datavindplaats/catalogus/habitatrichtlijndeelgebieden)
+    2. [vogelrichtlijnkaart](https://www.vlaanderen.be/datavindplaats/catalogus/vogelrichtlijngebieden)
+    3. [BWK Habitatkaart](https://www.vlaanderen.be/datavindplaats/catalogus/biologische-waarderingskaart-en-natura-2000-habitatkaart-toestand-2020)
+    4. [ANB patrimoniumdata](https://www.vlaanderen.be/datavindplaats/catalogus/openbare-bossen-en-natuurdomeinen-beheerd-door-anb-in-naam-van-de-vlaamse-overheid) 
+    5. [Natuurbeheerplannen](https://www.vlaanderen.be/datavindplaats/catalogus/natuurbeheerplannen)
+
+```{r load-packages}
+library(sf)
+library(tidyverse) 
+library(httr)
+library(ows4R) 
+library(leaflet)
+library(gdalUtilities)
+```
+
+
+```{r clear-memory}
+rm(list=ls())
+```
+
+```{r function-multisurface-to-multipolygon}
+ensure_multipolygons <- function(X) {
+    tmp1 <- tempfile(fileext = ".gpkg")
+    tmp2 <- tempfile(fileext = ".gpkg")
+    st_write(X, tmp1)
+    ogr2ogr(tmp1, tmp2, f = "GPKG", nlt = "MULTIPOLYGON")
+    Y <- st_read(tmp2)
+    st_sf(st_drop_geometry(X), geom = st_geometry(Y))
+}
+```
+
+# Inladen grenzen Vlaanderen en provincies
+
+```{r boundaries-flanders}
+Vlaanderen_grenzen <- st_read("./prius/data/spatial/flanders_wgs84.geojson")
+Provincies_grenzen <- st_read("./prius/data/spatial/Provincies.geojson")
+
+ggplot() +
+  geom_sf(data = Provincies_grenzen)
+```
+
+# Habitatrichtlijndeelgebieden (ps:ps_hbtrl_deel)
+
+```{r get-ps-hbtrl-deel}
+wfs_ANB <- "https://www.mercator.vlaanderen.be/raadpleegdienstenmercatorpubliek/wfs"
+
+#generate URL for WFS download
+url <- parse_url(wfs_ANB)
+url$query <- list(service = "WFS",
+                  version = "2.0.0", 
+                  request = "GetFeature",
+                  typename = "ps:ps_hbtrl_deel")
+request <- build_url(url)
+
+ps_hbtrl_deel <- read_sf(request) %>%
+  st_set_crs(31370) %>%  # omzetten naar Lambert72
+  st_transform("+proj=longlat +datum=WGS84") %>%  #needed for leaflet
+  ensure_multipolygons()   # multisurface to multipolygon
+```
+
+```{r ggplot-ps-hbtrl-deel}
+ggplot() +
+  geom_sf(data = Provincies_grenzen) +
+  geom_sf(data = ps_hbtrl_deel, color = "blue", fill = "blue")
+```
+
+# Vogelrichtlijngebieden (ps:ps_vglrl)
+
+```{r get-ps-vgrl}
+url <- parse_url(wfs_ANB)
+url$query <- list(service = "WFS",
+                  version = "2.0.0", 
+                  request = "GetFeature",
+                  typename = "ps:ps_vglrl")
+request <- build_url(url)
+
+ps_vglrl <- read_sf(request) %>%
+  st_set_crs(31370) %>%  
+  st_transform("+proj=longlat +datum=WGS84") %>%  
+  ensure_multipolygons()   
+```
+
+```{r ggplot-ps-vglrl}
+ggplot() +
+  geom_sf(data = Provincies_grenzen) +
+  geom_sf(data = ps_vglrl, color = "orange", fill = "orange")
+```
+
+# Biologische waarderingskaart (BWK:Bwkhab)
+
+## update november 2023!!!!
+
+```{r get-wfshab}
+wfs_bwk <- "https://geo.api.vlaanderen.be/BWK/wfs"
+
+url <- parse_url(wfs_bwk)
+url$query <- list(service = "wfs",
+                  version = "2.0.0", # facultative
+                  request = "GetFeature",
+                  typename = "BWK:Bwkhab")
+request <- build_url(url)
+request
+
+bwkhab <- read_sf(request) %>%
+  st_transform("+proj=longlat +datum=WGS84") %>%  
+  ensure_multipolygons()   
+```
+
+```{r ggplot-bwkhab}
+ggplot() +
+  geom_sf(data = Provincies_grenzen) +
+  geom_sf(data = bwkhab, fill = "purple", color = "purple")
+```
+
+# ANB Patrimonium databank (am:am_patdat)
+
+```{r ANB patrimonium databank (am:am_patdat)}
+url <- parse_url(wfs_ANB)
+url$query <- list(service = "WFS",
+                  version = "2.0.0", 
+                  request = "GetFeature",
+                  typename = "am:am_patdat")
+request <- build_url(url)
+
+am_patdat <- read_sf(request) %>%
+  st_set_crs(31370) %>%  
+  st_transform("+proj=longlat +datum=WGS84") %>%  
+  ensure_multipolygons()   
+```
+
+```{r ggplot-am-patdat}
+ggplot() +
+  geom_sf(data = Provincies_grenzen) +
+  geom_sf(data = am_patdat, fill = "red", color = "red")
+```
+
+# Natuurbeheerplannen (ps:ps_nbhp)
+
+```{r get-ps-nbhp}
+url <- parse_url(wfs_ANB)
+url$query <- list(service = "WFS",
+                  version = "2.0.0", 
+                  request = "GetFeature",
+                  typename = "ps:ps_nbhp")
+request <- build_url(url)
+
+ps_nbhp <- read_sf(request) %>%
+  st_set_crs(31370) %>%  
+  st_transform("+proj=longlat +datum=WGS84") %>%  
+  ensure_multipolygons()   
+```
+
+```{r ggplot-ps-nbhp}
+ggplot() +
+  geom_sf(data = Provincies_grenzen) +
+  geom_sf(data = ps_nbhp, fill = "green", color = "green")
+```
