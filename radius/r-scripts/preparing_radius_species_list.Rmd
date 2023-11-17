@@ -146,10 +146,10 @@ radius_list <- radius_list %>%
   subset(!Soort %in% c("Aziatische tijgermug", "alsemambrosia") )
 ```
 
-## Toevoegen Sikahert (2440954), Chinese moerasslak (9738098), wilde rijst (10919373)
+## Toevoegen Sikahert (2440954), Chinese moerasslak (9738098), Chinese prachtslang (8889878), wilde rijst (10919373)
 ```{r expanding-anb-species-selection}
-ANB_extra <- data.frame(matrix(ncol=5,nrow=3, dimnames=list(NULL, c("Groep","Species","Soort","Lijst","GBIF_code")))) %>%
-  mutate(GBIF_code = c("2440954","9738098","10919373"))
+ANB_extra <- data.frame(matrix(ncol=5,nrow=4, dimnames=list(NULL, c("Groep","Species","Soort","Lijst","GBIF_code")))) %>%
+  mutate(GBIF_code = c("2440954","9738098", "8889878", "10919373"))
 
 for(i in 1:nrow(ANB_extra)) {
   name_usage(key = ANB_extra$GBIF_code[i]) -> temp
@@ -161,7 +161,7 @@ rm(i,temp)
 ANB_extra <- ANB_extra %>%
   mutate(Groep = ifelse(Groep == 'Plantae',"plant","dier"), 
          Lijst = "ANB", 
-         Soort = c("Sikahert", "Chinese moerasslak", "Mantsjoerese wilde rijst")) 
+         Soort = c("Sikahert", "Chinese moerasslak", "Chinese prachtslang", "Mantsjoerese wilde rijst")) 
 ```
 
 ## ANB uitbreiding toevoegen aan radius lijst
