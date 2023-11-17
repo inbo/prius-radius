@@ -96,22 +96,11 @@ ggplot() +
 
 # Biologische waarderingskaart (BWK:Bwkhab)
 
-## update november 2023!!!!
+## wegens max.van 10.000 features bij inladen WFS,laadt ik de BWK/Natura2000 Habitatkaart in als shapefile
 
-```{r get-wfshab}
-wfs_bwk <- "https://geo.api.vlaanderen.be/BWK/wfs"
-
-url <- parse_url(wfs_bwk)
-url$query <- list(service = "wfs",
-                  version = "2.0.0", # facultative
-                  request = "GetFeature",
-                  typename = "BWK:Bwkhab")
-request <- build_url(url)
-request
-
-bwkhab <- read_sf(request) %>%
-  st_transform("+proj=longlat +datum=WGS84") %>%  
-  ensure_multipolygons()   
+```{r import-shapefile-bwkhab}
+bwkhab <- st_read("./radius/data/spatial/BwkHab.shp") %>%
+  st_transform("+proj=longlat +datum=WGS84")
 ```
 
 ```{r ggplot-bwkhab}
