@@ -188,9 +188,10 @@ riparias_species <- riparias_list[!riparias_list$nubKey %in% radius_list_update$
                            Soort == "pickerelweed" ~ "Moerashyacint",
                            Soort == "giant butterbur" ~ "Japans hoefblad", 
                            Soort == "lizard's tail" ~ "Leidse plant",
-                           Soort == "monkeyflower" ~ "Gele maskerbloem",
-                           Soort == "Manchurian wildrice" ~ "Mantsjoerese wilde rijst"
-  ))
+                           Soort == "monkeyflower" ~ "Gele maskerbloem")) %>%
+  mutate(Species = if_else(Species == "Egeria densa", "Elodea densa", Species)) %>%
+  mutate(GBIF_code = if_else(GBIF_code == 5329260,5329263, GBIF_code))
+
 ```
 
 ## Combining radius list and RIPARIAS species
