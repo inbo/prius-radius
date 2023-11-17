@@ -9,7 +9,8 @@ Preparation RadIUS species list
 1. Comparison to the Union list dataset (Adriaens & Oldoni, 2023)
 2. Updating ANB species selection
 3. Adding RIPARIAS alert list species
-4. Checking GBIF codes 
+4. Adding DUNIAS project species 
+5. Checking GBIF codes 
 
 
 # Setup
@@ -199,7 +200,33 @@ riparias_species <- riparias_list[!riparias_list$nubKey %in% radius_list_update$
 radius_list_update <- rbind(radius_list_update, riparias_species)
 ```
 
-# 4. verifying GBIF keys against GBIF Backbone
+# 4. Adding DUNIAS project species 
+
+## al in PrIUS-lijst: hemelboom, struikaster
+## nog niet in PrIUS-lijst: mahonie (3033868), boksdoorn (2928835), rimpelroos (3003979), smalle olijfwilg (3039269), sneeuwbes (8012439), vijfbladige wingerd (3039194), valse wingerd (3039203)
+
+```{r adding-dunias-project species}
+dunias_species <- data.frame(matrix(ncol=5,nrow=7, dimnames=list(NULL, c("Groep","Species","Soort","Lijst","GBIF_code")))) %>%
+  mutate(GBIF_code = c("3033868","2928835","3003979","3039269","8012439","3039194","3039203")) %>%
+  mutate(Soort = c("mahonie","boksdoorn","rimpelroos","smalle olijfwilg","sneeuwbes","vijfbladige wingerd","valse wingerd"))
+
+for(i in 1:nrow(dunias_species)) {
+  name_usage(key = dunias_species$GBIF_code[i]) -> temp
+  temp$data$kingdom -> dunias_species$Groep[i]
+  temp$data$scientificName -> dunias_species$Species[i]
+}
+rm(i,temp)
+
+dunias_species <- dunias_species %>%
+  mutate(Groep = ifelse(Groep == 'Plantae',"plant","dier"), 
+         Lijst = "DUNIAS")
+```
+
+```{r combining-radius-dunias}
+radius_list_update <- rbind(radius_list_update, dunias_species)
+```
+
+# 5. verifying GBIF keys against GBIF Backbone
 
 ```{r radius_list_key_check}
 radius_key_check <- gbif_verify_keys(radius_list_update, col_keys = "GBIF_code") %>%
