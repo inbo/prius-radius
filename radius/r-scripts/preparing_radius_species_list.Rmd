@@ -10,6 +10,7 @@ Preparation RadIUS species list
 2. Updating ANB species selection
 3. Adding RIPARIAS alert list species
 4. Adding DUNIAS project species 
+5. Adding crayfish
 5. Checking GBIF codes 
 
 
@@ -226,7 +227,27 @@ dunias_species <- dunias_species %>%
 radius_list_update <- rbind(radius_list_update, dunias_species)
 ```
 
-# 5. verifying GBIF keys against GBIF Backbone
+# 5. Adding crayfish 
+```{r}
+crayfish <- data.frame(matrix(ncol=5,nrow=1, dimnames=list(NULL, c("Groep","Species","Soort","Lijst","GBIF_code")))) %>%
+  mutate(GBIF_code = c("8946295")) %>%
+  mutate(Soort = c("Turkse rivierkreeft")) %>%
+  mutate(Groep = "dier")
+
+for(i in 1:nrow(crayfish)) {
+  name_usage(key = crayfish$GBIF_code[i]) -> temp
+  temp$data$scientificName -> crayfish$Species[i]
+}
+rm(i,temp)
+
+```
+
+```{r adding-crayfish}
+radius_list_update <- rbind(radius_list_update, crayfish)
+```
+
+
+# 6. verifying GBIF keys against GBIF Backbone
 
 ```{r radius_list_key_check}
 radius_key_check <- gbif_verify_keys(radius_list_update, col_keys = "GBIF_code") %>%
