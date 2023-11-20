@@ -182,15 +182,15 @@ riparias_species <- riparias_list[!riparias_list$nubKey %in% radius_list_update$
   transmute(Groep = ifelse(kingdom == 'Plantae',"plant","dier"), Species = scientificName, Soort = vernacularName, Lijst = "RIPARIAS", GBIF_code = nubKey) %>%
   mutate(Soort = case_when(Soort == "Kentucky river crayfish" ~ "Kentuckyrivierkreeft",
                            Soort == "calico crayfish" ~ "Calicotrivierkreeft", 
-                           Soort == "white river crayfish" ~ "Gestreepte Amerikaanse rivierkreeft",
-                           Soort == "Australian yabbi" ~ "Gewone yabby",
-                           Soort == "Chinese lizard tail" ~ "Moerasanemoon",
+                           Soort == "white river crayfish" ~ "gestreepte Amerikaanse rivierkreeft",
+                           Soort == "Australian yabbi" ~ "gewone yabby",
+                           Soort == "Chinese lizard tail" ~ "moerasanemoon",
                            Soort == "Cape-pondweed" ~ "Kaapse waterlelie", 
-                           Soort == "greater pondweed" ~ "Egeria",
-                           Soort == "pickerelweed" ~ "Moerashyacint",
+                           Soort == "greater pondweed" ~ "egeria",
+                           Soort == "pickerelweed" ~ "moerashyacint",
                            Soort == "giant butterbur" ~ "Japans hoefblad", 
                            Soort == "lizard's tail" ~ "Leidse plant",
-                           Soort == "monkeyflower" ~ "Gele maskerbloem")) %>%
+                           Soort == "monkeyflower" ~ "gele maskerbloem")) %>%
   mutate(Species = if_else(Species == "Egeria densa", "Elodea densa", Species)) %>%
   mutate(GBIF_code = if_else(GBIF_code == 5329260,5329263, GBIF_code))
 
@@ -208,7 +208,7 @@ radius_list_update <- rbind(radius_list_update, riparias_species)
 
 ```{r adding-dunias-project species}
 dunias_species <- data.frame(matrix(ncol=5,nrow=7, dimnames=list(NULL, c("Groep","Species","Soort","Lijst","GBIF_code")))) %>%
-  mutate(GBIF_code = c("3033868","2928835","3003979","3039269","8012439","3039194","3039203")) %>%
+  mutate(GBIF_code = c("3033865","2928835","3003979","3039269","8012439","3039194","3039203")) %>%
   mutate(Soort = c("mahonie","boksdoorn","rimpelroos","smalle olijfwilg","sneeuwbes","vijfbladige wingerd","valse wingerd"))
 
 for(i in 1:nrow(dunias_species)) {
