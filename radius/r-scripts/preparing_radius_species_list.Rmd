@@ -189,6 +189,12 @@ riparias_list <- name_usage(datasetKey = datasetKey)$data %>%
                            Soort == "monkeyflower" ~ "gele maskerbloem",
                            Soort == "Manchurian wildrice" ~ "Mantsjoerese wilde rijst")) 
 
+# Adding GBIF scientific name from GBIF backbone
+for(i in 1:nrow(riparias_list)) {
+  name_usage(key = riparias_list$GBIF_code[i]) -> temp
+  temp$data$scientificName -> riparias_list$Species[i]}
+rm(i,temp)
+
 ```
 
 
