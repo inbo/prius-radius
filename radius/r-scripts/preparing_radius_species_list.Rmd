@@ -8,11 +8,11 @@ output: html_document
 Preparation RadIUS species list
 1. Comparison to the Union list dataset (Adriaens & Oldoni, 2023)
 2. Updating ANB species selection
-3. Adding RIPARIAS alert list species
-4. Adding DUNIAS project species 
-5. Adding crayfish
-5. Checking GBIF codes 
-
+3. Getting RIPARIAS alert list species
+4. Getting DUNIAS project species 
+5. Combining species lists
+6. verifying GBIF keys against GBIF Backbone
+7. Prepare RadIUS species list for export
 
 # Setup
 ```{r setup, include=FALSE}
@@ -136,8 +136,7 @@ list_check <- list_check %>%
 ## Adjusting PrIUS list based on Union list check
 ```{r adjusting-hydrocotyle-ranunculoides-GBIF-code}
 radius_list <- prius_list %>%
-  mutate(GBIF_code = if_else(GBIF_code == 3034613, 7978544, GBIF_code))  %>%  #aanpassing obv check met union list
-  select(Groep, Species, Soort, Lijst, GBIF_code) 
+  transmute(Groep, Species, Soort, GBIF_code = if_else(GBIF_code == 3034613, 7978544, GBIF_code), Lijst) #aanpassing obv check met union list
 ```
 
 # 2. Updating ANB species selection
@@ -148,38 +147,35 @@ radius_list <- radius_list %>%
   subset(!Soort %in% c("Aziatische tijgermug", "alsemambrosia") )
 ```
 
-## Toevoegen Sikahert (2440954), Chinese moerasslak (9738098), Chinese prachtslang (8889878), wilde rijst (10919373)
+## Toevoegen sikahert (2440954), Chinese moerasslak (9738098), Chinese prachtslang (8889878), wilde rijst (10919373), Turkse rivierkreeft (8946295)
 ```{r expanding-anb-species-selection}
-ANB_extra <- data.frame(matrix(ncol=5,nrow=4, dimnames=list(NULL, c("Groep","Species","Soort","Lijst","GBIF_code")))) %>%
-  mutate(GBIF_code = c("2440954","9738098", "8889878", "10919373"))
+ANB_list <- data.frame(matrix(ncol=5,nrow=5, dimnames=list(NULL, names(radius_list)))) %>%
+  mutate(
+    GBIF_code = c(2440954, 9738098, 8889878, 10919373, 8946295), 
+    Soort = c("sikahert", "Chinese moerasslak", "Chinese prachtslang", "Mantsjoerese wilde rijst", "Turkse rivierkreeft"), 
+    Lijst = "0")
 
-for(i in 1:nrow(ANB_extra)) {
-  name_usage(key = ANB_extra$GBIF_code[i]) -> temp
-  temp$data$kingdom -> ANB_extra$Groep[i]
-  temp$data$scientificName -> ANB_extra$Species[i]
+for(i in 1:nrow(ANB_list)) {
+  name_usage(key = ANB_list$GBIF_code[i]) -> temp
+  ifelse(temp$data$kingdom == 'Plantae', "plant", "dier") -> ANB_list$Groep[i]
+  temp$data$scientificName -> ANB_list$Species[i]
 }
 rm(i,temp)
-
-ANB_extra <- ANB_extra %>%
-  mutate(Groep = ifelse(Groep == 'Plantae',"plant","dier"), 
-         Lijst = "ANB", 
-         Soort = c("Sikahert", "Chinese moerasslak", "Chinese prachtslang", "Mantsjoerese wilde rijst")) 
 ```
 
-## ANB uitbreiding toevoegen aan radius lijst
-```{r combining-anb-radius}
-radius_list_update <- rbind(radius_list, ANB_extra)
-```
 
-# 3. Adding RIPARIAS alert list species
-
+# 3. RIPARIAS alert list species
 ```{r adding-riparias-alert-species}
 datasetKey <- "fd004d9a-2ea4-4244-bb60-0df508d20a15" #linked to RIPARIAS alert list ("https://www.gbif.org/dataset/fd004d9a-2ea4-4244-bb60-0df508d20a15")
-riparias_list <- name_usage(datasetKey = datasetKey)$data %>%
-  subset(rank != "KINGDOM")
 
-riparias_species <- riparias_list[!riparias_list$nubKey %in% radius_list_update$GBIF_code,] %>%   #only select species that are not already present in the radius_list_update
-  transmute(Groep = ifelse(kingdom == 'Plantae',"plant","dier"), Species = scientificName, Soort = vernacularName, Lijst = "RIPARIAS", GBIF_code = nubKey) %>%
+riparias_list <- name_usage(datasetKey = datasetKey)$data %>%
+  subset(rank != "KINGDOM") %>%
+  transmute(
+    Groep = ifelse(kingdom == 'Plantae',"plant","dier"), 
+    Species = if_else(scientificName == "Egeria densa", "Elodea densa", scientificName), 
+    Soort = vernacularName,  
+    GBIF_code = if_else(nubKey == 5329260,5329263, nubKey), 
+    Lijst = "0") %>%
   mutate(Soort = case_when(Soort == "Kentucky river crayfish" ~ "Kentuckyrivierkreeft",
                            Soort == "calico crayfish" ~ "Calicotrivierkreeft", 
                            Soort == "white river crayfish" ~ "gestreepte Amerikaanse rivierkreeft",
@@ -190,83 +186,70 @@ riparias_species <- riparias_list[!riparias_list$nubKey %in% radius_list_update$
                            Soort == "pickerelweed" ~ "moerashyacint",
                            Soort == "giant butterbur" ~ "Japans hoefblad", 
                            Soort == "lizard's tail" ~ "Leidse plant",
-                           Soort == "monkeyflower" ~ "gele maskerbloem")) %>%
-  mutate(Species = if_else(Species == "Egeria densa", "Elodea densa", Species)) %>%
-  mutate(GBIF_code = if_else(GBIF_code == 5329260,5329263, GBIF_code))
+                           Soort == "monkeyflower" ~ "gele maskerbloem",
+                           Soort == "Manchurian wildrice" ~ "Mantsjoerese wilde rijst")) 
 
 ```
 
-## Combining radius list and RIPARIAS species
-```{r combining-radius-riparias}
-radius_list_update <- rbind(radius_list_update, riparias_species)
-```
 
-# 4. Adding DUNIAS project species 
+# 4. DUNIAS project species 
 
-## al in PrIUS-lijst: hemelboom, struikaster
-## nog niet in PrIUS-lijst: mahonie (3033868), boksdoorn (2928835), rimpelroos (3003979), smalle olijfwilg (3039269), sneeuwbes (8012439), vijfbladige wingerd (3039194), valse wingerd (3039203)
+## hemelboom (3190653), struikaster (3129663), mahonie (3033868), boksdoorn (2928835), rimpelroos (3003979), smalle olijfwilg (3039269), sneeuwbes (8012439), vijfbladige wingerd (3039194), valse wingerd (3039203)
 
 ```{r adding-dunias-project species}
-dunias_species <- data.frame(matrix(ncol=5,nrow=7, dimnames=list(NULL, c("Groep","Species","Soort","Lijst","GBIF_code")))) %>%
-  mutate(GBIF_code = c("3033865","2928835","3003979","3039269","8012439","3039194","3039203")) %>%
-  mutate(Soort = c("mahonie","boksdoorn","rimpelroos","smalle olijfwilg","sneeuwbes","vijfbladige wingerd","valse wingerd"))
+dunias_list <- data.frame(matrix(ncol=5,nrow=9, dimnames=list(NULL, names(radius_list)))) %>%
+  mutate(GBIF_code = c(3190653,3129663,3033865,2928835,3003979,3039269,8012439,3039194,3039203),
+         Soort = c("hemelboom","struikaster","mahonie","boksdoorn","rimpelroos","smalle olijfwilg","sneeuwbes","vijfbladige wingerd","valse wingerd"),
+         Lijst = "0")
 
-for(i in 1:nrow(dunias_species)) {
-  name_usage(key = dunias_species$GBIF_code[i]) -> temp
-  temp$data$kingdom -> dunias_species$Groep[i]
-  temp$data$scientificName -> dunias_species$Species[i]
+for(i in 1:nrow(dunias_list)) {
+  name_usage(key = dunias_list$GBIF_code[i]) -> temp
+  ifelse(temp$data$kingdom == 'Plantae',"plant","dier") -> dunias_list$Groep[i]
+  temp$data$scientificName -> dunias_list$Species[i]
 }
 rm(i,temp)
-
-dunias_species <- dunias_species %>%
-  mutate(Groep = ifelse(Groep == 'Plantae',"plant","dier"), 
-         Lijst = "DUNIAS")
 ```
 
-```{r combining-radius-dunias}
-radius_list_update <- rbind(radius_list_update, dunias_species)
+
+# 5. Combining species lists
+
+```{r combining-lists}
+radius_list_update <- rbind(radius_list, riparias_list, dunias_list, ANB_list) %>%
+  distinct(GBIF_code, .keep_all = TRUE)
 ```
-
-# 5. Adding crayfish 
-```{r}
-crayfish <- data.frame(matrix(ncol=5,nrow=1, dimnames=list(NULL, c("Groep","Species","Soort","Lijst","GBIF_code")))) %>%
-  mutate(GBIF_code = c("8946295")) %>%
-  mutate(Soort = c("Turkse rivierkreeft")) %>%
-  mutate(Groep = "dier")
-
-for(i in 1:nrow(crayfish)) {
-  name_usage(key = crayfish$GBIF_code[i]) -> temp
-  temp$data$scientificName -> crayfish$Species[i]
-}
-rm(i,temp)
-
-```
-
-```{r adding-crayfish}
-radius_list_update <- rbind(radius_list_update, crayfish)
-```
-
 
 # 6. verifying GBIF keys against GBIF Backbone
 
 ```{r radius_list_key_check}
 radius_key_check <- gbif_verify_keys(radius_list_update, col_keys = "GBIF_code") %>%
-  mutate(key = as.character(key)) %>%
   full_join(radius_list_update, by = c("key" = "GBIF_code"))
 ```
 
-# add GBIF scientific name as a column
-```{r add-gbif-scientific-name}
+# 7.  Prepare radius species list for export
+```{r prepare-radius-list-for-export}
+# only select ACCEPTED taxon names, remove SYNONYMS
+radius_list_update <- radius_key_check %>%
+  subset(is_synonym == FALSE) %>%
+  transmute(Groep, Species, Soort, GBIF_code = key, Lijst)
+
+# Adding GBIF scientific name from GBIF backbone
 radius_list_update$GBIF_scientific_name <- 0
 
 for(i in 1:nrow(radius_list_update)) {
   name_usage(key = radius_list_update$GBIF_code[i]) -> temp
   temp$data$scientificName -> radius_list_update$GBIF_scientific_name[i]}
 rm(i,temp)
+
+# Add columns to assign species to lists
+radius_list_update <- radius_list_update %>%
+  transmute(Groep, Species, Soort, GBIF_scientific_name, GBIF_code, 
+            EU_lijst = ifelse(Lijst != "ANB", Lijst, 0), 
+            RIPARIAS_lijst = as.integer(GBIF_code %in% riparias_list$GBIF_code), 
+            DUNIAS_lijst = as.integer(GBIF_code %in% dunias_list$GBIF_code), 
+            ANB_lijst = ifelse(Lijst == "ANB" | GBIF_code %in% ANB_list$GBIF_code, 1, 0))
 ```
 
-# Export RadIUS species list
-
+## Export RadIUS species list
 ```{r export-radius-list}
 write.csv(radius_list_update, "./radius/data/input/radius_species_list.csv", row.names = FALSE)
 ```
