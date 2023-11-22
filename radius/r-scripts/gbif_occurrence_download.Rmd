@@ -36,7 +36,7 @@ rm(list=ls())
 
 ## Taxa
 ```{r define_taxa}
-taxonKey <- read_csv2("./radius/data/input/radius_species_list.csv") %>%
+taxonKeys <- read_csv2("./radius/data/input/radius_species_list.csv") %>%
   pull("GBIF_code") 
 ```
 
@@ -69,13 +69,14 @@ year_end <- year(Sys.Date())
 hasCoordinate <- TRUE
 ```
 
+
 # Download GBIF occurrences
 
 ## Trigger download
 ```{r gbif_download}
 # Trigger new download
-#gbif_download_key <- occ_download(
-#  pred_in("taxonKey", taxonKey),
+#gbif_downloadKey <- occ_download(
+#  pred_in("taxonKey", taxonKeys),
 #  pred_in("country", countries),
 #  pred_in("basisOfRecord", basis_of_record),
 #  pred_gte("year", year_begin),
@@ -86,20 +87,28 @@ hasCoordinate <- TRUE
 #  email = rstudioapi::askForPassword("Email address for notification")
 #)
 
+#occ_download_wait(gbif_downloadKey, 
+#                  curlopts = list(verbose = TRUE,
+#                                  http_version = 2,
+#                                  forbid_reuse = TRUE))
+
 # Or reuse existing download
-gbif_download_key <- "0051379-231002084531237"
+gbif_downloadKey <- "0001679-231120084113126"
 ```
 
 ## Get GBIF download to computer
 ```{r gbif-dataset-to-computer}
-occ_raw <- occ_download_get(key = gbif_download_key,
-                             path = "./radius/data/input/", overwrite = TRUE)
+gbif_download <- occ_download_get(key = gbif_downloadKey,
+                             path = "./radius/data/input/", 
+                             overwrite = TRUE,
+                             curlopts = list(verbose = TRUE,
+                                                  http_version = 2,
+                                                  forbid_reuse = TRUE))
 ```
 
 ## Get GBIF download into R
 ```{r gbif-dataset-to-R}
-occ_raw <- occ_raw %>%
-  occ_download_import()
+occ_raw <- occ_download_import(x = gbif_download)
 ```
 
 # Filter data
@@ -132,7 +141,7 @@ identificationVerificationStatus_to_discard <- c(
 ```{r filter-occurrence-data}
 occ_filtered <- occ_raw %>%
   distinct(occurrenceID, .keep_all = TRUE) %>% # get rid of duplicates
-  filter(!is.na(decimalLongitude), !is.na(decimalLatitude)) %>% # filter out those without coordinates
+  filter(!is.na(decimalLongitude), !is.na(decimalLatitude)) %>% # filter out occs without coordinates
   filter(!occurrenceStatus %in% occurrenceStatus_to_discard) %>%  # filter out absence data
   filter(!issue %in% issues_to_discard) %>%   # filter out specified issues
   filter(!identificationVerificationStatus %in% identificationVerificationStatus_to_discard)  # filter out verification status to discard
