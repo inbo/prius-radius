@@ -36,7 +36,7 @@ rm(list=ls())
 
 ## Taxa
 ```{r define_taxa}
-taxonKeys <- read_csv2("./radius/data/input/radius_species_list.csv") %>%
+taxonKeys <- read_csv("./radius/data/input/radius_species_list.csv") %>%
   pull("GBIF_code") 
 ```
 
@@ -93,7 +93,7 @@ hasCoordinate <- TRUE
 #                                  forbid_reuse = TRUE))
 
 # Or reuse existing download
-gbif_downloadKey <- "0001679-231120084113126"
+gbif_downloadKey <- "0012987-231120084113126"
 ```
 
 ## Get GBIF download to computer
@@ -192,7 +192,6 @@ occ_flanders_taxa %>%
   left_join(occ_flanders_taxa, by = "speciesKey") %>%
   arrange(speciesKey, taxonKey) %>%
   pull(taxonKey) -> List_multiple_taxonKeys
-
 ```
 
 Some species have occurrences only from taxa linked to their infraspecific taxa or synonyms. In these cases `speciesKey` is never equal to `taxonKey`:
@@ -267,32 +266,36 @@ taxa_species <-
 ## Subset columns to use
 ```{r subset-columns}
 occ_flanders <- occ_flanders %>%
-  select(year, month, day, decimalLongitude, decimalLatitude, speciesKey, coordinateUncertaintyInMeters, gbifID) %>%  #following be_species_cube column formatting, can be changed if needed
+  select(year, month, day, decimalLongitude, decimalLatitude, speciesKey, coordinateUncertaintyInMeters) %>%  #following be_species_cube column formatting, can be changed if needed
   arrange(year, month, day, speciesKey)
 ```
 
 ```{r comparison-species-list-gbif-occurrences}
-species_list <- read_csv2("./radius/data/input/radius_species_list.csv")
+species_list <- read_csv("./radius/data/input/radius_species_list.csv")
 
 occ_flanders_summary <- occ_flanders %>%
   group_by(speciesKey) %>%
-  summarise(unique_obs = n_distinct(gbifID)) %>%
+  summarise(n_obs = n()) %>%
   left_join(species_list, by = c("speciesKey" = "GBIF_code")) %>%
-  select(speciesKey, unique_obs)
+  select(speciesKey, Soort, n_obs)
 
 not_in_flanders <- species_list %>%
-  left_join(occ_flanders_summary, by = c("GBIF_code" = "speciesKey")) %>%
-  filter(is.na(unique_obs)) %>%
-  filter(!GBIF_code %in% List_multiple_taxonKeys) #wegfilteren van synoniemen/subspecies/... die onder speciesKey van aanwezige soorten vallen
-
+  left_join(occ_flanders_summary, by = c("GBIF_code" = "speciesKey", "Soort")) %>%
+  filter(is.na(n_obs)) %>%
+  filter(!GBIF_code %in% List_multiple_taxonKeys) %>% #wegfilteren van synoniemen/subspecies/... die onder speciesKey van aanwezige soorten vallen
+  select(Groep, Species, Soort, GBIF_code)
+  
 in_flanders <- species_list %>%
-  left_join(occ_flanders_summary, by = c("GBIF_code" = "speciesKey")) %>%
-  filter(!is.na(unique_obs))
+  left_join(occ_flanders_summary, by = c("GBIF_code" = "speciesKey", "Soort")) %>%
+  filter(!is.na(n_obs)) %>%
+  select(Groep, Species, Soort, GBIF_code, n_obs) %>%
+  arrange(desc(n_obs))
 
 List_species_present <- unique(in_flanders$Soort)
 List_species_not_present <- vsetdiff(unique(species_list$Soort) , List_species_present)
-#write(List_species_present, ".radius/data/output/...")
-#write(List_species_not_present, ".radius/data/output/...")
+
+write.csv(in_flanders, "./radius/data/intermediate/in_flanders.csv", row.names = FALSE)
+write.csv(not_in_flanders, "./radius/data/intermediate/not_in_flanders.csv", row.names = FALSE)
 ```
 
 ## Save occurrence dataset flanders
