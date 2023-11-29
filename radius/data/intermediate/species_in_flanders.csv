@@ -1,0 +1,73 @@
+"Groep","Species","Soort","GBIF_code","n_obs"
+"dier","Alopochen aegyptiacus Linnaeus, 1766","nijlgans",2498252,141438
+"dier","Branta canadensis (Linnaeus, 1758)","Canadese gans",5232437,138211
+"plant","Reynoutria japonica Houtt.","invasieve duizendknopen",2889173,38301
+"dier","Ondatra zibethicus Linnaeus, 1766","muskusrat",5219858,37467
+"dier","Vespa velutina Lepeletier, 1836","Aziatische hoornaar (soort)",1311477,32985
+"plant","Impatiens glandulifera Royle","reuzenbalsemien",2891770,18013
+"dier","Lithobates (Rana) catesbeianus Shaw, 1802","Amerikaanse stierkikker",2427091,11228
+"plant","Rosa rugosa Thunb.","rimpelroos",3003979,11209
+"plant","Heracleum mantegazzianum Sommier & Levier","reuzenberenklauw",3034825,8282
+"plant","Mahonia aquifolium (Pursh) Nutt.","mahonie",3033865,7692
+"dier","Lepomis gibbosus Linnaeus, 1758","zonnebaars",2394486,5439
+"dier","Pseudorasbora parva Temminck & Schlegel, 1846","blauwbandgrondel",2362868,5044
+"plant","Crassula helmsii (Kirk) Cockayne","watercrassula",5362054,4987
+"plant","Symphoricarpos albus (L.) K.Koch","sneeuwbes",8012439,3693
+"plant","Ludwigia grandiflora (Michx.) Greuter & Burdet","grote waterteunisbloem",5421039,3596
+"plant","Hydrocotyle ranunculoides L. f.","grote waternavel",7978544,2507
+"plant","Lycium barbarum L.","boksdoorn",2928835,2481
+"dier","Trachemys scripta Schoepff, 1792","lettersierschildpad",2443002,2447
+"dier","Eriocheir sinensis H. Milne Edwards, 1854","Chinese wolhandkrab",2225776,2211
+"plant","Ailanthus altissima (Mill.) Swingle","hemelboom",3190653,1526
+"plant","Elodea nuttallii (Planch.) St. John","smalle waterpest",5329212,1477
+"plant","Myriophyllum aquaticum (Vell.) Verdc.","parelvederkruid",5361785,1310
+"dier","Faxonius limosus Rafinesque, 1817","gevlekte Amerikaanse rivierkreeft",8909595,1107
+"plant","Elaeagnus angustifolia L.","smalle olijfwilg",3039269,671
+"dier","Threskiornis aethiopicus Latham, 1790","heilige ibis",2480764,559
+"dier","Procambarus clarkii Girard, 1852","rode Amerikaanse rivierkreeft",2227300,527
+"plant","Parthenocissus inserta (A.Kern.) Fritsch","valse wingerd",3039203,459
+"plant","Pontederia cordata L.","moerashyacint",2766030,407
+"plant","Baccharis halimifolia L.","struikaster",3129663,400
+"dier","Tamias sibiricus Laxmann, 1769","Siberische grondeekhoorn",2437450,361
+"dier","Oxyura jamaicensis Gmelin, 1789","rosse stekelstaart",2498305,345
+"dier","Muntiacus reevesi Ogilby, 1839","Chinese muntjak",2440946,307
+"dier","Myocastor coypus Molina, 1782","beverrat",4264680,303
+"plant","Erythranthe guttata (DC.) G.L.Nesom","gele maskerbloem",7346102,295
+"plant","Petasites japonicus (Siebold & Zucc.) Maxim.","Japans hoefblad",3088310,276
+"plant","Reynoutria sachalinensis (F.Schmidt) Nakai","invasieve duizendknopen",2889088,219
+"plant","Parthenocissus quinquefolia (L.) Planch.","vijfbladige wingerd",3039194,188
+"dier","Elaphe taeniura (Cope, 1861)","Chinese prachtslang",8889878,146
+"plant","Ludwigia peploides (Kunth) P.H. Raven","kleine waterteunisbloem",5420991,140
+"dier","Procyon lotor L., 1758","wasbeer",5218786,138
+"plant","Aponogeton distachyos L.f.","Kaapse waterlelie",5328593,112
+"plant","Myriophyllum heterophyllum Michaux","ongelijkbladig vederkruid",5361762,110
+"plant","Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal","Afghaanse duizendknoop",8848208,98
+"plant","Lysichiton americanus Hultén & H. St. John","moerasaronskelk",2869311,78
+"plant","Reynoutria ×bohemica Chrtek & Chrtková","invasieve duizendknopen",4038485,66
+"plant","Pistia stratiotes L.","watersla",2870583,64
+"dier","Procambarus acutus (Girard, 1852)","gestreepte Amerikaanse rivierkreeft",2227289,56
+"dier","Mustela vison Schreber, 1777","Amerikaanse nerts",5218823,55
+"dier","Cervus nippon Temminck, 1838","sikahert",2440954,55
+"plant","Houttuynia cordata Thunb.","moerasanemoon",5384931,54
+"plant","Asclepias syriaca L.","zijdeplant",3170247,48
+"dier","Procambarus virginalis Lyko, 2017","marmerkreeft",9442269,46
+"plant","Lagarosiphon major (Ridley) Moss","verspreidbladige waterpest",2865565,45
+"plant","Elodea densa (Planch.) Casp.","egeria",5329263,29
+"plant","Eichhornia crassipes (Martius) Solms","waterhyacint",2765942,19
+"plant","Saururus cernuus L.","Leidse plant",5384932,18
+"dier","Pontastacus leptodactylus (Eschscholtz, 1823)","Turkse rivierkreeft",8946295,17
+"plant","Cabomba caroliniana Gray","waterwaaier",2882443,16
+"plant","Gunnera tinctoria (Molina) Mirbel","gewone gunnera",2984306,12
+"dier","Xenopus laevis (Daudin, 1802)","Afrikaanse klauwkikker",5217334,9
+"plant","Zizania latifolia (Griseb.) Hance ex F.Muell.","Mantsjoerese wilde rijst",10919373,8
+"dier","Sciurus carolinensis Gmelin, 1788","grijze eekhoorn",5219681,7
+"dier","Cipangopaludina chinensis (J.E.Gray, 1833)","Chinese moerasslak",9738098,6
+"dier","Acridotheres tristis Linnaeus, 1766","treurmaina",2489005,4
+"plant","Cenchrus setaceus (Forssk.) Morrone","fraai lampenpoetsersgras",5828232,2
+"dier","Nyctereutes procyonoides Gray, 1834","wasbeerhond",2434552,2
+"dier","Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)","Noord-Aziatische modderkruiper",2367911,2
+"plant","Microstegium vimineum (Trin.) A. Camus","Japans steltgras",5289808,1
+"plant","Parthenium hysterophorus L.","schijnambrosia",3086784,1
+"dier","Callosciurus erythraeus Pallas, 1779","Pallas' eekhoorn",2437394,1
+"dier","Pacifastacus leniusculus Dana, 1852","Californische rivierkreeft",2226990,1
+"dier","Sciurus niger L., 1758","Amerikaanse voseekhoorn",5219683,1
