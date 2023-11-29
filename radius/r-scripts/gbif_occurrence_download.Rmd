@@ -18,7 +18,7 @@ Script based on the [TrIAS species cube workflow provided by Oldoni et al.](http
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 ```
 
-```{r load_libraries}
+```{r load-libraries}
 library(tidyverse)      
 library(here)          
 library(rgbif)        
@@ -28,25 +28,30 @@ library(sf)
 library(vecsets)
 ```
 
-```{r clear_memory}
+```{r clear-memory}
 rm(list=ls())
 ```
+
+```{r import-species-list}
+species_list <- read_csv("./radius/data/input/radius_species_list.csv")
+```
+
 
 # Define download query parameters
 
 ## Taxa
-```{r define_taxa}
-taxonKeys <- read_csv("./radius/data/input/radius_species_list.csv") %>%
+```{r define-taxa}
+taxonKeys <- species_list %>%
   pull("GBIF_code") 
 ```
 
 ## Countries
-```{r define_countries}
+```{r define-countries}
 countries <- c("BE")
 ```
 
 ## Basis of record
-```{r define_basis_of_record}
+```{r define-basis-of-record}
 basis_of_record <- c(
   "OBSERVATION", 
   "HUMAN_OBSERVATION",
@@ -59,13 +64,13 @@ basis_of_record <- c(
 ```
 
 ## Year
-```{r define_year}
+```{r define-year}
 year_begin <- 2015
 year_end <- year(Sys.Date())
 ```
 
 ## Geographic coordinates
-```{r define_hasCoordinates}
+```{r define-hasCoordinates}
 hasCoordinate <- TRUE
 ```
 
@@ -73,7 +78,7 @@ hasCoordinate <- TRUE
 # Download GBIF occurrences
 
 ## Trigger download
-```{r gbif_download}
+```{r gbif-download}
 # Trigger new download
 #gbif_downloadKey <- occ_download(
 #  pred_in("taxonKey", taxonKeys),
@@ -168,7 +173,7 @@ occ_flanders_spatial <- st_transform(occ_spatial, crs = st_crs(Vlaanderen_grenze
 occ_flanders <- occ_flanders_spatial %>%
   mutate(decimalLongitude = sf::st_coordinates(.)[,2],
          decimalLatitude = sf::st_coordinates(.)[,1]) %>%
-  st_drop_geometry()
+  st_drop_geometry() 
 ```
 
 # Summarise output
@@ -263,21 +268,17 @@ taxa_species <-
 
 ## Comparison radius_species_list and gbif occurrences
 
-## Subset columns to use
 ```{r subset-columns}
 occ_flanders <- occ_flanders %>%
-  select(year, month, day, decimalLongitude, decimalLatitude, speciesKey, coordinateUncertaintyInMeters) %>%  #following be_species_cube column formatting, can be changed if needed
+  left_join(species_list, by = c("speciesKey" = "GBIF_code")) %>%
+  transmute(year, month, day, decimalLongitude, decimalLatitude, speciesKey, Species, Soort, coordinateUncertaintyInMeters) %>%  #following be_species_cube column formatting, can be changed if needed
   arrange(year, month, day, speciesKey)
 ```
 
 ```{r comparison-species-list-gbif-occurrences}
-species_list <- read_csv("./radius/data/input/radius_species_list.csv")
-
 occ_flanders_summary <- occ_flanders %>%
-  group_by(speciesKey) %>%
-  summarise(n_obs = n()) %>%
-  left_join(species_list, by = c("speciesKey" = "GBIF_code")) %>%
-  select(speciesKey, Soort, n_obs)
+  group_by(speciesKey, Soort) %>%
+  summarise(n_obs = n())
 
 not_in_flanders <- species_list %>%
   left_join(occ_flanders_summary, by = c("GBIF_code" = "speciesKey", "Soort")) %>%
@@ -294,8 +295,8 @@ in_flanders <- species_list %>%
 List_species_present <- unique(in_flanders$Soort)
 List_species_not_present <- vsetdiff(unique(species_list$Soort) , List_species_present)
 
-write.csv(in_flanders, "./radius/data/intermediate/in_flanders.csv", row.names = FALSE)
-write.csv(not_in_flanders, "./radius/data/intermediate/not_in_flanders.csv", row.names = FALSE)
+write.csv(in_flanders, "./radius/data/intermediate/species_in_flanders.csv", row.names = FALSE)
+write.csv(not_in_flanders, "./radius/data/intermediate/species_not_in_flanders.csv", row.names = FALSE)
 ```
 
 ## Save occurrence dataset flanders
