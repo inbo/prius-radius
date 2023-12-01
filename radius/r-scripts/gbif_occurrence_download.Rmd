@@ -149,7 +149,8 @@ occ_filtered <- occ_raw %>%
   filter(!is.na(decimalLongitude), !is.na(decimalLatitude)) %>% # filter out occs without coordinates
   filter(!occurrenceStatus %in% occurrenceStatus_to_discard) %>%  # filter out absence data
   filter(!issue %in% issues_to_discard) %>%   # filter out specified issues
-  filter(!identificationVerificationStatus %in% identificationVerificationStatus_to_discard)  # filter out verification status to discard
+  filter(!identificationVerificationStatus %in% identificationVerificationStatus_to_discard) %>% # filter out verification status to discard
+  filter(!gbifID == 4430037392)   # manueel wegfilteren van foutieve waarneming van schijnambrosia of waarnemingen.be
 
 ```
 
