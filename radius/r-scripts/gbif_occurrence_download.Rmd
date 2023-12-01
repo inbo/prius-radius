@@ -171,8 +171,8 @@ occ_flanders_spatial <- st_transform(occ_spatial, crs = st_crs(Vlaanderen_grenze
 
 #remove geometry, replace with lon, lat
 occ_flanders <- occ_flanders_spatial %>%
-  mutate(decimalLongitude = sf::st_coordinates(.)[,2],
-         decimalLatitude = sf::st_coordinates(.)[,1]) %>%
+  mutate(decimalLongitude = sf::st_coordinates(.)[,1],
+         decimalLatitude = sf::st_coordinates(.)[,2]) %>%
   st_drop_geometry() 
 ```
 
