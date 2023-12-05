@@ -1,0 +1,311 @@
+---
+title: "Download GBIF occurrences"
+author: "Fleur Petersen"
+date: "2023-10-26"
+output: html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    number_sections: true
+---
+
+Downloading alien species occurrences for Belgium from [GBIF](https://www.gbif.org)
+
+Script based on the [TrIAS species cube workflow provided by Oldoni et al.](https://github.com/trias-project/occ-cube/tree/master)
+
+# Setup
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+```{r load-libraries}
+library(tidyverse)      
+library(here)          
+library(rgbif)        
+library(trias)         
+library(lubridate)     
+library(sf)
+library(vecsets)
+```
+
+```{r clear-memory}
+rm(list=ls())
+```
+
+```{r import-species-list}
+species_list <- read_csv("./radius/data/input/radius_species_list.csv")
+```
+
+
+# Define download query parameters
+
+## Taxa
+```{r define-taxa}
+taxonKeys <- species_list %>%
+  pull("GBIF_code") 
+```
+
+## Countries
+```{r define-countries}
+countries <- c("BE")
+```
+
+## Basis of record
+```{r define-basis-of-record}
+basis_of_record <- c(
+  "OBSERVATION", 
+  "HUMAN_OBSERVATION",
+  "MATERIAL_SAMPLE", 
+  "LITERATURE", 
+  "PRESERVED_SPECIMEN", 
+  "UNKNOWN", 
+  "MACHINE_OBSERVATION"
+)
+```
+
+## Year
+```{r define-year}
+year_begin <- 2015
+year_end <- year(Sys.Date())
+```
+
+## Geographic coordinates
+```{r define-hasCoordinates}
+hasCoordinate <- TRUE
+```
+
+
+# Download GBIF occurrences
+
+## Trigger download
+```{r gbif-download}
+# Trigger new download
+#gbif_downloadKey <- occ_download(
+#  pred_in("taxonKey", taxonKeys),
+#  pred_in("country", countries),
+#  pred_in("basisOfRecord", basis_of_record),
+#  pred_gte("year", year_begin),
+#  pred_lte("year", year_end),
+#  pred("hasCoordinate", hasCoordinate),
+#  user = rstudioapi::askForPassword("GBIF username"),
+#  pwd = rstudioapi::askForPassword("GBIF password"),
+#  email = rstudioapi::askForPassword("Email address for notification")
+#)
+
+#occ_download_wait(gbif_downloadKey, 
+#                  curlopts = list(verbose = TRUE,
+#                                  http_version = 2,
+#                                  forbid_reuse = TRUE))
+
+# Or reuse existing download
+gbif_downloadKey <- "0012987-231120084113126"
+```
+
+## Get GBIF download to computer
+```{r gbif-dataset-to-computer}
+gbif_download <- occ_download_get(key = gbif_downloadKey,
+                             path = "./radius/data/input/", 
+                             overwrite = TRUE,
+                             curlopts = list(verbose = TRUE,
+                                                  http_version = 2,
+                                                  forbid_reuse = TRUE))
+```
+
+## Get GBIF download into R
+```{r gbif-dataset-to-R}
+occ_raw <- occ_download_import(x = gbif_download)
+```
+
+# Filter data
+
+## Define filters on occurrences
+```{r define-issues-to-discard}
+issues_to_discard <- c(
+  "ZERO_COORDINATE",
+  "COORDINATE_OUT_OF_RANGE", 
+  "COORDINATE_INVALID",
+  "COUNTRY_COORDINATE_MISMATCH"
+)
+```
+
+```{r define-occurrenceStatus-to-discard}
+occurrenceStatus_to_discard <- c(
+  "ABSENT")
+```
+
+```{r define-identificationVerificationStatus-to-discard}
+identificationVerificationStatus_to_discard <- c(
+  "unverified",
+  "not validated", 
+  "under validation"
+)
+```
+
+## Filter occurrences
+
+```{r filter-occurrence-data}
+occ_filtered <- occ_raw %>%
+  distinct(occurrenceID, .keep_all = TRUE) %>% # get rid of duplicates
+  filter(!is.na(decimalLongitude), !is.na(decimalLatitude)) %>% # filter out occs without coordinates
+  filter(!occurrenceStatus %in% occurrenceStatus_to_discard) %>%  # filter out absence data
+  filter(!issue %in% issues_to_discard) %>%   # filter out specified issues
+  filter(!identificationVerificationStatus %in% identificationVerificationStatus_to_discard) %>% # filter out verification status to discard
+  filter(!gbifID == 4430037392)   # manueel wegfilteren van foutieve waarneming van schijnambrosia of waarnemingen.be
+
+```
+
+## Filter occurrences for Flanders
+
+```{r make-spatial}
+occ_spatial <- st_as_sf(occ_filtered, coords = c("decimalLongitude", "decimalLatitude"),
+                 crs = "+proj=longlat +datum=WGS84")
+```
+
+```{r map-flanders}
+Vlaanderen_grenzen <- st_read("./prius/data/spatial/flanders_wgs84.geojson")
+```
+
+```{r filter-occ-flanders}
+occ_flanders_spatial <- st_transform(occ_spatial, crs = st_crs(Vlaanderen_grenzen)) %>%
+  st_join(Vlaanderen_grenzen) %>%
+  filter(!is.na(UIDN))
+
+#remove geometry, replace with lon, lat
+occ_flanders <- occ_flanders_spatial %>%
+  mutate(decimalLongitude = sf::st_coordinates(.)[,1],
+         decimalLatitude = sf::st_coordinates(.)[,2]) %>%
+  st_drop_geometry() 
+```
+
+# Summarise output
+
+## Map taxa to species
+Grouping by `speciesKey`, we lose information about which taxa share the same `speciesKey`. This information could be sometimes helpful. We extract it in a separate data.frame, `taxa_species`.
+
+```{r get-distinct-taxa-in-occ-flanders}
+occ_flanders_taxa <- occ_flanders %>%
+  select(speciesKey, taxonKey, scientificName) %>%
+  distinct()
+```
+
+Some species have occurrences coming from multiple taxa, synonyms and/or infraspecific taxa:
+```{r show-multiple-taxonKey}
+occ_flanders_taxa %>%
+  group_by(speciesKey) %>%
+  count() %>%
+  filter(n > 1) %>%
+  select(-n) %>%
+  left_join(occ_flanders_taxa, by = "speciesKey") %>%
+  arrange(speciesKey, taxonKey) %>%
+  pull(taxonKey) -> List_multiple_taxonKeys
+```
+
+Some species have occurrences only from taxa linked to their infraspecific taxa or synonyms. In these cases `speciesKey` is never equal to `taxonKey`:
+```{r show_taxa_speciesKey_not_taxonKey}
+occ_flanders_taxa %>%
+  group_by(speciesKey) %>%
+  count() %>%
+  rename(n_taxa = n) %>%
+  left_join(occ_flanders_taxa, by = "speciesKey") %>%
+  group_by(speciesKey, n_taxa) %>%
+  filter(taxonKey != speciesKey) %>%
+  count() %>%
+  rename(n_taxonKey_not_speciesKey = n) %>%
+  filter(n_taxonKey_not_speciesKey == n_taxa) %>%
+  left_join(occ_flanders_taxa %>%
+              filter(speciesKey != taxonKey),
+            by = "speciesKey") %>%
+  ungroup() %>%
+  select(-c(n_taxa, n_taxonKey_not_speciesKey)) %>%
+  arrange(speciesKey, taxonKey)
+```
+
+We create `taxa_species` by adding the taxonomic rank, `SPECIES`, and the taxonomic status of the species, one of `ACCEPTED` or `DOUBTFUL`, and create a column called `include` which contains all taxa whose occurrences are linked to the species:
+```{r make_taxa_species}
+taxa_species <- 
+  occ_flanders_taxa %>%
+  
+  # get unique 'speciesKey'
+  distinct(speciesKey) %>%
+
+  # extract speciesKey
+  pull(speciesKey) %>%
+
+  # GBIF query via name_usage
+  map(~name_usage(key = .x)) %>%
+
+  # Select data
+  map(~.x[["data"]]) %>%
+
+  # Merge all taxa in a data.frame
+  reduce(full_join) %>%
+
+  # select columns of interest
+  select(speciesKey, scientificName, rank, taxonomicStatus, kingdom) %>%
+  
+  # rename 'scientificName' to 'species_scientificName'
+  rename(species_scientificName = scientificName) %>%
+  
+  # add these columns to original df
+  right_join(occ_flanders_taxa, by = "speciesKey") %>%
+  
+  # group by 'speciesKey'
+  group_by(speciesKey,
+           species_scientificName,
+           rank,
+           taxonomicStatus,
+           kingdom) %>%
+  
+  # create 'includes' column
+  summarize(includes = paste(
+    taxonKey, 
+    scientificName, 
+    sep = ": ", 
+    collapse = " | ")) %>%
+  
+  # rename 'species_scientificName' to 'scientificName'
+  rename(scientificName = species_scientificName)
+```
+
+## Comparison radius_species_list and gbif occurrences
+
+```{r subset-columns}
+occ_flanders <- occ_flanders %>%
+  left_join(species_list, by = c("speciesKey" = "GBIF_code")) %>%
+  transmute(year, month, day, decimalLongitude, decimalLatitude, speciesKey, Species, Soort, coordinateUncertaintyInMeters) %>%  #following be_species_cube column formatting, can be changed if needed
+  arrange(year, month, day, speciesKey)
+```
+
+```{r comparison-species-list-gbif-occurrences}
+occ_flanders_summary <- occ_flanders %>%
+  group_by(speciesKey, Soort) %>%
+  summarise(n_obs = n())
+
+not_in_flanders <- species_list %>%
+  left_join(occ_flanders_summary, by = c("GBIF_code" = "speciesKey", "Soort")) %>%
+  filter(is.na(n_obs)) %>%
+  filter(!GBIF_code %in% List_multiple_taxonKeys) %>% #wegfilteren van synoniemen/subspecies/... die onder speciesKey van aanwezige soorten vallen
+  select(Groep, Species, Soort, GBIF_code)
+  
+in_flanders <- species_list %>%
+  left_join(occ_flanders_summary, by = c("GBIF_code" = "speciesKey", "Soort")) %>%
+  filter(!is.na(n_obs)) %>%
+  select(Groep, Species, Soort, GBIF_code, n_obs) %>%
+  arrange(desc(n_obs))
+
+List_species_present <- unique(in_flanders$Soort)
+List_species_not_present <- vsetdiff(unique(species_list$Soort) , List_species_present)
+
+write.csv(in_flanders, "./radius/data/intermediate/species_in_flanders.csv", row.names = FALSE)
+write.csv(not_in_flanders, "./radius/data/intermediate/species_not_in_flanders.csv", row.names = FALSE)
+```
+
+## Save occurrence dataset flanders
+
+```{r save-occurrence-dataset}
+write.csv2(occ_flanders, "./radius/data/input/gbif_occ_flanders.csv")
+```
+
+
+
+
