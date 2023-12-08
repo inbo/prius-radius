@@ -42,9 +42,6 @@ ensure_multipolygons <- function(X) {
 ```{r boundaries-flanders}
 Vlaanderen_grenzen <- st_read("./prius/data/spatial/flanders_wgs84.geojson")
 Provincies_grenzen <- st_read("./prius/data/spatial/Provincies.geojson")
-
-ggplot() +
-  geom_sf(data = Provincies_grenzen)
 ```
 
 # Habitatrichtlijndeelgebieden (ps:ps_hbtrl_deel)
@@ -66,12 +63,6 @@ ps_hbtrl_deel <- read_sf(request) %>%
   ensure_multipolygons()   # multisurface to multipolygon
 ```
 
-```{r ggplot-ps-hbtrl-deel}
-ggplot() +
-  geom_sf(data = Provincies_grenzen) +
-  geom_sf(data = ps_hbtrl_deel, color = "blue", fill = "blue")
-```
-
 # Vogelrichtlijngebieden (ps:ps_vglrl)
 
 ```{r get-ps-vgrl}
@@ -88,12 +79,6 @@ ps_vglrl <- read_sf(request) %>%
   ensure_multipolygons()   
 ```
 
-```{r ggplot-ps-vglrl}
-ggplot() +
-  geom_sf(data = Provincies_grenzen) +
-  geom_sf(data = ps_vglrl, color = "orange", fill = "orange")
-```
-
 # Biologische waarderingskaart (BWK:Bwkhab)
 
 ## wegens max.van 10.000 features bij inladen WFS,laadt ik de BWK/Natura2000 Habitatkaart in als shapefile
@@ -101,12 +86,6 @@ ggplot() +
 ```{r import-shapefile-bwkhab}
 bwkhab <- st_read("./radius/data/spatial/BwkHab.shp") %>%
   st_transform("+proj=longlat +datum=WGS84")
-```
-
-```{r ggplot-bwkhab}
-ggplot() +
-  geom_sf(data = Provincies_grenzen) +
-  geom_sf(data = bwkhab, fill = "purple", color = "purple")
 ```
 
 # ANB Patrimonium databank (am:am_patdat)
@@ -125,12 +104,6 @@ am_patdat <- read_sf(request) %>%
   ensure_multipolygons()   
 ```
 
-```{r ggplot-am-patdat}
-ggplot() +
-  geom_sf(data = Provincies_grenzen) +
-  geom_sf(data = am_patdat, fill = "red", color = "red")
-```
-
 # Natuurbeheerplannen (ps:ps_nbhp)
 
 ```{r get-ps-nbhp}
@@ -145,10 +118,4 @@ ps_nbhp <- read_sf(request) %>%
   st_set_crs(31370) %>%  
   st_transform("+proj=longlat +datum=WGS84") %>%  
   ensure_multipolygons()   
-```
-
-```{r ggplot-ps-nbhp}
-ggplot() +
-  geom_sf(data = Provincies_grenzen) +
-  geom_sf(data = ps_nbhp, fill = "green", color = "green")
 ```
