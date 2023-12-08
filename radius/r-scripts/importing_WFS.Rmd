@@ -86,6 +86,13 @@ ps_vglrl <- read_sf(request) %>%
 ```{r import-shapefile-bwkhab}
 bwkhab <- st_read("./radius/data/spatial/BwkHab.shp") %>%
   st_transform("+proj=longlat +datum=WGS84")
+
+# aanpassing bwk/n2000 habitatkaart voor gebruik in RadIUS
+bwkhab_adj <- bwkhab %>% 
+  mutate(HAB1 = str_sub(bwkhab$HAB1, 1, 4)) %>%  # only retain the first part of the HAB1 string
+  group_by(HAB1) %>%                             # summarise df to retain one line per HAB1 value
+  summarise() %>%                                    
+  filter(grepl('^[0-9]', HAB1))                  # remove non-n2000 habitats
 ```
 
 # ANB Patrimonium databank (am:am_patdat)
