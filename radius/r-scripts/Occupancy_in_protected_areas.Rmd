@@ -5,13 +5,6 @@ date: "2023-11-17"
 output: html_document
 ---
 
-Importing WFS maps needed for RadIUS: 
-    1. [habitatrichtlijnkaart](https://www.vlaanderen.be/datavindplaats/catalogus/habitatrichtlijndeelgebieden)
-    2. [vogelrichtlijnkaart](https://www.vlaanderen.be/datavindplaats/catalogus/vogelrichtlijngebieden)
-    3. [BWK Habitatkaart](https://www.vlaanderen.be/datavindplaats/catalogus/biologische-waarderingskaart-en-natura-2000-habitatkaart-toestand-2020)
-    4. [ANB patrimoniumdata](https://www.vlaanderen.be/datavindplaats/catalogus/openbare-bossen-en-natuurdomeinen-beheerd-door-anb-in-naam-van-de-vlaamse-overheid) 
-    5. [Natuurbeheerplannen](https://www.vlaanderen.be/datavindplaats/catalogus/natuurbeheerplannen)
-
 ```{r load-packages}
 library(sf)
 library(tidyverse) 
