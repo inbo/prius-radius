@@ -161,18 +161,19 @@ list.results <- list(
 for (soort in unique(occ_flanders$Soort)) {
   print(soort)
   
-  occ_temp <- occ_flanders[occ_flanders$Soort == soort,]
-  disp_dist <- unique(occ_temp$disp_dist)
+  #extract species occurrence
+  occ_species <- occ_flanders[occ_flanders$Soort == soort,]
+  disp_dist <- unique(occ_species$disp_dist)
   
-  # Creëer een buffer rond soortwaarnemingen op basis van dispersieafstand
-  occ_temp_buf <- occ_temp %>%
+  # Creëer een buffer rond soortwaarnemingen op basis van dispersieafstand + union tot puntenwolk
+  occ_species_buf <- occ_species %>%
     st_buffer(dist = disp_dist) %>%
     st_union() %>% 
     st_cast('POLYGON') %>% 
     st_sf() %>%
     mutate(area = st_area(.))
   
-  total_area <- sum(occ_temp_buf$area)
+  total_area <- sum(occ_species_buf$area)
   
   print(paste("Totale oppervlakte: ", format(round(total_area, 2))))
 
@@ -183,17 +184,17 @@ for (soort in unique(occ_flanders$Soort)) {
     gebied <- list.dfs[[i]] %>%
       st_transform(31370) 
 
-    occ_temp_buf <- occ_temp_buf %>%
+    occ_species_buf <- occ_species_buf %>%
         st_transform(31370)
     
     # Intersection tussen waarnemingsgegevens en wfs-data
-    occ_intersection <- occ_temp_buf %>%
+    occ_species_intersection <- occ_species_buf %>%
       st_intersection(gebied) %>% 
       mutate(intersect_area = st_area(.)) %>%
       st_transform(31370)
     
-    overlap_intersection <- sum(occ_intersection$intersection_oppervlakte)
-    percentage_overlap = as.numeric(sum(occ_intersection$intersect_area)/total_area)
+    overlap_intersection <- sum(occ_species_intersection$intersection_oppervlakte)
+    percentage_overlap = as.numeric(sum(occ_species_intersection$intersect_area)/total_area)
     
     print(paste("Totale oppervlakte die overlapt met ", names(list.dfs)[i], " = ", format(round(overlap_intersection, 3)), "m²"))
     print(paste("Percentage van totale oppervlakte die overlapt met", names(list.dfs)[i], " = ", format(round(percentage_overlap, 3))))
@@ -204,12 +205,12 @@ for (soort in unique(occ_flanders$Soort)) {
       Gebiedstype = names(list.dfs)[i],
       Percentage_Overlap = percentage_overlap))
     
-    # Bereken het overlappercentage per gebied 
-    overlap_per_gebied <- occ_intersection %>%
+    # Bereken het overlap percentage per gebied 
+    overlap_per_gebied <- occ_species_intersection %>%
       group_by(naam = if (i == 2) gebnaam else if (i == 3) naamdossier else if (i == 4) domeinnaam else if (i == 5) HAB1 else naam) %>%
       summarise(intersect_area = sum(intersect_area)) 
     
-    # Bij alle soorten gebieden (habitatrichtlijn, vogelrichtlijn, natuurbeheerplannen, ANB patrimoniumdatabank), behalve habitatkaart (i = 5), selecteren we alleen de top 3 gebieden
+    # bij alle gebieden (habitatrichtlijn, vogelrichtlijn, natuurbeheerplannen, ANB patrimoniumdatabank), behalve habitatkaart (i = 5), selecteren we alleen de top 3 gebieden
     if (i != 5) {
       overlap_per_gebied <- overlap_per_gebied %>%
         slice_max(order_by = intersect_area, n = 3, na_rm = TRUE) %>%
@@ -234,7 +235,7 @@ for (soort in unique(occ_flanders$Soort)) {
     # Voor natuurbeheerplannen (i = 3) kijken we ook naar beheerplantype en eigendomstype
     if (i == 3) {
       for (j in c(6,9)) {
-        overlap_nbhp <- occ_intersection %>%
+        overlap_nbhp <- occ_species_intersection %>%
           group_by(across(j)) %>%
           summarise(intersect_area = sum(intersect_area)) %>%
           arrange() %>%
@@ -257,7 +258,7 @@ for (soort in unique(occ_flanders$Soort)) {
     # Voor ANB patrimonium databank (i = 4) kijken we ook naar de afzonderlijke regio's en de verschillende anb rechten
     if (i == 4) {
       for (j in c(6,7)) {
-        overlap_patdat <- occ_intersection %>%
+        overlap_patdat <- occ_species_intersection %>%
           group_by(across(j)) %>%
           summarise(intersect_area = sum(intersect_area)) %>%
           arrange() %>%
@@ -279,21 +280,21 @@ for (soort in unique(occ_flanders$Soort)) {
     gebied <- gebied %>%
         st_transform(4326)
       
-    occ_temp_buf <- occ_temp_buf %>%
+    occ_species_buf <- occ_species_buf %>%
         st_transform(4326)
       
-    occ_intersection <- occ_intersection %>%
+    occ_species_intersection <- occ_species_intersection %>%
         st_transform(4326)
     
-    occ_temp <- occ_temp %>%
+    occ_species <- occ_species %>%
         st_transform(4326)
     
     #print(leaflet() %>%
     #        addTiles() %>%
     #        addPolygons(data = gebied, color = "green") %>%
-    #        addPolygons(data = occ_temp_buf, color = "blue", label = ~area) %>%
-    #        addPolygons(data = occ_intersection, color = "red", label = ~intersect_area) %>%
-    #        addCircleMarkers(data = occ_temp, color = "black", radius = 1, fillOpacity = 1, fillColor = "black") %>%
+    #        addPolygons(data = occ_species_buf, color = "blue", label = ~area) %>%
+    #        addPolygons(data = occ_species_intersection, color = "red", label = ~intersect_area) %>%
+    #        addCircleMarkers(data = occ_species, color = "black", radius = 1, fillOpacity = 1, fillColor = "black") %>%
     #        addControl(paste("<P><b>Soort: ", soort, "</b><br/>Gebied: ", i, "<br/>") ,position = 'topright'))
     
   }
