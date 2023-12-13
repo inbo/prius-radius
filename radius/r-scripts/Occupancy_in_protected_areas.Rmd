@@ -1,17 +1,11 @@
----
-title: "Calculating occupancy in protected areas"
-author: "Fleur Petersen"
-date: "2023-11-17"
-output: html_document
----
-
-```{r load-packages, include=FALSE}
+```{r load-packages}
 library(sf)
 library(tidyverse) 
 library(httr)
 library(ows4R) 
 library(leaflet)
 library(gdalUtilities)
+library(ggplot2)
 ```
 
 ```{r clear-memory}
@@ -46,7 +40,6 @@ occ_flanders <- read.csv2("./radius/data/input/gbif_occ_flanders.csv") %>%
   filter(Soort %in% c("watercrassula", "kleine waterteunisbloem", "heilige ibis", "Chinese muntjak", "hemelboom"))
 ```
 
-
 ```{r boundaries-flanders}
 Vlaanderen_grenzen <- st_read("./prius/data/spatial/flanders_wgs84.geojson")
 Provincies_grenzen <- st_read("./prius/data/spatial/Provincies.geojson")
@@ -70,6 +63,10 @@ ps_hbtrl_deel <- read_sf(request) %>%
   ensure_multipolygons()   # multisurface to multipolygon
 ```
 
+```{r quick-visual-check}
+ggplot() + geom_sf(data = ps_hbtrl_deel, aes(color = gebcode))
+```
+
 # Vogelrichtlijngebieden (ps:ps_vglrl)
 
 ```{r get-ps-vgrl}
@@ -83,6 +80,10 @@ request <- build_url(url)
 ps_vglrl <- read_sf(request) %>%
   st_set_crs(31370) %>%  
   ensure_multipolygons()   
+```
+
+```{r quick-visual-check}
+ggplot() + geom_sf(data = ps_vglrl, aes(color = na2000code))
 ```
 
 # Biologische waarderingskaart (BWK:Bwkhab)
@@ -101,6 +102,10 @@ bwkhab_adj <- bwkhab %>%
   filter(grepl('^[0-9]', HAB1))                  # remove non-n2000 habitats
 ```
 
+```{r quick-visual-check}
+ggplot() + geom_sf(data = bwkhab_adj)
+```
+
 # ANB Patrimonium databank (am:am_patdat)
 
 ```{r ANB patrimonium databank (am:am_patdat)}
@@ -116,6 +121,11 @@ am_patdat <- read_sf(request) %>%
   ensure_multipolygons()   
 ```
 
+```{r quick-visual-check}
+ggplot() + geom_sf(data = am_patdat, aes(color = regio))
+# Oppassen : er (b)lijken enkel NA's onder regio te zitten?
+```
+
 # Natuurbeheerplannen (ps:ps_nbhp)
 
 ```{r get-ps-nbhp}
@@ -129,6 +139,10 @@ request <- build_url(url)
 ps_nbhp <- read_sf(request) %>%
   st_set_crs(31370) %>%  
   ensure_multipolygons()   
+```
+
+```{r quick-visual-check}
+ggplot() + geom_sf(data = ps_nbhp)
 ```
 
 # Calculation occurrence metrics in protected areas
@@ -302,8 +316,6 @@ for (soort in unique(occ_flanders$Soort)) {
 
 ```
 
-
 ```{r save-list-results-as-RData-file}
 saveRDS(list.results, file="./radius/data/output/list_results.RData")
 ```
-
