@@ -207,7 +207,7 @@ for (soort in unique(occ_flanders$Soort)) {
       mutate(intersect_area = st_area(.)) %>%
       st_transform(31370)
     
-    overlap_intersection <- sum(occ_species_intersection$intersection_oppervlakte)
+    overlap_intersection <- sum(occ_species_intersection$intersect_area)
     percentage_overlap = as.numeric(sum(occ_species_intersection$intersect_area)/total_area)
     
     print(paste("Totale oppervlakte die overlapt met ", names(list.dfs)[i], " = ", format(round(overlap_intersection, 3)), "m²"))
