@@ -126,31 +126,6 @@ ggplot() + geom_sf(data = am_patdat, aes(color = regio))
 # Oppassen : er (b)lijken enkel NA's onder regio te zitten?
 ```
 
-# Add columns with abbreviations
-```{r}
-am_patdat <- am_patdat %>%
-  mutate(rechtenanb_abb = case_when(
-    rechtenanb == "Technisch beheer conform bosdecreet" ~ "Bosdec",
-    rechtenanb == "Eigendom" ~ "Eigend",
-    rechtenanb == "Huur" ~ "Huur",
-    rechtenanb == "Beheerovereenkomst" ~ "BehOve",
-    rechtenanb == "Protocol landsverdediging" ~ "ProLan",
-    rechtenanb == "Erfpacht" ~ "Erfpac")) %>%
-  mutate(regio_abb = case_when(
-    regio == "Antwerpse Kempen" ~ "AntKem",
-    regio == "Hoge Kempen tot Voeren" ~ "HKeVoe",
-    regio == "Groene Gordels" ~ "GroGor",
-    regio == "Brabantse Wouden" ~ "BraWou",
-    regio == "Demerland & Zuiderkempen" ~ "DemZKe",
-    regio == "Vlaamse Ardennen & Schelde-Leie" ~ "VArSch",
-    regio == "Kust & Westhoek" ~ "KusWes",
-    regio == "Taxandria" ~ "Taxand",
-    regio == "Lage tot aan Hoge Kempen" ~ "LtHKem",
-    regio == "Zandig Vlaanderen" ~ "ZanVla",
-  ))
-```
-
-
 # Natuurbeheerplannen (ps:ps_nbhp)
 
 ```{r get-ps-nbhp}
@@ -170,6 +145,55 @@ ps_nbhp <- read_sf(request) %>%
 ggplot() + geom_sf(data = ps_nbhp)
 ```
 
+# Add columns with abbreviations
+```{r add-abbreviations-patdat}
+am_patdat <- am_patdat %>%
+  mutate(rechtenanb_abb = case_when(
+    rechtenanb == "Technisch beheer conform bosdecreet" ~ "Bosdec",
+    rechtenanb == "Eigendom" ~ "Eigend",
+    rechtenanb == "Huur" ~ "Huur",
+    rechtenanb == "Beheerovereenkomst" ~ "BehOve",
+    rechtenanb == "Protocol landsverdediging" ~ "ProLan",
+    rechtenanb == "Erfpacht" ~ "Erfpac")) %>%
+  mutate(regio_abb = case_when(
+    regio == "Antwerpse Kempen" ~ "AntKem",
+    regio == "Hoge Kempen tot Voeren" ~ "HKeVoe",
+    regio == "Groene Gordels" ~ "GroGor",
+    regio == "Brabantse Wouden" ~ "BraWou",
+    regio == "Demerland & Zuiderkempen" ~ "DemZKe",
+    regio == "Vlaamse Ardennen & Schelde-Leie" ~ "VArSch",
+    regio == "Kust & Westhoek" ~ "KusWes",
+    regio == "Taxandria" ~ "Taxand",
+    regio == "Lage tot aan Hoge Kempen" ~ "LtHKem",
+    regio == "Zandig Vlaanderen" ~ "ZanVla"
+  ))
+```
+
+```{r add-abbreviations-nbhp}
+ps_nbhp <- ps_nbhp %>%
+  mutate(natuurbeheerplantype_abb = case_when(
+    natuurbeheerplantype == "Natuurbeheerplan Type 1" ~ "Type1",
+    natuurbeheerplantype == "Natuurbeheerplan Type 2" ~ "Type2",
+    natuurbeheerplantype == "Natuurbeheerplan Type 3" ~ "Type3",
+    natuurbeheerplantype == "Natuurbeheerplan Type 4" ~ "Type4",
+    natuurbeheerplantype == "Uitgebreid Bosbeheerplan" ~ "BosbeU",
+    natuurbeheerplantype == "Beheerplan Militair domein" ~ "MilDom",
+    natuurbeheerplantype == "Vlaams Natuurreservaat" ~ "VNatre",
+    natuurbeheerplantype == "Aangewezen Bosreservaat" ~ "BosreA",
+    natuurbeheerplantype == "Harmonisch Park- en Groenbeheerplan" ~ "HarmPG",
+    natuurbeheerplantype == "Erkend Natuurreservaat" ~ "Natres",
+    natuurbeheerplantype == "Erkend Bosreservaat" ~ "BosreE")) %>%
+  mutate(eigendomtype_abb = case_when(
+    eigendomtype == "Natuurlijke persoon" ~ "NatPer",
+    eigendomtype == "Privaatrechtelijke rechtspersoon" ~ "PrivRec",
+    eigendomtype == "Agentschap voor Natuur en Bos" ~ "VOANB",
+    eigendomtype == "Bestuur" ~ "Bestuur",
+    eigendomtype == "Andere Vlaamse overheid" ~ "VOander",
+    eigendomtype == "Andere" ~ "Andere"
+  ))
+```
+
+
 # Calculating occupancy metrics in protected areas
 ```{r}
 # list wfs-maps
@@ -177,7 +201,8 @@ list.dfs <- list(
   HBTRL = ps_hbtrl_deel,
   VGLRL = ps_vglrl,
   BWKHAB = bwkhab_adj,
-  PATDAT = am_patdat
+  PATDAT = am_patdat,
+  NBHP = ps_nbhp
   )
 
 # per wfs-map, one output dataframe with results
@@ -185,7 +210,8 @@ list.results <- list(
   HBTRL = data.frame(),
   VGLRL = data.frame(),
   BWKHAB = data.frame(),
-  PATDAT = data.frame()
+  PATDAT = data.frame(),
+  NBHP = data.frame()
   )
 
 for (soort in unique(occ_flanders$Soort)) {
@@ -292,7 +318,7 @@ for (soort in unique(occ_flanders$Soort)) {
     
     # occupancy metrics for PATDAT (i = 4)
     if (i == 4) {
-      # totaal aantal domeinen (nDomeinen)
+      # totaal aantal domeinen waarmee verspreiding overlapt
       list.results[[i]] <- rbind(list.results[[i]], data.frame(
           Soort = soort,
           Gebied = "nDomeinen",
@@ -311,7 +337,7 @@ for (soort in unique(occ_flanders$Soort)) {
           Value = as.character(anb_rechten[row,2])))
       }
       
-      # percentage overlap met anb domeinen (inANB)
+      # percentage overlap met anb domeinen
       list.results[[i]] <- rbind(list.results[[i]], data.frame(
         Soort = soort,
         Gebied = paste0("in", names(list.dfs)[i]),
@@ -344,7 +370,58 @@ for (soort in unique(occ_flanders$Soort)) {
           Soort = soort,
           Gebied = paste0("of", as.character(overlap_per_anb_regio[row,1])),
           Value = format(round(percentage_overlap_of, 3))))
-        }
+      }
+    }
+    
+    # occupancy metrics for NBHP (i = 5)
+    if (i == 5) {
+      # totaal aantal gebieden waarmee verspreiding overlapt
+      list.results[[i]] <- rbind(list.results[[i]], data.frame(
+          Soort = soort,
+          Gebied = "nNBHP",
+          Value = length(unique(occ_species_intersection$id))))
+
+      # aantal bezette domeinen per type natuurbeheerplan
+      nbhp_type <- occ_species_intersection %>%
+        group_by(id) %>%
+        st_drop_geometry() %>%
+        mutate(buf_area = sum(buf_area),
+              intersect_area = sum(intersect_area)) %>%
+        unique()
+        
+        
+      n_per_type <- nbhp_type %>%
+        group_by(natuurbeheerplantype_abb) %>%
+        summarise(n = n()) 
+      
+      for (row in 1:nrow(n_per_type)) {
+        list.results[[i]] <- rbind(list.results[[i]], data.frame(
+          Soort = soort,
+          Gebied = paste0("n", as.character(n_per_type[row,1])),
+          Value = as.character(n_per_type[row,2])))
+      }
+      
+      # percentage overlap met natuurbeheerplannen
+      list.results[[i]] <- rbind(list.results[[i]], data.frame(
+        Soort = soort,
+        Gebied = paste0("in", names(list.dfs)[i]),
+        Value = format(round(percentage_overlap_in, 3))))
+      
+      # percentage overlap per eigendomtype
+      overlap_per_eigendomtype <- occ_species_intersection %>%
+        group_by(eigendomtype_abb) %>%
+        summarise(intersect_area = sum(intersect_area)) %>%
+        arrange() %>%
+        st_drop_geometry()
+      
+      for (row in 1: nrow(overlap_per_eigendomtype)) {
+        percentage_overlap_in = as.numeric(overlap_per_eigendomtype[row,]$intersect_area / total_area)
+        
+        list.results[[i]] <- rbind(list.results[[i]], data.frame(
+          Soort = soort,
+          Gebied = paste0("in", as.character(overlap_per_eigendomtype[row,1])),
+          Value = format(round(percentage_overlap_in, 3))))
+      } 
     }
   }    
 }
@@ -362,6 +439,9 @@ BWKHAB <- list.results$BWKHAB %>%
   pivot_wider(names_from = Gebied, values_from = Percentage_Overlap, values_fill = "0")
 
 PATDAT <- list.results$PATDAT %>%
+  pivot_wider(names_from = Gebied, values_from = Value, values_fill = "0")
+
+NBHP <- list.results$NBHP %>%
   pivot_wider(names_from = Gebied, values_from = Value, values_fill = "0")
 ```
 
