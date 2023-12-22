@@ -150,13 +150,15 @@ ggplot() + geom_sf(data = ps_nbhp)
 # list wfs-maps
 list.dfs <- list(
   HBTRL = ps_hbtrl_deel,
-  VGLRL = ps_vglrl
+  VGLRL = ps_vglrl,
+  BWKHAB = bwkhab_adj
   )
 
 # per wfs-map, one output dataframe with results
 list.results <- list(
   HBTRL = data.frame(),
-  VGLRL = data.frame()
+  VGLRL = data.frame(),
+  BWKHAB = data.frame()
   )
 
 for (soort in unique(occ_flanders$Soort)) {
@@ -226,6 +228,40 @@ for (soort in unique(occ_flanders$Soort)) {
           Percentage_Overlap = format(round(percentage_overlap_of, 3))))
       }
     }
+    
+    # occupancy metrics for BWKHAB (i = 3)
+    if (i == 3) {
+      list.results[[i]] <- rbind(list.results[[i]], data.frame(
+        Soort = soort,
+        Gebied = paste0("in", names(list.dfs)[i]),
+        Percentage_Overlap = format(round(percentage_overlap_in, 3))))
+      
+      list.results[[i]] <- rbind(list.results[[i]], data.frame(
+        Soort = soort,
+        Gebied = paste0("of", names(list.dfs)[i]),
+        Percentage_Overlap = format(round(percentage_overlap_of, 3))))
+      
+      overlap_per_gebied <- occ_species_intersection %>%
+        group_by(code = HAB1) %>%
+        summarise(intersect_area = sum(intersect_area)) %>%
+        st_drop_geometry() 
+      
+      for (row in 1:nrow(overlap_per_gebied)) {
+        percentage_overlap_in = as.numeric(overlap_per_gebied[row,]$intersect_area / total_area)
+        
+        list.results[[i]] <- rbind(list.results[[i]], data.frame(
+          Soort = soort,
+          Gebied = paste0("inHAB", as.character(overlap_per_gebied[row,1])),
+          Percentage_Overlap = format(round(percentage_overlap_in, 3))))
+          
+        percentage_overlap_of = as.numeric(overlap_per_gebied[row,]$intersect_area / sum(gebied$geb_area))
+        
+        list.results[[i]] <- rbind(list.results[[i]], data.frame(
+          Soort = soort,
+          Gebied = paste0("ofHAB", as.character(overlap_per_gebied[row,1])),
+          Percentage_Overlap = format(round(percentage_overlap_of, 3))))
+      }
+    }
   }
 }
 ```
@@ -236,6 +272,9 @@ HBTRL <- list.results$HBTRL %>%
   pivot_wider(names_from = Gebied, values_from = Percentage_Overlap, values_fill = "0")
 
 VGLRL <- list.results$VGLRL %>%
+  pivot_wider(names_from = Gebied, values_from = Percentage_Overlap, values_fill = "0")
+
+BWKHAB <- list.results$BWKHAB %>%
   pivot_wider(names_from = Gebied, values_from = Percentage_Overlap, values_fill = "0")
 ```
 
