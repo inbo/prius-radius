@@ -149,12 +149,14 @@ ggplot() + geom_sf(data = ps_nbhp)
 ```{r}
 # list wfs-maps
 list.dfs <- list(
-  HBTRL = ps_hbtrl_deel
+  HBTRL = ps_hbtrl_deel,
+  VGLRL = ps_vglrl
   )
 
 # per wfs-map, one output dataframe with results
 list.results <- list(
-  HBTRL = data.frame()
+  HBTRL = data.frame(),
+  VGLRL = data.frame()
   )
 
 for (soort in unique(occ_flanders$Soort)) {
@@ -191,8 +193,8 @@ for (soort in unique(occ_flanders$Soort)) {
     percentage_overlap_in <- as.numeric(sum(occ_species_intersection$intersect_area)/total_area)
     percentage_overlap_of <- as.numeric(sum(occ_species_intersection$intersect_area)/sum(gebied$geb_area))
     
-    # occupancy metrics for HBTRL (i = 1)
-    if (i %in% c(1)) {
+    # occupancy metrics for HBTRL (i = 1) and VGLRL (i = 2)
+    if (i %in% c(1, 2)) {
       list.results[[i]] <- rbind(list.results[[i]], data.frame(
         Soort = soort,
         Gebied = paste0("in", names(list.dfs)[i]),
@@ -204,7 +206,7 @@ for (soort in unique(occ_flanders$Soort)) {
         Percentage_Overlap = format(round(percentage_overlap_of, 3))))
       
       overlap_per_gebied <- occ_species_intersection %>%
-        group_by(code = gebcode) %>%
+        group_by(code = if (i == 2) na2000code else gebcode) %>%
         summarise(intersect_area = sum(intersect_area)) %>%
         st_drop_geometry() 
       
@@ -231,6 +233,9 @@ for (soort in unique(occ_flanders$Soort)) {
 # Adjust column format from long to wide
 ```{r}
 HBTRL <- list.results$HBTRL %>%
+  pivot_wider(names_from = Gebied, values_from = Percentage_Overlap, values_fill = "0")
+
+VGLRL <- list.results$VGLRL %>%
   pivot_wider(names_from = Gebied, values_from = Percentage_Overlap, values_fill = "0")
 ```
 
