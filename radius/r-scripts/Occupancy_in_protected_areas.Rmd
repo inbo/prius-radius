@@ -202,7 +202,8 @@ list.dfs <- list(
   VGLRL = ps_vglrl,
   BWKHAB = bwkhab_adj,
   PATDAT = am_patdat,
-  NBHP = ps_nbhp
+  NBHP = ps_nbhp,
+  TOP3 = data.frame()
 )
 
 # initialize a list for results
@@ -214,11 +215,10 @@ for (soort in unique(occ_flanders$Soort)) {
   
   # extract species occurrence
   occ_species <- occ_flanders[occ_flanders$Soort == soort,]
-  disp_dist <- unique(occ_species$disp_dist)
-  
+
   # add buffer around species occurrences based on dispersal distance + union
   occ_species_buf <- occ_species %>%
-    st_buffer(dist = disp_dist) %>%
+    st_buffer(dist = unique(occ_species$disp_dist)) %>%
     st_union() %>% 
     st_cast('POLYGON') %>% 
     st_sf() %>%
@@ -227,7 +227,7 @@ for (soort in unique(occ_flanders$Soort)) {
   total_area <- sum(occ_species_buf$buf_area)
   
   # loop through wfs-maps to calculate occupancy metrics
-  for (i in seq_along(list.dfs)) {
+  for (i in c(1:5)) {
     
     # transform CRS to Lambert 72 to use st_buffer with meters instead of decimal degrees
     gebied <- list.dfs[[i]] %>%
@@ -280,6 +280,7 @@ for (soort in unique(occ_flanders$Soort)) {
           list.results[[i]] <- rbind(list.results[[i]], metrics_df)
         }
       }
+      
     
       # occupancy metrics for PATDAT (i = 4)
       if (i == 4) {
@@ -366,6 +367,53 @@ for (soort in unique(occ_flanders$Soort)) {
             Overlap = format(round(percentage_overlap_in, 3))))
         } 
       }
+      
+      # Top 3 gebieden voor HBTRL, VGLRL, NBHP
+      
+      if (i %in% c(1,2,5)) {
+          top_3 <- occ_species_intersection %>%
+            group_by(naam = if (i == 2) gebnaam else if (i == 5) naamdossier else naam) %>%
+            summarise(intersect_area = sum(intersect_area)) %>%
+            slice_max(order_by = intersect_area, n = 3, na_rm = TRUE) %>%
+            st_drop_geometry()
+          
+          for (row in 1:nrow(top_3)) {
+            list.results[[6]] <- rbind(list.results[[6]], data.frame(
+              Soort = soort,
+              Gebied = paste0(names(list.dfs)[i], row),
+              Overlap = as.character(top_3[row,1])))
+          }
+      }
+      
+      # Top 3 anb regio's en domeinen
+      
+      if (i == 4) {
+        top_3_regio <- occ_species_intersection %>%
+            group_by(regio) %>%
+            summarise(intersect_area = sum(intersect_area)) %>%
+            slice_max(order_by = intersect_area, n = 3, na_rm = TRUE) %>%
+            st_drop_geometry()
+        
+        for (row in 1:nrow(top_3_regio)) {
+            list.results[[6]] <- rbind(list.results[[6]], data.frame(
+              Soort = soort,
+              Gebied = paste0(names(list.dfs)[i], "regio", row),
+              Overlap = as.character(top_3_regio[row,1])))
+        }
+        
+        top_3_domein <- occ_species_intersection %>%
+            group_by(domeinnaam) %>%
+            summarise(intersect_area = sum(intersect_area)) %>%
+            slice_max(order_by = intersect_area, n = 3, na_rm = TRUE) %>%
+            st_drop_geometry()
+        
+        for (row in 1:nrow(top_3_domein)) {
+            list.results[[6]] <- rbind(list.results[[6]], data.frame(
+              Soort = soort,
+              Gebied = paste0(names(list.dfs)[i], "domein", row),
+              Overlap = as.character(top_3_domein[row,1])))
+        }
+      }
     }
   }    
 }
@@ -386,6 +434,9 @@ PATDAT <- list.results$PATDAT %>%
   pivot_wider(names_from = Gebied, values_from = Overlap, values_fill = "0")
 
 NBHP <- list.results$NBHP %>%
+  pivot_wider(names_from = Gebied, values_from = Overlap, values_fill = "0")
+
+TOP3 <- list.results$TOP3 %>%
   pivot_wider(names_from = Gebied, values_from = Overlap, values_fill = "0")
 ```
 
