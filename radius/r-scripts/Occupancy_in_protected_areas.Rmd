@@ -195,7 +195,7 @@ ps_nbhp <- ps_nbhp %>%
 
 
 # Calculating occupancy metrics in protected areas
-```{r warning=FALSE}
+```{r calculate-occupancy-metrics, warning=FALSE}
 # list wfs-maps
 list.dfs <- list(
   HBTRL = ps_hbtrl_deel,
@@ -420,21 +420,26 @@ for (soort in unique(occ_flanders$Soort)) {
 ```
 
 # Adjust column format from long to wide
-```{r}
+```{r column-format-long-to-wide}
 HBTRL <- list.results$HBTRL %>%
-  pivot_wider(names_from = Gebied, values_from = Overlap, values_fill = "0")
+  pivot_wider(names_from = Gebied, values_from = Overlap, values_fill = "0") %>%
+  select(Soort, contains("in"), contains("of"))
 
 VGLRL <- list.results$VGLRL %>%
-  pivot_wider(names_from = Gebied, values_from = Overlap, values_fill = "0")
+  pivot_wider(names_from = Gebied, values_from = Overlap, values_fill = "0") %>%
+  select(Soort, contains("in"), contains("of"))
 
 BWKHAB <- list.results$BWKHAB %>%
-  pivot_wider(names_from = Gebied, values_from = Overlap, values_fill = "0")
+  pivot_wider(names_from = Gebied, values_from = Overlap, values_fill = "0") %>%
+  select(Soort, contains("in"), contains("of"))
 
 PATDAT <- list.results$PATDAT %>%
-  pivot_wider(names_from = Gebied, values_from = Overlap, values_fill = "0")
+  pivot_wider(names_from = Gebied, values_from = Overlap, values_fill = "0") %>%
+  select(Soort, starts_with("n"), starts_with("in"), starts_with("of"))
 
 NBHP <- list.results$NBHP %>%
-  pivot_wider(names_from = Gebied, values_from = Overlap, values_fill = "0")
+  pivot_wider(names_from = Gebied, values_from = Overlap, values_fill = "0") %>%
+  select(Soort, starts_with("n"), starts_with("in"))
 
 TOP3 <- list.results$TOP3 %>%
   pivot_wider(names_from = Gebied, values_from = Overlap, values_fill = "0")
@@ -443,3 +448,13 @@ TOP3 <- list.results$TOP3 %>%
 ```{r save-list-results-as-RData-file}
 saveRDS(list.results, file="./radius/data/output/list_results.RData")
 ```
+
+```{r save-separate-dfs-as-csv}
+write.csv(HBTRL, "./radius/data/output/HBTRL.csv", row.names=FALSE)
+write.csv(VGLRL, "./radius/data/output/VGLRL.csv", row.names=FALSE)
+write.csv(BWKHAB, "./radius/data/output/BWKHAB.csv", row.names=FALSE)
+write.csv(PATDAT, "./radius/data/output/PATDAT.csv", row.names=FALSE)
+write.csv(NBHP, "./radius/data/output/NBHP.csv", row.names=FALSE)
+write.csv(TOP3, "./radius/data/output/TOP3.csv", row.names=FALSE)
+```
+
