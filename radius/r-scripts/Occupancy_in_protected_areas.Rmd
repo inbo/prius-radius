@@ -415,6 +415,15 @@ for (soort in unique(occ_flanders$Soort)) {
         }
       }
     }
+    
+    else {  # create empty row if there's no overlap 
+      metrics_df <- data.frame(
+        Soort = soort,
+        Gebied = paste0(c("in", "of"), names(list.dfs)[i]),
+        Overlap = 0)
+      
+      list.results[[i]] <- rbind(list.results[[i]], metrics_df)
+    }
   }    
 }
 ```
@@ -442,7 +451,7 @@ NBHP <- list.results$NBHP %>%
   select(Soort, starts_with("n"), starts_with("in"))
 
 TOP3 <- list.results$TOP3 %>%
-  pivot_wider(names_from = Gebied, values_from = Overlap, values_fill = "0")
+  pivot_wider(names_from = Gebied, values_from = Overlap, values_fill = "-")
 ```
 
 ```{r save-list-results-as-RData-file}
