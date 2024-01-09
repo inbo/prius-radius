@@ -31,7 +31,7 @@ species_list <- read_csv("./radius/data/input/radius_species_list.csv") %>%
 ```
 
 ```{r import-species-occ}
-occ_flanders <- read.csv("./radius/data/input/gbif_occ_flanders.csv") %>%
+occ_flanders <- read_csv("./radius/data/input/gbif_occ_flanders.csv") %>%
   left_join(species_list, by = c("speciesKey" = "GBIF_code", "Soort")) %>%
   select(year, decimalLongitude, decimalLatitude, speciesKey, Soort, coordinateUncertaintyInMeters, disp_dist) %>%
   st_as_sf(coords = c("decimalLongitude", "decimalLatitude"), crs = "+proj=longlat +datum=WGS84") %>%
@@ -458,11 +458,11 @@ saveRDS(list.results, file="./radius/data/output/list_results.RData")
 ```
 
 ```{r save-separate-dfs-as-csv}
-write.csv(HBTRL, "./radius/data/output/HBTRL.csv", row.names=FALSE)
-write.csv(VGLRL, "./radius/data/output/VGLRL.csv", row.names=FALSE)
-write.csv(BWKHAB, "./radius/data/output/BWKHAB.csv", row.names=FALSE)
-write.csv(PATDAT, "./radius/data/output/PATDAT.csv", row.names=FALSE)
-write.csv(NBHP, "./radius/data/output/NBHP.csv", row.names=FALSE)
-write.csv(TOP3, "./radius/data/output/TOP3.csv", row.names=FALSE)
+write_csv(HBTRL, "./radius/data/output/HBTRL.csv")
+write_csv(VGLRL, "./radius/data/output/VGLRL.csv")
+write_csv(BWKHAB, "./radius/data/output/BWKHAB.csv")
+write_csv(PATDAT, "./radius/data/output/PATDAT.csv")
+write_csv(NBHP, "./radius/data/output/NBHP.csv")
+write_csv(TOP3, "./radius/data/output/TOP3.csv")
 ```
 
