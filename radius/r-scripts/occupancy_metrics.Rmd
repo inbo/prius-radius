@@ -31,8 +31,7 @@ species_list <- read_csv("./radius/data/input/radius_species_list.csv") %>%
 ```
 
 ```{r import-species-occ}
-occ_flanders <- read.csv2("./radius/data/input/gbif_occ_flanders.csv") %>%
-  select(-X) %>%
+occ_flanders <- read.csv("./radius/data/input/gbif_occ_flanders.csv") %>%
   left_join(species_list, by = c("speciesKey" = "GBIF_code", "Soort")) %>%
   select(year, decimalLongitude, decimalLatitude, speciesKey, Soort, coordinateUncertaintyInMeters, disp_dist) %>%
   st_as_sf(coords = c("decimalLongitude", "decimalLatitude"), crs = "+proj=longlat +datum=WGS84") %>%
