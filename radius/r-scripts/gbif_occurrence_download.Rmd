@@ -296,14 +296,14 @@ in_flanders <- species_list %>%
 List_species_present <- unique(in_flanders$Soort)
 List_species_not_present <- vsetdiff(unique(species_list$Soort) , List_species_present)
 
-write.csv(in_flanders, "./radius/data/intermediate/species_in_flanders.csv", row.names = FALSE)
-write.csv(not_in_flanders, "./radius/data/intermediate/species_not_in_flanders.csv", row.names = FALSE)
+write_csv(in_flanders, "./radius/data/intermediate/species_in_flanders.csv")
+write_csv(not_in_flanders, "./radius/data/intermediate/species_not_in_flanders.csv")
 ```
 
 ## Save occurrence dataset flanders
 
 ```{r save-occurrence-dataset}
-write.csv2(occ_flanders, "./radius/data/input/gbif_occ_flanders.csv")
+write_csv(occ_flanders, "./radius/data/input/gbif_occ_flanders.csv")
 ```
 
 

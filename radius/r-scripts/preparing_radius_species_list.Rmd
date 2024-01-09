@@ -257,6 +257,6 @@ radius_list_update <- radius_list_update %>%
 
 ## Export RadIUS species list
 ```{r export-radius-list}
-write.csv(radius_list_update, "./radius/data/input/radius_species_list.csv", row.names = FALSE)
+write_csv(radius_list_update, "./radius/data/input/radius_species_list.csv")
 ```
 
