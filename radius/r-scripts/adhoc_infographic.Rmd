@@ -1,0 +1,15 @@
+Een adhoc-script voor de data-exploratie i.f.v. een infographic (afspraak met Nicole). Script kan worden verwijderd na afloop. 
+
+```{r packages}
+library(tidyverse)
+```
+
+```{r data}
+dat <- read.csv("./radius/data/output/PATDAT.csv")
+```
+
+```{r select}
+sel <- dat %>% 
+  select(Soort, starts_with("in")) %>% 
+  select(-"inPATDAT", -"inNA")
+```
