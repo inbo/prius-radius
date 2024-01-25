@@ -295,7 +295,7 @@ for (soort in unique(occ_flanders$Soort)) {
         list.results[[i]] <- rbind(list.results[[i]], data.frame(
           Soort = soort,
           Gebied = "nDomeinen",
-          Overlap = length(unique(occ_species_intersection$domeinnaam))))
+          Overlap = length(unique(occ_species_intersection$id))))
       
         # aantal bezette domeinen per type recht anb
         anb_rechten <- occ_species_intersection %>%
@@ -346,13 +346,15 @@ for (soort in unique(occ_flanders$Soort)) {
         list.results[[i]] <- rbind(list.results[[i]], data.frame(
           Soort = soort,
           Gebied = "nNBHP",
-          Overlap = length(occ_species_intersection$id)))
+          Overlap = length(unique(occ_species_intersection$id))))
 
         # aantal bezette domeinen per type natuurbeheerplan
         n_per_beheerplantype <- occ_species_intersection %>%
+          st_drop_geometry() %>%
+          select(id, natuurbeheerplantype, natuurbeheerplantype_abb) %>%
+          unique() %>%
           group_by(natuurbeheerplantype_abb) %>%
-          summarise(n = n())%>%
-          st_drop_geometry()
+          summarise(n = n())
       
         for (row in 1:nrow(n_per_beheerplantype)) {
           list.results[[i]] <- rbind(list.results[[i]], data.frame(
@@ -363,10 +365,13 @@ for (soort in unique(occ_flanders$Soort)) {
       
         # percentage overlap per eigendomtype
         overlap_per_eigendomtype <- occ_species_intersection %>%
+          st_drop_geometry() %>%
+          select(eigendomtype_abb, intersect_area) %>%
+          unique() %>%
           group_by(eigendomtype_abb) %>%
           summarise(intersect_area = sum(intersect_area)) %>%
           arrange() %>%
-          st_drop_geometry()
+          inner_join(gebied_summary, by = c("eigendomtype_abb" = "code"))
       
         for (row in 1: nrow(overlap_per_eigendomtype)) {
           # OPTIE 1: percentage van overlap met NBHP dat overlapt per eigendomtype
