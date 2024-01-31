@@ -80,25 +80,25 @@ hasCoordinate <- TRUE
 ## Trigger download
 ```{r gbif-download}
 # Trigger new download
-#gbif_downloadKey <- occ_download(
-#  pred_in("taxonKey", taxonKeys),
-#  pred_in("country", countries),
-#  pred_in("basisOfRecord", basis_of_record),
-#  pred_gte("year", year_begin),
-#  pred_lte("year", year_end),
-#  pred("hasCoordinate", hasCoordinate),
-#  user = rstudioapi::askForPassword("GBIF username"),
-#  pwd = rstudioapi::askForPassword("GBIF password"),
-#  email = rstudioapi::askForPassword("Email address for notification")
-#)
-
-#occ_download_wait(gbif_downloadKey, 
-#                  curlopts = list(verbose = TRUE,
-#                                  http_version = 2,
-#                                  forbid_reuse = TRUE))
+# gbif_downloadKey <- occ_download(
+#   pred_in("taxonKey", taxonKeys),
+#   pred_in("country", countries),
+#   pred_in("basisOfRecord", basis_of_record),
+#   pred_gte("year", year_begin),
+#   pred_lte("year", year_end),
+#   pred("hasCoordinate", hasCoordinate),
+#   user = rstudioapi::askForPassword("GBIF username"),
+#   pwd = rstudioapi::askForPassword("GBIF password"),
+#   email = rstudioapi::askForPassword("Email address for notification")
+# )
+# 
+# occ_download_wait(gbif_downloadKey, 
+#                   curlopts = list(verbose = TRUE,
+#                                   http_version = 2,
+#                                   forbid_reuse = TRUE))
 
 # Or reuse existing download
-gbif_downloadKey <- "0012987-231120084113126"
+gbif_downloadKey <- "0082987-231120084113126" # aangepast 29/01
 ```
 
 ## Get GBIF download to computer

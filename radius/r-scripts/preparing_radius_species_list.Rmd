@@ -10,9 +10,10 @@ Preparation RadIUS species list
 2. Updating ANB species selection
 3. Getting RIPARIAS alert list species
 4. Getting DUNIAS project species 
-5. Combining species lists
-6. verifying GBIF keys against GBIF Backbone
-7. Prepare RadIUS species list for export
+5. Adding SBP-relevant species
+6. Combining species lists
+7. verifying GBIF keys against GBIF Backbone
+8. Prepare RadIUS species list for export
 
 # Setup
 ```{r setup, include=FALSE}
@@ -216,22 +217,41 @@ for(i in 1:nrow(dunias_list)) {
 rm(i,temp)
 ```
 
+# 5. SBP species
 
-# 5. Combining species lists
+# uitheemse grondelsoorten: zwartbekgrondel (2379089), Kesslergrondel (4285968), Pontische stroomgrondel (2379105), marmergrondel (2379245)
+# guldenroede: late (5389017) en Canadese (5389029) guldenroede
+# uitheemse vissen: Amerikaanse hondsvis (5203111)
+```{r adding-dunias-project species}
+SBP_list <- data.frame(matrix(ncol=5,nrow=7, dimnames=list(NULL, names(radius_list)))) %>%
+  mutate(GBIF_code = c(2379089, 4285968, 2379105, 2379245, 5389017, 5389029, 5203111),
+         Soort = c("zwartbekgrondel", "Kesslergrondel", "Pontische stroomgrondel", "marmergrondel", "late guldenroede", "Canadese guldenroede", "Amerikaanse hondsvis"),
+         Lijst = "0")
+
+for(i in 1:nrow(SBP_list)) {
+  name_usage(key = SBP_list$GBIF_code[i]) -> temp
+  ifelse(temp$data$kingdom == 'Plantae',"plant","dier") -> SBP_list$Groep[i]
+  temp$data$scientificName -> SBP_list$Species[i]
+}
+rm(i,temp)
+```
+
+
+# 6. Combining species lists
 
 ```{r combining-lists}
-radius_list_update <- rbind(radius_list, riparias_list, dunias_list, ANB_list) %>%
+radius_list_update <- rbind(radius_list, riparias_list, dunias_list, ANB_list, SBP_list) %>%
   distinct(GBIF_code, .keep_all = TRUE)
 ```
 
-# 6. verifying GBIF keys against GBIF Backbone
+# 7. verifying GBIF keys against GBIF Backbone
 
 ```{r radius_list_key_check}
 radius_key_check <- gbif_verify_keys(radius_list_update, col_keys = "GBIF_code") %>%
   full_join(radius_list_update, by = c("key" = "GBIF_code"))
 ```
 
-# 7.  Prepare radius species list for export
+# 8.  Prepare radius species list for export
 ```{r prepare-radius-list-for-export}
 # only select ACCEPTED taxon names, remove SYNONYMS
 radius_list_update <- radius_key_check %>%
@@ -252,7 +272,7 @@ radius_list_update <- radius_list_update %>%
             EU_lijst = ifelse(Lijst != "ANB", Lijst, 0), 
             RIPARIAS_lijst = as.integer(GBIF_code %in% riparias_list$GBIF_code), 
             DUNIAS_lijst = as.integer(GBIF_code %in% dunias_list$GBIF_code), 
-            ANB_lijst = ifelse(Lijst == "ANB" | GBIF_code %in% ANB_list$GBIF_code, 1, 0))
+            ANB_lijst = ifelse(Lijst == "ANB" | Lijst == 0 | GBIF_code %in% ANB_list$GBIF_code, 1, 0))
 ```
 
 ## Export RadIUS species list
