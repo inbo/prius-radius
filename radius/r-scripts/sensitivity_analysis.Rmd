@@ -1,0 +1,223 @@
+
+```{r load-library, include=FALSE}
+library(tidyverse)
+library(sf)
+library(plotly)
+```
+
+```{r clear-memory, include=FALSE}
+rm(list=ls())
+```
+
+```{r import-species-list, include=FALSE}
+species_list <- read_csv("./radius/data/input/radius_species_list.csv")
+```
+
+```{r import-species-occ, include=FALSE}
+occ_flanders <- read.csv("./radius/data/input/gbif_occ_flanders.csv") %>%
+  left_join(species_list, by = c("speciesKey" = "GBIF_code", "Soort")) %>%
+  select(year, decimalLongitude, decimalLatitude, speciesKey, Soort, coordinateUncertaintyInMeters) %>%
+  st_as_sf(coords = c("decimalLongitude", "decimalLatitude"), crs = "+proj=longlat +datum=WGS84") %>%
+  st_transform(31370) 
+```
+
+```{r import-wfs-maps, include=FALSE}
+ps_hbtrl_deel <- st_read("./radius/data/spatial/ps_hbtrl_deel.shp")
+ps_vglrl <- st_read("./radius/data/spatial/ps_vglrl.shp")
+bwkhab_adj <- st_read("./radius/data/spatial/bwkhab_adj.shp")
+am_patdat <- st_read("./radius/data/spatial/am_patdat.shp")
+ps_nbhp <- st_read("./radius/data/spatial/ps_nbhp.shp")
+
+#opgelet: st_write() heeft de attribute/kolomnames afgekort, aangezien deze maximaal 10 characters mogen bevatten (e.g. naamdossier ->  namdssr) 
+```
+
+```{r preparing-lists-results-and-wfs}
+list.dfs <- list(
+  sa_hbtrl = ps_hbtrl_deel, 
+  sa_vglrl = ps_vglrl, 
+  sa_patdat_regio = am_patdat,
+  sa_patdat_recht = am_patdat,
+  sa_nbhp_eigdm = ps_nbhp, 
+  sa_nbhp_type = ps_nbhp
+)
+
+# initialize a list for results
+list.results <- lapply(list.dfs, function(x) data.frame())
+```
+
+```{r sensitivity-hbtrl-vglrl, warning=FALSE}
+# list wfs-maps
+
+for (buffer in c(10,20,30,40,50,100,150,200,250)) { #de verschillende bufferafstanden waarmee de sensitiviteit wordt getest
+  print(buffer)
+  for (soort in unique(occ_flanders$Soort)) {
+    print(soort)
+    
+    # extract species occurrence
+    occ_species <- occ_flanders[occ_flanders$Soort == soort,]
+    
+    # add buffer around species occurrences based on dispersal distance + union
+    occ_species_buf <- occ_species %>%
+      st_buffer(dist = buffer) %>%
+      st_union() %>% 
+      st_cast('POLYGON') %>% 
+      st_sf() %>%
+      mutate(buf_area = st_area(.))
+    
+    total_area <- sum(occ_species_buf$buf_area)
+    
+    for (i in c(1,2)) {
+      # transform CRS to Lambert 72 to use st_buffer with meters instead of decimal degrees
+      gebied <- list.dfs[[i]] %>%
+        st_transform(31370) %>%
+        mutate(geb_area = st_area(.))
+      
+      # intersection buffered occurrences with wfs-map
+      occ_species_intersection <- occ_species_buf %>%
+        st_intersection(gebied) %>% 
+        mutate(intersect_area = st_area(.)) 
+      
+      overlap_intersection <- sum(occ_species_intersection$intersect_area)
+      percentage_overlap_in <- as.numeric(overlap_intersection / total_area)
+      
+      if (nrow(occ_species_intersection) != 0) {  # skip following steps if there's no overlap 
+        metrics_df <- data.frame(
+          Soort = soort,
+          Buffer = as.factor(buffer), 
+          Overlap = percentage_overlap_in)
+        
+        list.results[[i]] <- rbind(list.results[[i]], metrics_df)
+      }
+    }
+  }
+}
+```
+
+```{r sensitivity-patdat-nbhp, warning=FALSE}
+for (buffer in c(10,20,30,40,50,100,150,200,250)) { #de verschillende bufferafstanden waarmee de sensitiviteit wordt getest
+  print(buffer)
+  for (soort in c("watercrassula", "struikaster", "reuzenberenklauw", "Chinese muntjak")) { #we voeren dit uit voor een selectie van de soorten, niet alle soorten
+    print(soort)
+    
+    # extract species occurrence
+    occ_species <- occ_flanders[occ_flanders$Soort == soort,]
+    
+    # add buffer around species occurrences based on dispersal distance + union
+    occ_species_buf <- occ_species %>%
+      st_buffer(dist = buffer) %>%
+      st_union() %>% 
+      st_cast('POLYGON') %>% 
+      st_sf() %>%
+      mutate(buf_area = st_area(.))
+    
+    total_area <- sum(occ_species_buf$buf_area)
+    
+    for (i in c(3,4,5,6)) {
+      # transform CRS to Lambert 72 to use st_buffer with meters instead of decimal degrees
+      gebied <- list.dfs[[i]] %>%
+        st_transform(31370) %>%
+        mutate(geb_area = st_area(.))
+      
+      gebied_summary <- gebied %>%
+        st_drop_geometry() %>%
+        select(code = if (i %in% c(3,4)) "regio" else "egndmty", geb_area) %>%  # summarise am_patdat and ps_nbhp based on regio and eigendomtype, respectively
+        group_by(code) %>%
+        summarise(geb_area = sum(geb_area))
+      
+      # intersection buffered occurrences with wfs-map
+      occ_species_intersection <- occ_species_buf %>%
+        st_intersection(gebied) %>% 
+        mutate(intersect_area = st_area(.)) 
+      
+      overlap_intersection <- sum(occ_species_intersection$intersect_area)
+      percentage_overlap_in <- as.numeric(overlap_intersection / total_area)
+      
+      if (nrow(occ_species_intersection) != 0) {  # skip following steps if there's no overlap 
+        if (i == 3) { # percentage overlap per anb regio
+          overlap_per_anb_regio <- occ_species_intersection %>%
+            st_drop_geometry() %>%
+            select(regio, intersect_area) %>%
+            unique() %>%
+            group_by(regio) %>%
+            summarise(intersect_area = sum(intersect_area)) %>%
+            arrange() %>%
+            inner_join(gebied_summary, by = c("regio" = "code"))
+          
+          for (row in 1: nrow(overlap_per_anb_regio)) {
+            percentage_overlap_in = as.numeric(overlap_per_anb_regio[row,]$intersect_area / overlap_intersection)
+            
+            metrics_df <- data.frame(
+              Soort = soort,
+              Buffer = buffer, 
+              Gebied = as.character(overlap_per_anb_regio[row,1]),
+              Overlap = percentage_overlap_in)
+            
+            list.results[[i]] <- rbind(list.results[[i]], metrics_df)
+          }
+        }
+        
+        if (i == 4) { # aantal bezette domeinen per type recht anb
+          anb_rechten <- occ_species_intersection %>%
+            st_drop_geometry() %>%
+            select(id, rchtnnb) %>%
+            unique() %>%
+            group_by(rchtnnb) %>%
+            summarise(n = n()) 
+          
+          for (row in 1:nrow(anb_rechten)) {
+            list.results[[i]] <- rbind(list.results[[i]], data.frame(
+              Soort = soort,
+              Buffer = buffer,
+              Recht = as.character(anb_rechten[row,1]),
+              Domeinen = as.numeric(anb_rechten[row,2])))
+          }
+        }
+        
+        if (i == 5) { # percentage overlap per eigendomtype
+          overlap_per_eigendomtype <- occ_species_intersection %>%
+            st_drop_geometry() %>%
+            select(egndmty, intersect_area) %>%
+            unique() %>%
+            group_by(egndmty) %>%
+            summarise(intersect_area = sum(intersect_area)) %>%
+            arrange() %>%
+            inner_join(gebied_summary, by = c("egndmty" = "code"))
+          
+          for (row in 1: nrow(overlap_per_eigendomtype)) {
+            percentage_overlap_in = as.numeric(overlap_per_eigendomtype[row,]$intersect_area / overlap_intersection)
+            
+            list.results[[i]] <- rbind(list.results[[i]], data.frame(
+              Soort = soort,
+              Buffer = buffer,
+              Type = as.character(overlap_per_eigendomtype[row,1]),
+              Overlap = percentage_overlap_in))
+          }
+        }
+        
+        if (i == 6) { # aantal bezette domeinen per type natuurbeheerplan
+          n_per_beheerplantype <- occ_species_intersection %>%
+            st_drop_geometry() %>%
+            select(id, ntrbhrp) %>%
+            unique() %>%
+            group_by(ntrbhrp) %>%
+            summarise(n = n())
+          
+          for (row in 1:nrow(n_per_beheerplantype)) {
+            list.results[[i]] <- rbind(list.results[[i]], data.frame(
+              Soort = soort,
+              Buffer = buffer,
+              Type = as.character(n_per_beheerplantype[row,1]),
+              Domeinen = as.numeric(n_per_beheerplantype[row,2])))
+          }
+        }
+      }
+    }
+  }
+}
+
+```
+
+
+
+
+
