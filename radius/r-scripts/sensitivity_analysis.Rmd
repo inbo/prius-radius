@@ -216,6 +216,25 @@ for (buffer in c(10,20,30,40,50,100,150,200,250)) { #de verschillende bufferafst
 }
 
 ```
+```{r save-results}
+sa_hbtrl <- list.results$sa_hbtrl
+write.csv(sa_hbtrl,"./radius/data/intermediate/sensitiviteitsanalyse/sa_hbtrl.csv")
+
+sa_vglrl <- list.results$sa_vglrl
+write.csv(sa_vglrl,"./radius/data/intermediate/sensitiviteitsanalyse/sa_vglrl.csv")
+
+sa_patdat_regio <- list.results$sa_patdat_regio
+write.csv(sa_patdat_regio,"./radius/data/intermediate/sensitiviteitsanalyse/sa_patdat_regio.csv")
+
+sa_patdat_recht <- list.results$sa_patdat_recht
+write.csv(sa_patdat_recht,"./radius/data/intermediate/sensitiviteitsanalyse/sa_patdat_recht.csv")
+
+sa_nbhp_eigdm <- list.results$sa_nbhp_eigdm
+write.csv(sa_nbhp_eigdm,"./radius/data/intermediate/sensitiviteitsanalyse/sa_nbhp_eigdm.csv")
+
+sa_nbhp_type <- list.results$sa_nbhp_type
+write.csv(sa_nbhp_type,"./radius/data/intermediate/sensitiviteitsanalyse/sa_nbhp_type.csv")
+```
 
 
 
