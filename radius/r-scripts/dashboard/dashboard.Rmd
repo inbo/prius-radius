@@ -1,0 +1,69 @@
+---
+title: "RadIUS dashboard (try-out)"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    vertical_layout: scroll
+    source_code: embed 
+    theme: 
+      version: 4
+    runtime: shiny
+---
+
+```{r libraries, include=FALSE}
+# dashboard packages
+library(flexdashboard)
+library(shiny)
+```
+
+Home
+=====================================
+
+
+
+Verspreiding
+=====================================
+
+Inputs {.sidebar}
+-------------------------------------
+```{r inputs-verspreiding}
+
+```
+
+Row
+-------------------------------------
+```{r}
+
+```
+
+
+Bezetting per soort
+=====================================
+
+Inputs {.sidebar}
+-------------------------------------
+```{r input-bezetting-per-soort}
+
+```
+
+Row
+-------------------------------------
+```{r}
+
+```
+
+
+Bezetting per gebied
+=====================================
+
+Inputs {.sidebar}
+-------------------------------------
+```{r input-bezetting-per-gebied}
+
+```
+
+Row
+-------------------------------------
+```{r}
+
+```
