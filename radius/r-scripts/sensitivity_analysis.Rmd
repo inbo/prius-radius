@@ -6,7 +6,7 @@ library(plotly)
 ```
 
 ```{r clear-memory, include=FALSE}
-rm(list=ls())
+#rm(list=ls())
 ```
 
 ```{r import-species-list, include=FALSE}
@@ -148,7 +148,7 @@ for (buffer in c(10,20,30,40,50,100,150,200,250)) { #de verschillende bufferafst
             
             metrics_df <- data.frame(
               Soort = soort,
-              Buffer = buffer, 
+              Buffer = as.factor(buffer), 
               Gebied = as.character(overlap_per_anb_regio[row,1]),
               Overlap = percentage_overlap_in)
             
@@ -167,7 +167,7 @@ for (buffer in c(10,20,30,40,50,100,150,200,250)) { #de verschillende bufferafst
           for (row in 1:nrow(anb_rechten)) {
             list.results[[i]] <- rbind(list.results[[i]], data.frame(
               Soort = soort,
-              Buffer = buffer,
+              Buffer = as.factor(buffer),
               Recht = as.character(anb_rechten[row,1]),
               Domeinen = as.numeric(anb_rechten[row,2])))
           }
@@ -188,7 +188,7 @@ for (buffer in c(10,20,30,40,50,100,150,200,250)) { #de verschillende bufferafst
             
             list.results[[i]] <- rbind(list.results[[i]], data.frame(
               Soort = soort,
-              Buffer = buffer,
+              Buffer = as.factor(buffer),
               Type = as.character(overlap_per_eigendomtype[row,1]),
               Overlap = percentage_overlap_in))
           }
@@ -205,7 +205,7 @@ for (buffer in c(10,20,30,40,50,100,150,200,250)) { #de verschillende bufferafst
           for (row in 1:nrow(n_per_beheerplantype)) {
             list.results[[i]] <- rbind(list.results[[i]], data.frame(
               Soort = soort,
-              Buffer = buffer,
+              Buffer = as.factor(buffer),
               Type = as.character(n_per_beheerplantype[row,1]),
               Domeinen = as.numeric(n_per_beheerplantype[row,2])))
           }
@@ -236,7 +236,64 @@ sa_nbhp_type <- list.results$sa_nbhp_type
 write.csv(sa_nbhp_type,"./radius/data/intermediate/sensitiviteitsanalyse/sa_nbhp_type.csv")
 ```
 
+```{r inlezen-data-voor-plotten}
+sa_hbtrl <- read.csv("./radius/data/intermediate/sensitiviteitsanalyse/sa_hbtrl.csv")
+sa_vglrl <- read.csv("./radius/data/intermediate/sensitiviteitsanalyse/sa_vglrl.csv")
+sa_patdat_regio <- read.csv("./radius/data/intermediate/sensitiviteitsanalyse/sa_patdat_regio.csv")
+sa_patdat_recht <- read.csv("./radius/data/intermediate/sensitiviteitsanalyse/sa_patdat_recht.csv")
+sa_nbhp_eigdm <- read.csv("./radius/data/intermediate/sensitiviteitsanalyse/sa_nbhp_eigdm.csv")
+sa_nbhp_type <- read.csv("./radius/data/intermediate/sensitiviteitsanalyse/sa_nbhp_type.csv")
+```
+
+```{r plot-hbtrl}
+ggplot(data = sa_hbtrl, aes(x = Buffer, y = Overlap, group = Soort, color = Soort), show.legend = FALSE) +
+  geom_point() +
+  geom_line() +
+  theme_minimal()
+
+plot_ly(sa_hbtrl, x = ~Buffer, y = ~Overlap, type = 'scatter', mode = 'nodes + lines', color = ~Soort, showlegend = FALSE) %>%
+  layout(title="HBTRL", xaxis = list(title = "Buffer afstand (m)"), yaxis = list(title = "Percentage in HBTRL") )
+```
+
+```{r plot-vglrl}
+ggplot(data = sa_vglrl, aes(x = Buffer, y = Overlap, group = Soort, color = Soort), show.legend = FALSE) +
+  geom_point() +
+  geom_line() +
+  theme_minimal()
+
+plot_ly(sa_vglrl, x = ~Buffer, y = ~Overlap, type = 'scatter', mode = 'nodes + lines', color = ~Soort, showlegend = FALSE) %>%
+  layout(title="VGLRL", xaxis = list(title = "Buffer afstand (m)"), yaxis = list(title = "Percentage in VGLRL") )
+```
+
+```{r plots-patdat}
+ggplot(sa_patdat_regio, aes(x = Buffer, y = Overlap, fill = Gebied, group = Gebied)) + 
+    geom_bar(position="fill", stat="identity") +
+    facet_wrap(~Soort) + 
+    theme(axis.text.x = element_text(angle = 90))
+
+ggplot(sa_patdat_recht, aes(x = Buffer, y = Domeinen, fill = Recht, group = Recht)) + 
+    geom_bar(position="stack", stat="identity") +
+    facet_wrap(~Soort, scales = "free") + 
+    theme(axis.text.x = element_text(angle = 90))
+
+```
+
+```{r plots-nbhp}
+ggplot(sa_nbhp_eigdm, aes(x = Buffer, y = Domeinen,fill = Type,  group = Type)) + 
+    geom_bar(position="stack", stat="identity") +
+    facet_wrap(~Soort, scales = "free") + 
+    theme(axis.text.x = element_text(angle = 90))
+
+ggplot(sa_nbhp_type, aes(x = Buffer, y = Overlap, fill = Type,  group = Type)) + 
+    geom_bar(position="fill", stat="identity") +
+    facet_wrap(~Soort) + 
+    theme(axis.text.x = element_text(angle = 90))
+
+```
 
 
 
+```{r model-hbtrl}
+model_hbtrl <- lmer(Overlap ~ as.factor(Buffer) + (Buffer | Soort), family = "binomial", data = sa_hbtrl)
+```
 
