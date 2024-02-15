@@ -14,7 +14,48 @@ output:
 # dashboard packages
 library(flexdashboard)
 library(shiny)
+
+# overige packages
+library(tidyverse)
+library(sf)
+
+wd <- "~/Github/prius-radius/" 
 ```
+
+```{r get-provincie-grenzen, include=FALSE}
+Provincies_grenzen <- st_read(paste0(wd,"prius/data/spatial/Provincies.geojson"))
+```
+
+```{r get-wfs-data, include=FALSE}
+ps_hbtrl_deel <- st_read(paste0(wd,"radius/data/spatial/ps_hbtrl_deel.shp")) 
+ps_vglrl <- st_read(paste0(wd,"radius/data/spatial/ps_vglrl.shp")) 
+am_patdat <- st_read(paste0(wd,"radius/data/spatial/am_patdat.shp"))
+ps_nbhp <- st_read(paste0(wd,"radius/data/spatial/ps_nbhp.shp")) 
+bwkhab_adj <- st_read(paste0(wd,"radius/data/spatial/bwkhab_adj.shp"))
+
+# wfs data samenvoegen in lijst
+list_wfs <- list("Habitatrichtlijn" = ps_hbtrl_deel, "Vogelrichtlijn" = ps_vglrl, "ANB Patrimonium" = am_patdat, "Natuurbeheerplannen" = ps_nbhp, "BWK Habitatkaart" = bwkhab_adj)
+```
+
+```{r get-occ-flanders, include=FALSE}
+occ_flanders <- read_csv(paste0(wd,"radius/data/input/gbif_occ_flanders.csv")) %>%
+  st_as_sf(coords = c("decimalLongitude", "decimalLatitude"), crs = "+proj=longlat +datum=WGS84") %>%
+  st_transform(31370) %>%
+  arrange(Soort, .locale="en") # sorteer volgens soortnaam, onafhankelijk van hoofdletters
+```
+
+```{r get-metric-data, include=FALSE}
+HBTRL <- read.csv(paste0(wd,"radius/data/output/HBTRL.csv"))
+VGLRL <- read.csv(paste0(wd,"radius/data/output/VGLRL.csv")) 
+PATDAT <- read.csv(paste0(wd,"radius/data/output/PATDAT.csv")) 
+NBHP <- read.csv(paste0(wd,"radius/data/output/NBHP.csv")) 
+BWKHAB <- read.csv(paste0(wd,"radius/data/output/BWKHAB.csv")) 
+TOP3 <- read.csv(paste0(wd,"radius/data/output/TOP3.csv"))
+
+# metrics dfs samenvoegen in lijst
+list_metrics <- list("Habitatrichtlijn" = HBTRL, "Vogelrichtlijn" = VGLRL, "ANB Patrimonium" = PATDAT, "Natuurbeheerplannen" = NBHP, "BWK Habitatkaart" = BWKHAB)
+```
+
 
 Home
 =====================================
