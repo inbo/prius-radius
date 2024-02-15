@@ -19,6 +19,29 @@ library(shiny)
 Home
 =====================================
 
+Row
+-------------------------------------
+### **Welkom bij de RadIUS dashboard**
+
+*(voorbeeld van welkomstpagina o.b.v. RIPARIAS dashboard)*
+
+Dit dashboard verzamelt het werk uitgevoerd onder het [RadIUS-project](https://pureportal.inbo.be/en/projects/radius-invasive-alien-species-in-flanders-nature).  
+
+**Data & ontwikkeling** 
+
+De weergegeven verspreidingsdata is publiek beschikbaar via [GBIF](https://www.gbif.org/).
+
+**Soorten**
+
+Soorten in deze analyses komen voort uit de  
+*  Unielijst  
+*  DUNIAS project soorten  
+*  RIPARIAS alert soortenlijst  
+*  etc.
+
+**Contact**
+
+Het dashboard wordt onderhouden door het Instituut voor Natuur- en Bosonderzoek (INBO), als onderdeel van het RadIUS-project. Bij vragen of onduidelijkheden kunt u steeds terecht bij faunabeheer@inbo.be
 
 
 Verspreiding
