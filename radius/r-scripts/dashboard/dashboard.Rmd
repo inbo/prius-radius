@@ -16,8 +16,15 @@ library(flexdashboard)
 library(shiny)
 
 # overige packages
-library(tidyverse)
 library(sf)
+library(tidyverse)
+library(ows4R) 
+library(magrittr)
+library(gtools)
+
+#visualisatie packages
+library(plotly) 
+library(leaflet)
 
 wd <- "~/Github/prius-radius/" 
 ```
@@ -27,20 +34,29 @@ Provincies_grenzen <- st_read(paste0(wd,"prius/data/spatial/Provincies.geojson")
 ```
 
 ```{r get-wfs-data, include=FALSE}
-ps_hbtrl_deel <- st_read(paste0(wd,"radius/data/spatial/ps_hbtrl_deel.shp")) 
-ps_vglrl <- st_read(paste0(wd,"radius/data/spatial/ps_vglrl.shp")) 
-am_patdat <- st_read(paste0(wd,"radius/data/spatial/am_patdat.shp"))
-ps_nbhp <- st_read(paste0(wd,"radius/data/spatial/ps_nbhp.shp")) 
-bwkhab_adj <- st_read(paste0(wd,"radius/data/spatial/bwkhab_adj.shp"))
+ps_hbtrl_deel <- st_read(paste0(wd,"radius/data/spatial/ps_hbtrl_deel.shp")) %>%
+  mutate(code = gebcode) %>%
+  st_transform(4326)
+ps_vglrl <- st_read(paste0(wd,"radius/data/spatial/ps_vglrl.shp")) %>%
+  mutate(code = na2000code, naam = gebnaam) %>%
+  st_transform(4326)
+am_patdat <- st_read(paste0(wd,"radius/data/spatial/am_patdat.shp")) %>%
+  mutate(code = regio, naam = regio) %>%
+  st_transform(4326)
+ps_nbhp <- st_read(paste0(wd,"radius/data/spatial/ps_nbhp.shp")) %>%
+  mutate(code = egndmty, naam = egndmty) %>%
+  st_transform(4326) 
+bwkhab_adj <- st_read(paste0(wd,"radius/data/spatial/bwkhab_adj.shp")) %>%
+  mutate(code = HAB1, naam = HAB1) %>%
+  st_transform(4326)
 
 # wfs data samenvoegen in lijst
 list_wfs <- list("Habitatrichtlijn" = ps_hbtrl_deel, "Vogelrichtlijn" = ps_vglrl, "ANB Patrimonium" = am_patdat, "Natuurbeheerplannen" = ps_nbhp, "BWK Habitatkaart" = bwkhab_adj)
 ```
 
 ```{r get-occ-flanders, include=FALSE}
-occ_flanders <- read_csv(paste0(wd,"radius/data/input/gbif_occ_flanders.csv")) %>%
+occ_flanders <- read.csv(paste0(wd,"radius/data/input/gbif_occ_flanders.csv")) %>%
   st_as_sf(coords = c("decimalLongitude", "decimalLatitude"), crs = "+proj=longlat +datum=WGS84") %>%
-  st_transform(31370) %>%
   arrange(Soort, .locale="en") # sorteer volgens soortnaam, onafhankelijk van hoofdletters
 ```
 
@@ -91,13 +107,114 @@ Verspreiding
 Inputs {.sidebar}
 -------------------------------------
 ```{r inputs-verspreiding}
+selectizeInput(inputId = "soort", label = "Soort:", choices = unique(occ_flanders$Soort) , selected = 1)
+
+sliderInput(inputId = "jaar", label = "Periode:", min = 2015, max = 2023, value = c(2015,2023), step = 1, sep = "", dragRange = TRUE)
+```
+
+
+```{r reactieve-elementen-verspreiding}
+occ_species <- reactive({
+  occ_flanders %>%
+    subset(Soort == input$soort & year >= input$jaar[1] & year <= input$jaar[2]) 
+  })
+
+occ_sum <- reactive({
+  occ_species() %>%
+    st_drop_geometry() %>%
+    count(year, name = "obs") %>%
+    right_join(data.frame(year = 2015:2023), by = "year") %>%
+    arrange(year) %>%
+    na.replace(0) %>%
+    mutate(tot_obs = cumsum(obs))
+})
 
 ```
 
 Row
 -------------------------------------
+### Soortnaam {.value-box}
 ```{r}
+renderValueBox({
+  naam <- unique(input$soort)
+  wetnaam <- unique(occ_species()$Species)
 
+  valueBox(value = naam, caption = wetnaam)
+})
+```
+
+### GBIF code {.value-box}
+```{r}
+renderValueBox({
+  gbif_code <- unique(occ_flanders[occ_flanders$Soort == input$soort,]$speciesKey)
+
+  valueBox(value = gbif_code, caption = "GBIF code")
+})
+```
+
+### Total number of observations {.value-box}
+```{r}
+renderValueBox({
+  tot_obs <- nrow(occ_species())
+
+  valueBox(value = tot_obs, caption = "Waarnemingen")
+})
+```
+
+Row {data-height=50}
+-------------------------------------
+```{r reactieve-tekst-verspreiding}
+renderText({
+  paste0("Onderstaande kaart geeft de Vlaamse verspreiding van ", input$soort, " weer tussen ", input$jaar[1], " en ", input$jaar[2], ". ", input$kaart, "gebieden worden in groen weergegeven.") 
+})
+```
+
+Row
+-------------------------------------
+```{r kaartje-verspreiding}
+renderLeaflet({
+  leaflet() %>%
+    addTiles() %>%
+    addPolygons(data = Provincies_grenzen,
+                color = "black",
+                fillColor = "lightgrey",
+                fillOpacity = 0.2,
+                weight = 2) %>%
+    addCircleMarkers(data = occ_species(),
+                     radius = 2,
+                     fillOpacity = 1,
+                     label = ~paste0('<strong>', Soort, '</strong>',
+                                     '<br/>', day, "/", month, "/", year) %>% 
+                       lapply(htmltools::HTML))
+})
+```
+
+Row {.tabset .tabset-fade}
+-------------------------------------
+**Aantal waarnemingen vs. jaar**
+
+### Absoluut
+```{r}
+renderPlotly({
+  plot_ly() %>%
+    add_bars(data = occ_sum(), 
+             x = ~as.factor(year), 
+             y = ~obs,
+             text = ~obs) %>%
+    layout(xaxis = list(title = "Jaar"),
+           yaxis = list(title = "Aantal waarnemingen"))})
+```
+
+### Cumulatief
+```{r}
+renderPlotly({
+  plot_ly() %>%
+    add_bars(data = occ_sum(), 
+             x = ~as.factor(year), 
+             y = ~tot_obs,
+             text = ~tot_obs) %>%
+    layout(xaxis = list(title = "Jaar"),
+           yaxis = list(title = "Aantal waarnemingen"))})
 ```
 
 
