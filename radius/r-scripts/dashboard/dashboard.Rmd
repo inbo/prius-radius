@@ -117,7 +117,7 @@ sliderInput(inputId = "jaar", label = "Periode:", min = 2015, max = 2023, value 
 occ_species <- reactive({
   occ_flanders %>%
     subset(Soort == input$soort & year >= input$jaar[1] & year <= input$jaar[2]) 
-  })
+})
 
 occ_sum <- reactive({
   occ_species() %>%
@@ -138,7 +138,7 @@ Row
 renderValueBox({
   naam <- unique(input$soort)
   wetnaam <- unique(occ_species()$Species)
-
+  
   valueBox(value = naam, caption = wetnaam)
 })
 ```
@@ -147,7 +147,7 @@ renderValueBox({
 ```{r}
 renderValueBox({
   gbif_code <- unique(occ_flanders[occ_flanders$Soort == input$soort,]$speciesKey)
-
+  
   valueBox(value = gbif_code, caption = "GBIF code")
 })
 ```
@@ -156,7 +156,7 @@ renderValueBox({
 ```{r}
 renderValueBox({
   tot_obs <- nrow(occ_species())
-
+  
   valueBox(value = tot_obs, caption = "Waarnemingen")
 })
 ```
@@ -275,17 +275,17 @@ metrics_in_overall <- reactive({
         as.numeric(sum(occ_intersection()$intersect_area)),
         as.numeric(sum(occ_buffered()$buf_area) - sum(occ_intersection()$intersect_area))
       )))
+    )
   )
-)
 })
 
 metrics_in_per_gebied <- reactive({
   occ_intersection() %>%
-          group_by(code) %>%
-          summarise(intersect_area = sum(intersect_area)) %>%
-          st_drop_geometry() %>%
-          mutate(perc = as.numeric(intersect_area / sum(occ_intersection()$intersect_area))) %>%
-          left_join(gebied() %>% st_drop_geometry() %>% select(code, naam) %>% unique(), by = c("code"))
+    group_by(code) %>%
+    summarise(intersect_area = sum(intersect_area)) %>%
+    st_drop_geometry() %>%
+    mutate(perc = as.numeric(intersect_area / sum(occ_intersection()$intersect_area))) %>%
+    left_join(gebied() %>% st_drop_geometry() %>% select(code, naam) %>% unique(), by = c("code"))
 }) 
 ```
 
@@ -297,31 +297,31 @@ renderLeaflet({
     leaflet() %>%
       addTiles(group = "OSM") %>%
       addPolygons(data = Provincies_grenzen,
-                color = "black",
-                weight = 2,
-                fillColor = "lightgrey",
-                fillOpacity = 0.2) %>%
+                  color = "black",
+                  weight = 2,
+                  fillColor = "lightgrey",
+                  fillOpacity = 0.2) %>%
       addPolygons(data = gebied(),
-              color =  "green",
-              weight = 1,
-              fillColor = "green",
-              fillOpacity = 0.8, 
-              label = ~paste0(naam," (",code, ")"))
+                  color =  "green",
+                  weight = 1,
+                  fillColor = "green",
+                  fillOpacity = 0.8, 
+                  label = ~paste0(naam," (",code, ")"))
   }
   else {
     leaflet() %>%
       addTiles(group = "OSM") %>%
       addPolygons(data = Provincies_grenzen,
-                color = "black",
-                weight = 2,
-                fillColor = "lightgrey",
-                fillOpacity = 0.2) %>%
+                  color = "black",
+                  weight = 2,
+                  fillColor = "lightgrey",
+                  fillOpacity = 0.2) %>%
       addPolygons(data = gebied(),
-              color =  "green",
-              weight = 1,
-              fillColor = "green",
-              fillOpacity = 0.8, 
-              label = ~paste0(naam," (",code, ")")) %>%
+                  color =  "green",
+                  weight = 1,
+                  fillColor = "green",
+                  fillOpacity = 0.8, 
+                  label = ~paste0(naam," (",code, ")")) %>%
       addPolygons(data = occ_buffered(),
                   weight = 1,
                   label = ~paste0("gebufferd opp.: ", round(buf_area,1), " m²")) %>%
@@ -331,7 +331,7 @@ renderLeaflet({
                        opacity = 1,
                        fillOpacity = 1,
                        label = ~paste0('<strong>', Soort, '</strong>',
-                                     '<br/>', day, "/", month, "/", year) %>% 
+                                       '<br/>', day, "/", month, "/", year) %>% 
                          lapply(htmltools::HTML)) %>%
       addPolygons(data = occ_intersection(),
                   color = "red",
@@ -347,20 +347,20 @@ Row {data-height=600}
 *percentage van verspreiding dat __wel__ (orange) of __niet__ (blauw) overlapt met gebiedstype.*
 ```{r}
 renderPlotly({
-    if (nrow(occ_species2()) != 0) {
-      plot_ly(metrics_in_overall(),
-          labels = ~gebied,
-          values = ~perc,
-          type = 'pie',
-          textposition = "inside",
-          textinfo = "percent",
-          hoverinfo = "text",
-          text = ~paste(area, ' m²'),
-          showlegend = FALSE) %>%
-    layout(
-      xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
-      yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
-    }
+  if (nrow(occ_species2()) != 0) {
+    plot_ly(metrics_in_overall(),
+            labels = ~gebied,
+            values = ~perc,
+            type = 'pie',
+            textposition = "inside",
+            textinfo = "percent",
+            hoverinfo = "text",
+            text = ~paste(area, ' m²'),
+            showlegend = FALSE) %>%
+      layout(
+        xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+        yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
+  }
 })
 
 ```
@@ -370,17 +370,17 @@ renderPlotly({
 ```{r}
 renderPlotly({
   plot_ly(metrics_in_per_gebied(),
-              labels = ~code,
-              values = ~perc,
-              type = 'pie',
-              textposition = "inside",
-              textinfo = "label+percent",
-              hoverinfo = "text",
-              text = ~paste0(naam, " (", round(intersect_area, 1), " m²)"),
-              showlegend = FALSE) %>%
-        layout(
-          xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
-          yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
+          labels = ~code,
+          values = ~perc,
+          type = 'pie',
+          textposition = "inside",
+          textinfo = "label+percent",
+          hoverinfo = "text",
+          text = ~paste0(naam, " (", round(intersect_area, 1), " m²)"),
+          showlegend = FALSE) %>%
+    layout(
+      xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+      yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
 })
 ```
 
@@ -389,12 +389,145 @@ Bezetting per gebied
 
 Inputs {.sidebar}
 -------------------------------------
-```{r input-bezetting-per-gebied}
+*Momenteel zijn deze metrics gebaseerd op de soortverspreiding met standaard buffer van 250 m.*
 
+```{r input-bezetting-per-gebied}
+radioButtons(inputId = "kaart2", label = "Kaart:", choices = c("Habitatrichtlijn", "Vogelrichtlijn", "ANB Patrimonium", "Natuurbeheerplannen", "BWK Habitatkaart"), selected = "Habitatrichtlijn")
+
+selectInput(inputId = "deelgebied", label = "Deelgebied:", choices = c("All"))
+
+observeEvent(input$kaart2, {
+  df <- list_wfs %>%
+    extract2(input$kaart2) %>%
+    distinct(code)
+  
+  updateSelectInput(
+    session = session,
+    inputId = "deelgebied",
+    choices = c("All", sort(unique(df[,1])))
+  )
+})
 ```
 
-Row
--------------------------------------
-```{r}
+```{r reactieve-elementen-bezetting-per-gebied}
+gebied2 <- reactive({
+  list_wfs %>%
+    extract2(input$kaart2) %>%
+    mutate(geb_area = st_area(.))
+})
 
+deelgebied <- reactive({
+  if (input$deelgebied == "All") {
+    list_wfs %>%
+      extract2(input$kaart2) %>%
+      mutate(geb_area = st_area(.))
+  }
+  else {
+    list_wfs %>%
+      extract2(input$kaart2) %>%
+      filter(code == input$deelgebied) %>%
+      mutate(geb_area = st_area(.))
+  }
+})
+
+metrics_in <- reactive({
+  if (input$deelgebied == "All") {
+    as.data.frame(list_metrics[[input$kaart2]]) %>%
+      select(1,2) %>%
+      filter_if(is.numeric, all_vars((.) != 0))
+  }
+  else {
+    as.data.frame(list_metrics[[input$kaart2]]) %>%
+      select(1, contains("in") & contains(input$deelgebied)) %>%
+      filter_if(is.numeric, all_vars((.) != 0))
+  }
+})
+
+metrics_of <- reactive({
+  if (input$deelgebied == "All") {
+    as.data.frame(list_metrics[[input$kaart2]]) %>%
+      select(1,3) %>%
+      filter_if(is.numeric, all_vars((.) != 0))
+  }
+  else {
+    as.data.frame(list_metrics[[input$kaart2]]) %>%
+      select(1, contains("of") & contains(input$deelgebied)) %>%
+      filter_if(is.numeric, all_vars((.) != 0))
+  }
+})
+```
+
+### row
+------------------------------------
+```{r}
+renderLeaflet({
+  if (input$deelgebied == "All") {
+    leaflet() %>%
+      addTiles(group = "OSM") %>%
+      addPolygons(data = Provincies_grenzen$geometry,
+                  color = "black",
+                  weight = 2,
+                  fillColor = "lightgrey",
+                  fillOpacity = 0.2) %>%
+      addPolygons(data = gebied2(),
+                  color =  "green",
+                  weight = 1,
+                  fillColor = "green",
+                  fillOpacity = 0.8,
+                  label = ~paste0(naam," (",code,")"))
+  } else {
+    leaflet() %>%
+      addTiles(group = "OSM") %>%
+      addPolygons(data = deelgebied(),
+                  color =  "green",
+                  weight = 1,
+                  fill = "green",
+                  fillOpacity = 0.8,
+                  label = ~paste0(naam," (",code,")")) 
+  }
+})
+```
+
+### row {data-height=45}
+------------------------------------
+```{r}
+renderText({
+  paste0("Onderstaande barplot geeft per soort het percentage van zijn totale verspreiding weer dat overlapt met ", input$kaart2, " (", input$deelgebied, ").")
+})
+```
+
+### row
+------------------------------------
+```{r}
+renderPlotly({
+  plot_ly(metrics_in(),
+          x = ~metrics_in()[,1],
+          y = ~metrics_in()[,2],
+          type = 'bar',
+          showlegend = FALSE) %>%
+    layout(xaxis = list(title = FALSE, categoryorder = "total descending"),
+           yaxis = list(title = "Percentage overlap")) #%>%
+})
+```
+
+### row {data-height=45}
+------------------------------------
+```{r}
+renderText({
+  paste0("Onderstaande barplot geeft per soort het percentage van het totaal oppervlak ", input$kaart2, " gebied (", input$deelgebied, ") weer dat overlapt met de soortverspreiding.")
+})
+```
+
+### row
+------------------------------------
+```{r}
+renderPlotly({
+  plot_ly(metrics_of(),
+          x = ~metrics_of()[,1],
+          y = ~metrics_of()[,2],
+          type = 'bar',
+          showlegend = FALSE) %>%
+    layout(xaxis = list(title = FALSE, categoryorder = "total descending"),
+           yaxis = list(title = "Percentage overlap"))
+})
 ```
