@@ -34,7 +34,8 @@ anb_bw_2023 <- readxl::read_excel("./radius/data/input/survey/Contactenlijst BW 
 ```{r shapefile-beheerregios-anb}
 # ik heb zelf een shapefile gemaakt in ArcMap met een ruwe omlijning van de 10 anb beheerregio's (voor hulp bij visualisatie van de resultaten)
 beheerregios_anb <- st_read("./radius/data/spatial/beheerregios_anb.shp") %>%
-  st_transform(4326) 
+  st_transform(4326) %>%
+  select(NAAM, geometry)
 
 # centraal punt van de beheerregio polygonen berekenen
 beheerregios_centr <- beheerregios_anb %>%
@@ -87,3 +88,375 @@ leaflet() %>%
             pal = colorNumeric(palette = "Greens", domain = respons$resp_graad), 
             values = respons$resp_graad, title = "responsgraad (%)", opacity = 1) 
 ```
+
+```{r color-palette}
+RColorBrewer::brewer.pal(9, "Reds")
+colors <- c("Komt niet voor" = "#E5E5E5",
+            "Lage aantallen, lokaal" ="#FEE5D9",
+            "Lage aantallen, wijd verspreid" = "#FC9272" , 
+            "Hoge aantallen, lokaal" = "#FB6A4A",
+            "Hoge aantallen, wijd verspreid" = "#CB181D",
+            "Ken ik niet" = "#4D4D4D")
+
+legend_colors <- c("#E5E5E5", "#FEE5D9","#FCAE91","#FB6A4A","#CB181D","#4D4D4D")
+legend_labels <- c("Komt niet voor", "Lage aantallen, lokaal","Lage aantallen, wijd verspreid", "Hoge aantallen, lokaal", "Hoge aantallen, wijd verspreid","Ken ik niet")
+```
+
+
+```{r resultaten-zoogdieren, message=FALSE}
+zoogdieren_oost <- data_oost %>%
+  select(4:14) %>%
+  rename_at(vars(2:11), ~ str_remove_all(str_sub(., 82, -7), "\\."))
+
+zoogdieren_west <- data_west %>%
+  select(c(4:13)) %>%
+  rename_at(vars(2:10), ~ str_remove_all(str_sub(., 83, -2), "\\.")) %>%
+  rename(Siberischegrondeekhoorn = Siberischeeekhoorn)
+
+for (i in unique(names(c(zoogdieren_oost, zoogdieren_west)))[-1]) {
+  if (i %in% names(zoogdieren_oost)) {
+    df_oost <- zoogdieren_oost %>%
+      select(Uw.beheerregio, i) %>%
+      drop_na() %>%
+      group_by_at(c(1,2)) %>%
+      summarise(n = n()) %>%
+      pivot_wider(names_from = i, values_from = n, values_fill = 0) %>%
+      left_join(respons_oost, by = "Uw.beheerregio")
+  } else {
+    df_oost <- data.frame()
+  }
+  
+  if (i %in% names(zoogdieren_west)) {
+    df_west <- zoogdieren_west %>%
+      select(Uw.beheerregio, i) %>%
+      drop_na() %>%
+      group_by_at(c(1,2)) %>%
+      summarise(n = n()) %>%
+      pivot_wider(names_from = i, values_from = n, values_fill = 0) %>%
+      left_join(respons_west, by = "Uw.beheerregio")
+  } else {
+    df_west <- data.frame()
+  }
+  
+  df <- rbind(df_oost, df_west) %>%
+    replace(is.na(.), 0)
+  
+  grouping_factors <- names(df)[! names(df) %in% c("Uw.beheerregio","deelnemers", "n", "resp_graad", "decimalLongitude", "decimalLatitude")]
+  
+  print(leaflet() %>%
+    addTiles(data = "OSM") %>%
+    addPolygons(data = beheerregios_anb, 
+                label = ~NAAM, 
+                color = "black", 
+                weight = 1) %>%
+    leaflet.minicharts::addMinicharts(
+      df$decimalLongitude, df$decimalLatitude,
+      type = "pie",
+      chartdata = df[c(grouping_factors)],
+      colorPalette = unname(colors[grouping_factors]),
+      fillColor = unname(colors[grouping_factors])[1],
+      popupOptions = list(closeButton = TRUE),
+      legend = FALSE,
+      width = 50) %>%
+    addControl(paste("<b>", i, "</b>"), position = "topright")  %>%
+    addLegend(position = "bottomright",
+              colors = legend_colors,
+              labels = legend_labels,
+              opacity = 1))
+}
+```
+
+```{r resultaten-vogels, message=FALSE}
+vogels_oost <- data_oost %>%
+  select(c(4,15:22)) %>%
+  rename_at(vars(2:9), ~ str_remove_all(str_sub(., 84, -2), "[.]|EU|zomerganzen"))
+
+
+vogels_west <- data_west %>%
+  select(c(4, 14:20)) %>%
+  rename_at(vars(2:8), ~ str_remove_all(str_sub(., 123, -2), "[.]"))
+
+for (i in unique(names(c(vogels_oost, vogels_west)))[-1]) {
+  if (i %in% names(vogels_oost)) {
+    df_oost <- vogels_oost %>%
+      select(Uw.beheerregio, i) %>%
+      drop_na() %>%
+      group_by_at(c(1,2)) %>%
+      summarise(n = n()) %>%
+      pivot_wider(names_from = i, values_from = n, values_fill = 0) %>%
+      left_join(respons_oost, by = "Uw.beheerregio")
+  } else {
+    df_oost <- data.frame()
+  }
+  
+  if (i %in% names(vogels_west)) {
+    df_west <- vogels_west %>%
+      select(Uw.beheerregio, i) %>%
+      drop_na() %>%
+      group_by_at(c(1,2)) %>%
+      summarise(n = n()) %>%
+      pivot_wider(names_from = i, values_from = n, values_fill = 0) %>%
+      left_join(respons_west, by = "Uw.beheerregio")
+  } else {
+    df_west <- data.frame()
+  }
+  
+  df <- rbind(df_oost, df_west) %>%
+    replace(is.na(.), 0)
+  
+  grouping_factors <- names(df)[! names(df) %in% c("Uw.beheerregio","deelnemers", "n", "resp_graad", "decimalLongitude", "decimalLatitude")]
+  
+  print(leaflet() %>%
+    addTiles(data = "OSM") %>%
+    addPolygons(data = beheerregios_anb, 
+                label = ~NAAM, 
+                color = "black", 
+                weight = 1) %>%
+    leaflet.minicharts::addMinicharts(
+      df$decimalLongitude, df$decimalLatitude,
+      type = "pie",
+      chartdata = df[c(grouping_factors)],
+      colorPalette = unname(colors[grouping_factors]),
+      fillColor = unname(colors[grouping_factors])[1],
+      popupOptions = list(closeButton = TRUE),
+      legend = FALSE,
+      width = 50
+      #width = 300 * abs(log10(df$resp_graad + 0.7)) + 40
+      #showLabels = TRUE
+    ) %>%
+    addControl(paste("<b>", i, "</b>"), position = "topright")  %>%
+    addLegend(position = "bottomright",
+              colors = legend_colors,
+              labels = legend_labels,
+              opacity = 1))
+}
+```
+
+```{r resultaten-amfibieën-reptielen, message=FALSE}
+amf_rep_oost <- data_oost %>%
+  select(c(4,23:25)) %>%
+  rename_at(vars(2:4), ~ str_remove_all(str_sub(., 91, -2), "[.]|EU")) %>%
+  rename_at(vars(4), ~ str_replace_all(., "roodwanggeelwangengeelbuikschildpad", ""))
+
+amf_rep_west <- data_west %>%
+  select(c(4, 21:23)) %>%
+  rename_at(vars(2:4), ~ str_remove_all(str_sub(., 95, -2), "[.()]")) %>%
+  rename_at(vars(4), ~ str_replace_all(., "roodwanggeelwangengeelbuik", ""))
+
+for (i in unique(names(c(amf_rep_oost, amf_rep_west)))[-1]) {
+  if (i %in% names(amf_rep_oost)) {
+    df_oost <- amf_rep_oost %>%
+      select(Uw.beheerregio, i) %>%
+      drop_na() %>%
+      group_by_at(c(1,2)) %>%
+      summarise(n = n()) %>%
+      pivot_wider(names_from = i, values_from = n, values_fill = 0) %>%
+      left_join(respons_oost, by = "Uw.beheerregio")
+  } else {
+    df_oost <- data.frame()
+  }
+  
+  if (i %in% names(amf_rep_west)) {
+    df_west <- amf_rep_west %>%
+      select(Uw.beheerregio, i) %>%
+      drop_na() %>%
+      group_by_at(c(1,2)) %>%
+      summarise(n = n()) %>%
+      pivot_wider(names_from = i, values_from = n, values_fill = 0) %>%
+      left_join(respons_west, by = "Uw.beheerregio")
+  } else {
+    df_west <- data.frame()
+  }
+  
+  df <- rbind(df_oost, df_west) %>%
+    replace(is.na(.), 0)
+  
+  grouping_factors <- names(df)[! names(df) %in% c("Uw.beheerregio","deelnemers", "n", "resp_graad", "decimalLongitude", "decimalLatitude")]
+  
+  print(leaflet() %>%
+    addTiles(data = "OSM") %>%
+    addPolygons(data = beheerregios_anb, 
+                label = ~NAAM, 
+                color = "black", 
+                weight = 1) %>%
+    leaflet.minicharts::addMinicharts(
+      df$decimalLongitude, df$decimalLatitude,
+      type = "pie",
+      chartdata = df[c(grouping_factors)],
+      colorPalette = unname(colors[grouping_factors]),
+      fillColor = unname(colors[grouping_factors])[1],
+      popupOptions = list(closeButton = TRUE),
+      legend = FALSE,
+      width = 50) %>%
+    addControl(paste("<b>", i, "</b>"), position = "topright")  %>%
+    addLegend(position = "bottomright",
+              colors = legend_colors,
+              labels = legend_labels,
+              opacity = 1))
+}
+```
+
+```{r resultaten-planten, message=FALSE}
+plant_deel1_oost <- data_oost %>%
+  select(c(4,29:47)) %>%
+  rename_at(vars(2:20), ~ str_remove_all(str_sub(., 83, -2), "[.]|EU")) %>%
+  rename_at(vars(9), ~ str_replace_all(., "Moeraslantaarnmoerasaronskelk", "Moerasaronskelk"))
+
+plant_deel2_oost <- data_oost %>%
+  select(c(4,48:55)) %>%
+  rename_at(vars(2:9), ~ str_remove_all(str_sub(., 190, -2), "[.]||geenideewelkesoorten")) %>%
+  rename_at(vars(2), ~ str_replace_all(., "geenideewelkesoorten", "")) %>%
+  rename_at(vars(6), ~ str_replace_all(., "GuldenroedeLateofCanadese", "GuldenroedeCanadeseofLate"))
+
+
+plant_oost <- cbind(plant_deel1_oost, plant_deel2_oost) %>%
+  select(-21)
+
+plant_deel1_west <- data_west %>%
+  select(c(4, 32:48)) %>%
+  rename_at(vars(2:18), ~ str_remove_all(str_sub(., 85, -2), "[.()]")) 
+
+plant_deel2_west <- data_west %>%
+  select(c(4, 49:69)) %>%
+  rename_at(vars(2:22), ~ str_remove_all(str_sub(., 84, -2), "[.()]")) %>%
+  rename_at(vars(4), ~ str_replace_all(., "Invasieveduizendknopenziefiguur", "Duizendknopen"))
+
+plant_west <- cbind(plant_deel1_west, plant_deel2_west) %>%
+  select(-19)
+
+for (i in unique(names(c(plant_oost, plant_west)))[-1]) {
+  if (i %in% names(plant_oost)) {
+    df_oost <- plant_oost %>%
+      select(Uw.beheerregio, i) %>%
+      drop_na() %>%
+      group_by_at(c(1,2)) %>%
+      summarise(n = n()) %>%
+      pivot_wider(names_from = i, values_from = n, values_fill = 0) %>%
+      left_join(respons_oost, by = "Uw.beheerregio")
+  } else {
+    df_oost <- data.frame()
+  }
+  
+  if (i %in% names(plant_west)) {
+    df_west <- plant_west %>%
+      select(Uw.beheerregio, i) %>%
+      drop_na() %>%
+      group_by_at(c(1,2)) %>%
+      summarise(n = n()) %>%
+      pivot_wider(names_from = i, values_from = n, values_fill = 0) %>%
+      left_join(respons_west, by = "Uw.beheerregio")
+  } else {
+    df_west <- data.frame()
+  }
+  
+  df <- rbind(df_oost, df_west) %>%
+    replace(is.na(.), 0)
+  
+  grouping_factors <- names(df)[! names(df) %in% c("Uw.beheerregio","deelnemers", "n", "resp_graad", "decimalLongitude", "decimalLatitude")]
+  
+  print(leaflet() %>%
+    addTiles(data = "OSM") %>%
+    addPolygons(data = beheerregios_anb, 
+                label = ~NAAM, 
+                color = "black", 
+                weight = 1) %>%
+    leaflet.minicharts::addMinicharts(
+      df$decimalLongitude, df$decimalLatitude,
+      type = "pie",
+      chartdata = df[c(grouping_factors)],
+      colorPalette = unname(colors[grouping_factors]),
+      fillColor = unname(colors[grouping_factors])[1],
+      popupOptions = list(closeButton = TRUE),
+      legend = FALSE,
+      width = 50) %>%
+    addControl(paste("<b>", i, "</b>"), position = "topright")  %>%
+    addLegend(position = "bottomright",
+              colors = legend_colors,
+              labels = legend_labels,
+              opacity = 1))
+}
+```
+
+```{r resultaten-ongewervelden-west, message=FALSE}
+ongewervelden_west <- data_west %>%
+  select(c(4, 24:28)) %>%
+  rename_at(vars(2:6), ~ str_remove_all(str_sub(., 85, -2), "[.()]")) %>%
+  rename_at(vars(6), ~ str_replace_all(., "Overigerivierkreeftenziefiguur", "Overige rivierkreeften"))
+
+for (i in unique(names(ongewervelden_west))[-1]) {
+  df_west <- ongewervelden_west %>%
+      select(Uw.beheerregio, i) %>%
+      drop_na() %>%
+      group_by_at(c(1,2)) %>%
+      summarise(n = n()) %>%
+      pivot_wider(names_from = i, values_from = n, values_fill = 0) %>%
+      left_join(respons_west, by = "Uw.beheerregio")
+  
+  grouping_factors <- names(df_west)[! names(df_west) %in% c("Uw.beheerregio","deelnemers", "n", "resp_graad", "decimalLongitude", "decimalLatitude")]
+  
+  print(leaflet() %>%
+    addTiles(data = "OSM") %>%
+    addPolygons(data = beheerregios_anb, 
+                label = ~NAAM, 
+                color = "black", 
+                weight = 1) %>%
+    leaflet.minicharts::addMinicharts(
+      df_west$decimalLongitude, df_west$decimalLatitude,
+      type = "pie",
+      chartdata = df_west[c(grouping_factors)],
+      colorPalette = unname(colors[grouping_factors]),
+      fillColor = unname(colors[grouping_factors])[1],
+      popupOptions = list(closeButton = TRUE),
+      legend = FALSE,
+      width = 50) %>%
+    addControl(paste("<b>", i, "</b>"), position = "topright")  %>%
+    addLegend(position = "bottomright",
+              colors = legend_colors,
+              labels = legend_labels,
+              opacity = 1))
+}
+```
+
+```{r resultaten-vissen-west, message=FALSE}
+vissen_west <- data_west %>%
+  select(c(4, 29:30)) %>%
+  rename_at(vars(2:3), ~ str_remove_all(str_sub(., 76, -2), "[.()]")) 
+
+for (i in unique(names(vissen_west))[-1]) {
+  df_west <- vissen_west %>%
+      select(Uw.beheerregio, i) %>%
+      drop_na() %>%
+      group_by_at(c(1,2)) %>%
+      summarise(n = n()) %>%
+      pivot_wider(names_from = i, values_from = n, values_fill = 0) %>%
+      left_join(respons_west, by = "Uw.beheerregio")
+  
+  grouping_factors <- names(df_west)[! names(df_west) %in% c("Uw.beheerregio","deelnemers", "n", "resp_graad", "decimalLongitude", "decimalLatitude")]
+  
+  print(leaflet() %>%
+    addTiles(data = "OSM") %>%
+    addPolygons(data = beheerregios_anb, 
+                label = ~NAAM, 
+                color = "black", 
+                weight = 1) %>%
+    leaflet.minicharts::addMinicharts(
+      df_west$decimalLongitude, df_west$decimalLatitude,
+      type = "pie",
+      chartdata = df_west[c(grouping_factors)],
+      colorPalette = unname(colors[grouping_factors]),
+      fillColor = unname(colors[grouping_factors])[1],
+      popupOptions = list(closeButton = TRUE),
+      legend = FALSE,
+      width = 50) %>%
+    addControl(paste("<b>", i, "</b>"), position = "topright")  %>%
+    addLegend(position = "bottomright",
+              colors = legend_colors,
+              labels = legend_labels,
+              opacity = 1))
+}
+```
+
+```{r}
+
+```
+
