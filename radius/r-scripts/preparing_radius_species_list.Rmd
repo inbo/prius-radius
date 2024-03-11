@@ -150,10 +150,10 @@ radius_list <- radius_list %>%
 
 ## Toevoegen sikahert (2440954), Chinese moerasslak (9738098), Chinese prachtslang (8889878), wilde rijst (10919373), Turkse rivierkreeft (8946295)
 ```{r expanding-anb-species-selection}
-ANB_list <- data.frame(matrix(ncol=5,nrow=5, dimnames=list(NULL, names(radius_list)))) %>%
+ANB_list <- data.frame(matrix(ncol=5,nrow=6, dimnames=list(NULL, names(radius_list)))) %>%
   mutate(
-    GBIF_code = c(2440954, 9738098, 8889878, 10919373, 8946295), 
-    Soort = c("sikahert", "Chinese moerasslak", "Chinese prachtslang", "Mantsjoerese wilde rijst", "Turkse rivierkreeft"), 
+    GBIF_code = c(2440954, 9738098, 8889878, 10919373, 8946295, 3021850), 
+    Soort = c("sikahert", "Chinese moerasslak", "Chinese prachtslang", "Mantsjoerese wilde rijst", "Turkse rivierkreeft", "Amerikaanse vogelkers"), 
     Lijst = "0")
 
 for(i in 1:nrow(ANB_list)) {
