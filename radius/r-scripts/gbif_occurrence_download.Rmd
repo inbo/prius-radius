@@ -91,14 +91,14 @@ hasCoordinate <- TRUE
 #   pwd = rstudioapi::askForPassword("GBIF password"),
 #   email = rstudioapi::askForPassword("Email address for notification")
 # )
-# 
-# occ_download_wait(gbif_downloadKey, 
+
+# occ_download_wait(gbif_downloadKey,
 #                   curlopts = list(verbose = TRUE,
 #                                   http_version = 2,
 #                                   forbid_reuse = TRUE))
 
 # Or reuse existing download
-gbif_downloadKey <- "0082987-231120084113126" # aangepast 29/01
+gbif_downloadKey <- "0060541-240229165702484" # aangepast 11/03
 ```
 
 ## Get GBIF download to computer
