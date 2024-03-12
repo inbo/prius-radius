@@ -275,9 +275,9 @@ for (soort in unique(occ_flanders$Soort)) {
         
         for (row in 1:nrow(overlap_per_gebied)) {
           # OPTIE 1: percentage van overlap dat in bepaald gebied valt
-          percentage_overlap_in = as.numeric(overlap_per_gebied[row,]$intersect_area / overlap_intersection)
+          #percentage_overlap_in = as.numeric(overlap_per_gebied[row,]$intersect_area / overlap_intersection)
           # OPTIE 2: percentage van totale verspreiding dat in bepaald gebied valt
-          #percentage_overlap_in = as.numeric(overlap_per_gebied[row,]$intersect_area / total_area)
+          percentage_overlap_in = as.numeric(overlap_per_gebied[row,]$intersect_area / total_area)
           
           # percentage van oppervlakte HBTRL/VLRL/BWKHAB gebied dat overlapt met soortverspreiding
           percentage_overlap_of = as.numeric(overlap_per_gebied[row,]$intersect_area / overlap_per_gebied[row,]$geb_area)
@@ -328,9 +328,9 @@ for (soort in unique(occ_flanders$Soort)) {
       
         for (row in 1: nrow(overlap_per_anb_regio)) {
           # OPTIE 1: percentage van overlap met PATDAT per anb regio
-          percentage_overlap_in = as.numeric(overlap_per_anb_regio[row,]$intersect_area / overlap_intersection)
+          #percentage_overlap_in = as.numeric(overlap_per_anb_regio[row,]$intersect_area / overlap_intersection)
           # OPTIE 2: percentage van totale verspreiding dat overlapt per anb regio
-          #percentage_overlap_in = as.numeric(overlap_per_anb_regio[row,]$intersect_area / total_area)
+          percentage_overlap_in = as.numeric(overlap_per_anb_regio[row,]$intersect_area / total_area)
           percentage_overlap_of = as.numeric(overlap_per_anb_regio[row,]$intersect_area / overlap_per_anb_regio[row,]$geb_area)
         
           metrics_df <- data.frame(
@@ -379,9 +379,9 @@ for (soort in unique(occ_flanders$Soort)) {
       
         for (row in 1: nrow(overlap_per_eigendomtype)) {
           # OPTIE 1: percentage van overlap met NBHP dat overlapt per eigendomtype
-          percentage_overlap_in = as.numeric(overlap_per_eigendomtype[row,]$intersect_area / overlap_intersection)
+          #percentage_overlap_in = as.numeric(overlap_per_eigendomtype[row,]$intersect_area / overlap_intersection)
           # OPTIE 2: percentage van totale verspreiding dat overlapt per eigendomtype
-          #percentage_overlap_in = as.numeric(overlap_per_eigendomtype[row,]$intersect_area / total_area)
+          percentage_overlap_in = as.numeric(overlap_per_eigendomtype[row,]$intersect_area / total_area)
         
           list.results[[i]] <- rbind(list.results[[i]], data.frame(
             Soort = soort,
