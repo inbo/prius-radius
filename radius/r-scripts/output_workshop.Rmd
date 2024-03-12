@@ -1,0 +1,297 @@
+
+```{r clear-memory}
+rm(list=ls())
+```
+
+```{r load-library}
+library(tidyverse)
+library(sf)
+library(httr)
+library(gdalUtilities)
+```
+
+### Data inlezen
+
+```{r boundaries-flanders, message=FALSE}
+Vlaanderen_grenzen <- st_read("./prius/data/spatial/flanders_wgs84.geojson") 
+```
+
+```{r anb-patrimonium-data, message=FALSE}
+ensure_multipolygons <- function(X) {
+    tmp1 <- tempfile(fileext = ".gpkg")
+    tmp2 <- tempfile(fileext = ".gpkg")
+    st_write(X, tmp1)
+    ogr2ogr(tmp1, tmp2, f = "GPKG", nlt = "MULTIPOLYGON")
+    Y <- st_read(tmp2)
+    st_sf(st_drop_geometry(X), geom = st_geometry(Y))
+}
+
+am_patdat <- read_sf("https://www.mercator.vlaanderen.be/raadpleegdienstenmercatorpubliek/wfs?service=WFS&version=2.0.0&request=GetFeature&typename=am%3Aam_patdat") %>%
+  st_set_crs(31370) %>%
+  ensure_multipolygons()
+```
+
+```{r occ-flanders, message=FALSE}
+occ_flanders <- read_csv("./radius/data/input/gbif_occ_flanders.csv") %>%
+  st_as_sf(coords = c("decimalLongitude", "decimalLatitude"), crs = "+proj=longlat +datum=WGS84") %>%
+  st_transform(31370) 
+```
+
+```{r zeldzame-soorten}
+zeldzame_soorten <- occ_flanders %>%
+  group_by(Soort) %>%
+  summarise(n_obs = n())
+```
+
+
+```{r patdat-metrics, message=FALSE}
+species_abbr <- read_csv2("G:/Mijn Drive/Fleur/RadIUS/RadIUS voorbereiding/radius_species_list_abbreviations.csv")
+
+PATDAT <- read_csv("./radius/data/output/PATDAT.csv") %>%
+  left_join(species_abbr[,c(2,3)], by = "Soort")
+
+VL <- read_csv("./radius/data/output/VL.csv")
+```
+
+### Vragen Workshop
+
+# Q1 - Welke soorten zijn het meest aanwezig **in Vlaanderen?** (top 10)
+```{r top10-vlaanderen}
+top10_vl <- VL %>%
+  slice_max(order_by = ofVL, n = 10)
+```
+
+```{r kaartje-nijlgans}
+occ_nijlgans <- occ_flanders %>%
+  filter(Soort == "nijlgans") %>%
+  st_buffer(dist = 100) %>%  # buffer rond observaties voor visualisatie 
+  st_union() %>% 
+  st_cast('POLYGON') %>% 
+  st_sf() 
+
+ggplot() +
+  geom_sf(data = Vlaanderen_grenzen, fill= "#f0f0f0", size = 0.2) +
+  geom_sf(data = occ_nijlgans, color = "red", fill = "red") + 
+  theme_void() + 
+  theme(legend.position="bottom", legend.title = element_blank()) +
+  theme(plot.margin=grid::unit(c(0,0,0,0), "mm"))
+
+ggsave(file=paste0("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/4_Workshop/Presentaties/Figuren/RadIUS/Nijlgans.png"), width = 20, height = 9, units = "cm", dpi=200)
+```
+
+# Q2 - Welke soorten zijn het meest aanwezig **in ANB-patrimonium** (alle beheerregio’s)?
+```{r top10-patdat}
+top10_patdat <- PATDAT %>%
+  select(Soort, ofPATDAT) %>%
+  slice_max(order_by = ofPATDAT, n = 10)
+```
+
+```{r kaartje-nijlgans-patdat}
+occ_vogelkers <- occ_flanders %>%
+  filter(Soort == "nijlgans") %>%
+  st_buffer(dist = 100) %>%  # buffer rond observaties voor visualisatie 
+  st_union() %>% 
+  st_cast('POLYGON') %>% 
+  st_sf() 
+
+ggplot() +
+  geom_sf(data = Vlaanderen_grenzen, fill= "#f0f0f0", size = 0.2) +
+  geom_sf(data = am_patdat, color= "#a4e98f", fill="#a4e98f") +
+  geom_sf(data = occ_vogelkers, color = "red", fill = "red") + 
+  theme_void() +
+  theme(legend.position="bottom", legend.title = element_blank()) +
+  theme(plot.margin=grid::unit(c(0,0,0,0), "mm"))
+
+ggsave(file=paste0("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/4_Workshop/Presentaties/Figuren/RadIUS/Nijlgans2.png"), width = 20, height = 9, units = "cm", dpi=200)
+```
+
+```{r scatter-ofVL-ofANB}
+ofpatdat_vl <- PATDAT %>%
+  select(Soort, abbr, ofPATDAT) %>%
+  left_join(VL, by = "Soort")
+
+cor.test(data = ofpatdat_vl, x = ofpatdat_vl$ofVL, y = ofpatdat_vl$ofPATDAT, method=c("spearman")) 
+
+ggplot() +
+  #geom_point(data = ofpatdat_vl, aes(x = ofVL, y = ofPATDAT)) +
+  geom_text(data = ofpatdat_vl, aes(x = ofVL, y = ofPATDAT, label = abbr)) +
+  geom_abline() +
+  geom_abline(intercept = c(-0.02,0.02), linetype = 2) +
+  coord_equal(ratio = 1) +
+  theme_bw()
+
+ggsave(file=paste0("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/4_Workshop/Presentaties/Figuren/RadIUS/ofpatdat_ofvl.png"), width = 10, height = 13, units = "cm", dpi=200)
+```
+# Q3 - Welke soorten zijn het meest aanwezig **in ANB-patrimonium** (alle beheerregio’s)?
+```{r}
+top10_domeinen <- PATDAT %>%
+  select(Soort, nDomeinen) %>%
+  slice_max(order_by = nDomeinen, n = 10) %>%
+  mutate(nDomeinen_rel = nDomeinen / length(unique(am_patdat$domeinnaam)))
+
+# absoluut
+ggplot() +
+  geom_col(data = top10_domeinen, 
+           aes(x = reorder(Soort, desc(nDomeinen)), y = nDomeinen),
+           colour = "#c04384", fill = "#c04384") +
+  theme_bw() +
+  xlab("") + ylab("# ANB-domeinen") +
+  theme(axis.text.x = element_text(size = 10, angle = 90, vjust = 0.5, hjust=1),
+        axis.title = element_text(size = 9))
+
+ggsave(file=paste0("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/4_Workshop/Presentaties/Figuren/RadIUS/top10_domeinen_abs.png"), width = 12, height = 13, units = "cm", dpi=200)
+
+# relatief
+ggplot() +
+  geom_col(data = top10_domeinen, 
+           aes(x = reorder(Soort, desc(nDomeinen_rel)), y = nDomeinen_rel),
+           colour = "#c04384", fill = "#c04384") +
+  theme_bw() +
+  xlab("") + ylab("% van ANB-domeinen") +
+  theme(axis.text.x = element_text(size = 10, angle = 90, vjust = 0.5, hjust=1),
+        axis.title = element_text(size = 10))
+
+ggsave(file=paste0("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/4_Workshop/Presentaties/Figuren/RadIUS/top10_domeinen_rel.png"), width = 12, height = 13, units = "cm", dpi=200)
+```
+
+# Q4 - Welke soorten zijn het meest aanwezig in ANB-patrimonium, per beheerregio?
+```{r}
+top3_br <- data.frame()
+
+ofBR <- PATDAT %>%
+  select(Soort, ofAntKem, ofBraWou, ofDemZKe, ofGroGor, ofKusWes, ofLtHKem, ofTaxand, ofVArSch, ofZanVla, ofHKeVoe)
+
+for (i in c(2:11)) {
+  df <- ofBR %>%
+    select(1,i) %>%
+    slice_max(order_by = .[,2], n = 3, with_ties = FALSE)
+  
+  top3_br <- rbind(top3_br, data.frame(
+    Regio = names(df[,2]), 
+    Goud = df[[1,1]],
+    Zilver = df[[2,1]],
+    Brons = df[[3,1]]
+  ))
+}
+
+top3_br
+```
+
+# Q5 - Welke soorten zijn oververtegenwoordigd in ANB-patrimonium (alle beheerregio’s)?
+```{r barplot-inPATDAT}
+ggplot(data = PATDAT, aes(x = reorder(Soort, desc(inPATDAT)), y = inPATDAT)) +
+  geom_col(colour = "#c04384", fill = "#c04384") +
+  theme_bw() +
+  xlab("") + ylab("inPATDAT") +
+  theme(axis.text.x = element_text(size = 10, angle = 90, vjust = 0.5, hjust=1),
+        axis.title = element_text(size = 9))
+
+# sporadische soorten weglaten? 
+ggsave(file=paste0("G:/Mijn Drive/Fleur/RadIUS/Workshop/Kaartjes/inpatdat.png"), width = 23, height = 12, units = "cm", dpi=200)
+
+ggsave(file=paste0("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/4_Workshop/Presentaties/Figuren/RadIUS/inpatdat.png"), width = 20, height = 13, units = "cm", dpi=200)
+```
+
+```{r kaartje-grondeekhoorn}
+occ_vogelkers <- occ_flanders %>%
+   filter(Soort == "Siberische grondeekhoorn") #%>%
+  # st_buffer(dist = 100) %>%  # buffer rond observaties voor visualisatie 
+  # st_union() %>% 
+  # st_cast('POLYGON') %>% 
+  # st_sf() 
+
+ggplot() +
+  geom_sf(data = Vlaanderen_grenzen, fill= "#f0f0f0", size = 0.2) +
+  geom_sf(data = am_patdat, color= "#a4e98f", fill="#a4e98f") +
+  geom_sf(data = occ_vogelkers, color = "red", fill = "red") + 
+  theme_void() +
+  theme(legend.position="bottom", legend.title = element_blank()) +
+  theme(plot.margin=grid::unit(c(0,0,0,0), "mm"))
+
+#ggsave(file=paste0("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/4_Workshop/Presentaties/Figuren/RadIUS/Nijlgans2.png"), width = 20, height = 9, units = "cm", dpi=200)
+```
+
+
+```{r scatterplot-in-vs-ofPATDAT}
+ggplot(data = PATDAT, aes(x = inPATDAT, y = ofPATDAT + 0.001)) + # + 0.001, anders lukt log transformatie niet? 
+  geom_text(aes(label = abbr)) +
+  #geom_point() +
+  xlim(0,1) +
+  ylab("ofPATDAT") +
+  coord_trans(y="log2") +
+  theme_bw()
+
+ggsave(file=paste0("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/4_Workshop/Presentaties/Figuren/RadIUS/in_vs_of.png"), width = 16, height = 11, units = "cm", dpi=200)
+```
+
+# Q6 - Welke soorten zijn oververtegenwoordigd in ANB-patrimonium, per beheerregio?
+```{r}
+# dataframe met percentage van oppervlak Vlaanderen per beheerregio
+opp_per_regio <- am_patdat %>%
+  group_by(regio) %>%
+  summarise() %>%
+  drop_na() %>%
+  mutate(ofVL =  as.numeric(st_area(.) / Vlaanderen_grenzen$OPPERVL)) %>%
+  st_drop_geometry()
+
+inPATDAT <- PATDAT %>%
+  select(Soort, inAntKem, inBraWou, inDemZKe, inGroGor, inKusWes, inLtHKem, inTaxand, inVArSch, inZanVla, inHKeVoe) %>%
+  pivot_longer(cols = starts_with("in"), names_to = "regio", values_to = "inBR") %>%
+  mutate(regio = replace(regio, regio == "inAntKem", "Antwerpse Kempen"),
+         regio = replace(regio, regio == "inBraWou", "Brabantse Wouden"), 
+         regio = replace(regio, regio == "inDemZKe", "Demerland & Zuiderkempen"), 
+         regio = replace(regio, regio == "inGroGor", "Groene Gordels"),
+         regio = replace(regio, regio == "inKusWes", "Kust & Westhoek"), 
+         regio = replace(regio, regio == "inLtHKem", "Lage tot aan Hoge Kempen"), 
+         regio = replace(regio, regio == "inTaxand", "Taxandria"), 
+         regio = replace(regio, regio == "inVArSch", "Vlaamse Ardennen & Schelde-Leie"), 
+         regio = replace(regio, regio == "inZanVla", "Zandig Vlaanderen"), 
+         regio = replace(regio, regio == "inHKeVoe", "Hoge Kempen tot Voeren")) %>%
+  left_join(opp_per_regio, by = "regio") %>%
+  mutate(factor = inBR/ofVL)
+
+inPATDAT_max5 <- inPATDAT %>%
+  filter(inBR != 0) %>%
+  group_by(regio) %>%
+  slice_max(order_by = factor, n = 5, na_rm = TRUE)
+
+inPATDAT_min5 <- inPATDAT %>%
+  filter(inBR != 0) %>%
+  group_by(regio) %>%
+  slice_min(order_by = factor, n = 5, na_rm = TRUE)
+
+inPATDAT_slice <- rbind(inPATDAT_max5, inPATDAT_min5)
+
+for (i in unique(inPATDAT_slice$regio)) {
+  df <- inPATDAT_slice %>%
+    filter(regio == i) 
+  
+  print(ggplot() +
+          geom_point(data = df, aes(x = factor + 0.0001, y = reorder(Soort, factor))) +
+          geom_vline(xintercept = 1) +
+          coord_trans(x = "log2") +
+          labs(title = paste(i)) + 
+          xlab("Factor") +
+          theme_bw() + 
+          theme(axis.title.y = element_blank(), 
+                axis.text.y = element_text(size = 10)))
+  
+  ggsave(file=paste0("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/4_Workshop/Presentaties/Figuren/RadIUS/", i, ".png"), width = 15, height = 10, units = "cm", dpi=200)
+}
+```
+
+```{r}
+for (i in unique(inPATDAT$Soort)) {
+  df <- inPATDAT %>%
+    filter(Soort == i)
+  
+  print(ggplot() +
+          geom_point(data = df, aes(x = ofVL + 0.000001, y = inBR + 0.000001, color = regio)) +
+          geom_abline() +
+          ylab("inANB") +
+          labs(title = i) +
+          coord_trans(y = "log2", x = "log2") #+
+          #coord_fixed(ratio = 1, xlim = c(0,0.015), ylim = c(0,0.2))
+  )
+}
+```
