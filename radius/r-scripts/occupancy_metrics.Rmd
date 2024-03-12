@@ -35,8 +35,7 @@ occ_flanders <- read_csv("./radius/data/input/gbif_occ_flanders.csv") %>%
   left_join(species_list, by = c("speciesKey" = "GBIF_code", "Soort")) %>%
   select(year, decimalLongitude, decimalLatitude, speciesKey, Soort, coordinateUncertaintyInMeters, disp_dist) %>%
   st_as_sf(coords = c("decimalLongitude", "decimalLatitude"), crs = "+proj=longlat +datum=WGS84") %>%
-  st_transform(31370)  # st_buffer()/st_union does not correctly buffer longitude-latitude spatial data, whose distance is assumed to be in decimal degrees (arc_degrees).We transform the EPSG:4326 to Lambert 72.
-
+  st_transform(31370) # st_buffer()/st_union does not correctly buffer longitude-latitude spatial data, whose distance is assumed to be in decimal degrees (arc_degrees).We transform the EPSG:4326 to Lambert 72.
 ```
 
 ```{r boundaries-flanders}
@@ -202,7 +201,8 @@ list.dfs <- list(
   BWKHAB = bwkhab_adj,
   PATDAT = am_patdat,
   NBHP = ps_nbhp,
-  TOP3 = data.frame()
+  TOP3 = data.frame(), 
+  VL = data.frame()
 )
 
 # initialize a list for results
@@ -224,6 +224,11 @@ for (soort in unique(occ_flanders$Soort)) {
     mutate(buf_area = st_area(.))
   
   total_area <- sum(occ_species_buf$buf_area)
+  
+  list.results[[7]] <- rbind(list.results[[7]], data.frame(
+    Soort = soort, 
+    ofVL = as.character(round(as.numeric(total_area / Vlaanderen_grenzen$OPPERVL),5))
+  ))
   
   # loop through wfs-maps to calculate occupancy metrics
   for (i in seq_along(list.dfs[1:5])) {
@@ -438,7 +443,7 @@ for (soort in unique(occ_flanders$Soort)) {
       metrics_df <- data.frame(
         Soort = soort,
         Gebied = paste0(c("in", "of"), names(list.dfs)[i]),
-        Overlap = 0)
+        Overlap = "0")
       
       list.results[[i]] <- rbind(list.results[[i]], metrics_df)
     }
@@ -449,27 +454,34 @@ for (soort in unique(occ_flanders$Soort)) {
 # Adjust column format from long to wide
 ```{r column-format-long-to-wide}
 HBTRL <- list.results$HBTRL %>%
-  pivot_wider(names_from = Gebied, values_from = Overlap, values_fill = "0") %>%
+  mutate(Overlap = as.numeric(Overlap)) %>%
+  pivot_wider(names_from = Gebied, values_from = Overlap, values_fill = 0) %>%
   select(Soort, contains("in"), contains("of"))
 
 VGLRL <- list.results$VGLRL %>%
-  pivot_wider(names_from = Gebied, values_from = Overlap, values_fill = "0") %>%
+  mutate(Overlap = as.numeric(Overlap)) %>%
+  pivot_wider(names_from = Gebied, values_from = Overlap, values_fill = 0) %>%
   select(Soort, contains("in"), contains("of"))
 
 BWKHAB <- list.results$BWKHAB %>%
-  pivot_wider(names_from = Gebied, values_from = Overlap, values_fill = "0") %>%
+  mutate(Overlap = as.numeric(Overlap)) %>%
+  pivot_wider(names_from = Gebied, values_from = Overlap, values_fill = 0) %>%
   select(Soort, contains("in"), contains("of"))
 
 PATDAT <- list.results$PATDAT %>%
-  pivot_wider(names_from = Gebied, values_from = Overlap, values_fill = "0") %>%
+  mutate(Overlap = as.numeric(Overlap)) %>%
+  pivot_wider(names_from = Gebied, values_from = Overlap, values_fill = 0) %>%
   select(Soort, starts_with("n"), starts_with("in"), starts_with("of"))
 
 NBHP <- list.results$NBHP %>%
-  pivot_wider(names_from = Gebied, values_from = Overlap, values_fill = "0") %>%
+  mutate(Overlap = as.numeric(Overlap)) %>%
+  pivot_wider(names_from = Gebied, values_from = Overlap, values_fill = 0) %>%
   select(Soort, starts_with("n"), starts_with("in"))
 
 TOP3 <- list.results$TOP3 %>%
   pivot_wider(names_from = Gebied, values_from = Overlap, values_fill = "-")
+
+VL <- list.results$VL 
 ```
 
 ```{r save-list-results-as-RData-file}
@@ -483,5 +495,12 @@ write_csv(BWKHAB, "./radius/data/output/BWKHAB.csv")
 write_csv(PATDAT, "./radius/data/output/PATDAT.csv")
 write_csv(NBHP, "./radius/data/output/NBHP.csv")
 write_csv(TOP3, "./radius/data/output/TOP3.csv")
+write_csv(VL, "./radius/data/output/VL.csv")
+```
+
+# figuur methode RadIUS
+
+```{r}
+
 ```
 
