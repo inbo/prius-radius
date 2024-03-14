@@ -31,432 +31,685 @@ anb_bw_2023 <- readxl::read_excel("./radius/data/input/survey/Contactenlijst BW 
          Regio = replace(Regio, Regio =="Vlaamse Ardennen en Schelde-Leie", "Vlaamse Ardennen & Schelde-Leie"))
 ```
 
-```{r shapefile-beheerregios-anb}
-# ik heb zelf een shapefile gemaakt in ArcMap met een ruwe omlijning van de 10 anb beheerregio's (voor hulp bij visualisatie van de resultaten)
+```{r shapefile-beheerregios-boswachterijen-anb}
 beheerregios_anb <- st_read("./radius/data/spatial/beheerregios_anb.shp") %>%
   st_transform(4326) %>%
   select(NAAM, geometry)
 
-# centraal punt van de beheerregio polygonen berekenen
-beheerregios_centr <- beheerregios_anb %>%
-  st_centroid() %>%
-  mutate(decimalLongitude = sf::st_coordinates(.)[,1],
-         decimalLatitude = sf::st_coordinates(.)[,2]) %>%
-  st_drop_geometry() 
+leaflet() %>%
+  addTiles(data = "OSM") %>%
+  addPolygons(data = beheerregios_anb, label = ~NAAM, color = "black", weight = 2) 
 
-# coördinaten lichtjes aanpassen op basis van voorkeur
-beheerregios_centr[2,3] <- 51.0
-beheerregios_centr[6,2] <- 2.750334
-beheerregios_centr[3,3] <- 51.2
-beheerregios_centr[1,3] <- 51.18
-beheerregios_centr[8,2] <- 4.6
-beheerregios_centr[8,3] <- 50.85
+boswachterijen_anb <- st_read("./radius/data/spatial/Boswachterijen_2024.shp") %>%
+  st_transform(4326) 
 
 leaflet() %>%
   addTiles(data = "OSM") %>%
-  addPolygons(data = beheerregios_anb, label = ~NAAM, color = "black", weight = 2) %>%
-  addCircleMarkers(data = beheerregios_centr, lat = ~decimalLatitude, lng = ~decimalLongitude, radius = 5, weight = 1, fillOpacity = 1, label = ~NAAM)
+  addPolygons(data = beheerregios_anb, label = ~NAAM, color = "black", weight = 4) %>%
+  addPolygons(data = boswachterijen_anb, label = ~Naam, color = "black", weight = 2)
 ```
 
-```{r responsgraad per regio}
+```{r responsgraad-per-regio}
 calculate_response <- function(data, join_data) {
   data %>%
+    st_drop_geometry() %>%
     group_by(Uw.beheerregio) %>%
+    distinct() %>%
     summarise(deelnemers = n()) %>%
     left_join(join_data, by = c("Uw.beheerregio" = "Regio")) %>%
-    mutate(resp_graad = deelnemers/n * 100) %>%
-    left_join(beheerregios_centr, by = c("Uw.beheerregio" = "NAAM"))
+    mutate(resp_graad = deelnemers/n * 100) 
 }
 
-respons_oost <- calculate_response(data_oost, anb_bw_oud)
-respons_west <- calculate_response(data_west, anb_bw_2023)
+respons_oost <- calculate_response(data_oost, anb_bw_oud) %>%
+  mutate(zone = "Oost")
+respons_west <- calculate_response(data_west, anb_bw_2023) %>%
+  mutate(zone = "West")
 
 respons <- rbind(respons_oost, respons_west) %>%
-  left_join(beheerregios_anb, by = c("Uw.beheerregio" = "NAAM"))
+  left_join(beheerregios_anb, by = c("Uw.beheerregio" = "NAAM")) %>%
+  arrange(zone)
 
-colorMapper <- colorNumeric(palette = "Greens", domain = respons$resp_graad)
+respons_plot <- ggplot(data = respons, aes(x = (deelnemers/n)*100, y = Uw.beheerregio)) +
+  geom_bar(stat = "identity", 
+           width = 0.7,
+           color = "#c04384", 
+           fill = "#c04384", 
+           show.legend = FALSE) +
+  geom_text(aes(label = paste0(deelnemers, " (", round((deelnemers/n)*100,1), " %)")), 
+            size = 4, 
+            hjust = 1.1, 
+            colour = "white", 
+            show.legend = FALSE) +
+  xlab("Responsgraad (%)") +
+  scale_y_discrete(limits = c("Zandig Vlaanderen", "Vlaamse Ardennen & Schelde-Leie", "Kust & Westhoek", "Groene Gordels", "Antwerpse Kempen", "Taxandria", "Lage tot aan Hoge Kempen", "Hoge Kempen tot Voeren", "Demerland & Zuiderkempen", "Brabantse wouden")) +
+  theme_minimal() +
+  theme(axis.text.y = element_text(size = 10),
+        axis.title.y = element_blank(),
+        panel.grid.major.y = element_blank())
 
-leaflet() %>%
-  addTiles(data = "OSM") %>%
-  addPolygons(data = respons$geometry, 
-              color = "black", 
-              weight = 2, 
-              fillColor = colorMapper(respons$resp_graad), 
-              fillOpacity = 0.8, 
-              label = paste0(respons$Uw.beheerregio, ": ", respons$deelnemers, " deelnemers")) %>%
-  addLegend(position = "topright", 
-            pal = colorNumeric(palette = "Greens", domain = respons$resp_graad), 
-            values = respons$resp_graad, title = "responsgraad (%)", opacity = 1) 
+ggsave(respons_plot, file = paste0("G:/Mijn Drive/Fleur/RadIUS/Workshop/Kaartjes/respons_plot.png"), width = 20, height = 11, units = "cm", dpi=200)
 ```
 
-```{r color-palette}
-RColorBrewer::brewer.pal(9, "Reds")
-colors <- c("Komt niet voor" = "#E5E5E5",
+```{r aanpassen-namen-bw}
+boswachterijen_anb <- boswachterijen_anb %>%
+  mutate(Naam = case_when(
+    Naam == "vacant 2" ~ "Bosman Werner",
+    Naam == "vacant 1" ~ "Van Praet Hans",
+    Naam == "Deferm Wouter & Geeraerts Bert" ~ "Geeraerts Bert",
+    Naam == "Van Hertem Johan & Zvar Ernesto" ~ "Van Hertem Johan",
+    Naam == "Broux Jef" ~ "Lodewyckx Leo",
+    Naam == "Coninx Marie" ~ "Wellekens Jan",
+    TRUE ~ Naam
+  ))
+
+data_oost <- data_oost %>%
+  mutate(Uw.naam = paste(str_split_fixed(Uw.naam, " ", 2)[,2], str_split_fixed(Uw.naam, " ", 2)[,1])) %>%
+  mutate(Uw.naam = case_when(
+    Uw.naam == "corina cools" ~ "Cools Corina",
+    Uw.naam == " kris" ~ "Eggers Kris",
+    Uw.naam == "coninx geert" ~ "Coninx Geert",
+    Uw.naam == "vandersteegen jan" ~ "Vandersteegen Jan",
+    Uw.naam == "meulemans paul" ~ "Meulemans Paul",
+    Uw.naam == "bartholomees erik" ~ "Bartholomees Erik",
+    Uw.naam == "vercammen eddy" ~ "Vercammen Eddy",
+    Uw.naam == "van kerckhoven gijs" ~ "Van Kerkhoven Gijs",
+    Uw.naam == "Vermeulen Manu" ~ "Vermeulen Manuel",
+    Uw.naam == "Schuurmans Pat" ~ "Schuurmans Patrick",
+    Uw.naam == "Patrick Reynders" ~ "Reynders Patrick",
+    Uw.naam == "Uytsel Rudy Van" ~ "Van Uytsel Rudy",
+    TRUE ~ Uw.naam)) 
+  
+data_oost <- boswachterijen_anb %>%
+  inner_join(data_oost, by = c("Naam" = "Uw.naam"))
+
+data_west <- data_west %>%
+  mutate(Uw.naam = paste(str_split_fixed(Uw.naam, " ", 2)[,2], str_split_fixed(Uw.naam, " ", 2)[,1])) %>%
+  mutate(Uw.naam = case_when(
+    Uw.naam == " werner" ~ "Bosman Werner",
+    Uw.naam == "desseyn yvan" ~ "Desseyn Yvan",
+    Uw.naam == "maertens koen" ~ "Maertens Koen",
+    Uw.naam == "Deduytsche Björn" ~ "Deduytsche Bjorn",
+    Uw.naam == "Praet Hans Van" ~ "Van Praet Hans",
+    Uw.naam == "Kurt Vanpoecke" ~ "Vanpoecke Kurt",
+    TRUE ~ Uw.naam)) 
+
+data_west <- boswachterijen_anb %>%
+  inner_join(data_west, by = c("Naam" = "Uw.naam"))
+
+respons <- ggplot() +
+  geom_sf(data = boswachterijen_anb$geometry, color = "black", fill = "#f0f0f0") +
+  geom_sf(data = data_oost$geometry, color = "black", fill = "#238B45", alpha = 0.7) +
+  geom_sf(data = data_west$geometry, color = "black", fill = "#238B45", alpha = 0.7) +
+  theme_void() +
+  theme(plot.margin=grid::unit(c(0,0,0,0), "mm"))+
+  coord_sf()
+
+#ggsave(respons, file = paste0(G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/4_Workshop/Presentaties/Figuren/Kaartjes/respons.png"), width = 28, height = 17, units = "cm", dpi=200)
+```
+
+```{r load-gbif-occurrences, message=FALSE}
+species_list <- read_csv("./radius/data/input/radius_species_list.csv")
+
+occ_flanders <- read_csv("./radius/data/input/gbif_occ_flanders.csv") %>%
+  left_join(species_list, by = c("speciesKey" = "GBIF_code", "Soort")) %>%
+  select(year, decimalLongitude, decimalLatitude, Soort) %>%
+  st_as_sf(coords = c("decimalLongitude", "decimalLatitude"), crs = "+proj=longlat +datum=WGS84") %>%
+  mutate(Soort =str_to_title(str_remove(Soort, " ")))  # aanpassen soortnaam zodat hij matcht met survey output
+```
+
+```{r}
+colors <- c("Komt niet voor" = "#E1E1E1",
             "Lage aantallen, lokaal" ="#FEE5D9",
             "Lage aantallen, wijd verspreid" = "#FC9272" , 
             "Hoge aantallen, lokaal" = "#FB6A4A",
             "Hoge aantallen, wijd verspreid" = "#CB181D",
             "Ken ik niet" = "#4D4D4D")
-
-legend_colors <- c("#E5E5E5", "#FEE5D9","#FCAE91","#FB6A4A","#CB181D","#4D4D4D")
-legend_labels <- c("Komt niet voor", "Lage aantallen, lokaal","Lage aantallen, wijd verspreid", "Hoge aantallen, lokaal", "Hoge aantallen, wijd verspreid","Ken ik niet")
 ```
 
+######## ZOOGDIEREN ######## 
 
 ```{r resultaten-zoogdieren, message=FALSE}
 zoogdieren_oost <- data_oost %>%
-  select(4:14) %>%
-  rename_at(vars(2:11), ~ str_remove_all(str_sub(., 82, -7), "\\."))
+  select(1, 13:23, 72) %>%
+  rename_at(vars(3:12), ~ str_remove_all(str_sub(., 82, -7), "\\."))
 
 zoogdieren_west <- data_west %>%
-  select(c(4:13)) %>%
-  rename_at(vars(2:10), ~ str_remove_all(str_sub(., 83, -2), "\\.")) %>%
+  select(c(1, 13:22, 85)) %>%
+  rename_at(vars(3:11), ~ str_remove_all(str_sub(., 83, -2), "\\.")) %>%
   rename(Siberischegrondeekhoorn = Siberischeeekhoorn)
 
-for (i in unique(names(c(zoogdieren_oost, zoogdieren_west)))[-1]) {
+for (i in unique(names(c(zoogdieren_oost, zoogdieren_west)))[-c(1:2,13)]) {
   if (i %in% names(zoogdieren_oost)) {
     df_oost <- zoogdieren_oost %>%
-      select(Uw.beheerregio, i) %>%
-      drop_na() %>%
-      group_by_at(c(1,2)) %>%
-      summarise(n = n()) %>%
-      pivot_wider(names_from = i, values_from = n, values_fill = 0) %>%
-      left_join(respons_oost, by = "Uw.beheerregio")
+      select(i, Naam, geometry) %>%
+      drop_na()
   } else {
-    df_oost <- data.frame()
+    df_oost <- st_sf(st_sfc(crs =  "EPSG:4326"))
   }
   
   if (i %in% names(zoogdieren_west)) {
     df_west <- zoogdieren_west %>%
-      select(Uw.beheerregio, i) %>%
-      drop_na() %>%
-      group_by_at(c(1,2)) %>%
-      summarise(n = n()) %>%
-      pivot_wider(names_from = i, values_from = n, values_fill = 0) %>%
-      left_join(respons_west, by = "Uw.beheerregio")
+      select(i, Naam, geometry) %>%
+      drop_na() 
   } else {
-    df_west <- data.frame()
+    df_west <- st_sf(st_sfc(crs =  "EPSG:4326"))
   }
   
-  df <- rbind(df_oost, df_west) %>%
-    replace(is.na(.), 0)
+  df <- rbind(df_oost, df_west)
   
-  grouping_factors <- names(df)[! names(df) %in% c("Uw.beheerregio","deelnemers", "n", "resp_graad", "decimalLongitude", "decimalLatitude")]
+  occs <- occ_flanders %>%
+    filter(Soort == i)
   
-  print(leaflet() %>%
-    addTiles(data = "OSM") %>%
-    addPolygons(data = beheerregios_anb, 
-                label = ~NAAM, 
-                color = "black", 
-                weight = 1) %>%
-    leaflet.minicharts::addMinicharts(
-      df$decimalLongitude, df$decimalLatitude,
-      type = "pie",
-      chartdata = df[c(grouping_factors)],
-      colorPalette = unname(colors[grouping_factors]),
-      fillColor = unname(colors[grouping_factors])[1],
-      popupOptions = list(closeButton = TRUE),
-      legend = FALSE,
-      width = 50) %>%
-    addControl(paste("<b>", i, "</b>"), position = "topright")  %>%
-    addLegend(position = "bottomright",
-              colors = legend_colors,
-              labels = legend_labels,
-              opacity = 1))
+  grouping_factors <- unique((df %>% st_drop_geometry())[,1])
+  
+  map <- ggplot() +
+    geom_sf(data = boswachterijen_anb$geometry, color = "black", fill = "white") +
+    geom_sf(data = df$geometry, color = "black", aes(fill = df[[1]])) +
+    scale_fill_manual(breaks = names(colors[grouping_factors]), values = unname(colors[grouping_factors])) +
+    geom_sf(data = occs$geometry, size = 0.8, alpha = 0.4, color = "blue") +
+    theme_void() +
+    theme(plot.margin=grid::unit(c(0,0,0,0), "mm"),
+          legend.title = element_blank()) +
+    coord_sf()
+  
+  ggsave(map, file = paste0("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/4_Workshop/Presentaties/Figuren/Kaartjes/",i,"_2.png"), width = 28, height = 17, units = "cm", dpi=200)
 }
 ```
 
+######## VOGELS ######## 
+
 ```{r resultaten-vogels, message=FALSE}
 vogels_oost <- data_oost %>%
-  select(c(4,15:22)) %>%
-  rename_at(vars(2:9), ~ str_remove_all(str_sub(., 84, -2), "[.]|EU|zomerganzen"))
-
+  select(c(1, 13,24:31,72)) %>%
+  rename_at(vars(3:10), ~ str_remove_all(str_sub(., 84, -2), "[.]|EU|zomerganzen"))
 
 vogels_west <- data_west %>%
-  select(c(4, 14:20)) %>%
-  rename_at(vars(2:8), ~ str_remove_all(str_sub(., 123, -2), "[.]"))
+  select(c(1,13,23:29,85)) %>%
+  rename_at(vars(3:9), ~ str_remove_all(str_sub(., 123, -2), "[.]"))
 
-for (i in unique(names(c(vogels_oost, vogels_west)))[-1]) {
+for (i in unique(names(c(vogels_oost, vogels_west)))[-c(1:2,11)]) {
   if (i %in% names(vogels_oost)) {
     df_oost <- vogels_oost %>%
-      select(Uw.beheerregio, i) %>%
-      drop_na() %>%
-      group_by_at(c(1,2)) %>%
-      summarise(n = n()) %>%
-      pivot_wider(names_from = i, values_from = n, values_fill = 0) %>%
-      left_join(respons_oost, by = "Uw.beheerregio")
+      select(i, Naam, geometry) %>%
+      drop_na()
   } else {
-    df_oost <- data.frame()
+    df_oost <- st_sf(st_sfc(crs =  "EPSG:4326"))
   }
   
   if (i %in% names(vogels_west)) {
     df_west <- vogels_west %>%
-      select(Uw.beheerregio, i) %>%
-      drop_na() %>%
-      group_by_at(c(1,2)) %>%
-      summarise(n = n()) %>%
-      pivot_wider(names_from = i, values_from = n, values_fill = 0) %>%
-      left_join(respons_west, by = "Uw.beheerregio")
+      select(i, Naam, geometry) %>%
+      drop_na() 
   } else {
-    df_west <- data.frame()
+    df_west <- st_sf(st_sfc(crs =  "EPSG:4326"))
   }
   
-  df <- rbind(df_oost, df_west) %>%
-    replace(is.na(.), 0)
+  df <- rbind(df_oost, df_west)
   
-  grouping_factors <- names(df)[! names(df) %in% c("Uw.beheerregio","deelnemers", "n", "resp_graad", "decimalLongitude", "decimalLatitude")]
+  occs <- occ_flanders %>%
+    filter(Soort == i)
   
-  print(leaflet() %>%
-    addTiles(data = "OSM") %>%
-    addPolygons(data = beheerregios_anb, 
-                label = ~NAAM, 
-                color = "black", 
-                weight = 1) %>%
-    leaflet.minicharts::addMinicharts(
-      df$decimalLongitude, df$decimalLatitude,
-      type = "pie",
-      chartdata = df[c(grouping_factors)],
-      colorPalette = unname(colors[grouping_factors]),
-      fillColor = unname(colors[grouping_factors])[1],
-      popupOptions = list(closeButton = TRUE),
-      legend = FALSE,
-      width = 50
-      #width = 300 * abs(log10(df$resp_graad + 0.7)) + 40
-      #showLabels = TRUE
-    ) %>%
-    addControl(paste("<b>", i, "</b>"), position = "topright")  %>%
-    addLegend(position = "bottomright",
-              colors = legend_colors,
-              labels = legend_labels,
-              opacity = 1))
+  grouping_factors <- unique((df %>% st_drop_geometry())[,1])
+  
+  map <- ggplot() +
+    geom_sf(data = boswachterijen_anb$geometry, color = "black", fill = "white") +
+    geom_sf(data = df$geometry, color = "black", aes(fill = df[[1]])) +
+    scale_fill_manual(breaks = names(colors[grouping_factors]), values = unname(colors[grouping_factors])) +
+    geom_sf(data = occs$geometry, size = 0.8, alpha = 0.4, color = "blue") +
+    theme_void() +
+    theme(plot.margin=grid::unit(c(0,0,0,0), "mm"),
+          legend.title = element_blank()) +
+    coord_sf()
+  
+  ggsave(map, file = paste0("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/4_Workshop/Presentaties/Figuren/Kaartjes/",i,"_2.png"), width = 28, height = 17, units = "cm", dpi=200)
+    
 }
 ```
 
+######## AMFIBIEËN EN REPTIELEN ######## 
+
 ```{r resultaten-amfibieën-reptielen, message=FALSE}
 amf_rep_oost <- data_oost %>%
-  select(c(4,23:25)) %>%
-  rename_at(vars(2:4), ~ str_remove_all(str_sub(., 91, -2), "[.]|EU")) %>%
-  rename_at(vars(4), ~ str_replace_all(., "roodwanggeelwangengeelbuikschildpad", ""))
+  select(c(1, 13,32:34,72)) %>%
+  rename_at(vars(3:5), ~ str_remove_all(str_sub(., 91, -2), "[.]|EU")) %>%
+  rename_at(vars(5), ~ str_replace_all(., "roodwanggeelwangengeelbuikschildpad", ""))
 
 amf_rep_west <- data_west %>%
-  select(c(4, 21:23)) %>%
-  rename_at(vars(2:4), ~ str_remove_all(str_sub(., 95, -2), "[.()]")) %>%
-  rename_at(vars(4), ~ str_replace_all(., "roodwanggeelwangengeelbuik", ""))
+  select(c(1,13,30:32)) %>%
+  rename_at(vars(3:5), ~ str_remove_all(str_sub(., 95, -2), "[.()]")) %>%
+  rename_at(vars(5), ~ str_replace_all(., "roodwanggeelwangengeelbuik", ""))
 
-for (i in unique(names(c(amf_rep_oost, amf_rep_west)))[-1]) {
+for (i in unique(names(c(amf_rep_oost, amf_rep_west)))[-c(1:2,6)]) {
   if (i %in% names(amf_rep_oost)) {
     df_oost <- amf_rep_oost %>%
-      select(Uw.beheerregio, i) %>%
-      drop_na() %>%
-      group_by_at(c(1,2)) %>%
-      summarise(n = n()) %>%
-      pivot_wider(names_from = i, values_from = n, values_fill = 0) %>%
-      left_join(respons_oost, by = "Uw.beheerregio")
+      select(i, Naam, geometry) %>%
+      drop_na()
   } else {
-    df_oost <- data.frame()
+    df_oost <- st_sf(st_sfc(crs =  "EPSG:4326"))
   }
   
   if (i %in% names(amf_rep_west)) {
     df_west <- amf_rep_west %>%
-      select(Uw.beheerregio, i) %>%
-      drop_na() %>%
-      group_by_at(c(1,2)) %>%
-      summarise(n = n()) %>%
-      pivot_wider(names_from = i, values_from = n, values_fill = 0) %>%
-      left_join(respons_west, by = "Uw.beheerregio")
+      select(i, Naam, geometry) %>%
+      drop_na() 
   } else {
-    df_west <- data.frame()
+    df_west <- st_sf(st_sfc(crs =  "EPSG:4326"))
   }
   
-  df <- rbind(df_oost, df_west) %>%
-    replace(is.na(.), 0)
+  df <- rbind(df_oost, df_west) 
   
-  grouping_factors <- names(df)[! names(df) %in% c("Uw.beheerregio","deelnemers", "n", "resp_graad", "decimalLongitude", "decimalLatitude")]
+  occs <- occ_flanders %>%
+    filter(Soort == i)
   
-  print(leaflet() %>%
-    addTiles(data = "OSM") %>%
-    addPolygons(data = beheerregios_anb, 
-                label = ~NAAM, 
-                color = "black", 
-                weight = 1) %>%
-    leaflet.minicharts::addMinicharts(
-      df$decimalLongitude, df$decimalLatitude,
-      type = "pie",
-      chartdata = df[c(grouping_factors)],
-      colorPalette = unname(colors[grouping_factors]),
-      fillColor = unname(colors[grouping_factors])[1],
-      popupOptions = list(closeButton = TRUE),
-      legend = FALSE,
-      width = 50) %>%
-    addControl(paste("<b>", i, "</b>"), position = "topright")  %>%
-    addLegend(position = "bottomright",
-              colors = legend_colors,
-              labels = legend_labels,
-              opacity = 1))
+  grouping_factors <- unique((df %>% st_drop_geometry())[,1])
+  
+  map <- ggplot() +
+    geom_sf(data = boswachterijen_anb$geometry, color = "black", fill = "white") +
+    geom_sf(data = df$geometry, color = "black", aes(fill = df[[1]])) +
+    scale_fill_manual(breaks = names(colors[grouping_factors]), values = unname(colors[grouping_factors])) +
+    geom_sf(data = occs$geometry, size = 0.8, alpha = 0.4, color = "blue") +
+    theme_void() +
+    theme(plot.margin=grid::unit(c(0,0,0,0), "mm"),
+          legend.title = element_blank()) +
+    coord_sf()
+  
+  ggsave(map, file = paste0("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/4_Workshop/Presentaties/Figuren/Kaartjes/",i,"_2.png"), width = 28, height = 17, units = "cm", dpi=200)
 }
 ```
 
+######## PLANTEN ######## 
+
 ```{r resultaten-planten, message=FALSE}
-plant_deel1_oost <- data_oost %>%
-  select(c(4,29:47)) %>%
-  rename_at(vars(2:20), ~ str_remove_all(str_sub(., 83, -2), "[.]|EU")) %>%
-  rename_at(vars(9), ~ str_replace_all(., "Moeraslantaarnmoerasaronskelk", "Moerasaronskelk"))
+plant_oost_1 <- data_oost %>%
+  select(c(1,13,38:56,72)) %>%
+  rename_at(vars(3:21), ~ str_remove_all(str_sub(., 83, -2), "[.]|EU")) %>%
+  rename_at(vars(10), ~ str_replace_all(., "Moeraslantaarnmoerasaronskelk", "Moerasaronskelk"))
 
-plant_deel2_oost <- data_oost %>%
-  select(c(4,48:55)) %>%
-  rename_at(vars(2:9), ~ str_remove_all(str_sub(., 190, -2), "[.]||geenideewelkesoorten")) %>%
-  rename_at(vars(2), ~ str_replace_all(., "geenideewelkesoorten", "")) %>%
-  rename_at(vars(6), ~ str_replace_all(., "GuldenroedeLateofCanadese", "GuldenroedeCanadeseofLate"))
+plant_oost_2 <- data_oost %>%
+  select(c(1,13,57:64,72)) %>%
+  rename_at(vars(3:10), ~ str_remove_all(str_sub(., 190, -2), "[.]||geenideewelkesoorten")) %>%
+  rename_at(vars(3), ~ str_replace_all(., "geenideewelkesoorten", "")) %>%
+  rename_at(vars(7), ~ str_replace_all(., "GuldenroedeLateofCanadese", "GuldenroedeCanadeseofLate")) %>%
+  st_drop_geometry()
 
+plant_oost <- cbind(plant_oost_1, plant_oost_2) %>%
+  select(-c(22:23))
 
-plant_oost <- cbind(plant_deel1_oost, plant_deel2_oost) %>%
-  select(-21)
+plant_west_water <- data_west %>%
+  select(c(1,13,41:57,85)) %>%
+  rename_at(vars(3:19), ~ str_remove_all(str_sub(., 85, -2), "[.()]")) 
 
-plant_deel1_west <- data_west %>%
-  select(c(4, 32:48)) %>%
-  rename_at(vars(2:18), ~ str_remove_all(str_sub(., 85, -2), "[.()]")) 
+plant_west_land <- data_west %>%
+  select(c(1,13,58:78,85)) %>%
+  rename_at(vars(3:23), ~ str_remove_all(str_sub(., 84, -2), "[.()]")) %>%
+  rename_at(vars(5), ~ str_replace_all(., "Invasieveduizendknopenziefiguur", "Duizendknopen")) %>%
+  st_drop_geometry()
 
-plant_deel2_west <- data_west %>%
-  select(c(4, 49:69)) %>%
-  rename_at(vars(2:22), ~ str_remove_all(str_sub(., 84, -2), "[.()]")) %>%
-  rename_at(vars(4), ~ str_replace_all(., "Invasieveduizendknopenziefiguur", "Duizendknopen"))
+plant_west <- cbind(plant_west_water, plant_west_land) %>%
+  select(-c(20,21))
 
-plant_west <- cbind(plant_deel1_west, plant_deel2_west) %>%
-  select(-19)
-
-for (i in unique(names(c(plant_oost, plant_west)))[-1]) {
+for (i in unique(names(c(plant_oost, plant_west)))[-c(1:2,30)]) {
   if (i %in% names(plant_oost)) {
     df_oost <- plant_oost %>%
-      select(Uw.beheerregio, i) %>%
-      drop_na() %>%
-      group_by_at(c(1,2)) %>%
-      summarise(n = n()) %>%
-      pivot_wider(names_from = i, values_from = n, values_fill = 0) %>%
-      left_join(respons_oost, by = "Uw.beheerregio")
+      select(i, Naam, geometry) %>%
+      drop_na()
   } else {
-    df_oost <- data.frame()
+    df_oost <- st_sf(st_sfc(crs =  "EPSG:4326"))
   }
   
   if (i %in% names(plant_west)) {
     df_west <- plant_west %>%
-      select(Uw.beheerregio, i) %>%
-      drop_na() %>%
-      group_by_at(c(1,2)) %>%
-      summarise(n = n()) %>%
-      pivot_wider(names_from = i, values_from = n, values_fill = 0) %>%
-      left_join(respons_west, by = "Uw.beheerregio")
+      select(i, Naam, geometry) %>%
+      drop_na() 
   } else {
-    df_west <- data.frame()
+    df_west <- st_sf(st_sfc(crs =  "EPSG:4326"))
   }
   
-  df <- rbind(df_oost, df_west) %>%
-    replace(is.na(.), 0)
+  df <- rbind(df_oost, df_west) 
   
-  grouping_factors <- names(df)[! names(df) %in% c("Uw.beheerregio","deelnemers", "n", "resp_graad", "decimalLongitude", "decimalLatitude")]
+  occs <- occ_flanders %>%
+    filter(Soort == i)
   
-  print(leaflet() %>%
-    addTiles(data = "OSM") %>%
-    addPolygons(data = beheerregios_anb, 
-                label = ~NAAM, 
-                color = "black", 
-                weight = 1) %>%
-    leaflet.minicharts::addMinicharts(
-      df$decimalLongitude, df$decimalLatitude,
-      type = "pie",
-      chartdata = df[c(grouping_factors)],
-      colorPalette = unname(colors[grouping_factors]),
-      fillColor = unname(colors[grouping_factors])[1],
-      popupOptions = list(closeButton = TRUE),
-      legend = FALSE,
-      width = 50) %>%
-    addControl(paste("<b>", i, "</b>"), position = "topright")  %>%
-    addLegend(position = "bottomright",
-              colors = legend_colors,
-              labels = legend_labels,
-              opacity = 1))
+  grouping_factors <- unique((df %>% st_drop_geometry())[,1])
+  
+  map <- ggplot() +
+    geom_sf(data = boswachterijen_anb$geometry, color = "black", fill = "white") +
+    geom_sf(data = df$geometry, color = "black", aes(fill = df[[1]])) +
+    scale_fill_manual(breaks = names(colors[grouping_factors]), values = unname(colors[grouping_factors])) +
+    geom_sf(data = occs$geometry, size = 0.8, alpha = 0.4, color = "blue") +
+    theme_void() +
+    theme(plot.margin=grid::unit(c(0,0,0,0), "mm"),
+          legend.title = element_blank()) +
+    coord_sf()
+  
+  ggsave(map, file = paste0("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/4_Workshop/Presentaties/Figuren/Kaartjes/",i,"_2.png"), width = 28, height = 17, units = "cm", dpi=200)
 }
 ```
+
+######## ONGEWERVELDEN ######## 
 
 ```{r resultaten-ongewervelden-west, message=FALSE}
 ongewervelden_west <- data_west %>%
-  select(c(4, 24:28)) %>%
-  rename_at(vars(2:6), ~ str_remove_all(str_sub(., 85, -2), "[.()]")) %>%
-  rename_at(vars(6), ~ str_replace_all(., "Overigerivierkreeftenziefiguur", "Overige rivierkreeften"))
+  select(c(1, 13, 33:37,85)) %>%
+  rename_at(vars(3:7), ~ str_remove_all(str_sub(., 85, -2), "[.()]")) %>%
+  rename_at(vars(7), ~ str_replace_all(., "Overigerivierkreeftenziefiguur", "Overige rivierkreeften"))
 
-for (i in unique(names(ongewervelden_west))[-1]) {
+for (i in unique(names(ongewervelden_west))[-c(1:2,8)]) {
   df_west <- ongewervelden_west %>%
-      select(Uw.beheerregio, i) %>%
-      drop_na() %>%
-      group_by_at(c(1,2)) %>%
-      summarise(n = n()) %>%
-      pivot_wider(names_from = i, values_from = n, values_fill = 0) %>%
-      left_join(respons_west, by = "Uw.beheerregio")
+    select(i, Naam, geometry) %>%
+    drop_na() 
   
-  grouping_factors <- names(df_west)[! names(df_west) %in% c("Uw.beheerregio","deelnemers", "n", "resp_graad", "decimalLongitude", "decimalLatitude")]
+  occs <- occ_flanders %>%
+    filter(Soort == i)
   
-  print(leaflet() %>%
-    addTiles(data = "OSM") %>%
-    addPolygons(data = beheerregios_anb, 
-                label = ~NAAM, 
-                color = "black", 
-                weight = 1) %>%
-    leaflet.minicharts::addMinicharts(
-      df_west$decimalLongitude, df_west$decimalLatitude,
-      type = "pie",
-      chartdata = df_west[c(grouping_factors)],
-      colorPalette = unname(colors[grouping_factors]),
-      fillColor = unname(colors[grouping_factors])[1],
-      popupOptions = list(closeButton = TRUE),
-      legend = FALSE,
-      width = 50) %>%
-    addControl(paste("<b>", i, "</b>"), position = "topright")  %>%
-    addLegend(position = "bottomright",
-              colors = legend_colors,
-              labels = legend_labels,
-              opacity = 1))
+  grouping_factors <- unique((df_west %>% st_drop_geometry())[,1])
+  
+  map <- ggplot() +
+    geom_sf(data = boswachterijen_anb$geometry, color = "black", fill = "white") +
+    geom_sf(data = df_west$geometry, color = "black", aes(fill = df_west[[1]])) +
+    scale_fill_manual(breaks = names(colors[grouping_factors]), values = unname(colors[grouping_factors])) +
+    geom_sf(data = occs$geometry, size = 0.8, alpha = 0.4, color = "blue") +
+    theme_void() +
+    theme(plot.margin=grid::unit(c(0,0,0,0), "mm"),
+          legend.title = element_blank()) +
+    coord_sf()
+  
+  ggsave(map, file = paste0("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/4_Workshop/Presentaties/Figuren/Kaartjes/",i,"_2.png"), width = 28, height = 17, units = "cm", dpi=200)
 }
 ```
+
+```{r kaartje-overige-rivierkreeften}
+df_rivierkreeften <- ongewervelden_west %>%
+  select('Overige rivierkreeften', Naam, geometry) %>%
+  drop_na()
+
+occs <- occ_flanders %>%
+  filter(Soort %in% c("Gevlekteamerikaanse Rivierkreeft", "Rodeamerikaanse Rivierkreeft", "Californischerivierkreeft"))
+
+grouping_factors <- unique((df_rivierkreeften %>% st_drop_geometry())[,1])
+
+map <- ggplot() +
+  geom_sf(data = boswachterijen_anb, color = "black", fill = "white") +
+  geom_sf(data = df_rivierkreeften, color = "black", aes(fill = df_rivierkreeften$`Overige rivierkreeften`), show.legend = FALSE) +
+  scale_fill_manual(breaks = names(colors[grouping_factors]), values = unname(colors[grouping_factors])) +
+  geom_sf(data = occs, aes(color = Soort)) +
+  theme_void() +
+  scale_color_discrete(labels = c("Californische rivierkreeft", "Gevlekte Amerikaanse rivierkreeft", "Rode Amerikaanse rivierkreeft")) +
+  theme(plot.margin=grid::unit(c(0,0,0,0), "mm"),
+        legend.title = element_blank(),
+        legend.text = element_text(size = 10),
+        legend.position = "bottom") +
+  guides(color = guide_legend(override.aes = list(size = 6))) +
+  coord_sf()
+
+
+ggsave(map, file = paste0("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/4_Workshop/Presentaties/Figuren/Survey/Kaartjes/Overige rivierkreeften_2.png"), width = 28, height = 17, units = "cm", dpi=200)
+```
+
+
+######## VISSEN ######## 
 
 ```{r resultaten-vissen-west, message=FALSE}
 vissen_west <- data_west %>%
-  select(c(4, 29:30)) %>%
-  rename_at(vars(2:3), ~ str_remove_all(str_sub(., 76, -2), "[.()]")) 
+  select(c(1,13, 38:39)) %>%
+  rename_at(vars(3:4), ~ str_remove_all(str_sub(., 76, -2), "[.()]")) 
 
-for (i in unique(names(vissen_west))[-1]) {
+for (i in unique(names(vissen_west))[-c(1:2,5)]) {
   df_west <- vissen_west %>%
-      select(Uw.beheerregio, i) %>%
-      drop_na() %>%
-      group_by_at(c(1,2)) %>%
-      summarise(n = n()) %>%
-      pivot_wider(names_from = i, values_from = n, values_fill = 0) %>%
-      left_join(respons_west, by = "Uw.beheerregio")
+    select(i, Naam, geometry) %>%
+    drop_na() 
   
-  grouping_factors <- names(df_west)[! names(df_west) %in% c("Uw.beheerregio","deelnemers", "n", "resp_graad", "decimalLongitude", "decimalLatitude")]
+  occs <- occ_flanders %>%
+    filter(Soort == i)
   
-  print(leaflet() %>%
-    addTiles(data = "OSM") %>%
-    addPolygons(data = beheerregios_anb, 
-                label = ~NAAM, 
-                color = "black", 
-                weight = 1) %>%
-    leaflet.minicharts::addMinicharts(
-      df_west$decimalLongitude, df_west$decimalLatitude,
-      type = "pie",
-      chartdata = df_west[c(grouping_factors)],
-      colorPalette = unname(colors[grouping_factors]),
-      fillColor = unname(colors[grouping_factors])[1],
-      popupOptions = list(closeButton = TRUE),
-      legend = FALSE,
-      width = 50) %>%
-    addControl(paste("<b>", i, "</b>"), position = "topright")  %>%
-    addLegend(position = "bottomright",
-              colors = legend_colors,
-              labels = legend_labels,
-              opacity = 1))
+  grouping_factors <- unique((df_west %>% st_drop_geometry())[,1]) 
+                             
+  map <- ggplot() +
+    geom_sf(data = boswachterijen_anb$geometry, color = "black", fill = "white") +
+    geom_sf(data = df_west$geometry, color = "black", aes(fill = df_west[[1]])) +
+    scale_fill_manual(breaks = names(colors[grouping_factors]), values = unname(colors[grouping_factors])) +
+    geom_sf(data = occs$geometry, size = 0.8, alpha = 0.4, color = "blue") +
+    theme_void() +
+    theme(plot.margin=grid::unit(c(0,0,0,0), "mm"),
+          legend.title = element_blank()) +
+    coord_sf()
+  
+  ggsave(map, file = paste0("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/4_Workshop/Presentaties/Figuren/Kaartjes/",i,"_2.png"), width = 28, height = 17, units = "cm", dpi=200)
 }
 ```
 
-```{r}
 
+
+
+
+######## BLANCO's ######## 
+
+```{r}
+library(forcats)
+list_west <- list(zoogdieren = zoogdieren_west, 
+                  vogels = vogels_west, 
+                  amfibieën_reptielen = amf_rep_west, 
+                  ongewervelden = ongewervelden_west, 
+                  vissen = vissen_west, 
+                  landplanten = plant_west_land, 
+                  waterplanten = plant_west_water)
+
+blanco_df <- data.frame()
+
+for (i in seq_along(list_west)) {
+  blanco_df <- rbind(blanco_df, data.frame(
+    groep = names(list_west)[[i]],
+    soort = names(list_west[[i]][-c(1:2)] %>% st_drop_geometry()),
+    blanco = colSums(is.na(list_west[[i]][-c(1,2)] %>% st_drop_geometry()))
+  ))
+}
+
+row.names(blanco_df) <- NULL
+
+blanco_sum_df <- blanco_df %>%
+  group_by(groep) %>%
+  summarise(gem_blanco = round(mean(blanco),1),
+            tot_blanco = sum(blanco)) %>%
+  arrange(desc(gem_blanco))
+
+ggplot(data = blanco_sum_df, aes(x = groep, y = gem_blanco)) +
+  geom_bar(stat = "identity", 
+           width = 0.3,
+           color = "#c04384", 
+           fill = "#c04384", 
+           show.legend = FALSE) +
+  geom_text(aes(label = gem_blanco), 
+            position = position_dodge(width = 0.9),  # Align text with bars
+            vjust = -0.5, 
+            size = 3) +
+  scale_x_discrete(limits = c("zoogdieren", "vogels", "amfibieën_reptielen", "vissen", "ongewervelden", "landplanten", "waterplanten"), 
+                   labels = c("Zoogdieren", "Vogels", "Amfibieën & \n Reptielen", "Vissen", "Ongewervelden", "Landplanten", "Waterplanten")) +
+  ylab("Gemiddelde # Blanco's") +
+  theme_minimal() +
+  theme(axis.text.y = element_text(size = 10),
+        axis.title.x = element_blank(),
+        axis.text.x = element_text(angle = 45, hjust = 1.1, vjust = 1.2, size = 10),
+        panel.grid.major.y = element_blank())
+
+blanco_df$groep <- factor(blanco_df$groep, levels = c("vogels", "zoogdieren","vissen", "amfibieën_reptielen", "ongewervelden", "landplanten", "waterplanten"))
+
+ggplot(data = blanco_df, aes(x = fct_reorder(soort, groep), y = blanco, fill = groep)) +
+  geom_bar(stat = "identity", 
+           position = position_dodge(),
+           #width = 0.3,
+           # color = "#c04384", 
+           # fill = "#c04384", 
+           #show.legend = FALSE
+           ) +
+  geom_text(aes(label = blanco), 
+            position = position_dodge(width = 0.9),  # Align text with bars
+            vjust = -0.5, 
+            size = 3) +
+  theme_minimal() +
+  theme(axis.text.y = element_text(size = 10),
+        axis.title.x = element_blank(),
+        axis.text.x = element_text(angle = 45, hjust = 1.1, vjust = 1.2, size = 10),
+        panel.grid.major.y = element_blank())
+
+
+# blanco_df$groep <- factor(blanco_df$groep, ordered = TRUE)
+# 
+# # Grouped bar chart
+# ggplot(data = blanco_df, aes(x = soort, y = blanco, fill = groep)) +
+#   geom_bar(stat = "identity", 
+#            position = position_dodge(width = 0.9)) +  # Adjust the width as needed
+#   geom_text(aes(label = blanco), 
+#             position = position_dodge(width = 0.9),  # Align text with bars
+#             vjust = -0.5, 
+#             size = 3) +
+#   theme_minimal() +
+#   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+#   labs(x = "Soort", y = "Blanco")  # Add axis labels
+# 
+# 
+# ggplot(blanco_df) +
+#   geom_bar(aes(x = soort, y = blanco, fill = groep), 
+#            position = "dodge", stat = "identity") 
+
+blanco_df$groep <- factor(blanco_df$groep, levels = c("vogels", "zoogdieren", "vissen", "amfibieën_reptielen", "ongewervelden", "landplanten", "waterplanten"))
+
+# Calculate the sum of blanco within each groep and soort
+blanco_df_sum <- blanco_df %>%
+  group_by(groep, soort) %>%
+  summarize(total_blanco = sum(blanco))
+
+# Reorder soort based on the total sum of blanco within each groep
+blanco_df_sum <- blanco_df_sum %>%
+  arrange(groep, total_blanco) %>%
+  mutate(soort = factor(soort, levels = soort))
+
+# Plot the grouped bar chart
+ggplot(data = blanco_df_sum, aes(x = soort, y = total_blanco, fill = groep)) +
+  geom_bar(stat = "identity", position = position_dodge()) +
+  geom_text(aes(label = total_blanco), 
+            position = position_dodge(width = 0.9),  
+            vjust = -0.5, 
+            size = 3) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(x = "Soort", y = "Blanco")
 ```
 
+
+######## KEN IK NIET ######## 
+
+```{r ken-ik-niet-land-vs-water}
+colors2 <- c("waterplanten" = "#386641",
+            "landplanten" ="#6A994E",
+            "amfibieën_reptielen" = "#2A9D8F" , 
+            "vissen" = "#93E1D8",
+            "vogels" = "#E9C46A",
+            "zoogdieren" = "#F6863D", 
+            "ongewervelden" = "#8399A2")
+
+#uitsluitend voor de unielijstsoorten
+waterplanten_EU <- c("Grotewaternavel","Grotewaterteunisbloem","Kleinewaterteunisbloem","Moerasaronskelk","Ongelijkbladigvederkruid","Parelvederkruid","Smallewaterpest","Verspreidbladigewaterpest","Waterhyacint","Watersla","Waterwaaier")
+
+landplanten_EU <- c("Fraailampenpoetsersgras", "Gewonegunnera", "Japanssteltgras", "Hemelboom","Reuzenbalsemien","Reuzenberenklauw","Struikaster","Zijdeplant")
+
+zoogdieren_EU <- c("Amerikaansenerts", "Amerikaansevoseekhoorn", "Beverrat", "Chinesemuntjak", "Grijzeeekhoorn", "Muskusrat", "Siberischegrondeekhoorn", "Wasbeer", "Wasbeerhond")
+
+vogels_EU <- c("Heiligeibis", "Nijlgans", "Rossestekelstaart")
+
+amf_rep_EU <- c("Afrikaanseklauwkikker", "Amerikaansestierkikker", "Lettersierschildpad")
+
+vissen_EU <- c("Blauwbandgrondel", "Zonnebaars")
+
+ongewervelden_EU <- c("Aziatischehoornaar", "Chinesewolhandkrab", "Marmerkreeft", "Overige rivierkreeften")
+
+list_dfs <- list(
+  "landplanten" = list(data = plant_west_land, soorten = landplanten_EU),
+  "waterplanten" = list(data = plant_west_water, soorten = waterplanten_EU),
+  "zoogdieren" = list(data = zoogdieren_west, soorten = zoogdieren_EU),
+  "vogels" = list(data = vogels_west, soorten = vogels_EU),
+  "amfibieën_reptielen" = list(data = amf_rep_west, soorten = amf_rep_EU),
+  "vissen" = list(data = vissen_west, soorten = vissen_EU),
+  "ongewervelden" = list(data = ongewervelden_west, soorten = ongewervelden_EU)
+)
+
+blanco <- data.frame()
+gekend <- data.frame()
+
+
+# Loop over species groups and process data
+for (i in names(list_dfs)) {
+  data <- list_dfs[[i]]$data
+  soorten <- list_dfs[[i]]$soorten
+  
+  df <- data %>%
+    st_drop_geometry() %>%
+    select(all_of(soorten)) 
+  
+  gekend <- rbind(gekend, data.frame(
+    groep = i,
+    soort = names(df),
+    ken_ik_niet = colSums(df == "Ken ik niet", na.rm = TRUE),
+    blanco = colSums(is.na(df))
+  ))
+}
+
+rownames(gekend) <- NULL
+
+gekend <- gekend %>%
+  mutate(groep = factor(groep, levels = c("vogels", "zoogdieren", "amfibieën_reptielen", "vissen", "landplanten", "waterplanten", "ongewervelden"))) %>%
+  group_by(groep, soort) %>%
+  summarize(blanco = sum(blanco),
+            ken_ik_niet = sum(ken_ik_niet)) %>%
+  arrange(groep, ken_ik_niet) %>%
+  mutate(soort = factor(soort, levels = soort))
+
+
+ggplot(data = gekend, aes(x = soort, y = blanco, fill = groep)) +
+  geom_bar(stat = "identity", position = position_dodge()) +
+  geom_text(aes(label = blanco), 
+            position = position_dodge(width = 0.9),  
+            vjust = -0.5, 
+            size = 3) +
+  scale_fill_manual(breaks = names(colors2), values = unname(colors2)) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1.15),
+        legend.title = element_blank()) +
+  labs(x = "Soort", y = "Gemiddelde # Blanco")
+
+ken_ik_niet_plot <- ggplot(data = gekend, aes(x = soort, y = ken_ik_niet, fill = groep)) +
+  geom_bar(stat = "identity", position = position_dodge()) +
+  geom_text(aes(label = ken_ik_niet), 
+            position = position_dodge(width = 0.9),  
+            vjust = -0.5, 
+            size = 3) +
+  scale_fill_manual(breaks = names(colors2), values = unname(colors2)) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1.15),
+        axis.title.x = element_blank(),
+        legend.title = element_blank(),
+        legend.position = "bottom") +
+  labs(y = "Gemiddeld # Ken ik Niet")
+
+ggsave(ken_ik_niet_plot, file = paste0("G:/Mijn Drive/Fleur/RadIUS/Workshop/Grafieken/ken_ik_niet2.png"), width = 20, height = 11, units = "cm", dpi=200)
+
+
+gekend_sum <- gekend %>%
+  group_by(groep) %>%
+  summarise(blanco_gem = round(mean(blanco), 1),
+            ken_ik_niet_gem = round(mean(ken_ik_niet), 1))
+
+ken_ik_niet_sum_plot <- ggplot(data = gekend_sum, aes(x = reorder(groep, ken_ik_niet_gem), y = ken_ik_niet_gem, fill = groep)) +
+  geom_bar(stat = "identity", position = position_dodge(), show.legend = FALSE) +
+  geom_text(aes(label = ken_ik_niet_gem), 
+            position = position_dodge(width = 0.9),  
+            vjust = -0.5, 
+            size = 3) +
+  scale_fill_manual(breaks = names(colors2), values = unname(colors2)) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, size = 10, hjust = 1, vjust = 1),
+        axis.title.x = element_blank()) +
+  labs(y = "Gemiddeld # Ken ik Niet")
+
+ggsave(ken_ik_niet_sum_plot, file = paste0("G:/Mijn Drive/Fleur/RadIUS/Workshop/Grafieken/ken_ik_niet1.png"), width = 20, height = 11, units = "cm", dpi=200)
+
+```
