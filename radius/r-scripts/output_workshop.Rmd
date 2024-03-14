@@ -224,6 +224,8 @@ ggplot(data = PATDAT, aes(x = inPATDAT, y = ofPATDAT + 0.001)) + # + 0.001, ande
   coord_trans(y="log2") +
   theme_bw()
 
+cor.test(data = PATDAT, x = PATDAT$inPATDAT, y = PATDAT$ofPATDAT, method=c("spearman")) 
+
 ggsave(file=paste0("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/4_Workshop/Presentaties/Figuren/RadIUS/in_vs_of.png"), width = 16, height = 11, units = "cm", dpi=200)
 ```
 
