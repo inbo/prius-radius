@@ -424,7 +424,7 @@ df_rivierkreeften <- ongewervelden_west %>%
   drop_na()
 
 occs <- occ_flanders %>%
-  filter(Soort %in% c("Gevlekteamerikaanse Rivierkreeft", "Rodeamerikaanse Rivierkreeft", "Californischerivierkreeft"))
+  filter(Soort %in% c("Gevlekteamerikaanse Rivierkreeft", "Rodeamerikaanse Rivierkreeft", "Californischerivierkreeft", "Gestreepteamerikaanse Rivierkreeft", "Turkserivierkreeft"))
 
 grouping_factors <- unique((df_rivierkreeften %>% st_drop_geometry())[,1])
 
@@ -432,9 +432,9 @@ map <- ggplot() +
   geom_sf(data = boswachterijen_anb, color = "black", fill = "white") +
   geom_sf(data = df_rivierkreeften, color = "black", aes(fill = df_rivierkreeften$`Overige rivierkreeften`), show.legend = FALSE) +
   scale_fill_manual(breaks = names(colors[grouping_factors]), values = unname(colors[grouping_factors])) +
-  geom_sf(data = occs, aes(color = Soort)) +
+  geom_sf(data = occs, aes(color = Soort), alpha = 0.8) +
   theme_void() +
-  scale_color_discrete(labels = c("Californische rivierkreeft", "Gevlekte Amerikaanse rivierkreeft", "Rode Amerikaanse rivierkreeft")) +
+  scale_color_discrete(breaks = c("Californischerivierkreeft","Gevlekteamerikaanse Rivierkreeft", "Rodeamerikaanse Rivierkreeft", "Gestreepteamerikaanse Rivierkreeft", "Turkserivierkreeft"), labels = c("Californische rivierkreeft", "Gevlekte Amerikaanse rivierkreeft", "Rode Amerikaanse rivierkreeft", "Gestreepte Amerikaanse rivierkreeft", "Turkse rivierkreeft")) +
   theme(plot.margin=grid::unit(c(0,0,0,0), "mm"),
         legend.title = element_blank(),
         legend.text = element_text(size = 10),
