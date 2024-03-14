@@ -40,7 +40,8 @@ occ_flanders <- read_csv("./radius/data/input/gbif_occ_flanders.csv") %>%
 ```{r zeldzame-soorten}
 zeldzame_soorten <- occ_flanders %>%
   group_by(Soort) %>%
-  summarise(n_obs = n())
+  summarise(n_obs = n()) %>%
+  filter(n_obs < 15)
 ```
 
 
@@ -48,6 +49,8 @@ zeldzame_soorten <- occ_flanders %>%
 species_abbr <- read_csv2("G:/Mijn Drive/Fleur/RadIUS/RadIUS voorbereiding/radius_species_list_abbreviations.csv")
 
 PATDAT <- read_csv("./radius/data/output/PATDAT.csv") %>%
+  filter(! Soort %in% zeldzame_soorten) %>%
+  filter(nDomeinen != 0) %>%
   left_join(species_abbr[,c(2,3)], by = "Soort")
 
 VL <- read_csv("./radius/data/output/VL.csv")
@@ -120,7 +123,7 @@ ggplot() +
   coord_equal(ratio = 1) +
   theme_bw()
 
-ggsave(file=paste0("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/4_Workshop/Presentaties/Figuren/RadIUS/ofpatdat_ofvl.png"), width = 10, height = 13, units = "cm", dpi=200)
+ggsave(file=paste0("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/4_Workshop/Presentaties/Figuren/RadIUS/ofpatdat_ofvl2.png"), width = 10, height = 13, units = "cm", dpi=200)
 ```
 # Q3 - Welke soorten zijn het meest aanwezig **in ANB-patrimonium** (alle beheerregio’s)?
 ```{r}
@@ -281,17 +284,20 @@ for (i in unique(inPATDAT_slice$regio)) {
 ```
 
 ```{r}
-for (i in unique(inPATDAT$Soort)) {
+for (i in c("struikaster", "Aziatische hoornaar (soort)")) {
   df <- inPATDAT %>%
     filter(Soort == i)
   
   print(ggplot() +
-          geom_point(data = df, aes(x = ofVL + 0.000001, y = inBR + 0.000001, color = regio)) +
+          geom_point(data = df, aes(x = ofVL + 0.0001, y = inBR + 0.0001, color = regio)) +
           geom_abline() +
           ylab("inANB") +
+          xlab("ofVL") +
           labs(title = i) +
-          coord_trans(y = "log2", x = "log2") #+
-          #coord_fixed(ratio = 1, xlim = c(0,0.015), ylim = c(0,0.2))
-  )
+          coord_trans(y = "log2", x = "log2", xlim = c(0.0001,0.02), ylim = c(0.0001,0.4))) #+
+          #coord_fixed(ratio = 1, xlim = c(0,0.015), ylim = c(0,0.2)))
+  
+  ggsave(file=paste0("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/4_Workshop/Presentaties/Figuren/RadIUS/", i, ".png"), width = 15, height = 10, units = "cm", dpi=200)
 }
 ```
+
