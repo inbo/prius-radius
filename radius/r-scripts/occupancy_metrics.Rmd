@@ -6,6 +6,8 @@ library(ows4R)
 library(leaflet)
 library(gdalUtilities)
 library(ggplot2)
+library(n2khab)
+library(units)
 ```
 
 ```{r clear-memory}
@@ -85,24 +87,45 @@ ps_vglrl <- read_sf(request) %>%
 ggplot() + geom_sf(data = ps_vglrl, aes(color = na2000code))
 ```
 
-# Biologische waarderingskaart (BWK:Bwkhab)
+# Natura 2000 Habitatkaart
 
-## wegens max.van 10.000 features bij inladen WFS,laadt ik de BWK/Natura2000 Habitatkaart in als shapefile
+# Toon en Floris hebben een gestandaardiseerde versie van de BWK/N2000 habitatkaart gemaakt waarin uitsluitend N2000 habitattypes en rbbs worden weergegeven (https://zenodo.org/records/3355193). Hierbij hoort ook de package n2khab voor efficiënt gebruik. 
+```{r import-habitatmap_stdized}
+# fileman_folders(root = "git", path = "./radius/data/spatial")
 
-```{r import-shapefile-bwkhab}
-bwkhab <- st_read("./radius/data/spatial/BwkHab.shp") %>%
-  st_transform(31370)
+# load processed habitatdata
+hms <- read_habitatmap_stdized("./radius/data/spatial/n2khab_data/20_processed/habitatmap_stdized.gpkg")
 
-# aanpassing bwk/n2000 habitatkaart voor gebruik in RadIUS
-bwkhab_adj <- bwkhab %>% 
-  mutate(HAB1 = str_sub(bwkhab$HAB1, 1, 4)) %>%  # only retain the first part of the HAB1 string
-  group_by(HAB1) %>%                             # summarise df to retain one line per HAB1 value
-  summarise() %>%                                    
-  filter(grepl('^[0-9]', HAB1))                  # remove non-n2000 habitats
+hms_pol <- hms$habitatmap_polygons 
+
+hms_types <- hms$habitatmap_types 
+
+# processing: we filteren uitsluitend N2000 habitattypes (weglaten: rbb)
+n2khab <- hms_pol %>%
+  inner_join(hms_types, by = "polygon_id") %>%  # hms_types en hms_pol samenvoegen
+  filter(grepl('^[0-9]', type)) %>%   # we gebruiken uitsluitend de n2000 habitattypes (beginnen met cijfer 0-9, niet de rbbs)
+  mutate(area = st_area(.)) %>%
+  mutate(area_type = area * phab / 100) %>% # calculate area of type within polygon (vb. polygon met opp 100 m² waarvan phab 9120 = 30% --> oppervlak van 9120 in dat polygon = 100 m² * 0.3 = 30 m²) %>%
+  group_by(type) %>%
+  summarise(area_type = sum(area_type) %>%  
+              set_units("ha") %>%
+              round(2),
+            area = sum(area) %>%
+              set_units("ha") %>%
+              round(2))
+
+# naam van habitattypes toevoegen
+hab_names <- read_namelist(lang = "nl")  %>%
+  filter(grepl('^[0-9]', code))
+
+n2khab <- n2khab %>%
+  left_join(read_namelist(lang = "nl"), by = c("type" = "code"))
 ```
 
-```{r quick-visual-check}
-ggplot() + geom_sf(data = bwkhab_adj)
+```{r}
+ggplot() + 
+  geom_sf(data = Provincies_grenzen) +
+  geom_sf(data = n2khab, aes(color = type))
 ```
 
 # ANB Patrimonium databank (am:am_patdat)
