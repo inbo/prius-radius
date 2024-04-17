@@ -222,7 +222,7 @@ ps_nbhp <- ps_nbhp %>%
 list.dfs <- list(
   HBTRL = ps_hbtrl_deel,
   VGLRL = ps_vglrl,
-  BWKHAB = bwkhab_adj,
+  N2KHAB = n2khab,
   PATDAT = am_patdat,
   NBHP = ps_nbhp,
   TOP3 = data.frame()
@@ -258,7 +258,7 @@ for (soort in unique(occ_flanders$Soort)) {
     
     gebied_summary <- gebied %>%
       st_drop_geometry() %>%
-      select(code = if (i == 1) "gebcode" else if (i == 2) "na2000code" else if (i == 3) "HAB1" else if (i == 4) "regio_abb" else "eigendomtype_abb", geb_area) %>%
+      select(code = if (i == 1) "gebcode" else if (i == 2) "na2000code" else if (i == 3) "type" else if (i == 4) "regio_abb" else "eigendomtype_abb", geb_area) %>%
       group_by(code) %>%
       summarise(geb_area = sum(geb_area))
     
@@ -285,7 +285,7 @@ for (soort in unique(occ_flanders$Soort)) {
         
         # overlap percentage per gebied 
         overlap_per_gebied <- occ_species_intersection %>%
-          group_by(code = if (i == 2) na2000code else if (i == 3) HAB1 else gebcode) %>%
+          group_by(code = if (i == 2) na2000code else if (i == 3) type else gebcode) %>%
           summarise(intersect_area = sum(intersect_area)) %>%
           st_drop_geometry() %>%
           inner_join(gebied_summary, by = "code")
@@ -310,7 +310,6 @@ for (soort in unique(occ_flanders$Soort)) {
         }
       }
       
-    
       # occupancy metrics for PATDAT (i = 4)
       if (i == 4) {
         
@@ -479,7 +478,7 @@ VGLRL <- list.results$VGLRL %>%
   pivot_wider(names_from = Gebied, values_from = Overlap, values_fill = "0") %>%
   select(Soort, contains("in"), contains("of"))
 
-BWKHAB <- list.results$BWKHAB %>%
+N2KHAB <- list.results$N2KHAB %>%
   pivot_wider(names_from = Gebied, values_from = Overlap, values_fill = "0") %>%
   select(Soort, contains("in"), contains("of"))
 
@@ -502,7 +501,7 @@ saveRDS(list.results, file="./radius/data/output/list_results.RData")
 ```{r save-separate-dfs-as-csv}
 write_csv(HBTRL, "./radius/data/output/HBTRL.csv")
 write_csv(VGLRL, "./radius/data/output/VGLRL.csv")
-write_csv(BWKHAB, "./radius/data/output/BWKHAB.csv")
+write_csv(N2KHAB, "./radius/data/output/N2KHAB.csv")
 write_csv(PATDAT, "./radius/data/output/PATDAT.csv")
 write_csv(NBHP, "./radius/data/output/NBHP.csv")
 write_csv(TOP3, "./radius/data/output/TOP3.csv")
