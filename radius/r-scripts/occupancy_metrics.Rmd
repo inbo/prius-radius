@@ -104,6 +104,7 @@ hms_types <- hms$habitatmap_types
 n2khab <- hms_pol %>%
   inner_join(hms_types, by = "polygon_id") %>%  # hms_types en hms_pol samenvoegen
   filter(grepl('^[0-9]', type)) %>%   # we gebruiken uitsluitend de n2000 habitattypes (beginnen met cijfer 0-9, niet de rbbs)
+  mutate(type = substr(type, 1, 4)) %>% # only select type codes, remove subtypes
   mutate(area = st_area(.)) %>%
   mutate(area_type = area * phab / 100) %>% # calculate area of type within polygon (vb. polygon met opp 100 m² waarvan phab 9120 = 30% --> oppervlak van 9120 in dat polygon = 100 m² * 0.3 = 30 m²) %>%
   group_by(type) %>%
