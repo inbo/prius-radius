@@ -6,6 +6,8 @@ library(ows4R)
 library(leaflet)
 library(gdalUtilities)
 library(ggplot2)
+library(n2khab)
+library(units)
 ```
 
 ```{r clear-memory}
@@ -26,14 +28,13 @@ ensure_multipolygons <- function(X) {
 # Read data into R
 
 ```{r import-species-list}
-species_list <- read_csv("./radius/data/input/radius_species_list.csv") %>%
-  mutate(disp_dist = 250) # Manually set dispersal distance for species (placeholder for replacement with biologically relevant distances)
+species_list <- read_csv("./radius/data/input/radius_species_list.csv") 
 ```
 
 ```{r import-species-occ}
 occ_flanders <- read_csv("./radius/data/input/gbif_occ_flanders.csv") %>%
   left_join(species_list, by = c("speciesKey" = "GBIF_code", "Soort")) %>%
-  select(year, decimalLongitude, decimalLatitude, speciesKey, Soort, coordinateUncertaintyInMeters, disp_dist) %>%
+  select(year, decimalLongitude, decimalLatitude, speciesKey, Soort, coordinateUncertaintyInMeters) %>%
   st_as_sf(coords = c("decimalLongitude", "decimalLatitude"), crs = "+proj=longlat +datum=WGS84") %>%
   st_transform(31370)  # st_buffer()/st_union does not correctly buffer longitude-latitude spatial data, whose distance is assumed to be in decimal degrees (arc_degrees).We transform the EPSG:4326 to Lambert 72.
 
@@ -85,24 +86,46 @@ ps_vglrl <- read_sf(request) %>%
 ggplot() + geom_sf(data = ps_vglrl, aes(color = na2000code))
 ```
 
-# Biologische waarderingskaart (BWK:Bwkhab)
+# Natura 2000 Habitatkaart
 
-## wegens max.van 10.000 features bij inladen WFS,laadt ik de BWK/Natura2000 Habitatkaart in als shapefile
+# Toon en Floris hebben een gestandaardiseerde versie van de BWK/N2000 habitatkaart gemaakt waarin uitsluitend N2000 habitattypes en rbbs worden weergegeven (https://zenodo.org/records/3355193). Hierbij hoort ook de package n2khab voor efficiënt gebruik. 
+```{r import-habitatmap_stdized}
+# fileman_folders(root = "git", path = "./radius/data/spatial")
 
-```{r import-shapefile-bwkhab}
-bwkhab <- st_read("./radius/data/spatial/BwkHab.shp") %>%
-  st_transform(31370)
+# load processed habitatdata
+hms <- read_habitatmap_stdized("./radius/data/spatial/n2khab_data/20_processed/habitatmap_stdized.gpkg")
 
-# aanpassing bwk/n2000 habitatkaart voor gebruik in RadIUS
-bwkhab_adj <- bwkhab %>% 
-  mutate(HAB1 = str_sub(bwkhab$HAB1, 1, 4)) %>%  # only retain the first part of the HAB1 string
-  group_by(HAB1) %>%                             # summarise df to retain one line per HAB1 value
-  summarise() %>%                                    
-  filter(grepl('^[0-9]', HAB1))                  # remove non-n2000 habitats
+hms_pol <- hms$habitatmap_polygons 
+
+hms_types <- hms$habitatmap_types 
+
+# processing: we filteren uitsluitend N2000 habitattypes (weglaten: rbb)
+n2khab <- hms_pol %>%
+  inner_join(hms_types, by = "polygon_id") %>%  # hms_types en hms_pol samenvoegen
+  filter(grepl('^[0-9]', type)) %>%   # we gebruiken uitsluitend de n2000 habitattypes (beginnen met cijfer 0-9, niet de rbbs)
+  mutate(type = substr(type, 1, 4)) %>% # only select type codes, remove subtypes
+  mutate(area = st_area(.)) %>%
+  mutate(area_type = area * phab / 100) %>% # calculate area of type within polygon (vb. polygon met opp 100 m² waarvan phab 9120 = 30% --> oppervlak van 9120 in dat polygon = 100 m² * 0.3 = 30 m²) %>%
+  group_by(type) %>%
+  summarise(area_type = sum(area_type) %>%  
+              set_units("ha") %>%
+              round(2),
+            area = sum(area) %>%
+              set_units("ha") %>%
+              round(2))
+
+# naam van habitattypes toevoegen
+hab_names <- read_namelist(lang = "nl")  %>%
+  filter(grepl('^[0-9]', code))
+
+n2khab <- n2khab %>%
+  left_join(read_namelist(lang = "nl"), by = c("type" = "code"))
 ```
 
-```{r quick-visual-check}
-ggplot() + geom_sf(data = bwkhab_adj)
+```{r}
+ggplot() + 
+  geom_sf(data = Provincies_grenzen) +
+  geom_sf(data = n2khab, aes(color = type))
 ```
 
 # ANB Patrimonium databank (am:am_patdat)
@@ -199,7 +222,7 @@ ps_nbhp <- ps_nbhp %>%
 list.dfs <- list(
   HBTRL = ps_hbtrl_deel,
   VGLRL = ps_vglrl,
-  BWKHAB = bwkhab_adj,
+  N2KHAB = n2khab,
   PATDAT = am_patdat,
   NBHP = ps_nbhp,
   TOP3 = data.frame()
@@ -215,9 +238,9 @@ for (soort in unique(occ_flanders$Soort)) {
   # extract species occurrence
   occ_species <- occ_flanders[occ_flanders$Soort == soort,]
 
-  # add buffer around species occurrences based on dispersal distance + union
+  # add buffer around species occurrences + union
   occ_species_buf <- occ_species %>%
-    st_buffer(dist = unique(occ_species$disp_dist)) %>%
+    st_buffer(dist = 150) %>%
     st_union() %>% 
     st_cast('POLYGON') %>% 
     st_sf() %>%
@@ -235,7 +258,7 @@ for (soort in unique(occ_flanders$Soort)) {
     
     gebied_summary <- gebied %>%
       st_drop_geometry() %>%
-      select(code = if (i == 1) "gebcode" else if (i == 2) "na2000code" else if (i == 3) "HAB1" else if (i == 4) "regio_abb" else "eigendomtype_abb", geb_area) %>%
+      select(code = if (i == 1) "gebcode" else if (i == 2) "na2000code" else if (i == 3) "type" else if (i == 4) "regio_abb" else "eigendomtype_abb", geb_area) %>%
       group_by(code) %>%
       summarise(geb_area = sum(geb_area))
     
@@ -262,7 +285,7 @@ for (soort in unique(occ_flanders$Soort)) {
         
         # overlap percentage per gebied 
         overlap_per_gebied <- occ_species_intersection %>%
-          group_by(code = if (i == 2) na2000code else if (i == 3) HAB1 else gebcode) %>%
+          group_by(code = if (i == 2) na2000code else if (i == 3) type else gebcode) %>%
           summarise(intersect_area = sum(intersect_area)) %>%
           st_drop_geometry() %>%
           inner_join(gebied_summary, by = "code")
@@ -287,7 +310,6 @@ for (soort in unique(occ_flanders$Soort)) {
         }
       }
       
-    
       # occupancy metrics for PATDAT (i = 4)
       if (i == 4) {
         
@@ -456,7 +478,7 @@ VGLRL <- list.results$VGLRL %>%
   pivot_wider(names_from = Gebied, values_from = Overlap, values_fill = "0") %>%
   select(Soort, contains("in"), contains("of"))
 
-BWKHAB <- list.results$BWKHAB %>%
+N2KHAB <- list.results$N2KHAB %>%
   pivot_wider(names_from = Gebied, values_from = Overlap, values_fill = "0") %>%
   select(Soort, contains("in"), contains("of"))
 
@@ -479,7 +501,7 @@ saveRDS(list.results, file="./radius/data/output/list_results.RData")
 ```{r save-separate-dfs-as-csv}
 write_csv(HBTRL, "./radius/data/output/HBTRL.csv")
 write_csv(VGLRL, "./radius/data/output/VGLRL.csv")
-write_csv(BWKHAB, "./radius/data/output/BWKHAB.csv")
+write_csv(N2KHAB, "./radius/data/output/N2KHAB.csv")
 write_csv(PATDAT, "./radius/data/output/PATDAT.csv")
 write_csv(NBHP, "./radius/data/output/NBHP.csv")
 write_csv(TOP3, "./radius/data/output/TOP3.csv")
