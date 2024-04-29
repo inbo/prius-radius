@@ -132,6 +132,34 @@ ggplot(data = HBTRL, aes(x = inHBTRL, y = ofHBTRL + 0.01)) +
         axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
         axis.title = element_text(size = 9))
 ```
+
+Per soort: overlap tussen verspreiding en de habitatrichtlijngebieden
+```{r}
+for (i in unique(HBTRL$Soort)) {
+  soort_in_hbtrl <- HBTRL %>%
+    filter(Soort == i) %>%
+    select(contains("inBE"))
+  
+  names(soort_in_hbtrl) <- gsub("in", "", names(soort_in_hbtrl))
+  
+  soort_in_hbtrl <- soort_in_hbtrl %>%
+    pivot_longer(everything(), names_to = "Gebied", values_to = "Overlap") 
+  
+  print(ggplot(data = soort_in_hbtrl, aes(x = Gebied, y = Overlap)) +
+    geom_col(colour = "#c04384", fill = "#c04384") +
+    scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0,1)) +
+    ylab("Percentage van totale overlap (%)") +
+    ggtitle(paste(i)) +
+    theme_bw() +
+    theme(axis.text = element_text(size = 9),
+          axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+          axis.title.x = element_blank(),
+          axis.title = element_text(size = 9)))
+    
+}
+```
+
+
 ## N2000 Habitats
 
 Percentage van totale verspreidingsoppervlak dat overlapt met N2000 habitat
