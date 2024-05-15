@@ -301,6 +301,15 @@ write_csv(in_flanders, "./radius/data/intermediate/species_in_flanders.csv")
 write_csv(not_in_flanders, "./radius/data/intermediate/species_not_in_flanders.csv")
 ```
 
+## Remove absent species from species list
+```{r}
+species_list <- species_list %>%
+  filter(Soort %in% in_flanders$Soort)
+
+write_csv(species_list, "./radius/data/input/radius_species_list.csv")
+```
+
+
 ## Save occurrence dataset flanders
 
 ```{r save-occurrence-dataset}
