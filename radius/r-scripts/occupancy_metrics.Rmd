@@ -240,7 +240,7 @@ for (soort in unique(occ_flanders$Soort)) {
 
   # add buffer around species occurrences + union
   occ_species_buf <- occ_species %>%
-    st_buffer(dist = 150) %>%
+    st_buffer(dist = 100) %>%
     st_union() %>% 
     st_cast('POLYGON') %>% 
     st_sf() %>%
