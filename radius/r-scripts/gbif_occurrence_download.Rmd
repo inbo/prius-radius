@@ -150,7 +150,8 @@ occ_filtered <- occ_raw %>%
   filter(!occurrenceStatus %in% occurrenceStatus_to_discard) %>%  # filter out absence data
   filter(!issue %in% issues_to_discard) %>%   # filter out specified issues
   filter(!identificationVerificationStatus %in% identificationVerificationStatus_to_discard) %>% # filter out verification status to discard
-  filter(!gbifID == 4430037392)   # manueel wegfilteren van foutieve waarneming van schijnambrosia of waarnemingen.be
+  filter(coordinateUncertaintyInMeters <= 100 | is.na(coordinateUncertaintyInMeters)) %>% # wegfilteren van occs met onzekerheid boven 100m
+  filter(!gbifID == 4430037392) # manueel wegfilteren van foutieve waarneming van schijnambrosia of waarnemingen.be
 
 ```
 
