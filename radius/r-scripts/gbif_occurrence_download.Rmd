@@ -98,7 +98,7 @@ hasCoordinate <- TRUE
 #                                   forbid_reuse = TRUE))
 
 # Or reuse existing download
-gbif_downloadKey <- "0060541-240229165702484" # aangepast 11/03
+gbif_downloadKey <- "0035514-240506114902167" # aangepast 23/05
 ```
 
 ## Get GBIF download to computer
@@ -150,7 +150,7 @@ occ_filtered <- occ_raw %>%
   filter(!occurrenceStatus %in% occurrenceStatus_to_discard) %>%  # filter out absence data
   filter(!issue %in% issues_to_discard) %>%   # filter out specified issues
   filter(!identificationVerificationStatus %in% identificationVerificationStatus_to_discard) %>% # filter out verification status to discard
-  filter(coordinateUncertaintyInMeters <= 100 | is.na(coordinateUncertaintyInMeters)) %>% # wegfilteren van occs met onzekerheid boven 100m
+  filter(coordinateUncertaintyInMeters <= 100 | is.na(coordinateUncertaintyInMeters)) %>% # wegfilteren van occs met onzekerheid boven 100m, NAs worden ook meegenomen in analyse
   filter(!gbifID == 4430037392) # manueel wegfilteren van foutieve waarneming van schijnambrosia of waarnemingen.be
 
 ```
