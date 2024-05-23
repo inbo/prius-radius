@@ -36,9 +36,14 @@ occ_flanders <- read_csv("./radius/data/input/gbif_occ_flanders.csv") %>%
   left_join(species_list, by = c("speciesKey" = "GBIF_code", "Soort")) %>%
   select(year, decimalLongitude, decimalLatitude, speciesKey, Soort, coordinateUncertaintyInMeters) %>%
   st_as_sf(coords = c("decimalLongitude", "decimalLatitude"), crs = "+proj=longlat +datum=WGS84") %>%
-  st_transform(31370)  # st_buffer()/st_union does not correctly buffer longitude-latitude spatial data, whose distance is assumed to be in decimal degrees (arc_degrees).We transform the EPSG:4326 to Lambert 72.
-
+  st_transform(31370) # st_buffer()/st_union does not correctly buffer longitude-latitude spatial data, whose distance is assumed to be in decimal degrees (arc_degrees).We transform the EPSG:4326 to Lambert 72.
 ```
+
+```{r import-toewijzing-soorten-en-habitats}
+toewijzing_soorten <- read_csv2("./radius/data/input/toewijzing_soorten.csv")
+toewijzing_habitats <- read_csv2("./radius/data/input/toewijzing_habitats.csv", col_types = cols(code = col_character()))
+```
+
 
 ```{r boundaries-flanders}
 Vlaanderen_grenzen <- st_read("./prius/data/spatial/flanders_wgs84.geojson")
@@ -215,8 +220,7 @@ ps_nbhp <- ps_nbhp %>%
   ))
 ```
 
-
-# Calculating occupancy metrics in protected areas
+# Calculating occupancy metrics
 ```{r calculate-occupancy-metrics, warning=FALSE}
 # list wfs-maps
 list.dfs <- list(
@@ -225,19 +229,30 @@ list.dfs <- list(
   N2KHAB = n2khab,
   PATDAT = am_patdat,
   NBHP = ps_nbhp,
-  TOP3 = data.frame()
+  TOP3 = data.frame(), 
+  N2KHAB_SUB = data.frame()
 )
 
 # initialize a list for results
 list.results <- lapply(list.dfs, function(x) data.frame())
 
 # loop through unique species
-for (soort in unique(occ_flanders$Soort)) {
-  print(soort)
+for (i in unique(occ_flanders$Soort)) {
+  print(i)
+  
+  # in welk milieu komt de soort voor (marien, brak, zoetwater, terrestrisch)
+  soort_milieu <- names(toewijzing_soorten)[toewijzing_soorten[toewijzing_soorten$soort == i, ] == 1]
+  
+  # subset van n2k habitattypes obv milieu waarin de soort voorkomt (soort_milieu)
+  n2khab_subset <- toewijzing_habitats %>%
+    select(code, soort_milieu) %>%
+    filter_at(vars(soort_milieu), any_vars(. == 1)) %>%
+    pull(code)
+  
   
   # extract species occurrence
-  occ_species <- occ_flanders[occ_flanders$Soort == soort,]
-
+  occ_species <- occ_flanders[occ_flanders$Soort == i,]
+  
   # add buffer around species occurrences + union
   occ_species_buf <- occ_species %>%
     st_buffer(dist = 100) %>%
@@ -249,16 +264,16 @@ for (soort in unique(occ_flanders$Soort)) {
   total_area <- sum(occ_species_buf$buf_area)
   
   # loop through wfs-maps to calculate occupancy metrics
-  for (i in seq_along(list.dfs[1:5])) {
+  for (j in seq_along(list.dfs[1:5])) {
     
     # transform CRS to Lambert 72 to use st_buffer with meters instead of decimal degrees
-    gebied <- list.dfs[[i]] %>%
+    gebied <- list.dfs[[j]] %>%
       st_transform(31370) %>%
       mutate(geb_area = st_area(.))
     
     gebied_summary <- gebied %>%
       st_drop_geometry() %>%
-      select(code = if (i == 1) "gebcode" else if (i == 2) "na2000code" else if (i == 3) "type" else if (i == 4) "regio_abb" else "eigendomtype_abb", geb_area) %>%
+      select(code = if (j == 1) "gebcode" else if (j == 2) "na2000code" else if (j == 3) "type" else if (j == 4) "regio_abb" else "eigendomtype_abb", geb_area) %>%
       group_by(code) %>%
       summarise(geb_area = sum(geb_area))
     
@@ -274,18 +289,18 @@ for (soort in unique(occ_flanders$Soort)) {
     if (nrow(occ_species_intersection) != 0) {  # skip following steps if there's no overlap 
       # Standard occupancy metrics across all wfs-maps
       metrics_df <- data.frame(
-        Soort = soort,
-        Gebied = paste0(c("in", "of"), names(list.dfs)[i]),
+        Soort = i,
+        Gebied = paste0(c("in", "of"), names(list.dfs)[j]),
         Overlap = format(round(c(percentage_overlap_in, percentage_overlap_of), 3)))
       
-      list.results[[i]] <- rbind(list.results[[i]], metrics_df)
-    
-      # Additional occupancy metrics for specific cases (HBTRL (i = 1), VGLRL (i = 2), BWKHAB (i = 3))
-      if (i %in% c(1, 2, 3)) {
+      list.results[[j]] <- rbind(list.results[[j]], metrics_df)
+      
+      # additional occupancy metrics for HBTRL (i = 1), VGLRL (i = 2), N2KHAB (i = 3)
+      if (j %in% c(1, 2, 3)) {
         
         # overlap percentage per gebied 
         overlap_per_gebied <- occ_species_intersection %>%
-          group_by(code = if (i == 2) na2000code else if (i == 3) type else gebcode) %>%
+          group_by(code = if (j == 2) na2000code else if (j == 3) type else gebcode) %>%
           summarise(intersect_area = sum(intersect_area)) %>%
           st_drop_geometry() %>%
           inner_join(gebied_summary, by = "code")
@@ -293,32 +308,55 @@ for (soort in unique(occ_flanders$Soort)) {
         
         for (row in 1:nrow(overlap_per_gebied)) {
           # OPTIE 1: percentage van overlap dat in bepaald gebied valt
-          percentage_overlap_in = as.numeric(overlap_per_gebied[row,]$intersect_area / overlap_intersection)
+          # percentage_overlap_in = as.numeric(overlap_per_gebied[row,]$intersect_area / overlap_intersection)
           # OPTIE 2: percentage van totale verspreiding dat in bepaald gebied valt
-          #percentage_overlap_in = as.numeric(overlap_per_gebied[row,]$intersect_area / total_area)
+          percentage_overlap_in = as.numeric(overlap_per_gebied[row,]$intersect_area / total_area)
           
           # percentage van oppervlakte HBTRL/VLRL/BWKHAB gebied dat overlapt met soortverspreiding
           percentage_overlap_of = as.numeric(overlap_per_gebied[row,]$intersect_area / overlap_per_gebied[row,]$geb_area)
-        
+          
           metrics_df <- data.frame(
-            Soort = soort,
+            Soort = i,
             Gebied = paste0(c("in", "of"), as.character(overlap_per_gebied[row,1])),
             Overlap = format(round(c(percentage_overlap_in, percentage_overlap_of), 3))
           )
+          
+          list.results[[j]] <- rbind(list.results[[j]], metrics_df)
+        }
         
-          list.results[[i]] <- rbind(list.results[[i]], metrics_df)
+        if (j == 3) {
+          overlap_n2khab_subset <- overlap_per_gebied %>%
+            filter(code %in% n2khab_subset)
+          
+          for (row in 1:nrow(overlap_n2khab_subset)) {
+            # OPTIE 1: percentage van overlap dat in bepaald gebied valt
+            # percentage_overlap_in = as.numeric(overlap_per_gebied[row,]$intersect_area / overlap_intersection)
+            # OPTIE 2: percentage van totale verspreiding dat in bepaald gebied valt
+            percentage_overlap_in = as.numeric(overlap_n2khab_subset[row,]$intersect_area / total_area)
+            
+            # percentage van oppervlakte HBTRL/VLRL/BWKHAB gebied dat overlapt met soortverspreiding
+            percentage_overlap_of = as.numeric(overlap_n2khab_subset[row,]$intersect_area / overlap_n2khab_subset[row,]$geb_area)
+            
+            metrics_df <- data.frame(
+              Soort = i,
+              Gebied = paste0(c("in", "of"), as.character(overlap_n2khab_subset[row,1])),
+              Overlap = format(round(c(percentage_overlap_in, percentage_overlap_of), 3))
+            )
+            
+            list.results[[7]] <- rbind(list.results[[7]], metrics_df)
+          }
         }
       }
       
-      # occupancy metrics for PATDAT (i = 4)
-      if (i == 4) {
+      # additional occupancy metrics for PATDAT (i = 4)
+      if (j == 4) {
         
         # totaal aantal domeinen waarmee verspreiding overlapt
-        list.results[[i]] <- rbind(list.results[[i]], data.frame(
-          Soort = soort,
+        list.results[[j]] <- rbind(list.results[[j]], data.frame(
+          Soort = i,
           Gebied = "nDomeinen",
           Overlap = length(unique(occ_species_intersection$id))))
-      
+        
         # aantal bezette domeinen per type recht anb
         anb_rechten <- occ_species_intersection %>%
           st_drop_geometry() %>%
@@ -326,14 +364,14 @@ for (soort in unique(occ_flanders$Soort)) {
           unique() %>%
           group_by(rechtenanb_abb) %>%
           summarise(n = n()) 
-      
+        
         for (row in 1:nrow(anb_rechten)) {
-          list.results[[i]] <- rbind(list.results[[i]], data.frame(
-            Soort = soort,
+          list.results[[j]] <- rbind(list.results[[j]], data.frame(
+            Soort = i,
             Gebied = paste0("n", as.character(anb_rechten[row,1])),
             Overlap = as.character(anb_rechten[row,2])))
         }
-      
+        
         # percentage overlap per anb regio
         overlap_per_anb_regio <- occ_species_intersection %>%
           st_drop_geometry() %>%
@@ -343,33 +381,34 @@ for (soort in unique(occ_flanders$Soort)) {
           summarise(intersect_area = sum(intersect_area)) %>%
           arrange() %>%
           inner_join(gebied_summary, by = c("regio_abb" = "code"))
-      
+        
         for (row in 1: nrow(overlap_per_anb_regio)) {
           # OPTIE 1: percentage van overlap met PATDAT per anb regio
-          percentage_overlap_in = as.numeric(overlap_per_anb_regio[row,]$intersect_area / overlap_intersection)
+          #percentage_overlap_in = as.numeric(overlap_per_anb_regio[row,]$intersect_area / overlap_intersection)
           # OPTIE 2: percentage van totale verspreiding dat overlapt per anb regio
-          #percentage_overlap_in = as.numeric(overlap_per_anb_regio[row,]$intersect_area / total_area)
+          percentage_overlap_in = as.numeric(overlap_per_anb_regio[row,]$intersect_area / total_area)
+          
           percentage_overlap_of = as.numeric(overlap_per_anb_regio[row,]$intersect_area / overlap_per_anb_regio[row,]$geb_area)
-        
+          
           metrics_df <- data.frame(
-            Soort = soort,
+            Soort = i,
             Gebied = paste0(c("in", "of"), as.character(overlap_per_anb_regio[row,1])),
             Overlap = format(round(c(percentage_overlap_in, percentage_overlap_of), 3))
           )
-        
-          list.results[[i]] <- rbind(list.results[[i]], metrics_df)
+          
+          list.results[[j]] <- rbind(list.results[[j]], metrics_df)
         }
       }
-    
-      # occupancy metrics for NBHP (i = 5)
-      if (i == 5) {
+      
+      # additional occupancy metrics for NBHP (i = 5)
+      if (j == 5) {
         
         # totaal aantal gebieden waarmee verspreiding overlapt
-        list.results[[i]] <- rbind(list.results[[i]], data.frame(
-          Soort = soort,
+        list.results[[j]] <- rbind(list.results[[j]], data.frame(
+          Soort = i,
           Gebied = "nNBHP",
           Overlap = length(unique(occ_species_intersection$id))))
-
+        
         # aantal bezette domeinen per type natuurbeheerplan
         n_per_beheerplantype <- occ_species_intersection %>%
           st_drop_geometry() %>%
@@ -377,14 +416,14 @@ for (soort in unique(occ_flanders$Soort)) {
           unique() %>%
           group_by(natuurbeheerplantype_abb) %>%
           summarise(n = n())
-      
+        
         for (row in 1:nrow(n_per_beheerplantype)) {
-          list.results[[i]] <- rbind(list.results[[i]], data.frame(
-            Soort = soort,
+          list.results[[j]] <- rbind(list.results[[j]], data.frame(
+            Soort = i,
             Gebied = paste0("n", as.character(n_per_beheerplantype[row,1])),
             Overlap = as.character(n_per_beheerplantype[row,2])))
         }
-      
+        
         # percentage overlap per eigendomtype
         overlap_per_eigendomtype <- occ_species_intersection %>%
           st_drop_geometry() %>%
@@ -394,75 +433,73 @@ for (soort in unique(occ_flanders$Soort)) {
           summarise(intersect_area = sum(intersect_area)) %>%
           arrange() %>%
           inner_join(gebied_summary, by = c("eigendomtype_abb" = "code"))
-      
+        
         for (row in 1: nrow(overlap_per_eigendomtype)) {
           # OPTIE 1: percentage van overlap met NBHP dat overlapt per eigendomtype
-          percentage_overlap_in = as.numeric(overlap_per_eigendomtype[row,]$intersect_area / overlap_intersection)
+          # percentage_overlap_in = as.numeric(overlap_per_eigendomtype[row,]$intersect_area / overlap_intersection)
           # OPTIE 2: percentage van totale verspreiding dat overlapt per eigendomtype
-          #percentage_overlap_in = as.numeric(overlap_per_eigendomtype[row,]$intersect_area / total_area)
-        
-          list.results[[i]] <- rbind(list.results[[i]], data.frame(
-            Soort = soort,
+          percentage_overlap_in = as.numeric(overlap_per_eigendomtype[row,]$intersect_area / total_area)
+          
+          list.results[[j]] <- rbind(list.results[[j]], data.frame(
+            Soort = i,
             Gebied = paste0("in", as.character(overlap_per_eigendomtype[row,1])),
             Overlap = format(round(percentage_overlap_in, 3))))
         } 
       }
       
       # Top 3 gebieden voor HBTRL, VGLRL, NBHP
-      if (i %in% c(1,2,5)) {
-          top_3 <- occ_species_intersection %>%
-            group_by(naam = if (i == 2) gebnaam else if (i == 5) naamdossier else naam) %>%
-            summarise(intersect_area = sum(intersect_area)) %>%
-            slice_max(order_by = intersect_area, n = 3, na_rm = TRUE) %>%
-            st_drop_geometry()
-          
-          for (row in 1:nrow(top_3)) {
-            list.results[[6]] <- rbind(list.results[[6]], data.frame(
-              Soort = soort,
-              Gebied = paste0(names(list.dfs)[i], row),
-              Overlap = as.character(top_3[row,1])))
+      if (j %in% c(1,2,5)) {
+        top_3 <- occ_species_intersection %>%
+          group_by(naam = if (j == 2) gebnaam else if (j == 5) naamdossier else naam) %>%
+          summarise(intersect_area = sum(intersect_area)) %>%
+          slice_max(order_by = intersect_area, n = 3, na_rm = TRUE) %>%
+          st_drop_geometry()
+        
+        for (row in 1:nrow(top_3)) {
+          list.results[[6]] <- rbind(list.results[[6]], data.frame(
+            Soort = i,
+            Gebied = paste0(names(list.dfs)[j], row),
+            Overlap = as.character(top_3[row,1])))
         }
       }
       
-      
       # Top 3 anb regio's en domeinen
-      
-      if (i == 4) {
+      if (j == 4) {
         top_3_regio <- occ_species_intersection %>%
-            group_by(regio) %>%
-            summarise(intersect_area = sum(intersect_area)) %>%
-            slice_max(order_by = intersect_area, n = 3, na_rm = TRUE) %>%
-            st_drop_geometry()
+          group_by(regio) %>%
+          summarise(intersect_area = sum(intersect_area)) %>%
+          slice_max(order_by = intersect_area, n = 3, na_rm = TRUE) %>%
+          st_drop_geometry()
         
         for (row in 1:nrow(top_3_regio)) {
-            list.results[[6]] <- rbind(list.results[[6]], data.frame(
-              Soort = soort,
-              Gebied = paste0(names(list.dfs)[i], "regio", row),
-              Overlap = as.character(top_3_regio[row,1])))
+          list.results[[6]] <- rbind(list.results[[6]], data.frame(
+            Soort = i,
+            Gebied = paste0(names(list.dfs)[j], "regio", row),
+            Overlap = as.character(top_3_regio[row,1])))
         }
         
         top_3_domein <- occ_species_intersection %>%
-            group_by(domeinnaam) %>%
-            summarise(intersect_area = sum(intersect_area)) %>%
-            slice_max(order_by = intersect_area, n = 3, na_rm = TRUE) %>%
-            st_drop_geometry()
+          group_by(domeinnaam) %>%
+          summarise(intersect_area = sum(intersect_area)) %>%
+          slice_max(order_by = intersect_area, n = 3, na_rm = TRUE) %>%
+          st_drop_geometry()
         
         for (row in 1:nrow(top_3_domein)) {
-            list.results[[6]] <- rbind(list.results[[6]], data.frame(
-              Soort = soort,
-              Gebied = paste0(names(list.dfs)[i], "domein", row),
-              Overlap = as.character(top_3_domein[row,1])))
+          list.results[[6]] <- rbind(list.results[[6]], data.frame(
+            Soort = i,
+            Gebied = paste0(names(list.dfs)[j], "domein", row),
+            Overlap = as.character(top_3_domein[row,1])))
         }
       }
     }
     
     else {  # create empty row if there's no overlap 
       metrics_df <- data.frame(
-        Soort = soort,
-        Gebied = paste0(c("in", "of"), names(list.dfs)[i]),
+        Soort = i,
+        Gebied = paste0(c("in", "of"), names(list.dfs)[j]),
         Overlap = 0)
       
-      list.results[[i]] <- rbind(list.results[[i]], metrics_df)
+      list.results[[j]] <- rbind(list.results[[j]], metrics_df)
     }
   }    
 }
@@ -492,6 +529,10 @@ NBHP <- list.results$NBHP %>%
 
 TOP3 <- list.results$TOP3 %>%
   pivot_wider(names_from = Gebied, values_from = Overlap, values_fill = "-")
+
+N2KHAB_SUB <- list.results$N2KHAB_SUB %>%
+  pivot_wider(names_from = Gebied, values_from = Overlap, values_fill = "0") %>%
+  select(Soort, contains("in"), contains("of"))
 ```
 
 ```{r save-list-results-as-RData-file}
@@ -506,4 +547,3 @@ write_csv(PATDAT, "./radius/data/output/PATDAT.csv")
 write_csv(NBHP, "./radius/data/output/NBHP.csv")
 write_csv(TOP3, "./radius/data/output/TOP3.csv")
 ```
-
