@@ -328,22 +328,25 @@ for (i in unique(occ_flanders$Soort)) {
           overlap_n2khab_subset <- overlap_per_gebied %>%
             filter(code %in% n2khab_subset)
           
-          for (row in 1:nrow(overlap_n2khab_subset)) {
-            # OPTIE 1: percentage van overlap dat in bepaald gebied valt
-            # percentage_overlap_in = as.numeric(overlap_per_gebied[row,]$intersect_area / overlap_intersection)
-            # OPTIE 2: percentage van totale verspreiding dat in bepaald gebied valt
-            percentage_overlap_in = as.numeric(overlap_n2khab_subset[row,]$intersect_area / total_area)
+          if (nrow(overlap_n2khab_subset) != 0) {
             
-            # percentage van oppervlakte HBTRL/VLRL/BWKHAB gebied dat overlapt met soortverspreiding
-            percentage_overlap_of = as.numeric(overlap_n2khab_subset[row,]$intersect_area / overlap_n2khab_subset[row,]$geb_area)
-            
-            metrics_df <- data.frame(
-              Soort = i,
-              Gebied = paste0(c("in", "of"), as.character(overlap_n2khab_subset[row,1])),
-              Overlap = format(round(c(percentage_overlap_in, percentage_overlap_of), 3))
-            )
-            
-            list.results[[7]] <- rbind(list.results[[7]], metrics_df)
+            for (row in 1:nrow(overlap_n2khab_subset)) {
+              # OPTIE 1: percentage van overlap dat in bepaald gebied valt
+              # percentage_overlap_in = as.numeric(overlap_per_gebied[row,]$intersect_area / overlap_intersection)
+              # OPTIE 2: percentage van totale verspreiding dat in bepaald gebied valt
+              percentage_overlap_in = as.numeric(overlap_n2khab_subset[row,]$intersect_area / total_area)
+              
+              # percentage van oppervlakte HBTRL/VLRL/BWKHAB gebied dat overlapt met soortverspreiding
+              percentage_overlap_of = as.numeric(overlap_n2khab_subset[row,]$intersect_area / overlap_n2khab_subset[row,]$geb_area)
+              
+              metrics_df <- data.frame(
+                Soort = i,
+                Gebied = paste0(c("in", "of"), as.character(overlap_n2khab_subset[row,1])),
+                Overlap = format(round(c(percentage_overlap_in, percentage_overlap_of), 3))
+              )
+              
+              list.results[[7]] <- rbind(list.results[[7]], metrics_df)
+            }
           }
         }
       }
@@ -543,6 +546,7 @@ saveRDS(list.results, file="./radius/data/output/list_results.RData")
 write_csv(HBTRL, "./radius/data/output/HBTRL.csv")
 write_csv(VGLRL, "./radius/data/output/VGLRL.csv")
 write_csv(N2KHAB, "./radius/data/output/N2KHAB.csv")
+write_csv(N2KHAB_SUB, "./radius/data/output/N2KHAB_SUB.csv")
 write_csv(PATDAT, "./radius/data/output/PATDAT.csv")
 write_csv(NBHP, "./radius/data/output/NBHP.csv")
 write_csv(TOP3, "./radius/data/output/TOP3.csv")
