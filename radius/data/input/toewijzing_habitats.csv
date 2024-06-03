@@ -1,46 +1,46 @@
-code;habitat;marien;brak;zoetwater;terrestrisch
-1130;Estuaria;1;1;0;0
-1140;Bij eb droogvallende slikwadden en zandplaten;1;1;0;0
-1310;Eenjarige pioniervegetaties van slik- en zandgebieden met Salicornia spp. en andere zoutminnende soorten;1;1;0;0
-1320;Schorren met slijkgrasvegetatie (Spartinion maritimae);1;1;0;0
-1330;Atlantische schorren (Glauco-Puccinellietalia maritimae);1;1;0;0
-2110;Embryonale wandelende duinen;0;1;0;1
-2120;"Wandelende duinen op de strandwal met Ammophila arenaria (""witte duinen"")";0;0;0;1
-2130;Vastgelegde duinen;0;0;0;1
-2150;Vastgelegde ontkalkte duinen;0;0;0;1
-2160;Duinstruweel;0;0;0;1
-2170;Duinstruweel van Kruipwilg;0;0;0;1
-2180;Natuurlijke loofbossen van de kustduinen;0;0;0;1
-2190;Vochtige duinvalleien;0;0;1;1
-2310;Droge heide op jonge zandafzettingen;0;0;0;1
-2330;Open graslanden op landduinen;0;0;0;1
-3110;Voedselarme zwak gebufferde vennen die niet vaak droogvallen;0;0;1;0
-3130;Voedselarme tot matig voedselarme wateren met droogvallende oevers;0;0;1;0
-3140;Wateren met kranswiervegetaties;0;0;1;0
-3150;Voedselrijke, gebufferde wateren met rijke waterplantvegetatie;0;0;1;0
-3160;Zure bruingekleurde vennen;0;0;1;0
-3260;Ondiepe beken en rivieren met goede structuur en watervegetaties;0;0;1;0
-3270;Dynamische rivieren met voedselrijk slikoevers met eenjarige planten;0;0;1;0
-4010;Vochtige tot natte heide;0;0;1;1
-4030;Droge heiden;0;0;0;1
-5130;Jeneversbesstruweel;0;0;0;1
-6120;Stroomdalgraslanden langs de Maas;0;0;0;1
-6210;Droge kalkgraslanden en struweel op kalkbodem;0;0;0;1
-6230;Heischrale graslanden en soortenrijke graslanden van zure bodems;0;0;0;1
-6410;Blauwgraslanden;0;0;0;1
-6430;Voedselrijke, soortenrijke ruigtes langs waterlopen en boszomen;0;0;0;1
-6510;Glanshaver- en Grote vossenstaartgraslanden;0;0;0;1
-7110;Actief hoogveen;0;0;1;1
-7140;Voedselarme tot matig voedselarme verlandingsvegetaties;0;0;1;1
-7150;Slenken en plagplekken op vochtige bodems in heide;0;0;1;1
-7210;Galigaanvegetaties;0;0;1;1
-7220;Kalkturfbronnen met tufsteenformatie;0;0;1;1
-7230;Kalkmoeras;0;0;1;1
-9110;Veldbies-Beukenbossen;0;0;0;1
-9120;Eiken-Beukenbossen op zure bodems;0;0;0;1
-9130;Eiken-Beukenbossen met Wilde hyacint en Parelgras-Beukenbossen;0;0;0;1
-9150;Kalkrijke beukenbossen;0;0;0;1
-9160;Essen-Eikenbossen zonder Wilde hyacint;0;0;0;1
-9190;Oude Eiken-Berkenbossen op zeer voedselarm zand;0;0;0;1
-91E0;Valleibossen, Elzenbroekbossen en zachthoutooibossen;0;0;1;1
-91F0;Hardhoutooibossen;0;0;1;1
+code;habitat;groep;marien;brak;zoetwater;terrestrisch
+1130;Estuaria;zilt en estuarium;1;1;0;0
+1140;Bij eb droogvallende slikwadden en zandplaten;zilt en estuarium;1;1;0;0
+1310;Eenjarige pioniervegetaties van slik- en zandgebieden met Salicornia spp. en andere zoutminnende soorten;zilt en estuarium;1;1;0;0
+1320;Schorren met slijkgrasvegetatie (Spartinion maritimae);zilt en estuarium;1;1;0;0
+1330;Atlantische schorren (Glauco-Puccinellietalia maritimae);zilt en estuarium;1;1;0;0
+2110;Embryonale wandelende duinen;kustduinen;0;1;0;1
+2120;"Wandelende duinen op de strandwal met Ammophila arenaria (""witte duinen"")";kustduinen;0;0;0;1
+2130;Vastgelegde duinen;kustduinen;0;0;0;1
+2150;Vastgelegde ontkalkte duinen;kustduinen;0;0;0;1
+2160;Duinstruweel;kustduinen;0;0;0;1
+2170;Duinstruweel van Kruipwilg;kustduinen;0;0;0;1
+2180;Natuurlijke loofbossen van de kustduinen;kustduinen;0;0;0;1
+2190;Vochtige duinvalleien;kustduinen;0;0;1;1
+2310;Droge heide op jonge zandafzettingen;heiden;0;0;0;1
+2330;Open graslanden op landduinen;heiden;0;0;0;1
+3110;Voedselarme zwak gebufferde vennen die niet vaak droogvallen;zoetwater;0;0;1;0
+3130;Voedselarme tot matig voedselarme wateren met droogvallende oevers;zoetwater;0;0;1;0
+3140;Wateren met kranswiervegetaties;zoetwater;0;0;1;0
+3150;Voedselrijke, gebufferde wateren met rijke waterplantvegetatie;zoetwater;0;0;1;0
+3160;Zure bruingekleurde vennen;zoetwater;0;0;1;0
+3260;Ondiepe beken en rivieren met goede structuur en watervegetaties;zoetwater;0;0;1;0
+3270;Dynamische rivieren met voedselrijk slikoevers met eenjarige planten;zoetwater;0;0;1;0
+4010;Vochtige tot natte heide;heiden;0;0;1;1
+4030;Droge heiden;heiden;0;0;0;1
+5130;Jeneversbesstruweel;heiden;0;0;0;1
+6120;Stroomdalgraslanden langs de Maas;graslanden;0;0;0;1
+6210;Droge kalkgraslanden en struweel op kalkbodem;graslanden;0;0;0;1
+6230;Heischrale graslanden en soortenrijke graslanden van zure bodems;graslanden;0;0;0;1
+6410;Blauwgraslanden;graslanden;0;0;0;1
+6430;Voedselrijke, soortenrijke ruigtes langs waterlopen en boszomen;graslanden;0;0;0;1
+6510;Glanshaver- en Grote vossenstaartgraslanden;graslanden;0;0;0;1
+7110;Actief hoogveen;venen;0;0;1;1
+7140;Voedselarme tot matig voedselarme verlandingsvegetaties;venen;0;0;1;1
+7150;Slenken en plagplekken op vochtige bodems in heide;venen;0;0;1;1
+7210;Galigaanvegetaties;venen;0;0;1;1
+7220;Kalkturfbronnen met tufsteenformatie;venen;0;0;1;1
+7230;Kalkmoeras;venen;0;0;1;1
+9110;Veldbies-Beukenbossen;bossen;0;0;0;1
+9120;Eiken-Beukenbossen op zure bodems;bossen;0;0;0;1
+9130;Eiken-Beukenbossen met Wilde hyacint en Parelgras-Beukenbossen;bossen;0;0;0;1
+9150;Kalkrijke beukenbossen;bossen;0;0;0;1
+9160;Essen-Eikenbossen zonder Wilde hyacint;bossen;0;0;0;1
+9190;Oude Eiken-Berkenbossen op zeer voedselarm zand;bossen;0;0;0;1
+91E0;Valleibossen, Elzenbroekbossen en zachthoutooibossen;bossen;0;0;1;1
+91F0;Hardhoutooibossen;bossen;0;0;1;1
