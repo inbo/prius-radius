@@ -291,7 +291,7 @@ for (i in unique(occ_flanders$Soort)) {
       metrics_df <- data.frame(
         Soort = i,
         Gebied = paste0(c("in", "of"), names(list.dfs)[j]),
-        Overlap = format(round(c(percentage_overlap_in, percentage_overlap_of), 3)))
+        Overlap = format(round(c(percentage_overlap_in, percentage_overlap_of), 6), scientific = FALSE))
       
       list.results[[j]] <- rbind(list.results[[j]], metrics_df)
       
@@ -318,7 +318,7 @@ for (i in unique(occ_flanders$Soort)) {
           metrics_df <- data.frame(
             Soort = i,
             Gebied = paste0(c("in", "of"), as.character(overlap_per_gebied[row,1])),
-            Overlap = format(round(c(percentage_overlap_in, percentage_overlap_of), 3))
+            Overlap = format(round(c(percentage_overlap_in, percentage_overlap_of), 6), scientific = FALSE)
           )
           
           list.results[[j]] <- rbind(list.results[[j]], metrics_df)
@@ -342,7 +342,7 @@ for (i in unique(occ_flanders$Soort)) {
               metrics_df <- data.frame(
                 Soort = i,
                 Gebied = paste0(c("in", "of"), as.character(overlap_n2khab_subset[row,1])),
-                Overlap = format(round(c(percentage_overlap_in, percentage_overlap_of), 3))
+                Overlap = format(round(c(percentage_overlap_in, percentage_overlap_of), 6), scientific = FALSE)
               )
               
               list.results[[7]] <- rbind(list.results[[7]], metrics_df)
@@ -396,7 +396,7 @@ for (i in unique(occ_flanders$Soort)) {
           metrics_df <- data.frame(
             Soort = i,
             Gebied = paste0(c("in", "of"), as.character(overlap_per_anb_regio[row,1])),
-            Overlap = format(round(c(percentage_overlap_in, percentage_overlap_of), 3))
+            Overlap = format(round(c(percentage_overlap_in, percentage_overlap_of), 6), scientific = FALSE)
           )
           
           list.results[[j]] <- rbind(list.results[[j]], metrics_df)
@@ -446,7 +446,7 @@ for (i in unique(occ_flanders$Soort)) {
           list.results[[j]] <- rbind(list.results[[j]], data.frame(
             Soort = i,
             Gebied = paste0("in", as.character(overlap_per_eigendomtype[row,1])),
-            Overlap = format(round(percentage_overlap_in, 3))))
+            Overlap = format(round(percentage_overlap_in, 6), scientific = FALSE)))
         } 
       }
       
