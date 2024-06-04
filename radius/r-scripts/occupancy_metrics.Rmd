@@ -66,6 +66,8 @@ request <- build_url(url)
 ps_hbtrl_deel <- read_sf(request) %>%
   st_set_crs(31370) %>%  # omzetten naar Lambert72
   ensure_multipolygons()   # multisurface to multipolygon
+
+st_write(ps_hbtrl_deel, "./radius/data/spatial/ps_hbtrl_deel.shp")
 ```
 
 ```{r quick-visual-check}
@@ -84,7 +86,9 @@ request <- build_url(url)
 
 ps_vglrl <- read_sf(request) %>%
   st_set_crs(31370) %>%  
-  ensure_multipolygons()   
+  ensure_multipolygons()  
+
+st_write(ps_vglrl, "./radius/data/spatial/ps_vglrl.shp")
 ```
 
 ```{r quick-visual-check}
@@ -125,6 +129,8 @@ hab_names <- read_namelist(lang = "nl")  %>%
 
 n2khab <- n2khab %>%
   left_join(read_namelist(lang = "nl"), by = c("type" = "code"))
+
+st_write(n2khab, "./radius/data/spatial/n2khab.shp")
 ```
 
 ```{r}
@@ -146,6 +152,8 @@ request <- build_url(url)
 am_patdat <- read_sf(request) %>%
   st_set_crs(31370) %>%  
   ensure_multipolygons()   
+
+st_write(am_patdat, "./radius/data/spatial/am_patdat.shp")
 ```
 
 ```{r quick-visual-check}
@@ -166,6 +174,8 @@ request <- build_url(url)
 ps_nbhp <- read_sf(request) %>%
   st_set_crs(31370) %>%  
   ensure_multipolygons()   
+
+st_write(ps_nbhp, "./radius/data/spatial/ps_nbhp.shp")
 ```
 
 ```{r quick-visual-check}
