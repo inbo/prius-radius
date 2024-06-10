@@ -68,6 +68,11 @@ ps_hbtrl_deel <- read_sf(request) %>%
   ensure_multipolygons()   # multisurface to multipolygon
 
 st_write(ps_hbtrl_deel, "./radius/data/spatial/ps_hbtrl_deel.shp", append = FALSE)
+
+ps_hbtrl_deel_wgs84 <- ps_hbtrl_deel %>%
+  st_transform(4326)
+
+st_write(ps_hbtrl_deel_wgs84, "./radius/data/spatial/WGS84/ps_hbtrl_deel_wgs84.shp", append = FALSE)
 ```
 
 ```{r quick-visual-check}
@@ -89,6 +94,11 @@ ps_vglrl <- read_sf(request) %>%
   ensure_multipolygons()  
 
 st_write(ps_vglrl, "./radius/data/spatial/ps_vglrl.shp", append = FALSE)
+
+ps_vglrl_wgs84 <- ps_vglrl %>%
+  st_transform(4326)
+
+st_write(ps_vglrl_wgs84, "./radius/data/spatial/WGS84/ps_vglrl_wgs84.shp", append = FALSE)
 ```
 
 ```{r quick-visual-check}
@@ -131,6 +141,11 @@ n2khab <- n2khab %>%
   left_join(read_namelist(lang = "nl"), by = c("type" = "code"))
 
 st_write(n2khab, "./radius/data/spatial/n2khab.shp", append = FALSE)
+
+ps_n2khab_wgs84 <- ps_n2khab %>%
+  st_transform(4326)
+
+st_write(ps_n2khab_wgs84, "./radius/data/spatial/WGS84/ps_n2khab_wgs84.shp", append = FALSE)
 ```
 
 ```{r}
@@ -154,6 +169,11 @@ am_patdat <- read_sf(request) %>%
   ensure_multipolygons()   
 
 st_write(am_patdat, "./radius/data/spatial/am_patdat.shp", append = FALSE)
+
+am_patdat_wgs84 <- am_patdat %>%
+  st_transform(4326)
+
+st_write(am_patdat_wgs84, "./radius/data/spatial/WGS84/am_patdat_wgs84.shp", append = FALSE)
 ```
 
 ```{r quick-visual-check}
@@ -176,6 +196,11 @@ ps_nbhp <- read_sf(request) %>%
   ensure_multipolygons()   
 
 st_write(ps_nbhp, "./radius/data/spatial/ps_nbhp.shp", append = FALSE)
+
+ps_nbhp_wgs84 <- ps_nbhp %>%
+  st_transform(4326)
+
+st_write(ps_nbhp_wgs84, "./radius/data/spatial/WGS84/ps_nbhp_wgs84.shp", append = FALSE)
 ```
 
 ```{r quick-visual-check}
