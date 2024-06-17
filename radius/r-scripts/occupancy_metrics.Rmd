@@ -8,6 +8,7 @@ library(gdalUtilities)
 library(ggplot2)
 library(n2khab)
 library(units)
+library(gtools)
 ```
 
 ```{r clear-memory}
@@ -120,16 +121,29 @@ hms_pol <- hms$habitatmap_polygons
 
 hms_types <- hms$habitatmap_types 
 
-# processing: we filteren uitsluitend N2000 habitattypes (weglaten: rbb)
+#surface area per type
+# x <- hms_pol %>%
+#   mutate(area = st_area(.)) %>%
+#   st_drop_geometry() %>%
+#   inner_join(hms_types, by = "polygon_id") %>%
+#   filter(grepl('^[0-9]', type)) %>%   # we gebruiken uitsluitend de n2000 habitattypes (beginnen met cijfer 0-9, niet de rbbs)
+#   mutate(type = substr(type, 1, 4)) %>% # only select type codes, remove subtypes
+#   # area of type within polygon:
+#   mutate(area_type = area * phab / 100) %>%
+#   group_by(type) %>%
+#   summarise(area = sum(area_type) %>%
+#     set_units("ha") %>%
+#     round(2))
+
 n2khab <- hms_pol %>%
-  inner_join(hms_types, by = "polygon_id") %>%  # hms_types en hms_pol samenvoegen
+  inner_join(hms_types, by = "polygon_id") %>% # hms_types en hms_pol samenvoegen
+  filter(certain == TRUE) %>%  # hms_types en hms_pol samenvoegen
   filter(grepl('^[0-9]', type)) %>%   # we gebruiken uitsluitend de n2000 habitattypes (beginnen met cijfer 0-9, niet de rbbs)
   mutate(type = substr(type, 1, 4)) %>% # only select type codes, remove subtypes
-  #mutate(area = st_area(.)) %>%
-  #mutate(area_type = area * phab / 100) %>% # calculate area of type within polygon (vb. polygon met opp 100 m² waarvan phab 9120 = 30% --> oppervlak van 9120 in dat polygon = 100 m² * 0.3 = 30 m²) %>%
+  filter(phab >= 50) %>%
   group_by(type) %>%
   summarise(geom = sf::st_union(geom)) %>%
-  mutate(area = st_area(.))
+  mutate(area = as.numeric(st_area(.)))
 
 #area_type = sum(area_type) %>%  
             #  set_units("ha") %>%
@@ -145,7 +159,7 @@ hab_names <- read_namelist(lang = "nl")  %>%
 n2khab <- n2khab %>%
   left_join(read_namelist(lang = "nl"), by = c("type" = "code"))
 
-#st_write(n2khab, "./radius/data/spatial/n2khab.shp", append = FALSE)
+st_write(n2khab, "./radius/data/spatial/n2khab.shp", append = FALSE)
 
 n2khab_wgs84 <- n2khab %>%
   st_transform(4326)
@@ -299,7 +313,7 @@ for (i in unique(occ_flanders$Soort)) {
     st_union() %>% 
     st_cast('POLYGON') %>% 
     st_sf() %>%
-    mutate(buf_area = st_area(.)) 
+    mutate(buf_area = as.numeric(st_area(.))) 
   
   total_area <- sum(occ_species_buf$buf_area)
   
@@ -308,7 +322,7 @@ for (i in unique(occ_flanders$Soort)) {
     species = paste(unique(occ_species$Species), collapse = ","), 
     abbr = unique(na.omit(occ_species$abbr)), 
     gebied = "VL",
-    overlap = format(round(as.numeric(total_area / Vlaanderen_grenzen$OPPERVL),6), scientific = FALSE),
+    overlap = format(round(total_area / Vlaanderen_grenzen$OPPERVL,6), scientific = FALSE),
     type = "of"
   ))
   
@@ -318,28 +332,28 @@ for (i in unique(occ_flanders$Soort)) {
     # transform CRS to Lambert 72 to use st_buffer with meters instead of decimal degrees
     gebied <- list.dfs[[j]] %>%
       st_transform(31370) %>%
-      mutate(geb_area = st_area(.))
+      mutate(geb_area = as.numeric(st_area(.)))
+    
+    gebied_summary <- gebied %>%
+      st_drop_geometry() %>%
+      select(code = if (j == 1) "gebcode" else if (j == 2) "na2000code" else if (j == 3) "type" else if (j == 4) "regio_abb" else "eigendomtype_abb", geb_area) %>%
+      group_by(code) %>%
+      summarise(geb_area = as.numeric(sum(geb_area)))
     
     if (j == 3) {
       gebied <- gebied %>%
         filter(type %in% n2khab_subset)
     }
     
-    gebied_summary <- gebied %>%
-      st_drop_geometry() %>%
-      select(code = if (j == 1) "gebcode" else if (j == 2) "na2000code" else if (j == 3) "type" else if (j == 4) "regio_abb" else "eigendomtype_abb", geb_area) %>%
-      group_by(code) %>%
-      summarise(geb_area = sum(geb_area))
-    
     # intersection buffered occurrences with wfs-map
     occ_species_intersection <- occ_species_buf %>%
       st_intersection(gebied) %>% 
-      mutate(intersect_area = st_area(.)) 
+      mutate(intersect_area = as.numeric(st_area(.)))
     
     overlap_intersection <- sum(occ_species_intersection$intersect_area)
-    percentage_overlap_in <- as.numeric(overlap_intersection / total_area)
-    percentage_overlap_of <- as.numeric(overlap_intersection / sum(gebied$geb_area))
-    selectivity <- percentage_overlap_in / (drop_units(sum(gebied$geb_area)) / sum(Vlaanderen_grenzen$OPPERVL))
+    percentage_overlap_in <- overlap_intersection / total_area
+    percentage_overlap_of <- overlap_intersection / sum(gebied$geb_area)
+    selectivity <- percentage_overlap_in / (sum(gebied$geb_area) / sum(Vlaanderen_grenzen$OPPERVL))
     
     if (nrow(occ_species_intersection) != 0) {  # skip following steps if there's no overlap 
       # Standard occupancy metrics across all wfs-maps
@@ -362,18 +376,18 @@ for (i in unique(occ_flanders$Soort)) {
           group_by(code = if (j == 2) na2000code else if (j == 3) type else gebcode) %>%
           summarise(intersect_area = sum(intersect_area)) %>%
           st_drop_geometry() %>%
-          inner_join(gebied_summary, by = "code")
-        
+          full_join(gebied_summary, by = "code") %>%
+          na.replace(0)
         
         for (row in 1:nrow(overlap_per_gebied)) {
           # OPTIE 1: percentage van overlap dat in bepaald gebied valt
           # percentage_overlap_in = as.numeric(overlap_per_gebied[row,]$intersect_area / overlap_intersection)
           # OPTIE 2: percentage van totale verspreiding dat in bepaald gebied valt
-          percentage_overlap_in = as.numeric(overlap_per_gebied[row,]$intersect_area / total_area)
+          percentage_overlap_in = overlap_per_gebied[row,]$intersect_area / total_area
           
           # percentage van oppervlakte HBTRL/VLRL/BWKHAB gebied dat overlapt met soortverspreiding
-          percentage_overlap_of = as.numeric(overlap_per_gebied[row,]$intersect_area / overlap_per_gebied[row,]$geb_area)
-          selectivity = percentage_overlap_in / as.numeric(overlap_per_gebied[row,]$geb_area / sum(Vlaanderen_grenzen$OPPERVL))
+          percentage_overlap_of = overlap_per_gebied[row,]$intersect_area / overlap_per_gebied[row,]$geb_area
+          selectivity = percentage_overlap_in / overlap_per_gebied[row,]$geb_area / sum(Vlaanderen_grenzen$OPPERVL)
           
           metrics_df <- data.frame(
             soort = i,
@@ -425,16 +439,18 @@ for (i in unique(occ_flanders$Soort)) {
           group_by(regio_abb) %>%
           summarise(intersect_area = sum(intersect_area)) %>%
           arrange() %>%
-          inner_join(gebied_summary, by = c("regio_abb" = "code"))
+          full_join(gebied_summary, by = c("regio_abb" = "code")) %>%
+          filter(!is.na(regio_abb)) %>%
+          na.replace(0)
         
         for (row in 1: nrow(overlap_per_anb_regio)) {
           # OPTIE 1: percentage van overlap met PATDAT per anb regio
           #percentage_overlap_in = as.numeric(overlap_per_anb_regio[row,]$intersect_area / overlap_intersection)
           # OPTIE 2: percentage van totale verspreiding dat overlapt per anb regio
-          percentage_overlap_in = as.numeric(overlap_per_anb_regio[row,]$intersect_area / total_area)
+          percentage_overlap_in = overlap_per_anb_regio[row,]$intersect_area / total_area
           
-          percentage_overlap_of = as.numeric(overlap_per_anb_regio[row,]$intersect_area / overlap_per_anb_regio[row,]$geb_area)
-          selectivity = percentage_overlap_in / as.numeric(overlap_per_anb_regio[row,]$geb_area / sum(Vlaanderen_grenzen$OPPERVL))
+          percentage_overlap_of = overlap_per_anb_regio[row,]$intersect_area / overlap_per_anb_regio[row,]$geb_area
+          selectivity = percentage_overlap_in / overlap_per_anb_regio[row,]$geb_area / sum(Vlaanderen_grenzen$OPPERVL)
           
           metrics_df <- data.frame(
             soort = i,
@@ -487,13 +503,14 @@ for (i in unique(occ_flanders$Soort)) {
           group_by(eigendomtype_abb) %>%
           summarise(intersect_area = sum(intersect_area)) %>%
           arrange() %>%
-          inner_join(gebied_summary, by = c("eigendomtype_abb" = "code"))
+          full_join(gebied_summary, by = c("eigendomtype_abb" = "code")) %>%
+          na.replace(0)
         
         for (row in 1: nrow(overlap_per_eigendomtype)) {
           # OPTIE 1: percentage van overlap met NBHP dat overlapt per eigendomtype
           # percentage_overlap_in = as.numeric(overlap_per_eigendomtype[row,]$intersect_area / overlap_intersection)
           # OPTIE 2: percentage van totale verspreiding dat overlapt per eigendomtype
-          percentage_overlap_in = as.numeric(overlap_per_eigendomtype[row,]$intersect_area / total_area)
+          percentage_overlap_in = overlap_per_eigendomtype[row,]$intersect_area / total_area
           
           list.results[[j]] <- rbind(list.results[[j]], data.frame(
             soort = i,

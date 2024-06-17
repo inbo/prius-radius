@@ -5,7 +5,7 @@ rimpelroos,Rosa rugosa Thunb.,Rr,0.005418
 Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,0.029049
 reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,0.007212
 Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,0.054773
-verspreidbladige waterpest,Lagarosiphon major (Ridley) Moss,Lm,4.6e-05
+verspreidbladige waterpest,Lagarosiphon major (Ridley) Moss,Lm,0.000046
 zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,0.00077
 rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,0.000302
 sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,0.004046
@@ -26,10 +26,10 @@ muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,0.010956
 lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,0.002381
 smalle olijfwilg,Elaeagnus angustifolia L.,Ea,0.000583
 watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,0.001935
-Amerikaanse nerts,"Mustela vison Schreber, 1777",Mvis,7.5e-05
+Amerikaanse nerts,"Mustela vison Schreber, 1777",Mvis,0.000075
 Canadese guldenroede,Solidago canadensis L.,Sc,0.001613
 reuzenbalsemien,Impatiens glandulifera Royle,Ig,0.014952
-Chinese prachtslang,"Elaphe taeniura (Cope, 1861)",Et,8.1e-05
+Chinese prachtslang,"Elaphe taeniura (Cope, 1861)",Et,0.000081
 gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,0.000521
 blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,0.000569
 struikaster,Baccharis halimifolia L.,Bh,0.000376
@@ -39,42 +39,42 @@ beverrat,"Myocastor coypus Molina, 1782",Mc,0.000269
 moerashyacint,Pontederia cordata L.,Pco,0.00035
 vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,0.000245
 valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,0.000562
-Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,9.4e-05
+Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,0.000094
 grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,0.002072
 wasbeer,"Procyon lotor L., 1758",Plo,0.000278
 gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,0.000359
 rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,0.000615
-marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,8.2e-05
-kleine waterteunisbloem,Ludwigia peploides (Kunth) P.H. Raven,Lp,7e-05
-egeria,Elodea densa (Planch.) Casp.,Ed,4.6e-05
+marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,0.000082
+kleine waterteunisbloem,Ludwigia peploides (Kunth) P.H. Raven,Lp,0.00007
+egeria,Elodea densa (Planch.) Casp.,Ed,0.000046
 ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,0.000134
-Aziatische boomwurger,Celastrus orbiculatus Thunb.,Co,2e-06
-zijdeplant,Asclepias syriaca L.,As,6.7e-05
-waterhyacint,Eichhornia crassipes (Martius) Solms,Ec,2.5e-05
-watersla,Pistia stratiotes L.,Pst,8.4e-05
-Californische rivierkreeft,"Pacifastacus leniusculus Dana, 1852",Plen,2e-06
-gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",Pa,9.1e-05
+Aziatische boomwurger,Celastrus orbiculatus Thunb.,Co,0.000002
+zijdeplant,Asclepias syriaca L.,As,0.000067
+waterhyacint,Eichhornia crassipes (Martius) Solms,Ec,0.000025
+watersla,Pistia stratiotes L.,Pst,0.000084
+Californische rivierkreeft,"Pacifastacus leniusculus Dana, 1852",Plen,0.000002
+gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",Pa,0.000091
 Kaapse waterlelie,Aponogeton distachyos L.f.,Ad,0.000109
-grijze eekhoorn,"Sciurus carolinensis Gmelin, 1788",Sca,1.4e-05
-Mantsjoerese wilde rijst,Zizania latifolia (Griseb.) Hance ex F.Muell.,Zl,1.9e-05
-Pallas' eekhoorn,"Callosciurus erythraeus Pallas, 1779",Ce,2e-06
+grijze eekhoorn,"Sciurus carolinensis Gmelin, 1788",Sca,0.000014
+Mantsjoerese wilde rijst,Zizania latifolia (Griseb.) Hance ex F.Muell.,Zl,0.000019
+Pallas' eekhoorn,"Callosciurus erythraeus Pallas, 1779",Ce,0.000002
 moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,0.000117
-waterwaaier,Cabomba caroliniana Gray,Cca,2.3e-05
-Chinese moerasslak,"Cipangopaludina chinensis (J.E.Gray, 1833)",Cch,9e-06
-Kesslergrondel,"Ponticola kessleri (Günther, 1861)",Pk,1.8e-05
-wasbeerhond,"Nyctereutes procyonoides Gray, 1834",Np,5e-06
+waterwaaier,Cabomba caroliniana Gray,Cca,0.000023
+Chinese moerasslak,"Cipangopaludina chinensis (J.E.Gray, 1833)",Cch,0.000009
+Kesslergrondel,"Ponticola kessleri (Günther, 1861)",Pk,0.000018
+wasbeerhond,"Nyctereutes procyonoides Gray, 1834",Np,0.000005
 Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,0.045563
-Leidse plant,Saururus cernuus L.,Sce,1.7e-05
-treurmaina,"Acridotheres tristis Linnaeus, 1766",At,7e-06
-moerasanemoon,Houttuynia cordata Thunb.,Hc,8.9e-05
-Turkse rivierkreeft,"Pontastacus leptodactylus (Eschscholtz, 1823)",Plep,2.5e-05
-marmerkreeft,"Procambarus virginalis Lyko, 2017",Pv,3.6e-05
-sikahert,"Cervus nippon Temminck, 1838",Cn,8.8e-05
-Amerikaanse voseekhoorn,"Sciurus niger L., 1758",Sn,2e-06
-gewone gunnera,Gunnera tinctoria (Molina) Mirbel,Gt,2.3e-05
-Noord-Aziatische modderkruiper,"Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)",Mb,1.4e-05
-Japans steltgras,Microstegium vimineum (Trin.) A. Camus,Mvim,2e-06
-Pontische stroomgrondel,"Neogobius fluviatilis (Pallas, 1814)",Nf,2e-06
-Afrikaanse klauwkikker,"Xenopus laevis (Daudin, 1802)",Xl,6e-06
-fraai lampenpoetsersgras,Cenchrus setaceus (Forssk.) Morrone,Cs,2e-06
-grote vlotvaren,Salvinia molesta D.S.Mitch.,Sm,2e-06
+Leidse plant,Saururus cernuus L.,Sce,0.000017
+treurmaina,"Acridotheres tristis Linnaeus, 1766",At,0.000007
+moerasanemoon,Houttuynia cordata Thunb.,Hc,0.000089
+Turkse rivierkreeft,"Pontastacus leptodactylus (Eschscholtz, 1823)",Plep,0.000025
+marmerkreeft,"Procambarus virginalis Lyko, 2017",Pv,0.000036
+sikahert,"Cervus nippon Temminck, 1838",Cn,0.000088
+Amerikaanse voseekhoorn,"Sciurus niger L., 1758",Sn,0.000002
+gewone gunnera,Gunnera tinctoria (Molina) Mirbel,Gt,0.000023
+Noord-Aziatische modderkruiper,"Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)",Mb,0.000014
+Japans steltgras,Microstegium vimineum (Trin.) A. Camus,Mvim,0.000002
+Pontische stroomgrondel,"Neogobius fluviatilis (Pallas, 1814)",Nf,0.000002
+Afrikaanse klauwkikker,"Xenopus laevis (Daudin, 1802)",Xl,0.000006
+fraai lampenpoetsersgras,Cenchrus setaceus (Forssk.) Morrone,Cs,0.000002
+grote vlotvaren,Salvinia molesta D.S.Mitch.,Sm,0.000002
