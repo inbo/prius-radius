@@ -1,67 +1,67 @@
 Groep,Species,Soort,GBIF_code,n_obs
-dier,"Alopochen aegyptiacus Linnaeus, 1766",nijlgans,2498252,137052
-dier,"Branta canadensis (Linnaeus, 1758)",Canadese gans,5232437,134411
-plant,Reynoutria japonica Houtt.,invasieve duizendknopen,2889173,35828
-dier,"Ondatra zibethicus Linnaeus, 1766",muskusrat,5219858,34199
-dier,"Vespa velutina Lepeletier, 1836",Aziatische hoornaar (soort),1311477,32911
-plant,Prunus serotina Ehrh.,Amerikaanse vogelkers,3021850,23923
-dier,"Lithobates (Rana) catesbeianus Shaw, 1802",Amerikaanse stierkikker,2427091,15008
-plant,Impatiens glandulifera Royle,reuzenbalsemien,2891770,14726
-plant,Rosa rugosa Thunb.,rimpelroos,3003979,10602
-plant,Heracleum mantegazzianum Sommier & Levier,reuzenberenklauw,3034825,7125
-plant,Mahonia aquifolium (Pursh) Nutt.,mahonie,3033865,7054
-dier,"Lepomis gibbosus Linnaeus, 1758",zonnebaars,2394486,6007
-plant,Solidago gigantea Aiton,late guldenroede,5389017,5391
-plant,Crassula helmsii (Kirk) Cockayne,watercrassula,5362054,4479
-dier,"Neogobius melanostomus (Pallas, 1814)",zwartbekgrondel,2379089,3762
-plant,Ludwigia grandiflora (Michx.) Greuter & Burdet,grote waterteunisbloem,5421039,3397
-plant,Symphoricarpos albus (L.) K.Koch,sneeuwbes,8012439,3011
-dier,"Pseudorasbora parva Temminck & Schlegel, 1846",blauwbandgrondel,2362868,2596
-plant,Lycium barbarum L.,boksdoorn,2928835,2357
-dier,"Trachemys scripta Schoepff, 1792",lettersierschildpad,2443002,2319
-plant,Hydrocotyle ranunculoides L. f.,grote waternavel,7978544,2316
-dier,"Faxonius limosus Rafinesque, 1817",gevlekte Amerikaanse rivierkreeft,8909595,1553
-plant,Ailanthus altissima (Mill.) Swingle,hemelboom,3190653,1344
-plant,Elodea nuttallii (Planch.) St. John,smalle waterpest,5329212,1220
-dier,"Eriocheir sinensis H. Milne Edwards, 1854",Chinese wolhandkrab,2225776,1149
-plant,Myriophyllum aquaticum (Vell.) Verdc.,parelvederkruid,5361785,1003
-plant,Solidago canadensis L.,Canadese guldenroede,5389029,905
+dier,"Alopochen aegyptiacus Linnaeus, 1766",nijlgans,2498252,144618
+dier,"Branta canadensis (Linnaeus, 1758)",Canadese gans,5232437,143086
+plant,Reynoutria japonica Houtt.,invasieve duizendknopen,2889173,36052
+dier,"Ondatra zibethicus Linnaeus, 1766",muskusrat,5219858,35746
+dier,"Vespa velutina Lepeletier, 1836",Aziatische hoornaar (soort),1311477,33362
+plant,Prunus serotina Ehrh.,Amerikaanse vogelkers,3021850,24150
+dier,"Lithobates (Rana) catesbeianus Shaw, 1802",Amerikaanse stierkikker,2427091,15005
+plant,Impatiens glandulifera Royle,reuzenbalsemien,2891770,14828
+plant,Rosa rugosa Thunb.,rimpelroos,3003979,10629
+plant,Heracleum mantegazzianum Sommier & Levier,reuzenberenklauw,3034825,7282
+plant,Mahonia aquifolium (Pursh) Nutt.,mahonie,3033865,7156
+dier,"Lepomis gibbosus Linnaeus, 1758",zonnebaars,2394486,6014
+plant,Solidago gigantea Aiton,late guldenroede,5389017,5412
+plant,Crassula helmsii (Kirk) Cockayne,watercrassula,5362054,4493
+dier,"Neogobius melanostomus (Pallas, 1814)",zwartbekgrondel,2379089,3761
+plant,Ludwigia grandiflora (Michx.) Greuter & Burdet,grote waterteunisbloem,5421039,3400
+plant,Symphoricarpos albus (L.) K.Koch,sneeuwbes,8012439,3016
+dier,"Pseudorasbora parva Temminck & Schlegel, 1846",blauwbandgrondel,2362868,2604
+plant,Lycium barbarum L.,boksdoorn,2928835,2373
+dier,"Trachemys scripta Schoepff, 1792",lettersierschildpad,2443002,2368
+plant,Hydrocotyle ranunculoides L. f.,grote waternavel,7978544,2325
+dier,"Faxonius limosus Rafinesque, 1817",gevlekte Amerikaanse rivierkreeft,8909595,1569
+plant,Ailanthus altissima (Mill.) Swingle,hemelboom,3190653,1349
+plant,Elodea nuttallii (Planch.) St. John,smalle waterpest,5329212,1222
+dier,"Eriocheir sinensis H. Milne Edwards, 1854",Chinese wolhandkrab,2225776,1151
+plant,Myriophyllum aquaticum (Vell.) Verdc.,parelvederkruid,5361785,1009
+plant,Solidago canadensis L.,Canadese guldenroede,5389029,918
 plant,Elaeagnus angustifolia L.,smalle olijfwilg,3039269,608
-dier,"Threskiornis aethiopicus Latham, 1790",heilige ibis,2480764,522
-dier,"Procambarus clarkii Girard, 1852",rode Amerikaanse rivierkreeft,2227300,434
-dier,"Proterorhinus semilunaris (Heckel, 1837)",marmergrondel,2379245,417
+dier,"Threskiornis aethiopicus Latham, 1790",heilige ibis,2480764,525
+dier,"Procambarus clarkii Girard, 1852",rode Amerikaanse rivierkreeft,2227300,435
+dier,"Proterorhinus semilunaris (Heckel, 1837)",marmergrondel,2379245,418
 plant,Parthenocissus inserta (A.Kern.) Fritsch,valse wingerd,3039203,349
 plant,Pontederia cordata L.,moerashyacint,2766030,346
 plant,Baccharis halimifolia L.,struikaster,3129663,341
-dier,"Oxyura jamaicensis Gmelin, 1789",rosse stekelstaart,2498305,326
-dier,"Tamias sibiricus Laxmann, 1769",Siberische grondeekhoorn,2437450,322
-dier,"Muntiacus reevesi Ogilby, 1839",Chinese muntjak,2440946,300
-plant,Petasites japonicus (Siebold & Zucc.) Maxim.,Japans hoefblad,3088310,282
-dier,"Myocastor coypus Molina, 1782",beverrat,4264680,270
-plant,Erythranthe guttata (DC.) G.L.Nesom,gele maskerbloem,7346102,263
+dier,"Oxyura jamaicensis Gmelin, 1789",rosse stekelstaart,2498305,339
+dier,"Tamias sibiricus Laxmann, 1769",Siberische grondeekhoorn,2437450,335
+dier,"Muntiacus reevesi Ogilby, 1839",Chinese muntjak,2440946,303
+plant,Petasites japonicus (Siebold & Zucc.) Maxim.,Japans hoefblad,3088310,289
+dier,"Myocastor coypus Molina, 1782",beverrat,4264680,277
+plant,Erythranthe guttata (DC.) G.L.Nesom,gele maskerbloem,7346102,264
 dier,"Ponticola kessleri (Günther, 1861)",Kesslergrondel,4285968,252
 dier,"Umbra pygmaea (DeKay, 1842)",Amerikaanse hondsvis,5203111,203
 plant,Reynoutria sachalinensis (F.Schmidt) Nakai,invasieve duizendknopen,2889088,189
-dier,"Procyon lotor L., 1758",wasbeer,5218786,160
-dier,"Elaphe taeniura (Cope, 1861)",Chinese prachtslang,8889878,145
+dier,"Procyon lotor L., 1758",wasbeer,5218786,175
+dier,"Elaphe taeniura (Cope, 1861)",Chinese prachtslang,8889878,159
 plant,Parthenocissus quinquefolia (L.) Planch.,vijfbladige wingerd,3039194,137
 plant,Ludwigia peploides (Kunth) P.H. Raven,kleine waterteunisbloem,5420991,132
-plant,Aponogeton distachyos L.f.,Kaapse waterlelie,5328593,101
-plant,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Afghaanse duizendknoop,8848208,94
-plant,Lysichiton americanus Hultén & H. St. John,moerasaronskelk,2869311,80
+plant,Aponogeton distachyos L.f.,Kaapse waterlelie,5328593,106
+plant,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Afghaanse duizendknoop,8848208,92
+plant,Lysichiton americanus Hultén & H. St. John,moerasaronskelk,2869311,83
 plant,Myriophyllum heterophyllum Michaux,ongelijkbladig vederkruid,5361762,80
-dier,"Procambarus acutus (Girard, 1852)",gestreepte Amerikaanse rivierkreeft,2227289,53
-plant,Houttuynia cordata Thunb.,moerasanemoon,5384931,52
+dier,"Procambarus acutus (Girard, 1852)",gestreepte Amerikaanse rivierkreeft,2227289,61
+plant,Houttuynia cordata Thunb.,moerasanemoon,5384931,53
 dier,"Mustela vison Schreber, 1777",Amerikaanse nerts,5218823,51
 plant,Pistia stratiotes L.,watersla,2870583,50
 dier,"Cervus nippon Temminck, 1838",sikahert,2440954,48
 plant,Asclepias syriaca L.,zijdeplant,3170247,47
-dier,"Procambarus virginalis Lyko, 2017",marmerkreeft,9442269,41
+dier,"Procambarus virginalis Lyko, 2017",marmerkreeft,9442269,42
 plant,Lagarosiphon major (Ridley) Moss,verspreidbladige waterpest,2865565,39
 plant,Elodea densa (Planch.) Casp.,egeria,5329263,26
 dier,"Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)",Noord-Aziatische modderkruiper,2367911,23
 plant,Zizania latifolia (Griseb.) Hance ex F.Muell.,Mantsjoerese wilde rijst,10919373,19
-plant,Saururus cernuus L.,Leidse plant,5384932,17
+plant,Saururus cernuus L.,Leidse plant,5384932,18
 dier,"Pontastacus leptodactylus (Eschscholtz, 1823)",Turkse rivierkreeft,8946295,16
 plant,Cabomba caroliniana Gray,waterwaaier,2882443,14
 plant,Eichhornia crassipes (Martius) Solms,waterhyacint,2765942,14
