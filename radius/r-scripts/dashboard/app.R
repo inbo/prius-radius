@@ -93,7 +93,7 @@ custom_css <- "
   .custom-valuebox-text {
       font-size: 1rem;
       font-weight: bold;
-      color: black;
+      color: grey;
       margin-top: 5px;
   }
   
@@ -107,6 +107,7 @@ custom_css <- "
     font-size: 0.7em;
     font-weight: bold;
     color: black;
+    margin-bottom: 10
   }
   
   .h2 {
@@ -191,9 +192,29 @@ ui <- page_navbar(
             #   div(textOutput("kaartnaam"), class = "custom-header")
             # ),
             fluidRow(
-              plotlyOutput("in_gebied"),
-              plotlyOutput("of_gebied"),
-              #plotlyOutput("in-vs-of")
+              h1(textOutput("gebiedsnaam"))
+            ),
+            fluidRow(
+              layout_column_wrap(
+                column(
+                  width = 12,
+                  plotlyOutput("in_gebied")
+                ),
+                column(
+                  width = 12,
+                  plotlyOutput("of_gebied")
+                ))
+              ),
+            fluidRow(
+              layout_column_wrap(
+                column(
+                  width = 12,
+                  plotlyOutput("in_vs_of")
+                ),
+                column(
+                  width = 12
+                )
+              )
             )
         )
     )
@@ -224,11 +245,11 @@ ui <- page_navbar(
                   class = "custom-value-box",
                   color = "#f8f9fa",
                   title = "",
-                  value = textOutput("tot_obs"),
+                  value = div(textOutput("tot_obs"), class = "custom-valuebox-text"),
                   showcase = plotlyOutput("aantal"),
                   showcase_layout = "bottom",
-                  p("waarneming(en)", class = "custom-valuebox-text"),
-                  p("sinds 2015", class = "custom-valuebox-text"),
+                  div("WAARNEMING(EN)", class = "custom-valuebox-text"),
+                  div("SINDS 2015", class = "custom-valuebox-text"),
                   full_screen = TRUE
                 )
               )
@@ -291,6 +312,13 @@ server <- function(input, output, session) {
     updateSelectInput(inputId = "gebied2", choice = c("All", unique(na.omit(list_metrics[[input$kaart2]]$code))))
   })
   
+  metrics_wide <- reactive({
+    list_metrics[[input$kaart2]] %>%
+      filter(is.na(code) & type %in% c("in", "of")) %>%
+      mutate(type = paste(type, gebied, sep = "")) %>%
+      pivot_wider(names_from = type, values_from = overlap)
+  })
+  
   metrics_in_gebied <- reactive({
     list_metrics[[input$kaart2]] %>%
       filter(is.na(code) & type == "in")
@@ -302,6 +330,10 @@ server <- function(input, output, session) {
   })
   
   ## OUTPUTS
+  output$gebiedsnaam <- renderText({
+    input$kaart2
+  })
+  
   output$in_gebied <- renderPlotly({
     ggplotly(
       ggplot() +
@@ -324,6 +356,18 @@ server <- function(input, output, session) {
         theme(axis.text = element_text(size = 9),
               axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
               axis.title = element_text(size = 9)), tooltip = "text")
+  })
+  
+  output$in_vs_of <- renderPlotly({
+    ggplotly(
+      ggplot(data = metrics_wide(), aes(x = metrics_wide()[[9]], y = metrics_wide()[[10]], label = abbr)) +
+        geom_text() +
+        theme(legend.position="none") +
+        xlim(0,1) +
+        xlab("Aandeel totale verspreiding dat overlapt met habitatrichtlijngebied") + ylab("aandeel totaal oppervlak habitatrichtlijngebied dat bezet is") +
+        theme_bw()
+    )
+        
   })
   
   # output$in-vs-of <- renderPlotly({
