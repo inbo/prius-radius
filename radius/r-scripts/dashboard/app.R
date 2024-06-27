@@ -279,7 +279,7 @@ ui <- page_navbar(
                   ),
                   column(
                     width = 9,
-                    uiOutput("barchart_in")
+                    highchartOutput("barchart_in")
                   )
                 ),
                 fluidRow(
@@ -549,7 +549,7 @@ server <- function(input, output, session) {
     
     # Preparing the data in the required format
     data_list <- df %>%
-      mutate(y = overlap * 100, name = paste(gebied, "(", round(overlap * 100, 1), "%)")) %>%
+      mutate(y = overlap * 100, name = gebied) %>%
       select(name, y, label, color) %>%
       list_parse()
     
@@ -585,40 +585,79 @@ server <- function(input, output, session) {
       hc_add_theme(hc_theme_elementary())
   })
   
-  ### Barchart in
-  output$barchart_in <- renderUI({
+  
+  output$barchart_in <- renderHighchart({
     if (nrow(metrics_in()) != 0) {
-      plot_ly(data = metrics_in()) %>%
-        add_bars(
-          x = ~reorder(gebied, overlap), 
-          y = ~overlap, 
-          text = ~paste0(round(overlap * 100, 2), "%"),  # Text inside the bars
-          hovertext = ~paste0(naam, " (", gebied, "): ", round(overlap * 100, 2), "%"),  # Text on hover
-          hoverinfo = 'text', 
-          marker = list(color = ~pal_in()(overlap),
-                        line = list(color = 'black', width = 1))
+      df <- metrics_in() %>%
+        filter(overlap != 0) %>%
+        arrange(overlap) %>%
+        mutate(gebied = factor(gebied, levels = gebied)) %>%
+        mutate(y = overlap * 100)
+      
+      # data_list <- df %>%
+      #   select(gebied, y, naam) %>%
+      #   list_parse()
+      
+      highchart() %>%
+        hc_chart(type = 'column') %>%
+        hc_xAxis(categories = df$gebied, title = list(text = ""), labels = list(rotation = -90)) %>%
+        hc_yAxis(title = list(text = 'Overlap (%)'), labels = list(format = '{value}%')) %>%
+        hc_plotOptions(column = list(
+          dataLabels = list(enabled = TRUE, format = '{point.y:.2f}%'),
+          borderColor = "rgba(128, 128, 128, 0.3)",
+          borderWidth = 1,
+          pointPadding = 0.1, 
+          groupPadding = 0.1
+        )) %>%
+        hc_add_series(
+          name = "Overlap",
+          data = df %>% mutate(y = overlap * 100) %>% select(gebied, y, naam),
+          colorByPoint = TRUE,
+          colors = pal_in()(df$overlap)
         ) %>%
-        layout(
-          xaxis = list(
-            tickangle = -90,
-            title = ""
-          ),
-          yaxis = list(
-            tickformat = ".0%",  # Format y-axis ticks as percentages
-            title = 'Overlap (%)'
-          ),
-          hoverlabel = list(
-            bgcolor = 'white',
-            bordercolor = 'black',
-            font = list(size = 12)
-          ),
-          plot_bgcolor = 'rgba(0, 0, 0, 0)',
-          paper_bgcolor = 'rgba(0, 0, 0, 0)'
-        ) 
-    } else {
-      return("")
+        hc_tooltip(
+          headerFormat = '',
+          pointFormat = '<b>{point.naam} ({point.gebied}): {point.y:.2f}%</b>'
+        ) %>%
+        hc_chart(backgroundColor = 'rgba(0, 0, 0, 0)') %>%
+        hc_add_theme(hc_theme_elementary()) 
     }
   })
+  
+  # ### Barchart in
+  # output$barchart_in <- renderUI({
+  #   if (nrow(metrics_in()) != 0) {
+  #     plot_ly(data = metrics_in()) %>%
+  #       add_bars(
+  #         x = ~reorder(gebied, overlap), 
+  #         y = ~overlap, 
+  #         text = ~paste0(round(overlap * 100, 2), "%"),  # Text inside the bars
+  #         hovertext = ~paste0(naam, " (", gebied, "): ", round(overlap * 100, 2), "%"),  # Text on hover
+  #         hoverinfo = 'text', 
+  #         marker = list(color = ~pal_in()(overlap),
+  #                       line = list(color = 'black', width = 1))
+  #       ) %>%
+  #       layout(
+  #         xaxis = list(
+  #           tickangle = -90,
+  #           title = ""
+  #         ),
+  #         yaxis = list(
+  #           tickformat = ".0%",  # Format y-axis ticks as percentages
+  #           title = 'Overlap (%)'
+  #         ),
+  #         hoverlabel = list(
+  #           bgcolor = 'white',
+  #           bordercolor = 'black',
+  #           font = list(size = 12)
+  #         ),
+  #         plot_bgcolor = 'rgba(0, 0, 0, 0)',
+  #         paper_bgcolor = 'rgba(0, 0, 0, 0)'
+  #       ) 
+  #   } else {
+  #     return("")
+  #   }
+  # })
   
   
   
