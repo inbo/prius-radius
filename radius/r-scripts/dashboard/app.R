@@ -177,6 +177,11 @@ custom_css <- "
     background-color: #f8f9fa !important;
     border-radius: 0;
    }
+   
+   .custom-kaart-row {
+    height: 600px; /* Adjust this value to the desired height */
+    overflow: hidden; /* Optional: Prevents overflow */
+  }
 "
 
 ########### UI ############
@@ -283,21 +288,20 @@ ui <- page_navbar(
                   )
                 ),
                 fluidRow(
-                  column(
-                    width = 12,
-                    leafletOutput("kaart_in"),
-                    div(downloadButton("download_kaart", "Download PNG", class = "custom-download-button")
-                    )
+                  class = "custom-kaart-row", 
+                  leafletOutput("kaart_in", height = "600px"),
+                  div(downloadButton("download_kaart", "Download PNG", class = "custom-download-button"))
                   )
-                )),
+                ),
               nav_panel(
                 title = "Aandeel van",
                 fluidRow(
-                  plotlyOutput("barchart_of"),
+                  highchartOutput("barchart_of"),
                   full_screen = TRUE
                 ),
                 fluidRow(
-                  leafletOutput("kaart_of")
+                  class = "custom-kaart-row", 
+                  leafletOutput("kaart_of", height = "600px")
                 ))
             )
         )
@@ -567,8 +571,8 @@ server <- function(input, output, session) {
           borderWidth = 0      
         ),
         showInLegend = FALSE,
-        borderColor = "rgba(128, 128, 128, 0.3)",
-        borderWidth = 1
+        borderColor = "black",
+        borderWidth = 0.5
       )) %>%
       hc_add_series(
         name = "Overlap",
@@ -604,8 +608,8 @@ server <- function(input, output, session) {
         hc_yAxis(title = list(text = 'Overlap (%)'), labels = list(format = '{value}%')) %>%
         hc_plotOptions(column = list(
           dataLabels = list(enabled = TRUE, format = '{point.y:.2f}%'),
-          borderColor = "rgba(128, 128, 128, 0.3)",
-          borderWidth = 1,
+          borderColor = "black",
+          borderWidth = 0.5,
           pointPadding = 0.1, 
           groupPadding = 0.1
         )) %>%
@@ -624,82 +628,12 @@ server <- function(input, output, session) {
     }
   })
   
-  # ### Barchart in
-  # output$barchart_in <- renderUI({
-  #   if (nrow(metrics_in()) != 0) {
-  #     plot_ly(data = metrics_in()) %>%
-  #       add_bars(
-  #         x = ~reorder(gebied, overlap), 
-  #         y = ~overlap, 
-  #         text = ~paste0(round(overlap * 100, 2), "%"),  # Text inside the bars
-  #         hovertext = ~paste0(naam, " (", gebied, "): ", round(overlap * 100, 2), "%"),  # Text on hover
-  #         hoverinfo = 'text', 
-  #         marker = list(color = ~pal_in()(overlap),
-  #                       line = list(color = 'black', width = 1))
-  #       ) %>%
-  #       layout(
-  #         xaxis = list(
-  #           tickangle = -90,
-  #           title = ""
-  #         ),
-  #         yaxis = list(
-  #           tickformat = ".0%",  # Format y-axis ticks as percentages
-  #           title = 'Overlap (%)'
-  #         ),
-  #         hoverlabel = list(
-  #           bgcolor = 'white',
-  #           bordercolor = 'black',
-  #           font = list(size = 12)
-  #         ),
-  #         plot_bgcolor = 'rgba(0, 0, 0, 0)',
-  #         paper_bgcolor = 'rgba(0, 0, 0, 0)'
-  #       ) 
-  #   } else {
-  #     return("")
-  #   }
-  # })
-  
-  
-  
-  
-  
-  # output$barchart_in <- renderPlotly({
-  #   
-  #   plot_ly(data = metrics_in()) %>%
-  #     add_bars(
-  #       x = ~reorder(gebied, overlap), 
-  #       y = ~overlap, 
-  #       text = ~paste0(round(overlap * 100, 2), "%"),  # Text inside the bars
-  #       hovertext = ~paste0(naam, " (", gebied, "): ", round(overlap * 100, 2), "%"),  # Text on hover
-  #       hoverinfo = 'text', 
-  #       marker = list(color = ~pal_in()(overlap),
-  #                     line = list(color = 'black', width = 1))
-  #     ) %>%
-  #     layout(
-  #       xaxis = list(
-  #         tickangle = -90,
-  #         title = ""
-  #       ),
-  #       yaxis = list(
-  #         tickformat = ".0%",  # Format y-axis ticks as percentages
-  #         title = 'Overlap (%)'
-  #       ),
-  #       hoverlabel = list(
-  #         bgcolor = 'white',
-  #         bordercolor = 'black',
-  #         font = list(size = 12)
-  #       ),
-  #       plot_bgcolor = 'rgba(0, 0, 0, 0)',
-  #       paper_bgcolor = 'rgba(0, 0, 0, 0)'
-  #     ) 
-  # })
-  
   ### Kaart in
   kaart_in <- reactive({
     map <- leaflet() %>%
-      addProviderTiles(providers$OpenStreetMap.HOT, group = "OSM HOT") %>%
+      addTiles(urlTemplate = "", attribution = NULL, group = "Zonder achtergrond") %>%
       addProviderTiles(providers$OpenStreetMap, group = "OSM (default)") %>%
-      addProviderTiles(providers$Esri.WorldGrayCanvas, group = "Grijs") %>%
+      addProviderTiles(providers$Esri.WorldImagery, group = "Satellite") %>%
       addPolygons(data = Vlaanderen_grenzen, color = "black", fillColor = "#f0f0f0", weight = 1, group = "Vlaanderen") %>%
       addPolygons(data = Provincies_grenzen, color = "black", fillColor = "#f0f0f0", weight = 0.5, group = "Provincies") %>%
       addPolygons(data = list_wfs[[input$kaart]], color = "black", fillColor = "lightgrey", opacity = 0.7, weight = 0.5, fillOpacity = 1, label = ~paste0(naam, " (", code, "): 0%"), highlight = highlightOptions(stroke = TRUE, color = "black", weight = 2)) 
@@ -712,12 +646,12 @@ server <- function(input, output, session) {
     map <- map %>%
       addCircleMarkers(data = occ_species(), radius = 3, color = "blue", fillOpacity = 0.7, weight = 0.5, label = ~paste0(day, "/", month, "/", year), group = "Waarnemingen") %>%
       addLayersControl(
-        baseGroups = c("OSM HOT", "OSM (default)", "Grijs"),
+        baseGroups = c("Geen achtergrond", "OSM (default)", "Satellite"),
         overlayGroups = c("Waarnemingen"),
         options = layersControlOptions(collapsed = FALSE)
       ) %>%
       hideGroup("Waarnemingen") %>%
-      setView(lng = 4.240556, lat = 51.037778, zoom = 7.6)
+      setView(lng = 4.240556, lat = 51.037778, zoom = 9)
     
     if(is.data.frame(metrics_in()) && nrow(metrics_in()) != 0) {
       map <- map %>%
@@ -772,56 +706,71 @@ server <- function(input, output, session) {
   })
   
   ### Barchart of
-  output$barchart_of <- renderPlotly({
-    
-    plot_ly(data = metrics_of()) %>%
-      add_bars(
-        x = ~reorder(gebied, overlap), 
-        y = ~overlap, 
-        text = ~paste0(round(overlap * 100, 2), "%"),  # Text inside the bars
-        hovertext = ~paste0(naam, " (", gebied, "): ", round(overlap * 100, 2), "%"),  # Text on hover
-        hoverinfo = 'text', 
-        marker = list(color = ~pal_of()(overlap),
-                      line = list(color = 'black', width = 1))
-      ) %>%
-      layout(
-        xaxis = list(
-          tickangle = -90,
-          title = ""
-        ),
-        yaxis = list(
-          tickformat = ".0%",  # Format y-axis ticks as percentages
-          title = 'Overlap (%)'
-        ),
-        hoverlabel = list(
-          bgcolor = 'white',
-          bordercolor = 'black',
-          font = list(size = 12)
-        ),
-        plot_bgcolor = 'rgba(0, 0, 0, 0)',
-        paper_bgcolor = 'rgba(0, 0, 0, 0)'
-      ) 
+  output$barchart_of <- renderHighchart({
+    if (nrow(metrics_of()) != 0) {
+      df <- metrics_of() %>%
+        filter(overlap != 0) %>%
+        arrange(overlap) %>%
+        mutate(gebied = factor(gebied, levels = gebied)) %>%
+        mutate(y = overlap * 100)
+      
+      highchart() %>%
+        hc_chart(type = 'column') %>%
+        hc_xAxis(categories = df$gebied, title = list(text = ""), labels = list(rotation = -90)) %>%
+        hc_yAxis(title = list(text = 'Overlap (%)'), labels = list(format = '{value}%')) %>%
+        hc_plotOptions(column = list(
+          dataLabels = list(enabled = TRUE, format = '{point.y:.2f}%'),
+          borderColor = "black",
+          borderWidth = 0.5,
+          pointPadding = 0.1, 
+          groupPadding = 0.1
+        )) %>%
+        hc_add_series(
+          name = "Overlap",
+          data = df %>% mutate(y = overlap * 100) %>% select(gebied, y, naam),
+          colorByPoint = TRUE,
+          colors = pal_of()(df$overlap)
+        ) %>%
+        hc_tooltip(
+          headerFormat = '',
+          pointFormat = '<b>{point.naam} ({point.gebied}): {point.y:.2f}%</b>'
+        ) %>%
+        hc_chart(backgroundColor = 'rgba(0, 0, 0, 0)') %>%
+        hc_add_theme(hc_theme_elementary()) 
+    }
   })
   
   ### Kaart of
   output$kaart_of <- renderLeaflet({
-    leaflet() %>%
-      addProviderTiles(providers$OpenStreetMap.HOT, group = "OSM HOT") %>%
+    map <- leaflet() %>%
+      addTiles(urlTemplate = "", attribution = NULL, group = "Zonder achtergrond") %>%
       addProviderTiles(providers$OpenStreetMap, group = "OSM (default)") %>%
-      addProviderTiles(providers$Esri.WorldGrayCanvas, group = "Grijs") %>%
+      addProviderTiles(providers$Esri.WorldImagery, group = "Satellite") %>%
       addPolygons(data = Vlaanderen_grenzen, color = "black", fillColor = "#f0f0f0", weight = 1, group = "Vlaanderen") %>%
       addPolygons(data = Provincies_grenzen, color = "black", fillColor = "#f0f0f0", weight = 0.5, group = "Provincies") %>%
-      addPolygons(data = ps_hbtrl_wgs84, color= "black", fillColor ="grey", opacity = 0.8, weight = 0.5, label = ~paste0(naam, " (", code, ")")) %>%
-      addPolygons(data = metrics_of(), color = "black", fillColor = ~pal_of()(overlap), opacity = 1, weight = 0.5, fillOpacity = 1, label = ~paste0(naam, " (", gebied, "): ", round(overlap * 100, 1), "%"), highlight = highlightOptions(stroke = TRUE, color = "black", weight = 2, bringToFront = TRUE)) %>%
-      addCircleMarkers(data = occ_species(), radius = 4, color = "blue", fillOpacity = 0.7, weight = 0.5, label = ~paste0(day, "/", month, "/", year), group = "Waarnemingen") %>%
+      addPolygons(data = list_wfs[[input$kaart]], color = "black", fillColor = "lightgrey", opacity = 0.7, weight = 0.5, fillOpacity = 1, label = ~paste0(naam, " (", code, "): 0%"), highlight = highlightOptions(stroke = TRUE, color = "black", weight = 2)) 
+    
+    if(nrow(metrics_of()) != 0) {
+      map <- map %>%
+        addPolygons(data = metrics_of(), color = "black", fillColor = ~pal_of()(overlap), opacity = 1, weight = 0.5, fillOpacity = 1, label = ~paste0(naam, " (", gebied, "): ", round(overlap * 100, 1), "%"), highlight = highlightOptions(stroke = TRUE, color = "black", weight = 2))
+    }
+    
+    map <- map %>%
+      addCircleMarkers(data = occ_species(), radius = 3, color = "blue", fillOpacity = 0.7, weight = 0.5, label = ~paste0(day, "/", month, "/", year), group = "Waarnemingen") %>%
       addLayersControl(
-        baseGroups = c("OSM HOT", "OSM (default)", "Grijs"),
+        baseGroups = c("Geen achtergrond", "OSM (default)", "Satellite"),
         overlayGroups = c("Waarnemingen"),
         options = layersControlOptions(collapsed = FALSE)
-      ) %>% 
-      addLegend(pal = pal_of(), values = metrics_of()$overlap, opacity = 0.8, position = "bottomright") %>%
+      ) %>%
       hideGroup("Waarnemingen") %>%
-      setView(lng = 4.240556, lat = 51.037778, zoom = 7.6)
+      setView(lng = 4.240556, lat = 51.037778, zoom = 9)
+    
+    if(is.data.frame(metrics_of()) && nrow(metrics_of()) != 0) {
+      map <- map %>%
+        addLegend(pal = pal_of(), values = metrics_of()$overlap, opacity = 0.8, position = "bottomright")
+    }
+    
+    map
   })
   
 }
