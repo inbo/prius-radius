@@ -12,6 +12,7 @@ library(htmltools)
 library(gtools)
 library(RColorBrewer)
 library(crosstalk)
+library(webshot)
 
 # Runtime settings
 wd <- "~/Github/prius-radius/" 
@@ -120,6 +121,7 @@ custom_css <- "
     display: flex;
     flex-direction: row;
     height: 100vh;
+    overflow: hidden;
   }
   
   .custom-sidebar {
@@ -140,6 +142,13 @@ custom_css <- "
     margin-right: 10px;
     overflow-y: auto;
   }
+  
+  custom-download-button {
+      margin: 2px;
+      border-color: #c04384;
+      height: 30px; 
+      padding: 5px 10px; 
+    }
 
   .custom-header-row {
       flex-direction: column;
@@ -275,7 +284,9 @@ ui <- page_navbar(
                 fluidRow(
                   column(
                     width = 12,
-                    leafletOutput("kaart_in")
+                    leafletOutput("kaart_in"),
+                    div(downloadButton("download_kaart", "Download PNG", class = "custom-download-button")
+                    )
                   )
                 )),
               nav_panel(
@@ -435,12 +446,6 @@ server <- function(input, output, session) {
         domain = c(min(metrics_in()$overlap), max(metrics_in()$overlap))
       )
     }
-    else {
-      colorNumeric(
-        palette = colors,
-        domain = c(0,1)
-      )
-    }
   })
   
   ### Color palette of
@@ -451,12 +456,6 @@ server <- function(input, output, session) {
       colorNumeric(
         palette = colors,
         domain = c(min(metrics_of()$overlap), max(metrics_of()$overlap))
-      )
-    }
-    else {
-      colorNumeric(
-        palette = colors,
-        domain = c(0,1)
       )
     }
   })
@@ -634,25 +633,61 @@ server <- function(input, output, session) {
   # })
   
   ### Kaart in
-  output$kaart_in <- renderLeaflet({
-    leaflet() %>%
+  kaart_in <- reactive({
+    map <- leaflet() %>%
       addProviderTiles(providers$OpenStreetMap.HOT, group = "OSM HOT") %>%
       addProviderTiles(providers$OpenStreetMap, group = "OSM (default)") %>%
       addProviderTiles(providers$Esri.WorldGrayCanvas, group = "Grijs") %>%
       addPolygons(data = Vlaanderen_grenzen, color = "black", fillColor = "#f0f0f0", weight = 1, group = "Vlaanderen") %>%
       addPolygons(data = Provincies_grenzen, color = "black", fillColor = "#f0f0f0", weight = 0.5, group = "Provincies") %>%
-      addPolygons(data = list_wfs[[input$kaart]], color = "black", fillColor = "lightgrey", opacity = 0.7, weight = 0.5, fillOpacity = 1, label = ~paste0(naam, " (", code, "): 0%"), highlight = highlightOptions(stroke = TRUE, color = "black", weight = 2)) %>%
-      addPolygons(data = metrics_in(), color = "black", fillColor = ~pal_in()(overlap), opacity = 1, weight = 0.5, fillOpacity = 1, label = ~paste0(naam, " (", gebied, "): ", round(overlap * 100, 1), "%"), highlight = highlightOptions(stroke = TRUE, color = "black", weight = 2)) %>%
+      addPolygons(data = list_wfs[[input$kaart]], color = "black", fillColor = "lightgrey", opacity = 0.7, weight = 0.5, fillOpacity = 1, label = ~paste0(naam, " (", code, "): 0%"), highlight = highlightOptions(stroke = TRUE, color = "black", weight = 2)) 
+      
+      if(nrow(metrics_in()) != 0) {
+        map <- map %>%
+          addPolygons(data = metrics_in(), color = "black", fillColor = ~pal_in()(overlap), opacity = 1, weight = 0.5, fillOpacity = 1, label = ~paste0(naam, " (", gebied, "): ", round(overlap * 100, 1), "%"), highlight = highlightOptions(stroke = TRUE, color = "black", weight = 2))
+      }
+    
+    map <- map %>%
       addCircleMarkers(data = occ_species(), radius = 3, color = "blue", fillOpacity = 0.7, weight = 0.5, label = ~paste0(day, "/", month, "/", year), group = "Waarnemingen") %>%
       addLayersControl(
         baseGroups = c("OSM HOT", "OSM (default)", "Grijs"),
         overlayGroups = c("Waarnemingen"),
         options = layersControlOptions(collapsed = FALSE)
-      ) %>% 
-      addLegend(pal = pal_in(), values = metrics_in()$overlap, opacity = 0.8, position = "bottomright") %>%
+      ) %>%
       hideGroup("Waarnemingen") %>%
-      setView(lng = 4.240556, lat = 51.037778, zoom = 7.6) 
+      setView(lng = 4.240556, lat = 51.037778, zoom = 7.6)
+    
+    if(is.data.frame(metrics_in()) && nrow(metrics_in()) != 0) {
+      map <- map %>%
+        addLegend(pal = pal_in(), values = metrics_in()$overlap, opacity = 0.8, position = "bottomright")
+    }
+    
+    map
   })
+  
+  output$kaart_in <- renderLeaflet({
+      kaart_in()
+  })
+  
+  
+  output$download_kaart <- downloadHandler(
+    filename = function()
+      nameFile(soort = input$soort,
+               type = "in",
+               content = input$kaart, fileExt = "png"),
+    content = function(file) {
+
+      tmpFile <- tempfile(fileext = ".html")
+
+      # write map to temp .html file
+      htmlwidgets::saveWidget(kaart_in(), file = tmpFile, selfcontained = FALSE)
+
+      # convert temp .html file into .png for download
+      webshot::webshot(url = tmpFile, file = file,
+                       vwidth = 1000, vheight = 500, cliprect = "viewport")
+
+    }
+  )
   
   ### Piechart of
   output$piechart_of <- renderPlotly({
