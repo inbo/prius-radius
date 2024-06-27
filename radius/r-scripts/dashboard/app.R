@@ -13,6 +13,7 @@ library(gtools)
 library(RColorBrewer)
 library(crosstalk)
 library(webshot)
+library(highcharter)
 
 # Runtime settings
 wd <- "~/Github/prius-radius/" 
@@ -273,7 +274,7 @@ ui <- page_navbar(
                 fluidRow(
                   column(
                     width = 3,
-                    plotlyOutput("piechart_in"),
+                    highchartOutput("piechart_in"),
                     full_screen = TRUE
                   ),
                   column(
@@ -539,29 +540,49 @@ server <- function(input, output, session) {
     paste(input$kaart)
   })
   
-  ### Piechart in
-  output$piechart_in <- renderPlotly({
+  output$piechart_in <- renderHighchart({
     df <- data.frame(
+      label = c("IN", "NIET IN"),
       gebied = c(paste("in", input$kaart), paste("niet in", input$kaart)),
       overlap = c(sum(metrics_in()$overlap), 1 - sum(metrics_in()$overlap)),
-      colors = c("#c04384", "lightgrey")) 
+      color = c("#c04384", "lightgrey"))
     
+    # Preparing the data in the required format
+    data_list <- df %>%
+      mutate(y = overlap * 100, name = paste(gebied, "(", round(overlap * 100, 1), "%)")) %>%
+      select(name, y, label, color) %>%
+      list_parse()
     
-    
-    plot_ly(df, labels = ~gebied, values = ~overlap,
-            textposition = 'inside',
-            textinfo = 'percent',
-            insidetextfont = list(color = 'black'),
-            hoverinfo = 'text',
-            text = ~paste(gebied, "(", round(overlap * 100, 1), "%)"),
-            marker = list(colors = ~colors,
-                          line = list(color = 'black', width = 0.5), 
-                          pull = 0),
-            showlegend = FALSE) %>% 
-      add_pie(hole = 0.6) %>%
-      layout(xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
-             yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE)) %>% 
-      highlight(key = ~gebied)
+    highchart() %>%
+      hc_chart(type = "pie", width = NULL) %>%
+      hc_plotOptions(pie = list(
+        innerSize = '60%',
+        dataLabels = list(
+          enabled = TRUE,
+          distance = -30, 
+          format = '<b>{point.label}</b> ',
+          style = list(color = 'black', fontSize = '14px', fontWeight = 'bold'),
+          backgroundColor = NULL,
+          borderColor = NULL,      
+          borderWidth = 0      
+        ),
+        showInLegend = FALSE,
+        borderColor = "rgba(128, 128, 128, 0.3)",
+        borderWidth = 1
+      )) %>%
+      hc_add_series(
+        name = "Overlap",
+        data = data_list, 
+        tooltip = list(
+          pointFormat = '<b>{point.y:.1f}</b> %', 
+          style = list(color = "black", fontsize = '14px', fontWeight = 'bold')
+        )
+      ) %>%
+      #hc_tooltip(pointFormat = '<b>{point.gebied}</b>') %>%
+      hc_legend(enabled = FALSE) %>%
+      hc_size(height = NULL) %>%
+      hc_chart(backgroundColor = 'rgba(0, 0, 0, 0)') %>%
+      hc_add_theme(hc_theme_elementary())
   })
   
   ### Barchart in
@@ -598,6 +619,8 @@ server <- function(input, output, session) {
       return("")
     }
   })
+  
+  
   
   
   
