@@ -72,6 +72,7 @@ ps_hbtrl_deel <- read_sf(request) %>%
   ensure_multipolygons()   # multisurface to multipolygon
 
 #st_write(ps_hbtrl_deel, "./radius/data/spatial/ps_hbtrl_deel.shp", append = FALSE)
+saveRDS(ps_hbtrl_deel, "./radius/data/spatial/ps_hbtrl_deel.rds", compress = "xz")
 
 ps_hbtrl_deel_wgs84 <- ps_hbtrl_deel %>%
   st_transform(4326)
