@@ -9,6 +9,7 @@ library(ggplot2)
 library(n2khab)
 library(units)
 library(gtools)
+library(rgdal)
 ```
 
 ```{r clear-memory}
@@ -75,7 +76,7 @@ ps_hbtrl_deel <- read_sf(request) %>%
 ps_hbtrl_deel_wgs84 <- ps_hbtrl_deel %>%
   st_transform(4326)
 
-#st_write(ps_hbtrl_deel_wgs84, "./radius/data/spatial/WGS84/ps_hbtrl_deel_wgs84.shp", append = FALSE)
+st_write(ps_hbtrl_deel_wgs84, "./radius/data/spatial/WGS84/ps_hbtrl_deel_wgs84.geojson", append = FALSE)
 ```
 
 ```{r quick-visual-check}
@@ -101,7 +102,7 @@ ps_vglrl <- read_sf(request) %>%
 ps_vglrl_wgs84 <- ps_vglrl %>%
   st_transform(4326)
 
-#st_write(ps_vglrl_wgs84, "./radius/data/spatial/WGS84/ps_vglrl_wgs84.shp", append = FALSE)
+st_write(ps_vglrl_wgs84, "./radius/data/spatial/WGS84/ps_vglrl_wgs84.geojson", append = FALSE)
 ```
 
 ```{r quick-visual-check}
@@ -159,12 +160,12 @@ hab_names <- read_namelist(lang = "nl")  %>%
 n2khab <- n2khab %>%
   left_join(read_namelist(lang = "nl"), by = c("type" = "code"))
 
-st_write(n2khab, "./radius/data/spatial/n2khab.shp", append = FALSE)
+#st_write(n2khab, "./radius/data/spatial/n2khab.shp", append = FALSE)
 
 n2khab_wgs84 <- n2khab %>%
   st_transform(4326)
 
-#st_write(n2khab_wgs84, "./radius/data/spatial/WGS84/n2khab_wgs84.shp", append = FALSE)
+st_write(n2khab_wgs84, "./radius/data/spatial/WGS84/n2khab_wgs84.geojson", append = FALSE)
 ```
 
 ```{r}
@@ -192,7 +193,7 @@ am_patdat <- read_sf(request) %>%
 am_patdat_wgs84 <- am_patdat %>%
   st_transform(4326)
 
-#st_write(am_patdat_wgs84, "./radius/data/spatial/WGS84/am_patdat_wgs84.shp", append = FALSE)
+st_write(am_patdat_wgs84, "./radius/data/spatial/WGS84/am_patdat_wgs84.geojson", append = FALSE)
 ```
 
 ```{r quick-visual-check}
@@ -219,7 +220,7 @@ ps_nbhp <- read_sf(request) %>%
 ps_nbhp_wgs84 <- ps_nbhp %>%
   st_transform(4326)
 
-#st_write(ps_nbhp_wgs84, "./radius/data/spatial/WGS84/ps_nbhp_wgs84.shp", append = FALSE)
+st_write(ps_nbhp_wgs84, "./radius/data/spatial/WGS84/ps_nbhp_wgs84.geojson", append = FALSE)
 ```
 
 ```{r quick-visual-check}
