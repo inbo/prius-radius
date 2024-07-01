@@ -72,13 +72,13 @@ ps_hbtrl_deel <- read_sf(request) %>%
   ensure_multipolygons()   # multisurface to multipolygon
 
 #st_write(ps_hbtrl_deel, "./radius/data/spatial/ps_hbtrl_deel.shp", append = FALSE)
-saveRDS(ps_hbtrl_deel, "./radius/data/spatial/ps_hbtrl_deel.RData", compress = "xz")
+saveRDS(ps_hbtrl_deel, "./radius/data/spatial/ps_hbtrl_deel.rds", compress = "xz")
 
 ps_hbtrl_deel_wgs84 <- ps_hbtrl_deel %>%
   st_transform(4326)
 
 #st_write(ps_hbtrl_deel_wgs84, "./radius/data/spatial/WGS84/ps_hbtrl_deel_wgs84.shp", append = FALSE)
-saveRDS(ps_hbtrl_deel_wgs84, "./radius/data/spatial/WGS84/ps_hbtrl_deel_wgs84.RData", compress = "xz")
+saveRDS(ps_hbtrl_deel_wgs84, "./radius/data/spatial/WGS84/ps_hbtrl_deel_wgs84.rds", compress = "xz")
 ```
 
 ```{r quick-visual-check}
@@ -105,7 +105,7 @@ ps_vglrl_wgs84 <- ps_vglrl %>%
   st_transform(4326)
 
 #st_write(ps_vglrl_wgs84, "./radius/data/spatial/WGS84/ps_vglrl_wgs84.geojson")
-saveRDS(ps_vglrl_wgs84, "./radius/data/spatial/WGS84/ps_vglrl_wgs84.RData", compress = "xz")
+saveRDS(ps_vglrl_wgs84, file = "./radius/data/spatial/WGS84/ps_vglrl_wgs84.rds", compress = "xz")
 ```
 
 ```{r quick-visual-check}
@@ -169,7 +169,7 @@ n2khab_wgs84 <- n2khab %>%
   st_transform(4326)
 
 #st_write(n2khab_wgs84, "./radius/data/spatial/WGS84/n2khab_wgs84.shp", append = FALSE)
-saveRDS(n2khab_wgs84, "./radius/data/spatial/WGS84/n2khab_wgs84.RData", compress = "xz")
+saveRDS(n2khab_wgs84, "./radius/data/spatial/WGS84/n2khab_wgs84.rds", compress = "xz")
 ```
 
 ```{r}
@@ -198,7 +198,7 @@ am_patdat_wgs84 <- am_patdat %>%
   st_transform(4326)
 
 #st_write(am_patdat_wgs84, "./radius/data/spatial/WGS84/am_patdat_wgs84.geojson", append = FALSE)
-saveRDS(am_patdat_wgs84, "./radius/data/spatial/WGS84/am_patdat_wgs84.RData", compress = "xz")
+saveRDS(am_patdat_wgs84, "./radius/data/spatial/WGS84/am_patdat_wgs84.rds", compress = "xz")
 ```
 
 ```{r quick-visual-check}
@@ -226,7 +226,7 @@ ps_nbhp_wgs84 <- ps_nbhp %>%
   st_transform(4326)
 
 #st_write(ps_nbhp_wgs84, "./radius/data/spatial/WGS84/ps_nbhp_wgs84.geojson", driver = "GeoJSON")
-saveRDS(ps_nbhp_wgs84, "./radius/data/spatial/WGS84/ps_nbhp_wgs84.RData", compress = "xz")
+saveRDS(ps_nbhp_wgs84, "./radius/data/spatial/WGS84/ps_nbhp_wgs84.rds", compress = "xz")
 ```
 
 ```{r quick-visual-check}
