@@ -1,0 +1,12 @@
+name: dashboard
+title: dashboard
+username: radius-project
+account: radius-project
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 12243876
+bundleId: 8799449
+url: https://radius-project.shinyapps.io/dashboard/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE

@@ -14,6 +14,7 @@ library(RColorBrewer)
 library(crosstalk)
 library(webshot)
 library(highcharter)
+library(rsconnect)
 
 # Runtime settings
 wd <- "~/Github/prius-radius/" 
@@ -269,41 +270,7 @@ ui <- page_navbar(
                 )
               )
             ),
-            # fluidRow(
-            #   class = "custom-header2-row",
-            #   h1(textOutput("kaarttitel")),
-            # ),
-            navset_card_tab(
-              nav_panel(
-                title = "Aandeel in",
-                fluidRow(
-                  column(
-                    width = 3,
-                    highchartOutput("piechart_in"),
-                    full_screen = TRUE
-                  ),
-                  column(
-                    width = 9,
-                    highchartOutput("barchart_in")
-                  )
-                ),
-                fluidRow(
-                  class = "custom-kaart-row", 
-                  leafletOutput("kaart_in", height = "600px"),
-                  div(downloadButton("download_kaart", "Download PNG", class = "custom-download-button"))
-                  )
-                ),
-              nav_panel(
-                title = "Aandeel van",
-                fluidRow(
-                  highchartOutput("barchart_of"),
-                  full_screen = TRUE
-                ),
-                fluidRow(
-                  class = "custom-kaart-row", 
-                  leafletOutput("kaart_of", height = "600px")
-                ))
-            )
+            uiOutput("plots_in"),
         )
     )
   ),
@@ -385,19 +352,6 @@ server <- function(input, output, session) {
     )
         
   })
-  
-  # output$in-vs-of <- renderPlotly({
-  #   ggplotly(
-  #     ggplot() +
-  #       geom_bar(data = metrics_of_gebied(), aes(x = reorder(soort, overlap), y = overlap, text = paste0(soort, " (", round(overlap * 100, 1), "%)")), stat = "identity", colour = "white", linewidth = 0.01, fill = "#c04384") +
-  #       #geom_hline(yintercept = 0.07705856, color = "red") + # proportie van totaal opp Vlaanderen dat ingenomen wordt door HBTRL
-  #       xlab("Soort") + ylab("% overlap") +
-  #       theme_bw() +
-  #       theme(axis.text = element_text(size = 9),
-  #             axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
-  #             axis.title = element_text(size = 9)), tooltip = "text")
-  # })
-  
   
   # PAGINA 2 - SOORTENFICHES
   
@@ -544,6 +498,62 @@ server <- function(input, output, session) {
     paste(input$kaart)
   })
   
+
+  ## Geef structuur aan pagina 2 - tab: aandeel in
+  output$plots_in <- renderUI(
+    if (input$kaart %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)")) {
+      navset_card_tab(
+        nav_panel(
+          title = "Aandeel in",
+          fluidRow(
+            column(
+              width = 3,
+              highchartOutput("piechart_in"),
+              full_screen = TRUE
+            ),
+            column(
+              width = 9,
+              highchartOutput("barchart_in")
+            )
+          ),
+          fluidRow(
+            class = "custom-kaart-row", 
+            leafletOutput("kaart_in", height = "600px"),
+            div(downloadButton("download_kaart", "Download PNG", class = "custom-download-button"))
+          )),
+        nav_panel(
+          title = "Aandeel van",
+          fluidRow(
+            highchartOutput("barchart_of"),
+            full_screen = TRUE
+          ),
+          fluidRow(
+            class = "custom-kaart-row", 
+            leafletOutput("kaart_of", height = "600px")
+          ))
+      )
+      
+    }
+    else if (input$kaart %in% c("Natura 2000 Habitattypes", "Natuurbeheerplannen", "ANB patrimonium")){
+      navset_card_tab(
+        nav_panel(
+          title = "Aandeel in",
+          fluidRow(
+            column( ),
+            column( )
+          ),
+          fluidRow()
+          ),
+        nav_panel(
+          title = "Aandeel van",
+          fluidRow( ),
+          fluidRow( )
+          ))
+    }
+  )
+  
+  
+  
   output$piechart_in <- renderHighchart({
     df <- data.frame(
       label = c("IN", "NIET IN"),
@@ -598,36 +608,55 @@ server <- function(input, output, session) {
         mutate(gebied = factor(gebied, levels = gebied)) %>%
         mutate(y = overlap * 100)
       
-      # data_list <- df %>%
-      #   select(gebied, y, naam) %>%
-      #   list_parse()
       
-      highchart() %>%
+     chart <- highchart() %>%
         hc_chart(type = 'column') %>%
         hc_xAxis(categories = df$gebied, title = list(text = ""), labels = list(rotation = -90)) %>%
-        hc_yAxis(title = list(text = 'Overlap (%)'), labels = list(format = '{value}%')) %>%
-        hc_plotOptions(column = list(
-          dataLabels = list(enabled = TRUE, format = '{point.y:.2f}%'),
-          borderColor = "black",
-          borderWidth = 0.5,
-          pointPadding = 0.1, 
-          groupPadding = 0.1
-        )) %>%
-        hc_add_series(
-          name = "Overlap",
-          data = df %>% mutate(y = overlap * 100) %>% select(gebied, y, naam),
-          colorByPoint = TRUE,
-          colors = pal_in()(df$overlap)
-        ) %>%
-        hc_tooltip(
+        hc_yAxis(title = list(text = 'Overlap (%)'), labels = list(format = '{value}%')) 
+     
+     if (nrow(metrics_in()) == 1) {
+       chart <- chart %>%
+         hc_plotOptions(column = list(
+         dataLabels = list(enabled = TRUE, format = '{point.y:.2f}%'),
+         color = "#c04384",
+         borderColor = "black",
+         borderWidth = 0.5,
+         pointPadding = 0.1, 
+         groupPadding = 0.1
+       ))
+     }
+     
+     else {
+       chart <- chart %>%
+         hc_plotOptions(
+           column = list(
+             dataLabels = list(enabled = TRUE, format = '{point.y:.2f}%'),
+             borderColor = "black",
+             borderWidth = 0.5,
+             pointPadding = 0.1, 
+             groupPadding = 0.1
+           ))
+     }
+     
+     
+     chart <- chart %>%
+       hc_tooltip(
           headerFormat = '',
           pointFormat = '<b>{point.naam} ({point.gebied}): {point.y:.2f}%</b>'
         ) %>%
         hc_chart(backgroundColor = 'rgba(0, 0, 0, 0)') %>%
-        hc_add_theme(hc_theme_elementary()) 
+        hc_add_theme(hc_theme_elementary()) %>%
+       hc_add_series(
+         name = "Overlap",
+         data = df %>% mutate(y = overlap * 100) %>% select(gebied, y, naam),
+         colorByPoint = TRUE,
+         colors = pal_in()(df$overlap)) 
+   
+     chart
     }
   })
   
+
   ### Kaart in
   kaart_in <- reactive({
     map <- leaflet() %>%
@@ -664,6 +693,7 @@ server <- function(input, output, session) {
   output$kaart_in <- renderLeaflet({
       kaart_in()
   })
+  
   
   
   output$download_kaart <- downloadHandler(
