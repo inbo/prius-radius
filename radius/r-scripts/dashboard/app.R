@@ -16,63 +16,124 @@ library(webshot)
 library(highcharter)
 library(rsconnect)
 
-# Runtime settings
-wd <- "~/Github/prius-radius/" 
+# ##### DATA INLEZEN VOOR PUBLISHING
+# # Data inlezen
+# ## Spatial data
+# Vlaanderen_grenzen <- st_read("https://raw.githubusercontent.com/inbo/prius-radius/main/prius/data/spatial/flanders_wgs84.geojson")
+# Provincies_grenzen <- st_read("https://raw.githubusercontent.com/inbo/prius-radius/main/prius/data/spatial/Provincies.geojson")
+# 
+# readRDSfromURL <- function(url) {
+#   temp <- tempfile(fileext = ".rds")
+#   download.file(url, temp, mode = "wb")
+#   readRDS(temp)
+# }
+# 
+# ps_hbtrl_deel <- readRDSfromURL("https://github.com/inbo/prius-radius/raw/dashboard/radius/data/spatial/ps_hbtrl_deel.rds") %>%
+#   rename(code = gebcode)
+# 
+# #ps_hbtrl_deel$geom <- st_sfc(ps_hbtrl_deel$geometry)
+# 
+# #Samenvatting van ps_hbtrl_deel zodat ik één rij/1 MULTIPOLYGON krijg per gebied
+# ps_hbtrl_wgs84 <- ps_hbtrl_deel %>%
+#   st_set_crs(31370) %>%
+#   group_by(code, naam, gebopp_ha) %>%
+#   summarise(geometry = sf::st_union(geom)) %>%
+#   ungroup() %>%
+#   st_transform(4326) %>%
+#   sf::st_cast("MULTIPOLYGON")
+# 
+# ps_vglrl_wgs84 <- readRDSfromURL("https://github.com/inbo/prius-radius/raw/dashboard/radius/data/spatial/WGS84/ps_vglrl_wgs84.rds") %>%
+#   rename(code = na2000code, naam = gebnaam)
+# 
+# n2khab_wgs84 <- readRDSfromURL("https://github.com/inbo/prius-radius/raw/dashboard/radius/data/spatial/WGS84/n2khab_wgs84.rds") %>%
+#   rename(code = type, naam = name)
+# 
+# ps_nbhp_wgs84 <- readRDSfromURL("https://github.com/inbo/prius-radius/raw/dashboard/radius/data/spatial/WGS84/ps_nbhp_wgs84.rds") %>%
+#   rename(code = eigendomtype, naam = natuurbeheerplantype)
+# 
+# am_patdat_wgs84 <- readRDSfromURL("https://github.com/inbo/prius-radius/raw/dashboard/radius/data/spatial/WGS84/am_patdat_wgs84.rds") %>%
+#   rename(code = regio, naam = domeinnaam)
+# 
+# 
+# ## Metric data
+# HBTRL <- ps_hbtrl_wgs84 %>%
+#   right_join(read.csv("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/output/HBTRL_long.csv"), by = c("code" = "gebied"), keep = TRUE) 
+# VGLRL <- ps_vglrl_wgs84 %>%
+#   right_join(read.csv("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/output/VGLRL_long.csv"), by = c("code" = "gebied"), keep = TRUE) 
+# N2KHAB <- n2khab_wgs84 %>%
+#   right_join(read.csv("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/output/N2KHAB_long.csv"), by = c("code" = "gebied"), keep = TRUE) 
+# NBHP <- ps_nbhp_wgs84 %>%
+#   right_join(read.csv("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/output/NBHP_long.csv"), by = c("code" = "gebied"), keep = TRUE) 
+# PATDAT <- am_patdat_wgs84 %>%
+#   right_join(read.csv("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/output/PATDAT_long.csv"), by = c("code" = "gebied"), keep = TRUE) 
+# 
+# list_metrics <- list("Habitatrichtlijngebieden (SBZ-H)" = HBTRL, "Vogelrichtlijngebieden (SBZ-V)" = VGLRL, "Natura 2000 Habitattypes" = N2KHAB, "Natuurbeheerplannen" = NBHP, "ANB patrimonium" = PATDAT)
+# 
+# ## Species data
+# species_list <- read_csv("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/input/radius_species_list.csv") 
+# 
+# occ_flanders <- read.csv("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/input/gbif_occ_flanders.csv") %>%
+#   st_as_sf(coords = c("decimalLongitude", "decimalLatitude"), crs = "+proj=longlat +datum=WGS84") %>%
+#   arrange(Soort, .locale = "en")
+
+##### DATA INLEZEN VOOR TESTEN APP
 
 # Data inlezen
 ## Spatial data
-Vlaanderen_grenzen <- st_read(paste0(wd,"prius/data/spatial/flanders_wgs84.geojson"))
-Provincies_grenzen <- st_read(paste0(wd, "prius/data/spatial/Provincies.geojson"))
+Vlaanderen_grenzen <- st_read("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/prius/data/spatial/flanders_wgs84.geojson")
+Provincies_grenzen <- st_read("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/prius/data/spatial/Provincies.geojson")
 
-# Ik geef alle datasets eenzelfde kolomnaam voor kolommen waarin de naam van de gebieden ('naam') en kolommen waarin de code van de gebieden ('code') staat, zodat ik deze makkelijk kan oproepen in mijn reactieve elementen
-ps_hbtrl_deel <- st_read(paste0(wd, "radius/data/spatial/ps_hbtrl_deel.shp")) %>%
+
+ps_hbtrl_deel <- readRDS("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/radius/data/spatial/ps_hbtrl_deel.rds") %>%
   rename(code = gebcode)
 
-# Samenvatting van ps_hbtrl_deel zodat ik één rij/1 MULTIPOLYGON krijg per gebied
+#Samenvatting van ps_hbtrl_deel zodat ik één rij/1 MULTIPOLYGON krijg per gebied
 ps_hbtrl_wgs84 <- ps_hbtrl_deel %>%
+  st_set_crs(31370) %>%
   group_by(code, naam, gebopp_ha) %>%
-  summarise(geometry = sf::st_union(geometry)) %>%
+  summarise(geometry = sf::st_union(geom)) %>%
   ungroup() %>%
   st_transform(4326) %>%
   sf::st_cast("MULTIPOLYGON")
 
-ps_vglrl_wgs84 <- st_read(paste0(wd,"radius/data/spatial/WGS84/ps_vglrl_wgs84.shp")) %>%
+ps_vglrl_wgs84 <- st_read("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/radius/data/spatial/WGS84/ps_vglrl_wgs84.shp") %>%
   rename(code = na2000code, naam = gebnaam)
 
-n2khab_wgs84 <- st_read(paste0(wd,"radius/data/spatial/WGS84/n2khab_wgs84.shp"))  %>%
-  #st_drop_geometry() %>%
-  rename(code = type, naam = name) 
+n2khab_wgs84 <- readRDS("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/radius/data/spatial/WGS84/n2khab_wgs84.rds") %>%
+  rename(code = type, naam = name)
 
-ps_nbhp_wgs84 <- st_read(paste0(wd,"radius/data/spatial/WGS84/ps_nbhp_wgs84.shp"))  %>%
-  #st_drop_geometry() %>%
-  rename(code = egndmty, naam = ntrbhrp)
+ps_nbhp_wgs84 <- readRDS("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/radius/data/spatial/WGS84/ps_nbhp_wgs84.rds") %>%
+  rename(code = eigendomtype, naam = natuurbeheerplantype)
 
-am_patdat_wgs84 <- st_read(paste0(wd,"radius/data/spatial/WGS84/am_patdat_wgs84.shp")) %>%
-  #st_drop_geometry() %>%
-  rename(code = regio, naam = domennm)
+am_patdat_wgs84 <- readRDS("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/radius/data/spatial/WGS84/am_patdat_wgs84.rds") %>%
+  rename(code = regio, naam = domeinnaam)
 
 list_wfs <- list("Habitatrichtlijngebieden (SBZ-H)" = ps_hbtrl_wgs84, "Vogelrichtlijngebieden (SBZ-V)" = ps_vglrl_wgs84, "Natura 2000 Habitattypes" = n2khab_wgs84, "Natuurbeheerplannen" = ps_nbhp_wgs84, "ANB patrimonium" = am_patdat_wgs84)
 
 ## Metric data
 HBTRL <- ps_hbtrl_wgs84 %>%
-  right_join(read.csv(paste0(wd,"radius/data/output/HBTRL_long.csv")), by = c("code" = "gebied"), keep = TRUE) 
+  right_join(read.csv("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/radius/data/output/HBTRL_long.csv"), by = c("code" = "gebied"), keep = TRUE) 
 VGLRL <- ps_vglrl_wgs84 %>%
-  right_join(read.csv(paste0(wd,"radius/data/output/VGLRL_long.csv")), by = c("code" = "gebied"), keep = TRUE) 
+  right_join(read.csv("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/radius/data/output/VGLRL_long.csv"), by = c("code" = "gebied"), keep = TRUE) 
 N2KHAB <- n2khab_wgs84 %>%
-  right_join(read.csv(paste0(wd,"radius/data/output/N2KHAB_long.csv")), by = c("code" = "gebied"), keep = TRUE) 
+  right_join(read.csv("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/radius/data/output/N2KHAB_long.csv"), by = c("code" = "gebied"), keep = TRUE) 
 NBHP <- ps_nbhp_wgs84 %>%
-  right_join(read.csv(paste0(wd,"radius/data/output/NBHP_long.csv")), by = c("code" = "gebied"), keep = TRUE) 
-PATDAT <- am_patdat_wgs84 %>%
-  right_join(read.csv(paste0(wd,"radius/data/output/PATDAT_long.csv")), by = c("code" = "gebied"), keep = TRUE) 
+  right_join(read.csv("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/radius/data/output/NBHP_long.csv"), by = c("code" = "gebied"), keep = TRUE) 
+# PATDAT <- am_patdat_wgs84 %>%
+#   right_join(read.csv("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/radius/data/output/PATDAT_long.csv"), by = c("code" = "gebied"), keep = TRUE) 
+
+PATDAT <- read.csv("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/radius/data/output/PATDAT_long.csv")
 
 list_metrics <- list("Habitatrichtlijngebieden (SBZ-H)" = HBTRL, "Vogelrichtlijngebieden (SBZ-V)" = VGLRL, "Natura 2000 Habitattypes" = N2KHAB, "Natuurbeheerplannen" = NBHP, "ANB patrimonium" = PATDAT)
 
 ## Species data
-species_list <- read_csv(paste0(wd, "radius/data/input/radius_species_list.csv")) 
+species_list <- read_csv("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/radius/data/input/radius_species_list.csv") 
 
-occ_flanders <- read.csv(paste0(wd, "radius/data/input/gbif_occ_flanders.csv")) %>%
+occ_flanders <- read.csv("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/radius/data/input/gbif_occ_flanders.csv") %>%
   st_as_sf(coords = c("decimalLongitude", "decimalLatitude"), crs = "+proj=longlat +datum=WGS84") %>%
   arrange(Soort, .locale = "en")
+
+habitats <- read_csv2("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/radius/data/input/toewijzing_habitats.csv", col_types = cols(code = col_character()))
 
 ############################
 ########### APP ############
@@ -164,6 +225,10 @@ custom_css <- "
       border-radius: 10px;
   }
   
+  .custom-plotly-header {
+    height: 150px; /* Adjust this value as needed */
+  }
+  
   .custom-header2-row {
       height: 70px;
   }
@@ -194,50 +259,42 @@ ui <- page_navbar(
   tags$head(tags$style(HTML(custom_css)), tags$link(rel = "stylesheet", href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css")),
 
   ## PAGINA 1 - GEBIEDSFICHES
-  nav_panel(
+  tabPanel(
     title = "Gebiedsfiches",
     div(class = "custom-container",
         div(class = "custom-sidebar",
             p("eventueel buttons toevoegen om alleen planten, dieren of unielijstsoorten te selecteren?"),
             selectInput("kaart2", label = "Kaarttype:", choices = names(list_metrics)),
-            selectInput("gebied2", label = "Gebied:", choices = c("All"))),
+            uiOutput("gebiedsfiches_input")
+        ),
         
         div(class = "main-content",
+            fluidRow(
+              class = "custom-header-row",
+              column(
+                width = 9,
+                div(textOutput("gebiedsnaam"), class = "custom-header")
+              ),
+              column(
+                width = 3,
+                plotlyOutput("kaart3", height = "150px")
+              )
+            ),
             # fluidRow(
             #   class = "custom-header-row",
-            #   div(textOutput("kaartnaam"), class = "custom-header")
-            # ),
+            #   width = 9,
+            #   div(textOutput("gebiedsnaam"), class = "custom-header")
+            #   ),
             fluidRow(
-              h1(textOutput("gebiedsnaam"))
+              p("Welke soorten komen voor in ... gebieden? Dit wordt op twee manieren weergegeven: (I) percentage van de totale soortverspreiding dat overlapt met het gebied (percentage van), (II) percentage van het totale oppervlak van gebied dat bezet is door de soort (percentage in)")
             ),
-            fluidRow(
-              layout_column_wrap(
-                column(
-                  width = 12,
-                  plotlyOutput("in_gebied")
-                ),
-                column(
-                  width = 12,
-                  plotlyOutput("of_gebied")
-                ))
-              ),
-            fluidRow(
-              layout_column_wrap(
-                column(
-                  width = 12,
-                  plotlyOutput("in_vs_of")
-                ),
-                column(
-                  width = 12
-                )
-              )
-            )
+            uiOutput("gebiedsfiches_ui")
         )
     )
   ),
   
   ## PAGINA 2 - SOORTENFICHES
-  nav_panel(
+  tabPanel(
     title = "Soortenfiches",
     div(class = "custom-container",
         div(class = "custom-sidebar",
@@ -270,16 +327,41 @@ ui <- page_navbar(
                 )
               )
             ),
-            uiOutput("plots_in"),
+            uiOutput("soortenfiches_ui"),
         )
     )
   ),
   
   ## PAGINA 3 - OVER DASHBOARD
-  nav_panel(
-    title = "Over dashboard",
-    p("Third page content.")
-  ),
+  tabPanel("Over",
+           p("Dit dashboard werd ontwikkeld in kader van het RadIUS-project."),
+           h2("RadIUS project"),
+           p("Het RadIUS-project voert een doorgedreven analyse uit van het voorkomen van invasieve uitheemse soorten (IUS, met name deze van de Unielijst) in voor de natuursector relevante gebieden. Afgaande op gekende puntlocaties van de betrokken soorten, buigen we ons over het voorkomen van Unielijst- en andere soorten in beschermde natuur. We toetsen de verspreiding aan (1) de Vogelrichtlijngebieden, (2) de Habitatrichtlijngebieden, en ook aan (3) de Natura2000-habitattypes. Dezelfde toetsing gebeurt vervolgens voor (4) alle gebieden met een effectief natuurbeheer (natuurbeheerplan), en (5) de domeinen in beheer bij het ANB."),
+           h3("Werkwijze"),
+           h3("Bronnen"),
+           h4("Kaartlagen"),
+           h4("Verspreidingsdata"),
+           p("alle verspreidingsdata komt van GBIF. Laatste download: "),
+           h3("Relevante links"),
+             # accordion(
+             #   accordion_panel(
+             #     "RadIUS project",
+             #     
+             #     h3("werkwijze"),
+             #     
+             #     ),
+             #   
+             #   accordion_panel(
+             #     "Toelichting werkwijze",
+             #   ),
+             #   accordion_panel(
+             #     "Relevante links",
+             #   )
+             # ),
+          h2("Dashboard gebruik"),
+          h2("Contact"),
+          p("Het dashboard wordt onderhouden door het Instituut voor Natuur- en Bosonderzoek (INBO), als onderdeel van het RadIUS-project. Bij vragen of onduidelijkheden kunt u steeds terecht bij faunabeheer@inbo.be")
+          ),
   nav_spacer()
 )
 
@@ -290,31 +372,215 @@ server <- function(input, output, session) {
   # PAGINA 1 - GEBIEDSFICHES
   
   ## REACTIEVE ELEMENTEN
-  observeEvent(input$kaart2, {
-    freezeReactiveValue(input, "gebied2")
-    updateSelectInput(inputId = "gebied2", choice = c("All", unique(na.omit(list_metrics[[input$kaart2]]$code))))
-  })
+  # observeEvent(input$kaart2, {
+  #   freezeReactiveValue(input, "gebied2")
+  #   updateSelectInput(inputId = "gebied2", choice = c("All", unique(na.omit(list_metrics[[input$kaart2]]$code))))
+  # })
   
   metrics_wide <- reactive({
-    list_metrics[[input$kaart2]] %>%
-      filter(is.na(code) & type %in% c("in", "of")) %>%
-      mutate(type = paste(type, gebied, sep = "")) %>%
+    data <- list_metrics[[input$kaart2]]
+    if (input$deelgebied != "All") {
+      data <- data %>% 
+        filter(code == input$deelgebied & type %in% c("in", "of") & overlap != 0)
+    } 
+    else if (input$deelgebied == "All") {
+      data <- data %>%
+        filter(type %in% c("in", "of") & is.na(code) & overlap != 0)
+    }
+    
+    data %>%
+      mutate(type = paste(type, "gebied", sep = "")) %>%
       pivot_wider(names_from = type, values_from = overlap)
   })
   
   metrics_in_gebied <- reactive({
-    list_metrics[[input$kaart2]] %>%
-      filter(is.na(code) & type == "in")
+    data <- list_metrics[[input$kaart2]]
+    if (input$deelgebied != "All") {
+      data %>% filter(code == input$deelgebied & type == "in" & overlap != 0)
+    } 
+    else if (input$deelgebied == "All") {
+      data %>%
+        filter(type == "in" & is.na(code) & overlap != 0)
+    }
   })
   
   metrics_of_gebied <- reactive({
-    list_metrics[[input$kaart2]] %>%
-      filter(is.na(code) & type == "of")
+    data <- list_metrics[[input$kaart2]]
+    if (input$deelgebied != "All") {
+      data_filtered <- data %>% filter(code == input$deelgebied & type == "of" & overlap != 0)
+    } else {
+      data_filtered <- data %>%
+        filter(type == "of" & is.na(code) & overlap != 0)
+    }
+    data_filtered %>% st_drop_geometry() %>% select(soort, species, overlap)
   })
   
   ## OUTPUTS
+  
   output$gebiedsnaam <- renderText({
     input$kaart2
+  })
+  
+  # Dynamic selectizeInput for 'gebiedsfiches'
+  output$gebiedsfiches_input <- renderUI({
+    if (input$kaart2 %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)")) {
+      selectizeInput("deelgebied", label = "Deelgebied:", choices = c("All", unique(na.omit(list_metrics[[input$kaart2]]$code))))
+    } else if (input$kaart2 == "Natura 2000 Habitattypes") {
+      selectizeInput("habitattype", label = "Habitattype:", choices = c("All", unique(na.omit(list_metrics[[input$kaart2]]$code))))
+    } else if (input$kaart2 == "ANB patrimonium") {
+      selectizeInput("regio", label = "Beheerregio:", choices = c("All", na.omit(unique(am_patdat_wgs84$code))))
+    } else {
+      NULL 
+    }
+  })
+
+  
+  
+  ## UI voor gebiedsfiches afhankelijk van input
+  output$gebiedsfiches_ui <- renderUI({
+    if (input$kaart2 %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)")) {
+      layout_columns(
+        layout_columns(
+          card(card_header("Percentage in"),
+               plotlyOutput("in_gebied")),
+          card(card_header("Percentage van"),
+               plotlyOutput("of_gebied")),
+          col_widths = c(12, 12)
+        ),
+        card(card_header("Percentage in vs. percentage van"),
+             plotlyOutput("in_vs_of"))
+        )
+      
+      
+      # fluidRow(
+      #   column(width = 7,
+      #          plotlyOutput("of_gebied")),
+      #   column(width = 5,
+      #          uiOutput("datatabel"),
+      #          downloadButton("downloadData", "Download Data"))
+      # )
+      # card(
+      #   card_header("Welke soorten?"),
+      #   plotlyOutput("of_gebied"),
+      #   table
+      # )
+      
+      
+      # fluidRow(
+      #   class = "custom-kaart-row",
+      #   leafletOutput("kaart2", height = "600px")
+      # )
+      # navset_card_tab(
+      #   nav_panel(
+      #     title = "Percentage in",
+      #     plotlyOutput("in_gebied")
+      #   ),
+      #   nav_panel(
+      #     title = "Percentage van",
+      #     plotlyOutput("of_gebied")
+      #   ),
+      #   nav_panel(
+      #     title = "Percentage in vs. Percentage of",
+      #     plotlyOutput("in_vs_of")
+      #   )
+      # )
+    }
+    else if (input$kaart2 %in% c("Natura 2000 Habitattypes")){
+      navset_card_tab(
+        nav_panel(
+          title = "Aandeel in",
+         
+        ),
+        nav_panel(
+          title = "Aandeel van",
+
+        )
+      )
+    }
+    else if (input$kaart2 %in% c("Natuurbeheerplannen", "ANB patrimonium")){
+      navset_card_tab(
+        nav_panel(
+          title = "Aandeel in",
+          
+        ),
+        nav_panel(
+          title = "Aandeel van",
+          
+        )
+      )
+    }
+  })
+  
+  # output$kaart2 <- renderLeaflet({
+  #   leaflet() %>%
+  #     addTiles(urlTemplate = "", attribution = NULL, group = "Zonder achtergrond") %>%
+  #     addProviderTiles(providers$OpenStreetMap, group = "OSM (default)") %>%
+  #     addProviderTiles(providers$Esri.WorldImagery, group = "Satellite") %>%
+  #     addPolygons(data = Provincies_grenzen, color = "black", fillColor = "#f0f0f0", weight = 0.5, group = "Provincies") %>%
+  #     addPolygons(data = list_wfs[[input$kaart2]], color = "black", fillColor = "#a4e98f", opacity = 0.7, weight = 0.5, fillOpacity = 1, label = ~paste0(naam, " (", code, "): 0%"), highlight = highlightOptions(stroke = TRUE, color = "black", weight = 2)) %>%
+  #     addLayersControl(
+  #       baseGroups = c("Geen achtergrond", "OSM (default)", "Satellite"),
+  #       options = layersControlOptions(collapsed = FALSE)
+  #     ) %>%
+  #     setView(lng = 4.240556, lat = 51.037778, zoom = 9)
+  # })
+  
+  
+  output$kaart3 <- renderPlotly({
+    if (input$kaart2 %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)")) {
+      if (input$deelgebied == "All") {
+        plot_ly() %>%
+          add_sf(
+            data = list_wfs[[input$kaart2]],
+            color = I("grey"),
+            text = ~code,
+            hoverinfo = "text",
+            showlegend = FALSE
+          ) %>%
+          add_sf(
+            data = Provincies_grenzen,
+            fill = NA,
+            color = I("darkgrey"),
+            showlegend = FALSE
+          ) %>%
+          layout(
+            xaxis = list(title = ""),
+            yaxis = list(title = ""),
+            margin = list(t = 0, r = 0, l = 0, b = 0),
+            font = list(color = "black"),
+            paper_bgcolor = "transparent",
+            plot_bgcolor = "transparent"
+          )
+      } else {
+        plot_ly() %>%
+          add_sf(
+            data = list_wfs[[input$kaart2]],
+            color = I("grey"),
+            text = ~code,
+            hoverinfo = "text",
+            showlegend = FALSE
+          ) %>%
+          add_sf(
+            data = Provincies_grenzen,
+            fill = NA,
+            color = I("darkgrey"),
+            showlegend = FALSE
+          ) %>%
+          add_sf(data = list_wfs[[input$kaart2]] %>% filter(code == input$deelgebied), 
+                 color = I("#c04384"),
+                 showlegend = FALSE) %>%
+          layout(
+            xaxis = list(title = ""),
+            yaxis = list(title = ""),
+            margin = list(t = 0, r = 0, l = 0, b = 0),
+            font = list(color = "black"),
+            paper_bgcolor = "transparent",
+            plot_bgcolor = "transparent"
+          )
+      }
+    } else {
+      return()
+    }
   })
   
   output$in_gebied <- renderPlotly({
@@ -332,7 +598,7 @@ server <- function(input, output, session) {
   output$of_gebied <- renderPlotly({
     ggplotly(
       ggplot() +
-        geom_bar(data = metrics_of_gebied(), aes(x = reorder(soort, overlap), y = overlap, text = paste0(soort, " (", round(overlap * 100, 1), "%)")), stat = "identity", colour = "white", linewidth = 0.01, fill = "#c04384") +
+        geom_bar(data = metrics_of_gebied(), aes(x = reorder(soort, overlap), y = overlap, text = paste0(soort, " (", round(overlap * 100, 4), "%)")), stat = "identity", colour = "white", linewidth = 0.01, fill = "#c04384") +
         #geom_hline(yintercept = 0.07705856, color = "red") + # proportie van totaal opp Vlaanderen dat ingenomen wordt door HBTRL
         xlab("Soort") + ylab("% overlap") +
         theme_bw() +
@@ -341,12 +607,35 @@ server <- function(input, output, session) {
               axis.title = element_text(size = 9)), tooltip = "text")
   })
   
+  # Reactive data for the table
+  output$datatabel <- renderUI({
+    df <- metrics_of_gebied()
+    DT::dataTableOutput("table")
+  })
+  
+  output$table <- DT::renderDataTable({
+    metrics_of_gebied()
+  })
+  
+  output$downloadData <- downloadHandler(
+    filename = function() {
+      if (input$deelgebied == "All") {
+        paste("Gebiedsfiche_HBTRL_", Sys.Date(), ".csv", sep = "")
+      } else {
+        paste("Gebiedsfiche_HBTRL_", input$deelgebied, "_", Sys.Date(), ".csv", sep = "")
+      }
+    },
+    content = function(file) {
+      write.csv(metrics_of_gebied(), file, row.names = FALSE)
+    }
+  )
+  
   output$in_vs_of <- renderPlotly({
     ggplotly(
       ggplot(data = metrics_wide(), aes(x = metrics_wide()[[9]], y = metrics_wide()[[10]], label = abbr)) +
         geom_text() +
         theme(legend.position="none") +
-        xlim(0,1) +
+        #xlim(0,1) +
         xlab("Aandeel totale verspreiding dat overlapt met habitatrichtlijngebied") + ylab("aandeel totaal oppervlak habitatrichtlijngebied dat bezet is") +
         theme_bw()
     )
@@ -499,8 +788,8 @@ server <- function(input, output, session) {
   })
   
 
-  ## Geef structuur aan pagina 2 - tab: aandeel in
-  output$plots_in <- renderUI(
+  ## UI voor soortenfiches afhankelijk van input
+  output$soortenfiches_ui <- renderUI(
     if (input$kaart %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)")) {
       navset_card_tab(
         nav_panel(
