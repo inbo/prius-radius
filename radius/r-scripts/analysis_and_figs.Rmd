@@ -1,3 +1,18 @@
+---
+title: "RadIUS - invasieve uitheemse soorten in de Vlaamse natuur"
+output:
+  html_document:
+    df_print: paged
+    toc: true
+    toc_float: true
+      collapsed: false
+    theme: united
+    highlight: tango
+always_allow_html: true
+editor_options:
+  chunk_output_type: inline
+---
+
 
 ```{r load-library, include=FALSE}
 # general
@@ -5,6 +20,10 @@ library(tidyverse)
 
 # spatial data packages
 library(sf)
+
+# data visualisation
+library(ggplot2)
+library(plotly)
 ```
 
 ```{r clear-memory, include=FALSE}
@@ -18,6 +37,15 @@ species_abbr <- read_csv2("G:/Mijn Drive/Fleur/RadIUS/RadIUS voorbereiding/speci
 
 occ_flanders <- read_csv("./radius/data/input/gbif_occ_flanders.csv") %>%
   st_as_sf(coords = c("decimalLongitude", "decimalLatitude"), crs = "+proj=longlat +datum=WGS84")
+
+#### VLAANDEREN 
+## spatial
+Provincies_grenzen <- st_read("./prius/data/spatial/Provincies.geojson") %>%
+  st_transform(4326)
+
+## metrics
+VL <- read_csv("./radius/data/output/VL.csv")
+
 ```
 
 # 0. DATA EXPLORATIE
@@ -36,9 +64,38 @@ spor_species <- occ_flanders %>%
 spor_species
 ```
 
-
 # 1. VLAANDEREN
 
+## 1.1 Welke soorten zijn het meest aanwezig in Vlaanderen? 
+
+Weergave van ofVL-metric (percentage van totale oppervlakte van Vlaanderen dat bezet is door een soort) per soort
+```{r occupancy-in-flanders, echo=FALSE}
+ggplotly(
+  ggplot(data = VL, aes(x = reorder(Soort, ofVL), y = ofVL, text = paste0(Soort, "<br>Aandeel van Vlaanderen: ", round(ofVL * 100, 6), "%"))) +
+  geom_bar(stat = "identity", colour = "white", linewidth = 0.01, fill = "#c04384") +
+  ylab("Aandeel bezet") +
+  theme_bw() +
+  theme(
+    axis.text = element_text(size = 9),
+    axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1),
+    axis.title.x = element_blank(),
+    axis.title = element_text(size = 9)
+  ),
+  tooltip = "text")
+```
+
+Top 10 meest wijdverspreide soorten (soort + (perc. van Vlaamse oppervlak waarop soort voorkomt)):  
+
+1. Nijlgans (8.2%)  
+2. Canadese gans (5.5%)  
+3. Aziatische hoornaar (4.6%)  
+4. Amerikaanse vogelkers (2.9%)  
+5. invasieve duizendknopen  (1.9%)  
+6. reuzenbalsemien (1.5%)  
+7. muskusrat (1.1%)  
+8. late guldenroede (0.8%)  
+9. reuzenberenklauw (0.7%)  
+10. rimpelroos (0.5%)
 
 # 2. HABITATRICHTLIJN
 
