@@ -4,13 +4,9 @@ output:
   html_document:
     df_print: paged
     toc: true
+    toc_depth: 3
     toc_float: true
-      collapsed: false
-    theme: united
-    highlight: tango
-always_allow_html: true
-editor_options:
-  chunk_output_type: inline
+    number_sections: true
 ---
 
 
@@ -23,7 +19,11 @@ library(sf)
 
 # data visualisation
 library(ggplot2)
+library(ggthemes)
 library(plotly)
+library(leaflet)
+library(kableExtra)
+library(flextable)
 ```
 
 ```{r clear-memory, include=FALSE}
@@ -46,9 +46,28 @@ Provincies_grenzen <- st_read("./prius/data/spatial/Provincies.geojson") %>%
 ## metrics
 VL <- read_csv("./radius/data/output/VL.csv")
 
+#### HABITATRICHTLIJN
+## spatial
+# habitatrichtlijnkaart (incl. deelgebieden)
+ps_hbtrl_deel <- st_read("./radius/data/spatial/ps_hbtrl_deel.shp")
+
+# habitatrichtlijnkaart (excl. deelgebieden)
+ps_hbtrl <- ps_hbtrl_deel %>%
+  group_by(gebcode, naam, gebopp_ha) %>%
+  summarise(geometry = sf::st_union(geometry)) %>%
+  ungroup() %>%
+  st_transform(4326) %>%
+  st_as_sf()
+
+## metrics
+HBTRL <- read_csv("./radius/data/output/HBTRL_long.csv")
+
+HBTRL_spatial <- ps_hbtrl %>%
+  right_join(HBTRL, by = c("gebcode" = "gebied"), keep = TRUE)
+
 ```
 
-# 0. DATA EXPLORATIE
+# DATA EXPLORATIE
 
 ## sporadische soorten
 Sporadische soorten worden hier gedefinieerd als soorten met minder dan 20 waarnemingen sinds 2015. Voor sommige onderdelen van de analyse worden deze soorten buiten beschouwing gelaten, omdat hun sporadische aanwezigheid te gevoelig is voor extreme resultaten.
@@ -61,12 +80,19 @@ spor_species <- occ_flanders %>%
   filter(n_obs < 20) %>%
   st_drop_geometry()
 
-spor_species
+kable(spor_species, col.names = c("Soort", "Aantal observaties (sinds 2015)"), 
+      align = "llr",
+      caption = "Sporadische soorten", 
+      booktabs = TRUE) %>%
+  kable_styling(bootstrap_options = "responsive",
+                position = "center",
+                font_size = 12,
+                htmltable_class = "lightable-classic")
 ```
 
-# 1. VLAANDEREN
+# VLAANDEREN
 
-## 1.1 Welke soorten zijn het meest aanwezig in Vlaanderen? 
+## Welke soorten zijn het meest aanwezig in Vlaanderen? 
 
 Weergave van ofVL-metric (percentage van totale oppervlakte van Vlaanderen dat bezet is door een soort) per soort
 ```{r occupancy-in-flanders, echo=FALSE}
@@ -97,19 +123,331 @@ Top 10 meest wijdverspreide soorten (soort + (perc. van Vlaamse oppervlak waarop
 9. reuzenberenklauw (0.7%)  
 10. rimpelroos (0.5%)
 
-# 2. HABITATRICHTLIJN
+# HABITATRICHTLIJN
+
+## Overzicht habitatrichtlijngebieden (SBZ-H)
+
+### Wat is de habitatrichtlijn? 
+
+De **Europese Habitatrichtlijn** (European Commission, 1992) beoogt de instandhouding van de natuurlijke leefmilieus en de wilde flora en fauna in Europa. Meer specifiek gaan de EU lidstaten de verbintenis aan om een aantal habitattypes en soorten (opgenomen in de bijlagen van voornoemde richtlijn) op hun grondgebied in een gunstige staat van instandhouding te brengen en te behouden (artikel 2 van de richtlijn). Dit gebeurt onder meer via het aanduiden, beschermen en beheren van speciale beschermingszones in het Natura 2000 netwerk. 
+
+In bijlage I en II bij deze richtlijn zijn typen habitats en soorten opgenomen voor de instandhouding waarvan aanwijzing van speciale beschermingszones is vereist. Sommige hiervan worden gedefinieerd als „prioritaire” habitats of soorten die dreigen te verdwijnen en waarvoor specifieke regels gelden.  
+
+typen habitats: N2000 habitats  
+soorten: SBP soorten?   
+
+### Overzicht van habitatrichtlijngebieden in Vlaanderen
+
+In totaal werden 38 habitatrichtlijngebieden in Vlaanderen aangeduid.
+```{r kaart-hbtrl, echo=FALSE, fig.cap="Weergave van de habitatrichtlijngebieden in Vlaanderen", message=FALSE, warning=FALSE}
+ggplotly(
+  ggplot() +
+    geom_sf(data = Provincies_grenzen, fill= "#f0f0f0", linewidth = 0.2) +
+    geom_sf(data = ps_hbtrl_deel, color= "black", fill="#a4e98f", linewidth = 0.03, aes(group = naam, text = paste0(naam, " (", gebcode, ")"))) +
+    theme_map(), 
+  tooltip = "text")
+```
+
+```{r tabel-hbtrl, echo=FALSE, message=FALSE}
+kable(ps_hbtrl %>% st_drop_geometry(), col.names = c("Code", "Naam", "Oppervlakte (ha)"), 
+      align = "llr",
+      caption = "Overzicht van de habitatrichtlijngebieden (SBZ-H) in Vlaanderen en hun oppervlakte (in ha)", 
+      booktabs = TRUE) %>%
+  kable_styling(bootstrap_options = "responsive",
+                position = "center",
+                font_size = 12,
+                htmltable_class = "lightable-classic")
+```
+
+Kaartje habitatrichtlijngebieden ingekleurd volgens oppervlak: 
+```{r kaart-hbtrl-area, echo=FALSE, warning=FALSE}
+ps_hbtrl <- st_cast(ps_hbtrl, "MULTIPOLYGON")
+
+ggplotly(
+  ggplot() +
+    geom_sf(data = Provincies_grenzen, fill= "#f0f0f0", linewidth = 0.2) +
+    geom_sf(data = ps_hbtrl, aes(color = gebopp_ha, fill = gebopp_ha, text = paste0(naam, " (", gebcode, "): ", gebopp_ha, "ha"))) +
+    scale_fill_gradient(low = "white", high = "#c04384") +
+    scale_color_gradient(low = "white", high = "#c04384") +
+    theme_map(), 
+  tooltip = "text")
+```
+
+## IUS in habitatrichtlijngebieden
+
+### Gebiedsgericht
+
+#### Totaal aantal exoten per habitatrichtlijngebied 
+
+```{r n-ias-in-hbtrl, echo=FALSE, warning=FALSE}
+HBTRL_nspec <- HBTRL %>%
+  filter(gebied != "HBTRL" & type == "of" & overlap != 0) %>%
+  group_by(gebied) %>%
+  summarize(total_species = n()) %>%
+  left_join(ps_hbtrl, by = c("gebied" = "gebcode")) %>%
+  st_as_sf() %>%
+  st_cast("MULTIPOLYGON")
+
+HBTRL_nspec <- HBTRL_nspec %>%
+  mutate(number_bin = cut(total_species, breaks = c(9, 19, 29, 39, 49), labels = c("10-20", "20-30", "30-40", ">40")))
+
+colors <- c("10-20" = "#e6b4ce", "20-30" = "#d98eb5", "30-40" = "#cd699d", ">40" = "#c04384")
+#colors <- c("10-20" = "#497364", "20-30" = "#8cb898", "30-40" = "#bb6e8c", ">40" = "#a43e66")
+
+ggplotly(
+  ggplot() +
+    geom_sf(data = Provincies_grenzen, fill= "#f0f0f0", linewidth = 0.2) +
+    geom_sf(data = HBTRL_nspec, aes(color = number_bin, fill = number_bin, text = paste0(naam, " (", gebied, "): ", total_species))) +
+    scale_fill_manual(values = colors) +
+    scale_color_manual(values = colors) +
+    theme_map(), 
+  tooltip = "text")
+```
+
+Komt in bepaalde mate overeen met rapportage Natuurrapport (zie pagina 20-21 van https://publicaties.vlaanderen.be/view-file/39618)  
+
+Vijf habitatrichtlijngebieden met het **hoogste aantal IUS**? 
+
+1. Schelde- en Durme-estuarium van de Nederlandse grens tot Gent (BE2300006): 42  
+2. Valleigebied van de Kleine Nete met brongebieden, moerassen en heiden (BE2100026): 41  
+3. Demervallei (BE2400014): 39  
+4. Bovenloop van de Grote Nete met Zammelsbroek, Langdonken en Goor (BE2100040): 38  
+5. Valleien van de Laambeek, Zonderikbeek, Slangebeek en Roosterbeek met vijvergebieden en heiden (BE2200031): 38  
+
+Vijf habitatrichtlijngebieden met het **laagste aantal IUS**?  
+
+1.	Plateau van Caestert met hellingbossen en mergelgrotten (BE2200036): 10  
+2.	Voerstreek (BE2200039): 11  
+3.	Jekervallei en bovenloop van de Demervallei (BE2200041): 13  
+4.	Mangelbeek en heide- en vengebieden tussen Houthalen en Gruitrode (BE2200030)  
+5.	Bosbeekvallei en aangrenzende bos- en heidegebieden te As-Opglabbeek-Maaseik (BE2200043): 16  
+
+### Soortgericht
+
+#### Welke soorten komen (niet) voor in habitatrichtlijngebieden?
+
+```{r list-ias-in-hbtrl, echo=FALSE}
+HBTRL %>%
+  filter(gebied == "HBTRL" & type == "in") %>% # & !soort %in% spor_species$Soort
+  select(soort, overlap) %>%
+  mutate(overlap = round(overlap, 3)) %>%
+  st_drop_geometry() %>%
+  arrange(overlap) %>%
+  mutate() %>%
+  flextable() %>%
+  #table_theme() %>%
+  mk_par(j = 2,
+         value = as_paragraph(
+           minibar(value = overlap + 0.01, max = 1, barcol = "#e5b3cd"),
+           as_chunk(overlap)),
+         part = "body") %>%
+  color(part = "body", i = ~ overlap == 0, color = "darkgrey", j = c(1,2)) %>%
+  autofit() %>%
+  width(j = 2, width = 2.8, unit = "cm") %>%
+  footnote(i = 1, j = 1, value = as_paragraph(c("soorten zonder overlap met habitatrichtlijngebied in grijs")), ref_symbols = c("1"), part = "header", inline = TRUE)
+
+# species_not_in_hbtrl <- HBTRL %>%
+#   filter(gebied == "HBTRL" & type == "in" & overlap == 0) %>%
+#   select(soort, species) %>%
+#   st_drop_geometry()
+# # 
+# kable(species_not_in_hbtrl, col.names = c("soort", "wetenschappelijke naam"), caption = "Soorten zonder overlap met habitatrichtlijngebied", booktabs = TRUE) %>%
+#   kable_styling(bootstrap_options = "responsive",
+#                 position = "center",
+#                 font_size = 12,
+#                 htmltable_class = "lightable-classic",
+#                 html_font = 'Calibri')
+```
+
+#### In hoeveel habitatrichtlijngebieden komen de soorten voor?
+```{r hbtrl-n-geb, echo=FALSE, message=FALSE, warning=FALSE}
+HBTRL_ngeb <- HBTRL %>%
+  filter(gebied != "HBTRL" & type == "in" & overlap != 0) %>%
+  group_by(soort) %>%
+  summarise(n_geb = n()) %>%
+  mutate(perc = round((n_geb / 38) * 100, 1))
+
+ggplotly(
+  ggplot(data = HBTRL_ngeb, aes(x = reorder(soort, n_geb), y = n_geb)) +
+    geom_bar(stat = "identity", color = "white", linewidth = 0.0001, fill = "#c04384", aes(text = paste0(soort, " (", n_geb, " gebieden)"))) +
+    theme_bw() +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.3),  # Tekst onder 45 graden en netjes tegen de as
+        axis.title.x = element_blank()) +
+    scale_y_continuous(
+      name = "Aantal SBZ-H",  # Linker y-as titel
+      sec.axis = sec_axis(~ . * 100 / 38, name = "Percentage van totaal (%)")  # Rechter y-as als percentage
+  ), 
+  tooltip = "text")
+```
+
+Nijlgans, Canadese gans, Invasieve duizendknopen komen in ALLE habitatrichtlijngebieden voor!
+
+#### Voorkomen IAS in percentage {.tabset}
+
+##### Percentage van habitatrichtlijn (ofHBTRL)
+```{r figuur-of-HBTRL, echo=FALSE, message=FALSE}
+of_HBTRL <- HBTRL %>%
+  filter(gebied == "HBTRL" & type == "of" & overlap != 0)
+
+ggplotly(
+  ggplot(data = of_HBTRL, aes(x = reorder(soort, overlap), y = overlap, text = paste0(soort, "<br>Aandeel van totale oppervlak habitatrichtlijngebied dat bezet is: ", round(overlap * 100, 2), "%"))) +
+  geom_bar(stat = "identity", colour = "white", linewidth = 0.01, fill = "#c04384") +
+  theme_bw() +
+  theme(
+    axis.text = element_text(size = 9),
+    axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1),
+    axis.title.x = element_blank(),
+    axis.title = element_text(size = 9)
+  ),
+  tooltip = "text")
+```
+
+Resultaat zeer vergelijkbaar met resultaten voor PrIUS rapport: wijdverspreide soorten komen het meest abundant in habitatrichtlijn gebieden voor. Dit is natuurlijk logisch. Dit zijn soorten zoals de nijlgans (*Alopochen aegyptiaca*), Canadese gans (*Branta canadensis*), Amerikaanse vogelkers (*Prunus serotina*), reuzenbalsemien (*Impatiens glandulifera*) en invasieve duizendknopen (*Reynoutria japonica*), ... die over heel het Vlaamse grondgebied wijdverspreid voorkomen en dus ook in habitatrichtlijngebieden. Dit zijn ook de soorten die tijdens de workshop het meest aan bod kwamen van de boswachter uit. Deze soorten dragen de kroon van verspreiding en last in Vlaanderen. Hiervan staan echter uitsluitend de nijlgans en reuzenbalsemien op de unielijst!!!! Aanpak voor Europa strookt niet perse met aanpak voor Vlaanderen.
+
+##### Percentage in habitatrichtlijn (inHBTRL)
+```{r figuur-in-HBTRL, echo=FALSE, message=FALSE}
+in_HBTRL <- HBTRL %>%
+  filter(gebied == "HBTRL" & type == "in" & overlap != 0)
+
+ggplotly(
+  ggplot(data = in_HBTRL, aes(x = reorder(soort, overlap), y = overlap, text = paste0(soort, "<br>Aandeel van verspreiding dat in Habitatrichtlijngebied ligt: ", round(overlap * 100, 2), "%"))) +
+  geom_bar(stat = "identity", colour = "white", linewidth = 0.01, fill = "#c04384") +
+  theme_bw() +
+  theme(
+    axis.text = element_text(size = 9),
+    axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1),
+    axis.title.x = element_blank(),
+    axis.title = element_text(size = 9)
+  ),
+  tooltip = "text")
+```
+
+Soorten met meer dan 50% van totale Vlaamse verspreiding in habitatrichtlijngebied:
+
+1. Chinese moerasslak (Cch): 74.6%  
+2. Siberische grondeekhoorn (Tsi): 68.4%  
+3. Amerikaanse hondsvis (Up): 67.2%  
+4. Sikahert (Cn): 58.6%    
+
+##### In vs. of
+```{r in-vs-of, echo=FALSE, message=FALSE}
+in_vs_of_HBTRL <- in_HBTRL %>%
+  select(!type) %>%
+  left_join(of_HBTRL %>% select(!type), by = c("soort", "species", "abbr", "gebied"), suffix = c(".in", ".of"))
+
+ggplot() +
+  geom_text(data = in_vs_of_HBTRL, aes(x = overlap.in, y = overlap.of, label = abbr)) +
+  xlim(0,1) +
+  coord_trans(y = "log2") +
+  xlab("Aandeel totale verspreiding dat overlapt met habitatrichtlijngebied") + ylab("aandeel totaal oppervlak habitatrichtlijngebied dat bezet is") +
+  theme_bw()
+```
+
+-   De soorten die in grote mate overlappen met habitatrichtlijngebieden/soorten die het totaal areaal aan habitatrichtlijngebieden het sterkt impacteren: nijlgans (Aae), Canadese gans (Bc), Amerikaanse vogelkers (Pse), reuzenbalsemien (Ig). Echter, deze soorten vertonen een algemeen lagere specificiteit voor de habitatrichtlijngebieden. Het zijn wijdverspreide soorten die niet specifiek voorkeur geven aan habitatrichtlijngebieden.  
+-   Soorten die het sterkst aan habitatrichtlijngebieden gebonden zijn (inHBTRL \< 0.5): Chinese moerasslak (Cch), Amerikaanse hondsvis (Up), Siberische grondeekhoorn (Tsi), Sikahert (Cn). *Opgelet* Chinese moerasslak is een sporadische soort met slechts 6 waarnemingen sinds 2015.  
+-   Soorten die het minst aan habitatrichtlijngebieden gebonden zijn (inHBTRL \> 0.05): Chinese prachtslang (Et), Aziatische hoornaar (Vv), Kaapse waterlelie (Ad), Turkse rivierkreeft (Plep), hemelboom (Aal)  
+
+#### In welke habitatrichtlijngebieden komen soorten voor {.tabset}
+##### Amerikaanse hondsvis
+```{r overlap-map-am-hondsvis-hbtrl, results='asis', echo=FALSE, warning=FALSE}
+df <- HBTRL_spatial %>%
+  filter(soort == "Amerikaanse hondsvis" & type == "in" & gebied != "HBTRL" & overlap != 0) %>%
+  st_cast("MULTIPOLYGON")
+
+occs <- occ_flanders %>%
+  filter(Soort == "Amerikaanse hondsvis") 
+
+pal <- colorNumeric(
+  palette = "Reds",
+  domain = df$overlap)
+
+ggplotly(ggplot() +
+  geom_sf(data = Provincies_grenzen, fill = "#f0f0f0", linewidth = 0.2) +
+  geom_sf(data = ps_hbtrl, fill = "grey80", color = "grey80", size = 0.5) +
+  geom_sf(data = df, aes(text = paste0(naam, " (", gebied, "): ", round(overlap * 100, 1), "%")), fill = "#c04384", color = "#c04384",, size = 0.5) +
+  geom_sf(data = occs, color = "blue") +
+  theme_map())
+
+ggplotly(ggplot() +
+           geom_bar(data = df, aes(x = overlap, y = reorder(str_wrap(paste(df$naam, "(<b>", gebied, "</b>)"), width = 40), overlap), text = paste0(gebied, " (", naam, "): ", round(overlap * 100, 1), "%")), stat = "identity", colour = "#c04384", fill = "#c04384") +
+           theme_bw() +
+           theme(axis.text.x = element_text(angle = 90),
+                 axis.title.y = element_blank()
+           ) +
+           scale_x_continuous(labels = scales::percent_format(accuracy = 1)), 
+         tooltip = "text")
+```
+
+##### Siberische grondeekhoorn
+```{r overlap-map-sib-grondeekhoorn-hbtrl, results='asis', echo=FALSE, warning=FALSE}
+df <- HBTRL_spatial %>%
+  filter(soort == "Siberische grondeekhoorn" & type == "in" & gebied != "HBTRL" & overlap != 0) %>%
+  st_cast("MULTIPOLYGON")
+
+occs <- occ_flanders %>%
+  filter(Soort == "Siberische grondeekhoorn")
+
+pal <- colorNumeric(
+  palette = "Reds",
+  domain = df$overlap)
+
+ggplotly(ggplot() +
+  geom_sf(data = Provincies_grenzen, fill = "#f0f0f0", linewidth = 0.2) +
+  geom_sf(data = ps_hbtrl, fill = "grey80", color = "grey80", size = 0.5) +
+  geom_sf(data = df, aes(text = paste0(naam, " (", gebied, "): ", round(overlap * 100, 1), "%")), fill = "#c04384", color = "#c04384",, size = 0.5) +
+  geom_sf(data = occs, color = "blue") +
+  theme_map())
+
+ggplotly(ggplot() +
+           geom_bar(data = df, aes(x = overlap, y = reorder(str_wrap(paste(df$naam, "(<b>", gebied, "</b>)"), width = 40), overlap), text = paste0(gebied, " (", naam, "): ", round(overlap * 100, 1), "%")), stat = "identity", colour = "#c04384", fill = "#c04384") +
+           theme_bw() +
+           theme(axis.text.x = element_text(angle = 90),
+                 axis.title.y = element_blank()
+           ) +
+           scale_x_continuous(labels = scales::percent_format(accuracy = 1)), 
+         tooltip = "text")
+```
+
+##### sikahert
+```{r overlap-map-sikahert-hbtrl, results='asis', echo=FALSE, warning=FALSE}
+df <- HBTRL_spatial %>%
+  filter(soort == "sikahert" & type == "in" & gebied != "HBTRL" & overlap != 0) %>%
+  st_cast("MULTIPOLYGON")
+
+occs <- occ_flanders %>%
+  filter(Soort == "sikahert") 
+
+pal <- colorNumeric(
+  palette = "Reds",
+  domain = df$overlap)
+
+ggplotly(ggplot() +
+  geom_sf(data = Provincies_grenzen, fill = "#f0f0f0", linewidth = 0.2) +
+  geom_sf(data = ps_hbtrl, fill = "grey80", color = "grey80", size = 0.5) +
+  geom_sf(data = df, aes(text = paste0(naam, " (", gebied, "): ", round(overlap * 100, 1), "%")), fill = "#c04384", color = "#c04384",, size = 0.5) +
+  geom_sf(data = occs, color = "blue") +
+  theme_map())
+
+ggplotly(ggplot() +
+           geom_bar(data = df, aes(x = overlap, y = reorder(str_wrap(paste(df$naam, "(<b>", gebied, "</b>)"), width = 40), overlap), text = paste0(gebied, " (", naam, "): ", round(overlap * 100, 1), "%")), stat = "identity", colour = "#c04384", fill = "#c04384") +
+           theme_bw() +
+           theme(axis.text.x = element_text(angle = 90),
+                 axis.title.y = element_blank()
+           ) +
+           scale_x_continuous(labels = scales::percent_format(accuracy = 1)), 
+         tooltip = "text")
+```
+
+# VOGELRICHTLIJN
 
 
-# 3. VOGELRICHTLIJN
+# NATURA 2000 HABITATS
 
 
-# 4. NATURA 2000 HABITATS
+# NATUURBEHEERPLANNEN
 
 
-# 5. NATUURBEHEERPLANNEN
-
-
-# 6. ANB PATRIMONIUM
+# ANB PATRIMONIUM
 
 
 
