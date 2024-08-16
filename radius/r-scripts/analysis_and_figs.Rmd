@@ -65,6 +65,19 @@ HBTRL <- read_csv("./radius/data/output/HBTRL_long.csv")
 HBTRL_spatial <- ps_hbtrl %>%
   right_join(HBTRL, by = c("gebcode" = "gebied"), keep = TRUE)
 
+#### N2000 HABITATS
+## spatial
+n2khab <- st_read("./radius/data/spatial/n2khab.shp")
+
+habitats <- read_csv2("./radius/data/input/toewijzing_habitats.csv", col_types = cols(code = col_character()))
+
+n2khab <- n2khab %>%
+  left_join(habitats, by = c("type" = "code")) %>%
+  transmute(code = type, habitat = name, shortname, oppervlak = area, groep, geometry)
+
+## metrics
+N2KHAB <- read_csv("./radius/data/output/N2KHAB_long.csv")
+N2KHAB_wide <- read_csv("./radius/data/output/N2KHAB_wide.csv")
 ```
 
 # DATA EXPLORATIE
@@ -443,6 +456,63 @@ ggplotly(ggplot() +
 
 # NATURA 2000 HABITATS
 
+## Overzicht N2000 habitats
+
+### Wat zijn Natura 2000 (N2000) habitats?
+
+Binnen de habitatrichtlijn werden in Bijlage I habitattypes aangeduid die bescherming verdienen in Europa. Deze habitattypes bevinden zich zowel binnen als buiten de speciale beschermingszones/habitatrichtlijngebieden. De kaartlaag die wij gebruiken, geeft de totale verspreiding van de habitattypes in Vlaanderen weer, ook deze buiten de SBZ-H's
+
+Zaken waar ik rekening mee moet houden bij de analyses van de N2000 habitattypes!
+
+- de verspreiding van deze habitattypes werd afgeleid van de BWK/N2000 habitatkaart. Hierin worden soms meerdere habitattypes en regionaal belangrijke biotopen samengezet binnen een gebied, gelinkt aan een inschatting van het percentage oppervlak dat ieder type hier inneemt. Voor onze analyses, werd bij voorkomen van een habitat binnen een gebied steeds uitgegaan van een 100% aanwezigheid over dit hele gebied, aangezien we niet exact weten waar het percentage van dit type habitat zich bevindt binnen het afgelijnde gebied.
+- per soort worden de N2000 habitattypes telkens beperkt tot de voor die soort relevante habitattypes o.b.v. het milieu waarin die soort voorkomt. (vb. voor zoetwaterorganismen, worden alleen zoetwater habitats in rekening gebracht). Dit aangezien de buffer rondom puntlocaties soms ook irrelevante habitattypes meeneemt. vb. een strikt aquatische plant in een kleine vijver, wordt gebufferd met 100m en neemt op die manier ook de omliggende terrestrische habitattypes in rekening. Dit is in kader van kijken naar impact op natuurtypes niet relevant en verwarrend.
+
+### Overzicht van N2000 habitats in Vlaanderen
+
+In Vlaanderen komen 46 habitattypen van de Bijlage I van de Habitatrichtlijn voor (Paelinckx et
+al., 2019). **OPGELET** wij gaan in onze analyse verder met 45 N2000 habitats, habitattype 8310 (niet voor publiek opengestelde grotten) wordt achterwege gelaten.
+
+Voor de drie habitattypen **2310** (droge heide op landduinen), **2330** (open grasland op landduinen) en **9190** (oude eiken-berkenbossen) heeft Vlaanderen ‘een bijzondere verantwoordelijkheid’ in de EU-Atlantische regio. Het is belangrijk dat Vlaanderen daarvoor proactief initiatief neemt, bv. in EU-netwerken, zoals bv. in het EU Atlantic biogeographical seminar. Dit geldt ook voor habitats waarvoor Vlaanderen zeer belangrijk is, namelijk 1130, 2130, 6120, 6230, 9130 en 91E0.
+
+Het Vlaams Natura 2000 programma legt de prioriteiten vast van het Vlaamse beleid. Daarin wordt via het operationaliseren van instandhoudingsmaatregelen een verbetering van habitats en soorten vooropgesteld. Het ontwerp Natura 2000 programma 2021 – 2026 bevat ook een lijst van habitats met als bindende taakstelling de verbetering van de staat van instandhouding tegen 2026. Daarin zijn drie habitattypen opgenomen waarvoor Vlaanderen in de EU-Atlantische regio zeer belangrijk is:
+
+- ‘2130 vastgelegde duinen’
+- ‘6120 stroomdalgraslanden’
+- ‘91E0 vochtige alluviale bossen’
+
+De overige habitats waarvoor Vlaanderen zeer belangrijk of essentieel is in Europa staan niet in die lijst, maar wel als leefgebied van soorten waarvoor het programma acties voorziet.
+
+```{r n2khab-table, echo=FALSE}
+n2khab_table <- n2khab %>%
+  st_drop_geometry() %>%
+  select(groep, code, habitat, oppervlak)
+
+flextable(n2khab_table)
+```
+
+```{r n2khab-kaart, fig.cap="Weergave van de Natura 2000 habitattypes in Vlaanderen", echo=FALSE}
+ggplotly(
+  ggplot() +
+    geom_sf(data = Provincies_grenzen, fill= "#f0f0f0", size = 0.2) +
+    geom_sf(data = n2khab, color= "#a4e98f", fill="#a4e98f", aes(text = paste0(shortname, " (", code, ")"))) +
+    theme_void(),
+  tooltip = "text")
+```
+
+<!-- ##### Kaart per habitattype {.tabset} -->
+<!-- ```{r n2khab-kaart-per-type, results='asis', echo=FALSE} -->
+<!-- for (i in n2khab$code){ -->
+<!--   cat(paste0("###### ",i," \n")) -->
+
+<!--   print(ggplot() + -->
+<!--           geom_sf(data = Provincies_grenzen, fill= "#f0f0f0", size = 0.2) + -->
+<!--           geom_sf(data = n2khab %>% filter(code == i), color= "#a4e98f", fill="#a4e98f", size = 2) + -->
+<!--           ggtitle(str_wrap(paste0(n2khab %>% filter(code == i) %>% pull(shortname), " (", i, ")"), 80)) + -->
+<!--           theme_void()) -->
+
+<!--   cat("\n\n") -->
+<!-- } -->
+<!-- ``` -->
 
 # NATUURBEHEERPLANNEN
 
