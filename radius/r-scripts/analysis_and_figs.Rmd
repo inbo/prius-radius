@@ -1,0 +1,33 @@
+
+```{r load-library, include=FALSE}
+
+```
+
+```{r clear-memory, include=FALSE}
+rm(list=ls())
+```
+
+```{r load-data, include=FALSE}
+
+```
+
+# 0. DATA EXPLORATIE
+
+
+# 1. HABITATRICHTLIJN
+
+
+# 2. VOGELRICHTLIJN
+
+
+# 3. NATURA 2000 HABITATS
+
+
+# 4. NATUURBEHEERPLANNEN
+
+
+# 5. ANB PATRIMONIUM
+
+
+
+
