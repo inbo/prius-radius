@@ -1,6 +1,10 @@
 
 ```{r load-library, include=FALSE}
+# general
+library(tidyverse)
 
+# spatial data packages
+library(sf)
 ```
 
 ```{r clear-memory, include=FALSE}
@@ -8,25 +12,47 @@ rm(list=ls())
 ```
 
 ```{r load-data, include=FALSE}
+# Species data 
+species_list <- read_csv("./radius/data/input/radius_species_list.csv") 
+species_abbr <- read_csv2("G:/Mijn Drive/Fleur/RadIUS/RadIUS voorbereiding/species_abbr.csv")
 
+occ_flanders <- read_csv("./radius/data/input/gbif_occ_flanders.csv") %>%
+  st_as_sf(coords = c("decimalLongitude", "decimalLatitude"), crs = "+proj=longlat +datum=WGS84")
 ```
 
 # 0. DATA EXPLORATIE
 
+## sporadische soorten
+Sporadische soorten worden hier gedefinieerd als soorten met minder dan 20 waarnemingen sinds 2015. Voor sommige onderdelen van de analyse worden deze soorten buiten beschouwing gelaten, omdat hun sporadische aanwezigheid te gevoelig is voor extreme resultaten.
 
-# 1. HABITATRICHTLIJN
+```{r spor-species, echo=FALSE}
+spor_species <- occ_flanders %>%
+  group_by(Soort) %>%
+  summarise(n_obs = n()) %>%
+  arrange(n_obs) %>%
+  filter(n_obs < 20) %>%
+  st_drop_geometry()
+
+spor_species
+```
 
 
-# 2. VOGELRICHTLIJN
+# 1. VLAANDEREN
 
 
-# 3. NATURA 2000 HABITATS
+# 2. HABITATRICHTLIJN
 
 
-# 4. NATUURBEHEERPLANNEN
+# 3. VOGELRICHTLIJN
 
 
-# 5. ANB PATRIMONIUM
+# 4. NATURA 2000 HABITATS
+
+
+# 5. NATUURBEHEERPLANNEN
+
+
+# 6. ANB PATRIMONIUM
 
 
 
