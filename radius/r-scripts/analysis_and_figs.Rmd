@@ -24,6 +24,7 @@ library(plotly)
 library(leaflet)
 library(kableExtra)
 library(flextable)
+library(ggtext)
 ```
 
 ```{r clear-memory, include=FALSE}
@@ -191,7 +192,6 @@ ggplotly(
 ### Gebiedsgericht
 
 #### Totaal aantal exoten per habitatrichtlijngebied 
-
 ```{r n-ias-in-hbtrl, echo=FALSE, warning=FALSE}
 HBTRL_nspec <- HBTRL %>%
   filter(gebied != "HBTRL" & type == "of" & overlap != 0) %>%
@@ -205,7 +205,7 @@ HBTRL_nspec <- HBTRL_nspec %>%
   mutate(number_bin = cut(total_species, breaks = c(9, 19, 29, 39, 49), labels = c("10-20", "20-30", "30-40", ">40")))
 
 colors <- c("10-20" = "#e6b4ce", "20-30" = "#d98eb5", "30-40" = "#cd699d", ">40" = "#c04384")
-#colors <- c("10-20" = "#497364", "20-30" = "#8cb898", "30-40" = "#bb6e8c", ">40" = "#a43e66")
+colors <- c("10-20" = "#497364", "20-30" = "#8cb898", "30-40" = "#bb6e8c", ">40" = "#a43e66")
 
 ggplotly(
   ggplot() +
@@ -485,34 +485,191 @@ De overige habitats waarvoor Vlaanderen zeer belangrijk of essentieel is in Euro
 ```{r n2khab-table, echo=FALSE}
 n2khab_table <- n2khab %>%
   st_drop_geometry() %>%
-  select(groep, code, habitat, oppervlak)
+  transmute(code, habitat, opp_ha = round(oppervlak / 10000, 2))
 
-flextable(n2khab_table)
+kable(n2khab_table,
+      align = "llr",
+      caption = "Overzicht N2000 habitattypes in Vlaanderen", 
+      booktabs = TRUE) %>%
+  kable_styling(bootstrap_options = "responsive",
+                position = "center",
+                font_size = 12,
+                htmltable_class = "lightable-classic")
 ```
 
 ```{r n2khab-kaart, fig.cap="Weergave van de Natura 2000 habitattypes in Vlaanderen", echo=FALSE}
+# ggplotly(
+#   ggplot() +
+#     geom_sf(data = Provincies_grenzen, fill= "#f0f0f0", size = 0.2) +
+#     geom_sf(data = n2khab, color= "#a4e98f", fill="#a4e98f", aes(text = paste0(shortname, " (", code, ")"))) +
+#     theme_void(),
+#   tooltip = "text")
+```
+
+## IUS in N2000 habitats
+
+### Gebiedsgericht
+
+#### Aantal IUS per habitattype
+```{r n2khab-nspec-pertype, echo=FALSE, message=FALSE}
+N2KHAB_nospec <- N2KHAB %>%
+  filter(gebied != "N2KHAB" & type == "in") %>%
+  group_by(gebied) %>%
+  summarise(tot_overlap = sum(overlap)) %>%
+  filter(tot_overlap == 0) %>%
+  pull(gebied)
+
+# geen IUS in habitattypes 2150 (vastgelegde ontkalkte duinen) en 91F0 (hardhoutooibossen)
+
+N2KHAB_nspec_pertype <- N2KHAB %>%
+  filter(gebied != "N2KHAB" & type == "of" & overlap != 0) %>%
+  left_join(habitats, by = c("gebied" = "code")) %>%
+  group_by(groep, gebied) %>%
+  summarise(n_spec = n()) %>%
+  ungroup() %>%
+  add_row(groep = "kustduinen", gebied = "2150", n_spec = 0) %>% # voeg handmatig de twee habitattypes toe waar geen IUS voorkomen
+  add_row(groep = "bossen", gebied = "91F0", n_spec = 0)
+
+# barplot
+# ggplotly(
+#   ggplot(N2KHAB_nspec_pertype, aes(x = reorder(gebied, n_spec), y = n_spec)) +
+#     geom_bar(stat = "identity", fill = "#c04384") +
+#     facet_wrap(~ groep, scales = "free_x", nrow = 1, strip.position = "bottom") +
+#     labs(x = "Habitattype", y = "Aantal IUS") +
+#     theme_bw() +
+#     theme(axis.text.x = element_text(angle = 90, hjust = 1),
+#           strip.placement = "outside",
+#           strip.background = element_blank()),
+#   tooltip = "text")
+# 
+# ggplot(N2KHAB_nspec_pertype, aes(x = reorder(gebied, n_spec), y = n_spec)) +
+#     geom_bar(stat = "identity", fill = "#c04384") +
+#     facet_wrap(~ groep, scales = "free_x", nrow = 1, strip.position = "bottom") +
+#     labs(x = NULL, y = "Aantal IUS") +
+#     theme_classic() +
+#     theme(axis.text.x = element_text(angle = 90, hjust = 1),
+#           strip.placement = "outside")
+
+ggplot(N2KHAB_nspec_pertype, aes(x = reorder(gebied, n_spec), y = n_spec)) +
+    geom_bar(stat = "identity", fill = "#c04384") +
+    facet_wrap(~ groep, scales = "free_x", nrow = 1) +
+    labs(x = "Habitattype", y = "Aantal IUS") +
+    theme_bw() +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1),
+          strip.placement = "outside")
+```
+
+##### Habitattypes zonder IUS?  
+
+- **91F0** (hardhoutooibossen)  
+- **2150** (vastgelegde ontkalkte duinen)  
+
+##### Habitattypes met het meeste IUS?  
+- **91E0** (vochtige alluviale bossen): 62 IUS  
+- **7140** (overgangs- en trilveen): 37 IUS  
+- **4010** (vochtige heide): 32 IUS  
+
+##### Voor de drie habitattypes waar het meeste IUS voorkomen, wat zijn de 10 meest voorkomende IUS? 
+
+Weergave van top 10 voorkomende soorten voor de drie habitattypes met het hoogste aantal IUS in Vlaanderen. Weergegeven als het percentage van het totale oppervlakte van dit habitattype in Vlaanderen dat wordt ingenomen door de soort. 
+
+vb. voorkomen van Canadese gans in vochtige heide is 20.3%: Canadese gans komt voor op 20.3% van het totale oppervlakte vochtige heide in Vlaanderen. 
+
+```{r echo=FALSE}
+x <- N2KHAB %>%
+  filter(gebied != "N2KHAB" & type == "of" & overlap != 0) %>%
+  left_join(habitats, by = c("gebied" = "code")) %>%
+  filter(gebied %in% c("91E0", "7140", "4010")) %>%
+  group_by(gebied) %>%
+  top_n(10, overlap)
+
 ggplotly(
-  ggplot() +
-    geom_sf(data = Provincies_grenzen, fill= "#f0f0f0", size = 0.2) +
-    geom_sf(data = n2khab, color= "#a4e98f", fill="#a4e98f", aes(text = paste0(shortname, " (", code, ")"))) +
-    theme_void(),
+  ggplot(data = x, aes(x = reorder(soort, overlap), y = overlap *100)) +
+    geom_bar(stat = "identity", fill = "#c04384") +
+    facet_wrap(~gebied, scales = c("free_y"), nrow = 3, ncol = 1) +
+    ylab("% van oppervlakte habitattype") +
+    theme_bw() +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1),
+          axis.title.x = element_blank()), 
   tooltip = "text")
 ```
 
-<!-- ##### Kaart per habitattype {.tabset} -->
-<!-- ```{r n2khab-kaart-per-type, results='asis', echo=FALSE} -->
-<!-- for (i in n2khab$code){ -->
-<!--   cat(paste0("###### ",i," \n")) -->
+### Soortgericht
 
-<!--   print(ggplot() + -->
-<!--           geom_sf(data = Provincies_grenzen, fill= "#f0f0f0", size = 0.2) + -->
-<!--           geom_sf(data = n2khab %>% filter(code == i), color= "#a4e98f", fill="#a4e98f", size = 2) + -->
-<!--           ggtitle(str_wrap(paste0(n2khab %>% filter(code == i) %>% pull(shortname), " (", i, ")"), 80)) + -->
-<!--           theme_void()) -->
+#### Welke soorten komen in welke mate voor in N2000 hab? 
+```{r of-n2khab, echo=FALSE}
+x <- N2KHAB %>%
+  filter(gebied == "N2KHAB" & type == "of")  %>%
+  mutate(label_color = ifelse(overlap == 0, "lightgrey", "black"))
 
-<!--   cat("\n\n") -->
-<!-- } -->
-<!-- ``` -->
+# Labels en kleuren aanmaken
+label_colors <- setNames(x$label_color, x$soort)
+
+# Plot met aangepaste kleuren voor x-as labels
+ggplotly(
+  ggplot(x , aes(x = reorder(soort, overlap), y = overlap)) +
+    geom_bar(stat = "identity", fill = "#c04384") +
+    theme_bw() +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1),
+          axis.title.x = element_blank()) +
+    scale_x_discrete(labels = function(soort) {
+      # Pas de kleur van de labels aan afhankelijk van de overlap
+      sapply(soort, function(s) {
+        paste0("<span style='color:", label_colors[s], "'>", s, "</span>")
+      })
+    }) +
+    theme(axis.text.x = ggtext::element_markdown()),
+  tooltip = "text",
+  height = 700)
+```
+
+#### Generalist vs. specialist
+
+Vergelijk het voorkomen in Natura 2000 habitats tussen een generalist (watercrassula) en een specialist (struikaster).
+
+Voorkomen wordt hier uitgedrukt in het percentage van het totale verspreidingsoppervlakte van de soort dat voorkomt in een habitattype (!OPGELET: nuance met vorige figuur).
+
+```{r n2khab-gen-vs-spec, echo = FALSE}
+x <- N2KHAB %>%
+  filter(gebied != "N2KHAB" & type == "in" & soort %in% c("watercrassula", "struikaster")) %>%
+  left_join(habitats, by = c("gebied" = "code"))
+
+ggplot(x, aes(x = reorder(gebied, overlap), y = overlap)) +
+    geom_bar(stat = "identity", fill = "#c04384") +
+    facet_grid(soort ~ groep, scales = "free_x", switch = "y") +
+    labs(x = "habitattype", y = NULL) +
+    scale_y_continuous(sec.axis = dup_axis(name = "overlap")) +
+    theme_bw() +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5),
+          axis.ticks.y.left = element_blank(),
+          axis.title.y.right = element_text(),  
+          axis.title.y.left = element_blank(),  
+          axis.text.y.right = element_text(),   
+          axis.text.y.left = element_blank(),  
+          strip.placement = "outside")
+```
+
+#### Aquatisch vs. terrestrisch
+```{r n2khab-aqua-vs-terr, echo=FALSE}
+x <- N2KHAB %>%
+  filter(gebied != "N2KHAB" & type == "in" & soort %in% c("zwartbekgrondel", "hemelboom")) %>%
+  left_join(habitats, by = c("gebied" = "code"))
+
+ggplot(x, aes(x = reorder(gebied, overlap), y = overlap)) +
+    geom_bar(stat = "identity", fill = "#c04384") +
+    facet_grid(soort ~ groep, scales = "free_x", switch = "y") +
+    labs(x = "habitattype", y = NULL) +
+    scale_y_continuous(sec.axis = dup_axis(name = "overlap")) +
+    theme_bw() +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5),
+          axis.ticks.y.left = element_blank(),
+          axis.title.y.right = element_text(),  
+          axis.title.y.left = element_blank(),  
+          axis.text.y.right = element_text(),   
+          axis.text.y.left = element_blank(),  
+          strip.placement = "outside", 
+          panel.border = element_rect(color = "black"))
+```
 
 # NATUURBEHEERPLANNEN
 
