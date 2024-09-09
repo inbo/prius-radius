@@ -70,6 +70,17 @@ HBTRL <- read_csv("./radius/data/output/HBTRL_long.csv")
 HBTRL_spatial <- ps_hbtrl %>%
   right_join(HBTRL, by = c("gebcode" = "gebied"), keep = TRUE)
 
+# VOGELRICHTLIJN
+## spatial
+ps_vglrl <- st_read("./radius/data/spatial/ps_vglrl.shp") %>%
+  mutate(oppervlakte = round(as.numeric(st_area(geometry))/10000, 1))
+
+## metrics
+VGLRL <- read_csv("./radius/data/output/VGLRL_long.csv")
+
+VGLRL_spatial <- ps_vglrl %>%
+  right_join(VGLRL, by = c("na2000code" = "gebied"), keep = TRUE)
+
 # N2000 HABITATS
 ## spatial
 n2khab <- st_read("./radius/data/spatial/n2khab.shp")
@@ -166,7 +177,7 @@ In bijlage I en II bij deze richtlijn zijn typen habitats en soorten opgenomen v
 typen habitats: N2000 habitats  
 soorten: SBP soorten?   
 
-### Overzicht van habitatrichtlijngebieden in Vlaanderen
+### Habitatrichtlijngebieden in Vlaanderen
 
 In totaal werden 38 habitatrichtlijngebieden in Vlaanderen aangeduid.
 ```{r kaart-hbtrl, echo=FALSE, fig.cap="Weergave van de habitatrichtlijngebieden in Vlaanderen", message=FALSE, warning=FALSE}
@@ -523,6 +534,228 @@ ggplotly(ggplot() +
 
 # VOGELRICHTLIJN
 
+## Overzicht vogelrichtlijngebieden (SBZ-V)
+
+### Wat is de vogelrichtlijn? 
+
+### Vogelrichtlijngebieden in Vlaanderen
+
+In totaal werden 24 vogelrichtlijngebieden in Vlaanderen aangeduid.
+```{r kaart-vglrl, echo=FALSE, fig.cap="Weergave van de vogelrichtlijngebieden in Vlaanderen", message=FALSE, warning=FALSE}
+ggplotly(
+  ggplot() +
+    geom_sf(data = Provincies_grenzen, fill= "#f0f0f0", linewidth = 0.2) +
+    geom_sf(data = ps_vglrl, color= "black", fill="#a4e98f", linewidth = 0.03, aes(group = gebnaam, text = paste0(gebnaam, " (", na2000code, ")"))) +
+    theme_map(), 
+  tooltip = "text")
+```
+
+```{r tabel-vglrl, echo=FALSE, message=FALSE}
+kable(ps_vglrl %>% st_drop_geometry() %>% select(na2000code, gebnaam, oppervlakte), col.names = c("Code", "Naam", "Oppervlakte (ha)"), 
+      align = "llr",
+      caption = "Overzicht van de vogelrichtlijngebieden (SBZ-V) in Vlaanderen en hun oppervlakte (in ha)", 
+      booktabs = TRUE) %>%
+  kable_styling(bootstrap_options = "responsive",
+                position = "center",
+                font_size = 12,
+                htmltable_class = "lightable-classic")
+```
+
+## IUS in vogelrichtlijngebieden 
+
+Voor het rapport beperken we ons tot de vogelsoorten. Waterrijke (en dus vogelrijke) gebieden indachtig, breiden we deze selectie ter illustratie uit met een aantal notoire predatoren (wasbeer, wasbeerhond, Amerikaanse nerts) en aquatische knaagdieren (beverrat en muskusrat). 
+
+soorten die voor het voorkomen in habitatrichtlijngebied worden meegenomen: 
+```{r}
+species_vglrl <- c("treurmaina","nijlgans","beverrat","wasbeerhond","muskusrat","rosse stekelstaart","wasbeer","heilige ibis","Canadese gans","Amerikaanse nerts")
+
+
+kable(species_list %>% filter(Soort %in% species_vglrl) %>% select(Soort, Species), 
+      align = "llr",
+      booktabs = TRUE) %>%
+  kable_styling(bootstrap_options = "responsive",
+                position = "center",
+                font_size = 12,
+                htmltable_class = "lightable-classic")
+```
+
+### Gebiedsgericht
+
+#### Totaal aantal IUS per vogelrichtlijngebied
+
+Beperkt tot relevante soorten voor vogelrichtlijngebieden
+
+```{r n-ias-in-vglrl, echo=FALSE, warning=FALSE}
+VGLRL_nspec <- VGLRL %>%
+  filter(soort %in% species_vglrl & gebied != "VGLRL" & type == "of" & overlap != 0) %>%
+  group_by(gebied) %>%
+  summarize(total_species = n()) %>%
+  left_join(ps_vglrl, by = c("gebied" = "na2000code")) %>%
+  st_as_sf() %>%
+  st_cast("MULTIPOLYGON")
+
+ggplotly(
+  ggplot() +
+    geom_sf(data = Provincies_grenzen, fill= "#f0f0f0", linewidth = 0.2) +
+    geom_sf(data = VGLRL_nspec, aes(color = total_species, fill = total_species, text = paste0(gebnaam, " (", gebied, "): ", total_species))) +
+    theme_map(), 
+  tooltip = "text")
+```
+
+#### Welke IUS komen voor in een vogelrichtlijngebied? 
+```{r spec-in-SBZ-V, echo=FALSE}
+x <- VGLRL %>%
+  filter(soort %in% species_vglrl & gebied %in% c("BE2301235", "BE2500932", "BE2200727") & type == "in") %>%
+  group_by(gebied)
+
+ggplot(x, aes(x = overlap, y = reorder(soort, overlap))) +
+  geom_bar(stat = "identity", fill = "#c04384") +
+  facet_wrap(~gebied, ncol = 3, scales = "free_x") +
+  labs(y = NULL) +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+```
+
+### Soortgericht
+
+#### Welke soorten komen (niet) voor in vogelrichtlijngebieden? 
+
+beperkt tot relevante soorten zoals eerder vermeld. 
+```{r spec-in-vglrl, echo=FALSE, warning=FALSE}
+x <- VGLRL %>%
+  filter(soort %in% species_vglrl & gebied == "VGLRL" & type == "of")  %>%
+  mutate(label_color = ifelse(overlap == 0, "lightgrey", "black"))
+
+# Labels en kleuren aanmaken
+label_colors <- setNames(x$label_color, x$soort)
+
+# Plot met aangepaste kleuren voor x-as labels
+ggplotly(
+  ggplot(x , aes(x = reorder(soort, overlap), y = overlap)) +
+    geom_bar(stat = "identity", fill = "#c04384", aes(text = paste0(soort, " (", round(overlap*100, 1), "%)"))) +
+    theme_bw() +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1),
+          axis.title.x = element_blank()) +
+    scale_x_discrete(labels = function(soort) {
+      # Pas de kleur van de labels aan afhankelijk van de overlap
+      sapply(soort, function(s) {
+        paste0("<span style='color:", label_colors[s], "'>", s, "</span>")
+      })
+    }) +
+    theme(axis.text.x = ggtext::element_markdown()),
+  tooltip = "text",
+  height = 700)
+```
+
+treurmaina en wasbeerhond komen tot op heden niet voor in vogelrichtlijngebied. 
+
+#### In hoeveel vogelrichtlijngebieden komen de relevante soorten voor? 
+```{r vglrl-n-gebieden, echo=FALSE}
+x <- VGLRL %>%
+  filter(soort %in% species_vglrl & gebied != "VGLRL" & type == "of" & overlap != 0) %>%
+  group_by(soort) %>%
+  summarise(n_geb = n())
+
+ggplotly(
+  ggplot(x, aes(x = reorder(soort, n_geb), y = n_geb)) +
+    geom_bar(stat = "identity", fill = "#c04384", aes(text = paste0(soort, " (", n_geb, " SBZ-V)"))) +
+    labs(x = NULL, y = "Aantal SBZ-V") +
+    theme_bw(),
+  tooltip = "text")
+```
+
+Nijlgans en Canadese gans komen in ALLE vogelrichtlijngebieden voor! 
+
+#### In welke  vogelrichtlijngebieden komt een soort voor? {.tabset}
+##### rosse stekelstaart
+```{r overlap-stekelstaart-vglrl, results='asis', echo=FALSE, warning=FALSE}
+df <- VGLRL_spatial %>%
+  filter(soort == "rosse stekelstaart" & type == "in" & gebied != "VGLRL" & overlap != 0) %>%
+  st_cast("MULTIPOLYGON")
+
+occs <- occ_flanders %>%
+  filter(Soort == "rosse stekelstaart") 
+
+pal <- colorNumeric(
+  palette = "Reds",
+  domain = df$overlap)
+
+ggplotly(ggplot() +
+  geom_sf(data = Provincies_grenzen, fill = "#f0f0f0", linewidth = 0.2) +
+  geom_sf(data = ps_vglrl, fill = "grey80", color = "grey80", size = 0.5) +
+  geom_sf(data = df, aes(text = paste0(gebnaam, " (", gebied, "): ", round(overlap * 100, 1), "%")), fill = "#c04384", color = "#c04384", size = 0.5) +
+  geom_sf(data = occs, color = "blue") +
+  theme_map())
+
+ggplotly(ggplot() +
+           geom_bar(data = df, aes(x = overlap, y = reorder(str_wrap(paste(gebnaam, "(<b>", gebied, "</b>)"), width = 40), overlap), text = paste0(gebied, " (", gebnaam, "): ", round(overlap * 100, 1), "%")), stat = "identity", colour = "#c04384", fill = "#c04384") +
+           theme_bw() +
+           theme(axis.text.x = element_text(angle = 90),
+                 axis.title.y = element_blank()
+           ) +
+           scale_x_continuous(labels = scales::percent_format(accuracy = 1)), 
+         tooltip = "text")
+```
+
+##### Amerikaanse nerts
+```{r overlap-am-nerts-vglrl, results='asis', echo=FALSE, warning=FALSE}
+df <- VGLRL_spatial %>%
+  filter(soort == "Amerikaanse nerts" & type == "in" & gebied != "VGLRL" & overlap != 0) %>%
+  st_cast("MULTIPOLYGON")
+
+occs <- occ_flanders %>%
+  filter(Soort == "Amerikaanse nerts") 
+
+pal <- colorNumeric(
+  palette = "Reds",
+  domain = df$overlap)
+
+ggplotly(ggplot() +
+  geom_sf(data = Provincies_grenzen, fill = "#f0f0f0", linewidth = 0.2) +
+  geom_sf(data = ps_vglrl, fill = "grey80", color = "grey80", size = 0.5) +
+  geom_sf(data = df, aes(text = paste0(gebnaam, " (", gebied, "): ", round(overlap * 100, 1), "%")), fill = "#c04384", color = "#c04384", size = 0.5) +
+  geom_sf(data = occs, color = "blue") +
+  theme_map())
+
+ggplotly(ggplot() +
+           geom_bar(data = df, aes(x = overlap, y = reorder(str_wrap(paste(gebnaam, "(<b>", gebied, "</b>)"), width = 40), overlap), text = paste0(gebied, " (", gebnaam, "): ", round(overlap * 100, 1), "%")), stat = "identity", colour = "#c04384", fill = "#c04384") +
+           theme_bw() +
+           theme(axis.text.x = element_text(angle = 90),
+                 axis.title.y = element_blank()
+           ) +
+           scale_x_continuous(labels = scales::percent_format(accuracy = 1)), 
+         tooltip = "text")
+```
+
+##### muskusrat
+```{r overlap-muskusrat-vglrl, results='asis', echo=FALSE, warning=FALSE}
+df <- VGLRL_spatial %>%
+  filter(soort == "muskusrat" & type == "in" & gebied != "VGLRL" & overlap != 0) %>%
+  st_cast("MULTIPOLYGON")
+
+occs <- occ_flanders %>%
+  filter(Soort == "muskusrat") 
+
+pal <- colorNumeric(
+  palette = "Reds",
+  domain = df$overlap)
+
+ggplotly(ggplot() +
+  geom_sf(data = Provincies_grenzen, fill = "#f0f0f0", linewidth = 0.2) +
+  geom_sf(data = ps_vglrl, fill = "grey80", color = "grey80", size = 0.5) +
+  geom_sf(data = df, aes(text = paste0(gebnaam, " (", gebied, "): ", round(overlap * 100, 1), "%")), fill = "#c04384", color = "#c04384", size = 0.5) +
+  geom_sf(data = occs, color = "blue", alpha = 0.3) +
+  theme_map())
+
+ggplotly(ggplot() +
+           geom_bar(data = df, aes(x = overlap, y = reorder(str_wrap(paste(gebnaam, "(<b>", gebied, "</b>)"), width = 40), overlap), text = paste0(gebied, " (", gebnaam, "): ", round(overlap * 100, 1), "%")), stat = "identity", colour = "#c04384", fill = "#c04384") +
+           theme_bw() +
+           theme(axis.text.x = element_text(angle = 90),
+                 axis.title.y = element_blank()
+           ) +
+           scale_x_continuous(labels = scales::percent_format(accuracy = 1)), 
+         tooltip = "text")
+```
 
 # NATURA 2000 HABITATS
 
@@ -978,8 +1211,6 @@ for (i in unique(PATDAT_slice$gebied)) {
           theme_bw() + 
           theme(axis.title.y = element_blank(), 
                 axis.text.y = element_text(size = 10)))
-  
-  # ggsave(file=paste0("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/4_Workshop/Presentaties/Figuren/RadIUS/", i, ".png"), width = 15, height = 10, units = "cm", dpi=200)
 }
 ```
 
