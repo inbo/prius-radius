@@ -159,7 +159,7 @@ hab_names <- read_namelist(lang = "nl")  %>%
 n2khab <- n2khab %>%
   left_join(read_namelist(lang = "nl"), by = c("type" = "code"))
 
-st_write(n2khab, "./radius/data/spatial/n2khab.shp", append = FALSE)
+#st_write(n2khab, "./radius/data/spatial/n2khab.shp", append = FALSE)
 
 n2khab_wgs84 <- n2khab %>%
   st_transform(4326)
@@ -250,6 +250,14 @@ am_patdat <- am_patdat %>%
   ))
 ```
 
+# We maken een opdeling van de ANB domeinen in am_patdat_excl_ob (anb domeinen excl. openbare bossen) en am_patdat_incl_ob
+waarom? Op workshop werd vermeld dat een heel groot deel van de ANB domeinen onder technisch beheer conform bosdecreet vallen en door boswachters in de praktijk niet worden meegerekend als eigen domeinen. 
+```{r}
+am_patdat_excl_ob <- am_patdat %>%
+  filter(rechtenanb != "Technisch beheer conform bosdecreet")
+```
+
+
 ```{r add-abbreviations-nbhp}
 ps_nbhp <- ps_nbhp %>%
   mutate(natuurbeheerplantype_abb = case_when(
@@ -263,7 +271,8 @@ ps_nbhp <- ps_nbhp %>%
     natuurbeheerplantype == "Aangewezen Bosreservaat" ~ "BosreA",
     natuurbeheerplantype == "Harmonisch Park- en Groenbeheerplan" ~ "HarmPG",
     natuurbeheerplantype == "Erkend Natuurreservaat" ~ "Natres",
-    natuurbeheerplantype == "Erkend Bosreservaat" ~ "BosreE")) %>%
+    natuurbeheerplantype == "Erkend Bosreservaat" ~ "BosreE",
+    natuurbeheerplantype == "Domein met natuurprotocol" ~ "DomNa")) %>%
   mutate(eigendomtype_abb = case_when(
     eigendomtype == "Natuurlijke persoon" ~ "NatPer",
     eigendomtype == "Privaatrechtelijke rechtspersoon" ~ "PrivRec",
@@ -271,7 +280,8 @@ ps_nbhp <- ps_nbhp %>%
     eigendomtype == "Bestuur" ~ "Bestuur",
     eigendomtype == "Andere Vlaamse overheid" ~ "VOander",
     eigendomtype == "Andere" ~ "Andere"
-  ))
+  )) %>%
+  filter(!is.na(eigendomtype))
 ```
 
 # Calculating occupancy metrics
@@ -281,7 +291,8 @@ list.dfs <- list(
   HBTRL = ps_hbtrl_deel,
   VGLRL = ps_vglrl,
   N2KHAB = n2khab,
-  PATDAT = am_patdat,
+  PATDAT_incl_ob = am_patdat,
+  PATDAT_excl_ob = am_patdat_excl_ob,
   NBHP = ps_nbhp,
   TOP3 = data.frame(), 
   VL = data.frame()
@@ -317,7 +328,7 @@ for (i in unique(occ_flanders$Soort)) {
   
   total_area <- sum(occ_species_buf$buf_area)
   
-  list.results[[7]] <- rbind(list.results[[7]], data.frame(
+  list.results[[8]] <- rbind(list.results[[8]], data.frame(
     soort = i,
     species = paste(unique(occ_species$Species), collapse = ","), 
     abbr = unique(na.omit(occ_species$abbr)), 
@@ -327,7 +338,7 @@ for (i in unique(occ_flanders$Soort)) {
   ))
   
   # loop through wfs-maps to calculate occupancy metrics
-  for (j in seq_along(list.dfs[1:5])) {
+  for (j in seq_along(list.dfs[1:6])) {
     print(j)
     # transform CRS to Lambert 72 to use st_buffer with meters instead of decimal degrees
     gebied <- list.dfs[[j]] %>%
@@ -336,7 +347,7 @@ for (i in unique(occ_flanders$Soort)) {
     
     gebied_summary <- gebied %>%
       st_drop_geometry() %>%
-      select(code = if (j == 1) "gebcode" else if (j == 2) "na2000code" else if (j == 3) "type" else if (j == 4) "regio_abb" else "eigendomtype_abb", geb_area) %>%
+      select(code = if (j == 1) "gebcode" else if (j == 2) "na2000code" else if (j == 3) "type" else if (j %in% c(4,5)) "regio_abb" else "eigendomtype_abb", geb_area) %>%
       group_by(code) %>%
       summarise(geb_area = as.numeric(sum(geb_area)))
     
@@ -401,8 +412,8 @@ for (i in unique(occ_flanders$Soort)) {
         }
       }
       
-      # additional occupancy metrics for PATDAT (i = 4)
-      if (j == 4) {
+      # additional occupancy metrics for PATDAT (i = c(4,5))
+      if (j %in% c(4,5)) {
         print("additional metrics patdat")
         # totaal aantal domeinen waarmee verspreiding overlapt
         list.results[[j]] <- rbind(list.results[[j]], data.frame(
@@ -465,8 +476,8 @@ for (i in unique(occ_flanders$Soort)) {
         print("overlap per ANB regio: DONE")
       }
       
-      # additional occupancy metrics for NBHP (i = 5)
-      if (j == 5) {
+      # additional occupancy metrics for NBHP (i = 6)
+      if (j == 6) {
         print("additional metrics nbhp")
         # totaal aantal gebieden waarmee verspreiding overlapt
         list.results[[j]] <- rbind(list.results[[j]], data.frame(
@@ -495,6 +506,7 @@ for (i in unique(occ_flanders$Soort)) {
             type = paste0(c("n_per_type"))))
         }
         print("aantal domeinen per nbhptype: DONE")
+        
         # percentage overlap per eigendomtype
         overlap_per_eigendomtype <- occ_species_intersection %>%
           st_drop_geometry() %>%
@@ -511,29 +523,32 @@ for (i in unique(occ_flanders$Soort)) {
           # percentage_overlap_in = as.numeric(overlap_per_eigendomtype[row,]$intersect_area / overlap_intersection)
           # OPTIE 2: percentage van totale verspreiding dat overlapt per eigendomtype
           percentage_overlap_in = overlap_per_eigendomtype[row,]$intersect_area / total_area
+          percentage_overlap_of = overlap_per_eigendomtype[row,]$intersect_area / overlap_per_eigendomtype[row,]$geb_area
           
-          list.results[[j]] <- rbind(list.results[[j]], data.frame(
+          metrics_df <- data.frame(
             soort = i,
             species = paste(unique(occ_species$Species), collapse = ","), 
-            abbr = unique(na.omit(occ_species$abbr)),
+            abbr = unique(na.omit(occ_species$abbr)), 
             gebied = as.character(overlap_per_eigendomtype[row,1]),
-            overlap = format(round(percentage_overlap_in, 6), scientific = FALSE), 
-            type = "in"))
+            overlap = format(round(c(percentage_overlap_in, percentage_overlap_of), 6), scientific = FALSE), 
+            type = paste0(c("in", "of")))
+            
+          list.results[[j]] <- rbind(list.results[[j]], metrics_df)
         } 
         print("overlap per eigendomtype: DONE")
       }
       
       # Top 3 gebieden voor HBTRL, VGLRL, NBHP
-      if (j %in% c(1,2,5)) {
+      if (j %in% c(1,2,6)) {
         print("top 3 hbtrl, vglrl, nbhp")
         top_3 <- occ_species_intersection %>%
-          group_by(naam = if (j == 2) gebnaam else if (j == 5) naamdossier else naam) %>%
+          group_by(naam = if (j == 2) gebnaam else if (j == 6) naamdossier else naam) %>%
           summarise(intersect_area = sum(intersect_area)) %>%
           slice_max(order_by = intersect_area, n = 3, na_rm = TRUE) %>%
           st_drop_geometry()
 
         for (row in 1:nrow(top_3)) {
-          list.results[[6]] <- rbind(list.results[[6]], data.frame(
+          list.results[[7]] <- rbind(list.results[[7]], data.frame(
             soort = i,
             species = paste(unique(occ_species$Species), collapse = ","), 
             abbr = unique(na.omit(occ_species$abbr)),
@@ -544,7 +559,7 @@ for (i in unique(occ_flanders$Soort)) {
       }
 
       # Top 3 anb regio's en domeinen
-      if (j == 4) {
+      if (j %in% c(4,5)) {
         print("top 3 patdat")
         top_3_regio <- occ_species_intersection %>%
           group_by(regio) %>%
@@ -553,7 +568,7 @@ for (i in unique(occ_flanders$Soort)) {
           st_drop_geometry()
 
         for (row in 1:nrow(top_3_regio)) {
-          list.results[[6]] <- rbind(list.results[[6]], data.frame(
+          list.results[[7]] <- rbind(list.results[[7]], data.frame(
             soort = i,
             species = paste(unique(occ_species$Species), collapse = ","), 
             abbr = unique(na.omit(occ_species$abbr)),
@@ -570,7 +585,7 @@ for (i in unique(occ_flanders$Soort)) {
           st_drop_geometry()
 
         for (row in 1:nrow(top_3_domein)) {
-          list.results[[6]] <- rbind(list.results[[6]], data.frame(
+          list.results[[7]] <- rbind(list.results[[7]], data.frame(
             soort = i,
             species = paste(unique(occ_species$Species), collapse = ","), 
             abbr = unique(na.omit(occ_species$abbr)),
@@ -607,7 +622,8 @@ saveRDS(list.results, file="./radius/data/output/list_results.RData")
 HBTRL_long <- list.results$HBTRL 
 VGLRL_long <- list.results$VGLRL 
 N2KHAB_long <- list.results$N2KHAB 
-PATDAT_long <- list.results$PATDAT 
+PATDAT_incl_ob_long <- list.results$PATDAT_incl_ob
+PATDAT_excl_ob_long <- list.results$PATDAT_excl_ob
 NBHP_long <- list.results$NBHP 
 TOP3_long <- list.results$TOP3 
 VL_long <- list.results$VL 
@@ -617,7 +633,8 @@ VL_long <- list.results$VL
 write_csv(HBTRL_long, "./radius/data/output/HBTRL_long.csv")
 write_csv(VGLRL_long, "./radius/data/output/VGLRL_long.csv")
 write_csv(N2KHAB_long, "./radius/data/output/N2KHAB_long.csv")
-write_csv(PATDAT_long, "./radius/data/output/PATDAT_long.csv")
+write_csv(PATDAT_incl_ob_long, "./radius/data/output/PATDAT_incl_ob_long.csv")
+write_csv(PATDAT_excl_ob_long, "./radius/data/output/PATDAT_excl_ob_long.csv")
 write_csv(NBHP_long, "./radius/data/output/NBHP_long.csv")
 write_csv(TOP3_long, "./radius/data/output/TOP3_long.csv")
 write_csv(VL_long, "./radius/data/output/VL_long.csv")
@@ -642,7 +659,13 @@ N2KHAB_wide <- N2KHAB_long %>%
   pivot_wider(names_from = gebied, values_from = overlap, values_fill = "0") %>%
   select(soort, species, contains("in"), contains("of"), contains("sel"))
 
-PATDAT_wide <- PATDAT_long %>%
+PATDAT_incl_ob_wide <- PATDAT_incl_ob_long %>%
+  mutate(gebied = paste0(ifelse (type %in% c("in", "of", "sel"), type, "n"), gebied)) %>%
+  select(!type) %>%
+  pivot_wider(names_from = gebied, values_from = overlap, values_fill = "0") %>%
+  select(soort, species, abbr, starts_with("n"), starts_with("in"), starts_with("of"), contains("sel"))
+
+PATDAT_excl_ob_wide <- PATDAT_excl_ob_long %>%
   mutate(gebied = paste0(ifelse (type %in% c("in", "of", "sel"), type, "n"), gebied)) %>%
   select(!type) %>%
   pivot_wider(names_from = gebied, values_from = overlap, values_fill = "0") %>%
@@ -654,9 +677,9 @@ NBHP_wide <- NBHP_long %>%
   pivot_wider(names_from = gebied, values_from = overlap, values_fill = "0") %>%
   select(soort, species, abbr, starts_with("n"), starts_with("in"), starts_with("of"), contains("sel"))
 
-TOP3_wide <- TOP3_long %>%
-  pivot_wider(names_from = gebied, values_from = intersect_area, values_fill = ) %>%
-  select(!type)
+# TOP3_wide <- TOP3_long %>%
+#   pivot_wider(names_from = gebied, values_from = intersect_area, values_fill = "0") %>%
+#   select(!type)
 
 VL_wide <- VL_long %>%
   mutate(gebied = paste0(type, gebied)) %>%
@@ -668,9 +691,10 @@ VL_wide <- VL_long %>%
 write_csv(HBTRL_wide, "./radius/data/output/HBTRL_wide.csv")
 write_csv(VGLRL_wide, "./radius/data/output/VGLRL_wide.csv")
 write_csv(N2KHAB_wide, "./radius/data/output/N2KHAB_wide.csv")
-write_csv(PATDAT_wide, "./radius/data/output/PATDAT_wide.csv")
+write_csv(PATDAT_incl_ob_wide, "./radius/data/output/PATDAT_incl_ob_wide.csv")
+write_csv(PATDAT_excl_ob_wide, "./radius/data/output/PATDAT_excl_ob_wide.csv")
 write_csv(NBHP_wide, "./radius/data/output/NBHP_wide.csv")
-write_csv(TOP3_wide, "./radius/data/output/TOP3_wide.csv")
+#write_csv(TOP3_wide, "./radius/data/output/TOP3_wide.csv")
 write_csv(VL_wide, "./radius/data/output/VL_wide.csv")
 ```
 
