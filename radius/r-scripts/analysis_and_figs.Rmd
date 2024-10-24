@@ -62,12 +62,11 @@ custom_theme <- function() {
 }
 ```
 
-
 ```{r clear-memory, include=FALSE}
-#rm(list=ls())
+rm(list=ls())
 ```
 
-```{r load-data, include=FALSE}
+```{r load-data, include=FALSE, message=FALSE}
 # Species data 
 species_list <- read_csv("./radius/data/input/radius_species_list.csv") 
 species_abbr <- read_csv2("G:/Mijn Drive/Fleur/RadIUS/RadIUS voorbereiding/species_abbr.csv")
@@ -154,6 +153,19 @@ PATDAT_wide <- read_csv("./radius/data/output/PATDAT_incl_ob_wide.csv")
 PATDAT_excl_wide <- read_csv("./radius/data/output/PATDAT_excl_ob_wide.csv")
 
 TOP3 <- read_csv("./radius/data/output/TOP3.csv")
+
+#### Soortenbeschermingsprogramma's (SBP)
+
+## spatial
+lu_sbp_pgs <- st_read("./radius/data/spatial/lu_sbp_pgs.shp")
+lu_sbp_pls <- st_read("./radius/data/spatial/lu_sbp_pls.shp")
+
+## metrics
+SBP_pgs <- read_csv("./radius/data/output/SBP_pgs_long.csv")
+SBP_pls <- read_csv("./radius/data/output/SBP_pls_long.csv")
+
+SBP_pgs_wide <- read_csv("./radius/data/output/SBP_pgs_wide.csv")
+SBP_pls_wide <- read_csv("./radius/data/output/SBP_pls_wide.csv")
 ```
 
 # DATA EXPLORATIE
@@ -2589,6 +2601,76 @@ ggsave("./radius/data/output/figuren/patdat_per_bh.png",
        width = 7,  
        height = 8,
        dpi = 300)
+```
+
+# SOORTENBESCHERMINGSPROGRAMMA'S (SBPs)
+
+## Overzicht
+
+### Polygonen
+```{r sbp_pgs}
+### Voor hoeveel soorten werden zones afgebakend en weergegeven in deze kaartlaag?
+unique(lu_sbp_pgs$soort)
+```
+
+### Kaartje per soort 
+```{r}
+for (i in unique(lu_sbp_pgs$soort)) {
+  zones <- lu_sbp_pgs %>%
+    filter(soort == i)
+  
+  print(ggplotly(
+  ggplot() +
+    geom_sf(data = Provincies_grenzen, fill= "#f0f0f0", linewidth = 0.2) +
+    geom_sf(data = zones, color= "black", fill="#a4e98f", linewidth = 0.03, aes(text = gebied)) +
+    ggtitle(paste0(i)) +
+    theme_map(), 
+  tooltip = "text"))
+}
+```
+
+### Kaartje voor vissen 
+```{r}
+for (i in unique(lu_sbp_pls$soort)) {
+  zones <- lu_sbp_pls %>%
+    filter(soort == i)
+
+  print(ggplotly(
+  ggplot() +
+    geom_sf(data = Provincies_grenzen, fill= "#f0f0f0", linewidth = 0.2) +
+    geom_sf(data = zones, linewidth = 0.7, aes(color = type, text = type)) +
+    ggtitle(paste0(i)) +
+    theme_map(), 
+  tooltip = "text"))
+}
+```
+
+## SBP beekvissen (rivierdonderpad, beekprik, kleine modderkruiper)
+
+### Relevante soorten
+```{r}
+sbp_vissen_ius <- species_list %>%
+  filter(Soort %in% c("Amerikaanse stierkikker",
+                      "blauwbandgrondel", "Kesslergrondel", "Pontische stroomgrondel", "marmergrondel", "zwartbekgrondel",
+                      "Californische rivierkreeft", "gestreepte Amerikaanse rivierkreeft", "gevlekte Amerikaanse rivierkreeft", "rode Amerikaanse rivierkreeft", "Turkse rivierkreeft"
+         )) %>%
+  pull(Soort)
+```
+
+```{r}
+SBP_pls_sub <- SBP_pls %>%
+  filter(soort %in% sbp_vissen_ius)
+```
+
+
+```{r}
+ggplotly(
+  ggplot() +
+    geom_sf(data = Provincies_grenzen, fill= "#f0f0f0", linewidth = 0.2) +
+    geom_sf(data = lu_sbp_pls, color = "green") +
+    geom_sf(data = occ_flanders %>% filter(Soort == "Pontische stroomgrondel"), color = "blue", linewidth = 0.7) +
+    theme_map(), 
+  tooltip = "text")
 ```
 
 
