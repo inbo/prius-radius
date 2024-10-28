@@ -63,7 +63,7 @@ custom_theme <- function() {
 ```
 
 ```{r clear-memory, include=FALSE}
-rm(list=ls())
+#rm(list=ls())
 ```
 
 ```{r load-data, include=FALSE, message=FALSE}
@@ -424,7 +424,7 @@ x <- HBTRL %>%
   dplyr::filter(gebied %in% c("BE2500001", "BE2200029","BE2100040") & type == "of") %>%
   group_by(gebied) %>%
   left_join(ps_hbtrl %>% st_drop_geometry(), by = c("gebied" = "gebcode")) %>%
-  slice_max(n = 10, order_by = overlap) %>%
+  #slice_max(n = 10, order_by = overlap) %>%
   mutate(gebied_label = paste0(naam, "\n (", gebied, ")")) %>%
   left_join(y, by = c("soort" = "Soort")) %>%
   select(soort, species, gebied, overlap, n_obs) %>%
@@ -476,6 +476,16 @@ x <- HBTRL %>%
   pivot_longer(cols = c("overlap", "n_geb"), names_to = "type", values_to = "overlap") %>%
   mutate(type = recode(type, "overlap" = "% bezetting", "n_geb" = "# gebieden")) %>%
   replace_na(list(overlap = 0))
+
+x <- HBTRL %>%
+  dplyr::filter(gebied == "HBTRL" & type == "of") %>%
+  mutate(label_color = ifelse(overlap == 0, "grey75", "black")) %>%
+  left_join(species_list, by = c("soort" = "Soort")) %>%
+  select(soort, species, Groep, overlap, label_color) %>%
+  distinct() %>%
+  mutate(Groep = recode(Groep, "plant" = "planten", "dier" = "dieren")) %>%  # Recodeer Groep
+  left_join(HBTRL_ngeb, by = "soort") %>%
+  select(soort, Groep, overlap, n_geb)
 
 x_order <- x %>%
   dplyr::filter(type == "% bezetting") %>%
@@ -575,8 +585,8 @@ Soorten met meer dan 50% van totale Vlaamse verspreiding in habitatrichtlijngebi
 ```{r in-vs-of, echo=FALSE, message=FALSE}
 in_vs_of_HBTRL <- in_HBTRL %>%
   select(!type) %>%
-  left_join(of_HBTRL %>% select(!type), by = c("soort", "species", "abbr", "gebied"), suffix = c(".in", ".of")) %>%
-  dplyr::filter(!soort %in% spor_species$Soort)    # sporadische soorten (soorten met minder dan 20 waarnemingen sinds 2015 worden weggelaten)
+  left_join(of_HBTRL %>% select(!type), by = c("soort", "species", "abbr", "gebied"), suffix = c(".in", ".of")) #%>%
+  #dplyr::filter(!soort %in% spor_species$Soort)    # sporadische soorten (soorten met minder dan 20 waarnemingen sinds 2015 worden weggelaten)
 
 ggplot() +
   geom_text(data = in_vs_of_HBTRL, aes(x = overlap.in*100, y = overlap.of*100, label = abbr), size = 3, family = "Arial", color = "black") +
@@ -1942,10 +1952,10 @@ NBHP_ngeb <- NBHP %>%
 x <- NBHP %>%
   dplyr::filter(gebied  == "NBHP" & type == "of")  %>%
   slice_max(n = 10, order_by = overlap) %>%
-  #mutate(label_color = ifelse(overlap == 0, "grey75", "black")) %>%
   left_join(species_list, by = c("soort" = "Soort")) %>%
-  mutate(EU_color = ifelse(EU_lijst != 0, "red", "black")) %>%
-  select(soort, species, Groep, overlap, EU_color) %>%
+  #mutate(EU_color = ifelse(EU_lijst != 0, "red", "black")) %>%
+  mutate(soort_label = ifelse(EU_lijst != 0, paste0(soort, "*"), soort)) %>% 
+  select(soort, soort_label, species, Groep, overlap) %>%
   distinct() %>%
   mutate(Groep = recode(Groep, "plant" = "planten", "dier" = "dieren")) %>% 
   left_join(NBHP_ngeb, by = "soort") %>%
@@ -1953,31 +1963,39 @@ x <- NBHP %>%
   mutate(type = recode(type, "overlap" = "% bezetting", "n_geb" = "# natuurbeheerplannen")) %>%
   replace_na(list(overlap = 0))
 
-x_order <- x %>%
-  dplyr::filter(type == "% bezetting") %>%
-  arrange(overlap) %>%
-  pull(soort)
-
 x$soort <- factor(x$soort, levels = x_order)
 x$type <- factor(x$type, levels = c("% bezetting", "# natuurbeheerplannen"))
 x$Groep <- factor(x$Groep, levels = c("dieren", "planten"))
 
-label_colors <- setNames(x$EU_color, x$soort)
+# label_colors <- setNames(x$EU_color, x$soort)
+# ggplot(x, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort, fill = overlap)) +
+#   geom_bar(stat = "identity", show.legend = FALSE, width = 0.7, fill = "#c04384") +  
+#   facet_grid(Groep ~ type, scales = "free") +  
+#   scale_x_continuous(expand = c(0, 0.2)) +
+#   scale_y_discrete(labels = function(soort) {
+#     sapply(soort, function(s) {
+#       paste0("<span style='color:", label_colors[s], "'>", s, "</span>")
+#     })
+#   }) +
+#   labs(x = "Bezetting van Natuurbeheerplannen", y = NULL) +
+#   custom_theme() + 
+#   theme(
+#     strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0, vjust = 0, size = 10),
+#     axis.text.y = element_markdown()
+#   )
 
-ggplot(x, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort, fill = overlap)) +
+ggplot(x, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort_label, fill = overlap)) +
   geom_bar(stat = "identity", show.legend = FALSE, width = 0.7, fill = "#c04384") +  
   facet_grid(Groep ~ type, scales = "free") +  
   scale_x_continuous(expand = c(0, 0.2)) +
-  scale_y_discrete(labels = function(soort) {
-    sapply(soort, function(s) {
-      paste0("<span style='color:", label_colors[s], "'>", s, "</span>")
-    })
-  }) +
-  labs(x = "Bezetting van Natuurbeheerplannen", y = NULL) +
+  scale_y_discrete() + 
+  labs(x = "Bezetting van Natuurbeheerplannen", y = NULL,
+       caption = "* Unielijstsoort") + 
   custom_theme() + 
   theme(
-    strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0, vjust = 0, size = 10),
-    axis.text.y = element_markdown()
+    strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0, vjust = 0, size = 9),
+    axis.text.y = element_text(size = 9),
+    plot.caption = element_text(size = 7, hjust = 0)
   )
 
 ggsave("./radius/data/output/figuren/nbhp_bezetting.png", 
