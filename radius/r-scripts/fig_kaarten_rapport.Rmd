@@ -1,0 +1,69 @@
+
+```{r load-library, message=FALSE}
+library(sf)
+library(ggplot2)
+library(ggthemes)
+```
+
+```{r load-data, include=FALSE}
+Provincies_grenzen <- st_read("./prius/data/spatial/Provincies.geojson") %>%
+  st_transform(4326)
+ps_hbtrl_deel <- st_read("./radius/data/spatial/ps_hbtrl_deel.shp")
+ps_vglrl <- st_read("./radius/data/spatial/ps_vglrl.shp") 
+n2khab <- st_read("./radius/data/spatial/n2khab.shp")
+ps_nbhp <- st_read("./radius/data/spatial/ps_nbhp.shp")
+am_patdat <- st_read("./radius/data/spatial/am_patdat.shp")
+
+# SBP nog toevoegen na mergen branch "radius_analyse_en_figuren"
+```
+
+# Habitatrichtlijngebieden (SBZ-H)
+```{r}
+plot_hbtrl <- ggplot() +
+  geom_sf(data = Provincies_grenzen,  fill= "#f0f0f0", linewidth = 0.2) +
+  geom_sf(data = ps_hbtrl_deel, fill="#a4e98f", color ="#a4e98f", linewidth = 0.01) +
+  theme_map()
+
+ggsave("./radius/data/output/fig_maps/Habitatrichtlijngebieden.jpg", plot = plot_hbtrl, width = 21, height = 12, units = "cm")
+```
+
+# Vogelrichtlijngebieden (SBZ-V)
+```{r}
+plot_vglrl <- ggplot() +
+  geom_sf(data = Provincies_grenzen,  fill= "#f0f0f0", linewidth = 0.2) +
+  geom_sf(data = ps_vglrl, fill="#a4e98f", color ="#a4e98f", linewidth = 0.01) +
+  theme_map()
+
+ggsave("./radius/data/output/fig_maps/Vogelrichtlijngebieden.jpg", plot = plot_vglrl, width = 21, height = 12, units = "cm")
+```
+
+# N2000 Habitats
+```{r}
+plot_n2khab <- ggplot() +
+  geom_sf(data = Provincies_grenzen,  fill= "#f0f0f0", linewidth = 0.2) +
+  geom_sf(data = n2khab, fill="#a4e98f", color ="#a4e98f", linewidth = 0.01) +
+  theme_map()
+
+ggsave("./radius/data/output/fig_maps/Natura2000habitats.jpg", plot = plot_n2khab, width = 21, height = 12, units = "cm")
+```
+
+# Natuurbeheerplannen
+```{r}
+plot_nbhp <- ggplot() +
+  geom_sf(data = Provincies_grenzen,  fill= "#f0f0f0", linewidth = 0.2) +
+  geom_sf(data = ps_nbhp, fill="#a4e98f", color ="#a4e98f", linewidth = 0.01) +
+  theme_map()
+
+ggsave("./radius/data/output/fig_maps/Natuurbeheerplannen.jpg", plot = plot_nbhp, width = 21, height = 12, units = "cm")
+```
+
+# Soortenbeschermingsprogramma's (SBPs)
+```{r}
+
+```
+
+
+
+
+
+
