@@ -224,7 +224,7 @@ ps_nbhp <- read_sf(request) %>%
   st_set_crs(31370) %>%  
   ensure_multipolygons()   
 
-#st_write(ps_nbhp, "./radius/data/spatial/ps_nbhp.shp", append = FALSE)
+st_write(ps_nbhp, "./radius/data/spatial/ps_nbhp.shp", append = FALSE)
 
 ps_nbhp_wgs84 <- ps_nbhp %>%
   st_transform(4326)
