@@ -15,6 +15,32 @@ library(crosstalk)
 library(webshot)
 library(highcharter)
 library(rsconnect)
+library(ggtext)
+library(ggthemes)
+
+# Custom plot theme
+
+custom_theme <- function() {
+  theme_few() +
+    theme(
+      axis.title.y = element_text(size = 8, family = "Arial"),
+      axis.text.y = element_text(size = 8, family = "Arial"),
+      axis.title.x = element_text(size = 8, family = "Arial"),
+      axis.text.x = element_text(size = 8, family = "Arial"),
+      axis.ticks.length = unit(1.5, "pt"),
+      axis.ticks = element_line(colour = "grey90"),
+      legend.text = element_text(size = 8, family = "Arial"),
+      legend.title = element_blank(),
+      panel.border = element_rect(color = "grey90", fill = NA),
+      panel.grid.minor = element_blank(),
+      panel.grid.major = element_line(color = "grey90"),
+      panel.background = element_rect(color = "grey", fill = "grey98"),
+      strip.text = element_text(size = 9, face = "bold", hjust = -0.01, family = "Arial"),
+      #strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0.5, vjust = 0),
+      plot.title = element_text(size = 10, family = "Arial", face = "bold", hjust = 0.5),
+      plot.title.position = "plot"
+    )
+}
 
 # ##### DATA INLEZEN VOOR PUBLISHING
 # # Data inlezen
@@ -141,14 +167,48 @@ habitats <- read_csv2("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/rad
 
 # Custom CSS lay-out 
 custom_css <- "
+  .custom-sidebar {
+    width: 250px;
+    height: 100%;
+    padding: 10px;
+    background-color: #f8f9fa; 
+    box-shadow: 0 4px 8px rgba(0,0,0.1,0.1);
+    border-radius: 0px;
+    font-size: 12px;
+  }
+  
+  label.control-label {
+    font-size: 12px; 
+  }
+  
+  .selectize-input {
+    font-size: 12px; 
+  }
+
+  .selectize-dropdown .option {
+    font-size: 11px; 
+  }
+  
+  .custom-header-row {
+      flex-direction: column;
+      height: 150px; 
+      margin-bottom: 10px;
+      padding-top: 10px;
+      margin-left: 5px;
+      margin-right: 5px;
+      background-color: #f8f9fa;
+      box-shadow: 0 4px 8px rgba(0,0,0.1,0.1);
+      border-radius: 0px;
+  }
+
   .custom-header {
-      font-size: 3.5em;
+      font-size: 2em;
       font-weight: bold;
       color: black;
   }
   
   .custom-subheader {
-      font-size: 1.5em;
+      font-size: 1em;
       font-weight: normal;
       color: grey;
       margin-bottom: 5px;
@@ -183,19 +243,10 @@ custom_css <- "
   .custom-container {
     display: flex;
     flex-direction: row;
-    height: 100vh;
-    overflow: hidden;
+    height: 100%;
   }
   
-  .custom-sidebar {
-    width: 320px;
-    height: 100%;
-    flex-shrink: 0;
-    padding: 20px;
-    background-color: #f8f9fa; 
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    border-radius: 10px;
-  }
+  
   
   .main-content {
     flex: 1;
@@ -213,17 +264,7 @@ custom_css <- "
       padding: 5px 10px; 
     }
 
-  .custom-header-row {
-      flex-direction: column;
-      height: 200px; 
-      margin-bottom: 20px;
-      padding-top: 20px;
-      margin-left: 10px;
-      margin-right: 10px;
-      background-color: #f8f9fa;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      border-radius: 10px;
-  }
+  
   
   .custom-plotly-header {
     height: 150px; /* Adjust this value as needed */
@@ -237,7 +278,7 @@ custom_css <- "
     display: flex;
     flex-direction: column;
     text-align: left;
-    height: 180px;
+    height: 150px;
     box-shadow: none; 
     border: none; 
     background-color: #f8f9fa !important;
@@ -256,52 +297,48 @@ ui <- page_navbar(
   title = "RadIUS dashboard",
   bg = "#c04384",
   inverse = TRUE,
-  tags$head(tags$style(HTML(custom_css)), tags$link(rel = "stylesheet", href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css")),
-
+  header = tags$head(
+    tags$style(HTML(custom_css)),
+    tags$link(rel = "stylesheet", href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css")
+  ),
+  
   ## PAGINA 1 - GEBIEDSFICHES
   tabPanel(
     title = "Gebiedsfiches",
-    div(class = "custom-container",
-        div(class = "custom-sidebar",
-            p("eventueel buttons toevoegen om alleen planten, dieren of unielijstsoorten te selecteren?"),
-            selectInput("kaart2", label = "Kaarttype:", choices = names(list_metrics)),
-            uiOutput("gebiedsfiches_input")
+    div(
+      class = "custom-container",
+      ## Sidebar
+      div(
+        class = "custom-sidebar",
+        selectInput("kaart", "Kaarttype:", choices = names(list_metrics)),
+        uiOutput("gebiedsfiches_input")
+      ),
+      
+      ## Main Content
+      div(
+        class = "main-content",
+        fluidRow(
+          class = "custom-header-row",
+          column(9, 
+                 textOutput("gebiedsnaam") %>% tagAppendAttributes(class = "custom-header"),
+                 textOutput("deelgebied") %>% tagAppendAttributes(class = "custom-subheader")),
+          column(3, plotlyOutput("kaart2", height = "150px"))
         ),
-        
-        div(class = "main-content",
-            fluidRow(
-              class = "custom-header-row",
-              column(
-                width = 9,
-                div(textOutput("gebiedsnaam"), class = "custom-header")
-              ),
-              column(
-                width = 3,
-                plotlyOutput("kaart3", height = "150px")
-              )
-            ),
-            # fluidRow(
-            #   class = "custom-header-row",
-            #   width = 9,
-            #   div(textOutput("gebiedsnaam"), class = "custom-header")
-            #   ),
-            fluidRow(
-              p("Welke soorten komen voor in ... gebieden? Dit wordt op twee manieren weergegeven: (I) percentage van de totale soortverspreiding dat overlapt met het gebied (percentage van), (II) percentage van het totale oppervlak van gebied dat bezet is door de soort (percentage in)")
-            ),
-            uiOutput("gebiedsfiches_ui")
-        )
+        uiOutput("gebiedsfiches_ui")
+      )
     )
   ),
+  
   
   ## PAGINA 2 - SOORTENFICHES
   tabPanel(
     title = "Soortenfiches",
     div(class = "custom-container",
         div(class = "custom-sidebar",
-            p("Selecteer de", strong("soort"), "en", strong("kaart"), " waarin je geïnteresseerd bent."),
+            p("Selecteer de", strong("soort"), "en", strong("kaartlaag"), " waarin je geïnteresseerd bent."),
             selectizeInput(inputId = "soort", label = "Soort:", 
                            choices = sort(unique(occ_flanders$Soort)), selected = 1),
-            selectInput('kaart', label = 'Kaarttype:', choices = names(list_metrics))
+            selectInput('kaart3', label = 'Kaarttype:', choices = names(list_metrics))
         ),
         div(class = "main-content",
             fluidRow(
@@ -327,7 +364,7 @@ ui <- page_navbar(
                 )
               )
             ),
-            uiOutput("soortenfiches_ui"),
+            uiOutput("soortenfiches_ui")
         )
     )
   ),
@@ -343,25 +380,25 @@ ui <- page_navbar(
            h4("Verspreidingsdata"),
            p("alle verspreidingsdata komt van GBIF. Laatste download: "),
            h3("Relevante links"),
-             # accordion(
-             #   accordion_panel(
-             #     "RadIUS project",
-             #     
-             #     h3("werkwijze"),
-             #     
-             #     ),
-             #   
-             #   accordion_panel(
-             #     "Toelichting werkwijze",
-             #   ),
-             #   accordion_panel(
-             #     "Relevante links",
-             #   )
-             # ),
-          h2("Dashboard gebruik"),
-          h2("Contact"),
-          p("Het dashboard wordt onderhouden door het Instituut voor Natuur- en Bosonderzoek (INBO), als onderdeel van het RadIUS-project. Bij vragen of onduidelijkheden kunt u steeds terecht bij faunabeheer@inbo.be")
-          ),
+           # accordion(
+           #   accordion_panel(
+           #     "RadIUS project",
+           #     
+           #     h3("werkwijze"),
+           #     
+           #     ),
+           #   
+           #   accordion_panel(
+           #     "Toelichting werkwijze",
+           #   ),
+           #   accordion_panel(
+           #     "Relevante links",
+           #   )
+           # ),
+           h2("Dashboard gebruik"),
+           h2("Contact"),
+           p("Het dashboard wordt onderhouden door het Instituut voor Natuur- en Bosonderzoek (INBO), als onderdeel van het RadIUS-project. Bij vragen of onduidelijkheden kunt u steeds terecht bij faunabeheer@inbo.be")
+  ),
   nav_spacer()
 )
 
@@ -372,169 +409,145 @@ server <- function(input, output, session) {
   # PAGINA 1 - GEBIEDSFICHES
   
   ## REACTIEVE ELEMENTEN
-  # observeEvent(input$kaart2, {
-  #   freezeReactiveValue(input, "gebied2")
-  #   updateSelectInput(inputId = "gebied2", choice = c("All", unique(na.omit(list_metrics[[input$kaart2]]$code))))
-  # })
-  
-  metrics_wide <- reactive({
-    data <- list_metrics[[input$kaart2]]
-    if (input$deelgebied != "All") {
-      data <- data %>% 
-        filter(code == input$deelgebied & type %in% c("in", "of") & overlap != 0)
-    } 
-    else if (input$deelgebied == "All") {
+  metrics <- reactive({
+    data <- list_metrics[[input$kaart]]
+    if (input$deelgebied == "All") {
       data <- data %>%
-        filter(type %in% c("in", "of") & is.na(code) & overlap != 0)
+        filter(type == "of" & is.na(code)) %>%
+        st_drop_geometry()
     }
-    
-    data %>%
-      mutate(type = paste(type, "gebied", sep = "")) %>%
-      pivot_wider(names_from = type, values_from = overlap)
-  })
-  
-  metrics_in_gebied <- reactive({
-    data <- list_metrics[[input$kaart2]]
-    if (input$deelgebied != "All") {
-      data %>% filter(code == input$deelgebied & type == "in" & overlap != 0)
+    else if (input$deelgebied != "All") {
+      data <- data %>% 
+        filter(code == input$deelgebied & type == "of") %>%
+        st_drop_geometry()
     } 
-    else if (input$deelgebied == "All") {
-      data %>%
-        filter(type == "in" & is.na(code) & overlap != 0)
-    }
-  })
-  
-  metrics_of_gebied <- reactive({
-    data <- list_metrics[[input$kaart2]]
-    if (input$deelgebied != "All") {
-      data_filtered <- data %>% filter(code == input$deelgebied & type == "of" & overlap != 0)
-    } else {
-      data_filtered <- data %>%
-        filter(type == "of" & is.na(code) & overlap != 0)
-    }
-    data_filtered %>% st_drop_geometry() %>% select(soort, species, overlap)
+    
+    data_order <- data %>%
+      arrange(overlap) %>%
+      pull(soort)
+    
+    data <- data %>%
+      mutate(label_color = ifelse(overlap == 0, "grey75", "black")) %>%
+      left_join(species_list, by = c("soort" = "Soort")) %>%
+      select(soort, species, Groep, overlap, label_color) %>%
+      distinct() %>%
+      mutate(Groep = factor(Groep, levels = c("dier", "plant")), soort = factor(soort, levels = data_order)) %>%
+      select(soort, Groep, overlap, label_color) 
   })
   
   ## OUTPUTS
-  
   output$gebiedsnaam <- renderText({
-    input$kaart2
+    input$kaart
   })
   
-  # Dynamic selectizeInput for 'gebiedsfiches'
   output$gebiedsfiches_input <- renderUI({
-    if (input$kaart2 %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)")) {
-      selectizeInput("deelgebied", label = "Deelgebied:", choices = c("All", unique(na.omit(list_metrics[[input$kaart2]]$code))))
-    } else if (input$kaart2 == "Natura 2000 Habitattypes") {
-      selectizeInput("habitattype", label = "Habitattype:", choices = c("All", unique(na.omit(list_metrics[[input$kaart2]]$code))))
-    } else if (input$kaart2 == "ANB patrimonium") {
+    names <- unique(na.omit(list_metrics[[input$kaart]]$naam))
+    codes <- unique(na.omit(list_metrics[[input$kaart]]$code))
+    
+    if (input$kaart %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)")) {
+      selectizeInput("deelgebied", label = "Deelgebied:", choices = c("All" = "All", setNames(codes, sort(paste0(names, " (", codes, ")")))))
+      
+    } else if (input$kaart == "Natura 2000 Habitattypes") {
+      selectizeInput("deelgebied", label = "Deelgebied:", choices = c("All" = "All", sort(setNames(codes, sort(paste0(names, " (", codes, ")"))))))
+      
+    } else if (input$kaart == "ANB patrimonium") {
       selectizeInput("regio", label = "Beheerregio:", choices = c("All", na.omit(unique(am_patdat_wgs84$code))))
     } else {
       NULL 
     }
   })
-
   
-  
-  ## UI voor gebiedsfiches afhankelijk van input
-  output$gebiedsfiches_ui <- renderUI({
-    if (input$kaart2 %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)")) {
-      layout_columns(
-        layout_columns(
-          card(card_header("Percentage in"),
-               plotlyOutput("in_gebied")),
-          card(card_header("Percentage van"),
-               plotlyOutput("of_gebied")),
-          col_widths = c(12, 12)
-        ),
-        card(card_header("Percentage in vs. percentage van"),
-             plotlyOutput("in_vs_of"))
-        )
+  output$deelgebied <- renderText({
+    if (input$deelgebied != "All") {
+      list_metrics[[input$kaart]] %>%
+        filter(code == input$deelgebied) %>%
+        st_drop_geometry() -> data
       
-      
-      # fluidRow(
-      #   column(width = 7,
-      #          plotlyOutput("of_gebied")),
-      #   column(width = 5,
-      #          uiOutput("datatabel"),
-      #          downloadButton("downloadData", "Download Data"))
-      # )
-      # card(
-      #   card_header("Welke soorten?"),
-      #   plotlyOutput("of_gebied"),
-      #   table
-      # )
-      
-      
-      # fluidRow(
-      #   class = "custom-kaart-row",
-      #   leafletOutput("kaart2", height = "600px")
-      # )
-      # navset_card_tab(
-      #   nav_panel(
-      #     title = "Percentage in",
-      #     plotlyOutput("in_gebied")
-      #   ),
-      #   nav_panel(
-      #     title = "Percentage van",
-      #     plotlyOutput("of_gebied")
-      #   ),
-      #   nav_panel(
-      #     title = "Percentage in vs. Percentage of",
-      #     plotlyOutput("in_vs_of")
-      #   )
-      # )
-    }
-    else if (input$kaart2 %in% c("Natura 2000 Habitattypes")){
-      navset_card_tab(
-        nav_panel(
-          title = "Aandeel in",
-         
-        ),
-        nav_panel(
-          title = "Aandeel van",
-
-        )
-      )
-    }
-    else if (input$kaart2 %in% c("Natuurbeheerplannen", "ANB patrimonium")){
-      navset_card_tab(
-        nav_panel(
-          title = "Aandeel in",
-          
-        ),
-        nav_panel(
-          title = "Aandeel van",
-          
-        )
-      )
+      paste0(unique(data$naam), " (", unique(data$code), ")")
     }
   })
   
-  # output$kaart2 <- renderLeaflet({
-  #   leaflet() %>%
-  #     addTiles(urlTemplate = "", attribution = NULL, group = "Zonder achtergrond") %>%
-  #     addProviderTiles(providers$OpenStreetMap, group = "OSM (default)") %>%
-  #     addProviderTiles(providers$Esri.WorldImagery, group = "Satellite") %>%
-  #     addPolygons(data = Provincies_grenzen, color = "black", fillColor = "#f0f0f0", weight = 0.5, group = "Provincies") %>%
-  #     addPolygons(data = list_wfs[[input$kaart2]], color = "black", fillColor = "#a4e98f", opacity = 0.7, weight = 0.5, fillOpacity = 1, label = ~paste0(naam, " (", code, "): 0%"), highlight = highlightOptions(stroke = TRUE, color = "black", weight = 2)) %>%
-  #     addLayersControl(
-  #       baseGroups = c("Geen achtergrond", "OSM (default)", "Satellite"),
-  #       options = layersControlOptions(collapsed = FALSE)
-  #     ) %>%
-  #     setView(lng = 4.240556, lat = 51.037778, zoom = 9)
-  # })
+  output$gebiedsfiches_ui <- renderUI({
+    if (input$kaart %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)")) {
+      tagList(
+        div(
+          class = "card",
+          style = "border: 1px solid #ddd; border-radius: 8px; overflow: hidden; margin-bottom: 20px;",
+          
+          div(
+            class = "card-header",
+            style = "background-color: #f8f9fa; padding: 10px 15px; border-bottom: 1px solid #ddd;",
+            h3("Wie?", style = "margin: 0;")
+          ),
+          
+          div(
+            class = "card-body",
+            style = "padding: 15px;",
+            fluidRow(
+              column(
+                width = 6,
+                ## Plotly Graph Output for 'sp_in_gebied'
+                plotlyOutput("sp_in_gebied", height = "400px"),
+                
+                ## Download Button for Graph Data
+                downloadButton("download_data_sp_in_gebied", "Download Data as CSV", style = "margin-top: 10px;")
+              ),
+              column(
+                width = 6,
+                div(
+                  style = "padding-left: 15px;",
+                  h4("Uitleg over figuur"),
+                  p("Hier komt de uitleg over de figuur. U kunt meerdere paragrafen toevoegen indien nodig."),
+                  p("Tweede paragraaf met meer details of context.")
+                )
+              )
+            )
+          )
+        ),
+        
+        div(
+          class = "card",
+          style = "border: 1px solid #ddd; border-radius: 8px; overflow: hidden; margin-bottom: 20px;",
+          
+          div(
+            class = "card-header",
+            style = "background-color: #f8f9fa; padding: 10px 15px; border-bottom: 1px solid #ddd;",
+            h3("Waar?", style = "margin: 0;")
+          ),
+          
+          div(
+            class = "card-body",
+            style = "padding: 15px;",
+            tabsetPanel(
+              tabPanel("Barplot",
+                       plotOutput("waar_barplot")
+              ),
+              tabPanel("Kaart",
+                       plotOutput("waar_kaart")
+              )
+            )
+          )
+        )
+      )
+    }
+    
+    else if (input$kaart %in% c("Natura 2000 Habitattypes")){
+
+    }
+    else if (input$kaart %in% c("Natuurbeheerplannen", "ANB patrimonium")){
+
+    }
+  })
   
-  
-  output$kaart3 <- renderPlotly({
-    if (input$kaart2 %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)")) {
+  output$kaart2 <- renderPlotly({
+    if (input$kaart %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)")) {
       if (input$deelgebied == "All") {
         plot_ly() %>%
           add_sf(
-            data = list_wfs[[input$kaart2]],
+            data = list_wfs[[input$kaart]],
             color = I("grey"),
             text = ~code,
-            hoverinfo = "text",
+            hoverinfo = "none",
             showlegend = FALSE
           ) %>%
           add_sf(
@@ -550,14 +563,19 @@ server <- function(input, output, session) {
             font = list(color = "black"),
             paper_bgcolor = "transparent",
             plot_bgcolor = "transparent"
-          )
+          ) %>%
+          config(displayModeBar = FALSE)
       } else {
+        
+        selected_area <- list_wfs[[input$kaart]] %>% filter(code == input$deelgebied)
+        bbox <- st_bbox(selected_area)
+        
         plot_ly() %>%
           add_sf(
-            data = list_wfs[[input$kaart2]],
+            data = list_wfs[[input$kaart]],
             color = I("grey"),
             text = ~code,
-            hoverinfo = "text",
+            hoverinfo = "none",
             showlegend = FALSE
           ) %>%
           add_sf(
@@ -566,81 +584,52 @@ server <- function(input, output, session) {
             color = I("darkgrey"),
             showlegend = FALSE
           ) %>%
-          add_sf(data = list_wfs[[input$kaart2]] %>% filter(code == input$deelgebied), 
-                 color = I("#c04384"),
-                 showlegend = FALSE) %>%
+          add_sf(
+            data = selected_area,
+            color = I("#c04384"),
+            showlegend = FALSE
+          ) %>%
           layout(
-            xaxis = list(title = ""),
-            yaxis = list(title = ""),
+            xaxis = list(title = "", range = c(bbox["xmin"], bbox["xmax"])), 
+            yaxis = list(title = "", range = c(bbox["ymin"], bbox["ymax"])), 
             margin = list(t = 0, r = 0, l = 0, b = 0),
             font = list(color = "black"),
             paper_bgcolor = "transparent",
             plot_bgcolor = "transparent"
-          )
+          ) %>%
+          config(displayModeBar = FALSE)
       }
     } else {
       return()
     }
   })
   
-  output$in_gebied <- renderPlotly({
-    ggplotly(
-      ggplot() +
-        geom_bar(data = metrics_in_gebied(), aes(x = reorder(soort, overlap), y = overlap, text = paste0(soort, " (", round(overlap * 100, 1), "%)")), stat = "identity", colour = "white", linewidth = 0.01, fill = "#c04384") +
-        #geom_hline(yintercept = 0.07705856, color = "red") + # proportie van totaal opp Vlaanderen dat ingenomen wordt door HBTRL
-        xlab("Soort") + ylab("% overlap") +
-        theme_bw() +
-        theme(axis.text = element_text(size = 9),
-              axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
-              axis.title = element_text(size = 9)), tooltip = "text")
+  output$sp_in_gebied <- renderPlotly({
+      label_colors <- setNames(metrics()$label_color, metrics()$soort)
+      
+      ggplotly(
+        ggplot(metrics(), aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort, fill = overlap)) +
+          geom_bar(stat = "identity", show.legend = FALSE, width = 0.7, fill = "#c04384") +  
+          facet_wrap(~Groep, ncol = 1, scales = "free_y") +  
+          scale_y_discrete(labels = function(soort) {
+            sapply(soort, function(s) {
+              paste0("<span style='color:", label_colors[s], "'>", s, "</span>")
+            })
+          }) +
+          custom_theme() + 
+          theme(strip.placement = "outside", axis.text.y = element_markdown())
+      )
   })
   
-  output$of_gebied <- renderPlotly({
-    ggplotly(
-      ggplot() +
-        geom_bar(data = metrics_of_gebied(), aes(x = reorder(soort, overlap), y = overlap, text = paste0(soort, " (", round(overlap * 100, 4), "%)")), stat = "identity", colour = "white", linewidth = 0.01, fill = "#c04384") +
-        #geom_hline(yintercept = 0.07705856, color = "red") + # proportie van totaal opp Vlaanderen dat ingenomen wordt door HBTRL
-        xlab("Soort") + ylab("% overlap") +
-        theme_bw() +
-        theme(axis.text = element_text(size = 9),
-              axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
-              axis.title = element_text(size = 9)), tooltip = "text")
-  })
-  
-  # Reactive data for the table
-  output$datatabel <- renderUI({
-    df <- metrics_of_gebied()
-    DT::dataTableOutput("table")
-  })
-  
-  output$table <- DT::renderDataTable({
-    metrics_of_gebied()
-  })
-  
-  output$downloadData <- downloadHandler(
+  output$download_data_sp_in_gebied <- downloadHandler(
     filename = function() {
-      if (input$deelgebied == "All") {
-        paste("Gebiedsfiche_HBTRL_", Sys.Date(), ".csv", sep = "")
-      } else {
-        paste("Gebiedsfiche_HBTRL_", input$deelgebied, "_", Sys.Date(), ".csv", sep = "")
-      }
+      paste("sp_in_gebied_data-", Sys.Date(), ".csv", sep = "")
     },
     content = function(file) {
-      write.csv(metrics_of_gebied(), file, row.names = FALSE)
+      write.csv(metrics(), file) # assuming 'metrics()' holds the data for the graph
     }
   )
   
-  output$in_vs_of <- renderPlotly({
-    ggplotly(
-      ggplot(data = metrics_wide(), aes(x = metrics_wide()[[9]], y = metrics_wide()[[10]], label = abbr)) +
-        geom_text() +
-        theme(legend.position="none") +
-        #xlim(0,1) +
-        xlab("Aandeel totale verspreiding dat overlapt met habitatrichtlijngebied") + ylab("aandeel totaal oppervlak habitatrichtlijngebied dat bezet is") +
-        theme_bw()
-    )
-        
-  })
   
   # PAGINA 2 - SOORTENFICHES
   
@@ -653,10 +642,10 @@ server <- function(input, output, session) {
   })
   
   ### Filter metrics data obv input soort en kaarttype
-  metrics <- reactive({
-    list_metrics[[input$kaart]] %>%
-      filter(soort == input$soort)
-  })
+  # metrics <- reactive({
+  #   list_metrics[[input$kaart]] %>%
+  #     filter(soort == input$soort)
+  # })
   
   ### Overzicht waarnemingen per jaar
   occ_sum <- reactive({
@@ -787,7 +776,7 @@ server <- function(input, output, session) {
     paste(input$kaart)
   })
   
-
+  
   ## UI voor soortenfiches afhankelijk van input
   output$soortenfiches_ui <- renderUI(
     if (input$kaart %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)")) {
@@ -809,20 +798,11 @@ server <- function(input, output, session) {
             class = "custom-kaart-row", 
             leafletOutput("kaart_in", height = "600px"),
             div(downloadButton("download_kaart", "Download PNG", class = "custom-download-button"))
-          )),
-        nav_panel(
-          title = "Aandeel van",
-          fluidRow(
-            highchartOutput("barchart_of"),
-            full_screen = TRUE
-          ),
-          fluidRow(
-            class = "custom-kaart-row", 
-            leafletOutput("kaart_of", height = "600px")
           ))
       )
       
     }
+    
     else if (input$kaart %in% c("Natura 2000 Habitattypes", "Natuurbeheerplannen", "ANB patrimonium")){
       navset_card_tab(
         nav_panel(
@@ -832,12 +812,12 @@ server <- function(input, output, session) {
             column( )
           ),
           fluidRow()
-          ),
+        ),
         nav_panel(
           title = "Aandeel van",
           fluidRow( ),
           fluidRow( )
-          ))
+        ))
     }
   )
   
@@ -898,54 +878,54 @@ server <- function(input, output, session) {
         mutate(y = overlap * 100)
       
       
-     chart <- highchart() %>%
+      chart <- highchart() %>%
         hc_chart(type = 'column') %>%
         hc_xAxis(categories = df$gebied, title = list(text = ""), labels = list(rotation = -90)) %>%
         hc_yAxis(title = list(text = 'Overlap (%)'), labels = list(format = '{value}%')) 
-     
-     if (nrow(metrics_in()) == 1) {
-       chart <- chart %>%
-         hc_plotOptions(column = list(
-         dataLabels = list(enabled = TRUE, format = '{point.y:.2f}%'),
-         color = "#c04384",
-         borderColor = "black",
-         borderWidth = 0.5,
-         pointPadding = 0.1, 
-         groupPadding = 0.1
-       ))
-     }
-     
-     else {
-       chart <- chart %>%
-         hc_plotOptions(
-           column = list(
-             dataLabels = list(enabled = TRUE, format = '{point.y:.2f}%'),
-             borderColor = "black",
-             borderWidth = 0.5,
-             pointPadding = 0.1, 
-             groupPadding = 0.1
-           ))
-     }
-     
-     
-     chart <- chart %>%
-       hc_tooltip(
+      
+      if (nrow(metrics_in()) == 1) {
+        chart <- chart %>%
+          hc_plotOptions(column = list(
+            dataLabels = list(enabled = TRUE, format = '{point.y:.2f}%'),
+            color = "#c04384",
+            borderColor = "black",
+            borderWidth = 0.5,
+            pointPadding = 0.1, 
+            groupPadding = 0.1
+          ))
+      }
+      
+      else {
+        chart <- chart %>%
+          hc_plotOptions(
+            column = list(
+              dataLabels = list(enabled = TRUE, format = '{point.y:.2f}%'),
+              borderColor = "black",
+              borderWidth = 0.5,
+              pointPadding = 0.1, 
+              groupPadding = 0.1
+            ))
+      }
+      
+      
+      chart <- chart %>%
+        hc_tooltip(
           headerFormat = '',
           pointFormat = '<b>{point.naam} ({point.gebied}): {point.y:.2f}%</b>'
         ) %>%
         hc_chart(backgroundColor = 'rgba(0, 0, 0, 0)') %>%
         hc_add_theme(hc_theme_elementary()) %>%
-       hc_add_series(
-         name = "Overlap",
-         data = df %>% mutate(y = overlap * 100) %>% select(gebied, y, naam),
-         colorByPoint = TRUE,
-         colors = pal_in()(df$overlap)) 
-   
-     chart
+        hc_add_series(
+          name = "Overlap",
+          data = df %>% mutate(y = overlap * 100) %>% select(gebied, y, naam),
+          colorByPoint = TRUE,
+          colors = pal_in()(df$overlap)) 
+      
+      chart
     }
   })
   
-
+  
   ### Kaart in
   kaart_in <- reactive({
     map <- leaflet() %>%
@@ -955,11 +935,11 @@ server <- function(input, output, session) {
       addPolygons(data = Vlaanderen_grenzen, color = "black", fillColor = "#f0f0f0", weight = 1, group = "Vlaanderen") %>%
       addPolygons(data = Provincies_grenzen, color = "black", fillColor = "#f0f0f0", weight = 0.5, group = "Provincies") %>%
       addPolygons(data = list_wfs[[input$kaart]], color = "black", fillColor = "lightgrey", opacity = 0.7, weight = 0.5, fillOpacity = 1, label = ~paste0(naam, " (", code, "): 0%"), highlight = highlightOptions(stroke = TRUE, color = "black", weight = 2)) 
-      
-      if(nrow(metrics_in()) != 0) {
-        map <- map %>%
-          addPolygons(data = metrics_in(), color = "black", fillColor = ~pal_in()(overlap), opacity = 1, weight = 0.5, fillOpacity = 1, label = ~paste0(naam, " (", gebied, "): ", round(overlap * 100, 1), "%"), highlight = highlightOptions(stroke = TRUE, color = "black", weight = 2))
-      }
+    
+    if(nrow(metrics_in()) != 0) {
+      map <- map %>%
+        addPolygons(data = metrics_in(), color = "black", fillColor = ~pal_in()(overlap), opacity = 1, weight = 0.5, fillOpacity = 1, label = ~paste0(naam, " (", gebied, "): ", round(overlap * 100, 1), "%"), highlight = highlightOptions(stroke = TRUE, color = "black", weight = 2))
+    }
     
     map <- map %>%
       addCircleMarkers(data = occ_species(), radius = 3, color = "blue", fillOpacity = 0.7, weight = 0.5, label = ~paste0(day, "/", month, "/", year), group = "Waarnemingen") %>%
@@ -980,7 +960,7 @@ server <- function(input, output, session) {
   })
   
   output$kaart_in <- renderLeaflet({
-      kaart_in()
+    kaart_in()
   })
   
   
@@ -991,16 +971,16 @@ server <- function(input, output, session) {
                type = "in",
                content = input$kaart, fileExt = "png"),
     content = function(file) {
-
+      
       tmpFile <- tempfile(fileext = ".html")
-
+      
       # write map to temp .html file
       htmlwidgets::saveWidget(kaart_in(), file = tmpFile, selfcontained = FALSE)
-
+      
       # convert temp .html file into .png for download
       webshot::webshot(url = tmpFile, file = file,
                        vwidth = 1000, vheight = 500, cliprect = "viewport")
-
+      
     }
   )
   
@@ -1095,3 +1075,849 @@ server <- function(input, output, session) {
 }
 
 shinyApp(ui = ui, server = server)
+
+## VERSIE VOOR 28/10/2024
+
+# ui <- page_navbar(
+#   title = "RadIUS dashboard",
+#   bg = "#c04384",
+#   inverse = TRUE,
+#   tags$head(tags$style(HTML(custom_css)), tags$link(rel = "stylesheet", href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css")),
+# 
+#   ## PAGINA 1 - GEBIEDSFICHES
+#   tabPanel(
+#     title = "Gebiedsfiches",
+#     div(class = "custom-container",
+#         div(class = "custom-sidebar",
+#             p("eventueel buttons toevoegen om alleen planten, dieren of unielijstsoorten te selecteren?"),
+#             selectInput("kaart2", label = "Kaarttype:", choices = names(list_metrics)),
+#             uiOutput("gebiedsfiches_input")
+#         ),
+#         
+#         div(class = "main-content",
+#             fluidRow(
+#               class = "custom-header-row",
+#               column(
+#                 width = 9,
+#                 div(textOutput("gebiedsnaam"), class = "custom-header")
+#               ),
+#               column(
+#                 width = 3,
+#                 plotlyOutput("kaart3", height = "150px")
+#               )
+#             ),
+#             # fluidRow(
+#             #   class = "custom-header-row",
+#             #   width = 9,
+#             #   div(textOutput("gebiedsnaam"), class = "custom-header")
+#             #   ),
+#             fluidRow(
+#               p("Welke soorten komen voor in ... gebieden? Dit wordt op twee manieren weergegeven: (I) percentage van de totale soortverspreiding dat overlapt met het gebied (percentage van), (II) percentage van het totale oppervlak van gebied dat bezet is door de soort (percentage in)")
+#             ),
+#             uiOutput("gebiedsfiches_ui")
+#         )
+#     )
+#   ),
+#   
+#   ## PAGINA 2 - SOORTENFICHES
+#   tabPanel(
+#     title = "Soortenfiches",
+#     div(class = "custom-container",
+#         div(class = "custom-sidebar",
+#             p("Selecteer de", strong("soort"), "en", strong("kaart"), " waarin je geïnteresseerd bent."),
+#             selectizeInput(inputId = "soort", label = "Soort:", 
+#                            choices = sort(unique(occ_flanders$Soort)), selected = 1),
+#             selectInput('kaart', label = 'Kaarttype:', choices = names(list_metrics))
+#         ),
+#         div(class = "main-content",
+#             fluidRow(
+#               class = "custom-header-row",
+#               column(
+#                 width = 9,
+#                 div(textOutput("soort"), class = "custom-header"),
+#                 div(textOutput("species"), class = "custom-subheader"),
+#                 div(uiOutput("union_list"))
+#               ),
+#               column(
+#                 width = 3,
+#                 value_box(
+#                   class = "custom-value-box",
+#                   color = "#f8f9fa",
+#                   title = "",
+#                   value = div(textOutput("tot_obs"), class = "custom-valuebox-text"),
+#                   showcase = plotlyOutput("aantal"),
+#                   showcase_layout = "bottom",
+#                   div("WAARNEMING(EN)", class = "custom-valuebox-text"),
+#                   div("SINDS 2015", class = "custom-valuebox-text"),
+#                   full_screen = TRUE
+#                 )
+#               )
+#             ),
+#             uiOutput("soortenfiches_ui"),
+#         )
+#     )
+#   ),
+#   
+#   ## PAGINA 3 - OVER DASHBOARD
+#   tabPanel("Over",
+#            p("Dit dashboard werd ontwikkeld in kader van het RadIUS-project."),
+#            h2("RadIUS project"),
+#            p("Het RadIUS-project voert een doorgedreven analyse uit van het voorkomen van invasieve uitheemse soorten (IUS, met name deze van de Unielijst) in voor de natuursector relevante gebieden. Afgaande op gekende puntlocaties van de betrokken soorten, buigen we ons over het voorkomen van Unielijst- en andere soorten in beschermde natuur. We toetsen de verspreiding aan (1) de Vogelrichtlijngebieden, (2) de Habitatrichtlijngebieden, en ook aan (3) de Natura2000-habitattypes. Dezelfde toetsing gebeurt vervolgens voor (4) alle gebieden met een effectief natuurbeheer (natuurbeheerplan), en (5) de domeinen in beheer bij het ANB."),
+#            h3("Werkwijze"),
+#            h3("Bronnen"),
+#            h4("Kaartlagen"),
+#            h4("Verspreidingsdata"),
+#            p("alle verspreidingsdata komt van GBIF. Laatste download: "),
+#            h3("Relevante links"),
+#              # accordion(
+#              #   accordion_panel(
+#              #     "RadIUS project",
+#              #     
+#              #     h3("werkwijze"),
+#              #     
+#              #     ),
+#              #   
+#              #   accordion_panel(
+#              #     "Toelichting werkwijze",
+#              #   ),
+#              #   accordion_panel(
+#              #     "Relevante links",
+#              #   )
+#              # ),
+#           h2("Dashboard gebruik"),
+#           h2("Contact"),
+#           p("Het dashboard wordt onderhouden door het Instituut voor Natuur- en Bosonderzoek (INBO), als onderdeel van het RadIUS-project. Bij vragen of onduidelijkheden kunt u steeds terecht bij faunabeheer@inbo.be")
+#           ),
+#   nav_spacer()
+# )
+# 
+# 
+# ########### SERVER ############
+# server <- function(input, output, session) {
+#   
+#   # PAGINA 1 - GEBIEDSFICHES
+#   
+#   ## REACTIEVE ELEMENTEN
+#   # observeEvent(input$kaart2, {
+#   #   freezeReactiveValue(input, "gebied2")
+#   #   updateSelectInput(inputId = "gebied2", choice = c("All", unique(na.omit(list_metrics[[input$kaart2]]$code))))
+#   # })
+#   
+#   metrics_wide <- reactive({
+#     data <- list_metrics[[input$kaart2]]
+#     if (input$deelgebied != "All") {
+#       data <- data %>% 
+#         filter(code == input$deelgebied & type %in% c("in", "of") & overlap != 0)
+#     } 
+#     else if (input$deelgebied == "All") {
+#       data <- data %>%
+#         filter(type %in% c("in", "of") & is.na(code) & overlap != 0)
+#     }
+#     
+#     data %>%
+#       mutate(type = paste(type, "gebied", sep = "")) %>%
+#       pivot_wider(names_from = type, values_from = overlap)
+#   })
+#   
+#   metrics_in_gebied <- reactive({
+#     data <- list_metrics[[input$kaart2]]
+#     if (input$deelgebied != "All") {
+#       data %>% filter(code == input$deelgebied & type == "in" & overlap != 0)
+#     } 
+#     else if (input$deelgebied == "All") {
+#       data %>%
+#         filter(type == "in" & is.na(code) & overlap != 0)
+#     }
+#   })
+#   
+#   metrics_of_gebied <- reactive({
+#     data <- list_metrics[[input$kaart2]]
+#     if (input$deelgebied != "All") {
+#       data_filtered <- data %>% filter(code == input$deelgebied & type == "of" & overlap != 0)
+#     } else {
+#       data_filtered <- data %>%
+#         filter(type == "of" & is.na(code) & overlap != 0)
+#     }
+#     data_filtered %>% st_drop_geometry() %>% select(soort, species, overlap)
+#   })
+#   
+#   ## OUTPUTS
+#   
+#   output$gebiedsnaam <- renderText({
+#     input$kaart2
+#   })
+#   
+#   # Dynamic selectizeInput for 'gebiedsfiches'
+#   output$gebiedsfiches_input <- renderUI({
+#     if (input$kaart2 %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)")) {
+#       selectizeInput("deelgebied", label = "Deelgebied:", choices = c("All", unique(na.omit(list_metrics[[input$kaart2]]$code))))
+#     } else if (input$kaart2 == "Natura 2000 Habitattypes") {
+#       selectizeInput("habitattype", label = "Habitattype:", choices = c("All", unique(na.omit(list_metrics[[input$kaart2]]$code))))
+#     } else if (input$kaart2 == "ANB patrimonium") {
+#       selectizeInput("regio", label = "Beheerregio:", choices = c("All", na.omit(unique(am_patdat_wgs84$code))))
+#     } else {
+#       NULL 
+#     }
+#   })
+# 
+#   
+#   
+#   ## UI voor gebiedsfiches afhankelijk van input
+#   output$gebiedsfiches_ui <- renderUI({
+#     if (input$kaart2 %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)")) {
+#       layout_columns(
+#         layout_columns(
+#           card(card_header("Percentage in"),
+#                plotlyOutput("in_gebied")),
+#           card(card_header("Percentage van"),
+#                plotlyOutput("of_gebied")),
+#           col_widths = c(12, 12)
+#         ),
+#         card(card_header("Percentage in vs. percentage van"),
+#              plotlyOutput("in_vs_of"))
+#         )
+#       
+#       
+#       # fluidRow(
+#       #   column(width = 7,
+#       #          plotlyOutput("of_gebied")),
+#       #   column(width = 5,
+#       #          uiOutput("datatabel"),
+#       #          downloadButton("downloadData", "Download Data"))
+#       # )
+#       # card(
+#       #   card_header("Welke soorten?"),
+#       #   plotlyOutput("of_gebied"),
+#       #   table
+#       # )
+#       
+#       
+#       # fluidRow(
+#       #   class = "custom-kaart-row",
+#       #   leafletOutput("kaart2", height = "600px")
+#       # )
+#       # navset_card_tab(
+#       #   nav_panel(
+#       #     title = "Percentage in",
+#       #     plotlyOutput("in_gebied")
+#       #   ),
+#       #   nav_panel(
+#       #     title = "Percentage van",
+#       #     plotlyOutput("of_gebied")
+#       #   ),
+#       #   nav_panel(
+#       #     title = "Percentage in vs. Percentage of",
+#       #     plotlyOutput("in_vs_of")
+#       #   )
+#       # )
+#     }
+#     else if (input$kaart2 %in% c("Natura 2000 Habitattypes")){
+#       navset_card_tab(
+#         nav_panel(
+#           title = "Aandeel in",
+#          
+#         ),
+#         nav_panel(
+#           title = "Aandeel van",
+# 
+#         )
+#       )
+#     }
+#     else if (input$kaart2 %in% c("Natuurbeheerplannen", "ANB patrimonium")){
+#       navset_card_tab(
+#         nav_panel(
+#           title = "Aandeel in",
+#           
+#         ),
+#         nav_panel(
+#           title = "Aandeel van",
+#           
+#         )
+#       )
+#     }
+#   })
+#   
+#   # output$kaart2 <- renderLeaflet({
+#   #   leaflet() %>%
+#   #     addTiles(urlTemplate = "", attribution = NULL, group = "Zonder achtergrond") %>%
+#   #     addProviderTiles(providers$OpenStreetMap, group = "OSM (default)") %>%
+#   #     addProviderTiles(providers$Esri.WorldImagery, group = "Satellite") %>%
+#   #     addPolygons(data = Provincies_grenzen, color = "black", fillColor = "#f0f0f0", weight = 0.5, group = "Provincies") %>%
+#   #     addPolygons(data = list_wfs[[input$kaart2]], color = "black", fillColor = "#a4e98f", opacity = 0.7, weight = 0.5, fillOpacity = 1, label = ~paste0(naam, " (", code, "): 0%"), highlight = highlightOptions(stroke = TRUE, color = "black", weight = 2)) %>%
+#   #     addLayersControl(
+#   #       baseGroups = c("Geen achtergrond", "OSM (default)", "Satellite"),
+#   #       options = layersControlOptions(collapsed = FALSE)
+#   #     ) %>%
+#   #     setView(lng = 4.240556, lat = 51.037778, zoom = 9)
+#   # })
+#   
+#   
+#   output$kaart3 <- renderPlotly({
+#     if (input$kaart2 %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)")) {
+#       if (input$deelgebied == "All") {
+#         plot_ly() %>%
+#           add_sf(
+#             data = list_wfs[[input$kaart2]],
+#             color = I("grey"),
+#             text = ~code,
+#             hoverinfo = "text",
+#             showlegend = FALSE
+#           ) %>%
+#           add_sf(
+#             data = Provincies_grenzen,
+#             fill = NA,
+#             color = I("darkgrey"),
+#             showlegend = FALSE
+#           ) %>%
+#           layout(
+#             xaxis = list(title = ""),
+#             yaxis = list(title = ""),
+#             margin = list(t = 0, r = 0, l = 0, b = 0),
+#             font = list(color = "black"),
+#             paper_bgcolor = "transparent",
+#             plot_bgcolor = "transparent"
+#           )
+#       } else {
+#         plot_ly() %>%
+#           add_sf(
+#             data = list_wfs[[input$kaart2]],
+#             color = I("grey"),
+#             text = ~code,
+#             hoverinfo = "text",
+#             showlegend = FALSE
+#           ) %>%
+#           add_sf(
+#             data = Provincies_grenzen,
+#             fill = NA,
+#             color = I("darkgrey"),
+#             showlegend = FALSE
+#           ) %>%
+#           add_sf(data = list_wfs[[input$kaart2]] %>% filter(code == input$deelgebied), 
+#                  color = I("#c04384"),
+#                  showlegend = FALSE) %>%
+#           layout(
+#             xaxis = list(title = ""),
+#             yaxis = list(title = ""),
+#             margin = list(t = 0, r = 0, l = 0, b = 0),
+#             font = list(color = "black"),
+#             paper_bgcolor = "transparent",
+#             plot_bgcolor = "transparent"
+#           )
+#       }
+#     } else {
+#       return()
+#     }
+#   })
+#   
+#   output$in_gebied <- renderPlotly({
+#     ggplotly(
+#       ggplot() +
+#         geom_bar(data = metrics_in_gebied(), aes(x = reorder(soort, overlap), y = overlap, text = paste0(soort, " (", round(overlap * 100, 1), "%)")), stat = "identity", colour = "white", linewidth = 0.01, fill = "#c04384") +
+#         #geom_hline(yintercept = 0.07705856, color = "red") + # proportie van totaal opp Vlaanderen dat ingenomen wordt door HBTRL
+#         xlab("Soort") + ylab("% overlap") +
+#         theme_bw() +
+#         theme(axis.text = element_text(size = 9),
+#               axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+#               axis.title = element_text(size = 9)), tooltip = "text")
+#   })
+#   
+#   output$of_gebied <- renderPlotly({
+#     ggplotly(
+#       ggplot() +
+#         geom_bar(data = metrics_of_gebied(), aes(x = reorder(soort, overlap), y = overlap, text = paste0(soort, " (", round(overlap * 100, 4), "%)")), stat = "identity", colour = "white", linewidth = 0.01, fill = "#c04384") +
+#         #geom_hline(yintercept = 0.07705856, color = "red") + # proportie van totaal opp Vlaanderen dat ingenomen wordt door HBTRL
+#         xlab("Soort") + ylab("% overlap") +
+#         theme_bw() +
+#         theme(axis.text = element_text(size = 9),
+#               axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+#               axis.title = element_text(size = 9)), tooltip = "text")
+#   })
+#   
+#   # Reactive data for the table
+#   output$datatabel <- renderUI({
+#     df <- metrics_of_gebied()
+#     DT::dataTableOutput("table")
+#   })
+#   
+#   output$table <- DT::renderDataTable({
+#     metrics_of_gebied()
+#   })
+#   
+#   output$downloadData <- downloadHandler(
+#     filename = function() {
+#       if (input$deelgebied == "All") {
+#         paste("Gebiedsfiche_HBTRL_", Sys.Date(), ".csv", sep = "")
+#       } else {
+#         paste("Gebiedsfiche_HBTRL_", input$deelgebied, "_", Sys.Date(), ".csv", sep = "")
+#       }
+#     },
+#     content = function(file) {
+#       write.csv(metrics_of_gebied(), file, row.names = FALSE)
+#     }
+#   )
+#   
+#   output$in_vs_of <- renderPlotly({
+#     ggplotly(
+#       ggplot(data = metrics_wide(), aes(x = metrics_wide()[[9]], y = metrics_wide()[[10]], label = abbr)) +
+#         geom_text() +
+#         theme(legend.position="none") +
+#         #xlim(0,1) +
+#         xlab("Aandeel totale verspreiding dat overlapt met habitatrichtlijngebied") + ylab("aandeel totaal oppervlak habitatrichtlijngebied dat bezet is") +
+#         theme_bw()
+#     )
+#         
+#   })
+#   
+#   # PAGINA 2 - SOORTENFICHES
+#   
+#   ## REACTIVE ELEMENTS
+#   
+#   ### Filter soortgegevens obv input soort
+#   occ_species <- reactive({
+#     occ_flanders %>%
+#       filter(Soort == input$soort) 
+#   })
+#   
+#   ### Filter metrics data obv input soort en kaarttype
+#   metrics <- reactive({
+#     list_metrics[[input$kaart]] %>%
+#       filter(soort == input$soort)
+#   })
+#   
+#   ### Overzicht waarnemingen per jaar
+#   occ_sum <- reactive({
+#     occ_species() %>%
+#       st_drop_geometry() %>%
+#       count(year, name = "n") %>%
+#       right_join(data.frame(year = 2015:2024), by = "year") %>%
+#       arrange(year) %>%
+#       na.replace(0)
+#   })
+#   
+#   ### Subset metrics in
+#   metrics_in <- reactive({
+#     metrics() %>%
+#       filter(type == "in" & !is.na(code)) 
+#   })
+#   
+#   # metrics_in_sd <- reactive({
+#   #   SharedData$new(metrics_in(), key=~gebied)
+#   # })
+#   
+#   ### Subset metrics of
+#   metrics_of <- reactive({
+#     metrics() %>%
+#       filter(type == "of" & !is.na(code))
+#   })
+#   
+#   ### Color palette in
+#   pal_in <- reactive({
+#     colors <- c("lightgrey", colorRampPalette(c("lightgrey", "#c04384"))(99))
+#     
+#     if (nrow(metrics_in()) != 0) {
+#       colorNumeric(
+#         palette = colors,
+#         domain = c(min(metrics_in()$overlap), max(metrics_in()$overlap))
+#       )
+#     }
+#   })
+#   
+#   ### Color palette of
+#   pal_of <- reactive({
+#     colors <- c("lightgrey", colorRampPalette(c("lightgrey", "#c04384"))(99))
+#     
+#     if (nrow(metrics_of()) != 0) {
+#       colorNumeric(
+#         palette = colors,
+#         domain = c(min(metrics_of()$overlap), max(metrics_of()$overlap))
+#       )
+#     }
+#   })
+#   
+#   ## OUTPUTS
+#   
+#   ### Soortnaam
+#   output$soort <- renderText({
+#     input$soort
+#   })
+#   
+#   ### Wet. soortnaam
+#   output$species <- renderText({
+#     unique_species <- occ_flanders %>%
+#       filter(Soort == input$soort) %>%
+#       distinct(Species) %>%
+#       pull(Species)
+#     
+#     paste(unique_species, collapse = ", ")
+#   })
+#   
+#   ### Staat de soort op de unielijst? Zo ja, welke uitvoeringsverordening?
+#   output$union_list <- renderUI({
+#     eu <- species_list %>%
+#       filter(Soort == input$soort) %>%
+#       pull(EU_lijst) %>%
+#       unique()
+#     
+#     if (eu == 1) {
+#       HTML('<span style="color: #c04384; font-weight: bold;"><i class="fas fa-bell"></i> Op unielijst (uitvoeringsverordening 2016/1141)</span>')
+#     } else if (eu == 2) {
+#       HTML('<span style="color: #c04384; font-weight: bold;"><i class="fas fa-bell"></i> Op unielijst (uitvoeringsverordening 2017/1263)</span>')
+#     } else if (eu == 3) {
+#       HTML('<span style="color: #c04384; font-weight: bold;"><i class="fas fa-bell"></i> Op unielijst (uitvoeringsverordening 2019/1262)</span>')
+#     } else if (eu == 4) {
+#       HTML('<span style="color: #c04384; font-weight: bold;"><i class="fas fa-bell"></i> Op unielijst (uitvoeringsverordening 2022/1203)</span>')
+#     } else if (eu == 0) {
+#       HTML("")
+#     }
+#   })
+#   
+#   ### Totaal aantal waarnemingen
+#   output$tot_obs <- renderText({
+#     format(nrow(occ_species()), big.mark = ".")
+#   })
+#   
+#   ### Barchart waarnemingen per jaar
+#   output$aantal <- renderPlotly({
+#     plot_ly(occ_sum()) %>%
+#       add_lines(
+#         x = ~as.factor(year), y = ~n,
+#         color = I("grey"), span = I(1),
+#         fill = 'tozeroy', alpha = 0.2,
+#         text = ~paste("Jaar: ", as.factor(year), "<br>Waarnemingen: ", n),
+#         hoverinfo = 'text'
+#       ) %>%
+#       layout(
+#         xaxis = list(visible = F, showgrid = F, title = ""),
+#         yaxis = list(visible = F, showgrid = F, title = ""),
+#         hovermode = "x",
+#         margin = list(t = 0, r = 0, l = 0, b = 0),
+#         font = list(color = "black"),
+#         paper_bgcolor = "transparent",
+#         plot_bgcolor = "transparent"
+#       ) %>%
+#       
+#       config(displayModeBar = F) %>%
+#       htmlwidgets::onRender(
+#         "function(el) {
+#           var ro = new ResizeObserver(function() {
+#             var visible = el.offsetHeight > 100;
+#             Plotly.relayout(el, {'xaxis.visible': visible});
+#           });
+#           ro.observe(el);
+#         }"
+#       )
+#   })
+#   
+#   ### Tussentitel
+#   output$kaartnaam <- renderText({
+#     paste(input$kaart)
+#   })
+#   
+# 
+#   ## UI voor soortenfiches afhankelijk van input
+#   output$soortenfiches_ui <- renderUI(
+#     if (input$kaart %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)")) {
+#       navset_card_tab(
+#         nav_panel(
+#           title = "Aandeel in",
+#           fluidRow(
+#             column(
+#               width = 3,
+#               highchartOutput("piechart_in"),
+#               full_screen = TRUE
+#             ),
+#             column(
+#               width = 9,
+#               highchartOutput("barchart_in")
+#             )
+#           ),
+#           fluidRow(
+#             class = "custom-kaart-row", 
+#             leafletOutput("kaart_in", height = "600px"),
+#             div(downloadButton("download_kaart", "Download PNG", class = "custom-download-button"))
+#           )),
+#         nav_panel(
+#           title = "Aandeel van",
+#           fluidRow(
+#             highchartOutput("barchart_of"),
+#             full_screen = TRUE
+#           ),
+#           fluidRow(
+#             class = "custom-kaart-row", 
+#             leafletOutput("kaart_of", height = "600px")
+#           ))
+#       )
+#       
+#     }
+#     else if (input$kaart %in% c("Natura 2000 Habitattypes", "Natuurbeheerplannen", "ANB patrimonium")){
+#       navset_card_tab(
+#         nav_panel(
+#           title = "Aandeel in",
+#           fluidRow(
+#             column( ),
+#             column( )
+#           ),
+#           fluidRow()
+#           ),
+#         nav_panel(
+#           title = "Aandeel van",
+#           fluidRow( ),
+#           fluidRow( )
+#           ))
+#     }
+#   )
+#   
+#   
+#   
+#   output$piechart_in <- renderHighchart({
+#     df <- data.frame(
+#       label = c("IN", "NIET IN"),
+#       gebied = c(paste("in", input$kaart), paste("niet in", input$kaart)),
+#       overlap = c(sum(metrics_in()$overlap), 1 - sum(metrics_in()$overlap)),
+#       color = c("#c04384", "lightgrey"))
+#     
+#     # Preparing the data in the required format
+#     data_list <- df %>%
+#       mutate(y = overlap * 100, name = gebied) %>%
+#       select(name, y, label, color) %>%
+#       list_parse()
+#     
+#     highchart() %>%
+#       hc_chart(type = "pie", width = NULL) %>%
+#       hc_plotOptions(pie = list(
+#         innerSize = '60%',
+#         dataLabels = list(
+#           enabled = TRUE,
+#           distance = -30, 
+#           format = '<b>{point.label}</b> ',
+#           style = list(color = 'black', fontSize = '14px', fontWeight = 'bold'),
+#           backgroundColor = NULL,
+#           borderColor = NULL,      
+#           borderWidth = 0      
+#         ),
+#         showInLegend = FALSE,
+#         borderColor = "black",
+#         borderWidth = 0.5
+#       )) %>%
+#       hc_add_series(
+#         name = "Overlap",
+#         data = data_list, 
+#         tooltip = list(
+#           pointFormat = '<b>{point.y:.1f}</b> %', 
+#           style = list(color = "black", fontsize = '14px', fontWeight = 'bold')
+#         )
+#       ) %>%
+#       #hc_tooltip(pointFormat = '<b>{point.gebied}</b>') %>%
+#       hc_legend(enabled = FALSE) %>%
+#       hc_size(height = NULL) %>%
+#       hc_chart(backgroundColor = 'rgba(0, 0, 0, 0)') %>%
+#       hc_add_theme(hc_theme_elementary())
+#   })
+#   
+#   
+#   output$barchart_in <- renderHighchart({
+#     if (nrow(metrics_in()) != 0) {
+#       df <- metrics_in() %>%
+#         filter(overlap != 0) %>%
+#         arrange(overlap) %>%
+#         mutate(gebied = factor(gebied, levels = gebied)) %>%
+#         mutate(y = overlap * 100)
+#       
+#       
+#      chart <- highchart() %>%
+#         hc_chart(type = 'column') %>%
+#         hc_xAxis(categories = df$gebied, title = list(text = ""), labels = list(rotation = -90)) %>%
+#         hc_yAxis(title = list(text = 'Overlap (%)'), labels = list(format = '{value}%')) 
+#      
+#      if (nrow(metrics_in()) == 1) {
+#        chart <- chart %>%
+#          hc_plotOptions(column = list(
+#          dataLabels = list(enabled = TRUE, format = '{point.y:.2f}%'),
+#          color = "#c04384",
+#          borderColor = "black",
+#          borderWidth = 0.5,
+#          pointPadding = 0.1, 
+#          groupPadding = 0.1
+#        ))
+#      }
+#      
+#      else {
+#        chart <- chart %>%
+#          hc_plotOptions(
+#            column = list(
+#              dataLabels = list(enabled = TRUE, format = '{point.y:.2f}%'),
+#              borderColor = "black",
+#              borderWidth = 0.5,
+#              pointPadding = 0.1, 
+#              groupPadding = 0.1
+#            ))
+#      }
+#      
+#      
+#      chart <- chart %>%
+#        hc_tooltip(
+#           headerFormat = '',
+#           pointFormat = '<b>{point.naam} ({point.gebied}): {point.y:.2f}%</b>'
+#         ) %>%
+#         hc_chart(backgroundColor = 'rgba(0, 0, 0, 0)') %>%
+#         hc_add_theme(hc_theme_elementary()) %>%
+#        hc_add_series(
+#          name = "Overlap",
+#          data = df %>% mutate(y = overlap * 100) %>% select(gebied, y, naam),
+#          colorByPoint = TRUE,
+#          colors = pal_in()(df$overlap)) 
+#    
+#      chart
+#     }
+#   })
+#   
+# 
+#   ### Kaart in
+#   kaart_in <- reactive({
+#     map <- leaflet() %>%
+#       addTiles(urlTemplate = "", attribution = NULL, group = "Zonder achtergrond") %>%
+#       addProviderTiles(providers$OpenStreetMap, group = "OSM (default)") %>%
+#       addProviderTiles(providers$Esri.WorldImagery, group = "Satellite") %>%
+#       addPolygons(data = Vlaanderen_grenzen, color = "black", fillColor = "#f0f0f0", weight = 1, group = "Vlaanderen") %>%
+#       addPolygons(data = Provincies_grenzen, color = "black", fillColor = "#f0f0f0", weight = 0.5, group = "Provincies") %>%
+#       addPolygons(data = list_wfs[[input$kaart]], color = "black", fillColor = "lightgrey", opacity = 0.7, weight = 0.5, fillOpacity = 1, label = ~paste0(naam, " (", code, "): 0%"), highlight = highlightOptions(stroke = TRUE, color = "black", weight = 2)) 
+#       
+#       if(nrow(metrics_in()) != 0) {
+#         map <- map %>%
+#           addPolygons(data = metrics_in(), color = "black", fillColor = ~pal_in()(overlap), opacity = 1, weight = 0.5, fillOpacity = 1, label = ~paste0(naam, " (", gebied, "): ", round(overlap * 100, 1), "%"), highlight = highlightOptions(stroke = TRUE, color = "black", weight = 2))
+#       }
+#     
+#     map <- map %>%
+#       addCircleMarkers(data = occ_species(), radius = 3, color = "blue", fillOpacity = 0.7, weight = 0.5, label = ~paste0(day, "/", month, "/", year), group = "Waarnemingen") %>%
+#       addLayersControl(
+#         baseGroups = c("Geen achtergrond", "OSM (default)", "Satellite"),
+#         overlayGroups = c("Waarnemingen"),
+#         options = layersControlOptions(collapsed = FALSE)
+#       ) %>%
+#       hideGroup("Waarnemingen") %>%
+#       setView(lng = 4.240556, lat = 51.037778, zoom = 9)
+#     
+#     if(is.data.frame(metrics_in()) && nrow(metrics_in()) != 0) {
+#       map <- map %>%
+#         addLegend(pal = pal_in(), values = metrics_in()$overlap, opacity = 0.8, position = "bottomright")
+#     }
+#     
+#     map
+#   })
+#   
+#   output$kaart_in <- renderLeaflet({
+#       kaart_in()
+#   })
+#   
+#   
+#   
+#   output$download_kaart <- downloadHandler(
+#     filename = function()
+#       nameFile(soort = input$soort,
+#                type = "in",
+#                content = input$kaart, fileExt = "png"),
+#     content = function(file) {
+# 
+#       tmpFile <- tempfile(fileext = ".html")
+# 
+#       # write map to temp .html file
+#       htmlwidgets::saveWidget(kaart_in(), file = tmpFile, selfcontained = FALSE)
+# 
+#       # convert temp .html file into .png for download
+#       webshot::webshot(url = tmpFile, file = file,
+#                        vwidth = 1000, vheight = 500, cliprect = "viewport")
+# 
+#     }
+#   )
+#   
+#   ### Piechart of
+#   output$piechart_of <- renderPlotly({
+#     df <- data.frame(
+#       gebied = c(metrics_of()$gebied, "Buiten"),
+#       overlap = c(metrics_of()$overlap, 1 - sum(metrics_of()$overlap))
+#     )
+#     
+#     plot_ly(df, labels = ~gebied, values = ~overlap, type = 'pie', 
+#             textposition = 'inside',
+#             textinfo = 'label+percent',
+#             insidetextfont = list(color = '#FFFFFF'),
+#             text = ~paste('Gebied:', gebied, '<br>Overlap:', overlap),
+#             hoverinfo = 'text',
+#             marker = list(colors = ~pal()(df$overlap),
+#                           line = list(color = '#FFFFFF', width = 1)),
+#             showlegend = FALSE) %>%
+#       layout(xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+#              yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
+#   })
+#   
+#   ### Barchart of
+#   output$barchart_of <- renderHighchart({
+#     if (nrow(metrics_of()) != 0) {
+#       df <- metrics_of() %>%
+#         filter(overlap != 0) %>%
+#         arrange(overlap) %>%
+#         mutate(gebied = factor(gebied, levels = gebied)) %>%
+#         mutate(y = overlap * 100)
+#       
+#       highchart() %>%
+#         hc_chart(type = 'column') %>%
+#         hc_xAxis(categories = df$gebied, title = list(text = ""), labels = list(rotation = -90)) %>%
+#         hc_yAxis(title = list(text = 'Overlap (%)'), labels = list(format = '{value}%')) %>%
+#         hc_plotOptions(column = list(
+#           dataLabels = list(enabled = TRUE, format = '{point.y:.2f}%'),
+#           borderColor = "black",
+#           borderWidth = 0.5,
+#           pointPadding = 0.1, 
+#           groupPadding = 0.1
+#         )) %>%
+#         hc_add_series(
+#           name = "Overlap",
+#           data = df %>% mutate(y = overlap * 100) %>% select(gebied, y, naam),
+#           colorByPoint = TRUE,
+#           colors = pal_of()(df$overlap)
+#         ) %>%
+#         hc_tooltip(
+#           headerFormat = '',
+#           pointFormat = '<b>{point.naam} ({point.gebied}): {point.y:.2f}%</b>'
+#         ) %>%
+#         hc_chart(backgroundColor = 'rgba(0, 0, 0, 0)') %>%
+#         hc_add_theme(hc_theme_elementary()) 
+#     }
+#   })
+#   
+#   ### Kaart of
+#   output$kaart_of <- renderLeaflet({
+#     map <- leaflet() %>%
+#       addTiles(urlTemplate = "", attribution = NULL, group = "Zonder achtergrond") %>%
+#       addProviderTiles(providers$OpenStreetMap, group = "OSM (default)") %>%
+#       addProviderTiles(providers$Esri.WorldImagery, group = "Satellite") %>%
+#       addPolygons(data = Vlaanderen_grenzen, color = "black", fillColor = "#f0f0f0", weight = 1, group = "Vlaanderen") %>%
+#       addPolygons(data = Provincies_grenzen, color = "black", fillColor = "#f0f0f0", weight = 0.5, group = "Provincies") %>%
+#       addPolygons(data = list_wfs[[input$kaart]], color = "black", fillColor = "lightgrey", opacity = 0.7, weight = 0.5, fillOpacity = 1, label = ~paste0(naam, " (", code, "): 0%"), highlight = highlightOptions(stroke = TRUE, color = "black", weight = 2)) 
+#     
+#     if(nrow(metrics_of()) != 0) {
+#       map <- map %>%
+#         addPolygons(data = metrics_of(), color = "black", fillColor = ~pal_of()(overlap), opacity = 1, weight = 0.5, fillOpacity = 1, label = ~paste0(naam, " (", gebied, "): ", round(overlap * 100, 1), "%"), highlight = highlightOptions(stroke = TRUE, color = "black", weight = 2))
+#     }
+#     
+#     map <- map %>%
+#       addCircleMarkers(data = occ_species(), radius = 3, color = "blue", fillOpacity = 0.7, weight = 0.5, label = ~paste0(day, "/", month, "/", year), group = "Waarnemingen") %>%
+#       addLayersControl(
+#         baseGroups = c("Geen achtergrond", "OSM (default)", "Satellite"),
+#         overlayGroups = c("Waarnemingen"),
+#         options = layersControlOptions(collapsed = FALSE)
+#       ) %>%
+#       hideGroup("Waarnemingen") %>%
+#       setView(lng = 4.240556, lat = 51.037778, zoom = 9)
+#     
+#     if(is.data.frame(metrics_of()) && nrow(metrics_of()) != 0) {
+#       map <- map %>%
+#         addLegend(pal = pal_of(), values = metrics_of()$overlap, opacity = 0.8, position = "bottomright")
+#     }
+#     
+#     map
+#   })
+#   
+# }
+# 
+# shinyApp(ui = ui, server = server)
