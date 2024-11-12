@@ -1,14 +1,11 @@
 ---
-title: "RadIUS - invasieve uitheemse soorten in de Vlaamse natuur"
+title: "RadIUS analyse en figuren"
 output:
   html_document:
-    df_print: paged
     toc: true
-    toc_depth: 3
-    toc_float: true
-    number_sections: true
+    toc_depth: 2
+    toc_float: TRUE  
 ---
-
 
 ```{r load-library, include=FALSE}
 # general
@@ -33,12 +30,17 @@ library(ggpubr)
 library(RColorBrewer)
 library(patchwork)
 library(gridExtra)
+library(grid)
 
 library(extrafont)
 loadfonts(device = "win") 
 ```
 
-```{r define-custom-theme, include=FALSE}
+```{r clear-memory, include=FALSE}
+rm(list=ls())
+```
+
+```{r define-custom-theme, echo=FALSE, include=TRUE, global=TRUE}
 custom_theme <- function() {
   theme_few() +
     theme(
@@ -62,10 +64,6 @@ custom_theme <- function() {
 }
 ```
 
-```{r clear-memory, include=FALSE}
-#rm(list=ls())
-```
-
 ```{r load-data, include=FALSE, message=FALSE}
 # Species data 
 species_list <- read_csv("./radius/data/input/radius_species_list.csv") 
@@ -82,7 +80,8 @@ Provincies_grenzen <- st_read("./prius/data/spatial/Provincies.geojson") %>%
 Vlaanderen_grenzen <- st_read("./prius/data/spatial/flanders_wgs84.geojson")
 
 ## metrics
-VL <- read_csv("./radius/data/output/VL.csv")
+VL <- read_csv("./radius/data/output/VL_long.csv")
+VL_wide <- read_csv("./radius/data/output/VL_wide.csv")
 
 # HABITATRICHTLIJN
 ## spatial
@@ -135,7 +134,7 @@ N2KHAB_wide <- read_csv("./radius/data/output/N2KHAB_wide.csv")
 
 #### Natuurbeheerplannen
 ## spatial
-#ps_nbhp <- st_read("./radius/data/spatial/ps_nbhp.shp")
+ps_nbhp <- st_read("./radius/data/spatial/ps_nbhp.shp")
 
 ## metrics
 NBHP <- read_csv("./radius/data/output/NBHP_long.csv")
@@ -152,7 +151,7 @@ PATDAT_excl <- read_csv("./radius/data/output/PATDAT_excl_ob_long.csv")
 PATDAT_wide <- read_csv("./radius/data/output/PATDAT_incl_ob_wide.csv")
 PATDAT_excl_wide <- read_csv("./radius/data/output/PATDAT_excl_ob_wide.csv")
 
-TOP3 <- read_csv("./radius/data/output/TOP3.csv")
+TOP3 <- read_csv("./radius/data/output/TOP3_long.csv")
 
 #### Soortenbeschermingsprogramma's (SBP)
 
@@ -196,9 +195,10 @@ kable(spor_species, col.names = c("Soort", "Aantal observaties (sinds 2015)"),
 ## Welke soorten zijn het meest aanwezig in Vlaanderen? 
 
 Weergave van ofVL-metric (percentage van totale oppervlakte van Vlaanderen dat bezet is door een soort) per soort
+
 ```{r occupancy-in-flanders, echo=FALSE}
 ggplotly(
-  ggplot(data = VL, aes(x = reorder(Soort, ofVL), y = ofVL, text = paste0(Soort, "<br>Aandeel van Vlaanderen: ", round(ofVL * 100, 6), "%"))) +
+  ggplot(data = VL_wide, aes(x = reorder(soort, ofVL), y = ofVL, text = paste0(soort, "<br>Aandeel van Vlaanderen: ", round(ofVL * 100, 6), "%"))) +
   geom_bar(stat = "identity", colour = "white", linewidth = 0.01, fill = "#c04384") +
   ylab("Aandeel bezet") +
   theme_bw() +
@@ -240,7 +240,8 @@ soorten: SBP soorten?
 ### Habitatrichtlijngebieden in Vlaanderen
 
 In totaal werden 38 habitatrichtlijngebieden in Vlaanderen aangeduid.
-```{r kaart-hbtrl, echo=FALSE, fig.cap="Weergave van de habitatrichtlijngebieden in Vlaanderen", message=FALSE, warning=FALSE}
+
+```{r overview-hbtrl, echo=FALSE, message=FALSE, warning=FALSE}
 ggplotly(
   ggplot() +
     geom_sf(data = Provincies_grenzen, fill= "#f0f0f0", linewidth = 0.2) +
@@ -249,7 +250,7 @@ ggplotly(
   tooltip = "text")
 ```
 
-```{r tabel-hbtrl, echo=FALSE, message=FALSE}
+```{r tabel-overview-hbtrl, echo=FALSE, message=FALSE}
 kable(ps_hbtrl %>% st_drop_geometry(), col.names = c("Code", "Naam", "Oppervlakte (ha)"), 
       align = "llr",
       caption = "Overzicht van de habitatrichtlijngebieden (SBZ-H) in Vlaanderen en hun oppervlakte (in ha)", 
@@ -258,10 +259,12 @@ kable(ps_hbtrl %>% st_drop_geometry(), col.names = c("Code", "Naam", "Oppervlakt
                 position = "center",
                 font_size = 12,
                 htmltable_class = "lightable-classic")
+
+x <- ps_hbtrl %>% st_drop_geometry()
 ```
 
 Kaartje habitatrichtlijngebieden ingekleurd volgens oppervlak: 
-```{r kaart-hbtrl-area, echo=FALSE, warning=FALSE}
+```{r overview-hbtrl-area-colored, echo=FALSE, warning=FALSE}
 ps_hbtrl <- st_cast(ps_hbtrl, "MULTIPOLYGON")
 
 ggplotly(
@@ -279,7 +282,7 @@ ggplotly(
 ### Gebiedsgericht
 
 #### Totaal aantal IUS per habitatrichtlijngebied 
-```{r n-ias-in-hbtrl, echo=FALSE, warning=FALSE}
+```{r n-spec-of-hbtrl, echo=FALSE, warning=FALSE, message=FALSE}
 HBTRL_nspec <- HBTRL %>%
   dplyr::filter(gebied != "HBTRL" & type == "of" & overlap != 0) %>%
   left_join(species_list, by = c("soort" = "Soort")) %>%
@@ -319,16 +322,15 @@ HBTRL_nspec <- HBTRL_nspec %>%
   mutate(number_bin = cut(total_species, breaks = c(9, 19, 29, 39, 49), labels = c("10-20", "20-30", "30-40", ">40")))
 
 colors <- c("10-20" = "#f2d9e6", "20-30" = "#e6b4ce", "30-40" = "#d98eb5", ">40" = "#c04384")
-#colors <- c("10-20" = "#497364", "20-30" = "#8cb898", "30-40" = "#bb6e8c", ">40" = "#a43e66")
 
-ggplotly(
-  ggplot() +
-    geom_sf(data = Provincies_grenzen, fill= "#f0f0f0", color = "black", linewidth = 0.2) +
-    geom_sf(data = HBTRL_nspec, aes(color = number_bin, fill = number_bin, text = paste0(naam, " (", gebied, "): ", total_species))) +
-    scale_fill_manual(values = colors) +
-    scale_color_manual(values = colors) +
-    theme_map(), 
-  tooltip = "text")
+# ggplotly(
+#   ggplot() +
+#     geom_sf(data = Provincies_grenzen, fill= "#f0f0f0", color = "black", linewidth = 0.2) +
+#     geom_sf(data = HBTRL_nspec, aes(color = number_bin, fill = number_bin, text = paste0(naam, " (", gebied, "): ", total_species))) +
+#     scale_fill_manual(values = colors) +
+#     scale_color_manual(values = colors) +
+#     theme_map(), 
+#   tooltip = "text")
 
 ggplot() +
   geom_sf(data = Provincies_grenzen, fill= "#f0f0f0", color = "black", linewidth = 0.2) +
@@ -367,45 +369,6 @@ Vijf habitatrichtlijngebieden met het **laagste aantal IUS**?
 5.	Bosbeekvallei en aangrenzende bos- en heidegebieden te As-Opglabbeek-Maaseik (BE2200043): 16  
 
 
-#### Aantal IUS in habitatrichtlijngebied opgesplitst plant vs dier
-```{r}
-
-bins <- c(0, 1, 5, 10, 15, 20, 25, 30, 35) 
-bin_labels <- c("0", "1-4", "5-9", "10-14", "15-19", "20-24", "25-29", "30+")
-
-x <- HBTRL %>%
-  dplyr::filter(gebied != "HBTRL" & type == "of" & overlap != 0) %>%
-  left_join(species_list, by = c("soort" = "Soort")) %>%
-  select(soort, Groep, gebied, overlap) %>%
-  distinct() %>%
-  group_by(gebied, Groep) %>%
-  summarize(n_species = n()) %>%
-  #mutate(bin = cut(n_species, breaks = bins, labels = bin_labels, right = FALSE)) %>%
-  group_by(Groep, n_species) %>%
-  summarise(n_geb = n())
-
-# Plot the results
-ggplot(x, aes(x = n_species, y = n_geb, fill = Groep)) +
-  geom_bar(stat = "identity", position = position_dodge(), width = 0.5) +
-  labs(x = "Aantal IUS", y = "Aantal Habitatrichtlijngebieden") +
-  theme_bw() 
-
-bins <- c(0, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 30, 35, 40)
-bin_labels <- c("0", "1-2", "3-4", "5-6", "7-8", "9-10", "11-12", "13-14", "15-16", "17-18", "19-20", "21-22", "23-24", "25-26", "27-29", "30-34", "35+")
-
-# Samenvatten en plotten
-x <- HBTRL %>%
-  dplyr::filter(gebied != "HBTRL" & type == "of" & overlap != 0) %>%
-  left_join(species_list, by = c("soort" = "Soort")) %>%
-  select(soort, Groep, gebied, overlap) %>%
-  distinct() %>%
-  group_by(gebied, Groep) %>%
-  summarize(n_species = n()) %>%
-  mutate(bin = cut(n_species, breaks = bins, labels = bin_labels, right = FALSE)) %>%
-  group_by(Groep, bin) %>%
-  summarise(n_geb = n())
-```
-
 
 #### Welke IUS komen voor in een habitatrichtlijngebied?
 
@@ -414,7 +377,7 @@ Weergegeven als percentage van totale oppervlak van habitatrichtlijngebied dat "
 - BE2100020: Heesbossen, Vallei van Marke en Merkske en Ringven met valleigronden langs de Heerlese Loop
 - BE2100040: Bovenloop van de Grote Nete met Zammelsbroek, Langdonken en Goor
 
-```{r spec-in-hbtrl, echo=FALSE}
+```{r spec-of-hbtrl-per-gebied, echo=FALSE}
 y <- occ_flanders %>%
   st_drop_geometry() %>%
   group_by(Soort) %>%
@@ -432,15 +395,15 @@ x <- HBTRL %>%
 
 x$naam <- str_wrap(x$naam, width = 20)
 
-ggplotly(ggplot(x, aes(x = overlap * 100, y = reorder(soort, n_obs))) +  
-           geom_bar(stat = "identity", fill = "#c04384", width = 0.7) +
-           facet_grid(~ gebied, scales = "free_x") +  
-           labs(y = NULL, x = "Percentage bezetting") +
-           scale_x_continuous(labels = percent_format(scale = 1)) +  
-           custom_theme() +
-           theme(
-             strip.background = element_rect(fill = "grey90")
-           ))
+# ggplotly(ggplot(x, aes(x = overlap * 100, y = reorder(soort, n_obs))) +  
+#            geom_bar(stat = "identity", fill = "#c04384", width = 0.7) +
+#            facet_grid(~ gebied, scales = "free_x") +  
+#            labs(y = NULL, x = "Percentage bezetting") +
+#            scale_x_continuous(labels = percent_format(scale = 1)) +  
+#            custom_theme() +
+#            theme(
+#              strip.background = element_rect(fill = "grey90")
+#            ))
 
 ggplot(x, aes(x = overlap * 100, y = reorder(soort, n_obs))) +  
   geom_bar(stat = "identity", fill = "#c04384", width = 0.7) +
@@ -458,37 +421,27 @@ ggsave("./radius/data/output/figuren/hbtrl_spec_present.png",
 ### Soortgericht
 
 #### Welke soorten komen (niet) voor in habitatrichtlijngebieden?
-```{r}
+```{r spec-in-hbtrl, echo=FALSE}
 HBTRL_ngeb <- HBTRL %>%
   dplyr::filter(gebied != "HBTRL" & type == "in" & overlap != 0) %>%
   group_by(soort) %>%
-  summarise(n_geb = n()) %>%
-  mutate(perc = round((n_geb / 38) * 100, 1))
+  summarise(n_geb = n()) 
 
 x <- HBTRL %>%
   dplyr::filter(gebied == "HBTRL" & type == "of") %>%
   mutate(label_color = ifelse(overlap == 0, "grey75", "black")) %>%
-  left_join(species_list, by = c("soort" = "Soort")) %>%
+   left_join(species_list, by = c("soort" = "Soort")) %>%
   select(soort, species, Groep, overlap, label_color) %>%
   distinct() %>%
-  mutate(Groep = recode(Groep, "plant" = "planten", "dier" = "dieren")) %>%  # Recodeer Groep
-  left_join(HBTRL_ngeb, by = "soort") %>%
-  pivot_longer(cols = c("overlap", "n_geb"), names_to = "type", values_to = "overlap") %>%
-  mutate(type = recode(type, "overlap" = "% bezetting", "n_geb" = "# gebieden")) %>%
-  replace_na(list(overlap = 0))
-
-x <- HBTRL %>%
-  dplyr::filter(gebied == "HBTRL" & type == "of") %>%
-  mutate(label_color = ifelse(overlap == 0, "grey75", "black")) %>%
-  left_join(species_list, by = c("soort" = "Soort")) %>%
-  select(soort, species, Groep, overlap, label_color) %>%
-  distinct() %>%
-  mutate(Groep = recode(Groep, "plant" = "planten", "dier" = "dieren")) %>%  # Recodeer Groep
-  left_join(HBTRL_ngeb, by = "soort") %>%
-  select(soort, Groep, overlap, n_geb)
+  mutate(Groep = recode(Groep, "plant" = "planten", "dier" = "dieren")) %>%
+  left_join(HBTRL_ngeb, by = "soort") %>% 
+ select(soort, Groep, overlap, n_geb, label_color) %>%
+ pivot_longer(cols = c("overlap", "n_geb"), names_to = "type", values_to = "overlap") %>% 
+ mutate(type = recode(type, "overlap" = "% bezetting", "n_geb" = "# gebieden")) %>% 
+replace_na(list(overlap = 0)) 
 
 x_order <- x %>%
-  dplyr::filter(type == "% bezetting") %>%
+  filter(type == "% bezetting") %>%
   arrange(overlap) %>%
   pull(soort)
 
@@ -520,7 +473,7 @@ ggsave("./radius/data/output/figuren/hbtrl_bezetting.png",
 
 
 #### In hoeveel habitatrichtlijngebieden komen de soorten voor?
-```{r hbtrl-n-geb, echo=FALSE, message=FALSE, warning=FALSE}
+```{r species-in-hbtrl-ngeb, echo=FALSE, message=FALSE, warning=FALSE}
 ggplot(data = HBTRL_ngeb, aes(x = reorder(soort, n_geb), y = n_geb)) +
   geom_bar(stat = "identity", color = "white", linewidth = 0.0001, fill = "#c04384", aes(text = paste0(soort, " (", n_geb, " gebieden)")), width = 0.7) +
   custom_theme() +
@@ -537,7 +490,7 @@ Nijlgans, Canadese gans, Invasieve duizendknopen komen in ALLE habitatrichtlijng
 #### Voorkomen IAS in percentage {.tabset}
 
 ##### Percentage van habitatrichtlijn (ofHBTRL)
-```{r figuur-of-HBTRL, echo=FALSE, message=FALSE}
+```{r of-hbtrl, echo=FALSE, message=FALSE}
 of_HBTRL <- HBTRL %>%
   dplyr::filter(gebied == "HBTRL" & type == "of" & overlap != 0)
 
@@ -557,7 +510,7 @@ ggplotly(
 Resultaat zeer vergelijkbaar met resultaten voor PrIUS rapport: wijdverspreide soorten komen het meest abundant in habitatrichtlijn gebieden voor. Dit is natuurlijk logisch. Dit zijn soorten zoals de nijlgans (*Alopochen aegyptiaca*), Canadese gans (*Branta canadensis*), Amerikaanse vogelkers (*Prunus serotina*), reuzenbalsemien (*Impatiens glandulifera*) en invasieve duizendknopen (*Reynoutria japonica*), ... die over heel het Vlaamse grondgebied wijdverspreid voorkomen en dus ook in habitatrichtlijngebieden. Dit zijn ook de soorten die tijdens de workshop het meest aan bod kwamen van de boswachter uit. Deze soorten dragen de kroon van verspreiding en last in Vlaanderen. Hiervan staan echter uitsluitend de nijlgans en reuzenbalsemien op de unielijst!!!! Aanpak voor Europa strookt niet perse met aanpak voor Vlaanderen.
 
 ##### Percentage in habitatrichtlijn (inHBTRL)
-```{r figuur-in-HBTRL, echo=FALSE, message=FALSE}
+```{r in-hbtrl, echo=FALSE, message=FALSE}
 in_HBTRL <- HBTRL %>%
   dplyr::filter(gebied == "HBTRL" & type == "in" & overlap != 0)
 
@@ -582,7 +535,7 @@ Soorten met meer dan 50% van totale Vlaamse verspreiding in habitatrichtlijngebi
 4. Sikahert (Cn): 58.6%    
 
 ##### In vs. of
-```{r in-vs-of, echo=FALSE, message=FALSE}
+```{r in-vs-of-hbtrl, echo=FALSE, message=FALSE}
 in_vs_of_HBTRL <- in_HBTRL %>%
   select(!type) %>%
   left_join(of_HBTRL %>% select(!type), by = c("soort", "species", "abbr", "gebied"), suffix = c(".in", ".of")) #%>%
@@ -601,34 +554,14 @@ ggsave("./radius/data/output/figuren/in_vs_of_hbtrl.png",
        height = 4,
        dpi = 300)
 ```
+
 -   De soorten die in grote mate overlappen met habitatrichtlijngebieden/soorten die het totaal areaal aan habitatrichtlijngebieden het sterkt impacteren: nijlgans (Aae), Canadese gans (Bc), Amerikaanse vogelkers (Pse), reuzenbalsemien (Ig). Echter, deze soorten vertonen een algemeen lagere specificiteit voor de habitatrichtlijngebieden. Het zijn wijdverspreide soorten die niet specifiek voorkeur geven aan habitatrichtlijngebieden.  
 -   Soorten die het sterkst aan habitatrichtlijngebieden gebonden zijn (inHBTRL \< 0.5): Chinese moerasslak (Cch), Amerikaanse hondsvis (Up), Siberische grondeekhoorn (Tsi), Sikahert (Cn). *Opgelet* Chinese moerasslak is een sporadische soort met slechts 6 waarnemingen sinds 2015.  
 -   Soorten die het minst aan habitatrichtlijngebieden gebonden zijn (inHBTRL \> 0.05): Chinese prachtslang (Et), Aziatische hoornaar (Vv), Kaapse waterlelie (Ad), Turkse rivierkreeft (Plep), hemelboom (Aal) 
 
-```{r}
-x <- HBTRL %>%
-  dplyr::filter(gebied == "HBTRL" & type == "of" & overlap != 0) %>%
-  left_join(VL, by = c("soort" = "Soort"))
-
-ggplot(x, aes(overlap, ofVL)) +
-  xlim(c(0,0.15)) +
-  ylim(c(0,0.15)) +
-  geom_point()
-
-x <- HBTRL %>%
-  dplyr::filter(gebied == "HBTRL" & type == "sel" & overlap != 0) %>%
-  left_join(VL, by = c("soort" = "Soort"))
-
-ggplot(x, aes(overlap, ofVL)) +
-  xlim(c(0,0.15)) +
-  ylim(c(0,0.15)) +
-  geom_point()
-```
-
-
 #### In welke habitatrichtlijngebieden komen soorten voor {.tabset}
 ##### Amerikaanse hondsvis
-```{r overlap-map-am-hondsvis-hbtrl, results='asis', echo=FALSE, warning=FALSE}
+```{r am-hondsvis-in-hbtrl, results='asis', echo=FALSE, warning=FALSE}
 df_Up <- HBTRL_spatial %>%
   dplyr::filter(soort == "Amerikaanse hondsvis" & type == "in" & gebied != "HBTRL" & overlap != 0) %>%
   st_cast("MULTIPOLYGON")
@@ -658,7 +591,7 @@ barplot_Up
 ```
 
 ##### Siberische grondeekhoorn
-```{r overlap-map-sib-grondeekhoorn-hbtrl, results='asis', echo=FALSE, warning=FALSE}
+```{r sib-grondeekhoorn-in-hbtrl, results='asis', echo=FALSE, warning=FALSE}
 df_Tsi <- HBTRL_spatial %>%
   dplyr::filter(soort == "Siberische grondeekhoorn" & type == "in" & gebied != "HBTRL" & overlap != 0) %>%
   st_cast("MULTIPOLYGON")
@@ -688,7 +621,7 @@ barplot_Tsi
 ```
 
 ##### sikahert
-```{r overlap-map-sikahert-hbtrl, results='asis', echo=FALSE, warning=FALSE}
+```{r sikahert-in-hbtrl, results='asis', echo=FALSE, warning=FALSE}
 df_Cn <- HBTRL_spatial %>%
   dplyr::filter(soort == "sikahert" & type == "in" & gebied != "HBTRL" & overlap != 0) %>%
   st_cast("MULTIPOLYGON")
@@ -703,6 +636,8 @@ map_Cn <- ggplot() +
   geom_sf(data = occs_Cn, color = "blue", size = 1) +
   theme_map()
 
+map_Cn
+
 barplot_Cn <- ggplot() +
            geom_bar(data = df_Cn, aes(x = overlap, y = reorder(gebcode, overlap), 
                                       text = paste0(gebied, " (", naam, "): ", round(overlap * 100, 1), "%")), stat = "identity", colour = "#c04384", fill = "#c04384", width = 0.7) +
@@ -715,8 +650,7 @@ barplot_Cn <- ggplot() +
 barplot_Cn
 ```
 
-##### Gecombineerde plot van bovenstaande drie soorten
-```{r}
+```{r combined-plot-in-hbtrl, echo=FALSE, message=FALSE, include = FALSE}
 df <- HBTRL_spatial %>%
   dplyr::filter(soort %in% c("Siberische grondeekhoorn", "Amerikaanse hondsvis", "sikahert") & type == "in" & gebied != "HBTRL" & overlap != 0) %>%
   st_cast("MULTIPOLYGON") %>%
@@ -732,9 +666,6 @@ overview <- ggplot(df, aes(x = overlap, y = gebcode)) +
         strip.placement = "outside", 
         strip.text.y.left = element_text(angle=0, margin = margin(r = 1)),  
         panel.spacing = unit(1, "lines"))
-
-overview
-library(grid)
 
 right_column <- grid.arrange(map_Up, map_Tsi, map_Cn)
 
@@ -759,50 +690,49 @@ dev.off()
 
 ## Overzicht vogelrichtlijngebieden (SBZ-V)
 
-### Wat is de vogelrichtlijn? 
+### Wat is de vogelrichtlijn?
 
 ### Vogelrichtlijngebieden in Vlaanderen
 
 In totaal werden 24 vogelrichtlijngebieden in Vlaanderen aangeduid.
-```{r kaart-vglrl, echo=FALSE, fig.cap="Weergave van de vogelrichtlijngebieden in Vlaanderen", message=FALSE, warning=FALSE}
+```{r overview-vglrl, echo=FALSE, warning=FALSE}
 ggplotly(
   ggplot() +
     geom_sf(data = Provincies_grenzen, fill= "#f0f0f0", linewidth = 0.2) +
     geom_sf(data = ps_vglrl, color= "black", fill="#a4e98f", linewidth = 0.03, aes(group = gebnaam, text = paste0(gebnaam, " (", na2000code, ")"))) +
-    theme_map(), 
+    theme_map(),
   tooltip = "text")
 ```
 
-```{r tabel-vglrl, echo=FALSE, message=FALSE}
-kable(ps_vglrl %>% st_drop_geometry() %>% select(na2000code, gebnaam, oppervlakte), col.names = c("Code", "Naam", "Oppervlakte (ha)"), 
+```{r tabel-overview-vglrl, echo=FALSE, message=FALSE}
+kable(ps_vglrl %>% st_drop_geometry() %>% select(na2000code, gebnaam, oppervlakte), col.names = c("Code", "Naam", "Oppervlakte (ha)"),
       align = "llr",
-      caption = "Overzicht van de vogelrichtlijngebieden (SBZ-V) in Vlaanderen en hun oppervlakte (in ha)", 
+      caption = "Overzicht van de vogelrichtlijngebieden (SBZ-V) in Vlaanderen en hun oppervlakte (in ha)",
       booktabs = TRUE) %>%
   kable_styling(bootstrap_options = "responsive",
                 position = "center",
                 font_size = 12,
                 htmltable_class = "lightable-classic")
+
+ps_vglrl %>% st_drop_geometry() %>% select(na2000code, gebnaam, oppervlakte) -> x
 ```
 
-## IUS in vogelrichtlijngebieden 
+## IUS in vogelrichtlijngebieden
 
-Voor het rapport beperken we ons tot de vogelsoorten. Waterrijke (en dus vogelrijke) gebieden indachtig, breiden we deze selectie ter illustratie uit met een aantal notoire predatoren (wasbeer, wasbeerhond, Amerikaanse nerts) en aquatische knaagdieren (beverrat en muskusrat). 
+Voor het rapport beperken we ons tot de vogelsoorten. Waterrijke (en dus vogelrijke) gebieden indachtig, breiden we deze selectie ter illustratie uit met een aantal notoire predatoren (wasbeer, wasbeerhond, Amerikaanse nerts) en aquatische knaagdieren (beverrat en muskusrat).
 
-soorten die voor het voorkomen in habitatrichtlijngebied worden meegenomen: 
-```{r}
+soorten die voor het voorkomen in vogelrichtlijngebied worden meegenomen:
+```{r vglrl-spec-selection, echo=FALSE}
 species_vglrl <- c("treurmaina","nijlgans","beverrat","wasbeerhond","muskusrat","rosse stekelstaart","wasbeer","heilige ibis","Canadese gans","Amerikaanse nerts")
 
-kable(species_list %>% dplyr::filter(Soort %in% species_vglrl) %>% select(Soort, Species), 
+kable(species_list %>% dplyr::filter(Soort %in% species_vglrl) %>% select(Soort, Species),
       align = "llr",
       booktabs = TRUE) %>%
   kable_styling(bootstrap_options = "responsive",
                 position = "center",
                 font_size = 12,
                 htmltable_class = "lightable-classic")
-```
 
-Aanpassen VGLRL data voor relevante soorten (opdelen soorten in vogels, predatoren en knaagdieren)
-```{r}
 VGLRL_subset <- VGLRL %>%
   dplyr::filter(soort %in% species_vglrl) %>%
   mutate(groep = ifelse(
@@ -813,35 +743,35 @@ VGLRL_subset <- VGLRL %>%
 ### Gebiedsgericht
 
 #### Totaal aantal IUS per vogelrichtlijngebied (bep. soortenselectie)
-```{r n-spec-in-vglrl, echo=FALSE, warning=FALSE}
+```{r n-spec-of-vglrl, echo=FALSE, warning=FALSE}
 VGLRL_subset_nspec <- VGLRL %>%
   dplyr::filter(soort %in% species_vglrl & gebied != "VGLRL" & type == "of" & overlap != 0) %>%
   group_by(gebied) %>%
   summarize(total_species_subset = n()) %>%
   left_join(ps_vglrl, by = c("gebied" = "na2000code")) %>%
   st_as_sf() %>%
-  st_cast("MULTIPOLYGON") 
+  st_cast("MULTIPOLYGON")
 
 VGLRL_subset_nspec <- VGLRL_subset_nspec %>%
-  mutate(number_bin_subset = cut(total_species_subset, breaks = c(0, 2, 4, 6, 8), 
-                          labels = c("1-2", "3-4", "5-6", "7-8"), 
+  mutate(number_bin_subset = cut(total_species_subset, breaks = c(0, 2, 4, 6, 8),
+                          labels = c("1-2", "3-4", "5-6", "7-8"),
                           include.lowest = TRUE)) %>%
   select(gebied, gebnaam, total_species_subset, number_bin_subset)
 
-kable(VGLRL_subset_nspec %>% st_drop_geometry() %>% 
-        select(!number_bin_subset) %>% 
+kable(VGLRL_subset_nspec %>% st_drop_geometry() %>%
+        select(!number_bin_subset) %>%
         arrange(total_species_subset))
 
 colors <- c("1-2" = "#f2d9e6", "3-4" = "#e6b4ce", "5-6" = "#d98eb5", "7-8" = "#c04384")
 
-ggplotly(
-  ggplot() +
-    geom_sf(data = Provincies_grenzen, fill= "#f0f0f0", color = "black", linewidth = 0.2) +
-    geom_sf(data = VGLRL_subset_nspec, aes(color = number_bin_subset, fill = number_bin_subset, text = paste0(gebnaam, " (", gebied, "): ", total_species_subset))) +
-    scale_fill_manual(values = colors) +
-    scale_color_manual(values = colors) +
-    theme_map(), 
-  tooltip = "text")
+# ggplotly(
+#   ggplot() +
+#     geom_sf(data = Provincies_grenzen, fill= "#f0f0f0", color = "black", linewidth = 0.2) +
+#     geom_sf(data = VGLRL_subset_nspec, aes(color = number_bin_subset, fill = number_bin_subset, text = paste0(gebnaam, " (", gebied, "): ", total_species_subset))) +
+#     scale_fill_manual(values = colors) +
+#     scale_color_manual(values = colors) +
+#     theme_map(),
+#   tooltip = "text")
 
 ggplot() +
   geom_sf(data = Provincies_grenzen, fill= "#f0f0f0", color = "black", linewidth = 0.2) +
@@ -861,69 +791,69 @@ ggplot() +
 ggsave("./radius/data/output/figuren/vglrl_nspec_subset.png", width = 21, height = 10, units = "cm")
 
 
-VGLRL_nspec <- VGLRL %>%
-  dplyr::filter(gebied != "VGLRL" & type == "of" & overlap != 0) %>%
-  group_by(gebied) %>%
-  summarize(total_species = n()) %>%
-  left_join(ps_vglrl, by = c("gebied" = "na2000code")) %>%
-  st_as_sf() %>%
-  st_cast("MULTIPOLYGON") %>%
-  left_join(VGLRL_subset_nspec %>% st_drop_geometry(), by = c("gebied", "gebnaam")) %>%
-  select(gebied, gebnaam, total_species, total_species_subset, number_bin_subset)
-
-write_csv2(VGLRL_nspec %>% select(gebied, gebnaam, total_species_subset, total_species) %>% st_drop_geometry(), "G:/Mijn Drive/Fleur/RadIUS/Rapport/tabellen/VGLRL_nspec.csv")
-
-VGLRL_nspec <- VGLRL_nspec %>%
-  mutate(number_bin = cut(total_species, breaks = c(0, 9, 19, 29, 39), labels = c("<10", "10-20", "20-30", "30-40")))
-
-colors <- c("<10" = "#f2d9e6", "10-20" = "#e6b4ce", "20-30" = "#d98eb5", "30-40" = "#c04384")
-
-ggplot() +
-  geom_sf(data = Provincies_grenzen, fill= "#f0f0f0", color = "black", linewidth = 0.2) +
-  geom_sf(data = VGLRL_nspec, aes(color = number_bin, fill = number_bin, text = paste0(gebnaam, " (", gebied, "): ", total_species))) +
-  labs(fill = "Aantal IUS", color = "Aantal IUS") +
-  scale_fill_manual(values = colors) +
-  scale_color_manual(values = colors) +
-  theme_map() +
-  theme(
-    legend.title = element_blank(),
-    legend.background = element_blank(),
-    legend.position = "bottom",
-    legend.justification = "center",
-    legend.box.spacing = unit(0.1, "cm")
-  )
+# VGLRL_nspec <- VGLRL %>%
+#   dplyr::filter(gebied != "VGLRL" & type == "of" & overlap != 0) %>%
+#   group_by(gebied) %>%
+#   summarize(total_species = n()) %>%
+#   left_join(ps_vglrl, by = c("gebied" = "na2000code")) %>%
+#   st_as_sf() %>%
+#   st_cast("MULTIPOLYGON") %>%
+#   left_join(VGLRL_subset_nspec %>% st_drop_geometry(), by = c("gebied", "gebnaam")) %>%
+#   select(gebied, gebnaam, total_species, total_species_subset, number_bin_subset)
+# 
+# write_csv2(VGLRL_nspec %>% select(gebied, gebnaam, total_species_subset, total_species) %>% st_drop_geometry(), "G:/Mijn Drive/Fleur/RadIUS/Rapport/tabellen/VGLRL_nspec.csv")
+# 
+# VGLRL_nspec <- VGLRL_nspec %>%
+#   mutate(number_bin = cut(total_species, breaks = c(0, 9, 19, 29, 39), labels = c("<10", "10-20", "20-30", "30-40")))
+# 
+# colors <- c("<10" = "#f2d9e6", "10-20" = "#e6b4ce", "20-30" = "#d98eb5", "30-40" = "#c04384")
+# 
+# ggplot() +
+#   geom_sf(data = Provincies_grenzen, fill= "#f0f0f0", color = "black", linewidth = 0.2) +
+#   geom_sf(data = VGLRL_nspec, aes(color = number_bin, fill = number_bin, text = paste0(gebnaam, " (", gebied, "): ", total_species))) +
+#   labs(fill = "Aantal IUS", color = "Aantal IUS") +
+#   scale_fill_manual(values = colors) +
+#   scale_color_manual(values = colors) +
+#   theme_map() +
+#   theme(
+#     legend.title = element_blank(),
+#     legend.background = element_blank(),
+#     legend.position = "bottom",
+#     legend.justification = "center",
+#     legend.box.spacing = unit(0.1, "cm")
+#   )
 
 #ggsave("./radius/data/output/figuren/hbtrl_nspec.png", width = 21, height = 10, units = "cm")
 ```
 
-#### Welke IUS komen voor in een vogelrichtlijngebied? 
-```{r spec-in-SBZ-V, echo=FALSE}
+#### Welke IUS komen voor in een vogelrichtlijngebied?
+```{r spec-of-vglrl-per-gebied, echo=FALSE}
 x <- VGLRL %>%
   dplyr::filter(soort %in% species_vglrl & gebied %in% c("BE2301235", "BE2221314", "BE2200727") & type == "of") %>%
   group_by(gebied) %>%
   left_join(ps_vglrl, by = c("gebied" = "na2000code")) %>%
   select(soort, gebied, overlap)
 
-ggplot(x, aes(x = overlap * 100, y = reorder(soort, overlap), 
+ggplot(x, aes(x = overlap * 100, y = reorder(soort, overlap),
               label = ifelse(overlap == 0, "", ifelse(overlap*100 < 1, sprintf("%.2f%%", overlap * 100), sprintf("%.1f%%", overlap * 100))))) +
   geom_bar(stat = "identity", fill = "#c04384", width = 0.7) +
   facet_wrap(~gebied, ncol = 3, scales = "free_x") +
   geom_text(aes(hjust = ifelse(overlap > 0.05, 1.1, -0.05)), color = "black", size = 2.5) +
   labs(y = NULL, x = "Bezetting van Vogelrichtlijngebieden (%)") +
-  scale_x_continuous(labels = percent_format(scale = 1)) +  
-  custom_theme() 
+  scale_x_continuous(labels = percent_format(scale = 1)) +
+  custom_theme()
 
 ggsave("./radius/data/output/figuren/vglrl_spec_present.png",
-       width = 7,  
+       width = 7,
        height = 4,
        dpi = 300)
 ```
 
 ### Soortgericht
 
-#### Welke soorten komen (niet) voor in vogelrichtlijngebieden? 
+#### Welke soorten komen (niet) voor in vogelrichtlijngebieden?
 
-beperkt tot relevante soorten zoals eerder vermeld. 
+beperkt tot relevante soorten zoals eerder vermeld.
 ```{r spec-in-vglrl, echo=FALSE, warning=FALSE}
 VGLRL_subset_ngeb <- VGLRL_subset %>%
   dplyr::filter(gebied != "VGLRL" & type == "of" & overlap != 0) %>%
@@ -953,16 +883,16 @@ x$type <- factor(x$type, levels = c("% bezetting", "# gebieden"))
 label_colors <- setNames(x$label_color, x$soort)
 
 ggplot(x, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort, fill = overlap)) +
-  geom_bar(stat = "identity", show.legend = FALSE, width = 0.7, fill = "#c04384") + 
+  geom_bar(stat = "identity", show.legend = FALSE, width = 0.7, fill = "#c04384") +
   geom_vline(data = subset(x, type == "# gebieden"), aes(xintercept = 24), color = "grey75", linewidth = 0.7) +
-  facet_grid(groep ~ type, scales = "free") +  
+  facet_grid(groep ~ type, scales = "free") +
   scale_y_discrete(labels = function(soort) {
     sapply(soort, function(s) {
       paste0("<span style='color:", label_colors[s], "'>", s, "</span>")
     })
   }) +
   labs(x = "Bezetting van Habitatrichtlijngebieden", y = NULL) +
-  custom_theme() + 
+  custom_theme() +
   theme(strip.placement = "outside",
         axis.text.y = element_markdown())
 
@@ -972,20 +902,21 @@ ggsave("./radius/data/output/figuren/vglrl_bezetting.png",
        dpi = 300)
 ```
 
-treurmaina en wasbeerhond komen tot op heden niet voor in vogelrichtlijngebied. 
+treurmaina en wasbeerhond komen tot op heden niet voor in vogelrichtlijngebied.
 
-Nijlgans en Canadese gans komen in ALLE vogelrichtlijngebieden voor! 
+Nijlgans en Canadese gans komen in ALLE vogelrichtlijngebieden voor!
 
+#### Voorkomen IUS in percentage {.tabset}
 
-#### Percentage van vogelrichtlijn (ofVGLRL)
-```{r figuur-of-VGLRL, echo=FALSE, message=FALSE}
+##### Percentage van vogelrichtlijn (ofVGLRL)
+```{r of-vglrl, echo=FALSE, message=FALSE}
 of_VGLRL_subset <- VGLRL_subset %>%
   dplyr::filter(gebied == "VGLRL" & type == "of" & overlap != 0)
 
 ggplotly(
   ggplot(data = of_VGLRL_subset, aes(x = reorder(soort, overlap), y = overlap * 100, text = paste0(soort, "<br>Aandeel van totale oppervlak habitatrichtlijngebied dat bezet is: ", round(overlap * 100, 2), "%"))) +
     geom_bar(stat = "identity", colour = "white", linewidth = 0.01, fill = "#c04384", width = 0.7) +
-    scale_y_continuous(labels = scales::percent_format(scale = 1), expand = c(0, 0.1)) + 
+    scale_y_continuous(labels = scales::percent_format(scale = 1), expand = c(0, 0.1)) +
     labs(y = "Bezetting van Habitatrichtlijngebieden (%)") +
     custom_theme() +
     theme(
@@ -995,16 +926,16 @@ ggplotly(
   tooltip = "text")
 ```
 
-#### Percentage in habitatrichtlijn (inVGLRL)
-```{r figuur-in-VGLRL, echo=FALSE, message=FALSE}
+##### Percentage in habitatrichtlijn (inVGLRL)
+```{r in-vglrl, echo=FALSE, message=FALSE}
 in_VGLRL_subset <- VGLRL_subset %>%
   dplyr::filter(gebied == "VGLRL" & type == "in" & overlap != 0)
 
 ggplotly(
   ggplot(data = in_VGLRL_subset, aes(x = reorder(soort, overlap), y = overlap * 100, text = paste0(soort, "<br>Aandeel van verspreiding dat in Habitatrichtlijngebied ligt: ", round(overlap * 100, 2), "%"))) +
     geom_bar(stat = "identity", colour = "white", linewidth = 0.01, fill = "#c04384", width = 0.7) +
-    scale_y_continuous(labels = scales::percent_format(scale = 1), expand = c(0, 0.1)) + 
-    labs(y = "Specificiteit voor Habitatrichtlijngebieden (%)") + 
+    scale_y_continuous(labels = scales::percent_format(scale = 1), expand = c(0, 0.1)) +
+    labs(y = "Specificiteit voor Habitatrichtlijngebieden (%)") +
     custom_theme() +
     theme(
       axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1),
@@ -1013,41 +944,36 @@ ggplotly(
   tooltip = "text")
 ```
 
-
-#### In vs. of
-```{r in-vs-of, echo=FALSE, message=FALSE}
+##### In vs. of
+```{r in-vs-of-vglrl, echo=FALSE, message=FALSE}
 in_vs_of_VGLRL_subset <- in_VGLRL_subset %>%
   select(!type) %>%
   left_join(of_VGLRL_subset %>% select(!type), by = c("soort", "species", "abbr", "gebied"), suffix = c(".in", ".of")) %>%
-  dplyr::filter(!soort %in% spor_species$Soort)   
+  dplyr::filter(!soort %in% spor_species$Soort)
 
 ggplot() +
   geom_text(data = in_vs_of_VGLRL_subset, aes(x = overlap.in*100, y = overlap.of*100, label = abbr), size = 3, family = "Arial") +
   coord_trans(y = "log2") +
-  scale_y_continuous(labels = scales::percent_format(scale = 1)) + 
-  scale_x_continuous(labels = scales::percent_format(scale = 1), limits = c(0,100)) + 
+  scale_y_continuous(labels = scales::percent_format(scale = 1)) +
+  scale_x_continuous(labels = scales::percent_format(scale = 1), limits = c(0,100)) +
   labs( x = "Specificiteit voor Vogelrichtlijngebieden (%)",  y = "Bezetting van Vogelrichtlijngebieden (%)") +
-  custom_theme() 
+  custom_theme()
 
 ggsave("./radius/data/output/figuren/in_vs_of_vglrl.png",
-       width = 6,  
+       width = 6,
        height = 4,
        dpi = 300)
 ```
 
-
-
-
 #### In welke  vogelrichtlijngebieden komt een soort voor? {.tabset}
-
 ##### wasbeer
-```{r overlap-stekelstaart-vglrl, results='asis', echo=FALSE, warning=FALSE}
+```{r wasbeer-in-vglrl, results='asis', echo=FALSE, warning=FALSE}
 df_Pl <- VGLRL_spatial %>%
   dplyr::filter(soort == "wasbeer" & type == "in" & gebied != "VGLRL" & overlap != 0) %>%
   st_cast("MULTIPOLYGON")
 
 occs_Pl <- occ_flanders %>%
-  dplyr::filter(Soort == "wasbeer") 
+  dplyr::filter(Soort == "wasbeer")
 
 map_Pl <- ggplot() +
   geom_sf(data = Provincies_grenzen, fill = "#f0f0f0", linewidth = 0.2) +
@@ -1056,25 +982,28 @@ map_Pl <- ggplot() +
   geom_sf(data = occs_Pl, color = "blue", size = 1) +
   theme_map()
 
+map_Pl
 
 barplot_Pl <- ggplot() +
-           geom_bar(data = df_Pl, aes(x = overlap, y = reorder(gebied, overlap)), 
+           geom_bar(data = df_Pl, aes(x = overlap, y = reorder(gebied, overlap)),
                     stat = "identity", colour = "#c04384", fill = "#c04384", width = 0.7) +
            custom_theme() +
            theme(axis.text.x = element_text(angle = 90),
                  axis.title.y = element_blank()
            ) +
            scale_x_continuous(labels = scales::percent_format(accuracy = 1))
+
+barplot_Pl
 ```
 
 ##### rosse stekelstaart
-```{r overlap-stekelstaart-vglrl, results='asis', echo=FALSE, warning=FALSE}
+```{r stekelstaart-in-vglrl, results='asis', echo=FALSE, warning=FALSE}
 df_Oj <- VGLRL_spatial %>%
   dplyr::filter(soort == "rosse stekelstaart" & type == "in" & gebied != "VGLRL" & overlap != 0) %>%
   st_cast("MULTIPOLYGON")
 
 occs_Oj <- occ_flanders %>%
-  dplyr::filter(Soort == "rosse stekelstaart") 
+  dplyr::filter(Soort == "rosse stekelstaart")
 
 map_Oj <- ggplot() +
   geom_sf(data = Provincies_grenzen, fill = "#f0f0f0", linewidth = 0.2) +
@@ -1083,25 +1012,28 @@ map_Oj <- ggplot() +
   geom_sf(data = occs_Oj, color = "blue", size = 1) +
   theme_map()
 
+map_Oj
 
 barplot_Oj <- ggplot() +
-           geom_bar(data = df_Oj, aes(x = overlap, y = reorder(gebied, overlap)), 
+           geom_bar(data = df_Oj, aes(x = overlap, y = reorder(gebied, overlap)),
                     stat = "identity", colour = "#c04384", fill = "#c04384", width = 0.7) +
            custom_theme() +
            theme(axis.text.x = element_text(angle = 90),
                  axis.title.y = element_blank()
            ) +
            scale_x_continuous(labels = scales::percent_format(accuracy = 1))
+
+barplot_Oj
 ```
 
 ##### heilige ibis
-```{r overlap-ibis-vglrl, results='asis', echo=FALSE, warning=FALSE}
+```{r heilige-ibis-in-vglrl, results='asis', echo=FALSE, warning=FALSE}
 df_Ta <- VGLRL_spatial %>%
   dplyr::filter(soort == "heilige ibis" & type == "in" & gebied != "VGLRL" & overlap != 0) %>%
   st_cast("MULTIPOLYGON")
 
 occs_Ta <- occ_flanders %>%
-  dplyr::filter(Soort == "heilige ibis") 
+  dplyr::filter(Soort == "heilige ibis")
 
 map_Ta <- ggplot() +
   geom_sf(data = Provincies_grenzen, fill = "#f0f0f0", linewidth = 0.2) +
@@ -1110,23 +1042,26 @@ map_Ta <- ggplot() +
   geom_sf(data = occs_Ta, color = "blue", size = 1) +
   theme_map()
 
+map_Ta
 
 barplot_Ta <- ggplot() +
-           geom_bar(data = df_Ta, aes(x = overlap, y = reorder(gebied, overlap)), 
+           geom_bar(data = df_Ta, aes(x = overlap, y = reorder(gebied, overlap)),
                     stat = "identity", colour = "#c04384", fill = "#c04384", width = 0.7) +
            custom_theme() +
            theme(axis.text.x = element_text(angle = 90),
                  axis.title.y = element_blank()
            ) +
            scale_x_continuous(labels = scales::percent_format(accuracy = 1))
+
+barplot_Ta
 ```
 
-##### Combinatie van bovenstaande plots
-```{r}
+
+```{r combined-plot-in-vglrl, echo=FALSE, message=FALSE, include=FALSE}
 df <- VGLRL_spatial %>%
   dplyr::filter(soort %in% c("rosse stekelstaart", "heilige ibis") & type == "in" & gebied != "VGLRL" & overlap != 0) %>%
   st_cast("MULTIPOLYGON") %>%
-  select(na2000code, gebnaam, soort, overlap) 
+  select(na2000code, gebnaam, soort, overlap)
 
 overview <- ggplot(df, aes(x = overlap, y = na2000code)) +
   geom_bar(stat = "identity", fill = "#c04384", width = 0.7) +
@@ -1135,27 +1070,24 @@ overview <- ggplot(df, aes(x = overlap, y = na2000code)) +
   scale_x_continuous(labels = scales::percent_format(accuracy = 1), expand = c(0, 0)) +
   custom_theme() +
   theme(axis.text.x = element_text(angle = 0),
-        strip.placement = "outside", 
-        strip.text.y.left = element_text(angle=0, margin = margin(r = 1)),  
+        strip.placement = "outside",
+        strip.text.y.left = element_text(angle=0, margin = margin(r = 1)),
         panel.spacing = unit(1, "lines"))
 
 right_column <- grid.arrange(map_Ta, map_Oj)
 
 
-png("./radius/data/output/figuren/vglrl_Ta_Oj.png", 
+png("./radius/data/output/figuren/vglrl_Ta_Oj.png",
     width = 7, height = 7, units = "in", res = 300)
 
 grid.arrange(overview, right_column, ncol = 2)
 
-grid.text("A.", x = 0.02, y = 0.97, gp=gpar(fontsize=10, fontface = "bold")) 
-grid.text("B.", x = 0.52, y = 0.97, gp=gpar(fontsize=10, fontface = "bold")) 
-grid.text("C.", x = 0.52, y = 0.47, gp=gpar(fontsize=10, fontface = "bold")) 
+grid.text("A.", x = 0.02, y = 0.97, gp=gpar(fontsize=10, fontface = "bold"))
+grid.text("B.", x = 0.52, y = 0.97, gp=gpar(fontsize=10, fontface = "bold"))
+grid.text("C.", x = 0.52, y = 0.47, gp=gpar(fontsize=10, fontface = "bold"))
 
 dev.off()
 ```
-
-
-
 
 # NATURA 2000 HABITATS
 
@@ -1185,14 +1117,14 @@ Het Vlaams Natura 2000 programma legt de prioriteiten vast van het Vlaamse belei
 
 De overige habitats waarvoor Vlaanderen zeer belangrijk of essentieel is in Europa staan niet in die lijst, maar wel als leefgebied van soorten waarvoor het programma acties voorziet.
 
-```{r n2khab-table, echo=FALSE}
+```{r tabel-overview-n2khab, echo=FALSE}
 n2khab_table <- n2khab %>%
   st_drop_geometry() %>%
   transmute(code, habitat, opp_ha = round(oppervlak / 10000, 2))
 
 kable(n2khab_table,
       align = "llr",
-      caption = "Overzicht N2000 habitattypes in Vlaanderen", 
+      caption = "Overzicht N2000 habitattypes in Vlaanderen",
       booktabs = TRUE) %>%
   kable_styling(bootstrap_options = "responsive",
                 position = "center",
@@ -1200,21 +1132,14 @@ kable(n2khab_table,
                 htmltable_class = "lightable-classic")
 ```
 
-```{r n2khab-kaart, fig.cap="Weergave van de Natura 2000 habitattypes in Vlaanderen", echo=FALSE}
-# ggplotly(
-#   ggplot() +
-#     geom_sf(data = Provincies_grenzen, fill= "#f0f0f0", size = 0.2) +
-#     geom_sf(data = n2khab, color= "#a4e98f", fill="#a4e98f", aes(text = paste0(shortname, " (", code, ")"))) +
-#     theme_void(),
-#   tooltip = "text")
-```
-
 ## IUS in N2000 habitats
 
 ### Gebiedsgericht
 
-#### Aantal IUS per habitattype
-```{r n2khab-nspec-pertype, echo=FALSE, message=FALSE}
+#### Aantal IUS per habitattype {.tabset}
+
+##### Excl. unielijst vs niet-unielijst
+```{r nspec-of-n2khab-per-type-excl-unielijst, echo=FALSE, message=FALSE}
 N2KHAB_nospec <- N2KHAB %>%
   dplyr::filter(gebied != "N2KHAB" & type == "in") %>%
   group_by(gebied) %>%
@@ -1236,18 +1161,18 @@ N2KHAB_nspec_pertype <- N2KHAB %>%
   add_row(groep = "kustduinen", gebied = "2150", Groep = "plant", n_spec = 0) %>% # voeg handmatig de twee habitattypes toe waar geen IUS voorkomen
   add_row(groep = "kustduinen", gebied = "2150", Groep = "dier", n_spec = 0) %>%
   add_row(groep = "bossen", gebied = "91F0", Groep = "plant", n_spec = 0) %>%
-  add_row(groep = "bossen", gebied = "91F0", Groep = "dier", n_spec = 0) 
+  add_row(groep = "bossen", gebied = "91F0", Groep = "dier", n_spec = 0)
 
-N2KHAB_nspec_pertype$groep <- factor(N2KHAB_nspec_pertype$groep, 
-                                     levels = c("zilt en estuarium", "kustduinen", "zoetwater", 
+N2KHAB_nspec_pertype$groep <- factor(N2KHAB_nspec_pertype$groep,
+                                     levels = c("zilt en estuarium", "kustduinen", "zoetwater",
                                                 "heiden", "graslanden", "venen", "bossen"))
 
-facet_labels <- c("zilt en estuarium" = "zilt en \nestuarium", 
-                  "kustduinen" = "kustduinen", 
-                  "zoetwater" = "zoetwater", 
-                  "heiden" = "heiden", 
-                  "graslanden" = "graslanden", 
-                  "venen" = "venen", 
+facet_labels <- c("zilt en estuarium" = "zilt en \nestuarium",
+                  "kustduinen" = "kustduinen",
+                  "zoetwater" = "zoetwater",
+                  "heiden" = "heiden",
+                  "graslanden" = "graslanden",
+                  "venen" = "venen",
                   "bossen" = "bossen")
 
 ggplot(N2KHAB_nspec_pertype, aes(x = reorder(gebied, n_spec), y = n_spec)) +
@@ -1263,12 +1188,14 @@ ggplot(N2KHAB_nspec_pertype, aes(x = reorder(gebied, n_spec), y = n_spec)) +
         panel.background = element_rect(color = "grey", fill = "grey95")
         )
 
-ggsave("./radius/data/output/figuren/n2khab_nspec.png", 
+ggsave("./radius/data/output/figuren/n2khab_nspec.png",
        width = 7,
        height = 4,
        dpi = 300)
+```
 
-
+##### Incl. unielijst vs. niet-unielijst
+```{r nspec-of-n2khab-per-type-incl-unielijst, echo=FALSE, message=FALSE}
 N2KHAB_nspec_pertype <- N2KHAB %>%
   dplyr::filter(gebied != "N2KHAB" & type == "of" & overlap != 0) %>%
   left_join(species_list, by = c("soort" = "Soort"), relationship = "many-to-many") %>%
@@ -1282,10 +1209,10 @@ N2KHAB_nspec_pertype <- N2KHAB %>%
   add_row(groep = "kustduinen", gebied = "2150", EU_lijst = "Unielijst", n_spec = 0) %>% # voeg handmatig de twee habitattypes toe waar geen IUS voorkomen
   add_row(groep = "kustduinen", gebied = "2150", EU_lijst = "Niet-Unielijst", n_spec = 0) %>%
   add_row(groep = "bossen", gebied = "91F0", EU_lijst = "Unielijst", n_spec = 0) %>%
-  add_row(groep = "bossen", gebied = "91F0", EU_lijst = "Niet-Unielijst", n_spec = 0) 
+  add_row(groep = "bossen", gebied = "91F0", EU_lijst = "Niet-Unielijst", n_spec = 0)
 
-N2KHAB_nspec_pertype$groep <- factor(N2KHAB_nspec_pertype$groep, 
-                                     levels = c("zilt en estuarium", "kustduinen", "zoetwater", "heiden", "graslanden", "venen", "bossen")) 
+N2KHAB_nspec_pertype$groep <- factor(N2KHAB_nspec_pertype$groep,
+                                     levels = c("zilt en estuarium", "kustduinen", "zoetwater", "heiden", "graslanden", "venen", "bossen"))
 
 N2KHAB_nspec_pertype$EU_lijst <- factor(N2KHAB_nspec_pertype$EU_lijst, levels = c("Niet-Unielijst", "Unielijst"))
 
@@ -1300,32 +1227,32 @@ ggplot(N2KHAB_nspec_pertype, aes(x = reorder(gebied, n_spec), y = n_spec, fill =
         strip.placement = "outside",
         #strip.text = element_text(color = "grey65"),
         strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0, vjust = 0, size = 8),
-        legend.position = "bottom", 
+        legend.position = "bottom",
         legend.title = element_blank()
   )
 
-ggsave("./radius/data/output/figuren/n2khab_nspec.png", 
+ggsave("./radius/data/output/figuren/n2khab_nspec.png",
        width = 7,
        height = 5,
        dpi = 300)
 ```
 
-##### Habitattypes zonder IUS?  
+Habitattypes zonder IUS?
 
-- **91F0** (hardhoutooibossen)  
-- **2150** (vastgelegde ontkalkte duinen)  
+- **91F0** (hardhoutooibossen)
+- **2150** (vastgelegde ontkalkte duinen)
 
-##### Habitattypes met het meeste IUS?  
-- **91E0** (vochtige alluviale bossen): 62 IUS  
-- **7140** (overgangs- en trilveen): 37 IUS  
-- **4010** (vochtige heide): 32 IUS  
+Habitattypes met het meeste IUS?
+- **91E0** (vochtige alluviale bossen): 62 IUS
+- **7140** (overgangs- en trilveen): 37 IUS
+- **4010** (vochtige heide): 32 IUS
 
 
-##### Welke soorten komen voor per habitatgroep? 
+#### Welke soorten komen voor per habitatgroep?
 
 weergegeven als de gemiddelde overlap van een soort met de verschillende habitattypes per habitatgroepering
 
-```{r}
+```{r species-of-n2khab-per-type, echo=FALSE, message=FALSE}
 N2KHAB_spec_pergroup <- N2KHAB %>%
   dplyr::filter(gebied != "N2KHAB" & type == "of" & overlap != 0) %>%
   left_join(species_list, by = c("soort" = "Soort"), relationship = "many-to-many") %>%
@@ -1337,15 +1264,17 @@ N2KHAB_spec_pergroup <- N2KHAB %>%
   summarise(mean_overlap = mean(overlap)) %>%
   slice_max(n = 5, order_by = mean_overlap)
 
-N2KHAB_spec_pergroup$groep <- factor(N2KHAB_spec_pergroup$groep, 
-                                     levels = c("zilt en estuarium", "kustduinen", "zoetwater", "heiden", "graslanden", "venen", "bossen")) 
+N2KHAB_spec_pergroup$groep <- factor(N2KHAB_spec_pergroup$groep,
+                                     levels = c("zilt en \nestuarium",
+                                                "kustduinen", 
+                                                "zoetwater", 
+                                                "heiden", 
+                                                "graslanden", 
+                                                "venen", 
+                                                "bossen"))
 
 x <- N2KHAB_spec_pergroup %>%
   dplyr::filter(groep == "zilt en estuarium")
-
-ggplot(x, aes(x = mean_overlap, y = reorder(soort, mean_overlap))) +
-  geom_bar(stat = "identity") +
-  facet_wrap(~Groep)
 
 
 ggplot(N2KHAB_spec_pergroup, aes(x = reorder(soort, mean_overlap), y = mean_overlap)) +
@@ -1353,20 +1282,21 @@ ggplot(N2KHAB_spec_pergroup, aes(x = reorder(soort, mean_overlap), y = mean_over
   facet_grid(~ groep , scales = "free_x") +
   labs(y = "Habitattype", x = "Aantal IUS") +
   custom_theme() +
-  theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust = 1),
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust = 0.5),
         strip.placement = "outside")
 ```
 
 
-##### Voor de drie habitattypes waar het meeste IUS voorkomen, wat zijn de 10 meest voorkomende IUS? 
+#### Per habitatgroepering, wat zijn de 10 meest voorkomende IUS? {.tabset}
 
-Weergave van top 10 voorkomende soorten voor de drie habitattypes met het hoogste aantal IUS in Vlaanderen. Weergegeven als het percentage van het totale oppervlakte van dit habitattype in Vlaanderen dat wordt ingenomen door de soort. 
+Weergave van top 10 voorkomende soorten voor één habitattype per habitatgroepering (zilt en estuarium, kustduinen, heiden, ...) met het hoogste aantal IUS in Vlaanderen. Weergegeven als het percentage van het totale oppervlakte van dit habitattype in Vlaanderen dat wordt ingenomen door de soort.
 
-vb. voorkomen van Canadese gans in vochtige heide is 20.3%: Canadese gans komt voor op 20.3% van het totale oppervlakte vochtige heide in Vlaanderen. 
+vb. voorkomen van Canadese gans in vochtige heide is 20.3%: Canadese gans komt voor op 20.3% van het totale oppervlakte vochtige heide in Vlaanderen.
 
-```{r echo=FALSE}
+##### Optie 1
+```{r spec-of-n2khab-per-type1, echo=FALSE, warning=FALSE}
 x <- N2KHAB %>%
-  dplyr::filter(gebied %in% c("1130", "2180", "3130", "2330",  "6510", "7150", "91E0") & type == "of" & overlap != 0) %>% 
+  dplyr::filter(gebied %in% c("1130", "2180", "3130", "2330",  "6510", "7150", "91E0") & type == "of" & overlap != 0) %>%
   left_join(habitats, by = c("gebied" = "code")) %>%
   left_join(species_list, by = c("soort" = "Soort")) %>%
   select(soort, Groep, gebied, habitat, groep, overlap) %>%
@@ -1380,14 +1310,14 @@ x <- N2KHAB %>%
   ungroup() %>%
   dplyr::filter(overlap >= 0.01)
 
-x$groep <- factor(x$groep, levels = c("zilt en estuarium", "kustduinen", "zoetwater", "heiden", "graslanden", "venen", "bossen")) 
+x$groep <- factor(x$groep, levels = c("zilt en estuarium", "kustduinen", "zoetwater", "heiden", "graslanden", "venen", "bossen"))
 
-facet_labels <- c("zilt en estuarium" = "zilt en \nestuarium", 
-                  "kustduinen" = "kustduinen", 
-                  "zoetwater" = "zoetwater", 
-                  "heiden" = "heiden", 
-                  "graslanden" = "graslanden", 
-                  "venen" = "venen", 
+facet_labels <- c("zilt en estuarium" = "zilt en \nestuarium",
+                  "kustduinen" = "kustduinen",
+                  "zoetwater" = "zoetwater",
+                  "heiden" = "heiden",
+                  "graslanden" = "graslanden",
+                  "venen" = "venen",
                   "bossen" = "bossen")
 
 ggplot(x, aes(x = reorder_within(soort, overlap, gebied), y = overlap)) +
@@ -1398,51 +1328,49 @@ ggplot(x, aes(x = reorder_within(soort, overlap, gebied), y = overlap)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1),
         axis.title.y = element_blank(),
         strip.placement = "inside",
-        strip.text.y.left = element_text(angle = 0), 
+        strip.text.y.left = element_text(angle = 0),
         legend.position = "none")
+```
 
-ggplot(x, aes(x = overlap, y = reorder_within(soort, overlap, gebied))) +
-  geom_bar(stat = "identity", fill = "#c04384", width = 0.7) +
-  facet_grid( ~ groep + gebied, scales = "free", switch = "x") +
-  scale_y_reordered() +
-  custom_theme() +
-  theme(axis.text.y = element_text(angle = 90, vjust = 0.5, hjust = 1),
-        axis.title.x = element_blank(),
-        strip.placement = "inside",
-        strip.text.y.left = element_text(angle = 0), 
-        legend.position = "none")
-
+##### Optie 2
+```{r spec-of-n2khab-per-type2, echo=FALSE, warning=FALSE}
 ggplot(x, aes(x = overlap * 100, y = reorder(soort, overlap*100), label = sprintf("%.1f%%", overlap * 100))) +
   geom_bar(stat = "identity", fill = "#d98eb5", width = 0.7) +
-  #geom_text(aes(hjust = ifelse(overlap > 0.11, 1.1, -0.02)), size = 3.5) +  
-  facet_grid(Groep ~ groep + gebied, scales = "free", labeller = labeller(groep = facet_labels)) +  
+  #geom_text(aes(hjust = ifelse(overlap > 0.11, 1.1, -0.02)), size = 3.5) +
+  facet_grid(Groep ~ groep + gebied, scales = "free", labeller = labeller(groep = facet_labels)) +
   labs(x = "% van habitattype") +
-  scale_x_continuous(labels = scales::percent_format(scale = 1)) +  
+  scale_x_continuous(labels = scales::percent_format(scale = 1)) +
   custom_theme() +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1),
         axis.title.y = element_blank(),
         strip.placement = "inside",
-        legend.position = "none") 
+        legend.position = "none")
+```
 
+##### Optie 3
+```{r spec-of-n2khab-per-type3, echo=FALSE, warning=FALSE}
 ggplot(x, aes(x = overlap * 100, y = reorder(soort, overlap), label = sprintf("%.1f%%", overlap * 100), fill = Groep)) +
   geom_bar(stat = "identity" , fill = "#c04384", width = 0.7) +
-  geom_text(aes(hjust = ifelse(overlap > 0.11, 1.1, -0.02)), size = 3, color = "black") +  
-  facet_grid(Groep ~ groep + gebied, scales = "free", , labeller = labeller(groep = facet_labels)) +  
+  geom_text(aes(hjust = ifelse(overlap > 0.11, 1.1, -0.02)), size = 3, color = "black") +
+  facet_grid(Groep ~ groep + gebied, scales = "free", , labeller = labeller(groep = facet_labels)) +
   labs(x = "% van habitattype") +
-  scale_x_continuous(labels = scales::percent_format(scale = 1)) +  
+  scale_x_continuous(labels = scales::percent_format(scale = 1)) +
   custom_theme() +
   theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust = 1),
         axis.title.y = element_blank(),
         #strip.background.x = element_rect(color = "#f0f0f0"),
         #strip.text.x = element_text(size = 6),
         strip.placement = "inside",
-        legend.position = "none") 
+        legend.position = "none")
 
-ggsave("./radius/data/output/figuren/n2khab_spec_per_habgroup.png", 
+ggsave("./radius/data/output/figuren/n2khab_spec_per_habgroup.png",
        width = 9,
        height = 8,
        dpi = 300)
+```
 
+##### Optie 4
+```{r spec-of-n2khab-per-type4, echo=FALSE, warning=FALSE}
 ggplotly(
   ggplot(x, aes(x = overlap * 100, y = reorder(soort, overlap))) +
     geom_bar(stat = "identity", fill = "#c04384") +
@@ -1461,22 +1389,11 @@ ggplotly(
 )
 ```
 
-<!-- #### Per habitattype groepering, wat zijn de meest voorkomende IUS?  -->
-<!-- ```{r} -->
-<!-- x <- N2KHAB %>% -->
-<!--   dplyr::filter(gebied != "N2KHAB" & type == "of" & overlap != 0) %>% -->
-<!--   left_join(habitats, by = c("gebied" = "code")) %>% -->
-<!--   group_by(groep, soort) %>% -->
-<!--   summarise(mean_overlap = mean(overlap)) %>% -->
-<!--   ungroup() %>% -->
-<!--   add_row(groep = "kustduinen", gebied = "2150", n_spec = 0) %>% # voeg handmatig de twee habitattypes toe waar geen IUS voorkomen -->
-<!--   add_row(groep = "bossen", gebied = "91F0", n_spec = 0) -->
-<!-- ``` -->
-
-
 ### Soortgericht
 
-#### Welke soorten komen in welke mate voor in N2000 hab? 
+#### Welke soorten komen in welke mate voor in N2000 hab? {.tabset}
+
+##### of N2KHAB
 ```{r of-n2khab, echo=FALSE}
 N2KHAB_ngeb <- N2KHAB %>%
   dplyr::filter(gebied != "N2KHAB" & type == "of" & overlap != 0) %>%
@@ -1492,7 +1409,7 @@ x <- N2KHAB %>%
   left_join(species_list, by = c("soort" = "Soort")) %>%
   select(soort, species, Groep, overlap, label_color) %>%
   distinct() %>%
-  mutate(Groep = recode(Groep, "plant" = "planten", "dier" = "dieren")) %>%  
+  mutate(Groep = recode(Groep, "plant" = "planten", "dier" = "dieren")) %>%
   left_join(N2KHAB_ngeb, by = "soort") %>%
   pivot_longer(cols = c("overlap", "n_geb"), names_to = "type", values_to = "overlap") %>%
   mutate(type = recode(type, "overlap" = "% bezetting", "n_geb" = "# habitats")) %>%
@@ -1510,9 +1427,9 @@ x$Groep <- factor(x$Groep, levels = c("dieren", "planten"))
 label_colors <- setNames(x$label_color, x$soort)
 
 ggplot(x, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort, fill = overlap)) +
-  geom_bar(stat = "identity", show.legend = FALSE, width = 0.7, fill = "#c04384") +  
+  geom_bar(stat = "identity", show.legend = FALSE, width = 0.7, fill = "#c04384") +
   geom_vline(data = subset(x, type == "# habitats"), aes(xintercept = 43), color = "grey75", linewidth = 0.7) +
-  facet_grid(Groep ~ type, scales = "free") +  
+  facet_grid(Groep ~ type, scales = "free") +
   scale_x_continuous(expand = c(0, 0.2), limits = c(0, 44)) +
   scale_y_discrete(labels = function(soort) {
     sapply(soort, function(s) {
@@ -1520,20 +1437,20 @@ ggplot(x, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort, fill =
     })
   }) +
   labs(x = "Bezetting van Natura 2000 habitats", y = NULL) +
-  custom_theme() + 
+  custom_theme() +
   theme(
     strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0, vjust = 0, size = 10),
     axis.text.y = element_markdown()
   )
 
-ggsave("./radius/data/output/figuren/n2khab_bezetting.png", 
-       width = 7,  
+ggsave("./radius/data/output/figuren/n2khab_bezetting.png",
+       width = 7,
        height = 8,
        dpi = 300)
 ```
 
-#### In N2KHAB
-```{r}
+##### in N2KHAB
+```{r in-n2khab, echo=FALSE}
 N2KHAB_in <- N2KHAB %>%
   dplyr::filter(gebied == "N2KHAB" & type == "in")  %>%
   mutate(label_color = ifelse(overlap == 0, "grey75", "black"))
@@ -1560,8 +1477,8 @@ ggplotly(
   height = 700)
 ```
 
-#### in vs of
-```{r}
+##### in vs of N2KHAB
+```{r in-vs-of-n2khab, echo=FALSE}
 N2KHAB_of <- N2KHAB %>%
   dplyr::filter(gebied == "N2KHAB" & type == "of")  %>%
   mutate(label_color = ifelse(overlap == 0, "grey75", "black"))
@@ -1570,19 +1487,19 @@ N2KHAB_in_vs_of <- N2KHAB_in %>%
   select(!type) %>%
   dplyr::filter(overlap != 0) %>%
   left_join(N2KHAB_of %>% select(!type), by = c("soort", "species", "abbr", "gebied"), suffix = c(".in", ".of")) %>%
-  dplyr::filter(!soort %in% spor_species$Soort) 
+  dplyr::filter(!soort %in% spor_species$Soort)
 
 
 ggplot() +
   geom_text(data = N2KHAB_in_vs_of, aes(x = overlap.in*100, y = overlap.of*100, label = abbr), size = 3, family = "Arial") +
   coord_trans(y = "log2") +
-  scale_y_continuous(labels = scales::percent_format(scale = 1)) + 
-  scale_x_continuous(labels = scales::percent_format(scale = 1), limits = c(0,100)) + 
+  scale_y_continuous(labels = scales::percent_format(scale = 1)) +
+  scale_x_continuous(labels = scales::percent_format(scale = 1), limits = c(0,100)) +
   labs( x = "Specificiteit voor Natura 2000 habitats (%)",  y = "Bezetting van Natura 2000 habitats (%)") +
-  custom_theme() 
+  custom_theme()
 
 ggsave("./radius/data/output/figuren/in_vs_of_n2khab.png",
-       width = 6,  
+       width = 6,
        height = 4,
        dpi = 300)
 ```
@@ -1593,20 +1510,20 @@ Vergelijk het voorkomen in Natura 2000 habitats tussen een generalist (watercras
 
 Voorkomen wordt hier uitgedrukt in het percentage van het totale verspreidingsoppervlakte van de soort dat voorkomt in een habitattype (!OPGELET: nuance met vorige figuur).
 
-```{r n2khab-gen-vs-spec, echo = FALSE}
+```{r n2khab-gen-vs-spec, echo = FALSE, warning=FALSE}
 x <- N2KHAB %>%
   dplyr::filter(gebied != "N2KHAB" & type == "in" & soort %in% c("watercrassula", "struikaster")) %>%
   left_join(habitats, by = c("gebied" = "code"))
 
 x$groep <- factor(x$groep, levels = c("zilt en estuarium", "kustduinen", "zoetwater", "heiden", "graslanden", "venen", "bossen"))
- 
 
-facet_labels <- c("zilt en estuarium" = "zilt en \nestuarium", 
-                  "kustduinen" = "kustduinen", 
-                  "zoetwater" = "zoetwater", 
-                  "heiden" = "heiden", 
-                  "graslanden" = "graslanden", 
-                  "venen" = "venen", 
+
+facet_labels <- c("zilt en estuarium" = "zilt en \nestuarium",
+                  "kustduinen" = "kustduinen",
+                  "zoetwater" = "zoetwater",
+                  "heiden" = "heiden",
+                  "graslanden" = "graslanden",
+                  "venen" = "venen",
                   "bossen" = "bossen")
 
 ggplot(x, aes(x = reorder(gebied, overlap), y = overlap * 100)) +
@@ -1617,20 +1534,20 @@ ggplot(x, aes(x = reorder(gebied, overlap), y = overlap * 100)) +
   custom_theme() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5),
         axis.ticks.y.left = element_blank(),
-        axis.title.y.right = element_blank(),  
-        axis.title.y.left = element_blank(),  
-        axis.text.y.right = element_text(),   
-        axis.text.y.left = element_blank(), 
+        axis.title.y.right = element_blank(),
+        axis.title.y.left = element_blank(),
+        axis.text.y.right = element_text(),
+        axis.text.y.left = element_blank(),
         strip.text.x.top = element_text(size = 9))
 
 ggsave("./radius/data/output/figuren/n2khab_Ch_Bh.png",
-       width = 6,  
+       width = 6,
        height = 4,
        dpi = 300)
 ```
 
 #### Aquatisch vs. terrestrisch
-```{r n2khab-aqua-vs-terr, echo=FALSE}
+```{r n2khab-aqua-vs-terr, echo=FALSE, warning=FALSE}
 x <- N2KHAB %>%
   dplyr::filter(gebied != "N2KHAB" & type == "in" & soort %in% c("zwartbekgrondel", "hemelboom")) %>%
   left_join(habitats, by = c("gebied" = "code"))
@@ -1645,16 +1562,16 @@ ggplot(x, aes(x = reorder(gebied, overlap), y = overlap * 100)) +
   custom_theme() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5),
         axis.ticks.y.left = element_blank(),
-        axis.title.y.right = element_blank(),  
-        axis.title.y.left = element_blank(),  
-        axis.text.y.right = element_text(),   
-        axis.text.y.left = element_blank(), 
+        axis.title.y.right = element_blank(),
+        axis.title.y.left = element_blank(),
+        axis.text.y.right = element_text(),
+        axis.text.y.left = element_blank(),
         strip.text.x.top = element_text(size = 9))
 ```
 
 # NATUURBEHEERPLANNEN
 
-```{r add-abbreviations-nbhp}
+```{r add-abbreviations-nbhp, echo=FALSE}
 NBHP <- NBHP %>%
   mutate(gebied = case_when(
     gebied == "Type1" ~ "Natuurbeheerplan Type 1",
@@ -1675,7 +1592,7 @@ NBHP <- NBHP %>%
     gebied == "VOander" ~ "Andere Vlaamse overheid",
     gebied == "Andere" ~ "Andere",
     gebied == "DomNa" ~ "Domein met natuurprotocol",
-    TRUE ~ gebied  
+    TRUE ~ gebied
   ))
 
 ```
@@ -1683,60 +1600,60 @@ NBHP <- NBHP %>%
 
 ## Overzicht natuurbeheerplannen
 
-### Wat zijn natuurbeheerplannen? 
+### Wat zijn natuurbeheerplannen?
 
 ### Natuurbeheerplannen in Vlaanderen
 
-#### Totaal aantal natuurbeheerplannen in Vlaanderen? 
-```{r}
+#### Totaal aantal natuurbeheerplannen in Vlaanderen?
+```{r overview-n-nbhp-flanders, echo=FALSE}
 nrow(ps_nbhp)
 ```
 
-#### Totaal oppervlakte aan natuurbeheerplannen in Vlaanderen (in ha)? 
-```{r}
+#### Totaal oppervlakte aan natuurbeheerplannen in Vlaanderen (in ha)?
+```{r overview-area-nbhp-flanders, echo=FALSE}
 # totaal oppervlakte natuurbeheerplannen in Vlaanderen
 sum(ps_nbhp$opp_ha)
 ```
 
-#### Aandeel van Vlaanderen dat wordt ingenomen door natuurbeheerplannen? 
-```{r}
+#### Aandeel van Vlaanderen dat wordt ingenomen door natuurbeheerplannen?
+```{r overview-perc-nbhp-flanders, echo=FALSE}
 paste0(round(sum(ps_nbhp$opp_ha) / (Vlaanderen_grenzen$OPPERVL / 10000), 2), "%")
 ```
 
 #### Verdeling van natuurbeheerplannen volgens type
-```{r}
+```{r overview-nbhp-per-type, echo=FALSE}
 x <- ps_nbhp %>%
   st_drop_geometry() %>%
-  group_by(natuurbeheerplantype) %>%
+  group_by(ntrbhrp) %>%
   summarise(n_nbhp = n())
 
-plot_ly(x, labels = ~natuurbeheerplantype, values = ~n_nbhp, type = 'pie',
+plot_ly(x, labels = ~ntrbhrp, values = ~n_nbhp, type = 'pie',
         textinfo = 'label+percent',
         insidetextorientation = 'radial') %>%
-  layout(showlegend = FALSE)  
+  layout(showlegend = FALSE)
 ```
 
 #### Oppervlakte per natuurbeheerplantype
-```{r}
+```{r overview-area-nbhp-per-type, echo=FALSE}
 x <- ps_nbhp %>%
   st_drop_geometry() %>%
-  group_by(natuurbeheerplantype) %>%
+  group_by(ntrbhrp) %>%
   summarise(tot_area = sum(opp_ha))
 
-plot_ly(x, labels = ~ natuurbeheerplantype, values = ~tot_area, type = 'pie',
+plot_ly(x, labels = ~ ntrbhrp, values = ~tot_area, type = 'pie',
         textinfo = 'label+percent',
         insidetextorientation = 'radial') %>%
-  layout(showlegend = FALSE) 
+  layout(showlegend = FALSE)
 ```
 
 #### Gemiddeld oppervlakte per natuurbeheerplantype
-```{r}
+```{r overview-nbhp-mean-area-per-type, echo=FALSE}
 x <- ps_nbhp %>%
   st_drop_geometry() %>%
-  group_by(natuurbeheerplantype) %>%
+  group_by(ntrbhrp) %>%
   summarise(mean_area = mean(opp_ha))
 
-ggplot(x, aes(x = natuurbeheerplantype, y = mean_area)) +
+ggplot(x, aes(x = ntrbhrp, y = mean_area)) +
   geom_bar(stat = "identity") +
   theme_bw() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
@@ -1744,40 +1661,40 @@ ggplot(x, aes(x = natuurbeheerplantype, y = mean_area)) +
 
 
 #### Verdeling van natuurbeheerplannen volgens eigendomstype
-```{r}
+```{r overview-nbhp-per-eigendomstype, echo=FALSE}
 x <- ps_nbhp %>%
   st_drop_geometry() %>%
-  group_by(eigendomtype) %>%
+  group_by(egndmty) %>%
   summarise(n_nbhp = n())
 
-plot_ly(x, labels = ~eigendomtype, values = ~n_nbhp, type = 'pie',
+plot_ly(x, labels = ~egndmty, values = ~n_nbhp, type = 'pie',
         textinfo = 'label+percent',
         insidetextorientation = 'radial') %>%
-  layout(showlegend = FALSE)  
+  layout(showlegend = FALSE)
 ```
 
 #### Oppervlakte per eigendomstype
-```{r}
+```{r overview-nbhp-area-per-eigendomstype, echo=FALSE}
 x <- ps_nbhp %>%
   st_drop_geometry() %>%
-  group_by(eigendomtype) %>%
+  group_by(egndmty) %>%
   summarise(tot_area = sum(opp_ha))
 
-plot_ly(x, labels = ~eigendomtype, values = ~tot_area, type = 'pie',
+plot_ly(x, labels = ~egndmty, values = ~tot_area, type = 'pie',
         textinfo = 'label+percent',
         insidetextorientation = 'radial') %>%
-  layout(showlegend = FALSE) 
+  layout(showlegend = FALSE)
 ```
 
 *Algemeen inzicht over natuurbeheerplannen in Vlaanderen*
-Er zijn enorm veel natuurbeheerplannen in Vlaanderen (in totaal 2076). Deze nemen 0.08% van het Vlaamse landoppervlak in. 
+Er zijn enorm veel natuurbeheerplannen in Vlaanderen (in totaal 2076). Deze nemen 0.08% van het Vlaamse landoppervlak in.
 
 ## IUS in natuurbeheerplannen
 
 ### Gebiedsgericht
 
-#### Hoeveel IUS per type natuurbeheerplan? 
-```{r}
+#### Hoeveel IUS per type natuurbeheerplan?
+```{r n-spec-per-nbhptype, echo=FALSE, message=FALSE, warning=FALSE}
 x <- NBHP %>%
   dplyr::filter(type == "n_per_type") %>%
   left_join(species_list, by = c("soort" = "Soort"), relationship = "many-to-many") %>%
@@ -1788,14 +1705,14 @@ x <- NBHP %>%
   summarise(n_spec = n()) %>%
   ungroup()
 
-ggplotly(
-  ggplot(x, aes(x = n_spec, y = reorder(gebied,n_spec), fill = EU_lijst)) +
-    geom_bar(stat = "identity", aes(text = paste0(gebied, " (", n_spec, " IUS)")), width = 0.7) +
-    labs(y = "natuurbeheerplantype", x = "#IUS") +
-    theme_bw() +
-    theme(axis.text.x = element_text(angle = 90)), 
-  tooltip = "text"
-)
+# ggplotly(
+#   ggplot(x, aes(x = n_spec, y = reorder(gebied,n_spec), fill = EU_lijst)) +
+#     geom_bar(stat = "identity", aes(text = paste0(gebied, " (", n_spec, " IUS)")), width = 0.7) +
+#     labs(y = "natuurbeheerplantype", x = "#IUS") +
+#     theme_bw() +
+#     theme(axis.text.x = element_text(angle = 90)),
+#   tooltip = "text"
+# )
 
 x <- NBHP %>%
   dplyr::filter(type == "n_per_type") %>%
@@ -1803,15 +1720,15 @@ x <- NBHP %>%
   summarise(n_spec = n()) %>%
   ungroup()
 
-ggplotly(
-  ggplot(x, aes(x = n_spec, y = reorder(gebied,n_spec))) +
-    geom_bar(stat = "identity", fill = "#c04384", aes(text = paste0(gebied, " (", n_spec, " IUS)")), width = 0.7) +
-    labs(y = "natuurbeheerplantype", x = "#IUS") +
-    theme_bw() +
-    theme(axis.text.x = element_text(angle = 90),
-          axis.title.y = element_blank()), 
-  tooltip = "text"
-)
+# ggplotly(
+#   ggplot(x, aes(x = n_spec, y = reorder(gebied,n_spec))) +
+#     geom_bar(stat = "identity", fill = "#c04384", aes(text = paste0(gebied, " (", n_spec, " IUS)")), width = 0.7) +
+#     labs(y = "natuurbeheerplantype", x = "#IUS") +
+#     theme_bw() +
+#     theme(axis.text.x = element_text(angle = 90),
+#           axis.title.y = element_blank()),
+#   tooltip = "text"
+# )
 
 ggplot(x, aes(x = n_spec, y = reorder(gebied,n_spec))) +
     geom_bar(stat = "identity", fill = "#c04384", aes(text = paste0(gebied, " (", n_spec, " IUS)")), width = 0.7) +
@@ -1820,84 +1737,53 @@ ggplot(x, aes(x = n_spec, y = reorder(gebied,n_spec))) +
     theme(axis.text.x = element_text(angle = 90),
           axis.title.y = element_blank())
 
-ggsave("./radius/data/output/figuren/nbhp_per_type.png", 
-       width = 7,  
+ggsave("./radius/data/output/figuren/nbhp_per_type.png",
+       width = 7,
        height = 4,
        dpi = 300)
 
 x <- NBHP %>%
-  dplyr::filter(type == "n_per_type") 
+  dplyr::filter(type == "n_per_type")
 
-ggplot(x, aes(x = overlap, y = soort)) + 
+ggplot(x, aes(x = overlap, y = soort)) +
   geom_bar(stat = "identity") +
   facet_wrap(~gebied, nrow = 1, scales = "free_x")
-  
-  
-  left_join(species_list, by = c("soort" = "Soort"), relationship = "many-to-many") %>%
-  select(Groep, soort, EU_lijst, gebied, overlap) %>%
-  distinct() %>%
-  mutate(EU_lijst = ifelse(EU_lijst != 0, "EU", "other")) %>%
-  group_by(gebied, EU_lijst) %>%
-  summarise(n_spec = n()) %>%
-  ungroup()
-  
-y <- ps_nbhp %>%
-  st_drop_geometry() %>%
-  group_by(natuurbeheerplantype) %>%
-  summarise(tot_area = sum(opp_ha))
-  
-  
-x <- NBHP %>%
-  dplyr::filter(type == "n_per_type") %>%
-  left_join(species_list, by = c("soort" = "Soort"), relationship = "many-to-many") %>%
-  select(Groep, soort, EU_lijst, gebied, overlap) %>%
-  distinct() %>%
-  mutate(EU_lijst = ifelse(EU_lijst != 0, "EU", "other")) %>%
-  group_by(gebied) %>%
-  summarise(n_spec = n()) %>%
-  ungroup() %>%
-  left_join(y, by = c("gebied" = "natuurbeheerplantype"))
-
-ggplot(x, aes(x = tot_area, y = n_spec)) +
-  geom_point() +
-  geom_text(aes(label = gebied))
-
 ```
 
-Het hoogste aantal exoten in natuurbeheerplan type 4 (~natuurreservaat): 68 IUS!! Opgelet: type 4 natuurbeheerplannen hebben ook het hoogste oppervlak in Vlaanderen. 
+Het hoogste aantal exoten in natuurbeheerplan type 4 (~natuurreservaat): 68 IUS!! Opgelet: type 4 natuurbeheerplannen hebben ook het hoogste oppervlak in Vlaanderen.
 
-#### Welke soorten komen voor per type beheerplan? 
-```{r}
+#### Welke soorten komen voor per type beheerplan?
+```{r spec-of-nbhp-per-type, echo=FALSE}
 y <- ps_nbhp %>%
   st_drop_geometry() %>%
-  group_by(natuurbeheerplantype) %>%
+  group_by(ntrbhrp) %>%
   summarise(n_nbhp = n())
 
 x <- NBHP %>%
   dplyr::filter(type == "n_per_type") %>%
   group_by(gebied) %>%
   slice_max(n = 10, order_by = overlap) %>%
-  left_join(y, by = c("gebied" = "natuurbeheerplantype")) %>%
+  left_join(y, by = c("gebied" = "ntrbhrp")) %>%
   dplyr::filter(gebied %in% c("Natuurbeheerplan Type 1", "Natuurbeheerplan Type 2", "Natuurbeheerplan Type 3", "Natuurbeheerplan Type 4"))
 
 ggplot(x, aes(x = overlap, y = reorder(soort, overlap))) +
-    geom_bar(stat = "identity", , fill = "#c04384") + 
+    geom_bar(stat = "identity", fill = "#c04384") +
     facet_wrap(~gebied, scales = "free", ncol = 1) +
     theme_bw() +
     theme(axis.text.x = element_text(angle = 90, hjust = 1))
 
-ggplotly(
-  ggplot(x, aes(x = reorder(soort, overlap), y = overlap)) +
-    geom_bar(stat = "identity", , fill = "#c04384") + 
-    facet_grid(~gebied, scales = "free_x") +
-    theme_bw() +
-    theme(axis.text.x = element_text(angle = 90, hjust = 1)), 
-  tooltip = "text"
-)
+# ggplotly(
+#   ggplot(x, aes(x = reorder(soort, overlap), y = overlap)) +
+#     geom_bar(stat = "identity", , fill = "#c04384") +
+#     facet_grid(~gebied, scales = "free_x") +
+#     theme_bw() +
+#     theme(axis.text.x = element_text(angle = 90, hjust = 1)),
+#   tooltip = "text"
+# )
 ```
 
 #### Hoeveel soorten per eigendomtype?
-```{r}
+```{r nspec-of-nbhp-per-eigendomstype, echo=FALSE, warning=FALSE}
 x <- NBHP %>%
   dplyr::filter(gebied != "NBHP" & type == "in" & overlap != 0) %>%
   group_by(gebied) %>%
@@ -1908,103 +1794,91 @@ ggplotly(
     geom_bar(stat = "identity", fill = "#c04384", aes(text = paste0(gebied, " (", n_spec, " IUS)")), width = 0.7) +
     labs(x = "# IUS") +
     theme_bw() +
-    theme(axis.text.x = element_text(angle = 0), 
-          axis.title.y = element_blank()), 
+    theme(axis.text.x = element_text(angle = 0),
+          axis.title.y = element_blank()),
   tooltip = "text"
 )
 ```
 
-#### Welke soorten komen voor per eigendomstype? 
-```{r}
+#### Welke soorten komen voor per eigendomstype?
+```{r spec-of-nbhp-per-eigendomstype, echo=FALSE}
 y <- ps_nbhp %>%
   st_drop_geometry() %>%
-  group_by(eigendomtype) %>%
+  group_by(egndmty) %>%
   summarise(n_nbhp = n())
 
 x <- NBHP %>%
   dplyr::filter(type == "of" & gebied != "NBHP" & overlap != 0)
 
-ggplot(x, aes(x = reorder(soort, overlap), y = overlap)) +
-    geom_bar(stat = "identity", , fill = "#c04384") + 
-    facet_wrap(~gebied, scales = "free_y", ncol = 1) +
-    custom_theme() +
-    theme(axis.text.x = element_text(angle = 90, hjust = 1))
+# ggplot(x, aes(x = reorder(soort, overlap), y = overlap)) +
+#     geom_bar(stat = "identity", , fill = "#c04384") +
+#     facet_wrap(~gebied, scales = "free_y", ncol = 1) +
+#     custom_theme() +
+#     theme(axis.text.x = element_text(angle = 90, hjust = 1))
 
 ggplotly(
   ggplot(x, aes(x = reorder(soort, overlap), y = overlap)) +
-    geom_bar(stat = "identity", fill = "#c04384") + 
+    geom_bar(stat = "identity", fill = "#c04384") +
     facet_grid(~gebied, scales = "free_x") +
     custom_theme() +
-    theme(axis.text.x = element_text(angle = 90, hjust = 1)), 
+    theme(axis.text.x = element_text(angle = 90, hjust = 1)),
   tooltip = "text"
 )
 ```
 
-### Soortgericht 
+### Soortgericht
 
-#### Welke soorten komen (niet) voor in natuurbeheerplan? 
-```{r}
+#### Welke soorten komen (niet) voor in natuurbeheerplan?
+```{r spec-of-nbhp, echo=FALSE}
 NBHP_ngeb <- NBHP %>%
   dplyr::filter(gebied  == "NBHP" & type == "n_nbhp")  %>%
-  transmute(soort, "n_geb" = overlap ) 
-  #slice_max(n = 10, order_by = overlap) 
+  transmute(soort, "n_geb" = overlap)
 
 x <- NBHP %>%
   dplyr::filter(gebied  == "NBHP" & type == "of")  %>%
-  slice_max(n = 10, order_by = overlap) %>%
+  mutate(label_color = ifelse(overlap == 0, "grey75", "black")) %>%
   left_join(species_list, by = c("soort" = "Soort")) %>%
-  #mutate(EU_color = ifelse(EU_lijst != 0, "red", "black")) %>%
-  mutate(soort_label = ifelse(EU_lijst != 0, paste0(soort, "*"), soort)) %>% 
-  select(soort, soort_label, species, Groep, overlap) %>%
+  select(soort, species, Groep, overlap, label_color) %>%
   distinct() %>%
-  mutate(Groep = recode(Groep, "plant" = "planten", "dier" = "dieren")) %>% 
+  mutate(Groep = recode(Groep, "plant" = "planten", "dier" = "dieren")) %>%
   left_join(NBHP_ngeb, by = "soort") %>%
-  pivot_longer(cols = c("overlap", "n_geb"), names_to = "type", values_to = "overlap") %>%
-  mutate(type = recode(type, "overlap" = "% bezetting", "n_geb" = "# natuurbeheerplannen")) %>%
-  replace_na(list(overlap = 0))
+  select(soort, Groep, overlap, n_geb, label_color) %>%
+  pivot_longer(cols = c("overlap", "n_geb"), names_to = "type", values_to = "overlap") %>% 
+  mutate(type = recode(type, "overlap" = "% bezetting", "n_geb" = "# gebieden")) %>% 
+  replace_na(list(overlap = 0)) 
+
+x_order <- x %>%
+  filter(type == "% bezetting") %>%
+  arrange(overlap) %>%
+  pull(soort)
 
 x$soort <- factor(x$soort, levels = x_order)
-x$type <- factor(x$type, levels = c("% bezetting", "# natuurbeheerplannen"))
+x$type <- factor(x$type, levels = c("% bezetting", "# gebieden"))
 x$Groep <- factor(x$Groep, levels = c("dieren", "planten"))
 
-# label_colors <- setNames(x$EU_color, x$soort)
-# ggplot(x, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort, fill = overlap)) +
-#   geom_bar(stat = "identity", show.legend = FALSE, width = 0.7, fill = "#c04384") +  
-#   facet_grid(Groep ~ type, scales = "free") +  
-#   scale_x_continuous(expand = c(0, 0.2)) +
-#   scale_y_discrete(labels = function(soort) {
-#     sapply(soort, function(s) {
-#       paste0("<span style='color:", label_colors[s], "'>", s, "</span>")
-#     })
-#   }) +
-#   labs(x = "Bezetting van Natuurbeheerplannen", y = NULL) +
-#   custom_theme() + 
-#   theme(
-#     strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0, vjust = 0, size = 10),
-#     axis.text.y = element_markdown()
-#   )
+label_colors <- setNames(x$label_color, x$soort)
 
-ggplot(x, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort_label, fill = overlap)) +
+ggplot(x, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort, fill = overlap)) +
   geom_bar(stat = "identity", show.legend = FALSE, width = 0.7, fill = "#c04384") +  
+  geom_vline(data = subset(x, type == "# gebieden"), aes(xintercept = 2125), color = "grey75", linewidth = 0.7) +
   facet_grid(Groep ~ type, scales = "free") +  
-  scale_x_continuous(expand = c(0, 0.2)) +
-  scale_y_discrete() + 
-  labs(x = "Bezetting van Natuurbeheerplannen", y = NULL,
-       caption = "* Unielijstsoort") + 
+  scale_y_discrete(labels = function(soort) {
+    sapply(soort, function(s) {
+      paste0("<span style='color:", label_colors[s], "'>", s, "</span>")
+    })
+  }) +
+  labs(x = "Bezetting van Natuurbeheerplannen", y = NULL) +
   custom_theme() + 
-  theme(
-    strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0, vjust = 0, size = 9),
-    axis.text.y = element_text(size = 9),
-    plot.caption = element_text(size = 7, hjust = 0)
-  )
+  theme(strip.placement = "outside",
+        axis.text.y = element_markdown())
 
-ggsave("./radius/data/output/figuren/nbhp_bezetting.png", 
-       width = 7,  
+ggsave("./radius/data/output/figuren/nbhp_bezetting.png",
+       width = 7,
        height = 4,
        dpi = 300)
 ```
 
-```{r spec-in-nbhp, echo=FALSE, warning=FALSE}
+```{r spec-of-nbhp-2, echo=FALSE, warning=FALSE}
 NBHP_of <- NBHP %>%
   dplyr::filter(gebied == "NBHP" & type == "of")  %>%
   mutate(label_color = ifelse(overlap == 0, "lightgrey", "black"))
@@ -2027,10 +1901,10 @@ ggplot(NBHP_of , aes(x = reorder(soort, overlap), y = overlap)) +
   theme(axis.text.x = ggtext::element_markdown(angle = 90, hjust = 1))
 ```
 
-#### In hoeveel natuurbeheerplannen komt een soort voor? 
-```{r}
+#### In hoeveel natuurbeheerplannen komt een soort voor?
+```{r n-nbhp-per-species, echo=FALSE, warning=FALSE}
 x <- NBHP %>%
-  dplyr::filter(gebied == "NBHP" & type == "n_nbhp") 
+  dplyr::filter(gebied == "NBHP" & type == "n_nbhp")
 
 ggplotly(
   ggplot(x , aes(x = reorder(soort, overlap), y = overlap, fill = )) +
@@ -2044,22 +1918,24 @@ ggplotly(
 
 x <- NBHP %>%
   dplyr::filter(type %in% c("n_per_type")) %>%
-  select(soort, species, abbr, gebied, overlap) 
+  select(soort, species, abbr, gebied, overlap)
 
-ggplotly(
-  ggplot(x , aes(x = reorder(soort, overlap), y = overlap, fill = gebied)) +
-    geom_bar(stat = "identity", aes(text = paste0(soort, " (", overlap, " natuurbeheerplannen)"))) +
-    theme_bw() +
-    theme(axis.text.x = element_text(angle = 90, hjust = 1),
-          axis.title.x = element_blank()),
-  tooltip = "text",
-  height = 700)
+# ggplotly(
+#   ggplot(x , aes(x = reorder(soort, overlap), y = overlap, fill = gebied)) +
+#     geom_bar(stat = "identity", aes(text = paste0(soort, " (", overlap, " natuurbeheerplannen)"))) +
+#     theme_bw() +
+#     theme(axis.text.x = element_text(angle = 90, hjust = 1),
+#           axis.title.x = element_blank()),
+#   tooltip = "text",
+#   height = 700)
 ```
 
-Let op! het aantal natuurbeheerplannen waarin een soort voorkomt is sterk afhankelijk van de gekozen bufferafstand rond de puntlocaties. Waarom?  
+Let op! het aantal natuurbeheerplannen waarin een soort voorkomt is sterk afhankelijk van de gekozen bufferafstand rond de puntlocaties. Waarom?
 
-#### in NBHP
-```{r}
+#### Voorkomen in IUS in percentage {.tabset}
+
+##### in NBHP
+```{r in-nbhp, echo=FALSE}
 NBHP_in <- NBHP %>%
   dplyr::filter(gebied == "NBHP" & type == "in")  %>%
   mutate(label_color = ifelse(overlap == 0, "lightgrey", "black"))
@@ -2086,60 +1962,30 @@ ggplotly(
 ```
 
 
-#### in vs of
-```{r}
+##### in vs of NBHP
+```{r in-vs-of-nbhp, echo=FALSE}
 NBHP_in_vs_of <- NBHP_in %>%
   select(!type) %>%
   left_join(NBHP_of %>% select(!type), by = c("soort", "species", "abbr", "gebied"), suffix = c(".in", ".of")) %>%
   dplyr::filter(overlap.in != 0 & overlap.of != 0) #%>%
-  #dplyr::filter(!soort %in% spor_species$Soort) 
+  #dplyr::filter(!soort %in% spor_species$Soort)
 
 ggplot() +
   geom_text(data = NBHP_in_vs_of, aes(x = overlap.in*100, y = overlap.of*100, label = abbr), size = 3, family = "Arial") +
   coord_trans(y = "log2") +
-  scale_y_continuous(labels = scales::percent_format(scale = 1)) + 
-  scale_x_continuous(labels = scales::percent_format(scale = 1), limits = c(0,100)) + 
+  scale_y_continuous(labels = scales::percent_format(scale = 1)) +
+  scale_x_continuous(labels = scales::percent_format(scale = 1), limits = c(0,100)) +
   labs( x = "Specificiteit voor Natuurbeheerplannen (%)",  y = "Bezetting van Natuurbeheerplannen (%)") +
-  custom_theme() 
+  custom_theme()
 
 ggsave("./radius/data/output/figuren/in_vs_of_nbhp.png",
-       width = 6,  
+       width = 6,
        height = 4,
        dpi = 300)
 ```
 
-#### Voorkomen in natuurbeheerplan vs voorkomen in natuurbeheerplannen in eigendom van ANB
-```{r}
-x <- NBHP %>%
-  dplyr::filter((type == "of" & gebied == "NBHP") | (type == "in" & gebied == "Agentschap voor Natuur en Bos")) %>%
-  select(soort, species, abbr, gebied, overlap) %>%
-  pivot_wider(names_from = gebied, values_from = overlap) %>%
-  dplyr::filter(!is.na("Agentschap voor Natuur en Bos"))
-
-ggplot(x, aes(x = NBHP, y = "Agentschap voor Natuur en Bos")) +
-  geom_text(aes(label = abbr))
-
-x <- NBHP %>%
-  dplyr::filter((type == "of" & gebied == "NBHP") | (type == "in" & gebied == "Andere Vlaamse overheid")) %>%
-  select(soort, species, abbr, gebied, overlap) %>%
-  pivot_wider(names_from = gebied, values_from = overlap) %>%
-  dplyr::filter(!is.na("Andere Vlaamse overheid"))
-
-ggplot(x, aes(x = NBHP, y = "Andere Vlaamse overheid")) +
-  geom_text(aes(label = abbr))
-
-x <- NBHP %>%
-  dplyr::filter((type == "of" & gebied == "NBHP") | (type == "in" & gebied == "Bestuur")) %>%
-  select(soort, species, abbr, gebied, overlap) %>%
-  pivot_wider(names_from = gebied, values_from = overlap) %>%
-  dplyr::filter(!is.na(Bestuur))
-
-ggplot(x, aes(x = NBHP, y = Bestuur)) +
-  geom_text(aes(label = abbr))
-```
-
-#### Waar liggen de verantwoordelijkheden per soort? 
-```{r}
+#### Waar liggen de verantwoordelijkheden per soort?
+```{r responsibility-per-species, echo=FALSE, warning=FALSE}
 x <- NBHP %>%
   dplyr::filter(gebied != "NBHP" & type == "in") %>%
   select(soort, gebied, overlap)
@@ -2147,12 +1993,12 @@ x <- NBHP %>%
 # library(paletteer)
 # set3_kleuren <- paletteer_d("RColorBrewer::Set3")
 
-# kleurenschema <- c("buiten NBHP" = set3_kleuren[1], 
-#                    "Agentschap voor Natuur en Bos" = set3_kleuren[2],   
-#                    "Andere Vlaamse overheid" = set3_kleuren[3],   
-#                    "Bestuur" = set3_kleuren[4],   
-#                    "Privaatrechtelijke rechtspersoon" = set3_kleuren[5],  
-#                    "Natuurlijke persoon" = set3_kleuren[6],  
+# kleurenschema <- c("buiten NBHP" = set3_kleuren[1],
+#                    "Agentschap voor Natuur en Bos" = set3_kleuren[2],
+#                    "Andere Vlaamse overheid" = set3_kleuren[3],
+#                    "Bestuur" = set3_kleuren[4],
+#                    "Privaatrechtelijke rechtspersoon" = set3_kleuren[5],
+#                    "Natuurlijke persoon" = set3_kleuren[6],
 #                    "Andere" = set3_kleuren[7])
 
 plots <- list()
@@ -2164,51 +2010,52 @@ labels <- c("a.", "b.", "c.", "d.", "e.", "f.")
 for (k in seq_along(soorten)) {
   i <- soorten[k]
   j <- labels[k]
-  
+
   y <- x %>%
     dplyr::filter(soort == i) %>%
     add_row(soort = i, gebied = "buiten NBHP", overlap =  1 - sum((x %>% dplyr::filter(soort == i))$overlap))
-  
+
   plot <- ggplot(y, aes(x = "", y = overlap, fill = gebied)) +
     geom_bar(stat = "identity", width = 1, alpha = 1) +
-    #scale_fill_manual(values = kleurenschema) + 
+    #scale_fill_manual(values = kleurenschema) +
     labs(title = paste(j, i)) +
     coord_polar("y") +
     theme_void() +
     theme(legend.position = "none",
           legend.title = element_blank(),
-          plot.title = element_text(size = 10, family = "Arial", face = "bold"), 
+          plot.title = element_text(size = 10, family = "Arial", face = "bold"),
           plot.title.position = "plot")
-  
-  plots[[k]] <- plot  
+
+  plots[[k]] <- plot
 }
 
 legende_plot <- ggplot(x, aes(x = "", y = overlap, fill = gebied)) +
   geom_bar(stat = "identity", width = 1) +
   coord_polar("y") +
-  theme_void() + 
+  theme_void() +
   theme(legend.position = "bottom",
         legend.title = element_blank(),
         legend.text = element_text(size = 10, family = "Arial")
-        ) 
+        )
 
-final_figuur <- ggarrange(plotlist = plots, 
-                          ncol = 3, nrow = 2, 
-                          common.legend = TRUE, legend = "bottom", 
-                          label.x = 0.1, label.y = 0.9, 
-                          font.label = list(size = 11, family = "Arial")) 
+final_figuur <- ggarrange(plotlist = plots,
+                          ncol = 3, nrow = 2,
+                          common.legend = TRUE, legend = "bottom",
+                          label.x = 0.1, label.y = 0.9,
+                          font.label = list(size = 11, family = "Arial"))
 
-print(final_figuur)  
+print(final_figuur)
 
-ggsave("./radius/data/output/figuren/nbhp_eigendomstype.png", 
-       width = 9,  
+ggsave("./radius/data/output/figuren/nbhp_eigendomstype.png",
+       width = 9,
        height = 7,
        dpi = 300)
 ```
 
 
 # ANB PATRIMONIUM
-```{r add-abbreviations-nbhp}
+
+```{r add-abbreviations-patdat, include=FALSE}
 PATDAT <- PATDAT %>%
   mutate(gebied = case_when(
     gebied == "Bosdec" ~ "Technisch beheer conform bosdecreet",
@@ -2227,30 +2074,30 @@ PATDAT <- PATDAT %>%
     gebied == "Taxand" ~ "Taxandria",
     gebied == "LtHKem" ~ "Lage tot aan Hoge Kempen",
     gebied == "ZanVla" ~ "Zandig Vlaanderen",
-    TRUE ~ gebied 
-  )) 
+    TRUE ~ gebied
+  ))
 ```
 
 ## Overzicht ANB patrimonium
 
-### Wat is het ANB patrimonium? 
+### Wat is het ANB patrimonium?
 
 ### Overzicht ANB domeinen
 
-#### Totaal aantal ANB-domeinen in Vlaanderen? 
-```{r n-anb-domeinen, echo=FALSE}
+#### Totaal aantal ANB-domeinen in Vlaanderen?
+```{r overview-patdat-n-domeinen, echo=FALSE}
 length(unique(am_patdat$domennm))
 ```
 
-#### Verdeling van rechten anb binnen deze domeinen? 
-```{r patdat-type-beheerder, echo=FALSE}
+#### Verdeling van rechten anb binnen deze domeinen?
+```{r overview-patdat-type-beheerder, echo=FALSE}
 patdat_summary <- am_patdat %>%
   st_drop_geometry() %>%
   group_by(rchtnnb) %>%
   summarise(n_domeinen = n())
 
 custom_colors <- c("#f2cfe0", "#c04384", "#902653", "#681836", "#4b102f", "#e08ab8")
-  
+
 plot_ly(patdat_summary, labels = ~rchtnnb, values = ~n_domeinen, type = 'pie',
         textinfo = 'label+percent',
         insidetextorientation = 'radial',
@@ -2259,12 +2106,12 @@ plot_ly(patdat_summary, labels = ~rchtnnb, values = ~n_domeinen, type = 'pie',
 
 ```
 
-Een zéér groot aandeel van de ANB domeinen (61,8%) valt onder technisch beheer conform het Bosdecreet. Dit zijn bossen van publieke eigenaars (‘openbare bossen’) waar ten gevolge van het Bosdecreet (Art. 45) het technisch beheer wordt uitgevoerd door het ANB. 
+Een zéér groot aandeel van de ANB domeinen (61,8%) valt onder technisch beheer conform het Bosdecreet. Dit zijn bossen van publieke eigenaars (‘openbare bossen’) waar ten gevolge van het Bosdecreet (Art. 45) het technisch beheer wordt uitgevoerd door het ANB.
 
 Opmerking boswachter op workshop: voorstel om de analyse ook eens uit te voeren zonder deze domeinen.. Indien ik dit wil doen, moet ik de berekeningen van de metrics opnieuw uitvoeren.. --> zeker nog te bekijken (opdeling PATDAT output in PATDAT_incl_ob en PATDAT_excl_ob)
 
 #### Oppervlakte per type beheerdersrecht
-```{r opp-rechtenanb, echo=FALSE, message=FALSE, warning=FALSE}
+```{r overview-patdat-opp-rechtenanb, echo=FALSE, message=FALSE, warning=FALSE}
 am_patdat %>%
   group_by(rchtnnb) %>%
   summarise() %>%
@@ -2277,10 +2124,10 @@ am_patdat %>%
           axis.title.x = element_blank())
 ```
 
-Ondanks de hoge hoeveelheid domeinen die vallen onder "openbare bossen", ligt het oppervlakte hiervan toch lager dan domeinen in eigendom van anb. 
+Ondanks de hoge hoeveelheid domeinen die vallen onder "openbare bossen", ligt het oppervlakte hiervan toch lager dan domeinen in eigendom van anb.
 
 #### Verdeling ANB domeinen over beheerregio's
-```{r patdat-beheerregio, echo=FALSE, message=FALSE}
+```{r overview-patdat-beheerregios, echo=FALSE, message=FALSE}
 x <- am_patdat %>%
   st_drop_geometry() %>%
   group_by(regio, rchtnnb) %>%
@@ -2290,7 +2137,7 @@ x <- am_patdat %>%
 custom_colors <- c("#f2cfe0", "#c04384", "#902653", "#681836", "#4b102f", "#e08ab8")
 
 ggplot(x, aes(x = reorder(regio, n_domeinen), y = n_domeinen, fill = rchtnnb)) +
-  geom_bar(stat = "identity") + 
+  geom_bar(stat = "identity") +
   theme_bw() +
   labs(x = NULL, y = "# domeinen") +
   scale_fill_manual(values = custom_colors) +
@@ -2302,16 +2149,15 @@ ggplot(x, aes(x = reorder(regio, n_domeinen), y = n_domeinen, fill = rchtnnb)) +
 ### Gebiedsgericht
 
 #### Welke beheerregio's staan het meest onder druk? Aantal IUS per beheerregio
-```{r nspec-per-br, echo=FALSE, message=FALSE, warning=FALSE}
+```{r nspec-of-patdat-per-beheerregio, echo=FALSE, message=FALSE, warning=FALSE}
 bw <- boswachterijen$boswachterijen_2024 %>%
   st_transform(31370) %>%
   group_by(Regio) %>%
   summarise(geometry = st_union(geometry)) %>%
-  st_transform(4326) 
-
+  st_transform(4326)
 
 x <- PATDAT %>%
-  dplyr::filter(gebied != "PATDAT" & type == "of" & overlap != 0) %>%
+  dplyr::filter(gebied != "PATDAT_incl_ob" & type == "of" & overlap != 0) %>%
   group_by(gebied) %>%
   summarise(n_spec = n()) %>%
   left_join(bw, by = c("gebied" = "Regio")) %>%
@@ -2322,7 +2168,7 @@ ggplot(x, aes(x = reorder(gebied, n_spec), y = n_spec), fill = n_spec) +
     theme_bw() +
     theme(axis.text.x = element_text(angle = 90, hjust = 1),
           axis.title.x = element_blank())
-  
+
 ggplot() +
   geom_sf(data = Provincies_grenzen, fill= "#f0f0f0", color = "black", linewidth = 0.2) +
   geom_sf(data = x, aes(color = n_spec, fill = n_spec)) +
@@ -2334,19 +2180,14 @@ ggplot() +
     legend.justification = "center",
     legend.box.spacing = unit(0.1, "cm")
   )
-
-
-ggplot() +
-  geom_sf(data = x$geometry, aes(fill = n_spec)) +
-  theme_map()
 ```
 
-Aantal IUS verschilt niet zeer hard tussen de verschillende beheerregio's. Maar verschilt de top 10 meest voorkomende soorten? 
+Aantal IUS verschilt niet zeer hard tussen de verschillende beheerregio's. Maar verschilt de top 10 meest voorkomende soorten?
 
 #### top 10 IUS per beheerregio
-```{r patdat-top-10, echo=FALSE}
+```{r spec-of-patdat-top-10, echo=FALSE}
 x <- PATDAT %>%
-  dplyr::filter(gebied != "PATDAT" & type == "of" & overlap != 0) %>%
+  dplyr::filter(gebied != "PATDAT_incl_ob" & type == "of" & overlap != 0) %>%
   group_by(gebied) %>%
   slice_max(n = 10, order_by = overlap) %>%
   ungroup()
@@ -2357,14 +2198,14 @@ ggplotly(
     facet_wrap(~gebied, scales = "free_y", nrow = 10) +
     labs(x = NULL) +
     theme_bw() +
-    theme(axis.text.x = element_text(angle = 90, hjust = 1)), 
+    theme(axis.text.x = element_text(angle = 90, hjust = 1)),
   tooltip = "text", height = 1000)
 ```
 
-#### Per type recht van anb, hoeveel IUS? 
+#### Per type recht van anb, hoeveel IUS?
 
-zien we hier dat het hoogste aantal IUS voorkomt in openbare bossen? 
-```{r nspec-per-rechtenanb, echo=FALSE}
+zien we hier dat het hoogste aantal IUS voorkomt in openbare bossen?
+```{r nspec-of-patdat-per-rechtenanb, echo=FALSE}
 x <- PATDAT %>%
   dplyr::filter(type == "anb_rechten" & overlap != 0) %>%
   group_by(gebied) %>%
@@ -2373,34 +2214,35 @@ x <- PATDAT %>%
 ggplot(x, aes(x = n_spec, y = reorder(gebied, n_spec))) +
   geom_bar(stat = "identity", fill = "#c04384") +
   labs(x = "# IUS", y = "Eigendomstype ANB") +
-  custom_theme() 
-    
-ggsave("./radius/data/output/figuren/patdat_eigendom_nspec.png", 
-       width = 7,  
+  custom_theme()
+
+ggsave("./radius/data/output/figuren/patdat_eigendom_nspec.png",
+       width = 7,
        height = 3,
        dpi = 300)
 ```
-Hoogste aantal soorten in domeinen die in eigendom zijn van ANB! 
+Hoogste aantal soorten in domeinen die in eigendom zijn van ANB!
 
 ### Soortgericht
 
-#### Welke soorten komen in welke mate voor in ANB domeinen? 
-```{r}
+#### Welke soorten komen in welke mate voor in ANB domeinen?
+```{r echo=FALSE}
 PATDAT_ngeb <- PATDAT %>%
   dplyr::filter(gebied == "PATDAT_incl_ob" & type == "n_domeinen") %>%
-  transmute(soort, "n_domeinen" = overlap ) 
+  transmute(soort, "n_domeinen" = overlap )
 
 x <- PATDAT %>%
   dplyr::filter(gebied == "PATDAT_incl_ob" & type == "of")  %>%
-  slice_max(n = 10, order_by = overlap) %>%
+  mutate(label_color = ifelse(overlap == 0, "grey75", "black")) %>%
+  #slice_max(n = 10, order_by = overlap) %>%
   left_join(species_list, by = c("soort" = "Soort")) %>%
   mutate(EU_color = ifelse(EU_lijst != 0, "red", "black")) %>%
-  select(soort, species, Groep, overlap, EU_color) %>%
+  select(soort, species, Groep, overlap, EU_color, label_color) %>%
   distinct() %>%
   mutate(Groep = recode(Groep, "plant" = "planten", "dier" = "dieren")) %>%  # Recodeer Groep
   left_join(PATDAT_ngeb, by = "soort") %>%
   pivot_longer(cols = c("overlap", "n_domeinen"), names_to = "type", values_to = "overlap") %>%
-  mutate(type = recode(type, "overlap" = "% bezetting", "n_domeinen" = "# ANB-domeinen")) %>%
+  mutate(type = recode(type, "overlap" = "% bezetting", "n_domeinen" = "# gebieden")) %>%
   replace_na(list(overlap = 0))
 
 x_order <- x %>%
@@ -2409,14 +2251,15 @@ x_order <- x %>%
   pull(soort)
 
 x$soort <- factor(x$soort, levels = x_order)
-x$type <- factor(x$type, levels = c("% bezetting", "# ANB-domeinen"))
+x$type <- factor(x$type, levels = c("% bezetting", "# gebieden"))
 x$Groep <- factor(x$Groep, levels = c("dieren", "planten"))
 
-label_colors <- setNames(x$EU_color, x$soort)
+label_colors <- setNames(x$label_color, x$soort)
 
 ggplot(x, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort, fill = overlap)) +
-  geom_bar(stat = "identity", show.legend = FALSE, width = 0.7, fill = "#c04384") +  
-  facet_grid(Groep ~ type, scales = "free") +  
+  geom_bar(stat = "identity", show.legend = FALSE, width = 0.7, fill = "#c04384") +
+  geom_vline(data = subset(x, type == "# gebieden"), aes(xintercept = 2410), color = "grey75", linewidth = 0.7) +
+  facet_grid(Groep ~ type, scales = "free") +
   #scale_x_continuous(expand = c(0, 0.2), limits = c(0, 44)) +
   scale_y_discrete(labels = function(soort) {
     sapply(soort, function(s) {
@@ -2424,17 +2267,21 @@ ggplot(x, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort, fill =
     })
   }) +
   labs(x = "Bezetting van ANB patrimonium", y = NULL) +
-  custom_theme() + 
+  custom_theme() +
   theme(
-    strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0, vjust = 0, size = 10)
+    strip.placement = "outside",
+    axis.text.y = element_markdown()
   )
 
-ggsave("./radius/data/output/figuren/patdat_bezetting.png", 
-       width = 7,  
+ggsave("./radius/data/output/figuren/patdat_bezetting.png",
+       width = 7,
        height = 4,
        dpi = 300)
-
 ```
+
+#### Voorkomen IUS in percentage {.tabset}
+
+##### of PATDAT
 
 ```{r of-patdat, echo=FALSE, warning=FALSE}
 PATDAT_of <- PATDAT %>%
@@ -2462,11 +2309,11 @@ ggplotly(
   height = 800)
 ```
 
-#### in PATDAT
-```{r}
+##### in PATDAT
+```{r in-patdat, echo=FALSE, warning=FALSE}
 PATDAT_in <- PATDAT %>%
   dplyr::filter(gebied == "PATDAT_incl_ob" & type == "in")  %>%
-  mutate(label_color = ifelse(overlap == 0, "lightgrey", "black")) 
+  mutate(label_color = ifelse(overlap == 0, "lightgrey", "black"))
 
 # Labels en kleuren aanmaken
 label_colors <- setNames(PATDAT_in$label_color, PATDAT_in$soort)
@@ -2489,45 +2336,45 @@ ggplotly(
   height = 700)
 
 
-PATDAT_in_top10 <- PATDAT %>%
-  dplyr::filter(gebied == "PATDAT_incl_ob" & type == "in")  %>%
-  mutate(label_color = ifelse(overlap == 0, "lightgrey", "black")) %>%
-  left_join(species_list, by = c("soort" = "Soort")) %>%
-  select(soort, Groep, EU_lijst, overlap, label_color) %>%
-  group_by(Groep) %>%
-  slice_max(n = 10, order_by = overlap)
-
-label_colors <- setNames(PATDAT_in_top10$label_color, PATDAT_in_top10$soort)
-
-ggplot(PATDAT_in_top10, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = reorder(soort, overlap), fill = overlap)) +
-  geom_bar(stat = "identity", show.legend = FALSE, width = 0.7, fill = "#c04384") +  
-  facet_wrap(~Groep, scales = "free_y", ncol = 1) +  
-  #scale_x_continuous(expand = c(0, 0.2), limits = c(0, 44)) +
-  scale_x_continuous(labels = percent_format(scale = 1)) +  
-  scale_y_discrete(labels = function(soort) {
-    sapply(soort, function(s) {
-      paste0("<span style='color:", label_colors[s], "'>", s, "</span>")
-    })
-  }) +
-  labs(x = "% Totale verspreiding in ANB-domeinen", y = NULL) +
-  custom_theme() + 
-  theme(
-    strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0, vjust = 0, size = 10)
-  )
-
-ggsave("./radius/data/output/figuren/patdat_top10_in.png", 
-       width = 7,  
-       height = 4,
-       dpi = 300)
+# PATDAT_in_top10 <- PATDAT %>%
+#   dplyr::filter(gebied == "PATDAT_incl_ob" & type == "in")  %>%
+#   mutate(label_color = ifelse(overlap == 0, "lightgrey", "black")) %>%
+#   left_join(species_list, by = c("soort" = "Soort")) %>%
+#   select(soort, Groep, EU_lijst, overlap, label_color) %>%
+#   group_by(Groep) %>%
+#   slice_max(n = 10, order_by = overlap)
+# 
+# label_colors <- setNames(PATDAT_in_top10$label_color, PATDAT_in_top10$soort)
+# 
+# ggplot(PATDAT_in_top10, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = reorder(soort, overlap), fill = overlap)) +
+#   geom_bar(stat = "identity", show.legend = FALSE, width = 0.7, fill = "#c04384") +
+#   facet_wrap(~Groep, scales = "free_y", ncol = 1) +
+#   #scale_x_continuous(expand = c(0, 0.2), limits = c(0, 44)) +
+#   scale_x_continuous(labels = percent_format(scale = 1)) +
+#   scale_y_discrete(labels = function(soort) {
+#     sapply(soort, function(s) {
+#       paste0("<span style='color:", label_colors[s], "'>", s, "</span>")
+#     })
+#   }) +
+#   labs(x = "% Totale verspreiding in ANB-domeinen", y = NULL) +
+#   custom_theme() +
+#   theme(
+#     strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0, vjust = 0, size = 10)
+#   )
+# 
+# ggsave("./radius/data/output/figuren/patdat_top10_in.png",
+#        width = 7,
+#        height = 4,
+#        dpi = 300)
 ```
 
-#### in vs of
-```{r}
+##### in vs of
+```{r in-vs-of-patdat, echo=FALSE, warning=FALSE}
 PATDAT_in_vs_of <- PATDAT_in %>%
   select(!type) %>%
   dplyr::filter(overlap != 0) %>%
   left_join(PATDAT_of %>% select(!type), by = c("soort", "species", "abbr", "gebied"), suffix = c(".in", ".of")) #%>%
-  #dplyr::filter(!soort %in% spor_species$Soort) 
+  #dplyr::filter(!soort %in% spor_species$Soort)
 
 ggplot() +
   geom_text(data = PATDAT_in_vs_of, aes(x = overlap.in, y = overlap.of, label = abbr)) +
@@ -2539,11 +2386,11 @@ ggplot() +
 
 #### Voorkomen in ANB domeinen vs voorkomen in Vlaanderen
 
-Wat veel aanwezig is in ANB domeinen is veel aanwezig in Vlaanderen? 
+Wat veel aanwezig is in ANB domeinen is veel aanwezig in Vlaanderen?
 ```{r patdat-vs-vl, echo=FALSE}
 x <- PATDAT %>%
-  dplyr::filter(gebied == "PATDAT" & type == "of") %>%
-  left_join(VL, by = c("soort" = "Soort")) %>%
+  dplyr::filter(gebied == "PATDAT_incl_ob" & type == "of") %>%
+  left_join(VL_wide, by = c("soort", "species", "abbr")) %>%
   transmute(soort, species, abbr, ofPATDAT = overlap, ofVL)
 
 ggplot() +
@@ -2556,8 +2403,8 @@ ggplot() +
 
 #### Voorkomen van soorten per beheerregio
 
-#### Welke soorten zijn oververtegenwoordigd in ANB domeinen, per beheerregio? Maw voor welke soorten draagt het ANB een grote verantwoordelijkheid? 
-```{r inpatdat-vs-invl, echo=FALSE}
+#### Welke soorten zijn oververtegenwoordigd in ANB domeinen, per beheerregio? Maw voor welke soorten draagt het ANB een grote verantwoordelijkheid?
+```{r spec-in-patdat-vs-in-vl, echo=FALSE}
 aandeel_vl <- am_patdat %>%
   group_by(regio) %>%
   summarise() %>%
@@ -2568,14 +2415,14 @@ aandeel_vl <- am_patdat %>%
 x <- PATDAT %>%
   dplyr::filter(gebied != "PATDAT_incl_ob" & type == "in") %>%
   mutate(gebied = replace(gebied, gebied == "AntKem", "Antwerpse Kempen"),
-         gebied = replace(gebied, gebied == "BraWou", "Brabantse Wouden"), 
-         gebied = replace(gebied, gebied == "DemZKe", "Demerland & Zuiderkempen"), 
+         gebied = replace(gebied, gebied == "BraWou", "Brabantse Wouden"),
+         gebied = replace(gebied, gebied == "DemZKe", "Demerland & Zuiderkempen"),
          gebied = replace(gebied, gebied == "GroGor", "Groene Gordels"),
-         gebied = replace(gebied, gebied == "KusWes", "Kust & Westhoek"), 
-         gebied = replace(gebied, gebied == "LtHKem", "Lage tot aan Hoge Kempen"), 
-         gebied = replace(gebied, gebied == "Taxand", "Taxandria"), 
-         gebied = replace(gebied, gebied == "VArSch", "Vlaamse Ardennen & Schelde-Leie"), 
-         gebied = replace(gebied, gebied == "ZanVla", "Zandig Vlaanderen"), 
+         gebied = replace(gebied, gebied == "KusWes", "Kust & Westhoek"),
+         gebied = replace(gebied, gebied == "LtHKem", "Lage tot aan Hoge Kempen"),
+         gebied = replace(gebied, gebied == "Taxand", "Taxandria"),
+         gebied = replace(gebied, gebied == "VArSch", "Vlaamse Ardennen & Schelde-Leie"),
+         gebied = replace(gebied, gebied == "ZanVla", "Zandig Vlaanderen"),
          gebied = replace(gebied, gebied == "HKeVoe", "Hoge Kempen tot Voeren")) %>%
   left_join(aandeel_vl, by = c("gebied" = "regio")) %>%
   mutate(factor = overlap/ofVL) #%>%
@@ -2603,9 +2450,9 @@ for (i in unique(PATDAT_slice$gebied)) {
 
   plot_list[[i]] <- ggplot(data = df, aes(x = factor + 0.0001, y = reorder(soort, factor))) +
     geom_point(color = "#c04384", size = 1.5, show.legend = FALSE) +
-    geom_vline(xintercept = 1) +  
-    coord_trans(x = "log2") +  
-    labs(title = paste(i), x = "Factor", y = NULL) + 
+    geom_vline(xintercept = 1) +
+    coord_trans(x = "log2") +
+    labs(title = paste(i), x = "Factor", y = NULL) +
     custom_theme() +
     theme(plot.title.position = "plot",
           axis.text.x = element_text(angle = 90))
@@ -2615,8 +2462,8 @@ final_plot <- wrap_plots(plot_list) + plot_layout(ncol = 2)
 
 print(final_plot)
 
-ggsave("./radius/data/output/figuren/patdat_per_bh.png", 
-       width = 7,  
+ggsave("./radius/data/output/figuren/patdat_per_bh.png",
+       width = 7,
        height = 8,
        dpi = 300)
 ```
@@ -2626,29 +2473,29 @@ ggsave("./radius/data/output/figuren/patdat_per_bh.png",
 ## Overzicht
 
 ### Polygonen
-```{r sbp_pgs}
+```{r overview-sbp-pgs, echo=FALSE}
 ### Voor hoeveel soorten werden zones afgebakend en weergegeven in deze kaartlaag?
 unique(lu_sbp_pgs$soort)
 ```
 
-### Kaartje per soort 
-```{r}
+### Kaartje per soort
+```{r overview-sbp-pgs-per-species, echo=FALSE, warning=FALSE}
 for (i in unique(lu_sbp_pgs$soort)) {
   zones <- lu_sbp_pgs %>%
     filter(soort == i)
-  
+
   print(ggplotly(
   ggplot() +
     geom_sf(data = Provincies_grenzen, fill= "#f0f0f0", linewidth = 0.2) +
     geom_sf(data = zones, color= "black", fill="#a4e98f", linewidth = 0.03, aes(text = gebied)) +
     ggtitle(paste0(i)) +
-    theme_map(), 
+    theme_map(),
   tooltip = "text"))
 }
 ```
 
-### Kaartje voor vissen 
-```{r}
+### Kaartje voor vissen
+```{r overview-sbp-pls-per-species, echo=FALSE}
 for (i in unique(lu_sbp_pls$soort)) {
   zones <- lu_sbp_pls %>%
     filter(soort == i)
@@ -2658,7 +2505,7 @@ for (i in unique(lu_sbp_pls$soort)) {
     geom_sf(data = Provincies_grenzen, fill= "#f0f0f0", linewidth = 0.2) +
     geom_sf(data = zones, linewidth = 0.7, aes(color = type, text = type)) +
     ggtitle(paste0(i)) +
-    theme_map(), 
+    theme_map(),
   tooltip = "text"))
 }
 ```
@@ -2666,20 +2513,17 @@ for (i in unique(lu_sbp_pls$soort)) {
 ## SBP beekvissen (rivierdonderpad, beekprik, kleine modderkruiper)
 
 ### Relevante soorten
-```{r}
+```{r sbp-beekvissen-relevant-ias, echo=FALSE}
 sbp_vissen_ius <- species_list %>%
   filter(Soort %in% c("Amerikaanse stierkikker",
                       "blauwbandgrondel", "Kesslergrondel", "Pontische stroomgrondel", "marmergrondel", "zwartbekgrondel",
                       "Californische rivierkreeft", "gestreepte Amerikaanse rivierkreeft", "gevlekte Amerikaanse rivierkreeft", "rode Amerikaanse rivierkreeft", "Turkse rivierkreeft"
          )) %>%
   pull(Soort)
-```
 
-```{r}
 SBP_pls_sub <- SBP_pls %>%
   filter(soort %in% sbp_vissen_ius)
 ```
-
 
 ```{r}
 ggplotly(
@@ -2687,60 +2531,60 @@ ggplotly(
     geom_sf(data = Provincies_grenzen, fill= "#f0f0f0", linewidth = 0.2) +
     geom_sf(data = lu_sbp_pls, color = "green") +
     geom_sf(data = occ_flanders %>% filter(Soort == "Pontische stroomgrondel"), color = "blue", linewidth = 0.7) +
-    theme_map(), 
+    theme_map(),
   tooltip = "text")
 ```
 
 
-# OVERZICHT
+<!-- # OVERZICHT -->
 
-Alle resultaten samengenomen in een dataset om algemene conclusies te kunnen nemen. 
-```{r}
-HBTRL_overview <- HBTRL_wide %>%
-  select(soort, species, abbr, inHBTRL, ofHBTRL)
+<!-- Alle resultaten samengenomen in een dataset om algemene conclusies te kunnen nemen.  -->
+<!-- ```{r} -->
+<!-- HBTRL_overview <- HBTRL_wide %>% -->
+<!--   select(soort, species, abbr, inHBTRL, ofHBTRL) -->
 
-VGLRL_overview <- VGLRL_wide %>%
-  select(soort, species, abbr, inVGLRL, ofVGLRL)
+<!-- VGLRL_overview <- VGLRL_wide %>% -->
+<!--   select(soort, species, abbr, inVGLRL, ofVGLRL) -->
 
-N2KHAB_overview <- N2KHAB_wide %>%
-  select(soort, species, inN2KHAB, ofN2KHAB)
+<!-- N2KHAB_overview <- N2KHAB_wide %>% -->
+<!--   select(soort, species, inN2KHAB, ofN2KHAB) -->
 
-NBHP_overview <- NBHP_wide %>%
-  select(soort, species, abbr, inNBHP, ofNBHP)
+<!-- NBHP_overview <- NBHP_wide %>% -->
+<!--   select(soort, species, abbr, inNBHP, ofNBHP) -->
 
-PATDAT_overview <- PATDAT_wide %>%
-  select(soort, species, abbr, inPATDAT, ofPATDAT)
+<!-- PATDAT_overview <- PATDAT_wide %>% -->
+<!--   select(soort, species, abbr, inPATDAT, ofPATDAT) -->
 
-overview <- HBTRL_overview %>%
-  left_join(VGLRL_overview, by = c("soort", "species", "abbr")) %>%
-  left_join(N2KHAB_overview, by = c("soort", "species")) %>%
-  left_join(NBHP_overview, by = c("soort", "species", "abbr")) %>%
-  left_join(PATDAT_overview, by = c("soort", "species", "abbr")) %>%
-  group_by(soort) %>%
-  mutate(combined_in = sum(inHBTRL, inVGLRL, inN2KHAB, inNBHP, inPATDAT)) %>%
-  mutate(combined_of = sum(ofHBTRL, ofVGLRL, ofN2KHAB, ofNBHP, ofPATDAT))
+<!-- overview <- HBTRL_overview %>% -->
+<!--   left_join(VGLRL_overview, by = c("soort", "species", "abbr")) %>% -->
+<!--   left_join(N2KHAB_overview, by = c("soort", "species")) %>% -->
+<!--   left_join(NBHP_overview, by = c("soort", "species", "abbr")) %>% -->
+<!--   left_join(PATDAT_overview, by = c("soort", "species", "abbr")) %>% -->
+<!--   group_by(soort) %>% -->
+<!--   mutate(combined_in = sum(inHBTRL, inVGLRL, inN2KHAB, inNBHP, inPATDAT)) %>% -->
+<!--   mutate(combined_of = sum(ofHBTRL, ofVGLRL, ofN2KHAB, ofNBHP, ofPATDAT)) -->
 
-overview_in <- overview %>%
-  select(starts_with("in")) 
+<!-- overview_in <- overview %>% -->
+<!--   select(starts_with("in"))  -->
 
-absent_in_al <- overview_in %>%
-  dplyr::filter(inHBTRL == 0, inVGLRL == 0, inN2KHAB == 0, inNBHP == 0, inPATDAT == 0) 
+<!-- absent_in_al <- overview_in %>% -->
+<!--   dplyr::filter(inHBTRL == 0, inVGLRL == 0, inN2KHAB == 0, inNBHP == 0, inPATDAT == 0)  -->
 
-present_in_all <- overview_in %>%
-  dplyr::filter(inHBTRL > 0, inVGLRL > 0, inN2KHAB > 0, inNBHP > 0, inPATDAT > 0) 
+<!-- present_in_all <- overview_in %>% -->
+<!--   dplyr::filter(inHBTRL > 0, inVGLRL > 0, inN2KHAB > 0, inNBHP > 0, inPATDAT > 0)  -->
 
-not_present_in_all <- overview_in %>%
-  dplyr::filter(!(inHBTRL > 0 & inVGLRL > 0 & inN2KHAB > 0 & inNBHP > 0 & inPATDAT > 0)) %>%
-  dplyr::filter(!soort %in% unique(absent_in_al$soort))
-```
+<!-- not_present_in_all <- overview_in %>% -->
+<!--   dplyr::filter(!(inHBTRL > 0 & inVGLRL > 0 & inN2KHAB > 0 & inNBHP > 0 & inPATDAT > 0)) %>% -->
+<!--   dplyr::filter(!soort %in% unique(absent_in_al$soort)) -->
+<!-- ``` -->
 
-## overview of datasets that were used in the gbif download
-```{r}
+<!-- ## overview of datasets that were used in the gbif download -->
+<!-- ```{r} -->
 
-gbif_download <- read_tsv("G:/Mijn Drive/Fleur/RadIUS/RadIUS voorbereiding/datasets_download_usage_0035514-240506114902167.tsv") %>%
-  select(dataset_title, dataset_citation, number_records) %>%
-  arrange(dataset_title)
+<!-- gbif_download <- read_tsv("G:/Mijn Drive/Fleur/RadIUS/RadIUS voorbereiding/datasets_download_usage_0035514-240506114902167.tsv") %>% -->
+<!--   select(dataset_title, dataset_citation, number_records) %>% -->
+<!--   arrange(dataset_title) -->
 
-write_excel_csv2(gbif_download, "G:/Mijn Drive/Fleur/RadIUS/RadIUS voorbereiding/datasets_download_usage_0035514-240506114902167.csv")
-```
+<!-- write_excel_csv2(gbif_download, "G:/Mijn Drive/Fleur/RadIUS/RadIUS voorbereiding/datasets_download_usage_0035514-240506114902167.csv") -->
+<!-- ``` -->
 
