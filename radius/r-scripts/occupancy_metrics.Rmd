@@ -803,16 +803,16 @@ VL_long <- list.results$VL
 ```
 
 ```{r save-dfs-in-long-format}
-write_csv(HBTRL_long, "./radius/data/output/HBTRL_long.csv")
-write_csv(VGLRL_long, "./radius/data/output/VGLRL_long.csv")
-write_csv(N2KHAB_long, "./radius/data/output/N2KHAB_long.csv")
-write_csv(PATDAT_incl_ob_long, "./radius/data/output/PATDAT_incl_ob_long.csv")
-write_csv(PATDAT_excl_ob_long, "./radius/data/output/PATDAT_excl_ob_long.csv")
-write_csv(NBHP_long, "./radius/data/output/NBHP_long.csv")
-write_csv(SBP_pls_long, "./radius/data/output/SBP_pls_long.csv")
-write_csv(SBP_pgs_long, "./radius/data/output/SBP_pgs_long.csv")
-write_csv(TOP3_long, "./radius/data/output/TOP3_long.csv")
-write_csv(VL_long, "./radius/data/output/VL_long.csv")
+write_csv(HBTRL_long, "./radius/data/output/HBTRL_long.csv", append = FALSE)
+write_csv(VGLRL_long, "./radius/data/output/VGLRL_long.csv", append = FALSE)
+write_csv(N2KHAB_long, "./radius/data/output/N2KHAB_long.csv", append = FALSE)
+write_csv(PATDAT_incl_ob_long, "./radius/data/output/PATDAT_incl_ob_long.csv", append = FALSE)
+write_csv(PATDAT_excl_ob_long, "./radius/data/output/PATDAT_excl_ob_long.csv", append = FALSE)
+write_csv(NBHP_long, "./radius/data/output/NBHP_long.csv", append = FALSE)
+write_csv(SBP_pls_long, "./radius/data/output/SBP_pls_long.csv", append = FALSE)
+write_csv(SBP_pgs_long, "./radius/data/output/SBP_pgs_long.csv", append = FALSE)
+write_csv(TOP3_long, "./radius/data/output/TOP3_long.csv", append = FALSE)
+write_csv(VL_long, "./radius/data/output/VL_long.csv", append = FALSE)
 ```
 
 ```{r column-format-long-to-wide}
@@ -876,15 +876,15 @@ VL_wide <- VL_long %>%
 ```
 
 ```{r save-separate-dfs-as-csv}
-write_csv(HBTRL_wide, "./radius/data/output/HBTRL_wide.csv")
-write_csv(VGLRL_wide, "./radius/data/output/VGLRL_wide.csv")
-write_csv(N2KHAB_wide, "./radius/data/output/N2KHAB_wide.csv")
-write_csv(PATDAT_incl_ob_wide, "./radius/data/output/PATDAT_incl_ob_wide.csv")
-write_csv(PATDAT_excl_ob_wide, "./radius/data/output/PATDAT_excl_ob_wide.csv")
-write_csv(NBHP_wide, "./radius/data/output/NBHP_wide.csv")
-write_csv(SBP_pgs_wide, "./radius/data/output/SBP_pgs_wide.csv")
-write_csv(SBP_pls_wide, "./radius/data/output/SBP_pls_wide.csv")
-#write_csv(TOP3_wide, "./radius/data/output/TOP3_wide.csv")
-write_csv(VL_wide, "./radius/data/output/VL_wide.csv")
+write_csv(HBTRL_wide, "./radius/data/output/HBTRL_wide.csv", append = FALSE)
+write_csv(VGLRL_wide, "./radius/data/output/VGLRL_wide.csv", append = FALSE)
+write_csv(N2KHAB_wide, "./radius/data/output/N2KHAB_wide.csv", append = FALSE)
+write_csv(PATDAT_incl_ob_wide, "./radius/data/output/PATDAT_incl_ob_wide.csv", append = FALSE)
+write_csv(PATDAT_excl_ob_wide, "./radius/data/output/PATDAT_excl_ob_wide.csv", append = FALSE)
+write_csv(NBHP_wide, "./radius/data/output/NBHP_wide.csv", append = FALSE)
+write_csv(SBP_pgs_wide, "./radius/data/output/SBP_pgs_wide.csv", append = FALSE)
+write_csv(SBP_pls_wide, "./radius/data/output/SBP_pls_wide.csv", append = FALSE)
+#write_csv(TOP3_wide, "./radius/data/output/TOP3_wide.csv", append = FALSE)
+write_csv(VL_wide, "./radius/data/output/VL_wide.csv", append = FALSE)
 ```
 
