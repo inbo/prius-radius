@@ -1,0 +1,712 @@
+soort,species,abbr,gebied,overlap,type
+heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,SBP  Beekprik,0.001455,in
+heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,SBP  Beekprik,0.000274,of
+heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,SBP  Beekprik,0.518646,sel
+heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,SBP  Kleine Modderkruiper,0.001194,in
+heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,SBP  Kleine Modderkruiper,0.000225,of
+heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,SBP  Kleine Modderkruiper,0.425426,sel
+heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,SBP  Rivierdonderpad,0.002598,in
+heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,SBP  Rivierdonderpad,0.000489,of
+heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,SBP  Rivierdonderpad,0.925906,sel
+nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,SBP  Beekprik,0.001910,in
+nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,SBP  Beekprik,0.054987,of
+nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,SBP  Beekprik,0.680959,sel
+nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,SBP  Kleine Modderkruiper,0.003102,in
+nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,SBP  Kleine Modderkruiper,0.089289,of
+nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,SBP  Kleine Modderkruiper,1.105758,sel
+nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,SBP  Rivierdonderpad,0.002630,in
+nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,SBP  Rivierdonderpad,0.075694,of
+nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,SBP  Rivierdonderpad,0.937399,sel
+rimpelroos,Rosa rugosa Thunb.,Rr,SBP  Beekprik,0.002143,in
+rimpelroos,Rosa rugosa Thunb.,Rr,SBP  Beekprik,0.004138,of
+rimpelroos,Rosa rugosa Thunb.,Rr,SBP  Beekprik,0.763706,sel
+rimpelroos,Rosa rugosa Thunb.,Rr,SBP  Kleine Modderkruiper,0.003235,in
+rimpelroos,Rosa rugosa Thunb.,Rr,SBP  Kleine Modderkruiper,0.006247,of
+rimpelroos,Rosa rugosa Thunb.,Rr,SBP  Kleine Modderkruiper,1.153161,sel
+rimpelroos,Rosa rugosa Thunb.,Rr,SBP  Rivierdonderpad,0.003050,in
+rimpelroos,Rosa rugosa Thunb.,Rr,SBP  Rivierdonderpad,0.005889,of
+rimpelroos,Rosa rugosa Thunb.,Rr,SBP  Rivierdonderpad,1.086988,sel
+Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,SBP  Beekprik,0.003060,in
+Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,SBP  Beekprik,0.031690,of
+Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,SBP  Beekprik,1.090895,sel
+Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,SBP  Kleine Modderkruiper,0.001991,in
+Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,SBP  Kleine Modderkruiper,0.020620,of
+Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,SBP  Kleine Modderkruiper,0.709845,sel
+Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,SBP  Rivierdonderpad,0.001826,in
+Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,SBP  Rivierdonderpad,0.018912,of
+Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,SBP  Rivierdonderpad,0.651033,sel
+reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,SBP  Beekprik,0.004264,in
+reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,SBP  Beekprik,0.010961,of
+reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,SBP  Beekprik,1.519818,sel
+reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,SBP  Kleine Modderkruiper,0.003610,in
+reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,SBP  Kleine Modderkruiper,0.009280,of
+reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,SBP  Kleine Modderkruiper,1.286738,sel
+reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,SBP  Rivierdonderpad,0.005602,in
+reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,SBP  Rivierdonderpad,0.014402,of
+reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,SBP  Rivierdonderpad,1.996892,sel
+Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,SBP  Beekprik,0.002228,in
+Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,SBP  Beekprik,0.043490,of
+Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,SBP  Beekprik,0.794007,sel
+Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,SBP  Kleine Modderkruiper,0.004307,in
+Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,SBP  Kleine Modderkruiper,0.084083,of
+Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,SBP  Kleine Modderkruiper,1.535112,sel
+Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,SBP  Rivierdonderpad,0.003339,in
+Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,SBP  Rivierdonderpad,0.065195,of
+Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,SBP  Rivierdonderpad,1.190278,sel
+verspreidbladige waterpest,Lagarosiphon major (Ridley) Moss,Lm,SBP  Beekprik,0,in
+verspreidbladige waterpest,Lagarosiphon major (Ridley) Moss,Lm,SBP  Beekprik,0,of
+verspreidbladige waterpest,Lagarosiphon major (Ridley) Moss,Lm,SBP  Beekprik,0,sel
+verspreidbladige waterpest,Lagarosiphon major (Ridley) Moss,Lm,SBP  Kleine Modderkruiper,0,in
+verspreidbladige waterpest,Lagarosiphon major (Ridley) Moss,Lm,SBP  Kleine Modderkruiper,0,of
+verspreidbladige waterpest,Lagarosiphon major (Ridley) Moss,Lm,SBP  Kleine Modderkruiper,0,sel
+verspreidbladige waterpest,Lagarosiphon major (Ridley) Moss,Lm,SBP  Rivierdonderpad,0,in
+verspreidbladige waterpest,Lagarosiphon major (Ridley) Moss,Lm,SBP  Rivierdonderpad,0,of
+verspreidbladige waterpest,Lagarosiphon major (Ridley) Moss,Lm,SBP  Rivierdonderpad,0,sel
+zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,SBP  Beekprik,0.010274,in
+zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,SBP  Beekprik,0.002819,of
+zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,SBP  Beekprik,3.662014,sel
+zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,SBP  Kleine Modderkruiper,0.017050,in
+zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,SBP  Kleine Modderkruiper,0.004679,of
+zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,SBP  Kleine Modderkruiper,6.077310,sel
+zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,SBP  Rivierdonderpad,0.011544,in
+zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,SBP  Rivierdonderpad,0.003168,of
+zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,SBP  Rivierdonderpad,4.114688,sel
+rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,SBP  Beekprik,0,in
+rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,SBP  Beekprik,0,of
+rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,SBP  Beekprik,0,sel
+rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,SBP  Kleine Modderkruiper,0.007171,in
+rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,SBP  Kleine Modderkruiper,0.000771,of
+rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,SBP  Kleine Modderkruiper,2.556129,sel
+rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,SBP  Rivierdonderpad,0,in
+rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,SBP  Rivierdonderpad,0,of
+rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,SBP  Rivierdonderpad,0,sel
+sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,SBP  Beekprik,0.002208,in
+sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,SBP  Beekprik,0.003185,of
+sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,SBP  Beekprik,0.787162,sel
+sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,SBP  Kleine Modderkruiper,0.001814,in
+sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,SBP  Kleine Modderkruiper,0.002616,of
+sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,SBP  Kleine Modderkruiper,0.646566,sel
+sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,SBP  Rivierdonderpad,0.003219,in
+sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,SBP  Rivierdonderpad,0.004642,of
+sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,SBP  Rivierdonderpad,1.147242,sel
+parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,SBP  Beekprik,0.009746,in
+parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,SBP  Beekprik,0.003451,of
+parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,SBP  Beekprik,3.473835,sel
+parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,SBP  Kleine Modderkruiper,0.012123,in
+parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,SBP  Kleine Modderkruiper,0.004293,of
+parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,SBP  Kleine Modderkruiper,4.321212,sel
+parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,SBP  Rivierdonderpad,0.005892,in
+parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,SBP  Rivierdonderpad,0.002087,of
+parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,SBP  Rivierdonderpad,2.100312,sel
+late guldenroede,Solidago gigantea Aiton,Sg,SBP  Beekprik,0.003109,in
+late guldenroede,Solidago gigantea Aiton,Sg,SBP  Beekprik,0.008474,of
+late guldenroede,Solidago gigantea Aiton,Sg,SBP  Beekprik,1.108267,sel
+late guldenroede,Solidago gigantea Aiton,Sg,SBP  Kleine Modderkruiper,0.007552,in
+late guldenroede,Solidago gigantea Aiton,Sg,SBP  Kleine Modderkruiper,0.020583,of
+late guldenroede,Solidago gigantea Aiton,Sg,SBP  Kleine Modderkruiper,2.691767,sel
+late guldenroede,Solidago gigantea Aiton,Sg,SBP  Rivierdonderpad,0.007416,in
+late guldenroede,Solidago gigantea Aiton,Sg,SBP  Rivierdonderpad,0.020213,of
+late guldenroede,Solidago gigantea Aiton,Sg,SBP  Rivierdonderpad,2.643449,sel
+smalle waterpest,Elodea nuttallii (Planch.) St. John,En,SBP  Beekprik,0.012396,in
+smalle waterpest,Elodea nuttallii (Planch.) St. John,En,SBP  Beekprik,0.005169,of
+smalle waterpest,Elodea nuttallii (Planch.) St. John,En,SBP  Beekprik,4.418441,sel
+smalle waterpest,Elodea nuttallii (Planch.) St. John,En,SBP  Kleine Modderkruiper,0.009595,in
+smalle waterpest,Elodea nuttallii (Planch.) St. John,En,SBP  Kleine Modderkruiper,0.004001,of
+smalle waterpest,Elodea nuttallii (Planch.) St. John,En,SBP  Kleine Modderkruiper,3.420093,sel
+smalle waterpest,Elodea nuttallii (Planch.) St. John,En,SBP  Rivierdonderpad,0.009340,in
+smalle waterpest,Elodea nuttallii (Planch.) St. John,En,SBP  Rivierdonderpad,0.003895,of
+smalle waterpest,Elodea nuttallii (Planch.) St. John,En,SBP  Rivierdonderpad,3.329287,sel
+mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,SBP  Beekprik,0.000735,in
+mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,SBP  Beekprik,0.001384,of
+mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,SBP  Beekprik,0.261874,sel
+mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,SBP  Kleine Modderkruiper,0.001079,in
+mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,SBP  Kleine Modderkruiper,0.002034,of
+mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,SBP  Kleine Modderkruiper,0.384735,sel
+mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,SBP  Rivierdonderpad,0.000881,in
+mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,SBP  Rivierdonderpad,0.001660,of
+mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,SBP  Rivierdonderpad,0.313967,sel
+grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,SBP  Beekprik,0.009116,in
+grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,SBP  Beekprik,0.005864,of
+grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,SBP  Beekprik,3.249265,sel
+grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,SBP  Kleine Modderkruiper,0.008419,in
+grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,SBP  Kleine Modderkruiper,0.005416,of
+grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,SBP  Kleine Modderkruiper,3.000907,sel
+grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,SBP  Rivierdonderpad,0.007665,in
+grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,SBP  Rivierdonderpad,0.004931,of
+grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,SBP  Rivierdonderpad,2.732284,sel
+Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,SBP  Beekprik,0.000644,in
+Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,SBP  Beekprik,0.000101,of
+Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,SBP  Beekprik,0.229421,sel
+Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,SBP  Kleine Modderkruiper,0.000861,in
+Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,SBP  Kleine Modderkruiper,0.000135,of
+Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,SBP  Kleine Modderkruiper,0.306909,sel
+Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,SBP  Rivierdonderpad,0.001618,in
+Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,SBP  Rivierdonderpad,0.000254,of
+Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,SBP  Rivierdonderpad,0.576854,sel
+Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,SBP  Beekprik,0.001769,in
+Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,SBP  Beekprik,0.000143,of
+Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,SBP  Beekprik,0.630402,sel
+Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,SBP  Kleine Modderkruiper,0.004139,in
+Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,SBP  Kleine Modderkruiper,0.000336,of
+Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,SBP  Kleine Modderkruiper,1.475292,sel
+Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,SBP  Rivierdonderpad,0,in
+Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,SBP  Rivierdonderpad,0,of
+Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,SBP  Rivierdonderpad,0,sel
+hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,SBP  Beekprik,0.000227,in
+hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,SBP  Beekprik,0.000160,of
+hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,SBP  Beekprik,0.080865,sel
+hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,SBP  Kleine Modderkruiper,0.001744,in
+hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,SBP  Kleine Modderkruiper,0.001232,of
+hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,SBP  Kleine Modderkruiper,0.621714,sel
+hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,SBP  Rivierdonderpad,0.001809,in
+hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,SBP  Rivierdonderpad,0.001277,of
+hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,SBP  Rivierdonderpad,0.644819,sel
+Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,SBP  Beekprik, 0.030120,in
+Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,SBP  Beekprik, 0.001227,of
+Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,SBP  Beekprik,10.736117,sel
+Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,SBP  Kleine Modderkruiper,0.024167,in
+Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,SBP  Kleine Modderkruiper,0.000985,of
+Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,SBP  Kleine Modderkruiper,8.614145,sel
+Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,SBP  Rivierdonderpad,0.016441,in
+Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,SBP  Rivierdonderpad,0.000670,of
+Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,SBP  Rivierdonderpad,5.860411,sel
+Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,SBP  Beekprik,0.006135,in
+Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,SBP  Beekprik,0.003401,of
+Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,SBP  Beekprik,2.186720,sel
+Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,SBP  Kleine Modderkruiper,0.013480,in
+Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,SBP  Kleine Modderkruiper,0.007472,of
+Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,SBP  Kleine Modderkruiper,4.804862,sel
+Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,SBP  Rivierdonderpad,0.008617,in
+Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,SBP  Rivierdonderpad,0.004777,of
+Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,SBP  Rivierdonderpad,3.071495,sel
+invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,SBP  Beekprik,0.003067,in
+invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,SBP  Beekprik,0.020484,of
+invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,SBP  Beekprik,1.093124,sel
+invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,SBP  Kleine Modderkruiper,0.003568,in
+invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,SBP  Kleine Modderkruiper,0.023835,of
+invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,SBP  Kleine Modderkruiper,1.271921,sel
+invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,SBP  Rivierdonderpad,0.005172,in
+invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,SBP  Rivierdonderpad,0.034547,of
+invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,SBP  Rivierdonderpad,1.843571,sel
+Siberische grondeekhoorn,"Tamias sibiricus Laxmann, 1769",Tsi,SBP  Beekprik,0,in
+Siberische grondeekhoorn,"Tamias sibiricus Laxmann, 1769",Tsi,SBP  Beekprik,0,of
+Siberische grondeekhoorn,"Tamias sibiricus Laxmann, 1769",Tsi,SBP  Beekprik,0,sel
+Siberische grondeekhoorn,"Tamias sibiricus Laxmann, 1769",Tsi,SBP  Kleine Modderkruiper,0,in
+Siberische grondeekhoorn,"Tamias sibiricus Laxmann, 1769",Tsi,SBP  Kleine Modderkruiper,0,of
+Siberische grondeekhoorn,"Tamias sibiricus Laxmann, 1769",Tsi,SBP  Kleine Modderkruiper,0,sel
+Siberische grondeekhoorn,"Tamias sibiricus Laxmann, 1769",Tsi,SBP  Rivierdonderpad,0,in
+Siberische grondeekhoorn,"Tamias sibiricus Laxmann, 1769",Tsi,SBP  Rivierdonderpad,0,of
+Siberische grondeekhoorn,"Tamias sibiricus Laxmann, 1769",Tsi,SBP  Rivierdonderpad,0,sel
+boksdoorn,Lycium barbarum L.,Lb,SBP  Beekprik,0,in
+boksdoorn,Lycium barbarum L.,Lb,SBP  Beekprik,0,of
+boksdoorn,Lycium barbarum L.,Lb,SBP  Beekprik,0,sel
+boksdoorn,Lycium barbarum L.,Lb,SBP  Kleine Modderkruiper,0.000049,in
+boksdoorn,Lycium barbarum L.,Lb,SBP  Kleine Modderkruiper,0.000013,of
+boksdoorn,Lycium barbarum L.,Lb,SBP  Kleine Modderkruiper,0.017487,sel
+boksdoorn,Lycium barbarum L.,Lb,SBP  Rivierdonderpad,0,in
+boksdoorn,Lycium barbarum L.,Lb,SBP  Rivierdonderpad,0,of
+boksdoorn,Lycium barbarum L.,Lb,SBP  Rivierdonderpad,0,sel
+muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,SBP  Beekprik,0.003774,in
+muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,SBP  Beekprik,0.014740,of
+muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,SBP  Beekprik,1.345357,sel
+muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,SBP  Kleine Modderkruiper,0.004745,in
+muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,SBP  Kleine Modderkruiper,0.018532,of
+muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,SBP  Kleine Modderkruiper,1.691463,sel
+muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,SBP  Rivierdonderpad,0.007815,in
+muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,SBP  Rivierdonderpad,0.030519,of
+muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,SBP  Rivierdonderpad,2.785478,sel
+lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,SBP  Beekprik,0.002803,in
+lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,SBP  Beekprik,0.002379,of
+lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,SBP  Beekprik,0.999230,sel
+lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,SBP  Kleine Modderkruiper,0.004442,in
+lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,SBP  Kleine Modderkruiper,0.003769,of
+lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,SBP  Kleine Modderkruiper,1.583323,sel
+lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,SBP  Rivierdonderpad,0.003727,in
+lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,SBP  Rivierdonderpad,0.003163,of
+lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,SBP  Rivierdonderpad,1.328473,sel
+smalle olijfwilg,Elaeagnus angustifolia L.,Ea,SBP  Beekprik,0,in
+smalle olijfwilg,Elaeagnus angustifolia L.,Ea,SBP  Beekprik,0,of
+smalle olijfwilg,Elaeagnus angustifolia L.,Ea,SBP  Beekprik,0,sel
+smalle olijfwilg,Elaeagnus angustifolia L.,Ea,SBP  Kleine Modderkruiper,0,in
+smalle olijfwilg,Elaeagnus angustifolia L.,Ea,SBP  Kleine Modderkruiper,0,of
+smalle olijfwilg,Elaeagnus angustifolia L.,Ea,SBP  Kleine Modderkruiper,0,sel
+smalle olijfwilg,Elaeagnus angustifolia L.,Ea,SBP  Rivierdonderpad,0,in
+smalle olijfwilg,Elaeagnus angustifolia L.,Ea,SBP  Rivierdonderpad,0,of
+smalle olijfwilg,Elaeagnus angustifolia L.,Ea,SBP  Rivierdonderpad,0,sel
+watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,SBP  Beekprik,0.000893,in
+watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,SBP  Beekprik,0.000616,of
+watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,SBP  Beekprik,0.318205,sel
+watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,SBP  Kleine Modderkruiper,0.003453,in
+watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,SBP  Kleine Modderkruiper,0.002381,of
+watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,SBP  Kleine Modderkruiper,1.230651,sel
+watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,SBP  Rivierdonderpad,0.000899,in
+watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,SBP  Rivierdonderpad,0.000620,of
+watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,SBP  Rivierdonderpad,0.320423,sel
+Amerikaanse nerts,"Mustela vison Schreber, 1777",Mvis,SBP  Beekprik,0,in
+Amerikaanse nerts,"Mustela vison Schreber, 1777",Mvis,SBP  Beekprik,0,of
+Amerikaanse nerts,"Mustela vison Schreber, 1777",Mvis,SBP  Beekprik,0,sel
+Amerikaanse nerts,"Mustela vison Schreber, 1777",Mvis,SBP  Kleine Modderkruiper,0,in
+Amerikaanse nerts,"Mustela vison Schreber, 1777",Mvis,SBP  Kleine Modderkruiper,0,of
+Amerikaanse nerts,"Mustela vison Schreber, 1777",Mvis,SBP  Kleine Modderkruiper,0,sel
+Amerikaanse nerts,"Mustela vison Schreber, 1777",Mvis,SBP  Rivierdonderpad,0,in
+Amerikaanse nerts,"Mustela vison Schreber, 1777",Mvis,SBP  Rivierdonderpad,0,of
+Amerikaanse nerts,"Mustela vison Schreber, 1777",Mvis,SBP  Rivierdonderpad,0,sel
+Canadese guldenroede,Solidago canadensis L.,Sc,SBP  Beekprik,0.001827,in
+Canadese guldenroede,Solidago canadensis L.,Sc,SBP  Beekprik,0.001050,of
+Canadese guldenroede,Solidago canadensis L.,Sc,SBP  Beekprik,0.651058,sel
+Canadese guldenroede,Solidago canadensis L.,Sc,SBP  Kleine Modderkruiper,0.002914,in
+Canadese guldenroede,Solidago canadensis L.,Sc,SBP  Kleine Modderkruiper,0.001676,of
+Canadese guldenroede,Solidago canadensis L.,Sc,SBP  Kleine Modderkruiper,1.038668,sel
+Canadese guldenroede,Solidago canadensis L.,Sc,SBP  Rivierdonderpad,0.004531,in
+Canadese guldenroede,Solidago canadensis L.,Sc,SBP  Rivierdonderpad,0.002606,of
+Canadese guldenroede,Solidago canadensis L.,Sc,SBP  Rivierdonderpad,1.615170,sel
+reuzenbalsemien,Impatiens glandulifera Royle,Ig,SBP  Beekprik,0.010614,in
+reuzenbalsemien,Impatiens glandulifera Royle,Ig,SBP  Beekprik,0.056565,of
+reuzenbalsemien,Impatiens glandulifera Royle,Ig,SBP  Beekprik,3.783168,sel
+reuzenbalsemien,Impatiens glandulifera Royle,Ig,SBP  Kleine Modderkruiper,0.007612,in
+reuzenbalsemien,Impatiens glandulifera Royle,Ig,SBP  Kleine Modderkruiper,0.040566,of
+reuzenbalsemien,Impatiens glandulifera Royle,Ig,SBP  Kleine Modderkruiper,2.713154,sel
+reuzenbalsemien,Impatiens glandulifera Royle,Ig,SBP  Rivierdonderpad,0.013117,in
+reuzenbalsemien,Impatiens glandulifera Royle,Ig,SBP  Rivierdonderpad,0.069905,of
+reuzenbalsemien,Impatiens glandulifera Royle,Ig,SBP  Rivierdonderpad,4.675366,sel
+Chinese prachtslang,"Elaphe taeniura (Cope, 1861)",Et,SBP  Beekprik,0,in
+Chinese prachtslang,"Elaphe taeniura (Cope, 1861)",Et,SBP  Beekprik,0,of
+Chinese prachtslang,"Elaphe taeniura (Cope, 1861)",Et,SBP  Beekprik,0,sel
+Chinese prachtslang,"Elaphe taeniura (Cope, 1861)",Et,SBP  Kleine Modderkruiper,0,in
+Chinese prachtslang,"Elaphe taeniura (Cope, 1861)",Et,SBP  Kleine Modderkruiper,0,of
+Chinese prachtslang,"Elaphe taeniura (Cope, 1861)",Et,SBP  Kleine Modderkruiper,0,sel
+Chinese prachtslang,"Elaphe taeniura (Cope, 1861)",Et,SBP  Rivierdonderpad,0,in
+Chinese prachtslang,"Elaphe taeniura (Cope, 1861)",Et,SBP  Rivierdonderpad,0,of
+Chinese prachtslang,"Elaphe taeniura (Cope, 1861)",Et,SBP  Rivierdonderpad,0,sel
+gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,SBP  Beekprik,0.008173,in
+gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,SBP  Beekprik,0.001519,of
+gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,SBP  Beekprik,2.913351,sel
+gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,SBP  Kleine Modderkruiper,0.015481,in
+gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,SBP  Kleine Modderkruiper,0.002876,of
+gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,SBP  Kleine Modderkruiper,5.518179,sel
+gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,SBP  Rivierdonderpad,0.012088,in
+gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,SBP  Rivierdonderpad,0.002246,of
+gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,SBP  Rivierdonderpad,4.308762,sel
+blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,SBP  Beekprik,0.005368,in
+blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,SBP  Beekprik,0.001088,of
+blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,SBP  Beekprik,1.913493,sel
+blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,SBP  Kleine Modderkruiper,0.014880,in
+blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,SBP  Kleine Modderkruiper,0.003016,of
+blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,SBP  Kleine Modderkruiper,5.303940,sel
+blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,SBP  Rivierdonderpad,0.011201,in
+blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,SBP  Rivierdonderpad,0.002270,of
+blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,SBP  Rivierdonderpad,3.992365,sel
+struikaster,Baccharis halimifolia L.,Bh,SBP  Beekprik,0,in
+struikaster,Baccharis halimifolia L.,Bh,SBP  Beekprik,0,of
+struikaster,Baccharis halimifolia L.,Bh,SBP  Beekprik,0,sel
+struikaster,Baccharis halimifolia L.,Bh,SBP  Kleine Modderkruiper,0,in
+struikaster,Baccharis halimifolia L.,Bh,SBP  Kleine Modderkruiper,0,of
+struikaster,Baccharis halimifolia L.,Bh,SBP  Kleine Modderkruiper,0,sel
+struikaster,Baccharis halimifolia L.,Bh,SBP  Rivierdonderpad,0,in
+struikaster,Baccharis halimifolia L.,Bh,SBP  Rivierdonderpad,0,of
+struikaster,Baccharis halimifolia L.,Bh,SBP  Rivierdonderpad,0,sel
+zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,SBP  Beekprik,0.004735,in
+zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,SBP  Beekprik,0.000725,of
+zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,SBP  Beekprik,1.687817,sel
+zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,SBP  Kleine Modderkruiper,0.008775,in
+zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,SBP  Kleine Modderkruiper,0.001343,of
+zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,SBP  Kleine Modderkruiper,3.127925,sel
+zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,SBP  Rivierdonderpad,0.009575,in
+zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,SBP  Rivierdonderpad,0.001466,of
+zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,SBP  Rivierdonderpad,3.413000,sel
+Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,SBP  Beekprik,0.023864,in
+Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,SBP  Beekprik,0.005168,of
+Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,SBP  Beekprik,8.506216,sel
+Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,SBP  Kleine Modderkruiper, 0.040332,in
+Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,SBP  Kleine Modderkruiper, 0.008734,of
+Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,SBP  Kleine Modderkruiper,14.376250,sel
+Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,SBP  Rivierdonderpad,0.025771,in
+Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,SBP  Rivierdonderpad,0.005581,of
+Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,SBP  Rivierdonderpad,9.185975,sel
+beverrat,"Myocastor coypus Molina, 1782",Mc,SBP  Beekprik,0.009542,in
+beverrat,"Myocastor coypus Molina, 1782",Mc,SBP  Beekprik,0.000914,of
+beverrat,"Myocastor coypus Molina, 1782",Mc,SBP  Beekprik,3.401021,sel
+beverrat,"Myocastor coypus Molina, 1782",Mc,SBP  Kleine Modderkruiper,0.007272,in
+beverrat,"Myocastor coypus Molina, 1782",Mc,SBP  Kleine Modderkruiper,0.000697,of
+beverrat,"Myocastor coypus Molina, 1782",Mc,SBP  Kleine Modderkruiper,2.591933,sel
+beverrat,"Myocastor coypus Molina, 1782",Mc,SBP  Rivierdonderpad,0.011349,in
+beverrat,"Myocastor coypus Molina, 1782",Mc,SBP  Rivierdonderpad,0.001087,of
+beverrat,"Myocastor coypus Molina, 1782",Mc,SBP  Rivierdonderpad,4.045131,sel
+moerashyacint,Pontederia cordata L.,Pco,SBP  Beekprik,0.019598,in
+moerashyacint,Pontederia cordata L.,Pco,SBP  Beekprik,0.002442,of
+moerashyacint,Pontederia cordata L.,Pco,SBP  Beekprik,6.985414,sel
+moerashyacint,Pontederia cordata L.,Pco,SBP  Kleine Modderkruiper,0.012920,in
+moerashyacint,Pontederia cordata L.,Pco,SBP  Kleine Modderkruiper,0.001610,of
+moerashyacint,Pontederia cordata L.,Pco,SBP  Kleine Modderkruiper,4.605278,sel
+moerashyacint,Pontederia cordata L.,Pco,SBP  Rivierdonderpad,0.010388,in
+moerashyacint,Pontederia cordata L.,Pco,SBP  Rivierdonderpad,0.001295,of
+moerashyacint,Pontederia cordata L.,Pco,SBP  Rivierdonderpad,3.702817,sel
+vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,SBP  Beekprik,0.002336,in
+vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,SBP  Beekprik,0.000204,of
+vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,SBP  Beekprik,0.832557,sel
+vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,SBP  Kleine Modderkruiper,0.001796,in
+vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,SBP  Kleine Modderkruiper,0.000157,of
+vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,SBP  Kleine Modderkruiper,0.640213,sel
+vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,SBP  Rivierdonderpad,0.001289,in
+vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,SBP  Rivierdonderpad,0.000113,of
+vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,SBP  Rivierdonderpad,0.459430,sel
+valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,SBP  Beekprik,0.000524,in
+valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,SBP  Beekprik,0.000105,of
+valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,SBP  Beekprik,0.186848,sel
+valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,SBP  Kleine Modderkruiper,0.002122,in
+valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,SBP  Kleine Modderkruiper,0.000425,of
+valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,SBP  Kleine Modderkruiper,0.756458,sel
+valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,SBP  Rivierdonderpad,0.002605,in
+valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,SBP  Rivierdonderpad,0.000522,of
+valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,SBP  Rivierdonderpad,0.928638,sel
+Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,SBP  Beekprik,0.007616,in
+Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,SBP  Beekprik,0.000256,of
+Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,SBP  Beekprik,2.714774,sel
+Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,SBP  Kleine Modderkruiper,0,in
+Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,SBP  Kleine Modderkruiper,0,of
+Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,SBP  Kleine Modderkruiper,0,sel
+Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,SBP  Rivierdonderpad,0.000127,in
+Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,SBP  Rivierdonderpad,0.000004,of
+Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,SBP  Rivierdonderpad,0.045274,sel
+grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,SBP  Beekprik,0.018442,in
+grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,SBP  Beekprik,0.013620,of
+grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,SBP  Beekprik,6.573554,sel
+grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,SBP  Kleine Modderkruiper, 0.033017,in
+grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,SBP  Kleine Modderkruiper, 0.024384,of
+grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,SBP  Kleine Modderkruiper,11.768657,sel
+grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,SBP  Rivierdonderpad,0.024603,in
+grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,SBP  Rivierdonderpad,0.018170,of
+grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,SBP  Rivierdonderpad,8.769554,sel
+wasbeer,"Procyon lotor L., 1758",Plo,SBP  Beekprik,0.010089,in
+wasbeer,"Procyon lotor L., 1758",Plo,SBP  Beekprik,0.000999,of
+wasbeer,"Procyon lotor L., 1758",Plo,SBP  Beekprik,3.596255,sel
+wasbeer,"Procyon lotor L., 1758",Plo,SBP  Kleine Modderkruiper,0.01030,in
+wasbeer,"Procyon lotor L., 1758",Plo,SBP  Kleine Modderkruiper,0.00102,of
+wasbeer,"Procyon lotor L., 1758",Plo,SBP  Kleine Modderkruiper,3.67120,sel
+wasbeer,"Procyon lotor L., 1758",Plo,SBP  Rivierdonderpad,0.015336,in
+wasbeer,"Procyon lotor L., 1758",Plo,SBP  Rivierdonderpad,0.001519,of
+wasbeer,"Procyon lotor L., 1758",Plo,SBP  Rivierdonderpad,5.466407,sel
+gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,SBP  Beekprik,0.005981,in
+gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,SBP  Beekprik,0.000765,of
+gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,SBP  Beekprik,2.131985,sel
+gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,SBP  Kleine Modderkruiper,0.005471,in
+gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,SBP  Kleine Modderkruiper,0.000700,of
+gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,SBP  Kleine Modderkruiper,1.950064,sel
+gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,SBP  Rivierdonderpad,0.005780,in
+gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,SBP  Rivierdonderpad,0.000739,of
+gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,SBP  Rivierdonderpad,2.060138,sel
+rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,SBP  Beekprik,0.002199,in
+rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,SBP  Beekprik,0.000482,of
+rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,SBP  Beekprik,0.783802,sel
+rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,SBP  Kleine Modderkruiper,0.001075,in
+rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,SBP  Kleine Modderkruiper,0.000235,of
+rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,SBP  Kleine Modderkruiper,0.383188,sel
+rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,SBP  Rivierdonderpad,0.000969,in
+rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,SBP  Rivierdonderpad,0.000212,of
+rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,SBP  Rivierdonderpad,0.345222,sel
+marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,SBP  Beekprik,0.014376,in
+marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,SBP  Beekprik,0.000420,of
+marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,SBP  Beekprik,5.124137,sel
+marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,SBP  Kleine Modderkruiper, 0.033097,in
+marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,SBP  Kleine Modderkruiper, 0.000967,of
+marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,SBP  Kleine Modderkruiper,11.797354,sel
+marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,SBP  Rivierdonderpad, 0.037809,in
+marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,SBP  Rivierdonderpad, 0.001104,of
+marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,SBP  Rivierdonderpad,13.476909,sel
+kleine waterteunisbloem,Ludwigia peploides (Kunth) P.H. Raven,Lp,SBP  Beekprik,0,in
+kleine waterteunisbloem,Ludwigia peploides (Kunth) P.H. Raven,Lp,SBP  Beekprik,0,of
+kleine waterteunisbloem,Ludwigia peploides (Kunth) P.H. Raven,Lp,SBP  Beekprik,0,sel
+kleine waterteunisbloem,Ludwigia peploides (Kunth) P.H. Raven,Lp,SBP  Kleine Modderkruiper,0.014314,in
+kleine waterteunisbloem,Ludwigia peploides (Kunth) P.H. Raven,Lp,SBP  Kleine Modderkruiper,0.000355,of
+kleine waterteunisbloem,Ludwigia peploides (Kunth) P.H. Raven,Lp,SBP  Kleine Modderkruiper,5.102272,sel
+kleine waterteunisbloem,Ludwigia peploides (Kunth) P.H. Raven,Lp,SBP  Rivierdonderpad,0.004508,in
+kleine waterteunisbloem,Ludwigia peploides (Kunth) P.H. Raven,Lp,SBP  Rivierdonderpad,0.000112,of
+kleine waterteunisbloem,Ludwigia peploides (Kunth) P.H. Raven,Lp,SBP  Rivierdonderpad,1.606738,sel
+egeria,Elodea densa (Planch.) Casp.,Ed,SBP  Beekprik,0.006549,in
+egeria,Elodea densa (Planch.) Casp.,Ed,SBP  Beekprik,0.000107,of
+egeria,Elodea densa (Planch.) Casp.,Ed,SBP  Beekprik,2.334303,sel
+egeria,Elodea densa (Planch.) Casp.,Ed,SBP  Kleine Modderkruiper,0,in
+egeria,Elodea densa (Planch.) Casp.,Ed,SBP  Kleine Modderkruiper,0,of
+egeria,Elodea densa (Planch.) Casp.,Ed,SBP  Kleine Modderkruiper,0,sel
+egeria,Elodea densa (Planch.) Casp.,Ed,SBP  Rivierdonderpad,0,in
+egeria,Elodea densa (Planch.) Casp.,Ed,SBP  Rivierdonderpad,0,of
+egeria,Elodea densa (Planch.) Casp.,Ed,SBP  Rivierdonderpad,0,sel
+ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,SBP  Beekprik,0,in
+ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,SBP  Beekprik,0,of
+ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,SBP  Beekprik,0,sel
+ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,SBP  Kleine Modderkruiper,0.002242,in
+ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,SBP  Kleine Modderkruiper,0.000107,of
+ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,SBP  Kleine Modderkruiper,0.799210,sel
+ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,SBP  Rivierdonderpad,0.002242,in
+ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,SBP  Rivierdonderpad,0.000107,of
+ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,SBP  Rivierdonderpad,0.799210,sel
+Aziatische boomwurger,Celastrus orbiculatus Thunb.,Co,SBP  Beekprik,0,in
+Aziatische boomwurger,Celastrus orbiculatus Thunb.,Co,SBP  Beekprik,0,of
+Aziatische boomwurger,Celastrus orbiculatus Thunb.,Co,SBP  Beekprik,0,sel
+Aziatische boomwurger,Celastrus orbiculatus Thunb.,Co,SBP  Kleine Modderkruiper,0,in
+Aziatische boomwurger,Celastrus orbiculatus Thunb.,Co,SBP  Kleine Modderkruiper,0,of
+Aziatische boomwurger,Celastrus orbiculatus Thunb.,Co,SBP  Kleine Modderkruiper,0,sel
+Aziatische boomwurger,Celastrus orbiculatus Thunb.,Co,SBP  Rivierdonderpad,0,in
+Aziatische boomwurger,Celastrus orbiculatus Thunb.,Co,SBP  Rivierdonderpad,0,of
+Aziatische boomwurger,Celastrus orbiculatus Thunb.,Co,SBP  Rivierdonderpad,0,sel
+zijdeplant,Asclepias syriaca L.,As,SBP  Beekprik,0,in
+zijdeplant,Asclepias syriaca L.,As,SBP  Beekprik,0,of
+zijdeplant,Asclepias syriaca L.,As,SBP  Beekprik,0,sel
+zijdeplant,Asclepias syriaca L.,As,SBP  Kleine Modderkruiper,0,in
+zijdeplant,Asclepias syriaca L.,As,SBP  Kleine Modderkruiper,0,of
+zijdeplant,Asclepias syriaca L.,As,SBP  Kleine Modderkruiper,0,sel
+zijdeplant,Asclepias syriaca L.,As,SBP  Rivierdonderpad,0,in
+zijdeplant,Asclepias syriaca L.,As,SBP  Rivierdonderpad,0,of
+zijdeplant,Asclepias syriaca L.,As,SBP  Rivierdonderpad,0,sel
+waterhyacint,Eichhornia crassipes (Martius) Solms,Ec,SBP  Beekprik, 0.081874,in
+waterhyacint,Eichhornia crassipes (Martius) Solms,Ec,SBP  Beekprik, 0.000734,of
+waterhyacint,Eichhornia crassipes (Martius) Solms,Ec,SBP  Beekprik,29.183618,sel
+waterhyacint,Eichhornia crassipes (Martius) Solms,Ec,SBP  Kleine Modderkruiper, 0.072117,in
+waterhyacint,Eichhornia crassipes (Martius) Solms,Ec,SBP  Kleine Modderkruiper, 0.000646,of
+waterhyacint,Eichhornia crassipes (Martius) Solms,Ec,SBP  Kleine Modderkruiper,25.705705,sel
+waterhyacint,Eichhornia crassipes (Martius) Solms,Ec,SBP  Rivierdonderpad, 0.062683,in
+waterhyacint,Eichhornia crassipes (Martius) Solms,Ec,SBP  Rivierdonderpad, 0.000562,of
+waterhyacint,Eichhornia crassipes (Martius) Solms,Ec,SBP  Rivierdonderpad,22.343053,sel
+watersla,Pistia stratiotes L.,Pst,SBP  Beekprik, 0.065966,in
+watersla,Pistia stratiotes L.,Pst,SBP  Beekprik, 0.001976,of
+watersla,Pistia stratiotes L.,Pst,SBP  Beekprik,23.513040,sel
+watersla,Pistia stratiotes L.,Pst,SBP  Kleine Modderkruiper, 0.058633,in
+watersla,Pistia stratiotes L.,Pst,SBP  Kleine Modderkruiper, 0.001757,of
+watersla,Pistia stratiotes L.,Pst,SBP  Kleine Modderkruiper,20.899530,sel
+watersla,Pistia stratiotes L.,Pst,SBP  Rivierdonderpad, 0.063645,in
+watersla,Pistia stratiotes L.,Pst,SBP  Rivierdonderpad, 0.001907,of
+watersla,Pistia stratiotes L.,Pst,SBP  Rivierdonderpad,22.685783,sel
+Californische rivierkreeft,"Pacifastacus leniusculus Dana, 1852",Plen,SBP  Beekprik,0,in
+Californische rivierkreeft,"Pacifastacus leniusculus Dana, 1852",Plen,SBP  Beekprik,0,of
+Californische rivierkreeft,"Pacifastacus leniusculus Dana, 1852",Plen,SBP  Beekprik,0,sel
+Californische rivierkreeft,"Pacifastacus leniusculus Dana, 1852",Plen,SBP  Kleine Modderkruiper,0,in
+Californische rivierkreeft,"Pacifastacus leniusculus Dana, 1852",Plen,SBP  Kleine Modderkruiper,0,of
+Californische rivierkreeft,"Pacifastacus leniusculus Dana, 1852",Plen,SBP  Kleine Modderkruiper,0,sel
+Californische rivierkreeft,"Pacifastacus leniusculus Dana, 1852",Plen,SBP  Rivierdonderpad,0,in
+Californische rivierkreeft,"Pacifastacus leniusculus Dana, 1852",Plen,SBP  Rivierdonderpad,0,of
+Californische rivierkreeft,"Pacifastacus leniusculus Dana, 1852",Plen,SBP  Rivierdonderpad,0,sel
+gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",Pa,SBP  Beekprik,0.008930,in
+gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",Pa,SBP  Beekprik,0.000289,of
+gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",Pa,SBP  Beekprik,3.182931,sel
+gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",Pa,SBP  Kleine Modderkruiper,0.026413,in
+gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",Pa,SBP  Kleine Modderkruiper,0.000854,of
+gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",Pa,SBP  Kleine Modderkruiper,9.414572,sel
+gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",Pa,SBP  Rivierdonderpad,0.008930,in
+gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",Pa,SBP  Rivierdonderpad,0.000289,of
+gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",Pa,SBP  Rivierdonderpad,3.182931,sel
+Kaapse waterlelie,Aponogeton distachyos L.f.,Ad,SBP  Beekprik,0,in
+Kaapse waterlelie,Aponogeton distachyos L.f.,Ad,SBP  Beekprik,0,of
+Kaapse waterlelie,Aponogeton distachyos L.f.,Ad,SBP  Beekprik,0,sel
+Kaapse waterlelie,Aponogeton distachyos L.f.,Ad,SBP  Kleine Modderkruiper,0.002306,in
+Kaapse waterlelie,Aponogeton distachyos L.f.,Ad,SBP  Kleine Modderkruiper,0.000090,of
+Kaapse waterlelie,Aponogeton distachyos L.f.,Ad,SBP  Kleine Modderkruiper,0.822007,sel
+Kaapse waterlelie,Aponogeton distachyos L.f.,Ad,SBP  Rivierdonderpad,0,in
+Kaapse waterlelie,Aponogeton distachyos L.f.,Ad,SBP  Rivierdonderpad,0,of
+Kaapse waterlelie,Aponogeton distachyos L.f.,Ad,SBP  Rivierdonderpad,0,sel
+grijze eekhoorn,"Sciurus carolinensis Gmelin, 1788",Sca,SBP  Beekprik,0,in
+grijze eekhoorn,"Sciurus carolinensis Gmelin, 1788",Sca,SBP  Beekprik,0,of
+grijze eekhoorn,"Sciurus carolinensis Gmelin, 1788",Sca,SBP  Beekprik,0,sel
+grijze eekhoorn,"Sciurus carolinensis Gmelin, 1788",Sca,SBP  Kleine Modderkruiper,0,in
+grijze eekhoorn,"Sciurus carolinensis Gmelin, 1788",Sca,SBP  Kleine Modderkruiper,0,of
+grijze eekhoorn,"Sciurus carolinensis Gmelin, 1788",Sca,SBP  Kleine Modderkruiper,0,sel
+grijze eekhoorn,"Sciurus carolinensis Gmelin, 1788",Sca,SBP  Rivierdonderpad,0,in
+grijze eekhoorn,"Sciurus carolinensis Gmelin, 1788",Sca,SBP  Rivierdonderpad,0,of
+grijze eekhoorn,"Sciurus carolinensis Gmelin, 1788",Sca,SBP  Rivierdonderpad,0,sel
+Mantsjoerese wilde rijst,Zizania latifolia (Griseb.) Hance ex F.Muell.,Zl,SBP  Beekprik,0,in
+Mantsjoerese wilde rijst,Zizania latifolia (Griseb.) Hance ex F.Muell.,Zl,SBP  Beekprik,0,of
+Mantsjoerese wilde rijst,Zizania latifolia (Griseb.) Hance ex F.Muell.,Zl,SBP  Beekprik,0,sel
+Mantsjoerese wilde rijst,Zizania latifolia (Griseb.) Hance ex F.Muell.,Zl,SBP  Kleine Modderkruiper,0,in
+Mantsjoerese wilde rijst,Zizania latifolia (Griseb.) Hance ex F.Muell.,Zl,SBP  Kleine Modderkruiper,0,of
+Mantsjoerese wilde rijst,Zizania latifolia (Griseb.) Hance ex F.Muell.,Zl,SBP  Kleine Modderkruiper,0,sel
+Mantsjoerese wilde rijst,Zizania latifolia (Griseb.) Hance ex F.Muell.,Zl,SBP  Rivierdonderpad,0,in
+Mantsjoerese wilde rijst,Zizania latifolia (Griseb.) Hance ex F.Muell.,Zl,SBP  Rivierdonderpad,0,of
+Mantsjoerese wilde rijst,Zizania latifolia (Griseb.) Hance ex F.Muell.,Zl,SBP  Rivierdonderpad,0,sel
+Pallas' eekhoorn,"Callosciurus erythraeus Pallas, 1779",Ce,SBP  Beekprik,0,in
+Pallas' eekhoorn,"Callosciurus erythraeus Pallas, 1779",Ce,SBP  Beekprik,0,of
+Pallas' eekhoorn,"Callosciurus erythraeus Pallas, 1779",Ce,SBP  Beekprik,0,sel
+Pallas' eekhoorn,"Callosciurus erythraeus Pallas, 1779",Ce,SBP  Kleine Modderkruiper,0,in
+Pallas' eekhoorn,"Callosciurus erythraeus Pallas, 1779",Ce,SBP  Kleine Modderkruiper,0,of
+Pallas' eekhoorn,"Callosciurus erythraeus Pallas, 1779",Ce,SBP  Kleine Modderkruiper,0,sel
+Pallas' eekhoorn,"Callosciurus erythraeus Pallas, 1779",Ce,SBP  Rivierdonderpad,0,in
+Pallas' eekhoorn,"Callosciurus erythraeus Pallas, 1779",Ce,SBP  Rivierdonderpad,0,of
+Pallas' eekhoorn,"Callosciurus erythraeus Pallas, 1779",Ce,SBP  Rivierdonderpad,0,sel
+moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,SBP  Beekprik,0.011165,in
+moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,SBP  Beekprik,0.000466,of
+moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,SBP  Beekprik,3.979867,sel
+moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,SBP  Kleine Modderkruiper,0.002751,in
+moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,SBP  Kleine Modderkruiper,0.000115,of
+moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,SBP  Kleine Modderkruiper,0.980688,sel
+moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,SBP  Rivierdonderpad,0.005068,in
+moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,SBP  Rivierdonderpad,0.000211,of
+moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,SBP  Rivierdonderpad,1.806551,sel
+waterwaaier,Cabomba caroliniana Gray,Cca,SBP  Beekprik,0,in
+waterwaaier,Cabomba caroliniana Gray,Cca,SBP  Beekprik,0,of
+waterwaaier,Cabomba caroliniana Gray,Cca,SBP  Beekprik,0,sel
+waterwaaier,Cabomba caroliniana Gray,Cca,SBP  Kleine Modderkruiper,0.024019,in
+waterwaaier,Cabomba caroliniana Gray,Cca,SBP  Kleine Modderkruiper,0.000196,of
+waterwaaier,Cabomba caroliniana Gray,Cca,SBP  Kleine Modderkruiper,8.561527,sel
+waterwaaier,Cabomba caroliniana Gray,Cca,SBP  Rivierdonderpad,0.024019,in
+waterwaaier,Cabomba caroliniana Gray,Cca,SBP  Rivierdonderpad,0.000196,of
+waterwaaier,Cabomba caroliniana Gray,Cca,SBP  Rivierdonderpad,8.561527,sel
+Chinese moerasslak,"Cipangopaludina chinensis (J.E.Gray, 1833)",Cch,SBP  Beekprik,0.020162,in
+Chinese moerasslak,"Cipangopaludina chinensis (J.E.Gray, 1833)",Cch,SBP  Beekprik,0.000066,of
+Chinese moerasslak,"Cipangopaludina chinensis (J.E.Gray, 1833)",Cch,SBP  Beekprik,7.186733,sel
+Chinese moerasslak,"Cipangopaludina chinensis (J.E.Gray, 1833)",Cch,SBP  Kleine Modderkruiper, 0.047823,in
+Chinese moerasslak,"Cipangopaludina chinensis (J.E.Gray, 1833)",Cch,SBP  Kleine Modderkruiper, 0.000157,of
+Chinese moerasslak,"Cipangopaludina chinensis (J.E.Gray, 1833)",Cch,SBP  Kleine Modderkruiper,17.046305,sel
+Chinese moerasslak,"Cipangopaludina chinensis (J.E.Gray, 1833)",Cch,SBP  Rivierdonderpad,0.020162,in
+Chinese moerasslak,"Cipangopaludina chinensis (J.E.Gray, 1833)",Cch,SBP  Rivierdonderpad,0.000066,of
+Chinese moerasslak,"Cipangopaludina chinensis (J.E.Gray, 1833)",Cch,SBP  Rivierdonderpad,7.186733,sel
+Kesslergrondel,"Ponticola kessleri (Günther, 1861)",Pk,SBP  Beekprik,0,in
+Kesslergrondel,"Ponticola kessleri (Günther, 1861)",Pk,SBP  Beekprik,0,of
+Kesslergrondel,"Ponticola kessleri (Günther, 1861)",Pk,SBP  Beekprik,0,sel
+Kesslergrondel,"Ponticola kessleri (Günther, 1861)",Pk,SBP  Kleine Modderkruiper, 0.070320,in
+Kesslergrondel,"Ponticola kessleri (Günther, 1861)",Pk,SBP  Kleine Modderkruiper, 0.000459,of
+Kesslergrondel,"Ponticola kessleri (Günther, 1861)",Pk,SBP  Kleine Modderkruiper,25.065104,sel
+Kesslergrondel,"Ponticola kessleri (Günther, 1861)",Pk,SBP  Rivierdonderpad, 0.051353,in
+Kesslergrondel,"Ponticola kessleri (Günther, 1861)",Pk,SBP  Rivierdonderpad, 0.000335,of
+Kesslergrondel,"Ponticola kessleri (Günther, 1861)",Pk,SBP  Rivierdonderpad,18.304406,sel
+wasbeerhond,"Nyctereutes procyonoides Gray, 1834",Np,SBP  Beekprik,0,in
+wasbeerhond,"Nyctereutes procyonoides Gray, 1834",Np,SBP  Beekprik,0,of
+wasbeerhond,"Nyctereutes procyonoides Gray, 1834",Np,SBP  Beekprik,0,sel
+wasbeerhond,"Nyctereutes procyonoides Gray, 1834",Np,SBP  Kleine Modderkruiper,0,in
+wasbeerhond,"Nyctereutes procyonoides Gray, 1834",Np,SBP  Kleine Modderkruiper,0,of
+wasbeerhond,"Nyctereutes procyonoides Gray, 1834",Np,SBP  Kleine Modderkruiper,0,sel
+wasbeerhond,"Nyctereutes procyonoides Gray, 1834",Np,SBP  Rivierdonderpad,0,in
+wasbeerhond,"Nyctereutes procyonoides Gray, 1834",Np,SBP  Rivierdonderpad,0,of
+wasbeerhond,"Nyctereutes procyonoides Gray, 1834",Np,SBP  Rivierdonderpad,0,sel
+Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,SBP  Beekprik,0.000397,in
+Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,SBP  Beekprik,0.006442,of
+Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,SBP  Beekprik,0.141390,sel
+Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,SBP  Kleine Modderkruiper,0.000340,in
+Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,SBP  Kleine Modderkruiper,0.005526,of
+Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,SBP  Kleine Modderkruiper,0.121275,sel
+Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,SBP  Rivierdonderpad,0.000757,in
+Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,SBP  Rivierdonderpad,0.012288,of
+Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,SBP  Rivierdonderpad,0.269691,sel
+Leidse plant,Saururus cernuus L.,Sce,SBP  Beekprik,0,in
+Leidse plant,Saururus cernuus L.,Sce,SBP  Beekprik,0,of
+Leidse plant,Saururus cernuus L.,Sce,SBP  Beekprik,0,sel
+Leidse plant,Saururus cernuus L.,Sce,SBP  Kleine Modderkruiper, 0.034502,in
+Leidse plant,Saururus cernuus L.,Sce,SBP  Kleine Modderkruiper, 0.000213,of
+Leidse plant,Saururus cernuus L.,Sce,SBP  Kleine Modderkruiper,12.297909,sel
+Leidse plant,Saururus cernuus L.,Sce,SBP  Rivierdonderpad,0,in
+Leidse plant,Saururus cernuus L.,Sce,SBP  Rivierdonderpad,0,of
+Leidse plant,Saururus cernuus L.,Sce,SBP  Rivierdonderpad,0,sel
+treurmaina,"Acridotheres tristis Linnaeus, 1766",At,SBP  Beekprik,0,in
+treurmaina,"Acridotheres tristis Linnaeus, 1766",At,SBP  Beekprik,0,of
+treurmaina,"Acridotheres tristis Linnaeus, 1766",At,SBP  Beekprik,0,sel
+treurmaina,"Acridotheres tristis Linnaeus, 1766",At,SBP  Kleine Modderkruiper,0,in
+treurmaina,"Acridotheres tristis Linnaeus, 1766",At,SBP  Kleine Modderkruiper,0,of
+treurmaina,"Acridotheres tristis Linnaeus, 1766",At,SBP  Kleine Modderkruiper,0,sel
+treurmaina,"Acridotheres tristis Linnaeus, 1766",At,SBP  Rivierdonderpad,0.021737,in
+treurmaina,"Acridotheres tristis Linnaeus, 1766",At,SBP  Rivierdonderpad,0.000054,of
+treurmaina,"Acridotheres tristis Linnaeus, 1766",At,SBP  Rivierdonderpad,7.747951,sel
+moerasanemoon,Houttuynia cordata Thunb.,Hc,SBP  Beekprik,0.000907,in
+moerasanemoon,Houttuynia cordata Thunb.,Hc,SBP  Beekprik,0.000029,of
+moerasanemoon,Houttuynia cordata Thunb.,Hc,SBP  Beekprik,0.323345,sel
+moerasanemoon,Houttuynia cordata Thunb.,Hc,SBP  Kleine Modderkruiper,0.007057,in
+moerasanemoon,Houttuynia cordata Thunb.,Hc,SBP  Kleine Modderkruiper,0.000223,of
+moerasanemoon,Houttuynia cordata Thunb.,Hc,SBP  Kleine Modderkruiper,2.515304,sel
+moerasanemoon,Houttuynia cordata Thunb.,Hc,SBP  Rivierdonderpad,0,in
+moerasanemoon,Houttuynia cordata Thunb.,Hc,SBP  Rivierdonderpad,0,of
+moerasanemoon,Houttuynia cordata Thunb.,Hc,SBP  Rivierdonderpad,0,sel
+Turkse rivierkreeft,"Pontastacus leptodactylus (Eschscholtz, 1823)",Plep,SBP  Beekprik,0,in
+Turkse rivierkreeft,"Pontastacus leptodactylus (Eschscholtz, 1823)",Plep,SBP  Beekprik,0,of
+Turkse rivierkreeft,"Pontastacus leptodactylus (Eschscholtz, 1823)",Plep,SBP  Beekprik,0,sel
+Turkse rivierkreeft,"Pontastacus leptodactylus (Eschscholtz, 1823)",Plep,SBP  Kleine Modderkruiper,0,in
+Turkse rivierkreeft,"Pontastacus leptodactylus (Eschscholtz, 1823)",Plep,SBP  Kleine Modderkruiper,0,of
+Turkse rivierkreeft,"Pontastacus leptodactylus (Eschscholtz, 1823)",Plep,SBP  Kleine Modderkruiper,0,sel
+Turkse rivierkreeft,"Pontastacus leptodactylus (Eschscholtz, 1823)",Plep,SBP  Rivierdonderpad,0,in
+Turkse rivierkreeft,"Pontastacus leptodactylus (Eschscholtz, 1823)",Plep,SBP  Rivierdonderpad,0,of
+Turkse rivierkreeft,"Pontastacus leptodactylus (Eschscholtz, 1823)",Plep,SBP  Rivierdonderpad,0,sel
+marmerkreeft,"Procambarus virginalis Lyko, 2017",Pv,SBP  Beekprik,0,in
+marmerkreeft,"Procambarus virginalis Lyko, 2017",Pv,SBP  Beekprik,0,of
+marmerkreeft,"Procambarus virginalis Lyko, 2017",Pv,SBP  Beekprik,0,sel
+marmerkreeft,"Procambarus virginalis Lyko, 2017",Pv,SBP  Kleine Modderkruiper,0,in
+marmerkreeft,"Procambarus virginalis Lyko, 2017",Pv,SBP  Kleine Modderkruiper,0,of
+marmerkreeft,"Procambarus virginalis Lyko, 2017",Pv,SBP  Kleine Modderkruiper,0,sel
+marmerkreeft,"Procambarus virginalis Lyko, 2017",Pv,SBP  Rivierdonderpad,0,in
+marmerkreeft,"Procambarus virginalis Lyko, 2017",Pv,SBP  Rivierdonderpad,0,of
+marmerkreeft,"Procambarus virginalis Lyko, 2017",Pv,SBP  Rivierdonderpad,0,sel
+sikahert,"Cervus nippon Temminck, 1838",Cn,SBP  Beekprik,0.002582,in
+sikahert,"Cervus nippon Temminck, 1838",Cn,SBP  Beekprik,0.000081,of
+sikahert,"Cervus nippon Temminck, 1838",Cn,SBP  Beekprik,0.920457,sel
+sikahert,"Cervus nippon Temminck, 1838",Cn,SBP  Kleine Modderkruiper,0.005529,in
+sikahert,"Cervus nippon Temminck, 1838",Cn,SBP  Kleine Modderkruiper,0.000174,of
+sikahert,"Cervus nippon Temminck, 1838",Cn,SBP  Kleine Modderkruiper,1.970864,sel
+sikahert,"Cervus nippon Temminck, 1838",Cn,SBP  Rivierdonderpad,0.005733,in
+sikahert,"Cervus nippon Temminck, 1838",Cn,SBP  Rivierdonderpad,0.000181,of
+sikahert,"Cervus nippon Temminck, 1838",Cn,SBP  Rivierdonderpad,2.043384,sel
+Amerikaanse voseekhoorn,"Sciurus niger L., 1758",Sn,SBP  Beekprik,0,in
+Amerikaanse voseekhoorn,"Sciurus niger L., 1758",Sn,SBP  Beekprik,0,of
+Amerikaanse voseekhoorn,"Sciurus niger L., 1758",Sn,SBP  Beekprik,0,sel
+Amerikaanse voseekhoorn,"Sciurus niger L., 1758",Sn,SBP  Kleine Modderkruiper,0,in
+Amerikaanse voseekhoorn,"Sciurus niger L., 1758",Sn,SBP  Kleine Modderkruiper,0,of
+Amerikaanse voseekhoorn,"Sciurus niger L., 1758",Sn,SBP  Kleine Modderkruiper,0,sel
+Amerikaanse voseekhoorn,"Sciurus niger L., 1758",Sn,SBP  Rivierdonderpad,0,in
+Amerikaanse voseekhoorn,"Sciurus niger L., 1758",Sn,SBP  Rivierdonderpad,0,of
+Amerikaanse voseekhoorn,"Sciurus niger L., 1758",Sn,SBP  Rivierdonderpad,0,sel
+gewone gunnera,Gunnera tinctoria (Molina) Mirbel,Gt,SBP  Beekprik,0,in
+gewone gunnera,Gunnera tinctoria (Molina) Mirbel,Gt,SBP  Beekprik,0,of
+gewone gunnera,Gunnera tinctoria (Molina) Mirbel,Gt,SBP  Beekprik,0,sel
+gewone gunnera,Gunnera tinctoria (Molina) Mirbel,Gt,SBP  Kleine Modderkruiper,0.005389,in
+gewone gunnera,Gunnera tinctoria (Molina) Mirbel,Gt,SBP  Kleine Modderkruiper,0.000045,of
+gewone gunnera,Gunnera tinctoria (Molina) Mirbel,Gt,SBP  Kleine Modderkruiper,1.920964,sel
+gewone gunnera,Gunnera tinctoria (Molina) Mirbel,Gt,SBP  Rivierdonderpad,0,in
+gewone gunnera,Gunnera tinctoria (Molina) Mirbel,Gt,SBP  Rivierdonderpad,0,of
+gewone gunnera,Gunnera tinctoria (Molina) Mirbel,Gt,SBP  Rivierdonderpad,0,sel
+Noord-Aziatische modderkruiper,"Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)",Mb,SBP  Beekprik,0,in
+Noord-Aziatische modderkruiper,"Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)",Mb,SBP  Beekprik,0,of
+Noord-Aziatische modderkruiper,"Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)",Mb,SBP  Beekprik,0,sel
+Noord-Aziatische modderkruiper,"Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)",Mb,SBP  Kleine Modderkruiper,0,in
+Noord-Aziatische modderkruiper,"Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)",Mb,SBP  Kleine Modderkruiper,0,of
+Noord-Aziatische modderkruiper,"Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)",Mb,SBP  Kleine Modderkruiper,0,sel
+Noord-Aziatische modderkruiper,"Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)",Mb,SBP  Rivierdonderpad,0,in
+Noord-Aziatische modderkruiper,"Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)",Mb,SBP  Rivierdonderpad,0,of
+Noord-Aziatische modderkruiper,"Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)",Mb,SBP  Rivierdonderpad,0,sel
+Japans steltgras,Microstegium vimineum (Trin.) A. Camus,Mvim,SBP  Beekprik,0,in
+Japans steltgras,Microstegium vimineum (Trin.) A. Camus,Mvim,SBP  Beekprik,0,of
+Japans steltgras,Microstegium vimineum (Trin.) A. Camus,Mvim,SBP  Beekprik,0,sel
+Japans steltgras,Microstegium vimineum (Trin.) A. Camus,Mvim,SBP  Kleine Modderkruiper,0,in
+Japans steltgras,Microstegium vimineum (Trin.) A. Camus,Mvim,SBP  Kleine Modderkruiper,0,of
+Japans steltgras,Microstegium vimineum (Trin.) A. Camus,Mvim,SBP  Kleine Modderkruiper,0,sel
+Japans steltgras,Microstegium vimineum (Trin.) A. Camus,Mvim,SBP  Rivierdonderpad,0,in
+Japans steltgras,Microstegium vimineum (Trin.) A. Camus,Mvim,SBP  Rivierdonderpad,0,of
+Japans steltgras,Microstegium vimineum (Trin.) A. Camus,Mvim,SBP  Rivierdonderpad,0,sel
+Pontische stroomgrondel,"Neogobius fluviatilis (Pallas, 1814)",Nf,SBP  Beekprik,0,in
+Pontische stroomgrondel,"Neogobius fluviatilis (Pallas, 1814)",Nf,SBP  Beekprik,0,of
+Pontische stroomgrondel,"Neogobius fluviatilis (Pallas, 1814)",Nf,SBP  Beekprik,0,sel
+Pontische stroomgrondel,"Neogobius fluviatilis (Pallas, 1814)",Nf,SBP  Kleine Modderkruiper, 0.108733,in
+Pontische stroomgrondel,"Neogobius fluviatilis (Pallas, 1814)",Nf,SBP  Kleine Modderkruiper, 0.000089,of
+Pontische stroomgrondel,"Neogobius fluviatilis (Pallas, 1814)",Nf,SBP  Kleine Modderkruiper,38.757125,sel
+Pontische stroomgrondel,"Neogobius fluviatilis (Pallas, 1814)",Nf,SBP  Rivierdonderpad, 0.108733,in
+Pontische stroomgrondel,"Neogobius fluviatilis (Pallas, 1814)",Nf,SBP  Rivierdonderpad, 0.000089,of
+Pontische stroomgrondel,"Neogobius fluviatilis (Pallas, 1814)",Nf,SBP  Rivierdonderpad,38.757125,sel
+Afrikaanse klauwkikker,"Xenopus laevis (Daudin, 1802)",Xl,SBP  Beekprik,0,in
+Afrikaanse klauwkikker,"Xenopus laevis (Daudin, 1802)",Xl,SBP  Beekprik,0,of
+Afrikaanse klauwkikker,"Xenopus laevis (Daudin, 1802)",Xl,SBP  Beekprik,0,sel
+Afrikaanse klauwkikker,"Xenopus laevis (Daudin, 1802)",Xl,SBP  Kleine Modderkruiper,0,in
+Afrikaanse klauwkikker,"Xenopus laevis (Daudin, 1802)",Xl,SBP  Kleine Modderkruiper,0,of
+Afrikaanse klauwkikker,"Xenopus laevis (Daudin, 1802)",Xl,SBP  Kleine Modderkruiper,0,sel
+Afrikaanse klauwkikker,"Xenopus laevis (Daudin, 1802)",Xl,SBP  Rivierdonderpad,0,in
+Afrikaanse klauwkikker,"Xenopus laevis (Daudin, 1802)",Xl,SBP  Rivierdonderpad,0,of
+Afrikaanse klauwkikker,"Xenopus laevis (Daudin, 1802)",Xl,SBP  Rivierdonderpad,0,sel
+fraai lampenpoetsersgras,Cenchrus setaceus (Forssk.) Morrone,Cs,SBP  Beekprik,0,in
+fraai lampenpoetsersgras,Cenchrus setaceus (Forssk.) Morrone,Cs,SBP  Beekprik,0,of
+fraai lampenpoetsersgras,Cenchrus setaceus (Forssk.) Morrone,Cs,SBP  Beekprik,0,sel
+fraai lampenpoetsersgras,Cenchrus setaceus (Forssk.) Morrone,Cs,SBP  Kleine Modderkruiper,0,in
+fraai lampenpoetsersgras,Cenchrus setaceus (Forssk.) Morrone,Cs,SBP  Kleine Modderkruiper,0,of
+fraai lampenpoetsersgras,Cenchrus setaceus (Forssk.) Morrone,Cs,SBP  Kleine Modderkruiper,0,sel
+fraai lampenpoetsersgras,Cenchrus setaceus (Forssk.) Morrone,Cs,SBP  Rivierdonderpad,0,in
+fraai lampenpoetsersgras,Cenchrus setaceus (Forssk.) Morrone,Cs,SBP  Rivierdonderpad,0,of
+fraai lampenpoetsersgras,Cenchrus setaceus (Forssk.) Morrone,Cs,SBP  Rivierdonderpad,0,sel
+grote vlotvaren,Salvinia molesta D.S.Mitch.,Sm,SBP  Beekprik,0,in
+grote vlotvaren,Salvinia molesta D.S.Mitch.,Sm,SBP  Beekprik,0,of
+grote vlotvaren,Salvinia molesta D.S.Mitch.,Sm,SBP  Beekprik,0,sel
+grote vlotvaren,Salvinia molesta D.S.Mitch.,Sm,SBP  Kleine Modderkruiper,0,in
+grote vlotvaren,Salvinia molesta D.S.Mitch.,Sm,SBP  Kleine Modderkruiper,0,of
+grote vlotvaren,Salvinia molesta D.S.Mitch.,Sm,SBP  Kleine Modderkruiper,0,sel
+grote vlotvaren,Salvinia molesta D.S.Mitch.,Sm,SBP  Rivierdonderpad,0,in
+grote vlotvaren,Salvinia molesta D.S.Mitch.,Sm,SBP  Rivierdonderpad,0,of
+grote vlotvaren,Salvinia molesta D.S.Mitch.,Sm,SBP  Rivierdonderpad,0,sel

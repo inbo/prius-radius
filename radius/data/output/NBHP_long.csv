@@ -1,1146 +1,1557 @@
 soort,species,abbr,gebied,overlap,type
-heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,NBHP,0.404614,in
-heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,NBHP,0.002559,of
-heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,NBHP,4.841286,sel
-heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,NBHP,45,n_nbhp
+heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,NBHP,0.409887,in
+heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,NBHP,0.002464,of
+heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,NBHP,4.661787,sel
+heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,NBHP,47,n_nbhp
 heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,BosbeU,2,n_per_type
+heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,DomNa,2,n_per_type
 heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,HarmPG,1,n_per_type
-heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,MilDom,2,n_per_type
 heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,Type2,1,n_per_type
-heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,Type3,9,n_per_type
-heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,Type4,30,n_per_type
+heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,Type3,10,n_per_type
+heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,Type4,31,n_per_type
 heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,Bestuur,0.039867,in
-heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,PrivRec,0.18302,in
+heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,Bestuur,0.001652,of
+heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,NatPer,0.001010,in
+heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,NatPer,0.000037,of
+heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,PrivRec,0.187284,in
+heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,PrivRec,0.004824,of
 heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,VOANB,0.159665,in
+heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,VOANB,0.002214,of
 heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,VOander,0.022062,in
+heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,VOander,0.007754,of
 heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,Andere,0,in
-heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,NatPer,0,in
-nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,NBHP,0.155270,in
-nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,NBHP,0.150019,of
-nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,NBHP,1.857834,sel
-nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,NBHP,1222,n_nbhp
-nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,BosbeU,193,n_per_type
-nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,BosreA,5,n_per_type
+heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,Andere,0,of
+nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,NBHP,0.161493,in
+nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,NBHP,0.148313,of
+nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,NBHP,1.836713,sel
+nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,NBHP,1255,n_nbhp
+nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,BosbeU,77,n_per_type
+nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,BosreA,2,n_per_type
 nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,BosreE,2,n_per_type
+nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,DomNa,8,n_per_type
 nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,HarmPG,5,n_per_type
-nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,MilDom,9,n_per_type
-nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,Natres,17,n_per_type
-nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,Type1,150,n_per_type
-nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,Type2,207,n_per_type
-nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,Type3,199,n_per_type
-nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,Type4,405,n_per_type
-nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,VNatre,30,n_per_type
-nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,Andere,0.000679,in
-nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,Bestuur,0.017549,in
-nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,NatPer,0.00799,in
-nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,PrivRec,0.069025,in
-nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,VOANB,0.053995,in
-nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,VOander,0.005916,in
-rimpelroos,Rosa rugosa Thunb.,Rr,NBHP,0.164195,in
-rimpelroos,Rosa rugosa Thunb.,Rr,NBHP,0.010644,of
-rimpelroos,Rosa rugosa Thunb.,Rr,NBHP,1.964628,sel
-rimpelroos,Rosa rugosa Thunb.,Rr,NBHP,285,n_nbhp
-rimpelroos,Rosa rugosa Thunb.,Rr,BosbeU,55,n_per_type
+nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,Natres,5,n_per_type
+nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,Type1,147,n_per_type
+nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,Type2,327,n_per_type
+nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,Type3,211,n_per_type
+nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,Type4,448,n_per_type
+nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,VNatre,23,n_per_type
+nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,Andere,0.000988,in
+nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,Andere,0.145717,of
+nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,Bestuur,0.016282,in
+nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,Bestuur,0.103099,of
+nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,NatPer,0.007973,in
+nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,NatPer,0.044442,of
+nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,PrivRec,0.073091,in
+nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,PrivRec,0.287625,of
+nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,VOANB,0.057073,in
+nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,VOANB,0.120915,of
+nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,VOander,0.005942,in
+nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,VOander,0.319050,of
+rimpelroos,Rosa rugosa Thunb.,Rr,NBHP,0.171881,in
+rimpelroos,Rosa rugosa Thunb.,Rr,NBHP,0.010591,of
+rimpelroos,Rosa rugosa Thunb.,Rr,NBHP,1.954858,sel
+rimpelroos,Rosa rugosa Thunb.,Rr,NBHP,292,n_nbhp
+rimpelroos,Rosa rugosa Thunb.,Rr,BosbeU,22,n_per_type
+rimpelroos,Rosa rugosa Thunb.,Rr,DomNa,2,n_per_type
 rimpelroos,Rosa rugosa Thunb.,Rr,HarmPG,1,n_per_type
-rimpelroos,Rosa rugosa Thunb.,Rr,MilDom,3,n_per_type
 rimpelroos,Rosa rugosa Thunb.,Rr,Natres,1,n_per_type
-rimpelroos,Rosa rugosa Thunb.,Rr,Type1,15,n_per_type
-rimpelroos,Rosa rugosa Thunb.,Rr,Type2,62,n_per_type
-rimpelroos,Rosa rugosa Thunb.,Rr,Type3,44,n_per_type
-rimpelroos,Rosa rugosa Thunb.,Rr,Type4,95,n_per_type
-rimpelroos,Rosa rugosa Thunb.,Rr,VNatre,9,n_per_type
-rimpelroos,Rosa rugosa Thunb.,Rr,Andere,0.000357,in
-rimpelroos,Rosa rugosa Thunb.,Rr,Bestuur,0.026026,in
-rimpelroos,Rosa rugosa Thunb.,Rr,NatPer,0.005696,in
-rimpelroos,Rosa rugosa Thunb.,Rr,PrivRec,0.041381,in
-rimpelroos,Rosa rugosa Thunb.,Rr,VOANB,0.080055,in
-rimpelroos,Rosa rugosa Thunb.,Rr,VOander,0.010679,in
-Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,NBHP,0.301433,in
-Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,NBHP,0.104772,of
-Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,NBHP,3.606703,sel
-Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,NBHP,1142,n_nbhp
-Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,BosbeU,193,n_per_type
-Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,BosreA,5,n_per_type
-Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,BosreE,3,n_per_type
-Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,HarmPG,4,n_per_type
-Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,MilDom,8,n_per_type
-Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,Natres,10,n_per_type
-Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,Type1,176,n_per_type
-Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,Type2,207,n_per_type
-Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,Type3,179,n_per_type
-Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,Type4,336,n_per_type
-Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,VNatre,21,n_per_type
-Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,Andere,0.00161,in
-Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,Bestuur,0.062938,in
-Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,NatPer,0.032534,in
-Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,PrivRec,0.094103,in
-Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,VOANB,0.106371,in
-Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,VOander,0.002647,in
-reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,NBHP,0.126963,in
-reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,NBHP,0.010957,of
-reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,NBHP,1.519138,sel
-reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,NBHP,451,n_nbhp
-reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,BosbeU,85,n_per_type
-reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,BosreA,1,n_per_type
+rimpelroos,Rosa rugosa Thunb.,Rr,Type1,14,n_per_type
+rimpelroos,Rosa rugosa Thunb.,Rr,Type2,100,n_per_type
+rimpelroos,Rosa rugosa Thunb.,Rr,Type3,45,n_per_type
+rimpelroos,Rosa rugosa Thunb.,Rr,Type4,102,n_per_type
+rimpelroos,Rosa rugosa Thunb.,Rr,VNatre,5,n_per_type
+rimpelroos,Rosa rugosa Thunb.,Rr,Andere,0.000507,in
+rimpelroos,Rosa rugosa Thunb.,Rr,Andere,0.005011,of
+rimpelroos,Rosa rugosa Thunb.,Rr,Bestuur,0.024346,in
+rimpelroos,Rosa rugosa Thunb.,Rr,Bestuur,0.010343,of
+rimpelroos,Rosa rugosa Thunb.,Rr,NatPer,0.005371,in
+rimpelroos,Rosa rugosa Thunb.,Rr,NatPer,0.002009,of
+rimpelroos,Rosa rugosa Thunb.,Rr,PrivRec,0.043409,in
+rimpelroos,Rosa rugosa Thunb.,Rr,PrivRec,0.011461,of
+rimpelroos,Rosa rugosa Thunb.,Rr,VOANB,0.085437,in
+rimpelroos,Rosa rugosa Thunb.,Rr,VOANB,0.012144,of
+rimpelroos,Rosa rugosa Thunb.,Rr,VOander,0.012811,in
+rimpelroos,Rosa rugosa Thunb.,Rr,VOander,0.046154,of
+Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,NBHP,0.315000,in
+Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,NBHP,0.104072,of
+Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,NBHP,3.582609,sel
+Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,NBHP,1176,n_nbhp
+Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,BosbeU,79,n_per_type
+Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,BosreA,1,n_per_type
+Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,BosreE,2,n_per_type
+Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,DomNa,7,n_per_type
+Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,HarmPG,3,n_per_type
+Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,Natres,5,n_per_type
+Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,Type1,174,n_per_type
+Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,Type2,338,n_per_type
+Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,Type3,190,n_per_type
+Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,Type4,363,n_per_type
+Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,VNatre,14,n_per_type
+Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,Andere,0.002029,in
+Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,Andere,0.107618,of
+Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,Bestuur,0.056567,in
+Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,Bestuur,0.128857,of
+Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,NatPer,0.030629,in
+Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,NatPer,0.061419,of
+Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,PrivRec,0.098751,in
+Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,PrivRec,0.139798,of
+Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,VOANB,0.122785,in
+Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,VOANB,0.093581,of
+Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,VOander,0.002850,in
+Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,VOander,0.055062,of
+reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,NBHP,0.135171,in
+reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,NBHP,0.011088,of
+reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,NBHP,1.537344,sel
+reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,NBHP,468,n_nbhp
+reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,BosbeU,29,n_per_type
+reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,DomNa,4,n_per_type
 reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,HarmPG,1,n_per_type
-reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,MilDom,5,n_per_type
-reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,Natres,3,n_per_type
-reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,Type1,26,n_per_type
-reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,Type2,73,n_per_type
-reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,Type3,74,n_per_type
-reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,Type4,174,n_per_type
-reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,VNatre,9,n_per_type
-reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,Andere,0.000643,in
-reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,Bestuur,0.02228,in
-reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,NatPer,0.011287,in
-reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,PrivRec,0.050509,in
-reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,VOANB,0.03197,in
+reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,Natres,2,n_per_type
+reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,Type1,24,n_per_type
+reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,Type2,129,n_per_type
+reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,Type3,73,n_per_type
+reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,Type4,199,n_per_type
+reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,VNatre,7,n_per_type
+reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,Andere,0.001096,in
+reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,Andere,0.014435,of
+reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,Bestuur,0.020847,in
+reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,Bestuur,0.011790,of
+reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,NatPer,0.010592,in
+reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,NatPer,0.005273,of
+reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,PrivRec,0.054803,in
+reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,PrivRec,0.019262,of
+reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,VOANB,0.037559,in
+reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,VOANB,0.007107,of
 reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,VOander,0.010274,in
-Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,NBHP,0.206184,in
-Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,NBHP,0.135127,of
-Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,NBHP,2.467032,sel
-Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,NBHP,1011,n_nbhp
-Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,BosbeU,159,n_per_type
-Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,BosreA,4,n_per_type
+reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,VOander,0.049275,of
+Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,NBHP,0.213969,in
+Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,NBHP,0.133293,of
+Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,NBHP,2.433548,sel
+Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,NBHP,1052,n_nbhp
+Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,BosbeU,66,n_per_type
+Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,BosreA,1,n_per_type
 Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,BosreE,1,n_per_type
+Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,DomNa,7,n_per_type
 Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,HarmPG,3,n_per_type
-Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,MilDom,8,n_per_type
-Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,Natres,11,n_per_type
-Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,Type1,96,n_per_type
-Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,Type2,171,n_per_type
-Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,Type3,175,n_per_type
-Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,Type4,356,n_per_type
-Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,VNatre,27,n_per_type
-Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,Andere,0.00079,in
-Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,Bestuur,0.023525,in
-Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,NatPer,0.009534,in
-Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,PrivRec,0.088141,in
-Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,VOANB,0.076047,in
-Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,VOander,0.007894,in
-verspreidbladige waterpest,Lagarosiphon major (Ridley) Moss,Lm,NBHP,0.216727,in
-verspreidbladige waterpest,Lagarosiphon major (Ridley) Moss,Lm,NBHP,0.000119,of
-verspreidbladige waterpest,Lagarosiphon major (Ridley) Moss,Lm,NBHP,2.593183,sel
-verspreidbladige waterpest,Lagarosiphon major (Ridley) Moss,Lm,NBHP,7,n_nbhp
+Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,Natres,2,n_per_type
+Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,Type1,95,n_per_type
+Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,Type2,274,n_per_type
+Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,Type3,187,n_per_type
+Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,Type4,395,n_per_type
+Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,VNatre,21,n_per_type
+Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,Andere,0.001190,in
+Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,Andere,0.118992,of
+Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,Bestuur,0.021989,in
+Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,Bestuur,0.094445,of
+Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,NatPer,0.009271,in
+Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,NatPer,0.035055,of
+Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,PrivRec,0.094501,in
+Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,PrivRec,0.252247,of
+Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,VOANB,0.078806,in
+Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,VOANB,0.113250,of
+Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,VOander,0.007918,in
+Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,VOander,0.288418,of
+verspreidbladige waterpest,Lagarosiphon major (Ridley) Moss,Lm,NBHP,0.224846,in
+verspreidbladige waterpest,Lagarosiphon major (Ridley) Moss,Lm,NBHP,0.000117,of
+verspreidbladige waterpest,Lagarosiphon major (Ridley) Moss,Lm,NBHP,2.557254,sel
+verspreidbladige waterpest,Lagarosiphon major (Ridley) Moss,Lm,NBHP,8,n_nbhp
+verspreidbladige waterpest,Lagarosiphon major (Ridley) Moss,Lm,Type2,1,n_per_type
 verspreidbladige waterpest,Lagarosiphon major (Ridley) Moss,Lm,Type3,2,n_per_type
-verspreidbladige waterpest,Lagarosiphon major (Ridley) Moss,Lm,Type4,4,n_per_type
-verspreidbladige waterpest,Lagarosiphon major (Ridley) Moss,Lm,VNatre,1,n_per_type
+verspreidbladige waterpest,Lagarosiphon major (Ridley) Moss,Lm,Type4,5,n_per_type
 verspreidbladige waterpest,Lagarosiphon major (Ridley) Moss,Lm,Bestuur,0.039232,in
+verspreidbladige waterpest,Lagarosiphon major (Ridley) Moss,Lm,Bestuur,0.000141,of
 verspreidbladige waterpest,Lagarosiphon major (Ridley) Moss,Lm,PrivRec,0.047218,in
-verspreidbladige waterpest,Lagarosiphon major (Ridley) Moss,Lm,VOANB,0.130277,in
+verspreidbladige waterpest,Lagarosiphon major (Ridley) Moss,Lm,PrivRec,0.000106,of
+verspreidbladige waterpest,Lagarosiphon major (Ridley) Moss,Lm,VOANB,0.138396,in
+verspreidbladige waterpest,Lagarosiphon major (Ridley) Moss,Lm,VOANB,0.000166,of
 verspreidbladige waterpest,Lagarosiphon major (Ridley) Moss,Lm,Andere,0,in
+verspreidbladige waterpest,Lagarosiphon major (Ridley) Moss,Lm,Andere,0,of
 verspreidbladige waterpest,Lagarosiphon major (Ridley) Moss,Lm,NatPer,0,in
+verspreidbladige waterpest,Lagarosiphon major (Ridley) Moss,Lm,NatPer,0,of
 verspreidbladige waterpest,Lagarosiphon major (Ridley) Moss,Lm,VOander,0,in
-zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,NBHP,0.372302,in
-zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,NBHP,0.003429,of
-zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,NBHP,4.454663,sel
-zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,NBHP,124,n_nbhp
-zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,BosbeU,13,n_per_type
+verspreidbladige waterpest,Lagarosiphon major (Ridley) Moss,Lm,VOander,0,of
+zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,NBHP,0.368710,in
+zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,NBHP,0.003228,of
+zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,NBHP,4.193468,sel
+zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,NBHP,128,n_nbhp
+zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,BosbeU,3,n_per_type
+zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,DomNa,3,n_per_type
 zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,HarmPG,2,n_per_type
-zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,MilDom,3,n_per_type
-zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,Natres,1,n_per_type
 zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,Type1,4,n_per_type
-zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,Type2,24,n_per_type
-zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,Type3,19,n_per_type
-zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,Type4,54,n_per_type
+zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,Type2,35,n_per_type
+zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,Type3,18,n_per_type
+zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,Type4,59,n_per_type
 zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,VNatre,4,n_per_type
 zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,Andere,0.000196,in
-zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,Bestuur,0.064218,in
-zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,NatPer,0.017936,in
-zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,PrivRec,0.172704,in
-zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,VOANB,0.105653,in
+zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,Andere,0.000275,of
+zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,Bestuur,0.052582,in
+zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,Bestuur,0.003174,of
+zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,NatPer,0.020974,in
+zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,NatPer,0.001115,of
+zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,PrivRec,0.175932,in
+zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,PrivRec,0.006601,of
+zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,VOANB,0.10743,in
+zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,VOANB,0.00217,of
 zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,VOander,0.011595,in
-rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,NBHP,0.575282,in
-rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,NBHP,0.002076,of
-rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,NBHP,6.883365,sel
-rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,NBHP,30,n_nbhp
+zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,VOander,0.005936,of
+rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,NBHP,0.578631,in
+rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,NBHP,0.001985,of
+rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,NBHP,6.580975,sel
+rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,NBHP,31,n_nbhp
+rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,DomNa,1,n_per_type
 rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,HarmPG,1,n_per_type
-rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,MilDom,1,n_per_type
 rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,Type2,6,n_per_type
 rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,Type3,5,n_per_type
-rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,Type4,16,n_per_type
+rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,Type4,17,n_per_type
 rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,VNatre,1,n_per_type
 rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,Andere,0.002358,in
+rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,Andere,0.001299,of
 rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,Bestuur,0.050278,in
-rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,PrivRec,0.297346,in
-rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,VOANB,0.2229,in
+rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,Bestuur,0.001189,of
+rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,PrivRec,0.300696,in
+rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,PrivRec,0.004420,of
+rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,VOANB,0.222900,in
+rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,VOANB,0.001764,of
 rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,VOander,0.002399,in
+rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,VOander,0.000481,of
 rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,NatPer,0,in
-sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,NBHP,0.182409,in
-sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,NBHP,0.008830,of
-sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,NBHP,2.182562,sel
-sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,NBHP,401,n_nbhp
-sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,BosbeU,76,n_per_type
-sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,BosreA,4,n_per_type
+rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,NatPer,0,of
+sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,NBHP,0.183575,in
+sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,NBHP,0.008447,of
+sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,NBHP,2.087862,sel
+sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,NBHP,421,n_nbhp
+sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,BosbeU,26,n_per_type
+sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,BosreA,2,n_per_type
+sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,DomNa,4,n_per_type
 sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,HarmPG,4,n_per_type
-sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,MilDom,5,n_per_type
-sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,Natres,3,n_per_type
-sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,Type1,28,n_per_type
-sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,Type2,74,n_per_type
-sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,Type3,51,n_per_type
-sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,Type4,145,n_per_type
-sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,VNatre,11,n_per_type
-sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,Andere,0.00084,in
-sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,Bestuur,0.053487,in
-sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,NatPer,0.01728,in
-sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,PrivRec,0.044939,in
-sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,VOANB,0.060765,in
-sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,VOander,0.005099,in
-parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,NBHP,0.242961,in
-parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,NBHP,0.002888,of
-parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,NBHP,2.907081,sel
-parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,NBHP,124,n_nbhp
-parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,BosbeU,17,n_per_type
-parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,MilDom,2,n_per_type
-parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,Natres,1,n_per_type
+sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,Natres,2,n_per_type
+sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,Type1,27,n_per_type
+sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,Type2,132,n_per_type
+sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,Type3,54,n_per_type
+sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,Type4,162,n_per_type
+sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,VNatre,8,n_per_type
+sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,Andere,0.003149,in
+sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,Andere,0.023264,of
+sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,Bestuur,0.044297,in
+sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,Bestuur,0.014054,of
+sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,NatPer,0.016401,in
+sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,NatPer,0.004581,of
+sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,PrivRec,0.049210,in
+sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,PrivRec,0.009703,of
+sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,VOANB,0.064171,in
+sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,VOANB,0.006812,of
+sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,VOander,0.006347,in
+sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,VOander,0.017075,of
+parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,NBHP,0.253678,in
+parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,NBHP,0.002867,of
+parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,NBHP,2.885164,sel
+parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,NBHP,133,n_nbhp
+parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,BosbeU,7,n_per_type
+parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,DomNa,2,n_per_type
 parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,Type1,8,n_per_type
-parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,Type2,14,n_per_type
-parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,Type3,12,n_per_type
-parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,Type4,69,n_per_type
+parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,Type2,27,n_per_type
+parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,Type3,13,n_per_type
+parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,Type4,75,n_per_type
 parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,VNatre,1,n_per_type
 parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,Andere,0.000241,in
-parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,Bestuur,0.037571,in
-parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,NatPer,0.010209,in
-parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,PrivRec,0.122349,in
-parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,VOANB,0.055698,in
+parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,Andere,0.000437,of
+parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,Bestuur,0.032007,in
+parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,Bestuur,0.002494,of
+parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,NatPer,0.011715,in
+parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,NatPer,0.000803,of
+parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,PrivRec,0.129333,in
+parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,PrivRec,0.006262,of
+parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,VOANB,0.063490,in
+parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,VOANB,0.001655,of
 parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,VOander,0.016893,in
-late guldenroede,Solidago gigantea Aiton,Sg,NBHP,0.209935,in
-late guldenroede,Solidago gigantea Aiton,Sg,NBHP,0.019208,of
-late guldenroede,Solidago gigantea Aiton,Sg,NBHP,2.511917,sel
-late guldenroede,Solidago gigantea Aiton,Sg,NBHP,594,n_nbhp
-late guldenroede,Solidago gigantea Aiton,Sg,BosbeU,100,n_per_type
-late guldenroede,Solidago gigantea Aiton,Sg,BosreA,1,n_per_type
+parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,VOander,0.011161,of
+late guldenroede,Solidago gigantea Aiton,Sg,NBHP,0.221392,in
+late guldenroede,Solidago gigantea Aiton,Sg,NBHP,0.019254,of
+late guldenroede,Solidago gigantea Aiton,Sg,NBHP,2.517965,sel
+late guldenroede,Solidago gigantea Aiton,Sg,NBHP,620,n_nbhp
+late guldenroede,Solidago gigantea Aiton,Sg,BosbeU,41,n_per_type
+late guldenroede,Solidago gigantea Aiton,Sg,DomNa,5,n_per_type
 late guldenroede,Solidago gigantea Aiton,Sg,HarmPG,3,n_per_type
-late guldenroede,Solidago gigantea Aiton,Sg,MilDom,6,n_per_type
-late guldenroede,Solidago gigantea Aiton,Sg,Natres,5,n_per_type
-late guldenroede,Solidago gigantea Aiton,Sg,Type1,36,n_per_type
-late guldenroede,Solidago gigantea Aiton,Sg,Type2,89,n_per_type
-late guldenroede,Solidago gigantea Aiton,Sg,Type3,96,n_per_type
-late guldenroede,Solidago gigantea Aiton,Sg,Type4,245,n_per_type
-late guldenroede,Solidago gigantea Aiton,Sg,VNatre,13,n_per_type
-late guldenroede,Solidago gigantea Aiton,Sg,Andere,0.000022,in
-late guldenroede,Solidago gigantea Aiton,Sg,Bestuur,0.028101,in
-late guldenroede,Solidago gigantea Aiton,Sg,NatPer,0.014565,in
-late guldenroede,Solidago gigantea Aiton,Sg,PrivRec,0.100409,in
-late guldenroede,Solidago gigantea Aiton,Sg,VOANB,0.061664,in
+late guldenroede,Solidago gigantea Aiton,Sg,Natres,2,n_per_type
+late guldenroede,Solidago gigantea Aiton,Sg,Type1,37,n_per_type
+late guldenroede,Solidago gigantea Aiton,Sg,Type2,148,n_per_type
+late guldenroede,Solidago gigantea Aiton,Sg,Type3,103,n_per_type
+late guldenroede,Solidago gigantea Aiton,Sg,Type4,274,n_per_type
+late guldenroede,Solidago gigantea Aiton,Sg,VNatre,7,n_per_type
+late guldenroede,Solidago gigantea Aiton,Sg,Andere,0.000161,in
+late guldenroede,Solidago gigantea Aiton,Sg,Andere,0.002246,of
+late guldenroede,Solidago gigantea Aiton,Sg,Bestuur,0.026668,in
+late guldenroede,Solidago gigantea Aiton,Sg,Bestuur,0.015991,of
+late guldenroede,Solidago gigantea Aiton,Sg,NatPer,0.014524,in
+late guldenroede,Solidago gigantea Aiton,Sg,NatPer,0.007666,of
+late guldenroede,Solidago gigantea Aiton,Sg,PrivRec,0.107405,in
+late guldenroede,Solidago gigantea Aiton,Sg,PrivRec,0.040024,of
+late guldenroede,Solidago gigantea Aiton,Sg,VOANB,0.067461,in
+late guldenroede,Solidago gigantea Aiton,Sg,VOANB,0.013534,of
 late guldenroede,Solidago gigantea Aiton,Sg,VOander,0.005174,in
-smalle waterpest,Elodea nuttallii (Planch.) St. John,En,NBHP,0.373082,in
-smalle waterpest,Elodea nuttallii (Planch.) St. John,En,NBHP,0.005222,of
-smalle waterpest,Elodea nuttallii (Planch.) St. John,En,NBHP,4.464006,sel
-smalle waterpest,Elodea nuttallii (Planch.) St. John,En,NBHP,151,n_nbhp
-smalle waterpest,Elodea nuttallii (Planch.) St. John,En,BosbeU,22,n_per_type
-smalle waterpest,Elodea nuttallii (Planch.) St. John,En,MilDom,3,n_per_type
+late guldenroede,Solidago gigantea Aiton,Sg,VOander,0.026309,of
+smalle waterpest,Elodea nuttallii (Planch.) St. John,En,NBHP,0.376104,in
+smalle waterpest,Elodea nuttallii (Planch.) St. John,En,NBHP,0.005004,of
+smalle waterpest,Elodea nuttallii (Planch.) St. John,En,NBHP,4.277567,sel
+smalle waterpest,Elodea nuttallii (Planch.) St. John,En,NBHP,152,n_nbhp
+smalle waterpest,Elodea nuttallii (Planch.) St. John,En,BosbeU,9,n_per_type
+smalle waterpest,Elodea nuttallii (Planch.) St. John,En,DomNa,3,n_per_type
 smalle waterpest,Elodea nuttallii (Planch.) St. John,En,Natres,1,n_per_type
-smalle waterpest,Elodea nuttallii (Planch.) St. John,En,Type1,6,n_per_type
-smalle waterpest,Elodea nuttallii (Planch.) St. John,En,Type2,21,n_per_type
+smalle waterpest,Elodea nuttallii (Planch.) St. John,En,Type1,5,n_per_type
+smalle waterpest,Elodea nuttallii (Planch.) St. John,En,Type2,32,n_per_type
 smalle waterpest,Elodea nuttallii (Planch.) St. John,En,Type3,22,n_per_type
-smalle waterpest,Elodea nuttallii (Planch.) St. John,En,Type4,70,n_per_type
-smalle waterpest,Elodea nuttallii (Planch.) St. John,En,VNatre,6,n_per_type
+smalle waterpest,Elodea nuttallii (Planch.) St. John,En,Type4,75,n_per_type
+smalle waterpest,Elodea nuttallii (Planch.) St. John,En,VNatre,5,n_per_type
 smalle waterpest,Elodea nuttallii (Planch.) St. John,En,Andere,0.000519,in
-smalle waterpest,Elodea nuttallii (Planch.) St. John,En,Bestuur,0.027949,in
-smalle waterpest,Elodea nuttallii (Planch.) St. John,En,NatPer,0.027681,in
-smalle waterpest,Elodea nuttallii (Planch.) St. John,En,PrivRec,0.197892,in
-smalle waterpest,Elodea nuttallii (Planch.) St. John,En,VOANB,0.094219,in
-smalle waterpest,Elodea nuttallii (Planch.) St. John,En,VOander,0.024823,in
-mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,NBHP,0.148500,in
-mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,NBHP,0.009393,of
-mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,NBHP,1.776830,sel
-mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,NBHP,334,n_nbhp
-mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,BosbeU,68,n_per_type
+smalle waterpest,Elodea nuttallii (Planch.) St. John,En,Andere,0.001109,of
+smalle waterpest,Elodea nuttallii (Planch.) St. John,En,Bestuur,0.025338,in
+smalle waterpest,Elodea nuttallii (Planch.) St. John,En,Bestuur,0.002325,of
+smalle waterpest,Elodea nuttallii (Planch.) St. John,En,NatPer,0.025272,in
+smalle waterpest,Elodea nuttallii (Planch.) St. John,En,NatPer,0.002041,of
+smalle waterpest,Elodea nuttallii (Planch.) St. John,En,PrivRec,0.202411,in
+smalle waterpest,Elodea nuttallii (Planch.) St. John,En,PrivRec,0.011540,of
+smalle waterpest,Elodea nuttallii (Planch.) St. John,En,VOANB,0.095949,in
+smalle waterpest,Elodea nuttallii (Planch.) St. John,En,VOANB,0.002945,of
+smalle waterpest,Elodea nuttallii (Planch.) St. John,En,VOander,0.026615,in
+smalle waterpest,Elodea nuttallii (Planch.) St. John,En,VOander,0.020705,of
+mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,NBHP,0.155344,in
+mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,NBHP,0.009340,of
+mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,NBHP,1.766787,sel
+mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,NBHP,349,n_nbhp
+mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,BosbeU,22,n_per_type
+mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,DomNa,2,n_per_type
 mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,HarmPG,1,n_per_type
-mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,MilDom,3,n_per_type
-mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,Natres,3,n_per_type
+mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,Natres,2,n_per_type
 mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,Type1,28,n_per_type
-mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,Type2,66,n_per_type
-mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,Type3,42,n_per_type
-mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,Type4,116,n_per_type
-mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,VNatre,7,n_per_type
-mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,Andere,0.001387,in
-mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,Bestuur,0.044123,in
-mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,NatPer,0.009686,in
-mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,PrivRec,0.030839,in
-mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,VOANB,0.059009,in
-mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,VOander,0.003455,in
-grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,NBHP,0.175320,in
-grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,NBHP,0.003786,of
-grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,NBHP,2.097740,sel
-grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,NBHP,117,n_nbhp
-grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,BosbeU,23,n_per_type
-grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,MilDom,3,n_per_type
-grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,Natres,1,n_per_type
+mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,Type2,117,n_per_type
+mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,Type3,43,n_per_type
+mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,Type4,130,n_per_type
+mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,VNatre,4,n_per_type
+mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,Andere,0.002675,in
+mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,Andere,0.025821,of
+mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,Bestuur,0.038264,in
+mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,Bestuur,0.015861,of
+mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,NatPer,0.010130,in
+mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,NatPer,0.003696,of
+mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,PrivRec,0.032148,in
+mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,PrivRec,0.008282,of
+mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,VOANB,0.067957,in
+mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,VOANB,0.009425,of
+mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,VOander,0.004171,in
+mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,VOander,0.014661,of
+grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,NBHP,0.176925,in
+grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,NBHP,0.003631,of
+grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,NBHP,2.012231,sel
+grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,NBHP,121,n_nbhp
+grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,BosbeU,11,n_per_type
+grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,DomNa,3,n_per_type
 grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,Type1,4,n_per_type
-grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,Type2,16,n_per_type
-grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,Type3,15,n_per_type
-grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,Type4,51,n_per_type
-grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,VNatre,4,n_per_type
+grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,Type2,26,n_per_type
+grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,Type3,16,n_per_type
+grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,Type4,58,n_per_type
+grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,VNatre,3,n_per_type
 grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,Andere,0.000096,in
-grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,Bestuur,0.023281,in
-grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,NatPer,0.011386,in
-grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,PrivRec,0.072379,in
-grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,VOANB,0.030479,in
+grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,Andere,0.000315,of
+grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,Bestuur,0.019801,in
+grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,Bestuur,0.002802,of
+grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,NatPer,0.012099,in
+grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,NatPer,0.001507,of
+grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,PrivRec,0.075084,in
+grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,PrivRec,0.006604,of
+grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,VOANB,0.032146,in
+grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,VOANB,0.001522,of
 grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,VOander,0.037699,in
-Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,NBHP,0.271667,in
-Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,NBHP,0.001429,of
-Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,NBHP,3.250554,sel
-Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,NBHP,46,n_nbhp
-Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,BosbeU,10,n_per_type
-Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,MilDom,3,n_per_type
+grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,VOander,0.045243,of
+Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,NBHP,0.272000,in
+Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,NBHP,0.001360,of
+Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,NBHP,3.093556,sel
+Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,NBHP,47,n_nbhp
+Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,BosbeU,4,n_per_type
+Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,DomNa,3,n_per_type
 Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,Type1,8,n_per_type
-Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,Type2,9,n_per_type
+Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,Type2,16,n_per_type
 Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,Type3,3,n_per_type
 Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,Type4,11,n_per_type
 Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,VNatre,2,n_per_type
-Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,Bestuur,0.03598,in
-Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,NatPer,0.067452,in
+Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,Bestuur,0.035168,in
+Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,Bestuur,0.001213,of
+Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,NatPer,0.063072,in
+Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,NatPer,0.001915,of
 Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,PrivRec,0.026708,in
-Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,VOANB,0.136182,in
+Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,PrivRec,0.000572,of
+Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,VOANB,0.141707,in
+Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,VOANB,0.001635,of
 Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,VOander,0.005346,in
+Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,VOander,0.001563,of
 Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,Andere,0,in
-Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,NBHP,0.110105,in
-Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,NBHP,0.000300,of
-Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,NBHP,1.317428,sel
-Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,NBHP,21,n_nbhp
-Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,BosbeU,8,n_per_type
-Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,MilDom,1,n_per_type
+Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,Andere,0,of
+Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,NBHP,0.106746,in
+Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,NBHP,0.000276,of
+Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,NBHP,1.214057,sel
+Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,NBHP,20,n_nbhp
+Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,BosbeU,6,n_per_type
+Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,DomNa,1,n_per_type
 Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,Type1,1,n_per_type
-Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,Type2,4,n_per_type
-Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,Type3,2,n_per_type
+Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,Type2,6,n_per_type
+Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,Type3,1,n_per_type
 Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,Type4,5,n_per_type
-Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,Bestuur,0.051928,in
+Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,Bestuur,0.051933,in
+Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,Bestuur,0.000926,of
 Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,NatPer,0.032417,in
-Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,PrivRec,0.015004,in
+Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,NatPer,0.000509,of
+Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,PrivRec,0.011639,in
+Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,PrivRec,0.000129,of
 Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,VOANB,0.001272,in
+Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,VOANB,0.000008,of
 Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,VOander,0.009484,in
+Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,VOander,0.001435,of
 Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,Andere,0,in
-hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,NBHP,0.069503,in
-hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,NBHP,0.001647,of
-hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,NBHP,0.831613,sel
-hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,NBHP,91,n_nbhp
-hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,BosbeU,22,n_per_type
+Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,Andere,0,of
+hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,NBHP,0.069163,in
+hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,NBHP,0.001558,of
+hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,NBHP,0.786610,sel
+hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,NBHP,93,n_nbhp
+hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,BosbeU,11,n_per_type
+hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,DomNa,2,n_per_type
 hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,HarmPG,2,n_per_type
-hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,MilDom,3,n_per_type
 hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,Type1,2,n_per_type
-hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,Type2,22,n_per_type
-hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,Type3,12,n_per_type
-hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,Type4,27,n_per_type
-hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,VNatre,1,n_per_type
-hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,Andere,0.000878,in
-hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,Bestuur,0.024293,in
-hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,NatPer,0.009139,in
-hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,PrivRec,0.016876,in
-hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,VOANB,0.01481,in
+hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,Type2,32,n_per_type
+hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,Type3,11,n_per_type
+hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,Type4,33,n_per_type
+hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,Andere,0.001371,in
+hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,Andere,0.004958,of
+hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,Bestuur,0.019808,in
+hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,Bestuur,0.003077,of
+hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,NatPer,0.008826,in
+hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,NatPer,0.001207,of
+hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,PrivRec,0.017303,in
+hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,PrivRec,0.001670,of
+hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,VOANB,0.018350,in
+hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,VOANB,0.000954,of
 hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,VOander,0.003506,in
-Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,NBHP,0.487920,in
-Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,NBHP,0.000667,of
-Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,NBHP,5.838064,sel
-Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,NBHP,31,n_nbhp
-Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,BosbeU,4,n_per_type
-Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,MilDom,2,n_per_type
-Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,Type1,1,n_per_type
-Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,Type2,3,n_per_type
+hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,VOander,0.004618,of
+Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,NBHP,0.430167,in
+Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,NBHP,0.000559,of
+Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,NBHP,4.892435,sel
+Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,NBHP,29,n_nbhp
+Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,DomNa,1,n_per_type
+Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,Type2,6,n_per_type
 Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,Type3,3,n_per_type
-Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,Type4,15,n_per_type
-Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,VNatre,3,n_per_type
+Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,Type4,17,n_per_type
+Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,VNatre,2,n_per_type
 Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,Andere,0.001318,in
-Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,Bestuur,0.064925,in
-Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,NatPer,0.011526,in
-Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,PrivRec,0.260458,in
-Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,VOANB,0.1419,in
+Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,Andere,0.000275,of
+Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,Bestuur,0.000358,in
+Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,Bestuur,0.000003,of
+Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,NatPer,0.009610,in
+Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,NatPer,0.000076,of
+Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,PrivRec,0.265968,in
+Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,PrivRec,0.001482,of
+Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,VOANB,0.145119,in
+Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,VOANB,0.000435,of
 Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,VOander,0.007793,in
-Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,NBHP,0.171732,in
-Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,NBHP,0.003195,of
-Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,NBHP,2.054813,sel
-Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,NBHP,130,n_nbhp
-Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,BosbeU,24,n_per_type
+Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,VOander,0.000592,of
+Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,NBHP,0.184558,in
+Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,NBHP,0.003264,of
+Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,NBHP,2.099047,sel
+Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,NBHP,134,n_nbhp
+Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,BosbeU,7,n_per_type
+Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,DomNa,3,n_per_type
 Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,HarmPG,1,n_per_type
-Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,MilDom,3,n_per_type
 Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,Type1,10,n_per_type
-Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,Type2,14,n_per_type
-Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,Type3,15,n_per_type
-Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,Type4,55,n_per_type
-Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,VNatre,8,n_per_type
-Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,Andere,0.000616,in
-Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,Bestuur,0.018806,in
-Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,NatPer,0.017984,in
-Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,PrivRec,0.069069,in
-Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,VOANB,0.050387,in
+Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,Type2,24,n_per_type
+Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,Type3,18,n_per_type
+Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,Type4,65,n_per_type
+Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,VNatre,6,n_per_type
+Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,Andere,0.000848,in
+Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,Andere,0.002409,of
+Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,Bestuur,0.017241,in
+Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,Bestuur,0.002103,of
+Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,NatPer,0.015686,in
+Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,NatPer,0.001684,of
+Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,PrivRec,0.085236,in
+Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,PrivRec,0.006460,of
+Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,VOANB,0.050676,in
+Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,VOANB,0.002068,of
 Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,VOander,0.013389,in
-invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,NBHP,0.133661,in
-invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,NBHP,0.029970,of
-invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,NBHP,1.599286,sel
-invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,NBHP,837,n_nbhp
-invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,BosbeU,153,n_per_type
-invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,BosreA,2,n_per_type
+Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,VOander,0.013846,of
+invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,NBHP,0.140149,in
+invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,NBHP,0.029870,of
+invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,NBHP,1.593969,sel
+invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,NBHP,870,n_nbhp
+invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,BosbeU,65,n_per_type
+invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,DomNa,5,n_per_type
 invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,HarmPG,4,n_per_type
-invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,MilDom,6,n_per_type
-invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,Natres,10,n_per_type
-invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,Type1,96,n_per_type
-invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,Type2,138,n_per_type
-invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,Type3,110,n_per_type
-invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,Type4,295,n_per_type
-invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,VNatre,23,n_per_type
-invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,Andere,0.000657,in
-invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,Bestuur,0.026338,in
-invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,NatPer,0.013168,in
-invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,PrivRec,0.046318,in
-invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,VOANB,0.036006,in
-invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,VOander,0.011051,in
-Siberische grondeekhoorn,"Tamias sibiricus Laxmann, 1769",Tsi,NBHP,0.831709,in
-Siberische grondeekhoorn,"Tamias sibiricus Laxmann, 1769",Tsi,NBHP,0.001859,of
-Siberische grondeekhoorn,"Tamias sibiricus Laxmann, 1769",Tsi,NBHP,9.951565,sel
-Siberische grondeekhoorn,"Tamias sibiricus Laxmann, 1769",Tsi,NBHP,11,n_nbhp
-Siberische grondeekhoorn,"Tamias sibiricus Laxmann, 1769",Tsi,BosbeU,3,n_per_type
-Siberische grondeekhoorn,"Tamias sibiricus Laxmann, 1769",Tsi,Type2,1,n_per_type
-Siberische grondeekhoorn,"Tamias sibiricus Laxmann, 1769",Tsi,Type3,2,n_per_type
+invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,Natres,3,n_per_type
+invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,Type1,93,n_per_type
+invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,Type2,233,n_per_type
+invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,Type3,120,n_per_type
+invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,Type4,330,n_per_type
+invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,VNatre,17,n_per_type
+invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,Andere,0.001371,in
+invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,Andere,0.046926,of
+invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,Bestuur,0.024849,in
+invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,Bestuur,0.036515,of
+invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,NatPer,0.012816,in
+invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,NatPer,0.016579,of
+invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,PrivRec,0.049935,in
+invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,PrivRec,0.045602,of
+invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,VOANB,0.039964,in
+invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,VOANB,0.019649,of
+invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,VOander,0.01109,in
+invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,VOander,0.13820,of
+Siberische grondeekhoorn,"Tamias sibiricus Laxmann, 1769",Tsi,NBHP,0.762905,in
+Siberische grondeekhoorn,"Tamias sibiricus Laxmann, 1769",Tsi,NBHP,0.001621,of
+Siberische grondeekhoorn,"Tamias sibiricus Laxmann, 1769",Tsi,NBHP,8.676784,sel
+Siberische grondeekhoorn,"Tamias sibiricus Laxmann, 1769",Tsi,NBHP,10,n_nbhp
+Siberische grondeekhoorn,"Tamias sibiricus Laxmann, 1769",Tsi,BosbeU,2,n_per_type
+Siberische grondeekhoorn,"Tamias sibiricus Laxmann, 1769",Tsi,Type2,2,n_per_type
+Siberische grondeekhoorn,"Tamias sibiricus Laxmann, 1769",Tsi,Type3,1,n_per_type
 Siberische grondeekhoorn,"Tamias sibiricus Laxmann, 1769",Tsi,Type4,5,n_per_type
 Siberische grondeekhoorn,"Tamias sibiricus Laxmann, 1769",Tsi,Andere,0.011186,in
-Siberische grondeekhoorn,"Tamias sibiricus Laxmann, 1769",Tsi,Bestuur,0.072505,in
+Siberische grondeekhoorn,"Tamias sibiricus Laxmann, 1769",Tsi,Andere,0.003815,of
+Siberische grondeekhoorn,"Tamias sibiricus Laxmann, 1769",Tsi,Bestuur,0.003701,in
+Siberische grondeekhoorn,"Tamias sibiricus Laxmann, 1769",Tsi,Bestuur,0.000054,of
 Siberische grondeekhoorn,"Tamias sibiricus Laxmann, 1769",Tsi,PrivRec,0.005369,in
+Siberische grondeekhoorn,"Tamias sibiricus Laxmann, 1769",Tsi,PrivRec,0.000049,of
 Siberische grondeekhoorn,"Tamias sibiricus Laxmann, 1769",Tsi,VOANB,0.742648,in
+Siberische grondeekhoorn,"Tamias sibiricus Laxmann, 1769",Tsi,VOANB,0.003639,of
 Siberische grondeekhoorn,"Tamias sibiricus Laxmann, 1769",Tsi,NatPer,0,in
+Siberische grondeekhoorn,"Tamias sibiricus Laxmann, 1769",Tsi,NatPer,0,of
 Siberische grondeekhoorn,"Tamias sibiricus Laxmann, 1769",Tsi,VOander,0,in
-boksdoorn,Lycium barbarum L.,Lb,NBHP,0.310263,in
-boksdoorn,Lycium barbarum L.,Lb,NBHP,0.002767,of
-boksdoorn,Lycium barbarum L.,Lb,NBHP,3.712359,sel
-boksdoorn,Lycium barbarum L.,Lb,NBHP,36,n_nbhp
-boksdoorn,Lycium barbarum L.,Lb,BosbeU,4,n_per_type
-boksdoorn,Lycium barbarum L.,Lb,MilDom,1,n_per_type
+Siberische grondeekhoorn,"Tamias sibiricus Laxmann, 1769",Tsi,VOander,0,of
+boksdoorn,Lycium barbarum L.,Lb,NBHP,0.320581,in
+boksdoorn,Lycium barbarum L.,Lb,NBHP,0.002717,of
+boksdoorn,Lycium barbarum L.,Lb,NBHP,3.646086,sel
+boksdoorn,Lycium barbarum L.,Lb,NBHP,39,n_nbhp
+boksdoorn,Lycium barbarum L.,Lb,BosbeU,2,n_per_type
+boksdoorn,Lycium barbarum L.,Lb,DomNa,1,n_per_type
 boksdoorn,Lycium barbarum L.,Lb,Type1,1,n_per_type
-boksdoorn,Lycium barbarum L.,Lb,Type2,6,n_per_type
-boksdoorn,Lycium barbarum L.,Lb,Type3,11,n_per_type
-boksdoorn,Lycium barbarum L.,Lb,Type4,12,n_per_type
-boksdoorn,Lycium barbarum L.,Lb,VNatre,1,n_per_type
-boksdoorn,Lycium barbarum L.,Lb,Bestuur,0.046612,in
+boksdoorn,Lycium barbarum L.,Lb,Type2,8,n_per_type
+boksdoorn,Lycium barbarum L.,Lb,Type3,12,n_per_type
+boksdoorn,Lycium barbarum L.,Lb,Type4,15,n_per_type
+boksdoorn,Lycium barbarum L.,Lb,Bestuur,0.050206,in
+boksdoorn,Lycium barbarum L.,Lb,Bestuur,0.002934,of
 boksdoorn,Lycium barbarum L.,Lb,NatPer,0.000425,in
-boksdoorn,Lycium barbarum L.,Lb,PrivRec,0.098585,in
-boksdoorn,Lycium barbarum L.,Lb,VOANB,0.119341,in
-boksdoorn,Lycium barbarum L.,Lb,VOander,0.045301,in
+boksdoorn,Lycium barbarum L.,Lb,NatPer,0.000022,of
+boksdoorn,Lycium barbarum L.,Lb,PrivRec,0.098803,in
+boksdoorn,Lycium barbarum L.,Lb,PrivRec,0.003588,of
+boksdoorn,Lycium barbarum L.,Lb,VOANB,0.123070,in
+boksdoorn,Lycium barbarum L.,Lb,VOANB,0.002406,of
+boksdoorn,Lycium barbarum L.,Lb,VOander,0.048078,in
+boksdoorn,Lycium barbarum L.,Lb,VOander,0.023827,of
 boksdoorn,Lycium barbarum L.,Lb,Andere,0,in
-muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,NBHP,0.123879,in
-muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,NBHP,0.016240,of
-muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,NBHP,1.482232,sel
-muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,NBHP,188,n_nbhp
-muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,BosbeU,26,n_per_type
-muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,MilDom,2,n_per_type
-muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,Natres,3,n_per_type
-muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,Type1,3,n_per_type
-muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,Type2,25,n_per_type
-muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,Type3,37,n_per_type
-muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,Type4,83,n_per_type
-muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,VNatre,9,n_per_type
-muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,Bestuur,0.005885,in
-muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,NatPer,0.00276,in
-muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,PrivRec,0.055093,in
-muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,VOANB,0.045057,in
+boksdoorn,Lycium barbarum L.,Lb,Andere,0,of
+muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,NBHP,0.132450,in
+muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,NBHP,0.016505,of
+muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,NBHP,1.506398,sel
+muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,NBHP,201,n_nbhp
+muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,BosbeU,15,n_per_type
+muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,DomNa,2,n_per_type
+muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,Natres,1,n_per_type
+muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,Type1,4,n_per_type
+muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,Type2,36,n_per_type
+muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,Type3,39,n_per_type
+muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,Type4,97,n_per_type
+muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,VNatre,7,n_per_type
+muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,Bestuur,0.007351,in
+muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,Bestuur,0.006316,of
+muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,NatPer,0.003326,in
+muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,NatPer,0.002516,of
+muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,PrivRec,0.061088,in
+muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,PrivRec,0.032617,of
+muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,VOANB,0.045600,in
+muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,VOANB,0.013108,of
 muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,VOander,0.015084,in
+muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,VOander,0.109900,of
 muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,Andere,0,in
-lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,NBHP,0.329144,in
-lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,NBHP,0.009376,of
-lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,NBHP,3.938276,sel
-lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,NBHP,286,n_nbhp
-lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,BosbeU,46,n_per_type
+muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,Andere,0,of
+lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,NBHP,0.347494,in
+lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,NBHP,0.009409,of
+lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,NBHP,3.952166,sel
+lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,NBHP,298,n_nbhp
+lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,BosbeU,21,n_per_type
+lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,DomNa,4,n_per_type
 lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,HarmPG,2,n_per_type
-lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,MilDom,5,n_per_type
 lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,Natres,1,n_per_type
 lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,Type1,5,n_per_type
-lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,Type2,54,n_per_type
-lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,Type3,54,n_per_type
-lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,Type4,111,n_per_type
-lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,VNatre,8,n_per_type
-lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,Andere,0.002077,in
-lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,Bestuur,0.084858,in
-lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,NatPer,0.00783,in
-lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,PrivRec,0.133689,in
-lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,VOANB,0.079742,in
-lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,VOander,0.020949,in
-smalle olijfwilg,Elaeagnus angustifolia L.,Ea,NBHP,0.175593,in
-smalle olijfwilg,Elaeagnus angustifolia L.,Ea,NBHP,0.001224,of
-smalle olijfwilg,Elaeagnus angustifolia L.,Ea,NBHP,2.101007,sel
-smalle olijfwilg,Elaeagnus angustifolia L.,Ea,NBHP,41,n_nbhp
-smalle olijfwilg,Elaeagnus angustifolia L.,Ea,BosbeU,2,n_per_type
-smalle olijfwilg,Elaeagnus angustifolia L.,Ea,MilDom,1,n_per_type
+lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,Type2,80,n_per_type
+lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,Type3,60,n_per_type
+lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,Type4,119,n_per_type
+lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,VNatre,6,n_per_type
+lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,Andere,0.006435,in
+lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,Andere,0.027974,of
+lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,Bestuur,0.087944,in
+lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,Bestuur,0.016418,of
+lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,NatPer,0.008295,in
+lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,NatPer,0.001363,of
+lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,PrivRec,0.139118,in
+lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,PrivRec,0.016140,of
+lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,VOANB,0.083786,in
+lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,VOANB,0.005233,of
+lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,VOander,0.021916,in
+lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,VOander,0.034696,of
+smalle olijfwilg,Elaeagnus angustifolia L.,Ea,NBHP,0.179000,in
+smalle olijfwilg,Elaeagnus angustifolia L.,Ea,NBHP,0.001186,of
+smalle olijfwilg,Elaeagnus angustifolia L.,Ea,NBHP,2.035832,sel
+smalle olijfwilg,Elaeagnus angustifolia L.,Ea,NBHP,42,n_nbhp
+smalle olijfwilg,Elaeagnus angustifolia L.,Ea,BosbeU,1,n_per_type
+smalle olijfwilg,Elaeagnus angustifolia L.,Ea,DomNa,1,n_per_type
 smalle olijfwilg,Elaeagnus angustifolia L.,Ea,Natres,1,n_per_type
 smalle olijfwilg,Elaeagnus angustifolia L.,Ea,Type1,1,n_per_type
-smalle olijfwilg,Elaeagnus angustifolia L.,Ea,Type2,8,n_per_type
+smalle olijfwilg,Elaeagnus angustifolia L.,Ea,Type2,9,n_per_type
 smalle olijfwilg,Elaeagnus angustifolia L.,Ea,Type3,15,n_per_type
-smalle olijfwilg,Elaeagnus angustifolia L.,Ea,Type4,13,n_per_type
+smalle olijfwilg,Elaeagnus angustifolia L.,Ea,Type4,14,n_per_type
 smalle olijfwilg,Elaeagnus angustifolia L.,Ea,Bestuur,0.019073,in
+smalle olijfwilg,Elaeagnus angustifolia L.,Ea,Bestuur,0.000871,of
 smalle olijfwilg,Elaeagnus angustifolia L.,Ea,NatPer,0.000705,in
+smalle olijfwilg,Elaeagnus angustifolia L.,Ea,NatPer,0.000028,of
 smalle olijfwilg,Elaeagnus angustifolia L.,Ea,PrivRec,0.077306,in
-smalle olijfwilg,Elaeagnus angustifolia L.,Ea,VOANB,0.061512,in
-smalle olijfwilg,Elaeagnus angustifolia L.,Ea,VOander,0.016997,in
+smalle olijfwilg,Elaeagnus angustifolia L.,Ea,PrivRec,0.002195,of
+smalle olijfwilg,Elaeagnus angustifolia L.,Ea,VOANB,0.055227,in
+smalle olijfwilg,Elaeagnus angustifolia L.,Ea,VOANB,0.000844,of
+smalle olijfwilg,Elaeagnus angustifolia L.,Ea,VOander,0.026689,in
+smalle olijfwilg,Elaeagnus angustifolia L.,Ea,VOander,0.010339,of
 smalle olijfwilg,Elaeagnus angustifolia L.,Ea,Andere,0,in
-watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,NBHP,0.451293,in
-watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,NBHP,0.010448,of
-watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,NBHP,5.399810,sel
-watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,NBHP,173,n_nbhp
-watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,BosbeU,23,n_per_type
-watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,BosreA,1,n_per_type
+smalle olijfwilg,Elaeagnus angustifolia L.,Ea,Andere,0,of
+watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,NBHP,0.460046,in
+watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,NBHP,0.010123,of
+watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,NBHP,5.232266,sel
+watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,NBHP,178,n_nbhp
+watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,BosbeU,10,n_per_type
+watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,DomNa,3,n_per_type
 watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,HarmPG,1,n_per_type
-watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,MilDom,3,n_per_type
 watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,Type1,3,n_per_type
-watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,Type2,22,n_per_type
-watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,Type3,35,n_per_type
-watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,Type4,79,n_per_type
-watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,VNatre,6,n_per_type
-watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,Bestuur,0.042875,in
-watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,NatPer,0.018586,in
-watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,PrivRec,0.153911,in
-watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,VOANB,0.222327,in
+watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,Type2,35,n_per_type
+watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,Type3,37,n_per_type
+watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,Type4,84,n_per_type
+watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,VNatre,5,n_per_type
+watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,Andere,0.000493,in
+watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,Andere,0.001743,of
+watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,Bestuur,0.047536,in
+watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,Bestuur,0.007212,of
+watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,NatPer,0.018355,in
+watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,NatPer,0.002451,of
+watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,PrivRec,0.156808,in
+watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,PrivRec,0.014785,of
+watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,VOANB,0.223260,in
+watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,VOANB,0.011333,of
 watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,VOander,0.013594,in
-watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,Andere,0,in
-Amerikaanse nerts,"Mustela vison Schreber, 1777",Mvis,NBHP,0.227129,in
-Amerikaanse nerts,"Mustela vison Schreber, 1777",Mvis,NBHP,0.000205,of
-Amerikaanse nerts,"Mustela vison Schreber, 1777",Mvis,NBHP,2.717644,sel
+watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,VOander,0.017490,of
+Amerikaanse nerts,"Mustela vison Schreber, 1777",Mvis,NBHP,0.225159,in
+Amerikaanse nerts,"Mustela vison Schreber, 1777",Mvis,NBHP,0.000193,of
+Amerikaanse nerts,"Mustela vison Schreber, 1777",Mvis,NBHP,2.560816,sel
 Amerikaanse nerts,"Mustela vison Schreber, 1777",Mvis,NBHP,13,n_nbhp
-Amerikaanse nerts,"Mustela vison Schreber, 1777",Mvis,MilDom,1,n_per_type
+Amerikaanse nerts,"Mustela vison Schreber, 1777",Mvis,DomNa,1,n_per_type
 Amerikaanse nerts,"Mustela vison Schreber, 1777",Mvis,Type2,2,n_per_type
 Amerikaanse nerts,"Mustela vison Schreber, 1777",Mvis,Type3,2,n_per_type
 Amerikaanse nerts,"Mustela vison Schreber, 1777",Mvis,Type4,8,n_per_type
 Amerikaanse nerts,"Mustela vison Schreber, 1777",Mvis,Bestuur,0.029475,in
+Amerikaanse nerts,"Mustela vison Schreber, 1777",Mvis,Bestuur,0.000174,of
 Amerikaanse nerts,"Mustela vison Schreber, 1777",Mvis,NatPer,0.001539,in
-Amerikaanse nerts,"Mustela vison Schreber, 1777",Mvis,PrivRec,0.18708,in
+Amerikaanse nerts,"Mustela vison Schreber, 1777",Mvis,NatPer,0.000008,of
+Amerikaanse nerts,"Mustela vison Schreber, 1777",Mvis,PrivRec,0.185110,in
+Amerikaanse nerts,"Mustela vison Schreber, 1777",Mvis,PrivRec,0.000681,of
 Amerikaanse nerts,"Mustela vison Schreber, 1777",Mvis,VOander,0.009036,in
+Amerikaanse nerts,"Mustela vison Schreber, 1777",Mvis,VOander,0.000453,of
 Amerikaanse nerts,"Mustela vison Schreber, 1777",Mvis,Andere,0,in
+Amerikaanse nerts,"Mustela vison Schreber, 1777",Mvis,Andere,0,of
 Amerikaanse nerts,"Mustela vison Schreber, 1777",Mvis,VOANB,0,in
-Canadese guldenroede,Solidago canadensis L.,Sc,NBHP,0.245775,in
-Canadese guldenroede,Solidago canadensis L.,Sc,NBHP,0.004744,of
-Canadese guldenroede,Solidago canadensis L.,Sc,NBHP,2.940743,sel
-Canadese guldenroede,Solidago canadensis L.,Sc,NBHP,203,n_nbhp
-Canadese guldenroede,Solidago canadensis L.,Sc,BosbeU,29,n_per_type
+Amerikaanse nerts,"Mustela vison Schreber, 1777",Mvis,VOANB,0,of
+Canadese guldenroede,Solidago canadensis L.,Sc,NBHP,0.253230,in
+Canadese guldenroede,Solidago canadensis L.,Sc,NBHP,0.004646,of
+Canadese guldenroede,Solidago canadensis L.,Sc,NBHP,2.880071,sel
+Canadese guldenroede,Solidago canadensis L.,Sc,NBHP,210,n_nbhp
+Canadese guldenroede,Solidago canadensis L.,Sc,BosbeU,9,n_per_type
+Canadese guldenroede,Solidago canadensis L.,Sc,DomNa,2,n_per_type
 Canadese guldenroede,Solidago canadensis L.,Sc,HarmPG,2,n_per_type
-Canadese guldenroede,Solidago canadensis L.,Sc,MilDom,3,n_per_type
-Canadese guldenroede,Solidago canadensis L.,Sc,Natres,2,n_per_type
-Canadese guldenroede,Solidago canadensis L.,Sc,Type1,9,n_per_type
-Canadese guldenroede,Solidago canadensis L.,Sc,Type2,31,n_per_type
-Canadese guldenroede,Solidago canadensis L.,Sc,Type3,26,n_per_type
-Canadese guldenroede,Solidago canadensis L.,Sc,Type4,99,n_per_type
-Canadese guldenroede,Solidago canadensis L.,Sc,VNatre,2,n_per_type
+Canadese guldenroede,Solidago canadensis L.,Sc,Natres,1,n_per_type
+Canadese guldenroede,Solidago canadensis L.,Sc,Type1,8,n_per_type
+Canadese guldenroede,Solidago canadensis L.,Sc,Type2,51,n_per_type
+Canadese guldenroede,Solidago canadensis L.,Sc,Type3,28,n_per_type
+Canadese guldenroede,Solidago canadensis L.,Sc,Type4,108,n_per_type
+Canadese guldenroede,Solidago canadensis L.,Sc,VNatre,1,n_per_type
 Canadese guldenroede,Solidago canadensis L.,Sc,Andere,0.000001,in
-Canadese guldenroede,Solidago canadensis L.,Sc,Bestuur,0.029126,in
-Canadese guldenroede,Solidago canadensis L.,Sc,NatPer,0.012683,in
-Canadese guldenroede,Solidago canadensis L.,Sc,PrivRec,0.132975,in
-Canadese guldenroede,Solidago canadensis L.,Sc,VOANB,0.065338,in
+Canadese guldenroede,Solidago canadensis L.,Sc,Andere,0.000002,of
+Canadese guldenroede,Solidago canadensis L.,Sc,Bestuur,0.030116,in
+Canadese guldenroede,Solidago canadensis L.,Sc,Bestuur,0.003810,of
+Canadese guldenroede,Solidago canadensis L.,Sc,NatPer,0.011654,in
+Canadese guldenroede,Solidago canadensis L.,Sc,NatPer,0.001298,of
+Canadese guldenroede,Solidago canadensis L.,Sc,PrivRec,0.136355,in
+Canadese guldenroede,Solidago canadensis L.,Sc,PrivRec,0.010720,of
+Canadese guldenroede,Solidago canadensis L.,Sc,VOANB,0.069452,in
+Canadese guldenroede,Solidago canadensis L.,Sc,VOANB,0.002940,of
 Canadese guldenroede,Solidago canadensis L.,Sc,VOander,0.005652,in
-reuzenbalsemien,Impatiens glandulifera Royle,Ig,NBHP,0.204206,in
-reuzenbalsemien,Impatiens glandulifera Royle,Ig,NBHP,0.036532,of
-reuzenbalsemien,Impatiens glandulifera Royle,Ig,NBHP,2.443369,sel
-reuzenbalsemien,Impatiens glandulifera Royle,Ig,NBHP,688,n_nbhp
-reuzenbalsemien,Impatiens glandulifera Royle,Ig,BosbeU,123,n_per_type
-reuzenbalsemien,Impatiens glandulifera Royle,Ig,BosreA,3,n_per_type
+Canadese guldenroede,Solidago canadensis L.,Sc,VOander,0.006063,of
+reuzenbalsemien,Impatiens glandulifera Royle,Ig,NBHP,0.221340,in
+reuzenbalsemien,Impatiens glandulifera Royle,Ig,NBHP,0.037639,of
+reuzenbalsemien,Impatiens glandulifera Royle,Ig,NBHP,2.517378,sel
+reuzenbalsemien,Impatiens glandulifera Royle,Ig,NBHP,713,n_nbhp
+reuzenbalsemien,Impatiens glandulifera Royle,Ig,BosbeU,45,n_per_type
+reuzenbalsemien,Impatiens glandulifera Royle,Ig,DomNa,5,n_per_type
 reuzenbalsemien,Impatiens glandulifera Royle,Ig,HarmPG,2,n_per_type
-reuzenbalsemien,Impatiens glandulifera Royle,Ig,MilDom,6,n_per_type
-reuzenbalsemien,Impatiens glandulifera Royle,Ig,Natres,4,n_per_type
-reuzenbalsemien,Impatiens glandulifera Royle,Ig,Type1,63,n_per_type
-reuzenbalsemien,Impatiens glandulifera Royle,Ig,Type2,104,n_per_type
-reuzenbalsemien,Impatiens glandulifera Royle,Ig,Type3,107,n_per_type
-reuzenbalsemien,Impatiens glandulifera Royle,Ig,Type4,253,n_per_type
-reuzenbalsemien,Impatiens glandulifera Royle,Ig,VNatre,23,n_per_type
-reuzenbalsemien,Impatiens glandulifera Royle,Ig,Andere,0.001295,in
-reuzenbalsemien,Impatiens glandulifera Royle,Ig,Bestuur,0.021363,in
-reuzenbalsemien,Impatiens glandulifera Royle,Ig,NatPer,0.02002,in
-reuzenbalsemien,Impatiens glandulifera Royle,Ig,PrivRec,0.090834,in
-reuzenbalsemien,Impatiens glandulifera Royle,Ig,VOANB,0.057489,in
+reuzenbalsemien,Impatiens glandulifera Royle,Ig,Type1,62,n_per_type
+reuzenbalsemien,Impatiens glandulifera Royle,Ig,Type2,177,n_per_type
+reuzenbalsemien,Impatiens glandulifera Royle,Ig,Type3,115,n_per_type
+reuzenbalsemien,Impatiens glandulifera Royle,Ig,Type4,291,n_per_type
+reuzenbalsemien,Impatiens glandulifera Royle,Ig,VNatre,16,n_per_type
+reuzenbalsemien,Impatiens glandulifera Royle,Ig,Andere,0.001328,in
+reuzenbalsemien,Impatiens glandulifera Royle,Ig,Andere,0.036248,of
+reuzenbalsemien,Impatiens glandulifera Royle,Ig,Bestuur,0.020934,in
+reuzenbalsemien,Impatiens glandulifera Royle,Ig,Bestuur,0.024544,of
+reuzenbalsemien,Impatiens glandulifera Royle,Ig,NatPer,0.020652,in
+reuzenbalsemien,Impatiens glandulifera Royle,Ig,NatPer,0.021315,of
+reuzenbalsemien,Impatiens glandulifera Royle,Ig,PrivRec,0.101084,in
+reuzenbalsemien,Impatiens glandulifera Royle,Ig,PrivRec,0.073654,of
+reuzenbalsemien,Impatiens glandulifera Royle,Ig,VOANB,0.064138,in
+reuzenbalsemien,Impatiens glandulifera Royle,Ig,VOANB,0.025160,of
 reuzenbalsemien,Impatiens glandulifera Royle,Ig,VOander,0.013205,in
+reuzenbalsemien,Impatiens glandulifera Royle,Ig,VOander,0.131292,of
 Chinese prachtslang,"Elaphe taeniura (Cope, 1861)",Et,NBHP,0.021700,in
-Chinese prachtslang,"Elaphe taeniura (Cope, 1861)",Et,NBHP,0.000021,of
-Chinese prachtslang,"Elaphe taeniura (Cope, 1861)",Et,NBHP,0.259649,sel
+Chinese prachtslang,"Elaphe taeniura (Cope, 1861)",Et,NBHP,0.000020,of
+Chinese prachtslang,"Elaphe taeniura (Cope, 1861)",Et,NBHP,0.246806,sel
 Chinese prachtslang,"Elaphe taeniura (Cope, 1861)",Et,NBHP,3,n_nbhp
-Chinese prachtslang,"Elaphe taeniura (Cope, 1861)",Et,MilDom,1,n_per_type
+Chinese prachtslang,"Elaphe taeniura (Cope, 1861)",Et,DomNa,1,n_per_type
 Chinese prachtslang,"Elaphe taeniura (Cope, 1861)",Et,Type3,1,n_per_type
 Chinese prachtslang,"Elaphe taeniura (Cope, 1861)",Et,Type4,1,n_per_type
 Chinese prachtslang,"Elaphe taeniura (Cope, 1861)",Et,PrivRec,0.016836,in
+Chinese prachtslang,"Elaphe taeniura (Cope, 1861)",Et,PrivRec,0.000067,of
 Chinese prachtslang,"Elaphe taeniura (Cope, 1861)",Et,VOander,0.004864,in
+Chinese prachtslang,"Elaphe taeniura (Cope, 1861)",Et,VOander,0.000262,of
 Chinese prachtslang,"Elaphe taeniura (Cope, 1861)",Et,Andere,0,in
+Chinese prachtslang,"Elaphe taeniura (Cope, 1861)",Et,Andere,0,of
 Chinese prachtslang,"Elaphe taeniura (Cope, 1861)",Et,Bestuur,0,in
+Chinese prachtslang,"Elaphe taeniura (Cope, 1861)",Et,Bestuur,0,of
 Chinese prachtslang,"Elaphe taeniura (Cope, 1861)",Et,NatPer,0,in
+Chinese prachtslang,"Elaphe taeniura (Cope, 1861)",Et,NatPer,0,of
 Chinese prachtslang,"Elaphe taeniura (Cope, 1861)",Et,VOANB,0,in
-gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,NBHP,0.316314,in
-gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,NBHP,0.001973,of
-gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,NBHP,3.784759,sel
-gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,NBHP,94,n_nbhp
-gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,BosbeU,8,n_per_type
+Chinese prachtslang,"Elaphe taeniura (Cope, 1861)",Et,VOANB,0,of
+gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,NBHP,0.318094,in
+gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,NBHP,0.001886,of
+gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,NBHP,3.617791,sel
+gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,NBHP,96,n_nbhp
+gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,BosbeU,4,n_per_type
+gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,DomNa,2,n_per_type
 gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,HarmPG,2,n_per_type
-gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,MilDom,2,n_per_type
 gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,Type1,9,n_per_type
-gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,Type2,18,n_per_type
+gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,Type2,23,n_per_type
 gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,Type3,11,n_per_type
-gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,Type4,41,n_per_type
+gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,Type4,42,n_per_type
 gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,VNatre,3,n_per_type
 gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,Andere,0.001817,in
-gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,Bestuur,0.035794,in
-gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,NatPer,0.026605,in
-gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,PrivRec,0.157199,in
+gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,Andere,0.001730,of
+gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,Bestuur,0.032743,in
+gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,Bestuur,0.001338,of
+gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,NatPer,0.027922,in
+gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,NatPer,0.001005,of
+gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,PrivRec,0.160713,in
+gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,PrivRec,0.004082,of
 gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,VOANB,0.080741,in
+gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,VOANB,0.001104,of
 gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,VOander,0.014158,in
-blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,NBHP,0.274656,in
-blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,NBHP,0.001869,of
-blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,NBHP,3.286320,sel
-blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,NBHP,91,n_nbhp
-blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,BosbeU,8,n_per_type
+gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,VOander,0.004907,of
+blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,NBHP,0.285466,in
+blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,NBHP,0.001846,of
+blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,NBHP,3.246704,sel
+blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,NBHP,93,n_nbhp
+blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,BosbeU,3,n_per_type
+blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,DomNa,2,n_per_type
 blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,HarmPG,1,n_per_type
-blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,MilDom,2,n_per_type
-blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,Natres,3,n_per_type
 blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,Type1,4,n_per_type
-blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,Type2,9,n_per_type
-blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,Type3,14,n_per_type
-blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,Type4,48,n_per_type
+blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,Type2,13,n_per_type
+blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,Type3,13,n_per_type
+blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,Type4,55,n_per_type
 blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,VNatre,2,n_per_type
 blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,Andere,0.000265,in
-blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,Bestuur,0.030226,in
-blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,NatPer,0.008251,in
-blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,PrivRec,0.156577,in
+blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,Andere,0.000275,of
+blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,Bestuur,0.024018,in
+blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,Bestuur,0.001071,of
+blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,NatPer,0.011464,in
+blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,NatPer,0.000450,of
+blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,PrivRec,0.170383,in
+blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,PrivRec,0.004721,of
 blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,VOANB,0.057692,in
+blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,VOANB,0.000861,of
 blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,VOander,0.021645,in
-struikaster,Baccharis halimifolia L.,Bh,NBHP,0.236366,in
-struikaster,Baccharis halimifolia L.,Bh,NBHP,0.001065,of
-struikaster,Baccharis halimifolia L.,Bh,NBHP,2.828165,sel
-struikaster,Baccharis halimifolia L.,Bh,NBHP,33,n_nbhp
+blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,VOander,0.008185,of
+struikaster,Baccharis halimifolia L.,Bh,NBHP,0.265960,in
+struikaster,Baccharis halimifolia L.,Bh,NBHP,0.001139,of
+struikaster,Baccharis halimifolia L.,Bh,NBHP,3.024857,sel
+struikaster,Baccharis halimifolia L.,Bh,NBHP,32,n_nbhp
 struikaster,Baccharis halimifolia L.,Bh,BosbeU,1,n_per_type
-struikaster,Baccharis halimifolia L.,Bh,MilDom,1,n_per_type
+struikaster,Baccharis halimifolia L.,Bh,DomNa,1,n_per_type
 struikaster,Baccharis halimifolia L.,Bh,Type1,1,n_per_type
-struikaster,Baccharis halimifolia L.,Bh,Type2,6,n_per_type
-struikaster,Baccharis halimifolia L.,Bh,Type3,9,n_per_type
-struikaster,Baccharis halimifolia L.,Bh,Type4,12,n_per_type
-struikaster,Baccharis halimifolia L.,Bh,VNatre,3,n_per_type
-struikaster,Baccharis halimifolia L.,Bh,Bestuur,0.024151,in
+struikaster,Baccharis halimifolia L.,Bh,Type2,7,n_per_type
+struikaster,Baccharis halimifolia L.,Bh,Type3,8,n_per_type
+struikaster,Baccharis halimifolia L.,Bh,Type4,14,n_per_type
+struikaster,Baccharis halimifolia L.,Bh,Bestuur,0.016475,in
+struikaster,Baccharis halimifolia L.,Bh,Bestuur,0.000486,of
 struikaster,Baccharis halimifolia L.,Bh,NatPer,0.001548,in
-struikaster,Baccharis halimifolia L.,Bh,PrivRec,0.073023,in
-struikaster,Baccharis halimifolia L.,Bh,VOANB,0.11726,in
+struikaster,Baccharis halimifolia L.,Bh,NatPer,0.000040,of
+struikaster,Baccharis halimifolia L.,Bh,PrivRec,0.077845,in
+struikaster,Baccharis halimifolia L.,Bh,PrivRec,0.001428,of
+struikaster,Baccharis halimifolia L.,Bh,VOANB,0.149708,in
+struikaster,Baccharis halimifolia L.,Bh,VOANB,0.001479,of
 struikaster,Baccharis halimifolia L.,Bh,VOander,0.020385,in
+struikaster,Baccharis halimifolia L.,Bh,VOander,0.005103,of
 struikaster,Baccharis halimifolia L.,Bh,Andere,0,in
-zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,NBHP,0.060867,in
-zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,NBHP,0.000313,of
-zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,NBHP,0.728291,sel
-zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,NBHP,33,n_nbhp
-zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,BosbeU,3,n_per_type
-zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,MilDom,2,n_per_type
+struikaster,Baccharis halimifolia L.,Bh,Andere,0,of
+zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,NBHP,0.066475,in
+zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,NBHP,0.000325,of
+zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,NBHP,0.756049,sel
+zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,NBHP,35,n_nbhp
+zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,BosbeU,1,n_per_type
+zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,DomNa,2,n_per_type
 zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,Type1,4,n_per_type
-zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,Type2,7,n_per_type
+zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,Type2,8,n_per_type
 zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,Type3,4,n_per_type
-zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,Type4,12,n_per_type
+zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,Type4,15,n_per_type
 zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,VNatre,1,n_per_type
 zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,Andere,0.003045,in
-zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,Bestuur,0.007531,in
-zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,NatPer,0.012481,in
-zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,PrivRec,0.028706,in
+zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,Andere,0.002388,of
+zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,Bestuur,0.007391,in
+zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,Bestuur,0.000249,of
+zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,NatPer,0.012534,in
+zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,NatPer,0.000372,of
+zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,PrivRec,0.034402,in
+zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,PrivRec,0.000720,of
 zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,VOANB,0.003205,in
+zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,VOANB,0.000036,of
 zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,VOander,0.005899,in
-Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,NBHP,0.288996,in
-Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,NBHP,0.002101,of
-Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,NBHP,3.457892,sel
-Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,NBHP,42,n_nbhp
-Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,BosbeU,4,n_per_type
-Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,MilDom,1,n_per_type
-Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,Type1,5,n_per_type
-Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,Type2,9,n_per_type
+zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,VOander,0.001685,of
+Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,NBHP,0.316362,in
+Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,NBHP,0.002186,of
+Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,NBHP,3.598099,sel
+Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,NBHP,43,n_nbhp
+Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,BosbeU,2,n_per_type
+Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,DomNa,1,n_per_type
+Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,Type1,4,n_per_type
+Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,Type2,11,n_per_type
 Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,Type3,4,n_per_type
-Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,Type4,17,n_per_type
+Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,Type4,19,n_per_type
 Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,VNatre,2,n_per_type
 Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,Andere,0.001106,in
-Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,Bestuur,0.008989,in
-Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,NatPer,0.018077,in
-Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,PrivRec,0.201484,in
+Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,Andere,0.001226,of
+Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,NatPer,0.022305,in
+Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,NatPer,0.000935,of
+Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,PrivRec,0.233611,in
+Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,PrivRec,0.006916,of
 Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,VOANB,0.046458,in
+Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,VOANB,0.000740,of
 Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,VOander,0.012883,in
-beverrat,"Myocastor coypus Molina, 1782",Mc,NBHP,0.509180,in
-beverrat,"Myocastor coypus Molina, 1782",Mc,NBHP,0.001637,of
-beverrat,"Myocastor coypus Molina, 1782",Mc,NBHP,6.092435,sel
-beverrat,"Myocastor coypus Molina, 1782",Mc,NBHP,29,n_nbhp
-beverrat,"Myocastor coypus Molina, 1782",Mc,BosbeU,4,n_per_type
-beverrat,"Myocastor coypus Molina, 1782",Mc,MilDom,1,n_per_type
-beverrat,"Myocastor coypus Molina, 1782",Mc,Type3,4,n_per_type
+Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,VOander,0.005205,of
+Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,Bestuur,0,in
+Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,Bestuur,0,of
+beverrat,"Myocastor coypus Molina, 1782",Mc,NBHP,0.509067,in
+beverrat,"Myocastor coypus Molina, 1782",Mc,NBHP,0.001556,of
+beverrat,"Myocastor coypus Molina, 1782",Mc,NBHP,5.789804,sel
+beverrat,"Myocastor coypus Molina, 1782",Mc,NBHP,30,n_nbhp
+beverrat,"Myocastor coypus Molina, 1782",Mc,BosbeU,2,n_per_type
+beverrat,"Myocastor coypus Molina, 1782",Mc,DomNa,1,n_per_type
+beverrat,"Myocastor coypus Molina, 1782",Mc,Type2,2,n_per_type
+beverrat,"Myocastor coypus Molina, 1782",Mc,Type3,5,n_per_type
 beverrat,"Myocastor coypus Molina, 1782",Mc,Type4,20,n_per_type
-beverrat,"Myocastor coypus Molina, 1782",Mc,Bestuur,0.004403,in
-beverrat,"Myocastor coypus Molina, 1782",Mc,NatPer,0.000374,in
-beverrat,"Myocastor coypus Molina, 1782",Mc,PrivRec,0.458889,in
+beverrat,"Myocastor coypus Molina, 1782",Mc,Bestuur,0.003667,in
+beverrat,"Myocastor coypus Molina, 1782",Mc,Bestuur,0.000077,of
+beverrat,"Myocastor coypus Molina, 1782",Mc,NatPer,0.001390,in
+beverrat,"Myocastor coypus Molina, 1782",Mc,NatPer,0.000026,of
+beverrat,"Myocastor coypus Molina, 1782",Mc,PrivRec,0.458496,in
+beverrat,"Myocastor coypus Molina, 1782",Mc,PrivRec,0.006005,of
 beverrat,"Myocastor coypus Molina, 1782",Mc,VOANB,0.034053,in
+beverrat,"Myocastor coypus Molina, 1782",Mc,VOANB,0.000240,of
 beverrat,"Myocastor coypus Molina, 1782",Mc,VOander,0.011462,in
+beverrat,"Myocastor coypus Molina, 1782",Mc,VOander,0.002048,of
 beverrat,"Myocastor coypus Molina, 1782",Mc,Andere,0,in
-moerashyacint,Pontederia cordata L.,Pco,NBHP,0.232512,in
-moerashyacint,Pontederia cordata L.,Pco,NBHP,0.000973,of
-moerashyacint,Pontederia cordata L.,Pco,NBHP,2.782048,sel
-moerashyacint,Pontederia cordata L.,Pco,NBHP,65,n_nbhp
-moerashyacint,Pontederia cordata L.,Pco,BosbeU,12,n_per_type
-moerashyacint,Pontederia cordata L.,Pco,BosreA,1,n_per_type
-moerashyacint,Pontederia cordata L.,Pco,MilDom,1,n_per_type
+beverrat,"Myocastor coypus Molina, 1782",Mc,Andere,0,of
+moerashyacint,Pontederia cordata L.,Pco,NBHP,0.252318,in
+moerashyacint,Pontederia cordata L.,Pco,NBHP,0.001003,of
+moerashyacint,Pontederia cordata L.,Pco,NBHP,2.869703,sel
+moerashyacint,Pontederia cordata L.,Pco,NBHP,71,n_nbhp
+moerashyacint,Pontederia cordata L.,Pco,BosbeU,7,n_per_type
+moerashyacint,Pontederia cordata L.,Pco,DomNa,1,n_per_type
 moerashyacint,Pontederia cordata L.,Pco,Type1,2,n_per_type
-moerashyacint,Pontederia cordata L.,Pco,Type2,7,n_per_type
-moerashyacint,Pontederia cordata L.,Pco,Type3,11,n_per_type
-moerashyacint,Pontederia cordata L.,Pco,Type4,29,n_per_type
+moerashyacint,Pontederia cordata L.,Pco,Type2,15,n_per_type
+moerashyacint,Pontederia cordata L.,Pco,Type3,12,n_per_type
+moerashyacint,Pontederia cordata L.,Pco,Type4,32,n_per_type
 moerashyacint,Pontederia cordata L.,Pco,VNatre,2,n_per_type
 moerashyacint,Pontederia cordata L.,Pco,Andere,0.000842,in
-moerashyacint,Pontederia cordata L.,Pco,Bestuur,0.028986,in
-moerashyacint,Pontederia cordata L.,Pco,NatPer,0.026803,in
-moerashyacint,Pontederia cordata L.,Pco,PrivRec,0.120016,in
-moerashyacint,Pontederia cordata L.,Pco,VOANB,0.046819,in
-moerashyacint,Pontederia cordata L.,Pco,VOander,0.009048,in
-vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,NBHP,0.138235,in
+moerashyacint,Pontederia cordata L.,Pco,Andere,0.000537,of
+moerashyacint,Pontederia cordata L.,Pco,Bestuur,0.025603,in
+moerashyacint,Pontederia cordata L.,Pco,Bestuur,0.000702,of
+moerashyacint,Pontederia cordata L.,Pco,NatPer,0.037976,in
+moerashyacint,Pontederia cordata L.,Pco,NatPer,0.000917,of
+moerashyacint,Pontederia cordata L.,Pco,PrivRec,0.130504,in
+moerashyacint,Pontederia cordata L.,Pco,PrivRec,0.002224,of
+moerashyacint,Pontederia cordata L.,Pco,VOANB,0.040921,in
+moerashyacint,Pontederia cordata L.,Pco,VOANB,0.000375,of
+moerashyacint,Pontederia cordata L.,Pco,VOander,0.016472,in
+moerashyacint,Pontederia cordata L.,Pco,VOander,0.003830,of
+vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,NBHP,0.145378,in
 vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,NBHP,0.000406,of
-vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,NBHP,1.654011,sel
-vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,NBHP,38,n_nbhp
-vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,BosbeU,8,n_per_type
-vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,MilDom,2,n_per_type
+vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,NBHP,1.653439,sel
+vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,NBHP,41,n_nbhp
+vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,BosbeU,2,n_per_type
+vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,DomNa,2,n_per_type
 vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,Type1,2,n_per_type
-vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,Type2,4,n_per_type
+vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,Type2,12,n_per_type
 vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,Type3,6,n_per_type
-vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,Type4,15,n_per_type
-vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,VNatre,1,n_per_type
-vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,Bestuur,0.038754,in
-vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,NatPer,0.007896,in
-vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,PrivRec,0.057932,in
-vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,VOANB,0.030347,in
+vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,Type4,17,n_per_type
+vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,Bestuur,0.038856,in
+vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,Bestuur,0.000748,of
+vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,NatPer,0.008039,in
+vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,NatPer,0.000136,of
+vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,PrivRec,0.061528,in
+vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,PrivRec,0.000736,of
+vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,VOANB,0.033649,in
+vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,VOANB,0.000217,of
 vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,VOander,0.003305,in
+vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,VOander,0.000540,of
 vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,Andere,0,in
-valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,NBHP,0.171097,in
-valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,NBHP,0.001151,of
-valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,NBHP,2.047208,sel
-valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,NBHP,103,n_nbhp
-valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,BosbeU,18,n_per_type
+vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,Andere,0,of
+valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,NBHP,0.177873,in
+valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,NBHP,0.001137,of
+valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,NBHP,2.023016,sel
+valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,NBHP,105,n_nbhp
+valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,BosbeU,5,n_per_type
+valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,DomNa,2,n_per_type
 valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,HarmPG,1,n_per_type
-valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,MilDom,2,n_per_type
-valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,Natres,2,n_per_type
+valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,Natres,1,n_per_type
 valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,Type1,4,n_per_type
-valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,Type2,14,n_per_type
-valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,Type3,17,n_per_type
-valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,Type4,42,n_per_type
-valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,VNatre,3,n_per_type
-valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,Andere,0.002003,in
-valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,Bestuur,0.050212,in
-valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,NatPer,0.013664,in
-valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,PrivRec,0.066959,in
-valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,VOANB,0.034027,in
+valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,Type2,28,n_per_type
+valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,Type3,16,n_per_type
+valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,Type4,46,n_per_type
+valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,VNatre,2,n_per_type
+valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,Andere,0.004102,in
+valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,Andere,0.004210,of
+valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,Bestuur,0.048153,in
+valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,Bestuur,0.002123,of
+valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,NatPer,0.01340,in
+valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,NatPer,0.00052,of
+valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,PrivRec,0.070051,in
+valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,PrivRec,0.001919,of
+valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,VOANB,0.037934,in
+valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,VOANB,0.000559,of
 valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,VOander,0.004233,in
-Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,NBHP,0.239076,in
-Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,NBHP,0.000270,of
-Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,NBHP,2.860597,sel
-Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,NBHP,29,n_nbhp
-Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,BosbeU,8,n_per_type
-Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,MilDom,3,n_per_type
+valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,VOander,0.001582,of
+Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,NBHP,0.249181,in
+Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,NBHP,0.000268,of
+Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,NBHP,2.834025,sel
+Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,NBHP,32,n_nbhp
+Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,BosbeU,4,n_per_type
+Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,DomNa,3,n_per_type
 Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,Type1,1,n_per_type
-Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,Type2,4,n_per_type
+Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,Type2,11,n_per_type
 Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,Type3,3,n_per_type
 Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,Type4,10,n_per_type
-Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,Bestuur,0.131576,in
-Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,NatPer,0.021435,in
-Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,PrivRec,0.027537,in
-Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,VOANB,0.057335,in
+Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,Bestuur,0.131848,in
+Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,Bestuur,0.000977,of
+Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,NatPer,0.024593,in
+Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,NatPer,0.000160,of
+Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,PrivRec,0.029885,in
+Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,PrivRec,0.000138,of
+Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,VOANB,0.061662,in
+Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,VOANB,0.000153,of
 Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,VOander,0.001194,in
+Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,VOander,0.000075,of
 Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,Andere,0,in
-grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,NBHP,0.293739,in
-grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,NBHP,0.007282,of
-grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,NBHP,3.514650,sel
-grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,NBHP,119,n_nbhp
-grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,BosbeU,17,n_per_type
-grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,MilDom,4,n_per_type
+Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,Andere,0,of
+grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,NBHP,0.308329,in
+grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,NBHP,0.007266,of
+grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,NBHP,3.506737,sel
+grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,NBHP,133,n_nbhp
+grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,BosbeU,7,n_per_type
+grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,DomNa,4,n_per_type
 grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,Type1,7,n_per_type
-grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,Type2,25,n_per_type
-grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,Type3,12,n_per_type
-grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,Type4,50,n_per_type
+grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,Type2,37,n_per_type
+grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,Type3,13,n_per_type
+grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,Type4,61,n_per_type
 grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,VNatre,4,n_per_type
-grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,Bestuur,0.016839,in
-grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,NatPer,0.016751,in
-grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,PrivRec,0.144666,in
-grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,VOANB,0.06979,in
+grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,Bestuur,0.015830,in
+grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,Bestuur,0.002572,of
+grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,NatPer,0.017512,in
+grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,NatPer,0.002505,of
+grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,PrivRec,0.157978,in
+grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,PrivRec,0.015952,of
+grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,VOANB,0.071315,in
+grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,VOANB,0.003877,of
 grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,VOander,0.045694,in
+grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,VOander,0.062959,of
 grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,Andere,0,in
-wasbeer,"Procyon lotor L., 1758",Plo,NBHP,0.301950,in
-wasbeer,"Procyon lotor L., 1758",Plo,NBHP,0.001004,of
-wasbeer,"Procyon lotor L., 1758",Plo,NBHP,3.612898,sel
-wasbeer,"Procyon lotor L., 1758",Plo,NBHP,58,n_nbhp
-wasbeer,"Procyon lotor L., 1758",Plo,BosbeU,3,n_per_type
-wasbeer,"Procyon lotor L., 1758",Plo,BosreA,1,n_per_type
-wasbeer,"Procyon lotor L., 1758",Plo,MilDom,2,n_per_type
-wasbeer,"Procyon lotor L., 1758",Plo,Type1,4,n_per_type
+grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,Andere,0,of
+wasbeer,"Procyon lotor L., 1758",Plo,NBHP,0.303080,in
+wasbeer,"Procyon lotor L., 1758",Plo,NBHP,0.000958,of
+wasbeer,"Procyon lotor L., 1758",Plo,NBHP,3.447040,sel
+wasbeer,"Procyon lotor L., 1758",Plo,NBHP,55,n_nbhp
+wasbeer,"Procyon lotor L., 1758",Plo,BosbeU,2,n_per_type
+wasbeer,"Procyon lotor L., 1758",Plo,DomNa,2,n_per_type
+wasbeer,"Procyon lotor L., 1758",Plo,Type1,3,n_per_type
 wasbeer,"Procyon lotor L., 1758",Plo,Type2,6,n_per_type
 wasbeer,"Procyon lotor L., 1758",Plo,Type3,7,n_per_type
-wasbeer,"Procyon lotor L., 1758",Plo,Type4,32,n_per_type
-wasbeer,"Procyon lotor L., 1758",Plo,VNatre,3,n_per_type
+wasbeer,"Procyon lotor L., 1758",Plo,Type4,33,n_per_type
+wasbeer,"Procyon lotor L., 1758",Plo,VNatre,2,n_per_type
 wasbeer,"Procyon lotor L., 1758",Plo,Bestuur,0.049356,in
-wasbeer,"Procyon lotor L., 1758",Plo,NatPer,0.017001,in
-wasbeer,"Procyon lotor L., 1758",Plo,PrivRec,0.135457,in
-wasbeer,"Procyon lotor L., 1758",Plo,VOANB,0.09751,in
+wasbeer,"Procyon lotor L., 1758",Plo,Bestuur,0.001076,of
+wasbeer,"Procyon lotor L., 1758",Plo,NatPer,0.016837,in
+wasbeer,"Procyon lotor L., 1758",Plo,NatPer,0.000323,of
+wasbeer,"Procyon lotor L., 1758",Plo,PrivRec,0.135451,in
+wasbeer,"Procyon lotor L., 1758",Plo,PrivRec,0.001835,of
+wasbeer,"Procyon lotor L., 1758",Plo,VOANB,0.09881,in
+wasbeer,"Procyon lotor L., 1758",Plo,VOANB,0.00072,of
 wasbeer,"Procyon lotor L., 1758",Plo,VOander,0.002625,in
+wasbeer,"Procyon lotor L., 1758",Plo,VOander,0.000485,of
 wasbeer,"Procyon lotor L., 1758",Plo,Andere,0,in
-gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,NBHP,0.240354,in
-gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,NBHP,0.001032,of
-gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,NBHP,2.875890,sel
-gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,NBHP,65,n_nbhp
-gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,BosbeU,14,n_per_type
-gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,MilDom,3,n_per_type
+wasbeer,"Procyon lotor L., 1758",Plo,Andere,0,of
+gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,NBHP,0.249522,in
+gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,NBHP,0.001019,of
+gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,NBHP,2.837907,sel
+gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,NBHP,66,n_nbhp
+gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,BosbeU,7,n_per_type
+gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,DomNa,2,n_per_type
 gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,Natres,1,n_per_type
 gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,Type1,3,n_per_type
-gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,Type2,9,n_per_type
+gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,Type2,15,n_per_type
 gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,Type3,10,n_per_type
-gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,Type4,24,n_per_type
+gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,Type4,27,n_per_type
 gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,VNatre,1,n_per_type
-gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,Bestuur,0.050215,in
-gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,NatPer,0.00892,in
-gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,PrivRec,0.087747,in
-gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,VOANB,0.076634,in
+gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,Bestuur,0.050133,in
+gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,Bestuur,0.001411,of
+gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,NatPer,0.008590,in
+gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,NatPer,0.000213,of
+gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,PrivRec,0.096441,in
+gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,PrivRec,0.001687,of
+gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,VOANB,0.07752,in
+gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,VOANB,0.00073,of
 gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,VOander,0.016838,in
+gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,VOander,0.004019,of
 gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,Andere,0,in
-rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,NBHP,0.132531,in
-rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,NBHP,0.000974,of
-rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,NBHP,1.585762,sel
-rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,NBHP,35,n_nbhp
-rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,BosbeU,5,n_per_type
-rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,MilDom,1,n_per_type
+gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,Andere,0,of
+rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,NBHP,0.137134,in
+rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,NBHP,0.000958,of
+rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,NBHP,1.559672,sel
+rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,NBHP,38,n_nbhp
+rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,BosbeU,2,n_per_type
+rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,DomNa,1,n_per_type
 rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,Type1,2,n_per_type
-rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,Type2,4,n_per_type
-rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,Type3,5,n_per_type
-rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,Type4,18,n_per_type
-rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,Bestuur,0.004339,in
-rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,NatPer,0.003506,in
-rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,PrivRec,0.094677,in
+rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,Type2,8,n_per_type
+rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,Type3,4,n_per_type
+rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,Type4,21,n_per_type
+rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,Bestuur,0.004635,in
+rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,Bestuur,0.000223,of
+rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,NatPer,0.003497,in
+rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,NatPer,0.000148,of
+rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,PrivRec,0.098992,in
+rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,PrivRec,0.002964,of
 rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,VOANB,0.022982,in
+rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,VOANB,0.000371,of
 rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,VOander,0.007027,in
+rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,VOander,0.002872,of
 rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,Andere,0,in
-marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,NBHP,0.251758,in
-marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,NBHP,0.000247,of
-marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,NBHP,3.012339,sel
-marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,NBHP,16,n_nbhp
-marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,BosbeU,1,n_per_type
-marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,MilDom,1,n_per_type
+rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,Andere,0,of
+marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,NBHP,0.263215,in
+marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,NBHP,0.000245,of
+marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,NBHP,2.993639,sel
+marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,NBHP,17,n_nbhp
+marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,DomNa,1,n_per_type
 marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,Type1,1,n_per_type
-marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,Type2,4,n_per_type
+marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,Type2,5,n_per_type
 marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,Type3,2,n_per_type
-marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,Type4,6,n_per_type
+marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,Type4,7,n_per_type
 marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,VNatre,1,n_per_type
 marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,Andere,0.000705,in
-marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,NatPer,0.050774,in
-marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,PrivRec,0.078135,in
+marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,Andere,0.000106,of
+marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,NatPer,0.051053,in
+marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,NatPer,0.000289,of
+marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,PrivRec,0.089313,in
+marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,PrivRec,0.000357,of
 marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,VOANB,0.116418,in
+marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,VOANB,0.000250,of
 marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,VOander,0.005726,in
+marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,VOander,0.000312,of
 marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,Bestuur,0,in
+marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,Bestuur,0,of
 kleine waterteunisbloem,Ludwigia peploides (Kunth) P.H. Raven,Lp,NBHP,0.697154,in
-kleine waterteunisbloem,Ludwigia peploides (Kunth) P.H. Raven,Lp,NBHP,0.000581,of
-kleine waterteunisbloem,Ludwigia peploides (Kunth) P.H. Raven,Lp,NBHP,8.341590,sel
+kleine waterteunisbloem,Ludwigia peploides (Kunth) P.H. Raven,Lp,NBHP,0.000552,of
+kleine waterteunisbloem,Ludwigia peploides (Kunth) P.H. Raven,Lp,NBHP,7.928981,sel
 kleine waterteunisbloem,Ludwigia peploides (Kunth) P.H. Raven,Lp,NBHP,10,n_nbhp
-kleine waterteunisbloem,Ludwigia peploides (Kunth) P.H. Raven,Lp,MilDom,1,n_per_type
+kleine waterteunisbloem,Ludwigia peploides (Kunth) P.H. Raven,Lp,DomNa,1,n_per_type
 kleine waterteunisbloem,Ludwigia peploides (Kunth) P.H. Raven,Lp,Type2,2,n_per_type
 kleine waterteunisbloem,Ludwigia peploides (Kunth) P.H. Raven,Lp,Type3,1,n_per_type
 kleine waterteunisbloem,Ludwigia peploides (Kunth) P.H. Raven,Lp,Type4,6,n_per_type
 kleine waterteunisbloem,Ludwigia peploides (Kunth) P.H. Raven,Lp,Bestuur,0.198667,in
+kleine waterteunisbloem,Ludwigia peploides (Kunth) P.H. Raven,Lp,Bestuur,0.001085,of
 kleine waterteunisbloem,Ludwigia peploides (Kunth) P.H. Raven,Lp,NatPer,0.002266,in
+kleine waterteunisbloem,Ludwigia peploides (Kunth) P.H. Raven,Lp,NatPer,0.000011,of
 kleine waterteunisbloem,Ludwigia peploides (Kunth) P.H. Raven,Lp,PrivRec,0.077847,in
+kleine waterteunisbloem,Ludwigia peploides (Kunth) P.H. Raven,Lp,PrivRec,0.000264,of
 kleine waterteunisbloem,Ludwigia peploides (Kunth) P.H. Raven,Lp,VOANB,0.401143,in
+kleine waterteunisbloem,Ludwigia peploides (Kunth) P.H. Raven,Lp,VOANB,0.000733,of
 kleine waterteunisbloem,Ludwigia peploides (Kunth) P.H. Raven,Lp,VOander,0.017232,in
+kleine waterteunisbloem,Ludwigia peploides (Kunth) P.H. Raven,Lp,VOander,0.000798,of
 kleine waterteunisbloem,Ludwigia peploides (Kunth) P.H. Raven,Lp,Andere,0,in
+kleine waterteunisbloem,Ludwigia peploides (Kunth) P.H. Raven,Lp,Andere,0,of
 egeria,Elodea densa (Planch.) Casp.,Ed,NBHP,0.101002,in
-egeria,Elodea densa (Planch.) Casp.,Ed,NBHP,0.000055,of
-egeria,Elodea densa (Planch.) Casp.,Ed,NBHP,1.208506,sel
+egeria,Elodea densa (Planch.) Casp.,Ed,NBHP,0.000053,of
+egeria,Elodea densa (Planch.) Casp.,Ed,NBHP,1.148728,sel
 egeria,Elodea densa (Planch.) Casp.,Ed,NBHP,5,n_nbhp
 egeria,Elodea densa (Planch.) Casp.,Ed,BosbeU,1,n_per_type
 egeria,Elodea densa (Planch.) Casp.,Ed,Type1,1,n_per_type
 egeria,Elodea densa (Planch.) Casp.,Ed,Type2,1,n_per_type
 egeria,Elodea densa (Planch.) Casp.,Ed,Type4,2,n_per_type
 egeria,Elodea densa (Planch.) Casp.,Ed,Bestuur,0.047516,in
+egeria,Elodea densa (Planch.) Casp.,Ed,Bestuur,0.000171,of
 egeria,Elodea densa (Planch.) Casp.,Ed,NatPer,0.004691,in
+egeria,Elodea densa (Planch.) Casp.,Ed,NatPer,0.000015,of
 egeria,Elodea densa (Planch.) Casp.,Ed,PrivRec,0.048794,in
+egeria,Elodea densa (Planch.) Casp.,Ed,PrivRec,0.000109,of
 egeria,Elodea densa (Planch.) Casp.,Ed,Andere,0,in
+egeria,Elodea densa (Planch.) Casp.,Ed,Andere,0,of
 egeria,Elodea densa (Planch.) Casp.,Ed,VOANB,0,in
+egeria,Elodea densa (Planch.) Casp.,Ed,VOANB,0,of
 egeria,Elodea densa (Planch.) Casp.,Ed,VOander,0,in
-ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,NBHP,0.258405,in
-ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,NBHP,0.000415,of
-ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,NBHP,3.091871,sel
-ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,NBHP,22,n_nbhp
+egeria,Elodea densa (Planch.) Casp.,Ed,VOander,0,of
+ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,NBHP,0.278298,in
+ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,NBHP,0.000425,of
+ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,NBHP,3.165176,sel
+ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,NBHP,24,n_nbhp
 ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,BosbeU,3,n_per_type
-ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,MilDom,2,n_per_type
-ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,Type1,1,n_per_type
-ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,Type2,5,n_per_type
+ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,DomNa,2,n_per_type
+ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,Type1,2,n_per_type
+ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,Type2,6,n_per_type
 ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,Type3,5,n_per_type
 ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,Type4,5,n_per_type
 ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,VNatre,1,n_per_type
-ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,Bestuur,0.008769,in
-ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,NatPer,0.071297,in
+ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,Bestuur,0.009682,in
+ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,Bestuur,0.000102,of
+ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,NatPer,0.090276,in
+ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,NatPer,0.000837,of
 ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,PrivRec,0.032541,in
+ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,PrivRec,0.000213,of
 ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,VOANB,0.093188,in
-ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,VOander,0.05261,in
+ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,VOANB,0.000328,of
+ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,VOander,0.052610,in
+ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,VOander,0.004698,of
 ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,Andere,0,in
+ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,Andere,0,of
 Aziatische boomwurger,Celastrus orbiculatus Thunb.,Co,NBHP,0,in
 Aziatische boomwurger,Celastrus orbiculatus Thunb.,Co,NBHP,0,of
-zijdeplant,Asclepias syriaca L.,As,NBHP,0.132643,in
-zijdeplant,Asclepias syriaca L.,As,NBHP,0.000106,of
-zijdeplant,Asclepias syriaca L.,As,NBHP,1.587100,sel
-zijdeplant,Asclepias syriaca L.,As,NBHP,12,n_nbhp
-zijdeplant,Asclepias syriaca L.,As,BosbeU,6,n_per_type
-zijdeplant,Asclepias syriaca L.,As,MilDom,1,n_per_type
-zijdeplant,Asclepias syriaca L.,As,Type2,2,n_per_type
+zijdeplant,Asclepias syriaca L.,As,NBHP,0.132814,in
+zijdeplant,Asclepias syriaca L.,As,NBHP,0.000101,of
+zijdeplant,Asclepias syriaca L.,As,NBHP,1.510538,sel
+zijdeplant,Asclepias syriaca L.,As,NBHP,13,n_nbhp
+zijdeplant,Asclepias syriaca L.,As,BosbeU,2,n_per_type
+zijdeplant,Asclepias syriaca L.,As,DomNa,1,n_per_type
+zijdeplant,Asclepias syriaca L.,As,Type2,7,n_per_type
 zijdeplant,Asclepias syriaca L.,As,Type4,3,n_per_type
-zijdeplant,Asclepias syriaca L.,As,Bestuur,0.079005,in
-zijdeplant,Asclepias syriaca L.,As,NatPer,0.000822,in
-zijdeplant,Asclepias syriaca L.,As,PrivRec,0.04255,in
+zijdeplant,Asclepias syriaca L.,As,Bestuur,0.076560,in
+zijdeplant,Asclepias syriaca L.,As,Bestuur,0.000402,of
+zijdeplant,Asclepias syriaca L.,As,NatPer,0.003438,in
+zijdeplant,Asclepias syriaca L.,As,NatPer,0.000016,of
+zijdeplant,Asclepias syriaca L.,As,PrivRec,0.042550,in
+zijdeplant,Asclepias syriaca L.,As,PrivRec,0.000139,of
 zijdeplant,Asclepias syriaca L.,As,VOANB,0.005682,in
+zijdeplant,Asclepias syriaca L.,As,VOANB,0.000010,of
 zijdeplant,Asclepias syriaca L.,As,VOander,0.004584,in
+zijdeplant,Asclepias syriaca L.,As,VOander,0.000204,of
 zijdeplant,Asclepias syriaca L.,As,Andere,0,in
-waterhyacint,Eichhornia crassipes (Martius) Solms,Ec,NBHP,0.491049,in
-waterhyacint,Eichhornia crassipes (Martius) Solms,Ec,NBHP,0.000148,of
-waterhyacint,Eichhornia crassipes (Martius) Solms,Ec,NBHP,5.875497,sel
+zijdeplant,Asclepias syriaca L.,As,Andere,0,of
+waterhyacint,Eichhornia crassipes (Martius) Solms,Ec,NBHP,0.491023,in
+waterhyacint,Eichhornia crassipes (Martius) Solms,Ec,NBHP,0.000140,of
+waterhyacint,Eichhornia crassipes (Martius) Solms,Ec,NBHP,5.584576,sel
 waterhyacint,Eichhornia crassipes (Martius) Solms,Ec,NBHP,9,n_nbhp
-waterhyacint,Eichhornia crassipes (Martius) Solms,Ec,BosbeU,2,n_per_type
-waterhyacint,Eichhornia crassipes (Martius) Solms,Ec,MilDom,1,n_per_type
+waterhyacint,Eichhornia crassipes (Martius) Solms,Ec,BosbeU,1,n_per_type
+waterhyacint,Eichhornia crassipes (Martius) Solms,Ec,DomNa,1,n_per_type
+waterhyacint,Eichhornia crassipes (Martius) Solms,Ec,Type2,1,n_per_type
 waterhyacint,Eichhornia crassipes (Martius) Solms,Ec,Type3,2,n_per_type
 waterhyacint,Eichhornia crassipes (Martius) Solms,Ec,Type4,4,n_per_type
-waterhyacint,Eichhornia crassipes (Martius) Solms,Ec,Bestuur,0.133089,in
+waterhyacint,Eichhornia crassipes (Martius) Solms,Ec,Bestuur,0.133063,in
+waterhyacint,Eichhornia crassipes (Martius) Solms,Ec,Bestuur,0.000262,of
 waterhyacint,Eichhornia crassipes (Martius) Solms,Ec,NatPer,0.074706,in
+waterhyacint,Eichhornia crassipes (Martius) Solms,Ec,NatPer,0.000130,of
 waterhyacint,Eichhornia crassipes (Martius) Solms,Ec,PrivRec,0.158904,in
-waterhyacint,Eichhornia crassipes (Martius) Solms,Ec,VOANB,0.00816,in
+waterhyacint,Eichhornia crassipes (Martius) Solms,Ec,PrivRec,0.000195,of
+waterhyacint,Eichhornia crassipes (Martius) Solms,Ec,VOANB,0.008160,in
+waterhyacint,Eichhornia crassipes (Martius) Solms,Ec,VOANB,0.000005,of
 waterhyacint,Eichhornia crassipes (Martius) Solms,Ec,VOander,0.116191,in
+waterhyacint,Eichhornia crassipes (Martius) Solms,Ec,VOander,0.001942,of
 waterhyacint,Eichhornia crassipes (Martius) Solms,Ec,Andere,0,in
-watersla,Pistia stratiotes L.,Pst,NBHP,0.316871,in
-watersla,Pistia stratiotes L.,Pst,NBHP,0.000319,of
-watersla,Pistia stratiotes L.,Pst,NBHP,3.791421,sel
+waterhyacint,Eichhornia crassipes (Martius) Solms,Ec,Andere,0,of
+watersla,Pistia stratiotes L.,Pst,NBHP,0.316831,in
+watersla,Pistia stratiotes L.,Pst,NBHP,0.000303,of
+watersla,Pistia stratiotes L.,Pst,NBHP,3.603432,sel
 watersla,Pistia stratiotes L.,Pst,NBHP,15,n_nbhp
-watersla,Pistia stratiotes L.,Pst,BosbeU,2,n_per_type
-watersla,Pistia stratiotes L.,Pst,MilDom,2,n_per_type
-watersla,Pistia stratiotes L.,Pst,Type2,4,n_per_type
+watersla,Pistia stratiotes L.,Pst,BosbeU,1,n_per_type
+watersla,Pistia stratiotes L.,Pst,DomNa,2,n_per_type
+watersla,Pistia stratiotes L.,Pst,Type2,5,n_per_type
 watersla,Pistia stratiotes L.,Pst,Type3,3,n_per_type
 watersla,Pistia stratiotes L.,Pst,Type4,4,n_per_type
-watersla,Pistia stratiotes L.,Pst,Bestuur,0.161227,in
+watersla,Pistia stratiotes L.,Pst,Bestuur,0.161188,in
+watersla,Pistia stratiotes L.,Pst,Bestuur,0.001063,of
 watersla,Pistia stratiotes L.,Pst,NatPer,0.005072,in
+watersla,Pistia stratiotes L.,Pst,NatPer,0.000029,of
 watersla,Pistia stratiotes L.,Pst,PrivRec,0.065733,in
+watersla,Pistia stratiotes L.,Pst,PrivRec,0.000269,of
 watersla,Pistia stratiotes L.,Pst,VOANB,0.024343,in
+watersla,Pistia stratiotes L.,Pst,VOANB,0.000054,of
 watersla,Pistia stratiotes L.,Pst,VOander,0.060496,in
+watersla,Pistia stratiotes L.,Pst,VOander,0.003382,of
 watersla,Pistia stratiotes L.,Pst,Andere,0,in
+watersla,Pistia stratiotes L.,Pst,Andere,0,of
 Californische rivierkreeft,"Pacifastacus leniusculus Dana, 1852",Plen,NBHP,0,in
 Californische rivierkreeft,"Pacifastacus leniusculus Dana, 1852",Plen,NBHP,0,of
-gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",Pa,NBHP,0.119519,in
-gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",Pa,NBHP,0.000130,of
-gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",Pa,NBHP,1.430067,sel
-gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",Pa,NBHP,8,n_nbhp
-gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",Pa,MilDom,1,n_per_type
+gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",Pa,NBHP,0.142093,in
+gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",Pa,NBHP,0.000147,of
+gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",Pa,NBHP,1.616078,sel
+gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",Pa,NBHP,9,n_nbhp
+gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",Pa,DomNa,1,n_per_type
 gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",Pa,Type3,1,n_per_type
-gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",Pa,Type4,6,n_per_type
-gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",Pa,PrivRec,0.030574,in
+gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",Pa,Type4,7,n_per_type
+gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",Pa,PrivRec,0.053149,in
+gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",Pa,PrivRec,0.000235,of
 gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",Pa,VOANB,0.084696,in
+gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",Pa,VOANB,0.000202,of
 gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",Pa,VOander,0.004249,in
+gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",Pa,VOander,0.000256,of
 gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",Pa,Andere,0,in
+gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",Pa,Andere,0,of
 gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",Pa,Bestuur,0,in
+gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",Pa,Bestuur,0,of
 gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",Pa,NatPer,0,in
+gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",Pa,NatPer,0,of
 Kaapse waterlelie,Aponogeton distachyos L.f.,Ad,NBHP,0.419511,in
-Kaapse waterlelie,Aponogeton distachyos L.f.,Ad,NBHP,0.000549,of
-Kaapse waterlelie,Aponogeton distachyos L.f.,Ad,NBHP,5.019533,sel
+Kaapse waterlelie,Aponogeton distachyos L.f.,Ad,NBHP,0.000522,of
+Kaapse waterlelie,Aponogeton distachyos L.f.,Ad,NBHP,4.771246,sel
 Kaapse waterlelie,Aponogeton distachyos L.f.,Ad,NBHP,8,n_nbhp
 Kaapse waterlelie,Aponogeton distachyos L.f.,Ad,BosbeU,2,n_per_type
-Kaapse waterlelie,Aponogeton distachyos L.f.,Ad,MilDom,1,n_per_type
+Kaapse waterlelie,Aponogeton distachyos L.f.,Ad,DomNa,1,n_per_type
 Kaapse waterlelie,Aponogeton distachyos L.f.,Ad,Type3,1,n_per_type
 Kaapse waterlelie,Aponogeton distachyos L.f.,Ad,Type4,4,n_per_type
 Kaapse waterlelie,Aponogeton distachyos L.f.,Ad,Bestuur,0.000426,in
-Kaapse waterlelie,Aponogeton distachyos L.f.,Ad,NatPer,0.00505,in
+Kaapse waterlelie,Aponogeton distachyos L.f.,Ad,Bestuur,0.000004,of
+Kaapse waterlelie,Aponogeton distachyos L.f.,Ad,NatPer,0.005050,in
+Kaapse waterlelie,Aponogeton distachyos L.f.,Ad,NatPer,0.000038,of
 Kaapse waterlelie,Aponogeton distachyos L.f.,Ad,PrivRec,0.334687,in
+Kaapse waterlelie,Aponogeton distachyos L.f.,Ad,PrivRec,0.001785,of
 Kaapse waterlelie,Aponogeton distachyos L.f.,Ad,VOANB,0.028561,in
+Kaapse waterlelie,Aponogeton distachyos L.f.,Ad,VOANB,0.000082,of
 Kaapse waterlelie,Aponogeton distachyos L.f.,Ad,VOander,0.050787,in
+Kaapse waterlelie,Aponogeton distachyos L.f.,Ad,VOander,0.003696,of
 Kaapse waterlelie,Aponogeton distachyos L.f.,Ad,Andere,0,in
+Kaapse waterlelie,Aponogeton distachyos L.f.,Ad,Andere,0,of
 grijze eekhoorn,"Sciurus carolinensis Gmelin, 1788",Sca,NBHP,0.161636,in
-grijze eekhoorn,"Sciurus carolinensis Gmelin, 1788",Sca,NBHP,0.000027,of
-grijze eekhoorn,"Sciurus carolinensis Gmelin, 1788",Sca,NBHP,1.934012,sel
+grijze eekhoorn,"Sciurus carolinensis Gmelin, 1788",Sca,NBHP,0.000026,of
+grijze eekhoorn,"Sciurus carolinensis Gmelin, 1788",Sca,NBHP,1.838348,sel
 grijze eekhoorn,"Sciurus carolinensis Gmelin, 1788",Sca,NBHP,2,n_nbhp
 grijze eekhoorn,"Sciurus carolinensis Gmelin, 1788",Sca,Type2,1,n_per_type
 grijze eekhoorn,"Sciurus carolinensis Gmelin, 1788",Sca,Type4,1,n_per_type
 grijze eekhoorn,"Sciurus carolinensis Gmelin, 1788",Sca,Bestuur,0.140729,in
+grijze eekhoorn,"Sciurus carolinensis Gmelin, 1788",Sca,Bestuur,0.000153,of
 grijze eekhoorn,"Sciurus carolinensis Gmelin, 1788",Sca,PrivRec,0.020908,in
+grijze eekhoorn,"Sciurus carolinensis Gmelin, 1788",Sca,PrivRec,0.000014,of
 grijze eekhoorn,"Sciurus carolinensis Gmelin, 1788",Sca,Andere,0,in
+grijze eekhoorn,"Sciurus carolinensis Gmelin, 1788",Sca,Andere,0,of
 grijze eekhoorn,"Sciurus carolinensis Gmelin, 1788",Sca,NatPer,0,in
+grijze eekhoorn,"Sciurus carolinensis Gmelin, 1788",Sca,NatPer,0,of
 grijze eekhoorn,"Sciurus carolinensis Gmelin, 1788",Sca,VOANB,0,in
+grijze eekhoorn,"Sciurus carolinensis Gmelin, 1788",Sca,VOANB,0,of
 grijze eekhoorn,"Sciurus carolinensis Gmelin, 1788",Sca,VOander,0,in
+grijze eekhoorn,"Sciurus carolinensis Gmelin, 1788",Sca,VOander,0,of
 Mantsjoerese wilde rijst,Zizania latifolia (Griseb.) Hance ex F.Muell.,Zl,NBHP,0.022907,in
 Mantsjoerese wilde rijst,Zizania latifolia (Griseb.) Hance ex F.Muell.,Zl,NBHP,0.000005,of
-Mantsjoerese wilde rijst,Zizania latifolia (Griseb.) Hance ex F.Muell.,Zl,NBHP,0.274087,sel
+Mantsjoerese wilde rijst,Zizania latifolia (Griseb.) Hance ex F.Muell.,Zl,NBHP,0.260530,sel
 Mantsjoerese wilde rijst,Zizania latifolia (Griseb.) Hance ex F.Muell.,Zl,NBHP,1,n_nbhp
 Mantsjoerese wilde rijst,Zizania latifolia (Griseb.) Hance ex F.Muell.,Zl,Type4,1,n_per_type
 Mantsjoerese wilde rijst,Zizania latifolia (Griseb.) Hance ex F.Muell.,Zl,PrivRec,0.022907,in
+Mantsjoerese wilde rijst,Zizania latifolia (Griseb.) Hance ex F.Muell.,Zl,PrivRec,0.000022,of
 Mantsjoerese wilde rijst,Zizania latifolia (Griseb.) Hance ex F.Muell.,Zl,Andere,0,in
+Mantsjoerese wilde rijst,Zizania latifolia (Griseb.) Hance ex F.Muell.,Zl,Andere,0,of
 Mantsjoerese wilde rijst,Zizania latifolia (Griseb.) Hance ex F.Muell.,Zl,Bestuur,0,in
+Mantsjoerese wilde rijst,Zizania latifolia (Griseb.) Hance ex F.Muell.,Zl,Bestuur,0,of
 Mantsjoerese wilde rijst,Zizania latifolia (Griseb.) Hance ex F.Muell.,Zl,NatPer,0,in
+Mantsjoerese wilde rijst,Zizania latifolia (Griseb.) Hance ex F.Muell.,Zl,NatPer,0,of
 Mantsjoerese wilde rijst,Zizania latifolia (Griseb.) Hance ex F.Muell.,Zl,VOANB,0,in
+Mantsjoerese wilde rijst,Zizania latifolia (Griseb.) Hance ex F.Muell.,Zl,VOANB,0,of
 Mantsjoerese wilde rijst,Zizania latifolia (Griseb.) Hance ex F.Muell.,Zl,VOander,0,in
+Mantsjoerese wilde rijst,Zizania latifolia (Griseb.) Hance ex F.Muell.,Zl,VOander,0,of
 Pallas' eekhoorn,"Callosciurus erythraeus Pallas, 1779",Ce,NBHP,0,in
 Pallas' eekhoorn,"Callosciurus erythraeus Pallas, 1779",Ce,NBHP,0,of
-moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,NBHP,0.160106,in
-moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,NBHP,0.000224,of
-moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,NBHP,1.915697,sel
-moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,NBHP,14,n_nbhp
-moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,BosbeU,3,n_per_type
-moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,MilDom,1,n_per_type
+moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,NBHP,0.153665,in
+moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,NBHP,0.000204,of
+moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,NBHP,1.747684,sel
+moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,NBHP,16,n_nbhp
+moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,DomNa,1,n_per_type
 moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,Type1,1,n_per_type
-moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,Type2,3,n_per_type
+moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,Type2,6,n_per_type
 moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,Type3,2,n_per_type
-moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,Type4,4,n_per_type
-moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,Bestuur,0.092383,in
+moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,Type4,6,n_per_type
+moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,Bestuur,0.081298,in
+moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,Bestuur,0.000746,of
 moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,NatPer,0.017628,in
-moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,PrivRec,0.028477,in
+moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,NatPer,0.000142,of
+moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,PrivRec,0.033121,in
+moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,PrivRec,0.000189,of
 moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,VOANB,0.019177,in
+moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,VOANB,0.000059,of
 moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,VOander,0.002441,in
+moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,VOander,0.000190,of
 moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,Andere,0,in
+moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,Andere,0,of
 waterwaaier,Cabomba caroliniana Gray,Cca,NBHP,0.106573,in
-waterwaaier,Cabomba caroliniana Gray,Cca,NBHP,0.000029,of
-waterwaaier,Cabomba caroliniana Gray,Cca,NBHP,1.275167,sel
+waterwaaier,Cabomba caroliniana Gray,Cca,NBHP,0.000028,of
+waterwaaier,Cabomba caroliniana Gray,Cca,NBHP,1.212092,sel
 waterwaaier,Cabomba caroliniana Gray,Cca,NBHP,3,n_nbhp
 waterwaaier,Cabomba caroliniana Gray,Cca,Type3,1,n_per_type
 waterwaaier,Cabomba caroliniana Gray,Cca,Type4,2,n_per_type
 waterwaaier,Cabomba caroliniana Gray,Cca,PrivRec,0.106573,in
+waterwaaier,Cabomba caroliniana Gray,Cca,PrivRec,0.000119,of
 waterwaaier,Cabomba caroliniana Gray,Cca,Andere,0,in
+waterwaaier,Cabomba caroliniana Gray,Cca,Andere,0,of
 waterwaaier,Cabomba caroliniana Gray,Cca,Bestuur,0,in
+waterwaaier,Cabomba caroliniana Gray,Cca,Bestuur,0,of
 waterwaaier,Cabomba caroliniana Gray,Cca,NatPer,0,in
+waterwaaier,Cabomba caroliniana Gray,Cca,NatPer,0,of
 waterwaaier,Cabomba caroliniana Gray,Cca,VOANB,0,in
+waterwaaier,Cabomba caroliniana Gray,Cca,VOANB,0,of
 waterwaaier,Cabomba caroliniana Gray,Cca,VOander,0,in
+waterwaaier,Cabomba caroliniana Gray,Cca,VOander,0,of
 Chinese moerasslak,"Cipangopaludina chinensis (J.E.Gray, 1833)",Cch,NBHP,0.633957,in
-Chinese moerasslak,"Cipangopaludina chinensis (J.E.Gray, 1833)",Cch,NBHP,0.000070,of
-Chinese moerasslak,"Cipangopaludina chinensis (J.E.Gray, 1833)",Cch,NBHP,7.585416,sel
+Chinese moerasslak,"Cipangopaludina chinensis (J.E.Gray, 1833)",Cch,NBHP,0.000066,of
+Chinese moerasslak,"Cipangopaludina chinensis (J.E.Gray, 1833)",Cch,NBHP,7.210211,sel
 Chinese moerasslak,"Cipangopaludina chinensis (J.E.Gray, 1833)",Cch,NBHP,5,n_nbhp
 Chinese moerasslak,"Cipangopaludina chinensis (J.E.Gray, 1833)",Cch,BosbeU,1,n_per_type
-Chinese moerasslak,"Cipangopaludina chinensis (J.E.Gray, 1833)",Cch,MilDom,1,n_per_type
+Chinese moerasslak,"Cipangopaludina chinensis (J.E.Gray, 1833)",Cch,DomNa,1,n_per_type
 Chinese moerasslak,"Cipangopaludina chinensis (J.E.Gray, 1833)",Cch,Type3,1,n_per_type
 Chinese moerasslak,"Cipangopaludina chinensis (J.E.Gray, 1833)",Cch,Type4,2,n_per_type
-Chinese moerasslak,"Cipangopaludina chinensis (J.E.Gray, 1833)",Cch,PrivRec,0.1211,in
+Chinese moerasslak,"Cipangopaludina chinensis (J.E.Gray, 1833)",Cch,PrivRec,0.121100,in
+Chinese moerasslak,"Cipangopaludina chinensis (J.E.Gray, 1833)",Cch,PrivRec,0.000054,of
 Chinese moerasslak,"Cipangopaludina chinensis (J.E.Gray, 1833)",Cch,VOANB,0.442754,in
+Chinese moerasslak,"Cipangopaludina chinensis (J.E.Gray, 1833)",Cch,VOANB,0.000107,of
 Chinese moerasslak,"Cipangopaludina chinensis (J.E.Gray, 1833)",Cch,VOander,0.070103,in
+Chinese moerasslak,"Cipangopaludina chinensis (J.E.Gray, 1833)",Cch,VOander,0.000430,of
 Chinese moerasslak,"Cipangopaludina chinensis (J.E.Gray, 1833)",Cch,Andere,0,in
+Chinese moerasslak,"Cipangopaludina chinensis (J.E.Gray, 1833)",Cch,Andere,0,of
 Chinese moerasslak,"Cipangopaludina chinensis (J.E.Gray, 1833)",Cch,Bestuur,0,in
+Chinese moerasslak,"Cipangopaludina chinensis (J.E.Gray, 1833)",Cch,Bestuur,0,of
 Chinese moerasslak,"Cipangopaludina chinensis (J.E.Gray, 1833)",Cch,NatPer,0,in
-Kesslergrondel,"Ponticola kessleri (Günther, 1861)",Pk,NBHP,0.119494,in
-Kesslergrondel,"Ponticola kessleri (Günther, 1861)",Pk,NBHP,0.000026,of
-Kesslergrondel,"Ponticola kessleri (Günther, 1861)",Pk,NBHP,1.429770,sel
+Chinese moerasslak,"Cipangopaludina chinensis (J.E.Gray, 1833)",Cch,NatPer,0,of
+Kesslergrondel,"Ponticola kessleri (Günther, 1861)",Pk,NBHP,0.120741,in
+Kesslergrondel,"Ponticola kessleri (Günther, 1861)",Pk,NBHP,0.000025,of
+Kesslergrondel,"Ponticola kessleri (Günther, 1861)",Pk,NBHP,1.373231,sel
 Kesslergrondel,"Ponticola kessleri (Günther, 1861)",Pk,NBHP,5,n_nbhp
-Kesslergrondel,"Ponticola kessleri (Günther, 1861)",Pk,BosbeU,1,n_per_type
-Kesslergrondel,"Ponticola kessleri (Günther, 1861)",Pk,Type2,1,n_per_type
+Kesslergrondel,"Ponticola kessleri (Günther, 1861)",Pk,Type2,2,n_per_type
 Kesslergrondel,"Ponticola kessleri (Günther, 1861)",Pk,Type4,3,n_per_type
-Kesslergrondel,"Ponticola kessleri (Günther, 1861)",Pk,NatPer,0.061857,in
+Kesslergrondel,"Ponticola kessleri (Günther, 1861)",Pk,NatPer,0.063104,in
+Kesslergrondel,"Ponticola kessleri (Günther, 1861)",Pk,NatPer,0.000080,of
 Kesslergrondel,"Ponticola kessleri (Günther, 1861)",Pk,PrivRec,0.023471,in
+Kesslergrondel,"Ponticola kessleri (Günther, 1861)",Pk,PrivRec,0.000021,of
 Kesslergrondel,"Ponticola kessleri (Günther, 1861)",Pk,VOANB,0.034166,in
+Kesslergrondel,"Ponticola kessleri (Günther, 1861)",Pk,VOANB,0.000016,of
 Kesslergrondel,"Ponticola kessleri (Günther, 1861)",Pk,Andere,0,in
+Kesslergrondel,"Ponticola kessleri (Günther, 1861)",Pk,Andere,0,of
 Kesslergrondel,"Ponticola kessleri (Günther, 1861)",Pk,Bestuur,0,in
+Kesslergrondel,"Ponticola kessleri (Günther, 1861)",Pk,Bestuur,0,of
 Kesslergrondel,"Ponticola kessleri (Günther, 1861)",Pk,VOander,0,in
+Kesslergrondel,"Ponticola kessleri (Günther, 1861)",Pk,VOander,0,of
 wasbeerhond,"Nyctereutes procyonoides Gray, 1834",Np,NBHP,0.110809,in
 wasbeerhond,"Nyctereutes procyonoides Gray, 1834",Np,NBHP,0.000006,of
-wasbeerhond,"Nyctereutes procyonoides Gray, 1834",Np,NBHP,1.325852,sel
+wasbeerhond,"Nyctereutes procyonoides Gray, 1834",Np,NBHP,1.260270,sel
 wasbeerhond,"Nyctereutes procyonoides Gray, 1834",Np,NBHP,2,n_nbhp
 wasbeerhond,"Nyctereutes procyonoides Gray, 1834",Np,Type2,1,n_per_type
 wasbeerhond,"Nyctereutes procyonoides Gray, 1834",Np,Type4,1,n_per_type
 wasbeerhond,"Nyctereutes procyonoides Gray, 1834",Np,NatPer,0.011343,in
+wasbeerhond,"Nyctereutes procyonoides Gray, 1834",Np,NatPer,0.000004,of
 wasbeerhond,"Nyctereutes procyonoides Gray, 1834",Np,PrivRec,0.099467,in
+wasbeerhond,"Nyctereutes procyonoides Gray, 1834",Np,PrivRec,0.000022,of
 wasbeerhond,"Nyctereutes procyonoides Gray, 1834",Np,Andere,0,in
+wasbeerhond,"Nyctereutes procyonoides Gray, 1834",Np,Andere,0,of
 wasbeerhond,"Nyctereutes procyonoides Gray, 1834",Np,Bestuur,0,in
+wasbeerhond,"Nyctereutes procyonoides Gray, 1834",Np,Bestuur,0,of
 wasbeerhond,"Nyctereutes procyonoides Gray, 1834",Np,VOANB,0,in
+wasbeerhond,"Nyctereutes procyonoides Gray, 1834",Np,VOANB,0,of
 wasbeerhond,"Nyctereutes procyonoides Gray, 1834",Np,VOander,0,in
-Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,NBHP,0.033379,in
-Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,NBHP,0.018197,of
-Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,NBHP,0.399387,sel
-Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,NBHP,718,n_nbhp
-Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,BosbeU,121,n_per_type
+wasbeerhond,"Nyctereutes procyonoides Gray, 1834",Np,VOander,0,of
+Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,NBHP,0.035136,in
+Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,NBHP,0.018207,of
+Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,NBHP,0.399609,sel
+Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,NBHP,753,n_nbhp
+Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,BosbeU,50,n_per_type
 Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,BosreA,1,n_per_type
-Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,BosreE,3,n_per_type
+Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,BosreE,2,n_per_type
+Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,DomNa,4,n_per_type
 Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,HarmPG,3,n_per_type
-Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,MilDom,5,n_per_type
-Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,Natres,6,n_per_type
-Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,Type1,107,n_per_type
-Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,Type2,141,n_per_type
-Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,Type3,102,n_per_type
-Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,Type4,216,n_per_type
-Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,VNatre,13,n_per_type
-Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,Andere,0.000413,in
-Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,Bestuur,0.007897,in
-Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,NatPer,0.004189,in
-Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,PrivRec,0.008351,in
-Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,VOANB,0.011255,in
-Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,VOander,0.001274,in
-Leidse plant,Saururus cernuus L.,Sce,NBHP,0.225398,in
-Leidse plant,Saururus cernuus L.,Sce,NBHP,0.000047,of
-Leidse plant,Saururus cernuus L.,Sce,NBHP,2.696934,sel
+Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,Natres,3,n_per_type
+Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,Type1,106,n_per_type
+Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,Type2,219,n_per_type
+Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,Type3,110,n_per_type
+Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,Type4,248,n_per_type
+Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,VNatre,7,n_per_type
+Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,Andere,0.000474,in
+Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,Andere,0.039419,of
+Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,Bestuur,0.008145,in
+Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,Bestuur,0.029100,of
+Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,NatPer,0.004143,in
+Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,NatPer,0.013032,of
+Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,PrivRec,0.008585,in
+Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,PrivRec,0.019063,of
+Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,VOANB,0.012483,in
+Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,VOANB,0.014922,of
+Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,VOander,0.001305,in
+Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,VOander,0.039554,of
+Leidse plant,Saururus cernuus L.,Sce,NBHP,0.217130,in
+Leidse plant,Saururus cernuus L.,Sce,NBHP,0.000043,of
+Leidse plant,Saururus cernuus L.,Sce,NBHP,2.469497,sel
 Leidse plant,Saururus cernuus L.,Sce,NBHP,3,n_nbhp
-Leidse plant,Saururus cernuus L.,Sce,BosbeU,1,n_per_type
+Leidse plant,Saururus cernuus L.,Sce,Type2,1,n_per_type
 Leidse plant,Saururus cernuus L.,Sce,Type4,2,n_per_type
-Leidse plant,Saururus cernuus L.,Sce,Bestuur,0.130862,in
+Leidse plant,Saururus cernuus L.,Sce,Bestuur,0.122594,in
+Leidse plant,Saururus cernuus L.,Sce,Bestuur,0.000167,of
 Leidse plant,Saururus cernuus L.,Sce,PrivRec,0.014217,in
+Leidse plant,Saururus cernuus L.,Sce,PrivRec,0.000012,of
 Leidse plant,Saururus cernuus L.,Sce,VOANB,0.080319,in
+Leidse plant,Saururus cernuus L.,Sce,VOANB,0.000037,of
 Leidse plant,Saururus cernuus L.,Sce,Andere,0,in
+Leidse plant,Saururus cernuus L.,Sce,Andere,0,of
 Leidse plant,Saururus cernuus L.,Sce,NatPer,0,in
+Leidse plant,Saururus cernuus L.,Sce,NatPer,0,of
 Leidse plant,Saururus cernuus L.,Sce,VOander,0,in
+Leidse plant,Saururus cernuus L.,Sce,VOander,0,of
 treurmaina,"Acridotheres tristis Linnaeus, 1766",At,NBHP,0,in
 treurmaina,"Acridotheres tristis Linnaeus, 1766",At,NBHP,0,of
-moerasanemoon,Houttuynia cordata Thunb.,Hc,NBHP,0.038421,in
-moerasanemoon,Houttuynia cordata Thunb.,Hc,NBHP,0.000041,of
-moerasanemoon,Houttuynia cordata Thunb.,Hc,NBHP,0.459716,sel
-moerasanemoon,Houttuynia cordata Thunb.,Hc,NBHP,6,n_nbhp
-moerasanemoon,Houttuynia cordata Thunb.,Hc,BosbeU,2,n_per_type
+moerasanemoon,Houttuynia cordata Thunb.,Hc,NBHP,0.035592,in
+moerasanemoon,Houttuynia cordata Thunb.,Hc,NBHP,0.000036,of
+moerasanemoon,Houttuynia cordata Thunb.,Hc,NBHP,0.404795,sel
+moerasanemoon,Houttuynia cordata Thunb.,Hc,NBHP,7,n_nbhp
 moerasanemoon,Houttuynia cordata Thunb.,Hc,Type1,1,n_per_type
+moerasanemoon,Houttuynia cordata Thunb.,Hc,Type2,2,n_per_type
 moerasanemoon,Houttuynia cordata Thunb.,Hc,Type3,2,n_per_type
-moerasanemoon,Houttuynia cordata Thunb.,Hc,Type4,1,n_per_type
-moerasanemoon,Houttuynia cordata Thunb.,Hc,Bestuur,0.030964,in
+moerasanemoon,Houttuynia cordata Thunb.,Hc,Type4,2,n_per_type
+moerasanemoon,Houttuynia cordata Thunb.,Hc,Bestuur,0.027104,in
+moerasanemoon,Houttuynia cordata Thunb.,Hc,Bestuur,0.000189,of
 moerasanemoon,Houttuynia cordata Thunb.,Hc,NatPer,0.000294,in
-moerasanemoon,Houttuynia cordata Thunb.,Hc,PrivRec,0.006022,in
+moerasanemoon,Houttuynia cordata Thunb.,Hc,NatPer,0.000002,of
+moerasanemoon,Houttuynia cordata Thunb.,Hc,PrivRec,0.007053,in
+moerasanemoon,Houttuynia cordata Thunb.,Hc,PrivRec,0.000031,of
 moerasanemoon,Houttuynia cordata Thunb.,Hc,VOANB,0.001141,in
+moerasanemoon,Houttuynia cordata Thunb.,Hc,VOANB,0.000003,of
 moerasanemoon,Houttuynia cordata Thunb.,Hc,Andere,0,in
+moerasanemoon,Houttuynia cordata Thunb.,Hc,Andere,0,of
 moerasanemoon,Houttuynia cordata Thunb.,Hc,VOander,0,in
+moerasanemoon,Houttuynia cordata Thunb.,Hc,VOander,0,of
 Turkse rivierkreeft,"Pontastacus leptodactylus (Eschscholtz, 1823)",Plep,NBHP,0.023328,in
 Turkse rivierkreeft,"Pontastacus leptodactylus (Eschscholtz, 1823)",Plep,NBHP,0.000007,of
-Turkse rivierkreeft,"Pontastacus leptodactylus (Eschscholtz, 1823)",Plep,NBHP,0.279127,sel
+Turkse rivierkreeft,"Pontastacus leptodactylus (Eschscholtz, 1823)",Plep,NBHP,0.265321,sel
 Turkse rivierkreeft,"Pontastacus leptodactylus (Eschscholtz, 1823)",Plep,NBHP,2,n_nbhp
 Turkse rivierkreeft,"Pontastacus leptodactylus (Eschscholtz, 1823)",Plep,Type4,2,n_per_type
 Turkse rivierkreeft,"Pontastacus leptodactylus (Eschscholtz, 1823)",Plep,PrivRec,0.006084,in
+Turkse rivierkreeft,"Pontastacus leptodactylus (Eschscholtz, 1823)",Plep,PrivRec,0.000007,of
 Turkse rivierkreeft,"Pontastacus leptodactylus (Eschscholtz, 1823)",Plep,VOANB,0.017244,in
+Turkse rivierkreeft,"Pontastacus leptodactylus (Eschscholtz, 1823)",Plep,VOANB,0.000011,of
 Turkse rivierkreeft,"Pontastacus leptodactylus (Eschscholtz, 1823)",Plep,Andere,0,in
+Turkse rivierkreeft,"Pontastacus leptodactylus (Eschscholtz, 1823)",Plep,Andere,0,of
 Turkse rivierkreeft,"Pontastacus leptodactylus (Eschscholtz, 1823)",Plep,Bestuur,0,in
+Turkse rivierkreeft,"Pontastacus leptodactylus (Eschscholtz, 1823)",Plep,Bestuur,0,of
 Turkse rivierkreeft,"Pontastacus leptodactylus (Eschscholtz, 1823)",Plep,NatPer,0,in
+Turkse rivierkreeft,"Pontastacus leptodactylus (Eschscholtz, 1823)",Plep,NatPer,0,of
 Turkse rivierkreeft,"Pontastacus leptodactylus (Eschscholtz, 1823)",Plep,VOander,0,in
-marmerkreeft,"Procambarus virginalis Lyko, 2017",Pv,NBHP,0.436831,in
-marmerkreeft,"Procambarus virginalis Lyko, 2017",Pv,NBHP,0.000189,of
-marmerkreeft,"Procambarus virginalis Lyko, 2017",Pv,NBHP,5.226773,sel
-marmerkreeft,"Procambarus virginalis Lyko, 2017",Pv,NBHP,4,n_nbhp
+Turkse rivierkreeft,"Pontastacus leptodactylus (Eschscholtz, 1823)",Plep,VOander,0,of
+marmerkreeft,"Procambarus virginalis Lyko, 2017",Pv,NBHP,0.443305,in
+marmerkreeft,"Procambarus virginalis Lyko, 2017",Pv,NBHP,0.000183,of
+marmerkreeft,"Procambarus virginalis Lyko, 2017",Pv,NBHP,5.041863,sel
+marmerkreeft,"Procambarus virginalis Lyko, 2017",Pv,NBHP,5,n_nbhp
 marmerkreeft,"Procambarus virginalis Lyko, 2017",Pv,HarmPG,1,n_per_type
 marmerkreeft,"Procambarus virginalis Lyko, 2017",Pv,Type1,1,n_per_type
+marmerkreeft,"Procambarus virginalis Lyko, 2017",Pv,Type2,1,n_per_type
 marmerkreeft,"Procambarus virginalis Lyko, 2017",Pv,Type3,1,n_per_type
 marmerkreeft,"Procambarus virginalis Lyko, 2017",Pv,Type4,1,n_per_type
-marmerkreeft,"Procambarus virginalis Lyko, 2017",Pv,Bestuur,0.338951,in
+marmerkreeft,"Procambarus virginalis Lyko, 2017",Pv,Bestuur,0.345425,in
+marmerkreeft,"Procambarus virginalis Lyko, 2017",Pv,Bestuur,0.000981,of
 marmerkreeft,"Procambarus virginalis Lyko, 2017",Pv,NatPer,0.003525,in
+marmerkreeft,"Procambarus virginalis Lyko, 2017",Pv,NatPer,0.000009,of
 marmerkreeft,"Procambarus virginalis Lyko, 2017",Pv,PrivRec,0.094356,in
+marmerkreeft,"Procambarus virginalis Lyko, 2017",Pv,PrivRec,0.000167,of
 marmerkreeft,"Procambarus virginalis Lyko, 2017",Pv,Andere,0,in
+marmerkreeft,"Procambarus virginalis Lyko, 2017",Pv,Andere,0,of
 marmerkreeft,"Procambarus virginalis Lyko, 2017",Pv,VOANB,0,in
+marmerkreeft,"Procambarus virginalis Lyko, 2017",Pv,VOANB,0,of
 marmerkreeft,"Procambarus virginalis Lyko, 2017",Pv,VOander,0,in
-sikahert,"Cervus nippon Temminck, 1838",Cn,NBHP,0.579266,in
-sikahert,"Cervus nippon Temminck, 1838",Cn,NBHP,0.000612,of
-sikahert,"Cervus nippon Temminck, 1838",Cn,NBHP,6.931030,sel
+marmerkreeft,"Procambarus virginalis Lyko, 2017",Pv,VOander,0,of
+sikahert,"Cervus nippon Temminck, 1838",Cn,NBHP,0.581470,in
+sikahert,"Cervus nippon Temminck, 1838",Cn,NBHP,0.000584,of
+sikahert,"Cervus nippon Temminck, 1838",Cn,NBHP,6.613268,sel
 sikahert,"Cervus nippon Temminck, 1838",Cn,NBHP,14,n_nbhp
-sikahert,"Cervus nippon Temminck, 1838",Cn,MilDom,2,n_per_type
-sikahert,"Cervus nippon Temminck, 1838",Cn,Type2,2,n_per_type
+sikahert,"Cervus nippon Temminck, 1838",Cn,DomNa,2,n_per_type
+sikahert,"Cervus nippon Temminck, 1838",Cn,Type2,1,n_per_type
 sikahert,"Cervus nippon Temminck, 1838",Cn,Type3,3,n_per_type
-sikahert,"Cervus nippon Temminck, 1838",Cn,Type4,7,n_per_type
-sikahert,"Cervus nippon Temminck, 1838",Cn,NatPer,0.021314,in
-sikahert,"Cervus nippon Temminck, 1838",Cn,PrivRec,0.043574,in
+sikahert,"Cervus nippon Temminck, 1838",Cn,Type4,8,n_per_type
+sikahert,"Cervus nippon Temminck, 1838",Cn,NatPer,0.008134,in
+sikahert,"Cervus nippon Temminck, 1838",Cn,NatPer,0.000050,of
+sikahert,"Cervus nippon Temminck, 1838",Cn,PrivRec,0.058959,in
+sikahert,"Cervus nippon Temminck, 1838",Cn,PrivRec,0.000254,of
 sikahert,"Cervus nippon Temminck, 1838",Cn,VOANB,0.510224,in
+sikahert,"Cervus nippon Temminck, 1838",Cn,VOANB,0.001183,of
 sikahert,"Cervus nippon Temminck, 1838",Cn,VOander,0.004154,in
+sikahert,"Cervus nippon Temminck, 1838",Cn,VOander,0.000244,of
 sikahert,"Cervus nippon Temminck, 1838",Cn,Andere,0,in
+sikahert,"Cervus nippon Temminck, 1838",Cn,Andere,0,of
 sikahert,"Cervus nippon Temminck, 1838",Cn,Bestuur,0,in
+sikahert,"Cervus nippon Temminck, 1838",Cn,Bestuur,0,of
 Amerikaanse voseekhoorn,"Sciurus niger L., 1758",Sn,NBHP,0,in
 Amerikaanse voseekhoorn,"Sciurus niger L., 1758",Sn,NBHP,0,of
 gewone gunnera,Gunnera tinctoria (Molina) Mirbel,Gt,NBHP,0.021494,in
 gewone gunnera,Gunnera tinctoria (Molina) Mirbel,Gt,NBHP,0.000006,of
-gewone gunnera,Gunnera tinctoria (Molina) Mirbel,Gt,NBHP,0.257181,sel
+gewone gunnera,Gunnera tinctoria (Molina) Mirbel,Gt,NBHP,0.244460,sel
 gewone gunnera,Gunnera tinctoria (Molina) Mirbel,Gt,NBHP,2,n_nbhp
-gewone gunnera,Gunnera tinctoria (Molina) Mirbel,Gt,MilDom,1,n_per_type
+gewone gunnera,Gunnera tinctoria (Molina) Mirbel,Gt,DomNa,1,n_per_type
 gewone gunnera,Gunnera tinctoria (Molina) Mirbel,Gt,Type2,1,n_per_type
 gewone gunnera,Gunnera tinctoria (Molina) Mirbel,Gt,VOander,0.021494,in
+gewone gunnera,Gunnera tinctoria (Molina) Mirbel,Gt,VOander,0.000334,of
 gewone gunnera,Gunnera tinctoria (Molina) Mirbel,Gt,Andere,0,in
+gewone gunnera,Gunnera tinctoria (Molina) Mirbel,Gt,Andere,0,of
 gewone gunnera,Gunnera tinctoria (Molina) Mirbel,Gt,Bestuur,0,in
+gewone gunnera,Gunnera tinctoria (Molina) Mirbel,Gt,Bestuur,0,of
 gewone gunnera,Gunnera tinctoria (Molina) Mirbel,Gt,NatPer,0,in
+gewone gunnera,Gunnera tinctoria (Molina) Mirbel,Gt,NatPer,0,of
 gewone gunnera,Gunnera tinctoria (Molina) Mirbel,Gt,PrivRec,0,in
+gewone gunnera,Gunnera tinctoria (Molina) Mirbel,Gt,PrivRec,0,of
 gewone gunnera,Gunnera tinctoria (Molina) Mirbel,Gt,VOANB,0,in
+gewone gunnera,Gunnera tinctoria (Molina) Mirbel,Gt,VOANB,0,of
 Noord-Aziatische modderkruiper,"Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)",Mb,NBHP,0.491990,in
-Noord-Aziatische modderkruiper,"Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)",Mb,NBHP,0.000082,of
-Noord-Aziatische modderkruiper,"Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)",Mb,NBHP,5.886759,sel
+Noord-Aziatische modderkruiper,"Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)",Mb,NBHP,0.000078,of
+Noord-Aziatische modderkruiper,"Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)",Mb,NBHP,5.595575,sel
 Noord-Aziatische modderkruiper,"Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)",Mb,NBHP,2,n_nbhp
 Noord-Aziatische modderkruiper,"Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)",Mb,Type2,1,n_per_type
 Noord-Aziatische modderkruiper,"Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)",Mb,Type4,1,n_per_type
 Noord-Aziatische modderkruiper,"Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)",Mb,PrivRec,0.473787,in
+Noord-Aziatische modderkruiper,"Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)",Mb,PrivRec,0.000321,of
 Noord-Aziatische modderkruiper,"Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)",Mb,VOANB,0.018203,in
+Noord-Aziatische modderkruiper,"Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)",Mb,VOANB,0.000007,of
 Noord-Aziatische modderkruiper,"Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)",Mb,Andere,0,in
+Noord-Aziatische modderkruiper,"Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)",Mb,Andere,0,of
 Noord-Aziatische modderkruiper,"Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)",Mb,Bestuur,0,in
+Noord-Aziatische modderkruiper,"Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)",Mb,Bestuur,0,of
 Noord-Aziatische modderkruiper,"Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)",Mb,NatPer,0,in
+Noord-Aziatische modderkruiper,"Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)",Mb,NatPer,0,of
 Noord-Aziatische modderkruiper,"Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)",Mb,VOander,0,in
+Noord-Aziatische modderkruiper,"Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)",Mb,VOander,0,of
 Japans steltgras,Microstegium vimineum (Trin.) A. Camus,Mvim,NBHP,0,in
 Japans steltgras,Microstegium vimineum (Trin.) A. Camus,Mvim,NBHP,0,of
-Pontische stroomgrondel,"Neogobius fluviatilis (Pallas, 1814)",Nf,NBHP,0,in
-Pontische stroomgrondel,"Neogobius fluviatilis (Pallas, 1814)",Nf,NBHP,0,of
+Pontische stroomgrondel,"Neogobius fluviatilis (Pallas, 1814)",Nf,NBHP,0.016582,in
+Pontische stroomgrondel,"Neogobius fluviatilis (Pallas, 1814)",Nf,NBHP,0.000000,of
+Pontische stroomgrondel,"Neogobius fluviatilis (Pallas, 1814)",Nf,NBHP,0.188596,sel
+Pontische stroomgrondel,"Neogobius fluviatilis (Pallas, 1814)",Nf,NBHP,1,n_nbhp
+Pontische stroomgrondel,"Neogobius fluviatilis (Pallas, 1814)",Nf,Type4,1,n_per_type
+Pontische stroomgrondel,"Neogobius fluviatilis (Pallas, 1814)",Nf,PrivRec,0.016582,in
+Pontische stroomgrondel,"Neogobius fluviatilis (Pallas, 1814)",Nf,PrivRec,0.000002,of
+Pontische stroomgrondel,"Neogobius fluviatilis (Pallas, 1814)",Nf,Andere,0,in
+Pontische stroomgrondel,"Neogobius fluviatilis (Pallas, 1814)",Nf,Andere,0,of
+Pontische stroomgrondel,"Neogobius fluviatilis (Pallas, 1814)",Nf,Bestuur,0,in
+Pontische stroomgrondel,"Neogobius fluviatilis (Pallas, 1814)",Nf,Bestuur,0,of
+Pontische stroomgrondel,"Neogobius fluviatilis (Pallas, 1814)",Nf,NatPer,0,in
+Pontische stroomgrondel,"Neogobius fluviatilis (Pallas, 1814)",Nf,NatPer,0,of
+Pontische stroomgrondel,"Neogobius fluviatilis (Pallas, 1814)",Nf,VOANB,0,in
+Pontische stroomgrondel,"Neogobius fluviatilis (Pallas, 1814)",Nf,VOANB,0,of
+Pontische stroomgrondel,"Neogobius fluviatilis (Pallas, 1814)",Nf,VOander,0,in
+Pontische stroomgrondel,"Neogobius fluviatilis (Pallas, 1814)",Nf,VOander,0,of
 Afrikaanse klauwkikker,"Xenopus laevis (Daudin, 1802)",Xl,NBHP,0,in
 Afrikaanse klauwkikker,"Xenopus laevis (Daudin, 1802)",Xl,NBHP,0,of
 fraai lampenpoetsersgras,Cenchrus setaceus (Forssk.) Morrone,Cs,NBHP,0,in
