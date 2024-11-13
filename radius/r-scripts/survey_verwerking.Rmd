@@ -9,6 +9,7 @@ library(googlesheets4)
 library(sf)
 library(ggplot2)
 library(leaflet)
+library(colorspace)
 ```
 
 ```{r resultaten-oost-west, message=FALSE}
@@ -144,7 +145,45 @@ respons <- ggplot() +
   theme(plot.margin=grid::unit(c(0,0,0,0), "mm"))+
   coord_sf()
 
-#ggsave(respons, file = paste0(G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/4_Workshop/Presentaties/Figuren/Kaartjes/respons.png"), width = 28, height = 17, units = "cm", dpi=200)
+respons
+
+# in kleuren
+data_combined <- data_oost %>%
+  select(Naam, Regio, geometry) %>%
+  rbind(data_west %>% select(Naam, Regio, geometry))
+
+tb_oost <- boswachterijen_anb %>%
+  filter(Regio %in% c("Taxandria","Lage tot aan Hoge Kempen","Demerland & Zuiderkempen","Hoge Kempen tot Voeren","Brabantse Wouden")) %>%
+  st_transform(31370) %>%
+  st_union() %>%
+  st_boundary()
+
+tb_west <- boswachterijen_anb %>%
+  filter(Regio %in% c("Groene Gordels","Antwerpse Kempen","Kust & Westhoek","Zandig Vlaanderen","Vlaamse Ardennen & Schelde-Leie")) %>%
+  st_transform(31370) %>%
+  st_union() %>%
+  st_boundary()
+
+combined_boundary <- st_union(tb_oost, tb_west)
+combined_boundary_sf <- st_sf(geometry = combined_boundary, crs = 31370)
+## kaartje handmatig aangepast in ArcMap om overbodige punten en lijnen weg te halen
+combined_boundary <- st_read("G:/Mijn Drive/Fleur/RadIUS/Workshop/Kaartjes/combined_boundary.shp")
+
+kleuren <- hcl.colors(10, palette = "Set 2")
+
+respons <- ggplot() +
+  geom_sf(data = boswachterijen_anb$geometry, color = "black", fill = "#f0f0f0") +
+  geom_sf(data = data_combined, aes(fill = Regio), color = "black", alpha = 0.7, show.legend = FALSE) +
+  geom_sf(data = combined_boundary, color = "black", linewidth = 0.9) +
+  scale_fill_manual(values = kleuren) +
+  theme_void() +
+  theme(plot.margin=grid::unit(c(0,0,0,0), "mm"))+
+  coord_sf()
+
+respons
+
+ggsave(respons, file = paste0("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/4_Workshop/Presentaties/Figuren/Kaartjes/respons.png"), , width = 23, height = 10, units = "cm", dpi=300)
+
 ```
 
 ```{r load-gbif-occurrences, message=FALSE}
