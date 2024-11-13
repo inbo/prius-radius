@@ -12,6 +12,8 @@ library(gdalUtilities)
 library(ggthemes)
 library(gridExtra)
 library(ggplotify)
+library(ggrepel)
+library(grid)
 
 library(extrafont)
 loadfonts(device = "win") 
@@ -36,7 +38,8 @@ custom_theme <- function() {
       strip.text = element_text(size = 9, face = "bold", hjust = -0.01, family = "Arial"),
       #strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0.5, vjust = 0),
       plot.title = element_text(size = 10, family = "Arial", face = "bold", hjust = 0.5),
-      plot.title.position = "plot"
+      plot.title.position = "plot",
+      text = element_text(family = "Arial")
     )
 }
 ```
@@ -93,77 +96,89 @@ responses <- read_sheet("https://docs.google.com/spreadsheets/d/1SaHf2KzulusKU7w
 ```
 # Profiel van deelnemers
 ```{r}
-par(family = "Arial")
-data <- data.frame(
-  category = c("niet van toepassing", "boswachter", "overig ANB-personeel", "regiobeheerder"),
-  count = c(7, 11, 8, 2)
-)
+responses_anb <- responses %>%
+  filter(`Ik ben ...` != '(niet van toepassing)')
 
-library(ggrepel)
-# Maak de piechart
 responses_pie <- ggplot(data, aes(x = "", y = count, fill = category)) +
-  geom_bar(width = 1, stat = "identity", color = "grey98", linewidth = 0.5 ) +
-  # geom_label(
-  #   aes(label = paste0(count, " (", round((count / 28) * 100, 1), "%)")), 
-  #   color = "black", 
-  #   fill = "white",
-  #   position = position_stack(vjust = 0.5), 
-  #   size = 3, 
-  #   show.legend = FALSE
-  # ) +
-  #geom_text(aes(label = paste0(count, " (", round((count / 28) * 100, 1), "%)")), position = position_stack(vjust = 0.5), size = 3) +
+  geom_bar(width = 1, stat = "identity") +
   coord_polar("y", start = 0) +
   scale_fill_manual(values = c("#f2d9e6", "#e6b4ce", "#d98eb5", "#c04384")) +
-  theme_void() + 
+  theme_void() +
   theme(legend.position = "bottom", 
-        legend.title = element_blank()) +
+        legend.title = element_blank(),
+        legend.text = element_text(size = 8, family = "Arial"),
+        #plot.background = element_rect(fill = "grey98", color = NA), 
+        plot.margin = margin(30, 30, 30, 30)) + 
   guides(fill = guide_legend(nrow = 2))
+
 
 responses_pie
 ```
 
 # Verdeling van ANB personeel over beheerregios
 ```{r}
-n_per_br <- data.frame(
-  beheerregio = c("Antwerpse Kempen", "Brabantse Wouden", "Demerland & Zuiderkempen", "Groene Gordels", "Hoge Kempen tot Voeren", "Kust & Westhoek", "Lage tot aan Hoge Kempen", "Taxandria", "Vlaamse Ardennen & Schelde-Leie", "Zandig Vlaanderen", "Niet van toepassing"), 
-  aantal = c(3,4,2,2,2,7,2,2,4,4,9)
-) %>%
-  mutate(perc = paste0(round((aantal / 28) * 100, 1), "%"),
-         beheerregio = factor(beheerregio, levels = rev(c("Antwerpse Kempen", "Brabantse Wouden", "Demerland & Zuiderkempen", 
-                                                 "Groene Gordels", "Hoge Kempen tot Voeren", "Kust & Westhoek", 
-                                                 "Lage tot aan Hoge Kempen", "Taxandria", "Vlaamse Ardennen & Schelde-Leie", 
-                                                 "Zandig Vlaanderen", "Niet van toepassing")))
-  )
+# over alle deelnemers
+responses_per_br <- responses %>%
+  separate_rows(`Ik ben verbonden aan de (beheer)regio('s) ...`, sep = ", ") %>%
+  group_by(`Ik ben verbonden aan de (beheer)regio('s) ...`) %>%
+  summarize(aantal = n()) %>%
+  ungroup() %>%
+  mutate(perc = scales::percent(aantal / 28), 
+         beheerregio = factor(`Ik ben verbonden aan de (beheer)regio('s) ...`, 
+                              levels = rev(c("Antwerpse Kempen", "Brabantse Wouden", "Demerland & Zuiderkempen", 
+                                             "Groene Gordels", "Hoge Kempen tot Voeren", "Kust & Westhoek", 
+                                             "Lage tot aan Hoge Kempen", "Taxandria", "Vlaamse Ardennen & Schelde-Leie",
+                                             "Zandig Vlaanderen", "(niet van toepassing)")))) 
 
-
-plot_n_per_br <- ggplot(n_per_br, aes(x = aantal, y = beheerregio)) +
+plot_responses_per_br <- ggplot(responses_per_br, aes(x = aantal, y = beheerregio)) +
   geom_bar(stat = "identity", fill = "#c04384", width = 0.8) +
-  geom_text(aes(label = paste0(aantal, " (", perc, ")")), hjust = -0.1, size = 3) + 
-  scale_x_continuous(breaks = c(0,2,4,6,8,10), limits = c(0, 10), expand = c(0, 0)) + 
+  geom_text(aes(label = paste0(aantal, " (", perc, ")")), hjust = -0.1, size = 2.5, family = "Arial") + 
+  scale_x_continuous(breaks = seq(0, max(responses_per_br$aantal), by = 2), expand = c(0, 0)) + 
+  labs(x = "Aantal deelnemers", y = "") +
+  scale_x_continuous(breaks = c(0,2,4,6,8), limits = c(0, 8), expand = c(0, 0)) + 
   custom_theme() +
   theme(
     axis.title.y = element_blank()
   )
 
-plot_n_per_br
+plot_responses_per_br
+
+# uitsluitend ANB-personeel
+responses_anb_per_br <- responses_anb %>%
+  separate_rows(`Ik ben verbonden aan de (beheer)regio('s) ...`, sep = ", ") %>%
+  group_by(`Ik ben verbonden aan de (beheer)regio('s) ...`) %>%
+  summarize(aantal = n()) %>%
+  ungroup() %>%
+  mutate(perc = scales::percent(aantal / 28), 
+         beheerregio = factor(`Ik ben verbonden aan de (beheer)regio('s) ...`, 
+                              levels = rev(c("Antwerpse Kempen", "Brabantse Wouden", "Demerland & Zuiderkempen", 
+                                             "Groene Gordels", "Hoge Kempen tot Voeren", "Kust & Westhoek", 
+                                             "Lage tot aan Hoge Kempen", "Taxandria", "Vlaamse Ardennen & Schelde-Leie",
+                                             "Zandig Vlaanderen", "(niet van toepassing)")))) 
+
+plot_responses_anb_per_br <- ggplot(responses_anb_per_br, aes(x = aantal, y = beheerregio)) +
+  geom_bar(stat = "identity", fill = "#c04384", width = 0.8) +
+  geom_text(aes(label = paste0(aantal, " (", perc, ")")), hjust = -0.1, size = 2.5, family = "Arial") + 
+  scale_x_continuous(breaks = seq(0, max(responses_anb_per_br$aantal), by = 2), expand = c(0, 0)) + 
+  labs(x = "Aantal deelnemers", y = "") +
+  scale_x_continuous(breaks = c(0,2,4,6,8), limits = c(0, 8), expand = c(0, 0)) + 
+  custom_theme() +
+  theme(
+    axis.title.y = element_blank()
+  )
+
+plot_responses_anb_per_br
 ```
 
  # Samengestelde plot
 ```{r}
-library(grid)
-
-
 right_column <- grid.arrange(responses_pie)
 
-png("G:/Mijn Drive/Fleur/RadIUS/RadIUS voorbereiding/workshop_attendance.png", 
-    width = 25, height = 10, units = "cm", res = 300)
+png("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/4_Workshop/Presentaties/Figuren/Workshop_attendance.png", 
+    width = 23, height = 10, units = "cm", res=300)
 
 
-grid.arrange(right_column, plot_n_per_br, ncol = 2, widths = c(2,5))
-
-# Add your text labels
-# grid.text("A.", x = 0.02, y = 0.97, gp=gpar(fontsize=10, fontface = "bold"))
-# grid.text("B.", x = 0.52, y = 0.65, gp=gpar(fontsize=10, fontface = "bold"))
+grid.arrange(right_column, plot_responses_anb_per_br, ncol = 2, widths = unit(c(2, 4), "null"))
 
 # Close the device
 dev.off()
