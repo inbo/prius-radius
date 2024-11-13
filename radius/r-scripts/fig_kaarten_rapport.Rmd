@@ -18,7 +18,7 @@ lu_sbp_pgs <- st_read("./radius/data/spatial/lu_sbp_pgs.shp")
 ```
 
 # Habitatrichtlijngebieden (SBZ-H)
-```{r}
+```{r map-hbtrl}
 plot_hbtrl <- ggplot() +
   geom_sf(data = Provincies_grenzen,  fill= "#f0f0f0", linewidth = 0.2) +
   geom_sf(data = ps_hbtrl_deel, fill="#a4e98f", color ="#a4e98f", linewidth = 0.01) +
@@ -26,11 +26,11 @@ plot_hbtrl <- ggplot() +
 
 plot_hbtrl
 
-ggsave("./radius/data/output/fig_maps/map_hbtrl.png", plot = plot_hbtrl, width = 21, height = 12, units = "cm")
+ggsave("./radius/data/output/fig_maps/map_hbtrl.png", plot = plot_hbtrl, width = 23, height = 10, units = "cm")
 ```
 
 # Vogelrichtlijngebieden (SBZ-V)
-```{r}
+```{r map-vglrl}
 plot_vglrl <- ggplot() +
   geom_sf(data = Provincies_grenzen,  fill= "#f0f0f0", linewidth = 0.2) +
   geom_sf(data = ps_vglrl, fill="#a4e98f", color ="#a4e98f", linewidth = 0.01) +
@@ -38,11 +38,11 @@ plot_vglrl <- ggplot() +
 
 plot_vglrl
 
-ggsave("./radius/data/output/fig_maps/map_vglrl.png", plot = plot_vglrl, width = 21, height = 12, units = "cm")
+ggsave("./radius/data/output/fig_maps/map_vglrl.png", plot = plot_vglrl, width = 23, height = 10, units = "cm")
 ```
 
 # N2000 Habitats
-```{r}
+```{r map-n2khab}
 plot_n2khab <- ggplot() +
   geom_sf(data = Provincies_grenzen,  fill= "#f0f0f0", linewidth = 0.2) +
   geom_sf(data = n2khab, fill="#a4e98f", color ="#a4e98f", linewidth = 0.01) +
@@ -50,11 +50,11 @@ plot_n2khab <- ggplot() +
 
 plot_n2khab
 
-ggsave("./radius/data/output/fig_maps/map_n2khab.png", plot = plot_n2khab, width = 21, height = 12, units = "cm")
+ggsave("./radius/data/output/fig_maps/map_n2khab.png", plot = plot_n2khab, width = 23, height = 10, units = "cm")
 ```
 
 # Natuurbeheerplannen
-```{r}
+```{r map-nbhp}
 plot_nbhp <- ggplot() +
   geom_sf(data = Provincies_grenzen,  fill= "#f0f0f0", linewidth = 0.2) +
   geom_sf(data = ps_nbhp, fill="#a4e98f", color ="#a4e98f", linewidth = 0.01) +
@@ -62,19 +62,31 @@ plot_nbhp <- ggplot() +
 
 plot_nbhp
 
-ggsave("./radius/data/output/fig_maps/map_nbhp.png", plot = plot_nbhp, width = 21, height = 12, units = "cm")
+ggsave("./radius/data/output/fig_maps/map_nbhp.png", plot = plot_nbhp, width = 23, height = 10, units = "cm")
+```
+
+# ANB patrimonium
+```{r map-patdat}
+plot_patdat <- ggplot() +
+  geom_sf(data = Provincies_grenzen,  fill= "#f0f0f0", linewidth = 0.2) +
+  geom_sf(data = am_patdat, fill="#a4e98f", color ="#a4e98f", linewidth = 0.01) +
+  theme_map()
+
+plot_patdat
+
+ggsave("./radius/data/output/fig_maps/map_patdat.png", plot = plot_patdat, width = 23, height = 10, units = "cm")
 ```
 
 # Soortenbeschermingsprogramma's (SBPs)
 ```{r}
 plot_sbp_pls <- ggplot() +
   geom_sf(data = Provincies_grenzen,  fill= "#f0f0f0", linewidth = 0.2) +
-  geom_sf(data = lu_sbp_pls, fill="#a4e98f", color ="#a4e98f", linewidth = 0.01) +
+  geom_sf(data = lu_sbp_pls, fill="#a4e98f", color ="#a4e98f", linewidth = 0.8) +
   theme_map()
 
 plot_sbp_pls
 
-ggsave("./radius/data/output/fig_maps/map_sbp_pls.png", plot = plot_sbp_pls, width = 21, height = 12, units = "cm")
+ggsave("./radius/data/output/fig_maps/map_sbp_pls.png", plot = plot_sbp_pls, width = 23, height = 10, units = "cm")
 ```
 
 ```{r}
@@ -85,7 +97,7 @@ plot_sbp_pgs <- ggplot() +
 
 plot_sbp_pgs
 
-ggsave("./radius/data/output/fig_maps/map_sbp_pgs.png", plot = plot_sbp_pgs, width = 21, height = 12, units = "cm")
+ggsave("./radius/data/output/fig_maps/map_sbp_pgs.png", plot = plot_sbp_pgs, width = 23, height = 10, units = "cm")
 ```
 
 
