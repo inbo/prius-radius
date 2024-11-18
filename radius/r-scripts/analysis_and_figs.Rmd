@@ -1193,6 +1193,7 @@ N2KHAB_nspec_pertype <- N2KHAB %>%
   add_row(groep = "bossen", gebied = "91F0", Groep = "plant", n_spec = 0) %>%
   add_row(groep = "bossen", gebied = "91F0", Groep = "dier", n_spec = 0)
 
+
 N2KHAB_nspec_pertype$groep <- factor(N2KHAB_nspec_pertype$groep,
                                      levels = c("zilt en estuarium", "kustduinen", "zoetwater",
                                                 "heiden", "graslanden", "venen", "bossen"))
@@ -1218,10 +1219,19 @@ ggplot(N2KHAB_nspec_pertype, aes(x = reorder(gebied, n_spec), y = n_spec)) +
         panel.background = element_rect(color = "grey", fill = "grey95")
   )
 
-ggsave("./radius/data/output/figuren/n2khab_nspec.png",
-       width = 7,
-       height = 4,
-       dpi = 300)
+
+
+
+
+
+
+
+
+
+
+
+
+
 ```
 
 ##### Incl. unielijst vs. niet-unielijst
@@ -1248,7 +1258,7 @@ N2KHAB_nspec_pertype$EU_lijst <- factor(N2KHAB_nspec_pertype$EU_lijst, levels = 
 
 ggplot(N2KHAB_nspec_pertype, aes(x = reorder(gebied, n_spec), y = n_spec, fill = EU_lijst)) +
   geom_bar(stat = "identity", width = 0.7) +
-  facet_wrap(~ groep, scales = "free_x", nrow = 1, labeller = labeller(groep = facet_labels)) +
+  facet_grid(~ groep, scales = "free_x", space = "free_x", labeller = labeller(groep = facet_labels)) +
   scale_y_continuous(expand = c(0.007, 0)) +
   scale_fill_manual(values = c("#b9e3e4", "#00BFC4")) +
   labs(x = "Habitattype", y = "Aantal IUS") +
@@ -1276,6 +1286,239 @@ Habitattypes met het meeste IUS?
 - **91E0** (vochtige alluviale bossen): 62 IUS
 - **7140** (overgangs- en trilveen): 37 IUS
 - **4010** (vochtige heide): 32 IUS
+
+##### Verspreiding van mate van bezetting
+```{r}
+y <- N2KHAB %>%
+  dplyr::filter(gebied != "N2KHAB" & type == "of" & overlap != 0) %>%
+  left_join(species_list, by = c("soort" = "Soort"), relationship = "many-to-many") %>%
+  left_join(habitats, by = c("gebied" = "code")) %>%
+  select(Groep, soort, groep, gebied, habitat, overlap) %>%
+  distinct() %>%
+  group_by(groep, gebied) %>%
+  summarise(n_spec = n()) %>%
+  ungroup() %>%
+  add_row(groep = "kustduinen", gebied = "2150", n_spec = 0) %>%
+  add_row(groep = "bossen", gebied = "91F0", n_spec = 0) %>%
+  left_join(x, by = "gebied") %>%
+  mutate_all(~replace(., is.na(.), 0))
+
+y$max_overlap <- y$max_overlap * 100
+
+breaks <- c(0, 0.000001, seq(10, 100, by = 10))
+labels <- c("0%", paste0(">0-10%"), paste0(seq(10, 90, by = 10), "-", seq(20, 100, by = 10), "%"))
+
+y$overlap_categorie <- cut(y$max_overlap, 
+                           breaks = breaks,
+                           labels = labels,
+                           include.lowest = TRUE,
+                           right = FALSE)
+z <- y %>%
+  group_by(overlap_categorie) %>%
+  summarise(n_habitats = n())
+
+ggplot(z, aes(x = overlap_categorie, y = n_habitats)) +
+  geom_bar(stat = "identity", fill = "#c04384", width = 0.7) +
+  scale_y_continuous(
+    expand = expansion(mult = c(0, 0.01)),
+    breaks = function(x) seq(floor(min(x)), ceiling(max(x)), by = 2)
+  ) +
+  labs(x = "Maximale bezetting", y = "Aantal habitats") +
+  custom_theme() +
+  theme(axis.text.x = element_text(angle = -45, hjust = 0))
+```
+
+
+##### Mate van bezetting vs aantal soorten
+
+voor mate van bezetting nemen we de maximale bezettingswaarde in een habitat als weerspiegeling van de bezetting van het habitattype
+```{r}
+x <- N2KHAB %>%
+  filter(type == "of" & gebied != "N2KHAB") %>%
+  group_by(gebied) %>%
+  summarise(
+    max_overlap = max(overlap) * 100, 
+    mean_overlap = mean(overlap) * 100, 
+  )
+
+y <- N2KHAB %>%
+  dplyr::filter(gebied != "N2KHAB" & type == "of" & overlap != 0) %>%
+  left_join(species_list, by = c("soort" = "Soort"), relationship = "many-to-many") %>%
+  left_join(habitats, by = c("gebied" = "code")) %>%
+  select(Groep, soort, groep, gebied, habitat, overlap) %>%
+  distinct() %>%
+  group_by(groep, gebied) %>%
+  summarise(n_spec = n()) %>%
+  ungroup() %>%
+  add_row(groep = "kustduinen", gebied = "2150", n_spec = 0) %>%
+  add_row(groep = "bossen", gebied = "91F0", n_spec = 0) %>%
+  left_join(x, by = "gebied") %>%
+  mutate_all(~replace(., is.na(.), 0)) %>%
+  pivot_longer(cols = c(n_spec, mean_overlap), names_to = "metric") 
+
+y_order <- y %>%
+  dplyr::filter(metric == "n_spec") %>%
+  arrange(value) %>%
+  pull(gebied)
+
+y$gebied <- factor(y$gebied, levels = y_order)
+y$metric <- factor(y$metric, levels = c("n_spec", "mean_overlap"))
+y$groep <- factor(y$groep, levels = c("zilt en estuarium", "kustduinen", "zoetwater","heiden", "graslanden", "venen", "bossen"))
+
+facet_labels <- c("zilt en estuarium" = "zilt en \nestuarium",
+                  "kustduinen" = "kustduinen",
+                  "zoetwater" = "zoetwater",
+                  "heiden" = "heiden",
+                  "graslanden" = "graslanden",
+                  "venen" = "venen",
+                  "bossen" = "bossen")
+
+scale_factor <- 60 / 5  
+
+y <- y %>%
+  mutate(value = ifelse(metric == "mean_overlap", value * scale_factor, value))
+
+ggplot(data = y, aes(x = gebied, y = value, fill = metric)) +
+  geom_bar(stat = "identity", position = position_dodge(width = 0.9), width = 0.8) +
+  facet_grid(~groep, scales="free_x", space="free_x", labeller=labeller(groep=facet_labels)) +
+  scale_y_continuous(
+    name="Aantal soorten",
+    limits=c(0, 65),  
+    breaks=seq(0, 65, by=15),  
+    minor_breaks=seq(0, 65, by=5), 
+    expand=expansion(mult=c(0,0.01)),
+    sec.axis=sec_axis(
+      ~ . / scale_factor,
+      name="Gemiddelde bezetting (%)",
+      breaks=seq(0,10,by=1),  
+      labels=scales::percent_format(scale=1)
+    )
+  ) +
+  scale_fill_manual(values=c("n_spec"="#cc6999", "mean_overlap"="#e6b4ce"),
+                    labels=c("n_spec"="Aantal soorten", 
+                             "mean_overlap"="Gemiddelde bezetting (%)")) +
+  labs(x="Habitat") +
+  custom_theme() +
+  theme(
+    axis.text.x=element_text(angle=90,vjust=0.5),
+    strip.placement="outside",
+    strip.text.x.top=element_text(margin=margin(0,0,3,0), hjust=0,vjust=0,size=8),
+    legend.position="bottom",
+    legend.title=element_blank(), 
+    panel.grid.major.y=element_line(color="grey75", size=0.5), 
+    panel.grid.minor.y=element_line(color="grey90", size=0.25)
+)
+
+### tabel met opsplitsing volgens categorie
+y <- N2KHAB %>%
+  dplyr::filter(gebied != "N2KHAB" & type == "of" & overlap != 0) %>%
+  left_join(species_list, by = c("soort" = "Soort"), relationship = "many-to-many") %>%
+  left_join(habitats, by = c("gebied" = "code")) %>%
+  select(Groep, soort, groep, gebied, habitat, overlap) %>%
+  distinct() %>%
+  group_by(groep, gebied) %>%
+  summarise(n_spec = n()) %>%
+  ungroup() %>%
+  add_row(groep = "kustduinen", gebied = "2150", n_spec = 0) %>%
+  add_row(groep = "bossen", gebied = "91F0", n_spec = 0) %>%
+  left_join(x, by = "gebied") %>%
+  mutate_all(~replace(., is.na(.), 0))
+
+y <- y %>%
+    mutate(bezetting_cat = case_when(
+        n_spec == 0 ~ "0%", 
+        max_overlap < 25 ~ "<25%",
+        max_overlap >= 25 & max_overlap < 50 ~ "25-50%",
+        max_overlap >= 50 & max_overlap < 75 ~ "50-75%",
+        TRUE ~ ">75%"
+    )) %>%
+    mutate(bezetting_cat = factor(bezetting_cat, 
+                                   levels = c("0%", "<25%", "25-50%", "50-75%", ">75%")))
+
+y <- y %>%
+    mutate(aantal_cat = case_when(
+        n_spec == 0 ~ "0",  
+        n_spec < 10 ~ "<10",
+        n_spec >= 10 & n_spec < 20 ~ "10-20",
+        n_spec >= 20 & n_spec < 30 ~ "20-30",
+        TRUE ~ ">30"
+    )) %>%
+    mutate(aantal_cat = factor(aantal_cat, 
+                                levels = c("0", "<10", "10-20", "20-30", ">30")))
+
+result <- y %>%
+    group_by(aantal_cat, bezetting_cat) %>%
+    summarise(habitat = paste(gebied[!is.na(gebied)], collapse = ", "), .groups = 'drop') %>%
+    pivot_wider(names_from = bezetting_cat, values_from = habitat) %>%
+    arrange(aantal_cat) 
+
+# 
+# 
+# 
+# 
+# ggplot(y, aes(x = value, y = gebied, fill = metric)) +
+#   geom_bar(stat = "identity", width = 0.7, position = position_dodge()) +
+#   facet_grid(groep ~ metric, scales = "free_y", labeller = labeller(groep = facet_labels, metric = c(n_spec = "# soorten", max_overlap = "maximale bezetting (%)"))) +
+#   scale_x_continuous(
+#     expand = expansion(mult = c(0, 0.01)),
+#     breaks = seq(0, 100, by = 10),
+#     limits = c(0, 100)  
+#   ) +
+#   scale_fill_manual(values = c("#c04384", "#00BFC4")) +
+#   custom_theme() +
+#   theme(strip.placement = "outside",
+#         strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0, vjust = 0, size = 8),
+#         legend.position = "none",
+#         legend.title = element_blank(),
+#         axis.title.y = element_blank()) +
+#   coord_cartesian(clip = "off")
+# 
+# ggplot(y, aes(x = value, y = gebied, fill = metric)) +
+#   geom_bar(stat = "identity", width = 0.7, position = position_dodge()) +
+#   facet_wrap(~ groep, scales = "free_y", ncol = 1, labeller = labeller(groep = facet_labels)) +
+#   scale_x_continuous(expand = expansion(mult = c(0,0.01))) +
+#   scale_fill_manual(values = c("#c04384", "#00BFC4")) +
+#   custom_theme() +
+#   theme(strip.placement = "outside",
+#         strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0, vjust = 0, size = 8),
+#         legend.position = "none",
+#         legend.title = element_blank(),
+#         axis.title.y = element_blank()) +
+#   coord_cartesian(clip = "off")
+# 
+# y <- N2KHAB %>%
+#   dplyr::filter(gebied != "N2KHAB" & type == "of" & overlap != 0) %>%
+#   left_join(species_list, by = c("soort" = "Soort"), relationship = "many-to-many") %>%
+#   left_join(habitats, by = c("gebied" = "code")) %>%
+#   select(Groep, soort, groep, gebied, habitat, overlap) %>%
+#   distinct() %>%
+#   group_by(groep, gebied) %>%
+#   summarise(n_spec = n()) %>%
+#   ungroup() %>%
+#   add_row(groep = "kustduinen", gebied = "2150", n_spec = 0) %>%
+#   add_row(groep = "bossen", gebied = "91F0", n_spec = 0) %>%
+#   left_join(x, by = "gebied") %>%
+#   mutate_all(~replace(., is.na(.), 0))
+# 
+# scale_factor <- max(y$n_spec) / max(y$max_overlap)
+# 
+# ratio <- max(y$n_spec) / max(y$max_overlap)
+# 
+# ggplot(data = y, aes(x = reorder(gebied, n_spec))) +
+#   geom_bar(aes(y = n_spec), stat = "identity", fill = "skyblue") +
+#   geom_line(aes(y = max_overlap * ratio), color = "red", size = 1, group = 1) +
+#   geom_point(aes(y = max_overlap * ratio), color = "red", size = 1) +
+#   scale_y_continuous(
+#     name = "Number of Species",
+#     sec.axis = sec_axis(~./ratio, name = "Maximum Overlap")
+#   ) +
+#   theme_minimal() +
+#   theme(
+#     axis.title.y.left = element_text(color = "skyblue"),
+#     axis.title.y.right = element_text(color = "red"),
+#     axis.text.x = element_text(angle = 45, hjust = 1)
+#   ) 
+```
 
 ##### Kaartje
 ```{r}
@@ -1618,7 +1861,7 @@ Voorkomen wordt hier uitgedrukt in het percentage van het totale verspreidingsop
 ```{r n2khab-gen-vs-spec, echo = FALSE, warning=FALSE}
 x <- N2KHAB %>%
   dplyr::filter(gebied != "N2KHAB" & type == "in" & soort %in% c("watercrassula", "struikaster")) %>%
-  left_join(habitats, by = c("gebied" = "code"))
+  left_join(habitats, by = c("gebied" = "code")) 
 
 x$groep <- factor(x$groep, levels = c("zilt en estuarium", "kustduinen", "zoetwater", "heiden", "graslanden", "venen", "bossen"))
 
@@ -1642,10 +1885,29 @@ ggplot(x, aes(x = overlap * 100, y = reorder(gebied, overlap))) +
         panel.spacing.y = unit(0.5, "lines"),
         plot.margin = margin(r = 5, unit = "mm"))
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/N2KHAB/n2khab_gen_vs_spec.png", 
-       width = 23, height = 17, units = "cm", dpi=300)
-ggsave("./radius/data/output/figuren/n2khab_gen_vs_spec.png", 
-       width = 23, height = 17, units = "cm", dpi=300)
+
+ggplot(data = x, aes(x = reorder_within(gebied, overlap, groep), y = overlap * 100)) +
+  geom_bar(stat = "identity", width = 0.7, fill = "#cc6999") +
+  facet_grid(soort ~ groep, scales = "free", space = "free_x", labeller = labeller(groep = facet_labels)) +
+  labs(x="Habitat", y = "% van totale verspreidingsoppervlak") +
+  scale_x_reordered() +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.05)), labels = scales::percent_format(scale = 1)) +
+  custom_theme() +
+  theme(
+    axis.text.x=element_text(angle=90, vjust=0.5),
+    legend.position="bottom",
+    legend.title=element_blank(), 
+    strip.text.x = element_text(hjust = 0, vjust = 0, color = "black"),
+    strip.placement = "outside",
+    #strip.background.x = element_rect(fill = "grey98", color = NA),
+    panel.spacing.x = unit(0.5, "lines"),
+    plot.margin = margin(r = 5, unit = "mm")
+  )
+
+# ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/N2KHAB/n2khab_gen_vs_spec.png", 
+#        width = 23, height = 17, units = "cm", dpi=300)
+# ggsave("./radius/data/output/figuren/n2khab_gen_vs_spec.png", 
+#        width = 23, height = 17, units = "cm", dpi=300)
 ```
 
 #### Aquatisch vs. terrestrisch
@@ -2104,11 +2366,11 @@ group_order <- c("Buiten NBHP",
                  "Agentschap voor Natuur en Bos")
 
 soort_order <- c("Siberische grondeekhoorn", 
-                   "kleine waterteunisbloem", 
-                   "Chinese moerasslak", 
-                   "sikahert",
-                   "rosse stekelstaart",
-                   "beverrat")
+                 "kleine waterteunisbloem", 
+                 "Chinese moerasslak", 
+                 "sikahert",
+                 "rosse stekelstaart",
+                 "beverrat")
 
 data_filtered$gebied <- factor(data_filtered$gebied, levels = group_order)
 data_filtered$soort <- factor(data_filtered$soort, levels = rev(soort_order))
@@ -2185,9 +2447,9 @@ x <- NBHP %>%
   dplyr::filter(gebied != "NBHP" & type == "in") %>%
   select(soort, gebied, overlap, type) %>%
   add_row(soort = "Siberische grondeekhoorn", gebied = "Buiten", overlap = 1 - sum(x$overlap), type = "out")
- 
 
-  
+
+
 ```
 
 
