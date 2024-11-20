@@ -26,7 +26,7 @@ plot_hbtrl <- ggplot() +
 
 plot_hbtrl
 
-ggsave("./radius/data/output/fig_maps/map_hbtrl.png", plot = plot_hbtrl, width = 23, height = 10, units = "cm")
+ggsave("./radius/data/output/fig_maps/map_hbtrl.png", plot = plot_hbtrl, width = 23, height = 8, units = "cm")
 ```
 
 # Vogelrichtlijngebieden (SBZ-V)
@@ -38,7 +38,7 @@ plot_vglrl <- ggplot() +
 
 plot_vglrl
 
-ggsave("./radius/data/output/fig_maps/map_vglrl.png", plot = plot_vglrl, width = 23, height = 10, units = "cm")
+ggsave("./radius/data/output/fig_maps/map_vglrl.png", plot = plot_vglrl, width = 23, height = 8, units = "cm")
 ```
 
 # N2000 Habitats
@@ -50,7 +50,7 @@ plot_n2khab <- ggplot() +
 
 plot_n2khab
 
-ggsave("./radius/data/output/fig_maps/map_n2khab.png", plot = plot_n2khab, width = 23, height = 10, units = "cm")
+ggsave("./radius/data/output/fig_maps/map_n2khab.png", plot = plot_n2khab, width = 23, height = 8, units = "cm")
 ```
 
 # Natuurbeheerplannen
@@ -62,7 +62,7 @@ plot_nbhp <- ggplot() +
 
 plot_nbhp
 
-ggsave("./radius/data/output/fig_maps/map_nbhp.png", plot = plot_nbhp, width = 23, height = 10, units = "cm")
+ggsave("./radius/data/output/fig_maps/map_nbhp.png", plot = plot_nbhp, width = 23, height = 8, units = "cm")
 ```
 
 # ANB patrimonium
@@ -74,7 +74,7 @@ plot_patdat <- ggplot() +
 
 plot_patdat
 
-ggsave("./radius/data/output/fig_maps/map_patdat.png", plot = plot_patdat, width = 23, height = 10, units = "cm")
+ggsave("./radius/data/output/fig_maps/map_patdat.png", plot = plot_patdat, width = 23, height = 8, units = "cm")
 ```
 
 # Soortenbeschermingsprogramma's (SBPs)
@@ -86,7 +86,7 @@ plot_sbp_pls <- ggplot() +
 
 plot_sbp_pls
 
-ggsave("./radius/data/output/fig_maps/map_sbp_pls.png", plot = plot_sbp_pls, width = 23, height = 10, units = "cm")
+ggsave("./radius/data/output/fig_maps/map_sbp_pls.png", plot = plot_sbp_pls, width = 23, height = 8, units = "cm")
 ```
 
 ```{r}
@@ -97,7 +97,7 @@ plot_sbp_pgs <- ggplot() +
 
 plot_sbp_pgs
 
-ggsave("./radius/data/output/fig_maps/map_sbp_pgs.png", plot = plot_sbp_pgs, width = 23, height = 10, units = "cm")
+ggsave("./radius/data/output/fig_maps/map_sbp_pgs.png", plot = plot_sbp_pgs, width = 23, height = 8, units = "cm")
 ```
 
 
