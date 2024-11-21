@@ -78,7 +78,7 @@ ggsave("./radius/data/output/fig_maps/map_patdat.png", plot = plot_patdat, width
 ```
 
 # Soortenbeschermingsprogramma's (SBPs)
-```{r}
+```{r map-sbp-pls}
 plot_sbp_pls <- ggplot() +
   geom_sf(data = Provincies_grenzen,  fill= "#f0f0f0", linewidth = 0.2) +
   geom_sf(data = lu_sbp_pls, fill="#a4e98f", color ="#a4e98f", linewidth = 0.8) +
@@ -89,7 +89,7 @@ plot_sbp_pls
 ggsave("./radius/data/output/fig_maps/map_sbp_pls.png", plot = plot_sbp_pls, width = 23, height = 8, units = "cm")
 ```
 
-```{r}
+```{r plot-sbp-pgs}
 plot_sbp_pgs <- ggplot() +
   geom_sf(data = Provincies_grenzen,  fill= "#f0f0f0", linewidth = 0.2) +
   geom_sf(data = lu_sbp_pgs, fill="#a4e98f", color ="#a4e98f", linewidth = 0.01) +
@@ -101,6 +101,17 @@ ggsave("./radius/data/output/fig_maps/map_sbp_pgs.png", plot = plot_sbp_pgs, wid
 ```
 
 
+```{r plot-sbp-combined}
+plot_sbp <- ggplot() +
+  geom_sf(data = Provincies_grenzen,  fill= "#f0f0f0", linewidth = 0.2) +
+  geom_sf(data = lu_sbp_pgs, fill="#a4e98f", color ="grey80", linewidth = 0.01) +
+  geom_sf(data = lu_sbp_pls, fill="royalblue", color ="royalblue", linewidth = 0.8) +
+  theme_map()
+
+plot_sbp
+
+ggsave("./radius/data/output/fig_maps/map_sbp_combined.png", plot = plot_sbp, width = 23, height = 8, units = "cm")
+```
 
 
 
