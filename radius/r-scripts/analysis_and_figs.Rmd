@@ -34,6 +34,7 @@ library(RColorBrewer)
 library(patchwork)
 library(gridExtra)
 library(grid)
+library(mapview)
 
 library(extrafont)
 loadfonts(device = "win") 
@@ -169,6 +170,110 @@ SBP_pls <- read_csv("./radius/data/output/SBP_pls_long.csv")
 SBP_pgs_wide <- read_csv("./radius/data/output/SBP_pgs_wide.csv")
 SBP_pls_wide <- read_csv("./radius/data/output/SBP_pls_wide.csv")
 ```
+
+# FIGUUR PUNT TOT WOLK
+```{r figuur-punt-tot-wolk, echo=FALSE}
+bbox <- st_bbox(c(xmin = 4.557773, ymin = 50.987674, 
+                  xmax = 4.577814, ymax = 50.999349), 
+                crs = st_crs(4326))
+
+bbox <- st_as_sfc(bbox)
+
+occ_data <- occ_flanders %>%
+  filter(Soort == "Canadese guldenroede") %>%
+  st_intersection(bbox) %>%
+  mutate(id = row_number())
+
+
+occ_data_buf_40 <- occ_data %>%
+  st_transform(31370) %>%
+  st_buffer(dist = 40) 
+
+occ_data_buf_80 <- occ_data %>%
+  st_transform(31370) %>%
+  st_buffer(dist = 80) 
+
+occ_data_buf_100 <- occ_data %>%
+  st_transform(31370) %>%
+  st_buffer(dist = 100) 
+
+occ_data_union <- occ_data_buf_100 %>%
+  st_union() %>%
+  st_cast('POLYGON') %>% 
+  st_sf()
+  
+occ_data_intersect <- occ_data_union %>%
+  st_intersection(ps_hbtrl %>% st_transform(31370))
+
+leaflet() %>%
+  addTiles(data = "OSM") %>%
+  addCircleMarkers(data = occ_data %>% st_transform(4326), radius = 2, opacity = 1, fillOpacity = 1, label = ~id) %>%
+  fitBounds(
+    lng1 = 4.566793, lat1 = 50.988674, 
+    lng2 = 4.568793, lat2 = 50.996349  
+  )  
+
+map_1 <- leaflet() %>%
+  addTiles(data = "OSM") %>%
+  addCircleMarkers(data = occ_data %>% st_transform(4326), radius = 2, opacity = 1, fillOpacity = 1, label = ~id) %>%
+  addPolygons(data = occ_data_buf_40 %>% st_transform(4326) %>% filter(id %in% c(2,7,8,11)), fillOpacity = 0.3, weight = 1.5) %>%
+  addPolygons(data = occ_data_buf_80 %>% st_transform(4326) %>% filter(id %in% c(1,9,10,12,13)), fillOpacity = 0.3, weight = 1.5) %>%
+  addPolygons(data = occ_data_buf_100 %>% st_transform(4326) %>% filter(id %in% c(3,4,5,6,14)), fillOpacity = 0.3, weight = 1.5) %>%
+  fitBounds(
+    lng1 = 4.566793, lat1 = 50.988674, 
+    lng2 = 4.568793, lat2 = 50.996349  
+  )
+
+map_1
+
+mapshot(map_1, file = "G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/punt_tot_wolk_1.png")
+
+map_2 <- leaflet() %>%
+  addTiles(data = "OSM") %>%
+  addCircleMarkers(data = occ_data %>% st_transform(4326), radius = 2, opacity = 1, fillOpacity = 1, label = ~id) %>%
+  addPolygons(data = occ_data_buf_100 %>% st_transform(4326), fillOpacity = 0.3, weight = 1.5) %>%
+  fitBounds(
+    lng1 = 4.566793, lat1 = 50.988674, 
+    lng2 = 4.568793, lat2 = 50.996349  
+  ) 
+
+mapshot(map_2, file = "G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/punt_tot_wolk_2.png")
+
+map_3 <- leaflet() %>%
+  addTiles(data = "OSM") %>%
+  addPolygons(data = occ_data_union %>% st_transform(4326), weight = 1.5, fillOpacity = 0.3) %>%
+  fitBounds(
+    lng1 = 4.566793, lat1 = 50.988674, 
+    lng2 = 4.568793, lat2 = 50.996349  
+  ) 
+
+mapshot(map_3, file = "G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/punt_tot_wolk_3.png")
+
+map_4 <- leaflet() %>%
+  addTiles(data = "OSM") %>%
+  addPolygons(data = ps_hbtrl %>% st_transform(4326), color = "#a4e98f", fill = "#a4e98f", fillOpacity = 0.8, weight = 1) %>%
+  addPolygons(data = occ_data_union %>% st_transform(4326), weight = 1.5, fillOpacity = 0.3) %>%
+  fitBounds(
+    lng1 = 4.566793, lat1 = 50.988674, 
+    lng2 = 4.568793, lat2 = 50.996349  
+  )
+
+mapshot(map_4, file = "G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/punt_tot_wolk_4.png")
+
+map_5 <- leaflet() %>%
+  addTiles(data = "OSM") %>%
+  addPolygons(data = ps_hbtrl %>% st_transform(4326), color = "#a4e98f", fill = "#a4e98f", fillOpacity = 0.8, weight = 1) %>%
+  addPolygons(data = occ_data_union %>% st_transform(4326), weight = 1.5, fillOpacity = 0.4) %>%
+  addPolygons(data = occ_data_intersect %>% st_transform(4326), weight = 1.5, color = "red", fillOpacity = 0.3) %>%
+  fitBounds(
+    lng1 = 4.566793, lat1 = 50.988674, 
+    lng2 = 4.568793, lat2 = 50.996349  
+  )
+
+mapshot(map_5, file = "G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/punt_tot_wolk_5.png")
+
+```
+
 
 # DATA EXPLORATIE
 
