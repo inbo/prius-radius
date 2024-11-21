@@ -307,6 +307,7 @@ ui <- page_navbar(
     title = "Gebiedsfiches",
     div(
       class = "custom-container",
+      
       ## Sidebar
       div(
         class = "custom-sidebar",
@@ -411,28 +412,36 @@ server <- function(input, output, session) {
   ## REACTIEVE ELEMENTEN
   metrics <- reactive({
     data <- list_metrics[[input$kaart]]
-    if (input$deelgebied == "All") {
-      data <- data %>%
-        filter(type == "of" & is.na(code)) %>%
-        st_drop_geometry()
-    }
-    else if (input$deelgebied != "All") {
-      data <- data %>% 
-        filter(code == input$deelgebied & type == "of") %>%
-        st_drop_geometry()
-    } 
-    
-    data_order <- data %>%
-      arrange(overlap) %>%
-      pull(soort)
     
     data <- data %>%
-      mutate(label_color = ifelse(overlap == 0, "grey75", "black")) %>%
+      filter(type == "of") %>%
+      st_drop_geometry() %>%
       left_join(species_list, by = c("soort" = "Soort")) %>%
-      select(soort, species, Groep, overlap, label_color) %>%
-      distinct() %>%
-      mutate(Groep = factor(Groep, levels = c("dier", "plant")), soort = factor(soort, levels = data_order)) %>%
-      select(soort, Groep, overlap, label_color) 
+      select(soort, species, abbr, Groep, code, naam, overlap) %>%
+      distinct() 
+    
+    # if (input$deelgebied == "All") {
+    #   data <- data %>%
+    #     filter(type == "of" & is.na(code)) %>%
+    #     st_drop_geometry()
+    # }
+    # else if (input$deelgebied != "All") {
+    #   data <- data %>% 
+    #     filter(code == input$deelgebied & type == "of") %>%
+    #     st_drop_geometry()
+    # } 
+    # 
+    # data_order <- data %>%
+    #   arrange(overlap) %>%
+    #   pull(soort)
+    # 
+    # data <- data %>%
+    #   mutate(label_color = ifelse(overlap == 0, "grey75", "black")) %>%
+    #   left_join(species_list, by = c("soort" = "Soort")) %>%
+    #   select(soort, species, Groep, overlap, label_color) %>%
+    #   distinct() %>%
+    #   mutate(Groep = factor(Groep, levels = c("dier", "plant")), soort = factor(soort, levels = data_order)) %>%
+    #   select(soort, Groep, overlap, label_color) 
   })
   
   ## OUTPUTS
@@ -441,17 +450,28 @@ server <- function(input, output, session) {
   })
   
   output$gebiedsfiches_input <- renderUI({
-    names <- unique(na.omit(list_metrics[[input$kaart]]$naam))
-    codes <- unique(na.omit(list_metrics[[input$kaart]]$code))
-    
-    if (input$kaart %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)")) {
-      selectizeInput("deelgebied", label = "Deelgebied:", choices = c("All" = "All", setNames(codes, sort(paste0(names, " (", codes, ")")))))
+    if (input$kaart %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)", "Natura 2000 Habitattypes")) {
+      data <- list_metrics[[input$kaart]]
       
-    } else if (input$kaart == "Natura 2000 Habitattypes") {
-      selectizeInput("deelgebied", label = "Deelgebied:", choices = c("All" = "All", sort(setNames(codes, sort(paste0(names, " (", codes, ")"))))))
+      # Maak een data frame met namen en codes
+      df <- data.frame(naam = data$naam, code = data$code, stringsAsFactors = FALSE)
       
+      # Verwijder NA waarden en sorteer op naam
+      df <- na.omit(df)
+      df <- df[order(df$naam), ]
+      
+      # Combineer naam en code voor weergave in dropdown
+      choices <- setNames(df$code, paste(df$naam, "(", df$code, ")", sep = " "))
+      
+      selectizeInput("deelgebied", 
+                     label = "Deelgebied:", 
+                     choices = c("All" = "All", choices))
     } else if (input$kaart == "ANB patrimonium") {
-      selectizeInput("regio", label = "Beheerregio:", choices = c("All", na.omit(unique(am_patdat_wgs84$code))))
+      choices <- setNames(am_patdat_wgs84$code, paste(am_patdat_wgs84$naam, am_patdat_wgs84$code, sep = " - "))
+      
+      selectizeInput("regio", 
+                     label = "Beheerregio:", 
+                     choices = c("All" = "All", choices))
     } else {
       NULL 
     }
@@ -477,30 +497,38 @@ server <- function(input, output, session) {
           div(
             class = "card-header",
             style = "background-color: #f8f9fa; padding: 10px 15px; border-bottom: 1px solid #ddd;",
-            h3("Wie?", style = "margin: 0;")
+            h3("Bezetting", style = "margin: 0;")
           ),
           
           div(
             class = "card-body",
             style = "padding: 15px;",
-            fluidRow(
-              column(
-                width = 6,
-                ## Plotly Graph Output for 'sp_in_gebied'
-                plotlyOutput("sp_in_gebied", height = "400px"),
-                
-                ## Download Button for Graph Data
-                downloadButton("download_data_sp_in_gebied", "Download Data as CSV", style = "margin-top: 10px;")
-              ),
-              column(
-                width = 6,
-                div(
-                  style = "padding-left: 15px;",
-                  h4("Uitleg over figuur"),
-                  p("Hier komt de uitleg over de figuur. U kunt meerdere paragrafen toevoegen indien nodig."),
-                  p("Tweede paragraaf met meer details of context.")
+            
+            # Tabset Panel
+            tabsetPanel(
+              id = "tabset_bezetting", 
+              type = "tabs",
+              
+              tabPanel(
+                title = "percentage",
+                fluidRow(
+                  highchartOutput("percentage_oppervlak"),
+                  
+                  ## Download Button for Graph Data
+                  downloadButton("download_data_sp_in_gebied", "Download Data as CSV", style = "margin-top: 10px;")
                 )
-              )
+              ),
+              
+              if (input$deelgebied == "All") {
+                tabPanel(
+                  title = "aantal gebieden",
+                  fluidRow(
+                    highchartOutput("aantal_gebieden"),
+                    downloadButton("download_data_percentage_oppervlak", "Download Percentage Data as CSV", style = "margin-top: 10px;")
+                  )
+                )
+              }
+              
             )
           )
         ),
@@ -532,10 +560,10 @@ server <- function(input, output, session) {
     }
     
     else if (input$kaart %in% c("Natura 2000 Habitattypes")){
-
+      
     }
     else if (input$kaart %in% c("Natuurbeheerplannen", "ANB patrimonium")){
-
+      
     }
   })
   
@@ -604,22 +632,92 @@ server <- function(input, output, session) {
     }
   })
   
-  output$sp_in_gebied <- renderPlotly({
-      label_colors <- setNames(metrics()$label_color, metrics()$soort)
+  output$percentage_oppervlak <- renderHighchart({
+    if (input$deelgebied == "All") {
+      data <- metrics() %>%
+        filter(is.na(code))
+    }
+    
+    if (input$deelgebied != "All") {
+      data <- metrics() %>%
+        filter(code == input$deelgebied)
+    }
+    
+    if (nrow(data) != 0) {
+      df <- data %>%
+        filter(overlap != 0) %>%
+        arrange(overlap) %>%
+        mutate(y = overlap * 100)
       
-      ggplotly(
-        ggplot(metrics(), aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort, fill = overlap)) +
-          geom_bar(stat = "identity", show.legend = FALSE, width = 0.7, fill = "#c04384") +  
-          facet_wrap(~Groep, ncol = 1, scales = "free_y") +  
-          scale_y_discrete(labels = function(soort) {
-            sapply(soort, function(s) {
-              paste0("<span style='color:", label_colors[s], "'>", s, "</span>")
-            })
-          }) +
-          custom_theme() + 
-          theme(strip.placement = "outside", axis.text.y = element_markdown())
-      )
+      chart <- highchart() %>%
+        hc_chart(type = 'column') %>%
+        hc_xAxis(categories = df$soort, title = list(text = ""), labels = list(rotation = -90)) %>%
+        hc_yAxis(title = list(text = 'Overlap (%)'), labels = list(format = '{value}%')) 
+
+        chart <- chart %>%
+          hc_plotOptions(
+            column = list(
+              dataLabels = list(enabled = TRUE, format = '{point.y:.2f}%'),
+              borderColor = "black",
+              borderWidth = 0.5,
+              pointPadding = 0.1, 
+              groupPadding = 0.1
+            ))
+      
+      chart <- chart %>%
+        hc_tooltip(
+          headerFormat = '',
+          pointFormat = '<b>{point.soort}: {point.y:.2f}%</b>'
+        ) %>%
+        hc_chart(backgroundColor = 'rgba(0, 0, 0, 0)') %>%
+        hc_add_theme(hc_theme_elementary()) %>%
+        hc_add_series(
+          name = "Overlap",
+          data = df %>% mutate(y = overlap * 100) %>% select(soort, y)) 
+      
+      chart
+    }
   })
+  
+  output$aantal_gebieden <- renderHighchart({
+    data <- metrics() %>%
+      filter(!is.na(code) & overlap != 0) %>%
+      group_by(soort) %>%
+      summarise(y = n()) %>%
+      arrange(y)
+    
+    if (nrow(data) != 0) {
+      df <- data
+      chart <- highchart() %>%
+        hc_chart(type = 'column') %>%
+        hc_xAxis(categories = df$soort, title = list(text = ""), labels = list(rotation = -90)) %>%
+        hc_yAxis(title = list(text = '# gebieden')) 
+      
+      chart <- chart %>%
+        hc_plotOptions(
+          column = list(
+            dataLabels = list(enabled = TRUE, format = '{point.y:.0f}'),
+            borderColor = "black",
+            borderWidth = 0.5,
+            pointPadding = 0.1, 
+            groupPadding = 0.1
+          ))
+      
+      chart <- chart %>%
+        hc_tooltip(
+          headerFormat = '',
+          pointFormat = '<b>{point.soort}: {point.y:.0f}</b>'
+        ) %>%
+        hc_chart(backgroundColor = 'rgba(0, 0, 0, 0)') %>%
+        hc_add_theme(hc_theme_elementary()) %>%
+        hc_add_series(
+          name = "# gebieden",
+          data = df %>% select(soort, y)) 
+      
+      chart
+    }
+  })
+  
   
   output$download_data_sp_in_gebied <- downloadHandler(
     filename = function() {
