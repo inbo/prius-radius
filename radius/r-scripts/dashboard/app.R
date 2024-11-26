@@ -111,6 +111,8 @@ occ_flanders <- read.csv("https://raw.githubusercontent.com/inbo/prius-radius/ma
   st_as_sf(coords = c("decimalLongitude", "decimalLatitude"), crs = "+proj=longlat +datum=WGS84") %>%
   arrange(Soort, .locale = "en")
 
+habitats <- read_csv2("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/input/toewijzing_habitats.csv", col_types = cols(code = col_character()))
+
 ##### DATA INLEZEN VOOR TESTEN APP
 
 # # Data inlezen
@@ -519,7 +521,7 @@ server <- function(input, output, session) {
     } 
     else if (input$kaart == "Natuurbeheerplannen") {
       data <- data %>%
-        select(soort, species, abbr, Groep, overlap, EU_lijst) %>%
+        select(soort, species, abbr, Groep, gebied, overlap, EU_lijst) %>%
         distinct()
     }
     else if (input$kaart == "ANB patrimonium") {
@@ -675,7 +677,7 @@ server <- function(input, output, session) {
           )
         ),
         
-        if (input$deelgebied == "All") {
+        if (input$kaart %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)", "Natura 2000 Habitattypes", "Soortenbeschermingsprogramma's (SBP's)") & input$deelgebied == "All") {
           div(
             class = "card",
             style = "border: 1px solid #ddd; border-radius: 8px; overflow: hidden; margin-bottom: 20px;",
@@ -780,7 +782,8 @@ server <- function(input, output, session) {
       }
     }
     else if (input$kaart == "Natuurbeheerplannen") {
-      data <- metrics()
+      data <- metrics() %>%
+        filter(gebied == "NBHP")
     }
     else if (input$kaart == "ANB patrimonium") {
       if (input$deelgebied == "All") {
@@ -1132,26 +1135,26 @@ server <- function(input, output, session) {
   })
   
   output$soortenfiches_ui <- renderUI(
-    if (input$kaart %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)")) {
-      tagList(
-        div(
-          card="card",
-          style = "border: 10px solid #fff; border-radius: 8px; overflow: hidden; margin-bottom: 20px;",
-          
-          fluidRow(
-            height = "600px", 
-            column(
-              width = 3,
-              highchartOutput("piechart"),
-              full_screen = TRUE
-            ),
-            column(
-              width = 9,
-              highchartOutput("barchart")
-            )
-          )
-        ),
+    tagList(
+      div(
+        card="card",
+        style = "border: 10px solid #fff; border-radius: 8px; overflow: hidden; margin-bottom: 20px;",
         
+        fluidRow(
+          height = "600px", 
+          column(
+            width = 3,
+            highchartOutput("piechart"),
+            full_screen = TRUE
+          ),
+          column(
+            width = 9,
+            highchartOutput("barchart")
+          )
+        )
+      ),
+      
+      if (input$kaart2 %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)")) {
         div(
           card="card",
           style = "border: 10px solid #fff; border-radius: 8px; overflow: hidden; margin-bottom: 20px;",
@@ -1162,28 +1165,9 @@ server <- function(input, output, session) {
             div(downloadButton("download_kaart", "Download PNG", class = "custom-download-button"))
           )
         )
-      )
-    }
-    
-    else if (input$kaart %in% c("Natura 2000 Habitattypes", "Natuurbeheerplannen", "ANB patrimonium")){
-      navset_card_tab(
-        nav_panel(
-          title = "Aandeel in",
-          fluidRow(
-            column( ),
-            column( )
-          ),
-          fluidRow()
-        ),
-        nav_panel(
-          title = "Aandeel van",
-          fluidRow( ),
-          fluidRow( )
-        ))
-    }
+      }
+    )
   )
-  
-  
   
   output$piechart <- renderHighchart({
     x <- metrics2() %>%
