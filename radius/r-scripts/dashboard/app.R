@@ -611,10 +611,17 @@ server <- function(input, output, session) {
   output$gebiedsfiches_ui <- renderUI({
     req(input$kaart, input$deelgebied)
     
-    explanation_text <- if (input$deelgebied == "All") {
-      "Placeholder info figuren bezetting" # Aan te vullen
+    # Explanation text based on deelgebied input
+    explanation_text_bezetting <- if (input$deelgebied == "All") {
+      "Deze sectie toont de figuren die betrekking hebben op de bezetting van de gebieden, zowel in percentage oppervlak als het aantal gebieden."
     } else {
-      "Placeholder info figuren bezetting " # Aan te vullen
+      "Deze sectie toont het percentage oppervlak bezet door soorten voor het geselecteerde deelgebied."
+    }
+    
+    explanation_text_verspreiding <- if (input$deelgebied == "All") {
+      "De onderstaande barplot toont het aantal soorten per deelgebied."
+    } else {
+      "De onderstaande barplot toont het aantal soorten per deelgebied."
     }
     
     tagList(
@@ -622,13 +629,14 @@ server <- function(input, output, session) {
         style = "margin-bottom: 20px;",
         h3("Bezetting", style = "margin-left: 15px; margin-top: 15px; font-size: 18px; font-weight: bold;"),
         
-        p(explanation_text, 
+        p(explanation_text_bezetting, 
           style = "font-size: 12px; margin-bottom: 10px; margin-left: 15px;"),
         
+        # Tabs for All deelgebieden
         if (input$deelgebied == "All") {
           navset_underline(
             id = "tabset_bezetting",
-            nav_panel(title = "Percentage", value = "percentage"), 
+            nav_panel(title = "Percentage Oppervlak", value = "percentage"), 
             nav_panel(title = "Aantal Gebieden", value = "aantal_gebieden")  
           )
         }
@@ -636,25 +644,34 @@ server <- function(input, output, session) {
       
       div(
         style = "padding: 5px;",
-      
+        
+        # Conditional display of percentage_oppervlak chart
         conditionalPanel(
           condition = if (input$deelgebied == "All") {
             "input.tabset_bezetting == 'percentage'"
           } else {
-            "false" 
+            "input.deelgebied != 'All'"
           },
           fluidRow(
+            height = "600px",
             highchartOutput("percentage_oppervlak", height = "600px")
           )
         ),
         
+        # Conditional display of aantal_gebieden chart
         conditionalPanel(
-          condition = "input.tabset_bezetting == 'aantal_gebieden' || input.deelgebied != 'All'",
+          condition = if (input$deelgebied == "All") {
+            "input.tabset_bezetting == 'aantal_gebieden'"
+          } else {
+            "false" 
+          },
           fluidRow(
+            height = "600px",
             highchartOutput("aantal_gebieden", height = "600px")
           )
         ),
-  
+        
+        # Download buttons below the figures
         fluidRow(
           conditionalPanel(
             condition = if (input$deelgebied == "All") {
@@ -675,7 +692,11 @@ server <- function(input, output, session) {
           ),
           
           conditionalPanel(
-            condition = "input.tabset_bezetting == 'aantal_gebieden' || input.deelgebied != 'All'",
+            condition = if (input$deelgebied == "All") {
+              "input.tabset_bezetting == 'aantal_gebieden'"
+            } else {
+              "input.deelgebied != 'All'" 
+            },
             column(6,
                    actionButton("download_data_percentage_oppervlak", 
                                 label = "Download Data", 
@@ -690,6 +711,7 @@ server <- function(input, output, session) {
         )
       ),
       
+      # Barplot for Verspreiding
       if (input$kaart %in% c("Habitatrichtlijngebieden (SBZ-H)", 
                              "Vogelrichtlijngebieden (SBZ-V)", 
                              "Natura 2000 Habitattypes", 
@@ -700,24 +722,24 @@ server <- function(input, output, session) {
           
           h3("Verspreiding", style = "margin-left: 15px; margin-top: 15px; font-size: 18px; font-weight: bold;"),
           
-          p("Placeholder info figuur aantal soorten per deelgebied", 
+          p(explanation_text_verspreiding, 
             style = "font-size: 12px; margin-bottom: 10px; margin-left: 15px;"),
           
-          div(
-            style = "padding: 5px;",
-            
-            fluidRow(
-              highchartOutput("barplot_verspreiding")
-            ),
+          fluidRow(
+            height = "600px",
+            highchartOutput("barplot_verspreiding", height = "600px")
+          ),
+          
+          fluidRow(
             column(6,
                    actionButton("download_data_percentage_oppervlak", 
                                 label = "Download Data", 
                                 icon = icon("download"), 
-                                style = "font-size: 12px; margin-top: 5px;background-color: transparent;border:none;color:black"),
+                                style = "font-size: 12px;background-color: transparent;border:none;color:black"),
                    actionButton("download_png_verspreiding", 
                                 label = "Download Figuur", 
                                 icon = icon("file-image"), 
-                                style = "font-size: 12px; margin-top: 5px;background-color: transparent;border:none;color:black")
+                                style = "font-size: 12px;background-color: transparent;border:none;color:black")
             )
           )
         )
