@@ -105,8 +105,12 @@ SBP_pgs <- read.csv("https://raw.githubusercontent.com/inbo/prius-radius/main/ra
 
 SBP_pls <- read.csv("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/output/SBP_pls_long.csv")
 
+SBP_pls$deelgebied <- NA
 
-list_metrics <- list("Habitatrichtlijngebieden (SBZ-H)" = HBTRL, "Vogelrichtlijngebieden (SBZ-V)" = VGLRL, "Natura 2000 Habitattypes" = N2KHAB, "Natuurbeheerplannen" = NBHP, "ANB patrimonium" = PATDAT, "Soortenbeschermingsprogramma's (SBP's)" = SBP_pgs)
+SBP <- rbind(SBP_pgs, SBP_pls)
+
+
+list_metrics <- list("Habitatrichtlijngebieden (SBZ-H)" = HBTRL, "Vogelrichtlijngebieden (SBZ-V)" = VGLRL, "Natura 2000 Habitattypes" = N2KHAB, "Natuurbeheerplannen" = NBHP, "ANB patrimonium" = PATDAT, "Soortenbeschermingsprogramma's (SBP's)" = SBP)
 
 ## Species data
 species_list <- read_csv("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/input/radius_species_list.csv")
@@ -498,7 +502,7 @@ server <- function(input, output, session) {
     }
     else {
       data <- data %>% 
-        filter(gebied == input$sbp & type == "of") %>%
+        filter(gebied == input$sbp & type == "of" & soort %in% input$selected_species) %>%
         select(soort, species, abbr, Groep, gebied, deelgebied, overlap, EU_lijst) %>%
         distinct()
     }
@@ -557,7 +561,12 @@ server <- function(input, output, session) {
                        label = "SBP:", 
                        choices = unique(list_metrics[[input$kaart]]$gebied),
                        selected = NULL),
-        uiOutput("sbp_deelgebied")
+        uiOutput("sbp_deelgebied"),
+        selectizeInput("selected_species",
+                       label = "Selecteer soorten:",
+                       choices = sort(unique(species_list$Soort)),
+                       multiple = TRUE,
+                       options = list(placeholder = 'Selecteer een of meerdere soorten'))
       )
     } else if (input$kaart %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)", "Natura 2000 Habitattypes")) {
       data <- list_metrics[[input$kaart]]
@@ -583,10 +592,18 @@ server <- function(input, output, session) {
   
   output$sbp_deelgebied <- renderUI({
     req(input$sbp)
-    deelgebieden <- unique(list_metrics[[input$kaart]]$deelgebied[list_metrics[[input$kaart]]$gebied == input$sbp])
-    selectizeInput("sbp_deelgebied", 
-                   label = "Deelgebied:", 
-                   choices = c("All" = "All", deelgebieden))
+    
+    if (!input$sbp %in% c("SBP beekprik", "SBP rivierdonderpad", "SBP kleine modderkruiper")) {
+      
+      deelgebieden <- unique(list_metrics[[input$kaart]]$deelgebied[list_metrics[[input$kaart]]$gebied == input$sbp])
+      selectizeInput("sbp_deelgebied", 
+                     label = "Deelgebied:", 
+                     choices = c("All" = "All", deelgebieden))
+    }
+    else {
+      NULL
+    }
+    
   })
   
   output$deelgebied <- renderText({
