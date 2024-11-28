@@ -1,0 +1,142 @@
+
+```{r load-libary}
+library(tidyverse)
+library(sf)
+library(ggbump)
+```
+
+```{r clear-memory}
+rm(list=ls())
+```
+
+```{r load-data}
+species_list <- read_csv("./radius/data/input/radius_species_list.csv", show_col_types = FALSE) 
+
+occ_flanders <- read_csv("./radius/data/input/gbif_occ_flanders.csv", show_col_types = FALSE) %>%
+  left_join(species_list, by = c("speciesKey" = "GBIF_code", "Soort", "Species")) %>%
+  select(year, month, day, decimalLongitude, decimalLatitude, speciesKey, Soort, Species) %>%
+  st_as_sf(coords = c("decimalLongitude", "decimalLatitude"), crs = "+proj=longlat +datum=WGS84") %>%
+  st_transform(31370)
+
+#### ANB patrimonium
+am_patdat <- st_read("./radius/data/spatial/am_patdat.shp") %>%
+      st_transform(31370) %>%
+      mutate(geb_area = as.numeric(st_area(.)))
+```
+
+```{r define-buffers}
+buffers <- c(50, 75, 100, 125, 150, 200, 300, 400, 500) # verschillende bufferafstanden
+```
+
+```{r}
+df <- data.frame()
+
+for (i in unique(species_list$Soort)) {
+  print(i)
+  occ_species <- occ_flanders %>%
+    filter(Soort == i)
+  
+  for (j in buffers) {
+    print(j)
+    occ_buf <- occ_species %>%
+      st_buffer(j) %>%
+      st_union() %>%
+      st_cast('POLYGON') %>% 
+      st_sf() %>%
+      mutate(buf_area = as.numeric(st_area(.)))
+    
+    occ_intersection <- occ_buf %>%
+      st_intersection(am_patdat) %>% 
+      mutate(intersect_area = as.numeric(st_area(.)))
+    
+    overlap_intersection <- sum(occ_intersection$intersect_area)
+    percentage_overlap_of <- overlap_intersection / sum(am_patdat$geb_area)
+    
+    if (nrow(occ_intersection) != 0) {
+      
+      df <- rbind(df, 
+                  data.frame(
+                    soort = i,
+                    buffer = j,
+                    percentage = sum(occ_intersection$intersect_area) / sum(am_patdat$geb_area),
+                    aantal = length(unique(occ_intersection$domennm))))
+    }
+    
+    else {
+      df <- rbind(df, 
+                  data.frame(
+                    soort = i,
+                    buffer = j,
+                    percentage = 0,
+                    aantal = 0))
+    }
+    
+    
+  }
+}
+
+result <- df %>%
+  group_by(buffer) %>%
+  mutate(
+    rang_percentage = rank(-percentage, ties.method = "min"),
+    rang_aantal = rank(-aantal, ties.method = "min")) %>%
+  ungroup()
+
+write.csv2(result, "./radius/data/output/buffer_sensitivity.csv")
+```
+
+```{r}
+df_bump <- result %>%
+  select(soort, buffer, rang_percentage, rang_aantal) %>%
+  pivot_longer(cols = c(rang_percentage, rang_aantal),
+               names_to = "rangtype",
+               values_to = "rang") %>%
+  mutate(rangtype = if_else(rangtype == "rang_percentage", "Percentage", "Aantal"))
+
+ggplot(df_bump, aes(x = buffer, y = rang, color = soort)) +
+  geom_bump(size = 1.5) +
+  geom_point(size = 4) +
+  scale_y_reverse() +
+  facet_wrap(~ rangtype, scales = "free_x") +
+  theme_minimal() +
+  labs(title = "Rangschikking van soorten per bufferafstand",
+       x = "Bufferafstand",
+       y = "Rang",
+       color = "Soort") +
+  theme(legend.position = "none",
+        legend.text = element_text(size = 8),
+        axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+```{r alluvial plot}
+library(ggalluvial)
+
+df_alluvial <- result %>%
+  select(soort, buffer, rang_percentage, rang_aantal) %>%
+  pivot_longer(cols = c(rang_percentage, rang_aantal),
+               names_to = "rangtype",
+               values_to = "rang") %>%
+  mutate(rangtype = if_else(rangtype == "rang_percentage", "Percentage", "Aantal"))
+
+# Maak de alluvial plot
+ggplot(df_alluvial, 
+       aes(x = buffer, 
+           y = rang, 
+           alluvium = soort, 
+           stratum = rang, 
+           fill = soort)) +
+  geom_alluvium(alpha = 0.8) +
+  geom_stratum() +
+  facet_wrap(~ rangtype, scales = "free_x") +
+  scale_y_reverse() +
+  theme_minimal() +
+  labs(title = "Rangschikking van soorten per bufferafstand",
+       x = "Bufferafstand",
+       y = "Rang",
+       fill = "Soort") +
+  theme(legend.position = "none",
+        axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+
+
