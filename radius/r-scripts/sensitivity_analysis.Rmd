@@ -75,17 +75,28 @@ for (i in unique(species_list$Soort)) {
   }
 }
 
+library(data.table)
+
 result <- df %>%
   group_by(buffer) %>%
   mutate(
-    rang_percentage = rank(-percentage, ties.method = "min"),
-    rang_aantal = rank(-aantal, ties.method = "min")) %>%
-  ungroup()
+    rang_percentage = frank(-percentage, ties.method = "dense"),
+    rang_aantal = frank(-aantal, ties.method = "dense")) %>%
+  ungroup() 
 
 write.csv2(result, "./radius/data/output/buffer_sensitivity.csv")
 ```
 
 ```{r}
+result <- df %>%
+  group_by(buffer) %>%
+  mutate(
+    rang_percentage = frank(-percentage, ties.method = "dense"),
+    rang_aantal = frank(-aantal, ties.method = "dense")) %>%
+  ungroup() %>%
+  filter(soort %in% c("wasbeer", "nijlgans", "grote vlotvaren", "Turkse rivierkreeft", "zijdeplant", "waterwaaier", "gewone gunnera", "Japans steltgras", "fraai lampenpoetsersgras", "Amerikaanse voseekhoorn", "Aziatische boomwurger"))
+  
+
 df_bump <- result %>%
   select(soort, buffer, rang_percentage, rang_aantal) %>%
   pivot_longer(cols = c(rang_percentage, rang_aantal),
@@ -94,11 +105,15 @@ df_bump <- result %>%
   mutate(rangtype = if_else(rangtype == "rang_percentage", "Percentage", "Aantal"))
 
 ggplot(df_bump, aes(x = buffer, y = rang, color = soort)) +
-  geom_bump(size = 1.5) +
-  geom_point(size = 4) +
-  scale_y_reverse() +
+  geom_bump(size = 1.5, alpha = 0.3) +
+  geom_vline(xintercept = c(50,75,100,125,150,200,300,400,500)) +
+  #geom_point(size = 4) +
   facet_wrap(~ rangtype, scales = "free_x") +
   theme_minimal() +
+  scale_y_reverse(breaks = seq(1, max(df_bump$rang), by = 5),  
+                     labels = seq(1, max(df_bump$rang), by = 5)) +
+  scale_x_continuous(breaks = c(50,75,100,125,150,200,300,400,500),  
+                     labels = c(50,75,100,125,150,200,300,400,500)) +
   labs(title = "Rangschikking van soorten per bufferafstand",
        x = "Bufferafstand",
        y = "Rang",
@@ -111,25 +126,35 @@ ggplot(df_bump, aes(x = buffer, y = rang, color = soort)) +
 ```{r alluvial plot}
 library(ggalluvial)
 
+x <- data_aantal %>%
+  mutate('50' = factor('50', levels = seq(1, 79, by = 1)), 
+         '100' = factor('100', levels = seq(1, 79, by = 1)))
+
 df_alluvial <- result %>%
   select(soort, buffer, rang_percentage, rang_aantal) %>%
+  # mutate(rang_percentage = factor(rang_percentage, levels = seq(1, 79, by = 1)), rang_aantal = factor(rang_aantal, levels = seq(1, 79, by = 1))) %>%
   pivot_longer(cols = c(rang_percentage, rang_aantal),
                names_to = "rangtype",
                values_to = "rang") %>%
-  mutate(rangtype = if_else(rangtype == "rang_percentage", "Percentage", "Aantal"))
+  mutate(rangtype = if_else(rangtype == "rang_percentage", "Percentage", "Aantal")) %>%
+  mutate(rang = factor(rang, levels = seq(1, 79, by = 1)))
+
+ggplot(x, aes(axis1 = '50', axis2 = '100', axis3 = '150', y = freq)) +
+  geom_alluvium(aes(fill = soort)) +
+  geom_stratum() +
+  theme(legend.position = "none",
+        axis.text.x = element_text(angle = 45, hjust = 1))
 
 # Maak de alluvial plot
 ggplot(df_alluvial, 
        aes(x = buffer, 
-           y = rang, 
-           alluvium = soort, 
-           stratum = rang, 
-           fill = soort)) +
+           y = rang)) +
   geom_alluvium(alpha = 0.8) +
   geom_stratum() +
   facet_wrap(~ rangtype, scales = "free_x") +
-  scale_y_reverse() +
   theme_minimal() +
+  scale_y_discrete(breaks = seq(1, 79, by = 1),  
+                     labels = seq(1, 79, by = 1)) +
   labs(title = "Rangschikking van soorten per bufferafstand",
        x = "Bufferafstand",
        y = "Rang",
@@ -138,5 +163,157 @@ ggplot(df_alluvial,
         axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
+```{r calculate-correlation}
+library(dplyr)
+library(tidyr)
+library(purrr)
 
+spearman_aantal <- result %>%
+  group_by(soort) %>%
+  summarise(
+    spearman_rho = cor(buffer, rang_aantal, method = "spearman"),
+    spearman_p = cor.test(buffer, rang_aantal, method = "spearman")$p.value
+  )
+
+spearman_aantal
+
+spearman_percentage <- result %>%
+  group_by(soort) %>%
+  summarise(
+    spearman_rho = cor(buffer, rang_percentage, method = "spearman"),
+    spearman_p = cor.test(buffer, rang_percentage, method = "spearman")$p.value
+  )
+
+spearman_percentage
+
+
+calculate_spearman <- function(df, buffer1, buffer2, rank_type) {
+  df %>%
+    filter(buffer %in% c(buffer1, buffer2)) %>%
+    select(soort, buffer, !!sym(rank_type)) %>%
+    pivot_wider(names_from = buffer, values_from = !!sym(rank_type)) %>%
+    with(cor.test(.[,2], .[,3], method = "spearman"))
+}
+
+buffer_distances <- unique(result$buffer)
+combinations <- combn(buffer_distances, 2, simplify = FALSE)
+
+# Voor rang_percentage
+results_percentage <- map_dfr(combinations, ~{
+  test <- calculate_spearman(result, .x[1], .x[2], "rang_percentage")
+  tibble(
+    buffer1 = .x[1],
+    buffer2 = .x[2],
+    correlation = test$estimate,
+    p_value = test$p.value
+  )
+})
+
+# Voor rang_aantal
+results_aantal <- map_dfr(combinations, ~{
+  test <- calculate_spearman(df, .x[1], .x[2], "rang_aantal")
+  tibble(
+    buffer1 = .x[1],
+    buffer2 = .x[2],
+    correlation = test$estimate,
+    p_value = test$p.value
+  )
+})
+
+# Resultaten weergeven
+print("Correlaties voor rang_percentage:")
+print(results_percentage)
+
+print("Correlaties voor rang_aantal:")
+print(results_aantal)
+```
+
+```{r friedman-test}
+
+library(rstatix)
+
+data_percentage <- result %>%
+  select(soort, buffer, rang_percentage) %>%
+  pivot_wider(names_from = buffer, values_from = rang_percentage)
+
+friedman_percentage <- friedman.test(as.matrix(data_percentage[,-1]))
+
+data_aantal <- result %>%
+  select(soort, buffer, rang_aantal) %>%
+  pivot_wider(names_from = buffer, values_from = rang_aantal)
+
+friedman_aantal <- friedman.test(as.matrix(data_aantal[,-1]))
+
+print(friedman_percentage)
+print(friedman_aantal)
+
+
+
+
+
+
+
+
+
+
+
+
+# Herstructureer de data voor rang_percentage
+data_percentage <- result %>%
+  select(soort, buffer, rang_percentage) 
+
+data_percentage$buffer <- factor(data_percentage$buffer, 
+                           levels = c("50", "75", "100", "125", "150", "200", "300", "400", "500"))
+
+
+# Voer Friedman test uit voor rang_percentage
+friedman_percentage <- friedman.test(as.matrix(data_percentage[,-1]))
+
+print(friedman_percentage)
+
+# Herstructureer de data voor rang_aantal
+
+data_long <- pivot_longer(data_aantal, 
+                          cols = -soort, 
+                          names_to = "buffer", 
+                          values_to = "rang")
+
+# Voer de Friedman test uit
+friedman_test <- friedman.test(rang ~ buffer | soort, data = data_long)
+
+print(friedman_test)
+
+posthoc <- frdAllPairsNemenyiTest(rang ~ buffer | soort, data = data_long)
+
+print(posthoc)
+data_aantal <- result %>%
+  select(soort, buffer, rang_aantal) %>%
+  pivot_wider(names_from = buffer, values_from = rang_aantal)
+
+# Voer Friedman test uit voor rang_aantal
+friedman_aantal <- friedman.test(as.matrix(data_aantal[,-1]))
+
+# Bekijk de resultaten
+print(friedman_percentage)
+print(friedman_aantal)
+
+
+# Maak een matrix met alleen numerieke waarden
+matrix_data <- as.matrix(sapply(data_aantal[,-1], as.numeric))
+
+# Voeg kolomnamen toe als niveaus
+colnames(matrix_data) <- colnames(data_aantal)[-1]
+
+# Voer de test uit
+posthoc <- frdAllPairsNemenyiTest(y = as.matrix(data_aantal[,-1]))
+
+library(PMCMRplus)
+
+rownames(data_aantal) <- NULL
+# Voer de Nemenyi post-hoc test uit
+posthoc <- frdAllPairsNemenyiTest(y = as.matrix(data_aantal[,-1]))
+
+# Bekijk de resultaten
+print(posthoc)
+```
 
