@@ -285,7 +285,7 @@ spor_species <- occ_flanders %>%
   group_by(Soort) %>%
   summarise(n_obs = n()) %>%
   arrange(n_obs) %>%
-  dplyr::filter(n_obs < 20) %>%
+  #dplyr::filter(n_obs < 20) %>%
   st_drop_geometry()
 
 kable(spor_species, col.names = c("Soort", "Aantal observaties (sinds 2015)"), 
@@ -2414,16 +2414,17 @@ ggplot(x, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort, fill =
         axis.text.y = element_markdown(size = 9),
         strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0, vjust = 0, size = 10))
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/NBHP/nbhp_bezetting_top5.png", 
-       width = 23, height = 10, units = "cm", dpi=300)
+#ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/NBHP/nbhp_bezetting_top5.png", width = 23, height = 10, units = "cm", dpi=300)
 ggsave("./radius/data/output/figuren/nbhp_bezetting_top5.png", 
        width = 23, height = 10, units = "cm", dpi=300)
 ```
 
 #### In hoeveel natuurbeheerplannen komt een soort voor?
 ```{r n-nbhp-per-species, echo=FALSE, warning=FALSE}
-x <- NBHP %>%
-  dplyr::filter(gebied == "NBHP" & type == "n_nbhp")
+n_nbhp <- NBHP %>%
+  dplyr::filter(gebied == "NBHP" & type == "n_nbhp") %>%
+  rename("n_nbhp" = "overlap") %>%
+  select(soort, species, n_nbhp)
 
 # ggplotly(
 #   ggplot(x , aes(x = reorder(soort, overlap), y = overlap, fill = )) +
@@ -2434,7 +2435,7 @@ x <- NBHP %>%
 #   tooltip = "text",
 #   height = 700)
 
-ggplot(x , aes(x = reorder(soort, overlap), y = overlap, fill = )) +
+ggplot(n_nbhp , aes(x = reorder(soort, overlap), y = overlap, fill = )) +
   geom_bar(stat = "identity", fill = "#c04384", aes(text = paste0(soort, " (", overlap, " natuurbeheerplannen)"))) +
   scale_y_continuous(expand = expansion(mult = c(0,0.01))) +
   custom_theme() +
@@ -2472,23 +2473,50 @@ in_NBHP <- NBHP %>%
   left_join(species_list, by = c("soort" = "Soort")) %>%
   select(soort, species, Groep, overlap) %>%
   distinct() %>%
-  mutate(Groep = recode(Groep, "plant" = "planten", "dier" = "dieren"))
+  mutate(Groep = recode(Groep, "plant" = "planten", "dier" = "dieren")) %>%
+  slice_max(order_by = overlap, n = 10) %>%
+  left_join(n_nbhp, by = c("soort", "species")) %>%
+  pivot_longer(cols = c("overlap", "n_nbhp"), names_to = "type", values_to = "overlap") %>% 
+  mutate(type = recode(type, "overlap" = "% in natuurbeheerplannen", "n_nbhp" = "# natuurbeheerplannen")) %>% 
+  replace_na(list(overlap = 0)) 
 
-ggplotly(
-  ggplot(in_NBHP,aes(x = reorder(soort, overlap), y = overlap * 100, text = paste0(soort, "<br>Aandeel van totale verspreidingsoppervlak dat in een natuurbeheerplan ligt: ", round(overlap * 100, 2), "%"))) +
-    geom_bar(stat = "identity", colour = "white", linewidth = 0.01, fill = "#c04384", width = 0.7) +
-    scale_y_continuous(labels = scales::percent_format(scale = 1), expand = c(0, 0.1)) + 
-    labs(y = "Bezetting van Natuurbeheerplannen (%)") +
-    custom_theme() +
-    theme(
-      axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1),
-      axis.title.x = element_blank()
-    ),
-  tooltip = "text",
-  height = 700)
+in_NBHP_order <- in_NBHP %>%
+  filter(type == "% in natuurbeheerplannen") %>%
+  arrange(overlap) %>%
+  pull(soort)
+
+in_NBHP$soort <- factor(in_NBHP$soort, levels = in_NBHP_order)
+in_NBHP$type <- factor(in_NBHP$type, levels = c("% in natuurbeheerplannen", "# natuurbeheerplannen"))
+in_NBHP$Groep <- factor(in_NBHP$Groep, levels = c("dieren", "planten"))
+
+#label_colors <- setNames(in_NBHP$label_color, in_NBHP$soort)
+
+ggplot(in_NBHP, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort, fill = overlap)) +
+  geom_bar(stat = "identity", show.legend = FALSE, width = 0.7, fill = "#c04384") +  
+  geom_vline(data = . %>% filter(type == "% in natuurbeheerplannen"), 
+             aes(xintercept = 50), 
+             linetype = "dashed", color = "black", size = 0.5) +
+  facet_grid(~ type, scales = "free_x") +  
+  scale_x_continuous(
+    expand = expansion(mult = c(0, 0.05)),
+    limits = function(x) {
+      if(all(is.na(x))) return(c(0, 100))
+      if(max(x, na.rm = TRUE) <= 100) c(0, 100) else range(x, na.rm = TRUE)
+    },
+    labels = function(x) {
+      if(all(is.na(x))) return(x)
+      if(max(x, na.rm = TRUE) <= 100) paste0(x, "%") else x
+    }
+  ) +  
+  labs(x = "Voorkomen in Natuurbeheerplannen", y = NULL) +
+  custom_theme() + 
+  theme(strip.placement = "outside",
+        axis.text.y = element_markdown(size = 9),
+        strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0, vjust = 0, size = 10))
 
 ggplot(in_NBHP %>% slice_max(order_by = overlap, n = 10),aes(x = overlap * 100, y = reorder(soort, overlap))) +
   geom_bar(stat = "identity", colour = "white", linewidth = 0.01, fill = "#c04384", width = 0.7) +
+  facet_grid(~ type) +
   scale_x_continuous(labels = scales::percent_format(scale = 1), limits = c(0,100), expand = expansion(mult = c(0,0))) + 
   labs(x = "Percentage van totale verspreiding") +
   custom_theme() +
@@ -2496,6 +2524,11 @@ ggplot(in_NBHP %>% slice_max(order_by = overlap, n = 10),aes(x = overlap * 100, 
     axis.text.y = element_text(angle = 0, vjust = 0.5, hjust = 1),
     axis.title.y = element_blank()
   )
+
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/NBHP/nbhp_top10_voorkomen.png", 
+       width = 23, height = 15, units = "cm", dpi=300)
+ggsave("./radius/data/output/figuren/nbhp_top10_voorkomen.png", 
+       width = 23, height = 15, units = "cm", dpi=300)
 ```
 
 
