@@ -285,7 +285,7 @@ spor_species <- occ_flanders %>%
   group_by(Soort) %>%
   summarise(n_obs = n()) %>%
   arrange(n_obs) %>%
-  #dplyr::filter(n_obs < 20) %>%
+  dplyr::filter(n_obs < 20) %>%
   st_drop_geometry()
 
 kable(spor_species, col.names = c("Soort", "Aantal observaties (sinds 2015)"), 
@@ -2514,16 +2514,16 @@ ggplot(in_NBHP, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort, 
         axis.text.y = element_markdown(size = 9),
         strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0, vjust = 0, size = 10))
 
-ggplot(in_NBHP %>% slice_max(order_by = overlap, n = 10),aes(x = overlap * 100, y = reorder(soort, overlap))) +
-  geom_bar(stat = "identity", colour = "white", linewidth = 0.01, fill = "#c04384", width = 0.7) +
-  facet_grid(~ type) +
-  scale_x_continuous(labels = scales::percent_format(scale = 1), limits = c(0,100), expand = expansion(mult = c(0,0))) + 
-  labs(x = "Percentage van totale verspreiding") +
-  custom_theme() +
-  theme(
-    axis.text.y = element_text(angle = 0, vjust = 0.5, hjust = 1),
-    axis.title.y = element_blank()
-  )
+# ggplot(in_NBHP %>% slice_max(order_by = overlap, n = 10),aes(x = overlap * 100, y = reorder(soort, overlap))) +
+#   geom_bar(stat = "identity", colour = "white", linewidth = 0.01, fill = "#c04384", width = 0.7) +
+#   facet_grid(~ type) +
+#   scale_x_continuous(labels = scales::percent_format(scale = 1), limits = c(0,100), expand = expansion(mult = c(0,0))) + 
+#   labs(x = "Percentage van totale verspreiding") +
+#   custom_theme() +
+#   theme(
+#     axis.text.y = element_text(angle = 0, vjust = 0.5, hjust = 1),
+#     axis.title.y = element_blank()
+#   )
 
 ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/NBHP/nbhp_top10_voorkomen.png", 
        width = 23, height = 15, units = "cm", dpi=300)
@@ -2698,6 +2698,19 @@ PATDAT <- PATDAT %>%
     gebied == "ZanVla" ~ "Zandig Vlaanderen",
     TRUE ~ gebied
   ))
+
+volgorde_br <- c(
+  "Kust & Westhoek",
+  "Zandig Vlaanderen", 
+  "Vlaamse Ardennen & Schelde-Leie",
+  "Antwerpse Kempen",
+  "Groene Gordels",
+  "Brabantse Wouden",
+  "Taxandria",
+  "Demerland & Zuiderkempen",
+  "Lage tot aan Hoge Kempen",
+  "Hoge Kempen tot Voeren"
+)
 ```
 
 ## Overzicht ANB patrimonium
@@ -2793,11 +2806,17 @@ x <- PATDAT %>%
   left_join(bw, by = c("gebied" = "Regio")) %>%
   st_as_sf()
 
-ggplot(x, aes(x = reorder(gebied, n_spec), y = n_spec), fill = n_spec) +
-  geom_bar(stat = "identity", fill = "#c04384") +
-  theme_bw() +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1),
-        axis.title.x = element_blank())
+ggplot(x, aes(x = n_spec, y = reorder(gebied, n_spec))) +
+  geom_bar(stat = "identity", fill = "#c04384", width = 0.7) +
+  scale_x_continuous(expand = expansion(mult = c(0, 0.01))) +
+  labs(x = "#IUS") +
+  custom_theme() +
+  theme(axis.text.x = element_text(angle = 0, hjust = 1),
+        axis.title.y = element_blank())
+
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/PATDAT/patdat_nspec_per_br.png", width = 23, height = 10, units = "cm", dpi=300)
+ggsave("./radius/data/output/figuren/patdat_nspec_per_br.png", 
+       width = 23, height = 10, units = "cm", dpi=300)
 
 ggplot() +
   geom_sf(data = Provincies_grenzen, fill= "#f0f0f0", color = "black", linewidth = 0.2) +
@@ -2893,7 +2912,16 @@ ggplot(x, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort, fill =
   geom_bar(stat = "identity", show.legend = FALSE, width = 0.7, fill = "#c04384") +
   facet_grid(Groep ~ type, scales = "free") +
   scale_x_continuous(
-    expand = expansion(mult = c(0, 0.05))) +  
+    expand = expansion(mult = c(0, 0.05)),
+    # limits = function(x) {
+    #   if(all(is.na(x))) return(c(0, 100))
+    #   if(max(x, na.rm = TRUE) <= 100) c(0, 100) else range(x, na.rm = TRUE)
+    # },
+    labels = function(x) {
+      if(all(is.na(x))) return(x)
+      if(max(x, na.rm = TRUE) <= 100) paste0(x, "%") else x
+    }
+  ) + 
   scale_y_discrete(labels = function(soort) {
     sapply(soort, function(s) {
       paste0("<span style='color:", label_colors[s], "'>", s, "</span>")
@@ -2907,9 +2935,9 @@ ggplot(x, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort, fill =
     strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0, vjust = 0, size = 10)
   )
 
-# ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/PATDAT/patdat_bezetting_top5.png", 
-#        width = 23, height = 10, units = "cm", dpi=300)
-ggsave("./radius/data/output/figuren/patdat_bezetting_top5.png", 
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/PATDAT/patdat_bezetting_top10.png",
+       width = 23, height = 10, units = "cm", dpi=300)
+ggsave("./radius/data/output/figuren/patdat_bezetting_top10.png", 
        width = 23, height = 10, units = "cm", dpi=300)
 ```
 
@@ -3030,6 +3058,99 @@ ggplot(in_PATDAT %>% slice_max(order_by = overlap, n = 10),aes(x = overlap * 100
     axis.text.y = element_text(angle = 0, vjust = 0.5, hjust = 1),
     axis.title.y = element_blank()
   )
+
+
+
+#########
+
+PATDAT_ngeb <- PATDAT %>%
+  dplyr::filter(gebied == "PATDAT_incl_ob" & type == "n_domeinen") %>%
+  transmute(soort, "n_domeinen" = overlap )
+
+PATDAT_ngeb_per_recht <- PATDAT %>%
+  dplyr::filter(type == "anb_rechten") 
+
+ggplot(data = PATDAT_ngeb_per_recht %>% filter(soort %in% c("nijlgans", "Canadese gans", "Amerikaanse vogelkers", "Aziatische hoornaar (soort)", "muskusrat", "lettersierschildpad", "reuzenbalsemien", "invasieve duizendknopen", "late guldenroede", "watercrassula")), aes(x= overlap, y = soort, fill = gebied)) +
+         geom_col()
+
+
+in_PATDAT <- PATDAT %>%
+  dplyr::filter(gebied == "PATDAT_incl_ob" & type == "in" & overlap != 0) %>%
+  left_join(species_list, by = c("soort" = "Soort")) %>%
+  select(soort, species, Groep, overlap) %>%
+  distinct() %>%
+  mutate(Groep = recode(Groep, "plant" = "planten", "dier" = "dieren")) %>%
+  slice_max(order_by = overlap, n = 5) %>%
+  left_join(PATDAT_ngeb, by = "soort") %>%
+  pivot_longer(cols = c("overlap", "n_domeinen"), names_to = "type", values_to = "overlap") %>% 
+  mutate(type = recode(type, "overlap" = "% in ANB-patrimonium", "n_domeinen" = "# ANB-domeinen")) %>% 
+  replace_na(list(overlap = 0)) 
+
+in_PATDAT_order <- in_PATDAT %>%
+  filter(type == "% in ANB-patrimonium") %>%
+  arrange(overlap) %>%
+  pull(soort)
+
+in_PATDAT$soort <- factor(in_PATDAT$soort, levels = in_PATDAT_order)
+in_PATDAT$type <- factor(in_PATDAT$type, levels = c("% in ANB-patrimonium", "# ANB-domeinen"))
+in_PATDAT$Groep <- factor(in_PATDAT$Groep, levels = c("dieren", "planten"))
+
+#label_colors <- setNames(in_NBHP$label_color, in_NBHP$soort)
+
+ggplot(in_PATDAT, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort, fill = overlap)) +
+  geom_bar(stat = "identity", show.legend = FALSE, width = 0.7, fill = "#c04384") +  
+  geom_vline(data = . %>% filter(type == "% in ANB-patrimonium"),
+             aes(xintercept = 50),
+             linetype = "dashed", color = "black", size = 0.5) +
+  facet_grid(~ type, scales = "free_x") +  
+  scale_x_continuous(
+    expand = expansion(mult = c(0, 0.05)),
+    limits = function(x) {
+      if(all(is.na(x))) return(c(0, 100))
+      if(max(x, na.rm = TRUE) <= 100) c(0, 100) else range(x, na.rm = TRUE)
+    },
+    labels = function(x) {
+      if(all(is.na(x))) return(x)
+      if(max(x, na.rm = TRUE) <= 100) paste0(x, "%") else x
+    }
+  ) +  
+  labs(x = "Voorkomen in ANB-patrimonium", y = NULL) +
+  custom_theme() + 
+  theme(strip.placement = "outside",
+        axis.text.y = element_markdown(size = 9),
+        strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0, vjust = 0, size = 10))
+
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/PATDAT/patdat_spec_top5.png",
+       width = 23, height = 10, units = "cm", dpi=300)
+ggsave("./radius/data/output/figuren/patdat_spec_top5.png", 
+       width = 23, height = 10, units = "cm", dpi=300)
+
+```
+```{r}
+PATDAT_spatial <- am_patdat %>%
+  right_join(VGLRL, by = c("na2000code" = "gebied"), keep = TRUE)
+
+
+df_Tsi <- PATDAT %>%
+  dplyr::filter(soort == "wasbeer" & type == "in" & gebied != "VGLRL" & overlap != 0) %>%
+  st_cast("MULTIPOLYGON")
+
+occs_Tsi <- occ_flanders %>%
+  dplyr::filter(Soort == "kleine waterteunisbloem")
+
+beheerregios <- st_read("G:/Mijn Drive/Fleur/RadIUS/ANB Terreinbeheer/beheerregios/anb_beheerregios.shp")
+
+map_Tsi <- ggplot() +
+  geom_sf(data = Provincies_grenzen, fill = "#f0f0f0", linewidth = 0.2) +
+  geom_sf(data = am_patdat, aes(fill = rchtnnb, color = rchtnnb), size = 0.5) +
+  #geom_sf(data = df_Pl, aes(text = paste0(gebnaam, " (", gebied, "): ", round(overlap * 100, 1), "%")), fill = "#c04384", color = "#c04384", size = 0.5) +
+  geom_sf(data = occs_Tsi, color = "blue", size = 1) +
+  theme_map() +
+  theme(
+    legend.position = "bottom"
+  )
+
+map_Tsi
 ```
 
 ##### in PATDAT (excl ob)
@@ -3063,6 +3184,9 @@ ggplot(in_PATDAT %>% slice_max(order_by = overlap, n = 10),aes(x = overlap * 100
     axis.text.y = element_text(angle = 0, vjust = 0.5, hjust = 1),
     axis.title.y = element_blank()
   )
+
+
+
 ```
 
 ##### in vs of
@@ -3080,13 +3204,67 @@ ggplot() +
   theme_bw()
 ```
 
+#### opdeling voorkomen soorten volgens beheerrecht ANB
+```{r}
+data <- PATDAT %>%
+  filter(type %in% c("anb_rechten")) %>%
+  select(soort, gebied, overlap) 
+
+soorten <- c("Siberische grondeekhoorn", "sikahert", "Chinese moerasslak", "kleine waterteunisbloem", "watercrassula")
+
+data_filtered <- data %>%
+  filter(soort %in% soorten) %>%
+  group_by(soort) %>%
+  ungroup()
+
+group_order <- c("Eigendom", 
+                 "Technisch beheer conform bosdecreet", 
+                 "Beheerovereenkomst", 
+                 "Protocol landsverdediging", 
+                 "Huur", 
+                 "Erfpacht")
+
+soort_order <- c("Siberische grondeekhoorn", "sikahert", "Chinese moerasslak", "kleine waterteunisbloem", "watercrassula")
+
+data_filtered$gebied <- factor(data_filtered$gebied, levels = rev(group_order))
+data_filtered$soort <- factor(data_filtered$soort, levels = rev(soort_order))
+
+color_mapping <- c(
+  "Erfpacht" = "#bf812d",
+  "Huur" = "#dfc27d",
+  "Protocol landsverdediging" = "#f6e8c3",
+  "Beheerovereenkomst" = "#c7eae5",
+  "Technisch beheer conform bosdecreet" = "#80cdc1",
+  "Eigendom" = "#35978f" 
+)
+
+ggplot(data_filtered, aes(x = overlap, y = soort, fill = gebied)) +
+  geom_col(alpha = 0.90, width = 0.7) +
+  #geom_vline(xintercept = 50, linetype = 2) +
+  #scale_x_continuous(expand = expansion(mult = c(0,0.01)), labels = scales::percent_format(scale = 1)) +
+  scale_fill_manual(values = color_mapping) +
+  labs(x = "Aantal ANB-domeinen") +
+  scale_x_continuous(
+    expand = expansion(mult = c(0, 0.05)),
+  ) +  
+  custom_theme() +
+  theme(legend.position = "bottom",
+        axis.title.y = element_blank())
+
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/PATDAT/patdat_ndom_per_recht.png", 
+       width = 23, height = 10, units = "cm", dpi=300)
+ggsave("./radius/data/output/figuren/patdat_ndom_per_recht.png", 
+       width = 23, height = 10, units = "cm", dpi=300)
+```
+
+
 #### Waar liggen de verantwoordelijkheden per soort?
 ```{r responsibility-per-species-patdat, echo=FALSE, warning=FALSE}
 data <- PATDAT %>%
   dplyr::filter(gebied != "PATDAT_incl_ob" & type == "in") %>%
   select(soort, gebied, overlap) 
 
-soorten <- c("Siberische grondeekhoorn", "sikahert", "Chinese moerasslak", "kleine waterteunisbloem", "watercrassula", "heilige ibis", "Amerikaanse hondsvis", "rosse stekelstaart", "Chinese muntjak", "Turkse rivierkreeft")
+soorten <- c("Siberische grondeekhoorn", "sikahert", "Chinese moerasslak", "kleine waterteunisbloem", "watercrassula")
 
 data_filtered <- data %>%
   filter(soort %in% soorten) %>%
@@ -3097,40 +3275,38 @@ data_filtered <- data %>%
       filter(soort %in% soorten) %>%
       group_by(soort) %>%
       summarise(buiten_patdat = 1 - sum(overlap)) %>%
-      mutate(gebied = "Buiten ANB", overlap = buiten_patdat) %>%
+      mutate(gebied = "Buiten ANB-patrimonium", overlap = buiten_patdat) %>%
       select(-buiten_patdat))
 
-group_order <- c("Buiten NBHP", 
-                 "Privaatrechtelijke rechtspersoon", 
-                 "Natuurlijke persoon", 
-                 "Andere", 
-                 "Bestuur", 
-                 "Andere Vlaamse overheid", 
-                 "Agentschap voor Natuur en Bos")
+group_order <- c("Buiten ANB",
+                 "Kust & Westhoek",
+                 "Zandig Vlaanderen",
+                 "Vlaamse Ardennen & Schelde-Leie",
+                 "Groene Gordels",
+                 "Brabantse Wouden",
+                 "Taxandria",
+                 "Demerland & Zuiderkempen",
+                 "Antwerpse Kempen",
+                 "Lage tot aan Hoge Kempen",
+                 "Hoge Kempen tot Voeren")
 
-soort_order <- c("Siberische grondeekhoorn", 
-                 "kleine waterteunisbloem", 
-                 "Chinese moerasslak", 
-                 "sikahert",
-                 "rosse stekelstaart",
-                 "beverrat", 
-                 "Noord-Aziatische modderkruiper", 
-                 "waterhyacint", 
-                 "watercrassula", 
-                 "marmerkreeft")
+soort_order <- c("Siberische grondeekhoorn", "sikahert", "Chinese moerasslak", "kleine waterteunisbloem", "watercrassula")
 
 data_filtered$gebied <- factor(data_filtered$gebied, levels = group_order)
 data_filtered$soort <- factor(data_filtered$soort, levels = rev(soort_order))
 
 color_mapping <- c(
-  "Buiten NBHP" = "grey60",  
-  "Privaatrechtelijke rechtspersoon" = "#bf812d",
-  "Natuurlijke persoon" = "#dfc27d",
-  "Andere" = "#f6e8c3",
-  "Bestuur" = "#c7eae5",
-  "Andere Vlaamse overheid" = "#80cdc1",
-  "Agentschap voor Natuur en Bos" = "#35978f" 
-)
+  "Buiten ANB" = "grey60",
+  "Kust & Westhoek" = "#f6e8c3",
+  "Zandig Vlaanderen" = "#dfc27d",
+  "Vlaamse Ardennen & Schelde-Leie" = "#bf812d",
+  "Groene Gordels" = "#35978f",
+  "Brabantse Wouden" = "#80cdc1",
+  "Taxandria" = "#c7eae5",
+  "Demerland & Zuiderkempen" = "#d98eb5",
+  "Antwerpse Kempen" = "#c04384",
+  "Lage tot aan Hoge Kempen" = "#f2d9e6",
+  "Hoge Kempen tot Voeren"= "#e6b4ce")
 
 ggplot(data_filtered, aes(x = overlap * 100, y = soort, fill = gebied)) +
   geom_col(alpha = 0.90, width = 0.7) +
@@ -3139,13 +3315,13 @@ ggplot(data_filtered, aes(x = overlap * 100, y = soort, fill = gebied)) +
   scale_fill_manual(values = color_mapping) +
   labs(x = "Percentage van totale verspreiding") +
   custom_theme() +
-  theme(legend.position = "bottom",
+  theme(legend.position = "right",
         axis.title.y = element_blank())
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/NBHP/nbhp_resp.png", 
-       width = 23, height = 15, units = "cm", dpi=300)
-ggsave("./radius/data/output/figuren/nbhp_resp.png", 
-       width = 23, height = 15, units = "cm", dpi=300)
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/PATDAT/patdat_perc_per_br.png",
+       width = 23, height = 13, units = "cm", dpi=300)
+ggsave("./radius/data/output/figuren/patdat_perc_per_br.png",
+       width = 23, height = 13, units = "cm", dpi=300)
 ```
 
 #### Voorkomen in ANB domeinen vs voorkomen in Vlaanderen
@@ -3190,7 +3366,7 @@ x <- PATDAT %>%
          gebied = replace(gebied, gebied == "HKeVoe", "Hoge Kempen tot Voeren")) %>%
   left_join(aandeel_vl, by = c("gebied" = "regio")) %>%
   mutate(factor = overlap/ofVL) #%>%
-#dplyr::filter(!soort %in% unique(spor_species$Soort))
+  #dplyr::filter(!soort %in% unique(spor_species$Soort))
 
 PATDAT_max5 <- x %>%
   dplyr::filter(overlap != 0) %>%
@@ -3226,10 +3402,8 @@ final_plot <- wrap_plots(plot_list) + plot_layout(ncol = 2)
 
 print(final_plot)
 
-ggsave("./radius/data/output/figuren/patdat_per_bh.png",
-       width = 7,
-       height = 8,
-       dpi = 300)
+ggsave("./radius/data/output/figuren/patdat_perc_per_br.png",
+       width = 23, height = 27, units = "cm", dpi=300)
 ```
 
 # SOORTENBESCHERMINGSPROGRAMMA'S (SBPs)
