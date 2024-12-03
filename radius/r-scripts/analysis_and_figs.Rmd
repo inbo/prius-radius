@@ -162,10 +162,12 @@ TOP3 <- read_csv("./radius/data/output/TOP3_long.csv")
 ## spatial
 lu_sbp_pgs <- st_read("./radius/data/spatial/lu_sbp_pgs.shp")
 lu_sbp_pls <- st_read("./radius/data/spatial/lu_sbp_pls.shp")
+sbp_pls_intersects <- st_read("./radius/data/spatial/sbp_pls_intersects.shp")
 
 ## metrics
 SBP_pgs <- read_csv("./radius/data/output/SBP_pgs_long.csv")
 SBP_pls <- read_csv("./radius/data/output/SBP_pls_long.csv")
+SBP_pls_extra <- read_csv("./radius/data/output/SBP_pls_extra.csv")
 
 SBP_pgs_wide <- read_csv("./radius/data/output/SBP_pgs_wide.csv")
 SBP_pls_wide <- read_csv("./radius/data/output/SBP_pls_wide.csv")
@@ -3450,79 +3452,241 @@ for (i in unique(lu_sbp_pls$soort)) {
 
 ## SBP beekvissen (rivierdonderpad, beekprik, kleine modderkruiper)
 
+```{r}
+clusters_sbp <- st_read("G:/Mijn Drive/Fleur/RadIUS/SBPs/Shapefile/Vhazone.shp") %>%
+  st_transform(4326) %>%
+  ensure_multipolygons() %>%
+  transmute(CLUSTERNR = as.numeric(VHAZONENR), CLUSTERNAAM = NAAMVHAZON, OPPERVL) %>%
+  arrange(CLUSTERNR)
+
+## sbp beekvissen stromen
+ggplot() +
+  geom_sf(data = Provincies_grenzen, fill= "#f0f0f0", linewidth = 0.2) +
+  geom_sf(data = lu_sbp_pls, color = "lightblue3") +
+  theme_map()
+
+## sbp beekvissen waterclusters
+library(colorspace)
+
+ggplot() +
+  geom_sf(data = Provincies_grenzen, fill = "#f0f0f0", linewidth = 0.2) +
+  geom_sf(data = clusters_sbp, aes(fill = factor(CLUSTERNR)), color = "black",linewidth = 0.1,  alpha = 0.9) +
+  geom_sf_label(data = clusters_sbp, aes(label = CLUSTERNR), size = 4, fill = "white", alpha = 0.7) +
+  scale_fill_discrete_qualitative(palette = "Set 2", nmax = 21) +
+  theme_map() +
+  theme(
+    legend.position = "none",
+    legend.title = element_blank()
+  )
+
+kable(clusters_sbp %>% st_drop_geometry() %>% select(CLUSTERNR, CLUSTERNAAM),
+      , col.names = c("Nr.", "Watercluster naam"), 
+      align = "llr",
+      #caption = "Overzicht van de habitatrichtlijngebieden (SBZ-H) in Vlaanderen en hun oppervlakte (in ha)", 
+      booktabs = TRUE) %>%
+  kable_styling(bootstrap_options = "responsive",
+                position = "center",
+                font_size = 12,
+                htmltable_class = "lightable-classic")
+```
+
+
 ### Relevante soorten
 ```{r sbp-beekvissen-relevant-ias, echo=FALSE}
-sbp_vissen_ius <- species_list %>%
-  filter(Soort %in% c("Amerikaanse stierkikker",
-                      "blauwbandgrondel", "Kesslergrondel", "Pontische stroomgrondel", "marmergrondel", "zwartbekgrondel",
-                      "Californische rivierkreeft", "gestreepte Amerikaanse rivierkreeft", "gevlekte Amerikaanse rivierkreeft", "rode Amerikaanse rivierkreeft", "Turkse rivierkreeft"
-  )) %>%
-  pull(Soort)
 
-SBP_pls_sub <- SBP_pls %>%
-  filter(soort %in% sbp_vissen_ius)
+sbp_pls_species <- c("Amerikaanse stierkikker", "Kesslergrondel", "Pontische stroomgrondel", "marmergrondel", "zwartbekgrondel", "Californische rivierkreeft", "gestreepte Amerikaanse rivierkreeft", "gevlekte Amerikaanse rivierkreeft", "rode Amerikaanse rivierkreeft", "Turkse rivierkreeft","Chinese wolhandkrab"
+) 
 ```
 
+### Top tien soorten met grootste bezetting per SBP
 ```{r}
-ggplotly(
-  ggplot() +
-    geom_sf(data = Provincies_grenzen, fill= "#f0f0f0", linewidth = 0.2) +
-    geom_sf(data = lu_sbp_pls, color = "green") +
-    geom_sf(data = occ_flanders %>% filter(Soort == "Pontische stroomgrondel"), color = "blue", linewidth = 0.7) +
-    theme_map(),
-  tooltip = "text")
+data <- SBP_pls_extra %>%
+  filter(type == "of_sbp")
+
+ggplot(data, aes(x = overlap * 100, y = reorder(soort, overlap))) +
+  facet_wrap(~gebied, scales = "free_y", ncol = 1) +
+  geom_bar(stat = "identity", fill = "#c04384", width = 0.7) +
+  scale_x_continuous(expand = expansion(mult = c(0,0.05))) +
+  custom_theme() +
+  theme(
+    axis.title.y = element_blank()
+  )
+
+data <- SBP_pls_extra %>%
+  filter(gebied == "clusters" & type == "of_clust")
+
+ggplot(data, aes(x = overlap * 100, y = reorder(soort, overlap))) +
+  geom_bar(stat = "identity", fill = "#c04384", width = 0.7) +
+  scale_x_continuous(expand = expansion(mult = c(0,0.05))) +
+  custom_theme() +
+  theme(
+    axis.title.y = element_blank()
+  )
+
+# actueel voorkomen vs uitbreiding
+data <- SBP_pls_extra %>%
+  filter(type %in% c("of_sbp_al", "of_sbp_ul"))
 ```
 
 
-<!-- # OVERZICHT -->
+```{r kaartjes-bezetting-sbps}
+# SBP beekprik
+ggplot() +
+  geom_sf(data = Provincies_grenzen, fill = "#f0f0f0", linewidth = 0.2) +
+  geom_sf(data = lu_sbp_pls %>% filter(soort == "Beekprik"), color = "lightblue3", linewidth = 1) +
+  geom_sf(data = sbp_pls_intersects %>% filter(gebied == "SBP  Beekprik"), aes(color = soort, fill = soort), linewidth = 2.5) +
+  scale_fill_discrete_qualitative(palette = "Set 2", nmax = 9) +
+  scale_colour_discrete_qualitative(palette = "Set 2", nmax = 9) +
+  theme_map() +
+  theme(
+    legend.position = "bottom",
+    legend.title = element_blank()
+  )
 
-<!-- Alle resultaten samengenomen in een dataset om algemene conclusies te kunnen nemen.  -->
-<!-- ```{r} -->
-<!-- HBTRL_overview <- HBTRL_wide %>% -->
-<!--   select(soort, species, abbr, inHBTRL, ofHBTRL) -->
+# SBP rivierdonderpad
+ggplot() +
+  geom_sf(data = Provincies_grenzen, fill = "#f0f0f0", linewidth = 0.2) +
+  geom_sf(data = lu_sbp_pls %>% filter(soort == "Rivierdonderpad"), color = "lightblue3", linewidth = 1) +
+  geom_sf(data = sbp_pls_intersects %>% filter(gebied == "SBP  Rivierdonderpad"), aes(color = soort, fill = soort), linewidth = 2.5) +
+  scale_fill_discrete_qualitative(palette = "Set 2", nmax = 9) +
+  scale_colour_discrete_qualitative(palette = "Set 2", nmax = 9) +
+  theme_map() +
+  theme(
+    legend.position = "bottom",
+    legend.title = element_blank()
+  )
 
-<!-- VGLRL_overview <- VGLRL_wide %>% -->
-<!--   select(soort, species, abbr, inVGLRL, ofVGLRL) -->
+# SBP kleine modderkruiper
+ggplot() +
+  geom_sf(data = Provincies_grenzen, fill = "#f0f0f0", linewidth = 0.2) +
+  geom_sf(data = lu_sbp_pls %>% filter(soort == "Kleine Modderkruiper"), 
+          aes(color = type), linewidth = 1) +
+  #geom_sf(data = sbp_pls_intersects %>% filter(gebied == "SBP  Kleine Modderkruiper"), aes(color = soort, fill = soort), linewidth = 2.5) +
+  scale_color_manual(values = c("Actueel leefgebied" = "darkblue",
+                                "Uitbreiding leefgebied" = "lightblue")) +
+  #scale_fill_manual(values = c("Kleine Modderkruiper" = "#66C2A5")) +
+  theme_map() +
+  theme(
+    legend.position = "bottom",
+    legend.title = element_blank(),
+    legend.justification = "center",
+    legend.box.spacing = unit(0.1, "cm")
+  ) 
+```
 
-<!-- N2KHAB_overview <- N2KHAB_wide %>% -->
-<!--   select(soort, species, inN2KHAB, ofN2KHAB) -->
+### Waar zitten soorten voornamelijk (in welke cluster)?
+```{r}
+data <- SBP_pls_extra %>%
+  filter(type == "in_clust" & gebied != "clusters") %>%
+  select(soort, gebied, overlap) 
 
-<!-- NBHP_overview <- NBHP_wide %>% -->
-<!--   select(soort, species, abbr, inNBHP, ofNBHP) -->
+cluster_order <- c("Buiten SBP", "IJzer", "bovenlopen van de Vlaamse Ardennen", 
+                   "Waasland", "Zwarte Beek (Benedenscheldebekken)", "Schijn", 
+                   "Zennebekken ten zuiden van Brussel", "Dijlebekken ten zuiden van Leuven", 
+                   "middenloop en benedenloop Kleine Nete", "Molenbeek-Bollaak", "Aa",
+                   "bovenlopen Kleine Nete en Wamp", "middenloop en benedenloop Grote Nete",
+                   "bovenlopen Grote Nete", "Zwarte Beek en Laambeek", 
+                   "Kleine en Grote Gete", "Mombeek en Munsterbeek", 
+                   "Mark (Maasbekken)", "Warmbeek en Dommel", 
+                   "Abeek en Bosbeek", "Maas", "Voerstreek")
 
-<!-- PATDAT_overview <- PATDAT_wide %>% -->
-<!--   select(soort, species, abbr, inPATDAT, ofPATDAT) -->
+species_order <- c("Pontische stroomgrondel", "marmergrondel", "Kesslergrondel",
+                   "Amerikaanse stierkikker", "gevlekte Amerikaanse rivierkreeft",
+                   "Turkse rivierkreeft", "zwartbekgrondel",
+                   "gestreepte Amerikaanse rivierkreeft", "Chinese wolhandkrab",
+                   "rode Amerikaanse rivierkreeft", "Californische rivierkreeft")
 
-<!-- overview <- HBTRL_overview %>% -->
-<!--   left_join(VGLRL_overview, by = c("soort", "species", "abbr")) %>% -->
-<!--   left_join(N2KHAB_overview, by = c("soort", "species")) %>% -->
-<!--   left_join(NBHP_overview, by = c("soort", "species", "abbr")) %>% -->
-<!--   left_join(PATDAT_overview, by = c("soort", "species", "abbr")) %>% -->
-<!--   group_by(soort) %>% -->
-<!--   mutate(combined_in = sum(inHBTRL, inVGLRL, inN2KHAB, inNBHP, inPATDAT)) %>% -->
-<!--   mutate(combined_of = sum(ofHBTRL, ofVGLRL, ofN2KHAB, ofNBHP, ofPATDAT)) -->
+data_filtered <- data %>%
+  bind_rows(
+    data %>%
+      group_by(soort) %>%
+      summarise(buiten_sbp = 1 - sum(overlap)) %>%
+      mutate(gebied = "Buiten SBP", overlap = buiten_sbp) %>%
+      select(-buiten_sbp)
+  ) %>%
+  mutate(
+    gebied = factor(gebied, levels = cluster_order),
+    soort = factor(soort, levels = rev(species_order))
+  )
 
-<!-- overview_in <- overview %>% -->
-<!--   select(starts_with("in"))  -->
+set2_colors <- qualitative_hcl(21, palette = "Set 2")
+all_colors <- c("Buiten SBP" = "grey60", setNames(set2_colors, levels(data_filtered$gebied)[-1]))
 
-<!-- absent_in_al <- overview_in %>% -->
-<!--   dplyr::filter(inHBTRL == 0, inVGLRL == 0, inN2KHAB == 0, inNBHP == 0, inPATDAT == 0)  -->
+ggplot(data_filtered, aes(x = overlap * 100, y = soort, fill = gebied)) +
+  geom_col(alpha = 0.90, width = 0.7, color = "grey60") +
+  geom_vline(xintercept = 50, linetype = 2) +
+  scale_x_continuous(expand = expansion(mult = c(0,0.01)), labels = scales::percent_format(scale = 1)) +
+  scale_fill_manual(values = all_colors) +
+  labs(x = "Percentage van totale verspreiding") +
+  custom_theme() +
+  theme(legend.position = "right",
+        axis.title.y = element_blank())
+```
 
-<!-- present_in_all <- overview_in %>% -->
-<!--   dplyr::filter(inHBTRL > 0, inVGLRL > 0, inN2KHAB > 0, inNBHP > 0, inPATDAT > 0)  -->
 
-<!-- not_present_in_all <- overview_in %>% -->
-<!--   dplyr::filter(!(inHBTRL > 0 & inVGLRL > 0 & inN2KHAB > 0 & inNBHP > 0 & inPATDAT > 0)) %>% -->
-<!--   dplyr::filter(!soort %in% unique(absent_in_al$soort)) -->
-<!-- ``` -->
+```{r bezetting-clusters}
+data <- SBP_pls_extra %>%
+  filter(type == "of_clust" & gebied != "clusters" & overlap != 0) %>%
+  group_by(gebied) %>%
+  summarise(n_spec = n()) %>%
+  add_row(gebied = "Kleine en Grote Gete", n_spec = 0) %>%
+  left_join(clusters_sbp, by = c("gebied" = "CLUSTERNAAM"))
+  
 
-<!-- ## overview of datasets that were used in the gbif download -->
-<!-- ```{r} -->
+## barplot
+ggplot(data, aes(x = n_spec, y = reorder(gebied, n_spec))) +
+  geom_bar(stat = "identity", color = "#c04384", fill = "#c04384", width = 0.7) +
+  labs(x = "# IUS") +
+  custom_theme() +
+  theme(
+    axis.title.y = element_blank()
+  )
 
-<!-- gbif_download <- read_tsv("G:/Mijn Drive/Fleur/RadIUS/RadIUS voorbereiding/datasets_download_usage_0035514-240506114902167.tsv") %>% -->
-<!--   select(dataset_title, dataset_citation, number_records) %>% -->
-<!--   arrange(dataset_title) -->
 
-<!-- write_excel_csv2(gbif_download, "G:/Mijn Drive/Fleur/RadIUS/RadIUS voorbereiding/datasets_download_usage_0035514-240506114902167.csv") -->
-<!-- ``` -->
+## kaartje
+colors <- c("grey80","#f2d9e6", "#e6b4ce", "#d98eb5", "#c04384")
+values <- c(0, 1, 3, 5, 7)  
+
+ggplot() +
+  geom_sf(data = Provincies_grenzen, fill = "#f0f0f0", color = "black", linewidth = 0.2) +
+  geom_sf(data = data$geom, aes(fill = data$n_spec), color = "grey20", linewidth = 0.05) +
+  geom_sf(data = lu_sbp_pls, color = "lightblue3", linewidth = 1) +
+  labs(fill = "Aantal IUS") +
+  scale_fill_gradientn(colors = colors, values = scales::rescale(values)) +
+  theme_map() +
+  theme(
+    legend.background = element_blank(),
+    legend.title = element_blank(),
+    legend.position = "right",
+    legend.justification = "center",
+    legend.box.spacing = unit(0.1, "cm")
+  )
+
+ggplot() +
+  geom_sf(data = Provincies_grenzen, fill = "#f0f0f0", linewidth = 0.2) +
+  geom_sf(data = lu_sbp_pls, color = "lightblue3", linewidth = 1) +
+  geom_sf(data = sbp_pls_intersects, aes(color = soort, fill = soort), linewidth = 2.5) +
+  scale_fill_discrete_qualitative(palette = "Set 2", nmax = 9) +
+  scale_colour_discrete_qualitative(palette = "Set 2", nmax = 9) +
+  theme_map() +
+  theme(
+    legend.position = "bottom",
+    legend.title = element_blank(),
+    legend.justification = "center",
+    legend.box.spacing = unit(0.1, "cm")
+  )
+```
+
+### Welke soorten per cluster? 
+```{r}
+data <- SBP_pls_extra %>%
+  filter(type == "of_clust" & gebied != "clusters")
+
+for (i in unique(data$gebied)) {
+  print(ggplot(data %>% filter(gebied == i), aes(x = overlap, y = reorder(soort, overlap))) +
+          geom_bar(stat = "identity", fill = "#c04384", width = 0.7) +
+          labs(title = paste0(i)) +
+          custom_theme())
+}
+```
 
