@@ -186,6 +186,36 @@ ggsave(respons, file = paste0("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT
 
 ```
 
+### Aangepaste figuur ANB-patdat voor rapport
+```{r}
+tb_west <- beheerregios_anb %>%
+  filter(NAAM %in% c("Groene Gordels","Antwerpse Kempen","Kust & Westhoek","Zandig Vlaanderen","Vlaamse Ardennen & Schelde-Leie")) %>%
+  st_transform(31370) %>%
+  st_union() %>%
+  st_boundary()
+
+tb_oost <- beheerregios_anb %>%
+  filter(NAAM %in% c("Taxandria","Lage tot aan Hoge Kempen","Demerland & Zuiderkempen","Hoge Kempen tot Voeren","Brabantse wouden")) %>%
+  st_transform(31370) %>%
+  st_union() %>%
+  st_boundary()
+
+Vlaanderen_grenzen <- st_read("./prius/data/spatial/flanders_wgs84.geojson")
+plot_patdat <- ggplot() +
+  geom_sf(data = Vlaanderen_grenzen, fill = "#f0f0f0") +
+  geom_sf(data = am_patdat, fill="#a4e98f", color ="#a4e98f", linewidth = 0.01) +
+  geom_sf(data = beheerregios_anb, alpha = 0, linewidth = 0.3) +
+  geom_sf(data = tb_west, color = "black", linewidth = 0.5) +
+  geom_sf(data = tb_oost, color = "black", linewidth = 0.5) +
+  theme_map()
+
+plot_patdat
+  
+ggsave("G:/Mijn Drive/Fleur/RadIUS/Rapport/map_patdat.png", plot = plot_patdat, width = 23, height = 10, units = "cm")
+```
+
+
+
 ```{r load-gbif-occurrences, message=FALSE}
 species_list <- read_csv("./radius/data/input/radius_species_list.csv")
 
