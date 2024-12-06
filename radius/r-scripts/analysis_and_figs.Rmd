@@ -1997,19 +1997,6 @@ facet_labels <- c("zilt en estuarium" = "zilt en \nestuarium",
                   "venen" = "venen",
                   "bossen" = "bossen")
 
-ggplot(x, aes(x = overlap * 100, y = reorder(gebied, overlap))) +
-  geom_bar(stat = "identity", fill = "#c04384", width = 0.7) +
-  facet_grid(groep ~ soort, scales = "free_y",, labeller = labeller(groep = facet_labels)) +
-  labs(y = "habitattype", x = "% van totale verspreidingsoppervlak") +
-  scale_x_continuous(expand = expansion(mult = c(0, 0.05)), labels = scales::percent_format(scale = 1)) +
-  custom_theme() +
-  theme(strip.text.y = element_text(hjust = 0, vjust = 0, color = "black"),
-        strip.placement = "outside",
-        strip.background.y = element_rect(fill = "grey98", color = NA),
-        panel.spacing.y = unit(0.5, "lines"),
-        plot.margin = margin(r = 5, unit = "mm"))
-
-
 ggplot(data = x, aes(x = reorder_within(gebied, overlap, groep), y = overlap * 100)) +
   geom_bar(stat = "identity", width = 0.7, fill = "#cc6999") +
   facet_grid(soort ~ groep, scales = "free", space = "free_x", labeller = labeller(groep = facet_labels)) +
@@ -2034,6 +2021,123 @@ ggplot(data = x, aes(x = reorder_within(gebied, overlap, groep), y = overlap * 1
 #        width = 23, height = 17, units = "cm", dpi=300)
 ```
 
+```{r n2khab-vglk-spec-ZT, echo = FALSE, warning=FALSE}
+x <- N2KHAB %>%
+  dplyr::filter(gebied != "N2KHAB" & type == "in" & soort %in% c("Leidse plant", "moerasaronskelk", "watercrassula")) %>%
+  left_join(habitats, by = c("gebied" = "code")) 
+
+x$groep <- factor(x$groep, levels = c("zilt en estuarium", "kustduinen", "zoetwater", "heiden", "graslanden", "venen", "bossen"))
+
+facet_labels <- c("zilt en estuarium" = "zilt en \nestuarium",
+                  "kustduinen" = "kustduinen",
+                  "zoetwater" = "zoetwater",
+                  "heiden" = "heiden",
+                  "graslanden" = "graslanden",
+                  "venen" = "venen",
+                  "bossen" = "bossen")
+
+ggplot(data = x, aes(x = reorder_within(gebied, overlap, groep), y = ifelse(overlap != 0 & overlap < 0.05, overlap * 100 + 0.1, overlap * 100))) +
+  geom_bar(stat = "identity", width = 0.7, fill = "#cc6999") +
+  facet_grid(soort ~ groep, scales = "free_x", space = "free_x", labeller = labeller(groep = facet_labels)) +
+  labs(x="Habitat", y = "% van totale verspreidingsoppervlak") +
+  scale_x_reordered() +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.05)), labels = scales::percent_format(scale = 1)) +
+  custom_theme() +
+  theme(
+    axis.text.x=element_text(angle=90, vjust=0.5),
+    legend.position="bottom",
+    legend.title=element_blank(), 
+    strip.text.x = element_text(hjust = 0, vjust = 0, color = "black"),
+    strip.placement = "outside",
+    #strip.background.x = element_rect(fill = "grey98", color = NA),
+    panel.spacing.x = unit(0.5, "lines"),
+    plot.margin = margin(r = 5, unit = "mm")
+  )
+
+# ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/N2KHAB/n2khab_gen_vs_spec.png", 
+#        width = 23, height = 17, units = "cm", dpi=300)
+ggsave("./radius/data/output/figuren/n2khab_vgl_ZT_pl.png",
+       width = 23, height = 17, units = "cm", dpi=300)
+```
+
+```{r n2khab-vglk-spec-zoogdieren, echo = FALSE, warning=FALSE}
+x <- N2KHAB %>%
+  dplyr::filter(gebied != "N2KHAB" & type == "in" & soort %in% c("wasbeer","Chinese muntjak", "sikahert", "Siberische grondeekhoorn")) %>%
+  left_join(habitats, by = c("gebied" = "code")) 
+
+x$groep <- factor(x$groep, levels = c("zilt en estuarium", "kustduinen", "zoetwater", "heiden", "graslanden", "venen", "bossen"))
+
+facet_labels <- c("zilt en estuarium" = "zilt en \nestuarium",
+                  "kustduinen" = "kustduinen",
+                  "zoetwater" = "zoetwater",
+                  "heiden" = "heiden",
+                  "graslanden" = "graslanden",
+                  "venen" = "venen",
+                  "bossen" = "bossen")
+
+ggplot(data = x, aes(x = reorder_within(gebied, overlap, groep), y = ifelse(overlap != 0 & overlap < 0.05, overlap * 100 + 1, overlap * 100))) +
+  geom_bar(stat = "identity", width = 0.7, fill = "#cc6999") +
+  facet_grid(soort ~ groep, scales = "free_x", space = "free_x", labeller = labeller(groep = facet_labels)) +
+  labs(x="Habitat", y = "% van totale verspreidingsoppervlak") +
+  scale_x_reordered() +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.05)), labels = scales::percent_format(scale = 1)) +
+  custom_theme() +
+  theme(
+    axis.text.x=element_text(angle=90, vjust=0.5),
+    legend.position="bottom",
+    legend.title=element_blank(), 
+    strip.text.x = element_text(hjust = 0, vjust = 0, color = "black"),
+    strip.placement = "outside",
+    #strip.background.x = element_rect(fill = "grey98", color = NA),
+    panel.spacing.x = unit(0.5, "lines"),
+    plot.margin = margin(r = 5, unit = "mm")
+  )
+
+# ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/N2KHAB/n2khab_gen_vs_spec.png", 
+#        width = 23, height = 17, units = "cm", dpi=300)
+ggsave("./radius/data/output/figuren/n2khab_vgl_zoogd.png",
+       width = 23, height = 17, units = "cm", dpi=300)
+```
+
+```{r n2khab-vglk-spec-terr-planten, echo = FALSE, warning=FALSE}
+x <- N2KHAB %>%
+  dplyr::filter(gebied != "N2KHAB" & type == "in" & soort %in% c("reuzenberenklauw", "reuzenbalsemien","rimpelroos","late guldenroede")) %>%
+  left_join(habitats, by = c("gebied" = "code")) 
+
+x$groep <- factor(x$groep, levels = c("zilt en estuarium", "kustduinen", "zoetwater", "heiden", "graslanden", "venen", "bossen"))
+
+facet_labels <- c("zilt en estuarium" = "zilt en \nestuarium",
+                  "kustduinen" = "kustduinen",
+                  "zoetwater" = "zoetwater",
+                  "heiden" = "heiden",
+                  "graslanden" = "graslanden",
+                  "venen" = "venen",
+                  "bossen" = "bossen")
+
+ggplot(data = x, aes(x = reorder_within(gebied, overlap, groep), y = ifelse(overlap != 0 & overlap < 0.05, overlap * 100 + 0.1, overlap * 100))) +
+  geom_bar(stat = "identity", width = 0.7, fill = "#cc6999") +
+  facet_grid(soort ~ groep, scales = "free_x", space = "free_x", labeller = labeller(groep = facet_labels)) +
+  labs(x="Habitat", y = "% van totale verspreidingsoppervlak") +
+  scale_x_reordered() +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.05)), labels = scales::percent_format(scale = 1)) +
+  custom_theme() +
+  theme(
+    axis.text.x=element_text(angle=90, vjust=0.5),
+    legend.position="bottom",
+    legend.title=element_blank(), 
+    strip.text.x = element_text(hjust = 0, vjust = 0, color = "black"),
+    strip.placement = "outside",
+    #strip.background.x = element_rect(fill = "grey98", color = NA),
+    panel.spacing.x = unit(0.5, "lines"),
+    plot.margin = margin(r = 5, unit = "mm")
+  )
+
+# ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/N2KHAB/n2khab_gen_vs_spec.png", 
+#        width = 23, height = 17, units = "cm", dpi=300)
+ggsave("./radius/data/output/figuren/n2khab_vgl_terr_pl.png",
+       width = 23, height = 17, units = "cm", dpi=300)
+```
+
 #### Aquatisch vs. terrestrisch
 ```{r n2khab-aqua-vs-terr, echo=FALSE, warning=FALSE}
 x <- N2KHAB %>%
@@ -2044,7 +2148,7 @@ x$groep <- factor(x$groep, levels = c("zilt en estuarium", "kustduinen", "zoetwa
 
 ggplot(x, aes(x = reorder(gebied, overlap), y = overlap * 100)) +
   geom_bar(stat = "identity", fill = "#c04384") +
-  facet_grid(soort ~ groep, scales = "free", switch = "y", labeller = labeller(groep = facet_labels)) +
+  facet_grid(soort ~ groep, scales = "free_x", switch = "y", labeller = labeller(groep = facet_labels)) +
   labs(x = "habitattype", y = NULL) +
   scale_y_continuous(sec.axis = dup_axis(name = "overlap"),expand = c(0, 0), limits = c(0, 0.65), labels = scales::percent_format(scale = 1)) +
   custom_theme() +
