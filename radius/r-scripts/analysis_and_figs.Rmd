@@ -35,6 +35,7 @@ library(patchwork)
 library(gridExtra)
 library(grid)
 library(mapview)
+library(gdalUtilities)
 
 library(extrafont)
 loadfonts(device = "win") 
@@ -228,7 +229,7 @@ map_1 <- leaflet() %>%
 
 map_1
 
-mapshot(map_1, file = "G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/punt_tot_wolk_1.png")
+mapshot(map_1, file = "G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/punt_tot_wolk_1.png")
 
 map_2 <- leaflet() %>%
   addTiles(data = "OSM") %>%
@@ -239,7 +240,7 @@ map_2 <- leaflet() %>%
     lng2 = 4.568793, lat2 = 50.996349  
   ) 
 
-mapshot(map_2, file = "G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/punt_tot_wolk_2.png")
+mapshot(map_2, file = "G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/punt_tot_wolk_2.png")
 
 map_3 <- leaflet() %>%
   addTiles(data = "OSM") %>%
@@ -249,7 +250,7 @@ map_3 <- leaflet() %>%
     lng2 = 4.568793, lat2 = 50.996349  
   ) 
 
-mapshot(map_3, file = "G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/punt_tot_wolk_3.png")
+mapshot(map_3, file = "G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/punt_tot_wolk_3.png")
 
 map_4 <- leaflet() %>%
   addTiles(data = "OSM") %>%
@@ -260,7 +261,7 @@ map_4 <- leaflet() %>%
     lng2 = 4.568793, lat2 = 50.996349  
   )
 
-mapshot(map_4, file = "G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/punt_tot_wolk_4.png")
+mapshot(map_4, file = "G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/punt_tot_wolk_4.png")
 
 map_5 <- leaflet() %>%
   addTiles(data = "OSM") %>%
@@ -272,7 +273,7 @@ map_5 <- leaflet() %>%
     lng2 = 4.568793, lat2 = 50.996349  
   )
 
-mapshot(map_5, file = "G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/punt_tot_wolk_5.png")
+mapshot(map_5, file = "G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/punt_tot_wolk_5.png")
 
 ```
 
@@ -307,18 +308,39 @@ kable(spor_species, col.names = c("Soort", "Aantal observaties (sinds 2015)"),
 Weergave van ofVL-metric (percentage van totale oppervlakte van Vlaanderen dat bezet is door een soort) per soort
 
 ```{r occupancy-in-flanders, echo=FALSE}
-ggplotly(
-  ggplot(data = VL_wide, aes(x = reorder(soort, ofVL), y = ofVL, text = paste0(soort, "<br>Aandeel van Vlaanderen: ", round(ofVL * 100, 6), "%"))) +
-    geom_bar(stat = "identity", colour = "white", linewidth = 0.01, fill = "#c04384") +
-    ylab("Aandeel bezet") +
-    theme_bw() +
-    theme(
-      axis.text = element_text(size = 9),
-      axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1),
-      axis.title.x = element_blank(),
-      axis.title = element_text(size = 9)
-    ),
-  tooltip = "text")
+ggplot(VL, aes(x = (overlap * 100) + 0.04, y = reorder(soort, overlap))) +
+  geom_bar(stat = "identity", show.legend = FALSE, width = 0.7, fill = "#c04384") +  
+  scale_x_continuous(
+    expand = expansion(mult = c(0, 0.05)),
+    labels = scales::percent_format(scale = 1)) +
+  labs(x = "Bezetting van Vlaanderen", y = NULL) +
+  custom_theme() + 
+  theme(strip.placement = "outside",
+        axis.text.y = element_markdown(size = 10),
+        strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0, vjust = 0, size = 10))
+
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/VL/vl_bezetting.png", 
+       width = 23, height = 20, units = "cm", dpi=300)
+ggsave("./radius/data/output/figuren/vl_bezetting.png", 
+       width = 23, height = 20-, units = "cm", dpi=300)
+
+
+ggplot(VL, aes(x = reorder(soort, overlap), y = (overlap * 100) + 0.04)) +
+  geom_bar(stat = "identity", show.legend = FALSE, width = 0.7, fill = "#c04384") +  
+  scale_y_continuous(
+    expand = expansion(mult = c(0, 0.05)),
+    labels = scales::percent_format(scale = 1)) +
+  labs(y = "Bezetting van Vlaanderen", x = NULL) +
+  custom_theme() + 
+  theme(strip.placement = "outside",
+        axis.text.y = element_markdown(size = 10),
+        axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0),
+        )
+
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/VL/vl_bezetting2.png", 
+       width = 23, height = 13, units = "cm", dpi=300)
+ggsave("./radius/data/output/figuren/vl_bezetting2.png", 
+       width = 23, height = 13, units = "cm", dpi=300)
 ```
 
 Top 10 meest wijdverspreide soorten (soort + (perc. van Vlaamse oppervlak waarop soort voorkomt)):  
@@ -467,7 +489,7 @@ ggplot() +
     legend.box.spacing = unit(0.1, "cm")
   )
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/HBTRL/hbtrl_nspec.png", 
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/HBTRL/hbtrl_nspec.png", 
        width = 23, height = 10, units = "cm", dpi=300)
 ggsave("./radius/data/output/figuren/hbtrl_nspec.png", 
        width = 23, height = 10, units = "cm", dpi=300)
@@ -531,7 +553,7 @@ ggplot(x, aes(x = overlap * 100, y = reorder_within(soort, overlap, gebied))) +
   scale_x_continuous(labels = percent_format(scale = 1), expand = c(0, 0.1)) +  
   custom_theme()
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/HBTRL/hbtrl_spec_per_gebied.png", 
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/HBTRL/hbtrl_spec_per_gebied.png", 
        width = 23, height = 17, units = "cm", dpi=300)
 ggsave("./radius/data/output/figuren/hbtrl_spec_per_gebied.png", 
        width = 23, height = 17, units = "cm", dpi=300)
@@ -588,7 +610,7 @@ ggplot(x, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort, fill =
         axis.text.y = element_markdown(size = 10),
         strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0, vjust = 0, size = 10))
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/HBTRL/hbtrl_bezetting.png", 
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/HBTRL/hbtrl_bezetting.png", 
        width = 23, height = 27, units = "cm", dpi=300)
 ggsave("./radius/data/output/figuren/hbtrl_bezetting.png", 
        width = 23, height = 27, units = "cm", dpi=300)
@@ -674,7 +696,7 @@ ggplot() +
   theme(axis.title.x = element_text(size = 9),
         axis.title.y = element_text(size = 9))
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/HBTRL/hbtrl_in_vs_of.png", 
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/HBTRL/hbtrl_in_vs_of.png", 
        width = 23, height = 15, units = "cm", dpi=300)
 ggsave("./radius/data/output/figuren/hbtrl_in_vs_of.png", 
        width = 23, height = 15, units = "cm", dpi=300)
@@ -799,7 +821,7 @@ combined_plot <- left_column | right_column
 
 combined_plot
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/HBTRL/hbtrl_Up_Cn_Tsi.png", 
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/HBTRL/hbtrl_Up_Cn_Tsi.png", 
        width = 23, height = 20, units = "cm", dpi=300)
 ggsave("./radius/data/output/figuren/hbtrl_Up_Cn_Tsi.png", 
        width = 23, height = 20, units = "cm", dpi=300)
@@ -908,7 +930,7 @@ ggplot() +
     legend.box.spacing = unit(0.1, "cm")
   )
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/VGLRL/vglrl_nspec.png", 
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/VGLRL/vglrl_nspec.png", 
        width = 23, height = 10, units = "cm", dpi=300)
 ggsave("./radius/data/output/figuren/vglrl_nspec.png", 
        width = 23, height = 10, units = "cm", dpi=300)
@@ -991,7 +1013,7 @@ ggsave("./radius/data/output/figuren/vglrl_spec_present.png",
 
 
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/VGLRL/vglrl_spec_per_gebied.png", 
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/VGLRL/vglrl_spec_per_gebied.png", 
        width = 23, height = 17, units = "cm", dpi=300)
 ggsave("./radius/data/output/figuren/vglrl_spec_per_gebied.png", 
        width = 23, height = 17, units = "cm", dpi=300)
@@ -1048,7 +1070,7 @@ ggplot(x, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort, fill =
         axis.text.y = element_markdown(size = 9),
         strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0, vjust = 0, size = 10))
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/VGLRL/vglrl_bezetting.png", 
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/VGLRL/vglrl_bezetting.png", 
        width = 23, height = 10, units = "cm", dpi=300)
 ggsave("./radius/data/output/figuren/vglrl_bezetting.png", 
        width = 23, height = 10, units = "cm", dpi=300)
@@ -1112,7 +1134,7 @@ ggplot() +
   theme(axis.title.x = element_text(size = 9),
         axis.title.y = element_text(size = 9))
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/VGLRL/vglrl_in_vs_of.png", 
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/VGLRL/vglrl_in_vs_of.png", 
        width = 23, height = 15, units = "cm", dpi=300)
 ggsave("./radius/data/output/figuren/vglrl_in_vs_of.png", 
        width = 23, height = 15, units = "cm", dpi=300)
@@ -1232,7 +1254,7 @@ combined_plot <- left_column | right_column
 
 combined_plot
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/VGLRL/vglrl_Oj_Ta.png", 
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/VGLRL/vglrl_Oj_Ta.png", 
        width = 23, height = 17, units = "cm", dpi=300)
 ggsave("./radius/data/output/figuren/vglrl_Oj_Ta.png", 
        width = 23, height = 17, units = "cm", dpi=300)
@@ -1390,7 +1412,7 @@ ggplot(N2KHAB_nspec_pertype, aes(x = reorder(gebied, n_spec), y = n_spec, fill =
         legend.title = element_blank()
   )
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/N2KHAB/n2khab_nspec.png", 
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/N2KHAB/n2khab_nspec.png", 
        width = 23, height = 15, units = "cm", dpi=300)
 ggsave("./radius/data/output/figuren/n2khab_nspec.png", 
        width = 23, height = 15, units = "cm", dpi=300)
@@ -1450,14 +1472,14 @@ ggplot(z, aes(x = overlap_categorie, y = n_habitats)) +
 
 ##### Mate van bezetting vs aantal soorten
 
-voor mate van bezetting nemen we de maximale bezettingswaarde in een habitat als weerspiegeling van de bezetting van het habitattype
+voor mate van bezetting nemen we de gemiddelde bezettingswaarde in een habitat als weerspiegeling van de bezetting van het habitattype
 ```{r}
 x <- N2KHAB %>%
-  filter(type == "of" & gebied != "N2KHAB") %>%
+  filter(type == "of" & gebied != "N2KHAB" & overlap != 0) %>%
   group_by(gebied) %>%
   summarise(
     max_overlap = max(overlap) * 100, 
-    mean_overlap = mean(overlap) * 100, 
+    mean_overlap = mean(overlap) * 100
   )
 
 y <- N2KHAB %>%
@@ -1492,7 +1514,7 @@ facet_labels <- c("zilt en estuarium" = "zilt en \nestuarium",
                   "venen" = "venen",
                   "bossen" = "bossen")
 
-scale_factor <- 60 / 5  
+scale_factor <- 60 / 83 
 
 y <- y %>%
   mutate(value = ifelse(metric == "mean_overlap", value * scale_factor, value))
@@ -1509,7 +1531,7 @@ ggplot(data = y, aes(x = gebied, y = value, fill = metric)) +
     sec.axis=sec_axis(
       ~ . / scale_factor,
       name="Gemiddelde bezetting (%)",
-      breaks=seq(0,10,by=1),  
+      breaks=seq(0,100,by=10),  
       labels=scales::percent_format(scale=1)
     )
   ) +
@@ -1527,6 +1549,11 @@ ggplot(data = y, aes(x = gebied, y = value, fill = metric)) +
     panel.grid.major.y=element_line(color="grey75", size=0.5), 
     panel.grid.minor.y=element_line(color="grey90", size=0.25)
 )
+
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/N2KHAB/n2khab_bezetting_per_type.png", 
+       width = 23, height = 13, units = "cm", dpi=300)
+ggsave("./radius/data/output/figuren/2khab_bezetting_per_type.png", 
+       width = 23, height = 13, units = "cm", dpi=300)
 
 ### Bezetting per habitatgroep
 y <- N2KHAB %>%
@@ -1557,20 +1584,20 @@ y <- y %>%
                names_to = "variabele",
                values_to = "waarde") %>%
   mutate(se = ifelse(variabele == "gem_soorten", se_soorten, se_overlap),
-         waarde_scaled = ifelse(variabele == "gem_overlap", waarde * schaalfactor, waarde)) 
+         waarde_scaled = ifelse(variabele == "gem_overlap", waarde * scale_factor, waarde)) 
 
 y$groep <- factor(y$groep, levels = c("zilt en estuarium", "kustduinen", "zoetwater","heiden", "graslanden", "venen", "bossen"))
 
 ggplot(data = y, aes(x = groep, y = waarde_scaled, fill = variabele)) +
   geom_bar(stat = "identity", position = position_dodge(width = 0.6), width = 0.5) +
-  geom_errorbar(aes(ymin = waarde_scaled - se * ifelse(variabele == "gem_overlap", schaalfactor, 1), 
-                    ymax = waarde_scaled + se * ifelse(variabele == "gem_overlap", schaalfactor, 1)),
-                position = position_dodge(width = 0.6), width = 0.25) +
+  geom_errorbar(aes(ymin = waarde_scaled - se * ifelse(variabele == "gem_overlap", scale_factor, 1), 
+                    ymax = waarde_scaled + se * ifelse(variabele == "gem_overlap", scale_factor, 1)),
+                position = position_dodge(width = 0.6), width = 0.15, linewidth = 0.3, color = "black") +
   scale_y_continuous(
-    name="Aantal soorten",
-    limits=c(0, 35),
-    breaks=seq(0, 35, by=15),
-    minor_breaks=seq(0, 35, by=5),
+    name="Gemiddeld aantal soorten",
+    limits=c(0, 40),
+    breaks=seq(0, 40, by=15),
+    minor_breaks=seq(0, 40, by=5),
     expand=expansion(mult=c(0,0.01)),
     sec.axis=sec_axis(
       ~ . / scale_factor,
@@ -1579,7 +1606,7 @@ ggplot(data = y, aes(x = groep, y = waarde_scaled, fill = variabele)) +
     )
   ) +
   scale_fill_manual(values=c("gem_soorten"="#cc6999", "gem_overlap"="#e6b4ce"),
-                    labels=c("gem_soorten"="Aantal soorten", 
+                    labels=c("gem_soorten"="Gemiddeld aantal soorten", 
                              "gem_overlap"="Gemiddelde bezetting (%)")) +
   labs(x="Habitat") +
   custom_theme() +
@@ -1594,85 +1621,10 @@ ggplot(data = y, aes(x = groep, y = waarde_scaled, fill = variabele)) +
     panel.grid.minor.y=element_line(color="grey90", size=0.25)
 )
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-# 
-# 
-# 
-# 
-# ggplot(y, aes(x = value, y = gebied, fill = metric)) +
-#   geom_bar(stat = "identity", width = 0.7, position = position_dodge()) +
-#   facet_grid(groep ~ metric, scales = "free_y", labeller = labeller(groep = facet_labels, metric = c(n_spec = "# soorten", max_overlap = "maximale bezetting (%)"))) +
-#   scale_x_continuous(
-#     expand = expansion(mult = c(0, 0.01)),
-#     breaks = seq(0, 100, by = 10),
-#     limits = c(0, 100)  
-#   ) +
-#   scale_fill_manual(values = c("#c04384", "#00BFC4")) +
-#   custom_theme() +
-#   theme(strip.placement = "outside",
-#         strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0, vjust = 0, size = 8),
-#         legend.position = "none",
-#         legend.title = element_blank(),
-#         axis.title.y = element_blank()) +
-#   coord_cartesian(clip = "off")
-# 
-# ggplot(y, aes(x = value, y = gebied, fill = metric)) +
-#   geom_bar(stat = "identity", width = 0.7, position = position_dodge()) +
-#   facet_wrap(~ groep, scales = "free_y", ncol = 1, labeller = labeller(groep = facet_labels)) +
-#   scale_x_continuous(expand = expansion(mult = c(0,0.01))) +
-#   scale_fill_manual(values = c("#c04384", "#00BFC4")) +
-#   custom_theme() +
-#   theme(strip.placement = "outside",
-#         strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0, vjust = 0, size = 8),
-#         legend.position = "none",
-#         legend.title = element_blank(),
-#         axis.title.y = element_blank()) +
-#   coord_cartesian(clip = "off")
-# 
-# y <- N2KHAB %>%
-#   dplyr::filter(gebied != "N2KHAB" & type == "of" & overlap != 0) %>%
-#   left_join(species_list, by = c("soort" = "Soort"), relationship = "many-to-many") %>%
-#   left_join(habitats, by = c("gebied" = "code")) %>%
-#   select(Groep, soort, groep, gebied, habitat, overlap) %>%
-#   distinct() %>%
-#   group_by(groep, gebied) %>%
-#   summarise(n_spec = n()) %>%
-#   ungroup() %>%
-#   add_row(groep = "kustduinen", gebied = "2150", n_spec = 0) %>%
-#   add_row(groep = "bossen", gebied = "91F0", n_spec = 0) %>%
-#   left_join(x, by = "gebied") %>%
-#   mutate_all(~replace(., is.na(.), 0))
-# 
-# scale_factor <- max(y$n_spec) / max(y$max_overlap)
-# 
-# ratio <- max(y$n_spec) / max(y$max_overlap)
-# 
-# ggplot(data = y, aes(x = reorder(gebied, n_spec))) +
-#   geom_bar(aes(y = n_spec), stat = "identity", fill = "skyblue") +
-#   geom_line(aes(y = max_overlap * ratio), color = "red", size = 1, group = 1) +
-#   geom_point(aes(y = max_overlap * ratio), color = "red", size = 1) +
-#   scale_y_continuous(
-#     name = "Number of Species",
-#     sec.axis = sec_axis(~./ratio, name = "Maximum Overlap")
-#   ) +
-#   theme_minimal() +
-#   theme(
-#     axis.title.y.left = element_text(color = "skyblue"),
-#     axis.title.y.right = element_text(color = "red"),
-#     axis.text.x = element_text(angle = 45, hjust = 1)
-#   ) 
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/N2KHAB/n2khab_bezetting_per_groep.png", 
+       width = 23, height = 13, units = "cm", dpi=300)
+ggsave("./radius/data/output/figuren/2khab_bezetting_per_groep.png", 
+       width = 23, height = 13, units = "cm", dpi=300)
 ```
 
 ##### Kaartje
@@ -1955,7 +1907,7 @@ ggplot(x, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort, fill =
         axis.text.y = element_markdown(size = 10),
         strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0, vjust = 0, size = 10))
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/N2KHAB/n2khab_bezetting.png", 
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/N2KHAB/n2khab_bezetting.png", 
        width = 23, height = 27, units = "cm", dpi=300)
 ggsave("./radius/data/output/figuren/n2khab_bezetting.png", 
        width = 23, height = 27, units = "cm", dpi=300)
@@ -2018,7 +1970,7 @@ ggplot() +
   theme(axis.title.x = element_text(size = 9),
         axis.title.y = element_text(size = 9))
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/N2KHAB/n2khab_in_vs_of.png", 
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/N2KHAB/n2khab_in_vs_of.png", 
        width = 23, height = 15, units = "cm", dpi=300)
 ggsave("./radius/data/output/figuren/n2khab_in_vs_of.png", 
        width = 23, height = 15, units = "cm", dpi=300)
@@ -2076,7 +2028,7 @@ ggplot(data = x, aes(x = reorder_within(gebied, overlap, groep), y = overlap * 1
     plot.margin = margin(r = 5, unit = "mm")
   )
 
-# ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/N2KHAB/n2khab_gen_vs_spec.png", 
+# ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/N2KHAB/n2khab_gen_vs_spec.png", 
 #        width = 23, height = 17, units = "cm", dpi=300)
 # ggsave("./radius/data/output/figuren/n2khab_gen_vs_spec.png", 
 #        width = 23, height = 17, units = "cm", dpi=300)
@@ -2152,7 +2104,7 @@ NBHP <- NBHP %>%
 
 #### Totaal aantal natuurbeheerplannen in Vlaanderen?
 ```{r overview-n-nbhp-flanders, echo=FALSE}
-nrow(ps_nbhp)
+unique(ps_)
 ```
 
 #### Totaal oppervlakte aan natuurbeheerplannen in Vlaanderen (in ha)?
@@ -2163,7 +2115,7 @@ sum(ps_nbhp$opp_ha)
 
 #### Aandeel van Vlaanderen dat wordt ingenomen door natuurbeheerplannen?
 ```{r overview-perc-nbhp-flanders, echo=FALSE}
-paste0(round(sum(ps_nbhp$opp_ha) / (Vlaanderen_grenzen$OPPERVL / 10000), 2), "%")
+(sum(ps_nbhp$opp_ha) / (Vlaanderen_grenzen$OPPERVL / 10000)) * 100
 ```
 
 #### Verdeling van natuurbeheerplannen volgens type
@@ -2274,7 +2226,7 @@ ggplot(x, aes(x = n_spec, y = reorder(gebied,n_spec))) +
   custom_theme() +
   theme(axis.text.x = element_text(angle = 90))
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/NBHP/NBHP_nspec_per_type.png", 
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/NBHP/NBHP_nspec_per_type.png", 
        width = 23, height = 15, units = "cm", dpi=300)
 ggsave("./radius/data/output/figuren/nbhp_nspec_per_type.png", 
        width = 23, height = 15, units = "cm", dpi=300)
@@ -2416,7 +2368,7 @@ ggplot(x, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort, fill =
         axis.text.y = element_markdown(size = 9),
         strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0, vjust = 0, size = 10))
 
-#ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/NBHP/nbhp_bezetting_top5.png", width = 23, height = 10, units = "cm", dpi=300)
+#ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/NBHP/nbhp_bezetting_top5.png", width = 23, height = 10, units = "cm", dpi=300)
 ggsave("./radius/data/output/figuren/nbhp_bezetting_top5.png", 
        width = 23, height = 10, units = "cm", dpi=300)
 ```
@@ -2527,7 +2479,7 @@ ggplot(in_NBHP, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort, 
 #     axis.title.y = element_blank()
 #   )
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/NBHP/nbhp_top10_voorkomen.png", 
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/NBHP/nbhp_top10_voorkomen.png", 
        width = 23, height = 15, units = "cm", dpi=300)
 ggsave("./radius/data/output/figuren/nbhp_top10_voorkomen.png", 
        width = 23, height = 15, units = "cm", dpi=300)
@@ -2551,7 +2503,7 @@ ggplot() +
   theme(axis.title.x = element_text(size = 9),
         axis.title.y = element_text(size = 9))
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/NBHP/nbhp_in_vs_of.png", 
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/NBHP/nbhp_in_vs_of.png", 
        width = 23, height = 15, units = "cm", dpi=300)
 ggsave("./radius/data/output/figuren/nbhp_in_vs_of.png", 
        width = 23, height = 15, units = "cm", dpi=300)
@@ -2619,7 +2571,7 @@ ggplot(data_filtered, aes(x = overlap * 100, y = soort, fill = gebied)) +
   theme(legend.position = "bottom",
         axis.title.y = element_blank())
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/NBHP/nbhp_resp.png", 
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/NBHP/nbhp_resp.png", 
        width = 23, height = 15, units = "cm", dpi=300)
 ggsave("./radius/data/output/figuren/nbhp_resp.png", 
        width = 23, height = 15, units = "cm", dpi=300)
@@ -2726,6 +2678,14 @@ volgorde_br <- c(
 length(unique(am_patdat$domennm))
 ```
 
+#### Aandeel van Vlaanderen dat wordt ingenomen door ANB patrimonium?
+```{r overview-perc-nbhp-flanders, echo=FALSE}
+am_patdat <- am_patdat %>%
+  mutate(opp = st_area(.))
+
+(sum(am_patdat$opp) / (Vlaanderen_grenzen$OPPERVL)) * 100
+```
+
 #### Verdeling van rechten anb binnen deze domeinen?
 ```{r overview-patdat-type-beheerder, echo=FALSE}
 patdat_summary <- am_patdat %>%
@@ -2816,7 +2776,7 @@ ggplot(x, aes(x = n_spec, y = reorder(gebied, n_spec))) +
   theme(axis.text.x = element_text(angle = 0, hjust = 1),
         axis.title.y = element_blank())
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/PATDAT/patdat_nspec_per_br.png", width = 23, height = 10, units = "cm", dpi=300)
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/PATDAT/patdat_nspec_per_br.png", width = 23, height = 10, units = "cm", dpi=300)
 ggsave("./radius/data/output/figuren/patdat_nspec_per_br.png", 
        width = 23, height = 10, units = "cm", dpi=300)
 
@@ -2937,7 +2897,7 @@ ggplot(x, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort, fill =
     strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0, vjust = 0, size = 10)
   )
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/PATDAT/patdat_bezetting_top10.png",
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/PATDAT/patdat_bezetting_top10.png",
        width = 23, height = 10, units = "cm", dpi=300)
 ggsave("./radius/data/output/figuren/patdat_bezetting_top10.png", 
        width = 23, height = 10, units = "cm", dpi=300)
@@ -2993,7 +2953,7 @@ ggplot(x, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort, fill =
     strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0, vjust = 0, size = 10)
   )
 
-# ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/PATDAT/patdat_bezetting_top5.png", 
+# ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/PATDAT/patdat_bezetting_top5.png", 
 #        width = 23, height = 10, units = "cm", dpi=300)
 ggsave("./radius/data/output/figuren/patdat_bezetting_top5.png", 
        width = 23, height = 10, units = "cm", dpi=300)
@@ -3122,7 +3082,7 @@ ggplot(in_PATDAT, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort
         axis.text.y = element_markdown(size = 9),
         strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0, vjust = 0, size = 10))
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/PATDAT/patdat_spec_top5.png",
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/PATDAT/patdat_spec_top5.png",
        width = 23, height = 10, units = "cm", dpi=300)
 ggsave("./radius/data/output/figuren/patdat_spec_top5.png", 
        width = 23, height = 10, units = "cm", dpi=300)
@@ -3206,6 +3166,40 @@ ggplot() +
   theme_bw()
 ```
 
+
+##### tabel voor rapport
+```{r}
+in_PATDAT <- PATDAT %>%
+  dplyr::filter(gebied == "PATDAT_incl_ob" & type == "in") %>%
+  transmute(soort, "in_patdat" = overlap)
+
+of_PATDAT <- PATDAT %>%
+  dplyr::filter(gebied == "PATDAT_incl_ob" & type == "of") %>%
+  transmute(soort, "of_patdat" = overlap)
+
+PATDAT_ngeb <- PATDAT %>%
+  dplyr::filter(gebied == "PATDAT_incl_ob" & type == "n_domeinen") %>%
+  transmute(soort, "n_domeinen" = overlap)
+
+PATDAT_overview <- of_PATDAT %>%
+  left_join(PATDAT_ngeb, by = "soort") %>%
+  left_join(in_PATDAT, by = "soort") %>% 
+  mutate(
+    of_patdat = round(of_patdat, 2),  
+    in_patdat = round(in_patdat, 2),
+    n_domeinen = ifelse(is.na(n_domeinen), 0, n_domeinen)
+  ) %>%
+  rename(
+    bezetting = of_patdat,
+    `aantal ANB-domeinen` = n_domeinen,
+    specificiteit = in_patdat
+  ) %>%
+  arrange(desc(specificiteit))
+
+kable(PATDAT_overview)
+```
+
+
 #### opdeling voorkomen soorten volgens beheerrecht ANB
 ```{r}
 data <- PATDAT %>%
@@ -3253,7 +3247,7 @@ ggplot(data_filtered, aes(x = overlap, y = soort, fill = gebied)) +
   theme(legend.position = "bottom",
         axis.title.y = element_blank())
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/PATDAT/patdat_ndom_per_recht.png", 
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/PATDAT/patdat_ndom_per_recht.png", 
        width = 23, height = 10, units = "cm", dpi=300)
 ggsave("./radius/data/output/figuren/patdat_ndom_per_recht.png", 
        width = 23, height = 10, units = "cm", dpi=300)
@@ -3320,7 +3314,7 @@ ggplot(data_filtered, aes(x = overlap * 100, y = soort, fill = gebied)) +
   theme(legend.position = "right",
         axis.title.y = element_blank())
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/PATDAT/patdat_perc_per_br.png",
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/PATDAT/patdat_perc_per_br.png",
        width = 23, height = 13, units = "cm", dpi=300)
 ggsave("./radius/data/output/figuren/patdat_perc_per_br.png",
        width = 23, height = 13, units = "cm", dpi=300)
@@ -3336,11 +3330,20 @@ x <- PATDAT %>%
   transmute(soort, species, abbr, ofPATDAT = overlap, ofVL)
 
 ggplot() +
-  geom_text(data = x, aes(x = ofVL, y = ofPATDAT, label = abbr)) +
+  geom_text(data = x, aes(x = ofVL, y = ofPATDAT, label = abbr), size = 3) +
   geom_abline() +
   geom_abline(intercept = c(-0.02,0.02), linetype = 2) +
   coord_equal(ratio = 1) +
-  theme_bw()
+  labs(x = "% Vlaanderen", y = "% ANB-patrimonium") +
+  scale_x_continuous(expand = expansion(mult = c(0.05,0.05))) +
+  scale_y_continuous(expand = expansion(mult = c(0.05,0.05))) +
+  custom_theme() +
+  theme(aspect.ratio = 0.6)
+
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/PATDAT/ofVl_vs_ofPATDAT.png",
+       width = 23, height = 13, units = "cm", dpi=300)
+ggsave("./radius/data/output/figuren/ofVl_vs_ofPATDATr.png",
+       width = 23, height = 13, units = "cm", dpi=300)
 ```
 
 #### Voorkomen van soorten per beheerregio
@@ -3352,6 +3355,7 @@ aandeel_vl <- am_patdat %>%
   summarise() %>%
   drop_na() %>%
   mutate(ofVL =  as.numeric(st_area(.) / Vlaanderen_grenzen$OPPERVL)) %>%
+  mutate(ofVL = round(ofVL, 5)) %>%
   st_drop_geometry()
 
 x <- PATDAT %>%
@@ -3453,8 +3457,17 @@ for (i in unique(lu_sbp_pls$soort)) {
 ## SBP beekvissen (rivierdonderpad, beekprik, kleine modderkruiper)
 
 ```{r}
+ensure_multipolygons <- function(X) {
+  tmp1 <- tempfile(fileext = ".gpkg")
+  tmp2 <- tempfile(fileext = ".gpkg")
+  st_write(X, tmp1)
+  ogr2ogr(tmp1, tmp2, f = "GPKG", nlt = "MULTIPOLYGON")
+  Y <- st_read(tmp2)
+  st_sf(st_drop_geometry(X), geom = st_geometry(Y))
+}
+
 clusters_sbp <- st_read("G:/Mijn Drive/Fleur/RadIUS/SBPs/Shapefile/Vhazone.shp") %>%
-  st_transform(4326) %>%
+  st_transform(31370) %>%
   ensure_multipolygons() %>%
   transmute(CLUSTERNR = as.numeric(VHAZONENR), CLUSTERNAAM = NAAMVHAZON, OPPERVL) %>%
   arrange(CLUSTERNR)
@@ -3470,8 +3483,22 @@ library(colorspace)
 
 ggplot() +
   geom_sf(data = Provincies_grenzen, fill = "#f0f0f0", linewidth = 0.2) +
-  geom_sf(data = clusters_sbp, aes(fill = factor(CLUSTERNR)), color = "black",linewidth = 0.1,  alpha = 0.9) +
-  geom_sf_label(data = clusters_sbp, aes(label = CLUSTERNR), size = 4, fill = "white", alpha = 0.7) +
+  geom_sf(data = clusters_sbp, fill = "grey85", color = "grey40",linewidth = 0.15,  alpha = 0.9) +
+  #geom_sf_label(data = clusters_sbp, aes(label = CLUSTERNR), size = 4, fill = "white", alpha = 0.7) +
+  geom_sf(data = lu_sbp_pls, fill="royalblue", color ="royalblue", linewidth = 0.6) +
+  scale_fill_discrete_qualitative(palette = "Set 2", nmax = 21) +
+  theme_map() +
+  theme(
+    legend.position = "none",
+    legend.title = element_blank()
+  )
+
+ggsave("./radius/data/output/fig_maps/map_sbp_pls.png", width = 23, height = 8, units = "cm")
+
+ggplot() +
+  geom_sf(data = Provincies_grenzen, fill = "#f0f0f0", linewidth = 0.2) +
+  geom_sf(data = clusters_sbp, fill="royalblue", color ="royalblue", linewidth = 0.1,linewidth = 0.1, alpha = 0.1) +
+  geom_sf(data = lu_sbp_pls, fill="royalblue", color ="royalblue", linewidth = 0.8) +
   scale_fill_discrete_qualitative(palette = "Set 2", nmax = 21) +
   theme_map() +
   theme(
@@ -3507,21 +3534,31 @@ ggplot(data, aes(x = overlap * 100, y = reorder(soort, overlap))) +
   facet_wrap(~gebied, scales = "free_y", ncol = 1) +
   geom_bar(stat = "identity", fill = "#c04384", width = 0.7) +
   scale_x_continuous(expand = expansion(mult = c(0,0.05))) +
+  labs(x = "Percentage bezetting") +
   custom_theme() +
   theme(
     axis.title.y = element_blank()
   )
+
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/SBP/sbp_bezetting.png",
+       width = 23, height = 16, units = "cm", dpi=300)
+ggsave("./radius/data/output/figuren/sbp_bezetting.png",
+       width = 23, height = 16, units = "cm", dpi=300)
 
 data <- SBP_pls_extra %>%
   filter(gebied == "clusters" & type == "of_clust")
 
 ggplot(data, aes(x = overlap * 100, y = reorder(soort, overlap))) +
   geom_bar(stat = "identity", fill = "#c04384", width = 0.7) +
-  scale_x_continuous(expand = expansion(mult = c(0,0.05))) +
+  scale_x_continuous(expand = expansion(mult = c(0,0.05)), labels = scales::percent_format(scale = 1)) +
+  labs(x = "Bezetting") +
   custom_theme() +
   theme(
     axis.title.y = element_blank()
   )
+
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/SBP/sbp_bezetting2.png",
+       width = 23, height = 10, units = "cm", dpi=300)
 
 # actueel voorkomen vs uitbreiding
 data <- SBP_pls_extra %>%
@@ -3540,7 +3577,8 @@ ggplot() +
   theme_map() +
   theme(
     legend.position = "bottom",
-    legend.title = element_blank()
+    legend.title = element_blank(),
+    legend.justification = "center"
   )
 
 # SBP rivierdonderpad
@@ -3553,24 +3591,24 @@ ggplot() +
   theme_map() +
   theme(
     legend.position = "bottom",
-    legend.title = element_blank()
+    legend.title = element_blank(),
+    legend.justification = "center"
   )
 
 # SBP kleine modderkruiper
 ggplot() +
   geom_sf(data = Provincies_grenzen, fill = "#f0f0f0", linewidth = 0.2) +
-  geom_sf(data = lu_sbp_pls %>% filter(soort == "Kleine Modderkruiper"), 
-          aes(color = type), linewidth = 1) +
-  #geom_sf(data = sbp_pls_intersects %>% filter(gebied == "SBP  Kleine Modderkruiper"), aes(color = soort, fill = soort), linewidth = 2.5) +
-  scale_color_manual(values = c("Actueel leefgebied" = "darkblue",
-                                "Uitbreiding leefgebied" = "lightblue")) +
-  #scale_fill_manual(values = c("Kleine Modderkruiper" = "#66C2A5")) +
+  geom_sf(data = lu_sbp_pls %>% filter(soort == "Kleine Modderkruiper"), color = "lightblue3", linewidth = 1) +
+  geom_sf(data = sbp_pls_intersects %>% filter(gebied == "SBP  Kleine Modderkruiper"), aes(color = soort, fill = soort), linewidth = 2.5) +
+  scale_fill_discrete_qualitative(palette = "Set 2", nmax = 9) +
+  scale_colour_discrete_qualitative(palette = "Set 2", nmax = 9) +
+  # scale_color_manual(values = c("Actueel leefgebied" = "darkblue",
+  #                               "Uitbreiding leefgebied" = "lightblue")) +
   theme_map() +
   theme(
     legend.position = "bottom",
     legend.title = element_blank(),
-    legend.justification = "center",
-    legend.box.spacing = unit(0.1, "cm")
+    legend.justification = "center"
   ) 
 ```
 
@@ -3647,10 +3685,13 @@ ggplot(data, aes(x = n_spec, y = reorder(gebied, n_spec))) +
 colors <- c("grey80","#f2d9e6", "#e6b4ce", "#d98eb5", "#c04384")
 values <- c(0, 1, 3, 5, 7)  
 
+
+
 ggplot() +
   geom_sf(data = Provincies_grenzen, fill = "#f0f0f0", color = "black", linewidth = 0.2) +
-  geom_sf(data = data$geom, aes(fill = data$n_spec), color = "grey20", linewidth = 0.05) +
-  geom_sf(data = lu_sbp_pls, color = "lightblue3", linewidth = 1) +
+  geom_sf(data = data$geom, aes(fill = data$n_spec), color = "grey20", linewidth = 0.15) +
+  geom_sf(data = lu_sbp_pls, color = "royalblue", linewidth = 0.6) +
+  geom_sf(data = occ_flanders %>% filter(Soort == "Chinese wolhandkrab"), color = "red") +
   labs(fill = "Aantal IUS") +
   scale_fill_gradientn(colors = colors, values = scales::rescale(values)) +
   theme_map() +
@@ -3661,6 +3702,32 @@ ggplot() +
     legend.justification = "center",
     legend.box.spacing = unit(0.1, "cm")
   )
+
+leaflet() %>%
+  addTiles(data = "OSM") %>%
+  addPolygons(data = clusters_sbp %>% st_transform(4326), color = "grey") %>%
+  addPolylines(data = lu_sbp_pls %>% st_transform(4326), fill = ~type) #%>%
+  # addCircleMarkers(data = occ_flanders %>% filter(Soort == "Chinese wolhandkrab"), color = "red", radius = 1)
+
+ggplot() +
+  geom_sf(data = Provincies_grenzen, fill = "#f0f0f0", color = "black", linewidth = 0.2) +
+  geom_sf(data = data$geom, aes(fill = data$n_spec), color = "grey20", linewidth = 0.15) +
+  geom_sf(data = lu_sbp_pls, color = "lightblue3", linewidth = 0.8) +
+  labs(fill = "Aantal IUS") +
+  scale_fill_gradientn(colors = colors, values = scales::rescale(values)) +
+  theme_map() +
+  theme(
+    legend.background = element_blank(),
+    legend.title = element_blank(),
+    legend.position = "right",
+    legend.justification = "center",
+    legend.box.spacing = unit(0.1, "cm")
+  )
+
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/SBP/sbp_nspec_per_cluster.png",
+       width = 23, height = 10, units = "cm", dpi=300)
+ggsave("./radius/data/output/figuren/sbp_nspec_per_cluster.png",
+       width = 23, height = 10, units = "cm", dpi=300)
 
 ggplot() +
   geom_sf(data = Provincies_grenzen, fill = "#f0f0f0", linewidth = 0.2) +
@@ -3689,4 +3756,102 @@ for (i in unique(data$gebied)) {
           custom_theme())
 }
 ```
+
+```{r spec-in-kleine nete}
+cluster_nete <- clusters_sbp %>% filter(CLUSTERNAAM %in% c("middenloop en benedenloop Kleine Nete", "middenloop en benedenloop Grote Nete"))
+
+bbox <- st_bbox(cluster_nete)
+
+lu_sbp_pls_n <- lu_sbp_pls %>%
+  st_intersection(cluster_kn)
+
+sbp_pls_intersect_kn <- sbp_pls_intersects %>%
+  st_intersection(cluster_kn)
+
+palet <- c(
+  "Amerikaanse stierkikker" = "#ED90A4",
+  "Chinese wolhandkrab" = "#DC9E70",
+  "gestreepte Amerikaanse rivierkreeft" = "#B7AE50",
+  "gevlekte Amerikaanse rivierkreeft" = "#7EBA68",
+  "marmergrondel" = "#1DC199",
+  "Pontische stroomgrondel" = "#00BFC8",
+  "zwartbekgrondel" = "#6FB1E7"
+)
+
+ggplot() +
+  geom_sf(data = Provincies_grenzen, fill = "#f0f0f0", color = "black", linewidth = 0.1) +
+  geom_sf(data = cluster_nete) +
+  geom_sf(data = lu_sbp_pls_kn, color = "lightblue3", linewidth = 1) +
+  geom_sf(data = sbp_pls_intersect_kn, aes(color = soort, fill = soort), linewidth = 3, alpha = 1) +
+  scale_fill_manual(values = palet, name = "Soort", drop = FALSE, na.translate = FALSE) +
+  scale_color_manual(values = palet, name = "Soort", drop = FALSE, na.translate = FALSE) +
+  guides(
+    color = guide_legend(order = 1),
+    fill = guide_legend(order = 1)
+  ) +
+  theme_map() +
+  theme(
+    legend.position = "right",
+    legend.title = element_blank()
+  ) +
+  coord_sf(
+    xlim = c(bbox["xmin"], bbox["xmax"]),
+    ylim = c(bbox["ymin"], bbox["ymax"]),
+    expand = FALSE, 
+    crs = st_crs(cluster_nete)
+  )
+
+ggsave("./radius/data/output/figuren/sbp_nete.png",
+       width = 23, height = 10, units = "cm", dpi=300)
+```
+
+```{r spec-in-grote nete}
+cluster_gn <- clusters_sbp %>% filter(CLUSTERNAAM == "middenloop en benedenloop Grote Nete")
+
+lu_sbp_pls_gn <- lu_sbp_pls %>%
+  st_intersection(cluster_gn)
+
+sbp_pls_intersect_gn <- sbp_pls_intersects %>%
+  st_intersection(cluster_gn)
+
+
+plot2 <- ggplot() +
+  geom_sf(data = clusters_sbp %>% filter(CLUSTERNAAM == "middenloop en benedenloop Grote Nete")) +
+  #geom_sf(data = Provincies_grenzen, fill = "#f0f0f0", linewidth = 0.2) +
+  geom_sf(data = lu_sbp_pls_gn, color = "lightblue3", linewidth = 1) +
+  geom_sf(data = sbp_pls_intersect_gn, aes(color = soort, fill = soort), linewidth = 2, alpha = 1) +
+  scale_fill_manual(values = palet, drop = FALSE, na.translate = FALSE) +
+  scale_color_manual(values = palet, drop = FALSE, na.translate = FALSE) +
+  theme_map() +
+  theme(
+    legend.position = "none",
+    legend.title = element_blank(),
+    legend.justification = "center"
+  )
+```
+
+```{r}
+combined_plot <- plot1 + plot2 +
+  plot_layout(ncol = 2) +
+  plot_annotation(theme = theme(legend.position = "bottom"))
+
+# Haal de legende van een van de plots
+shared_legend <- get_legend(
+  ggplot() +
+    geom_sf(data = sbp_pls_intersect_kn, aes(color = soort, fill = soort)) +
+    scale_fill_manual(values = palet, drop = FALSE, na.translate = FALSE) +
+    scale_color_manual(values = palet, drop = FALSE, na.translate = FALSE) +
+    theme(legend.position = "bottom",
+          legend.title = element_blank(),
+          legend.justification = "center")
+)
+
+# Combineer de plots met de gedeelde legende
+final_plot <- combined_plot / shared_legend +
+  plot_layout(heights = c(5, 1))
+
+# Toon de finale plot
+final_plot
+```
+
 
