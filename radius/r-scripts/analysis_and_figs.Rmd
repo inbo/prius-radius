@@ -3183,10 +3183,16 @@ PATDAT_ngeb <- PATDAT %>%
 
 PATDAT_overview <- of_PATDAT %>%
   left_join(PATDAT_ngeb, by = "soort") %>%
-  left_join(in_PATDAT, by = "soort") %>% 
+  left_join(in_PATDAT, by = "soort") %>%
   mutate(
-    of_patdat = round(of_patdat, 2),  
-    in_patdat = round(in_patdat, 2),
+    of_patdat = case_when(
+      of_patdat < 0.005 & of_patdat > 0 ~ "<0.01",
+      TRUE ~ as.character(round(of_patdat, 2))  # Afronden op 2 decimalen
+    ),
+    in_patdat = case_when(
+      in_patdat < 0.005 & in_patdat > 0 ~ "<0.01",
+      TRUE ~ as.character(round(in_patdat, 2))  # Afronden op 2 decimalen
+    ),
     n_domeinen = ifelse(is.na(n_domeinen), 0, n_domeinen)
   ) %>%
   rename(
