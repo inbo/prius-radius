@@ -364,10 +364,11 @@ Top 10 meest wijdverspreide soorten (soort + (perc. van Vlaamse oppervlak waarop
 
 ## verspreiding van soorten in Vlaanderen
 ```{r}
-for (species in unique(occ_flanders$Soort)) {
-  print(ggplot() +
-    geom_sf(data = Provincies_grenzen, fill = "#f0f0f0", linewidth = 0.2) + geom_sf(data = occ_flanders %>% filter(Soort == species)) +
-    labs(title = species))
+for (species in c("beverrat", "Noord-Aziatische modderkruiper")) {
+  print(leaflet() %>%
+    addTiles(data = "OSM") %>%
+    addPolygons(data = ps_nbhp %>% st_transform(4326), color = "green", fill = "green") %>%
+    addCircleMarkers(data = occ_flanders %>% filter(Soort == species) %>% st_transform(4326)))
 }
 ```
 
@@ -3533,19 +3534,70 @@ x <- PATDAT %>%
   mutate(factor = overlap/ofVL) #%>%
   #dplyr::filter(!soort %in% unique(spor_species$Soort))
 
+
+x$gebied <- factor(x$gebied, levels = c(
+                 "Kust & Westhoek",
+                 "Zandig Vlaanderen",
+                 "Vlaamse Ardennen & Schelde-Leie",
+                 "Groene Gordels",
+                 "Brabantse Wouden",
+                 "Taxandria",
+                 "Demerland & Zuiderkempen",
+                 "Antwerpse Kempen",
+                 "Lage tot aan Hoge Kempen",
+                 "Hoge Kempen tot Voeren"))
+
 PATDAT_max5 <- x %>%
   dplyr::filter(overlap != 0) %>%
   group_by(gebied) %>%
-  slice_max(order_by = factor, n = 5, na_rm = TRUE) %>%
-  dplyr::filter(factor > 1)
+  slice_max(order_by = factor, n = 5, na_rm = TRUE) 
 
 PATDAT_min5 <- x %>%
   dplyr::filter(overlap != 0) %>%
   group_by(gebied) %>%
-  slice_min(order_by = factor, n = 5, na_rm = TRUE) %>%
-  dplyr::filter(factor < 1)
+  slice_min(order_by = factor, n = 5, na_rm = TRUE) 
 
 PATDAT_slice <- rbind(PATDAT_max5, PATDAT_min5)
+
+## max 5
+ggplot(data = PATDAT_max5, aes(x = factor + 0.0001, y = reorder_within(soort, factor, gebied), fill = gebied, color = gebied)) +
+  geom_point(color = "#c04384", size = 1.5, show.legend = FALSE) +
+  facet_wrap(~ gebied, scales = "free_y", ncol = 1) +
+  scale_y_reordered() +
+  coord_trans(x = "log2") +
+  scale_x_continuous(
+    breaks = c(0.0001, 1, 10, 100),
+    labels = c("0", "1", "10", "100")
+  ) +
+  labs(x = "Factor", y = NULL) +
+  custom_theme() +
+  theme(plot.title.position = "plot",
+        axis.text.x = element_text(angle = 90))
+
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/PATDAT/PATDAT_max5_per_br.png",
+       width = 23, height = 27, units = "cm", dpi=300)
+ggsave("./radius/data/output/figuren/patdat_max5_per_br.png",
+       width = 23, height = 27, units = "cm", dpi=300)
+
+## min 5
+ggplot(data = PATDAT_min5, aes(x = factor + 0.0001, y = reorder_within(soort, factor, gebied), fill = gebied, color = gebied)) +
+  geom_point(color = "#c04384", size = 1.5, show.legend = FALSE) +
+  facet_wrap(~ gebied, scales = "free_y", ncol = 1) +
+  scale_y_reordered() +
+  coord_trans(x = "log2") +
+  # scale_x_continuous(
+  #   breaks = c(0.0001, 1, 10, 100),
+  #   labels = c("0", "1", "10", "100")
+  # ) +
+  labs(x = "Factor", y = NULL) +
+  custom_theme() +
+  theme(plot.title.position = "plot",
+        axis.text.x = element_text(angle = 90))
+
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/PATDAT/PATDAT_min5_per_br.png",
+       width = 23, height = 27, units = "cm", dpi=300)
+ggsave("./radius/data/output/figuren/patdat_min5_per_br.png",
+       width = 23, height = 27, units = "cm", dpi=300)
 
 plot_list <- list()
 
