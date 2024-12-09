@@ -198,7 +198,7 @@ plot_percentage <- ggplot(bump_data %>% filter(type == "percentage"), aes(x = bu
   geom_bump(aes(col = col), size = 1, smooth = 8) +
   geom_point(aes(col = col), size = 3) +
   geom_vline(xintercept = unique(bump_data$buffer), color="black", size=0.5) +
-  scale_y_reverse(limits = c(79, 1), breaks = seq(1, 79, by = 10)) +
+  scale_y_reverse(limits = c(74, 1), breaks = seq(1, 74, by = 10), expand = expansion(mult=c(0.05,0.05))) +
   scale_x_continuous(breaks = unique(bump_data$buffer), labels = as.character(unique(bump_data$buffer))) +
   scale_color_identity() +
   labs(title = "",
@@ -210,7 +210,7 @@ plot_percentage <- ggplot(bump_data %>% filter(type == "percentage"), aes(x = bu
 
 plot_percentage
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/sensitivity_bump_percentage.png",
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/sensitivity_bump_percentage.png",
        plot = plot_percentage,
        width = 23, height = 20, units = "cm", dpi=300)
 
@@ -222,7 +222,7 @@ plot_aantal <- ggplot(bump_data %>% filter(type == "aantal"), aes(x = buffer, y 
   geom_bump(aes(col = col), size = 1, smooth = 8) +
   geom_point(aes(col = col), size = 3) +
   geom_vline(xintercept = unique(bump_data$buffer), color="black", size=0.5) +
-  scale_y_reverse(limits = c(79, 1), breaks = seq(1, 79, by = 10)) +
+  scale_y_reverse(limits = c(61, 1), breaks = seq(1, 61, by = 10), expand = expansion(mult=c(0.05,0.05))) +
   scale_x_continuous(breaks = unique(bump_data$buffer), labels = as.character(unique(bump_data$buffer))) +
   scale_color_identity() +
   labs(title = "",
@@ -234,7 +234,7 @@ plot_aantal <- ggplot(bump_data %>% filter(type == "aantal"), aes(x = buffer, y 
 
 plot_aantal
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/sensitivity_bump_aantal.png",
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/sensitivity_bump_aantal.png",
        plot = plot_aantal,
        width = 23, height = 20, units = "cm", dpi=300)
 
