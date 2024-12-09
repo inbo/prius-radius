@@ -49,19 +49,19 @@ rm(list=ls())
 custom_theme <- function() {
   theme_few() +
     theme(
-      axis.title.y = element_text(size = 8, family = "Arial"),
-      axis.text.y = element_text(size = 8, family = "Arial"),
-      axis.title.x = element_text(size = 8, family = "Arial"),
-      axis.text.x = element_text(size = 8, family = "Arial"),
+      axis.title.y = element_text(size = 10, family = "Arial"),
+      axis.text.y = element_text(size = 10, family = "Arial"),
+      axis.title.x = element_text(size = 10, family = "Arial"),
+      axis.text.x = element_text(size = 10, family = "Arial"),
       axis.ticks.length = unit(1.5, "pt"),
       axis.ticks = element_line(colour = "grey90"),
-      legend.text = element_text(size = 8, family = "Arial"),
+      legend.text = element_text(size = 10, family = "Arial"),
       legend.title = element_blank(),
       panel.border = element_rect(color = "grey90", fill = NA),
       panel.grid.minor = element_blank(),
       panel.grid.major = element_line(color = "grey90"),
       panel.background = element_rect(color = "grey", fill = "grey98"),
-      strip.text = element_text(size = 9, face = "bold", hjust = -0.01, family = "Arial"),
+      strip.text = element_text(size = 10, face = "bold", hjust = -0.01, family = "Arial"),
       #strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0.5, vjust = 0),
       plot.title = element_text(size = 10, family = "Arial", face = "bold", hjust = 0.5),
       plot.title.position = "plot"
@@ -274,7 +274,6 @@ map_5 <- leaflet() %>%
   )
 
 mapshot(map_5, file = "G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/punt_tot_wolk_5.png")
-
 ```
 
 
@@ -308,21 +307,29 @@ kable(spor_species, col.names = c("Soort", "Aantal observaties (sinds 2015)"),
 Weergave van ofVL-metric (percentage van totale oppervlakte van Vlaanderen dat bezet is door een soort) per soort
 
 ```{r occupancy-in-flanders, echo=FALSE}
+VL <- VL %>%
+  left_join(species_list, by = c("soort" = "Soort"))  %>%
+  select(soort, species, Groep, overlap) %>%
+  distinct() %>%
+  mutate(Groep = recode(Groep, "plant" = "planten", "dier" = "dieren"))
+
+
 ggplot(VL, aes(x = (overlap * 100) + 0.04, y = reorder(soort, overlap))) +
   geom_bar(stat = "identity", show.legend = FALSE, width = 0.7, fill = "#c04384") +  
+  facet_wrap( ~ Groep, scales = "free_y", ncol = 1, strip.position = "right") +  
   scale_x_continuous(
     expand = expansion(mult = c(0, 0.05)),
     labels = scales::percent_format(scale = 1)) +
   labs(x = "Bezetting van Vlaanderen", y = NULL) +
   custom_theme() + 
-  theme(strip.placement = "outside",
-        axis.text.y = element_markdown(size = 10),
-        strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0, vjust = 0, size = 10))
+  theme(
+    strip.placement = "outside",
+    strip.text.y = element_text(angle = 270, hjust = 0, vjust = 0.5, size = 10),
+    strip.background = element_blank()
+  )
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/VL/vl_bezetting.png", 
-       width = 23, height = 20, units = "cm", dpi=300)
-ggsave("./radius/data/output/figuren/vl_bezetting.png", 
-       width = 23, height = 20-, units = "cm", dpi=300)
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/VL/vl_bezetting.png", width = 23, height = 20, units = "cm", dpi=300)
+ggsave("./radius/data/output/figuren/vl_bezetting.png", width = 23, height = 20, units = "cm", dpi=300)
 
 
 ggplot(VL, aes(x = reorder(soort, overlap), y = (overlap * 100) + 0.04)) +
@@ -333,7 +340,6 @@ ggplot(VL, aes(x = reorder(soort, overlap), y = (overlap * 100) + 0.04)) +
   labs(y = "Bezetting van Vlaanderen", x = NULL) +
   custom_theme() + 
   theme(strip.placement = "outside",
-        axis.text.y = element_markdown(size = 10),
         axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0),
         )
 
@@ -449,18 +455,13 @@ kable(HBTRL_nspec, col.names = c("Code", "Gebied", "Unielijst", "Andere", "Totaa
                 font_size = 12,
                 htmltable_class = "lightable-classic")
 
-write_csv2(HBTRL_nspec, "G:/Mijn Drive/Fleur/RadIUS/Rapport/tabellen/HBTRL_nspec.csv")
-
-
 HBTRL_nspec <- HBTRL %>%
   dplyr::filter(gebied != "HBTRL" & type == "of" & overlap != 0) %>%
   group_by(gebied) %>%
   summarize(total_species = n()) %>%
   left_join(ps_hbtrl, by = c("gebied" = "gebcode")) %>%
   st_as_sf() %>%
-  st_cast("MULTIPOLYGON")
-
-HBTRL_nspec <- HBTRL_nspec %>%
+  st_cast("MULTIPOLYGON") %>%
   mutate(number_bin = cut(total_species, breaks = c(9, 19, 29, 39, 49), labels = c("10-20", "20-30", "30-40", ">40")))
 
 colors <- c("10-20" = "#f2d9e6", "20-30" = "#e6b4ce", "30-40" = "#d98eb5", ">40" = "#c04384")
@@ -533,7 +534,7 @@ x <- HBTRL %>%
   group_by(gebied) %>%
   left_join(ps_hbtrl %>% st_drop_geometry(), by = c("gebied" = "gebcode")) %>%
   slice_max(n = 10, order_by = overlap) %>%
-  mutate(gebied_label = paste0(naam, " (", gebied, ")"))
+  mutate(gebied_label = paste0(naam, "\n (", gebied, ")"))
 
 # ggplotly(ggplot(x, aes(x = overlap * 100, y = reorder(soort, n_obs))) +  
 #            geom_bar(stat = "identity", fill = "#c04384", width = 0.7) +
@@ -551,7 +552,7 @@ ggplot(x, aes(x = overlap * 100, y = reorder_within(soort, overlap, gebied))) +
   scale_y_reordered() +
   labs(y = NULL, x = "Bezetting van Habitatrichtlijngebieden (%)") +
   scale_x_continuous(labels = percent_format(scale = 1), expand = c(0, 0.1)) +  
-  custom_theme()
+  custom_theme() 
 
 ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/HBTRL/hbtrl_spec_per_gebied.png", 
        width = 23, height = 17, units = "cm", dpi=300)
@@ -692,9 +693,7 @@ ggplot() +
   scale_y_continuous(labels = scales::percent_format(scale = 1)) + 
   scale_x_continuous(labels = scales::percent_format(scale = 1), limits = c(0,100)) + 
   labs( x = "Specificiteit voor Habitatrichtlijngebieden (%)",  y = "Bezetting van Habitatrichtlijngebieden (%)") +
-  custom_theme() +
-  theme(axis.title.x = element_text(size = 9),
-        axis.title.y = element_text(size = 9))
+  custom_theme()
 
 ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/HBTRL/hbtrl_in_vs_of.png", 
        width = 23, height = 15, units = "cm", dpi=300)
@@ -819,7 +818,14 @@ right_column <- (map_Up + labs(tag = "b.")) /
 
 combined_plot <- left_column | right_column
 
-combined_plot
+combined_plot +
+  theme(
+    axis.title = element_text(size = 10),
+    axis.text = element_text(size = 10),
+    legend.title = element_text(size = 10),
+    legend.text = element_text(size = 10),
+    plot.tag = element_text(size = 10)
+  )
 
 ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/HBTRL/hbtrl_Up_Cn_Tsi.png", 
        width = 23, height = 20, units = "cm", dpi=300)
@@ -1067,7 +1073,7 @@ ggplot(x, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort, fill =
   labs(x = "Bezetting van Vogelrichtlijngebieden", y = NULL) +
   custom_theme() + 
   theme(strip.placement = "outside",
-        axis.text.y = element_markdown(size = 9),
+        axis.text.y = element_markdown(size = 10),
         strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0, vjust = 0, size = 10))
 
 ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/VGLRL/vglrl_bezetting.png", 
@@ -1125,14 +1131,12 @@ in_vs_of_VGLRL_subset <- in_VGLRL_subset %>%
   left_join(of_VGLRL_subset %>% select(!type), by = c("soort", "species", "abbr", "gebied"), suffix = c(".in", ".of")) 
 
 ggplot() +
-  geom_text(data = in_vs_of_VGLRL_subset, aes(x = overlap.in*100, y = overlap.of*100, label = abbr), size = 3, family = "Arial") +
+  geom_text(data = in_vs_of_VGLRL_subset, aes(x = overlap.in*100, y = overlap.of*100, label = abbr), size = 4, family = "Arial") +
   coord_trans(y = "log2") +
   scale_y_continuous(labels = scales::percent_format(scale = 1)) + 
   scale_x_continuous(labels = scales::percent_format(scale = 1), limits = c(0,100)) + 
   labs( x = "Specificiteit voor Vogelrichtlijngebieden (%)",  y = "Bezetting van Vogelrichtlijngebieden (%)") +
-  custom_theme() +
-  theme(axis.title.x = element_text(size = 9),
-        axis.title.y = element_text(size = 9))
+  custom_theme() 
 
 ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/VGLRL/vglrl_in_vs_of.png", 
        width = 23, height = 15, units = "cm", dpi=300)
@@ -1252,7 +1256,14 @@ right_column <- (map_Oj + labs(tag = "b.")) /
 
 combined_plot <- left_column | right_column
 
-combined_plot
+combined_plot +
+  theme(
+    axis.title = element_text(size = 10),
+    axis.text = element_text(size = 10),
+    legend.title = element_text(size = 10),
+    legend.text = element_text(size = 10),
+    plot.tag = element_text(size = 10)
+  )
 
 ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/VGLRL/vglrl_Oj_Ta.png", 
        width = 23, height = 17, units = "cm", dpi=300)
@@ -1356,7 +1367,7 @@ ggplot(N2KHAB_nspec_pertype, aes(x = reorder(gebied, n_spec), y = n_spec)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5),
         strip.placement = "outside",
         #strip.text = element_text(color = "grey65"),
-        strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0, vjust = 0, size = 8),
+        strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0, vjust = 0),
         panel.background = element_rect(color = "grey", fill = "grey95")
   )
 
@@ -1407,7 +1418,7 @@ ggplot(N2KHAB_nspec_pertype, aes(x = reorder(gebied, n_spec), y = n_spec, fill =
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5),
         strip.placement = "outside",
         #strip.text = element_text(color = "grey65"),
-        strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0, vjust = 0, size = 8),
+        strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0, vjust = 0),
         legend.position = "bottom",
         legend.title = element_blank()
   )
@@ -1543,11 +1554,11 @@ ggplot(data = y, aes(x = gebied, y = value, fill = metric)) +
   theme(
     axis.text.x=element_text(angle=90,vjust=0.5),
     strip.placement="outside",
-    strip.text.x.top=element_text(margin=margin(0,0,3,0), hjust=0,vjust=0,size=8),
+    strip.text.x.top=element_text(margin=margin(0,0,3,0), hjust=0,vjust=0),
     legend.position="bottom",
     legend.title=element_blank(), 
-    panel.grid.major.y=element_line(color="grey75", size=0.5), 
-    panel.grid.minor.y=element_line(color="grey90", size=0.25)
+    panel.grid.major.y=element_line(color="grey75", linewidth=0.5), 
+    panel.grid.minor.y=element_line(color="grey90", linewidth=0.25)
 )
 
 ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/N2KHAB/n2khab_bezetting_per_type.png", 
@@ -1614,11 +1625,11 @@ ggplot(data = y, aes(x = groep, y = waarde_scaled, fill = variabele)) +
     axis.text.x=element_text(angle=0,vjust=0.5),
     axis.title.x= element_blank(),
     strip.placement="outside",
-    strip.text.x.top=element_text(margin=margin(0,0,3,0), hjust=0,vjust=0,size=8),
+    strip.text.x.top=element_text(margin=margin(0,0,3,0), hjust=0,vjust=0),
     legend.position="bottom",
     legend.title=element_blank(), 
-    panel.grid.major.y=element_line(color="grey75", size=0.5), 
-    panel.grid.minor.y=element_line(color="grey90", size=0.25)
+    panel.grid.major.y=element_line(color="grey75", linewidth=0.5), 
+    panel.grid.minor.y=element_line(color="grey90", linewidth=0.25)
 )
 
 ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/N2KHAB/n2khab_bezetting_per_groep.png", 
@@ -1652,7 +1663,7 @@ colors <- c(
 
 ggplot() +
   geom_sf(data = Provincies_grenzen, fill= "#f0f0f0", color = "black", linewidth = 0.2) +
-  geom_sf(data = N2KHAB_nspec, aes(color = number_bin, fill = number_bin, text = paste0(habitat, " (", gebied, "): ", total_species))) +
+  geom_sf(data = N2KHAB_nspec, aes(color = number_bin, fill = number_bin)) +
   labs(fill = "Aantal IUS", color = "Aantal IUS") +
   scale_fill_manual(values = colors) +
   scale_color_manual(values = colors) +
@@ -1961,14 +1972,12 @@ in_vs_of_N2KHAB <- in_N2KHAB %>%
   dplyr::filter(!soort %in% spor_species$Soort)
 
 ggplot() +
-  geom_text(data = in_vs_of_N2KHAB, aes(x = overlap.in*100, y = overlap.of*100, label = abbr), size = 3, family = "Arial") +
+  geom_text(data = in_vs_of_N2KHAB, aes(x = overlap.in*100, y = overlap.of*100, label = abbr), size = 4, family = "Arial") +
   coord_trans(y = "log2") +
   scale_y_continuous(labels = scales::percent_format(scale = 1)) + 
   scale_x_continuous(labels = scales::percent_format(scale = 1), limits = c(0,100)) + 
   labs( x = "Specificiteit voor N2000 habitats (%)",  y = "Bezetting van N2000 habitats (%)") +
-  custom_theme() +
-  theme(axis.title.x = element_text(size = 9),
-        axis.title.y = element_text(size = 9))
+  custom_theme() 
 
 ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/N2KHAB/n2khab_in_vs_of.png", 
        width = 23, height = 15, units = "cm", dpi=300)
@@ -2136,6 +2145,46 @@ ggplot(data = x, aes(x = reorder_within(gebied, overlap, groep), y = ifelse(over
 #        width = 23, height = 17, units = "cm", dpi=300)
 ggsave("./radius/data/output/figuren/n2khab_vgl_terr_pl.png",
        width = 23, height = 17, units = "cm", dpi=300)
+```
+
+```{r n2khab-vglk-spec-terr-planten, echo = FALSE, warning=FALSE}
+x <- N2KHAB %>%
+  dplyr::filter(gebied != "N2KHAB" & type == "in" & soort %in% c("moerasaronskelk", "watercrassula", "rimpelroos", "reuzenbalsemien", "reuzenberenklauw")) %>%
+  left_join(habitats, by = c("gebied" = "code"))
+
+x$groep <- factor(x$groep, levels = c("zilt en estuarium", "kustduinen", "zoetwater", "heiden", "graslanden", "venen", "bossen"))
+x$soort <- factor(x$soort, levels = c("moerasaronskelk", "watercrassula", "rimpelroos", "reuzenbalsemien", "reuzenberenklauw"))
+
+facet_labels <- c("zilt en estuarium" = "zilt en \nestuarium",
+                  "kustduinen" = "kustduinen",
+                  "zoetwater" = "zoetwater",
+                  "heiden" = "heiden",
+                  "graslanden" = "graslanden",
+                  "venen" = "venen",
+                  "bossen" = "bossen")
+
+ggplot(data = x, aes(x = reorder_within(gebied, overlap, groep), y = ifelse(overlap != 0 & overlap < 0.05, overlap * 100 + 0.1, overlap * 100))) +
+  geom_bar(stat = "identity", width = 0.7, fill = "#cc6999") +
+  facet_grid(soort ~ groep, scales = "free_x", space = "free_x", labeller = labeller(groep = facet_labels)) +
+  labs(x="Habitat", y = "% van totale verspreidingsoppervlak") +
+  scale_x_reordered() +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.05)), labels = scales::percent_format(scale = 1)) +
+  custom_theme() +
+  theme(
+    axis.text.x=element_text(angle=90, vjust=0.5),
+    legend.position="bottom",
+    legend.title=element_blank(), 
+    strip.text.x = element_text(hjust = 0, vjust = 0, color = "black"),
+    strip.placement = "outside",
+    #strip.background.x = element_rect(fill = "grey98", color = NA),
+    panel.spacing.x = unit(0.5, "lines"),
+    plot.margin = margin(r = 5, unit = "mm")
+  )
+
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/N2KHAB/n2khab_vgl_species.png",
+       width = 23, height = 20, units = "cm", dpi=300)
+ggsave("./radius/data/output/figuren/n2khab_vgl_species.png",
+       width = 23, height = 20, units = "cm", dpi=300)
 ```
 
 #### Aquatisch vs. terrestrisch
@@ -2469,8 +2518,8 @@ ggplot(x, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort, fill =
   labs(x = "Bezetting van Natuurbeheerplannen", y = NULL) +
   custom_theme() + 
   theme(strip.placement = "outside",
-        axis.text.y = element_markdown(size = 9),
-        strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0, vjust = 0, size = 10))
+        axis.text.y = element_markdown(size = 10),
+        strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0, vjust = 0))
 
 #ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/NBHP/nbhp_bezetting_top5.png", width = 23, height = 10, units = "cm", dpi=300)
 ggsave("./radius/data/output/figuren/nbhp_bezetting_top5.png", 
@@ -2569,7 +2618,7 @@ ggplot(in_NBHP, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort, 
   labs(x = "Voorkomen in Natuurbeheerplannen", y = NULL) +
   custom_theme() + 
   theme(strip.placement = "outside",
-        axis.text.y = element_markdown(size = 9),
+        axis.text.y = element_markdown(size = 10),
         strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0, vjust = 0, size = 10))
 
 # ggplot(in_NBHP %>% slice_max(order_by = overlap, n = 10),aes(x = overlap * 100, y = reorder(soort, overlap))) +
@@ -2603,9 +2652,7 @@ ggplot() +
   scale_y_continuous(labels = scales::percent_format(scale = 1)) + 
   scale_x_continuous(labels = scales::percent_format(scale = 1), limits = c(0,100)) + 
   labs( x = "Specificiteit voor Natuurbeheerplannen (%)",  y = "Bezetting van Natuurbeheerplannen (%)") +
-  custom_theme() +
-  theme(axis.title.x = element_text(size = 9),
-        axis.title.y = element_text(size = 9))
+  custom_theme() 
 
 ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/NBHP/nbhp_in_vs_of.png", 
        width = 23, height = 15, units = "cm", dpi=300)
@@ -2997,7 +3044,7 @@ ggplot(x, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort, fill =
   custom_theme() +
   theme(
     strip.placement = "outside",
-    axis.text.y = element_markdown(size = 9),
+    axis.text.y = element_markdown(size = 10),
     strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0, vjust = 0, size = 10)
   )
 
@@ -3053,7 +3100,7 @@ ggplot(x, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort, fill =
   custom_theme() +
   theme(
     strip.placement = "outside",
-    axis.text.y = element_markdown(size = 9),
+    axis.text.y = element_markdown(size = 10),
     strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0, vjust = 0, size = 10)
   )
 
@@ -3440,13 +3487,15 @@ x <- PATDAT %>%
   transmute(soort, species, abbr, ofPATDAT = overlap, ofVL)
 
 ggplot() +
-  geom_text(data = x, aes(x = ofVL, y = ofPATDAT, label = abbr), size = 3) +
+  geom_text(data = x, aes(x = ofVL*100, y = ofPATDAT*100, label = abbr), size = 4) +
   geom_abline() +
-  geom_abline(intercept = c(-0.02,0.02), linetype = 2) +
+  geom_abline(intercept = c(-2,2), linetype = 2) +
   coord_equal(ratio = 1) +
   labs(x = "% Vlaanderen", y = "% ANB-patrimonium") +
-  scale_x_continuous(expand = expansion(mult = c(0.05,0.05))) +
-  scale_y_continuous(expand = expansion(mult = c(0.05,0.05))) +
+  scale_x_continuous(expand = expansion(mult = c(0.05,0.05)), 
+                     labels = scales::percent_format(scale = 1)) +
+  scale_y_continuous(expand = expansion(mult = c(0.05,0.05)),
+                     labels = scales::percent_format(scale = 1)) +
   custom_theme() +
   theme(aspect.ratio = 0.6)
 
@@ -3518,6 +3567,8 @@ final_plot <- wrap_plots(plot_list) + plot_layout(ncol = 2)
 
 print(final_plot)
 
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/PATDAT/PATDAT_perc_per_br.png",
+       width = 23, height = 27, units = "cm", dpi=300)
 ggsave("./radius/data/output/figuren/patdat_perc_per_br.png",
        width = 23, height = 27, units = "cm", dpi=300)
 ```
