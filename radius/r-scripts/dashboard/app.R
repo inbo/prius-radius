@@ -596,12 +596,12 @@ server <- function(input, output, session) {
           height = "600px", 
           column(
             width = 3,
-            highchartOutput("piechart"),
+            highchartOutput("piechart", height = "600px"),
             full_screen = TRUE
           ),
           column(
             width = 9,
-            highchartOutput("barchart")
+            highchartOutput("barchart", height = "600px")
           )
         )
       ),
@@ -612,6 +612,7 @@ server <- function(input, output, session) {
           style = "border: 10px solid #fff; border-radius: 8px; overflow: hidden; margin-bottom: 20px;",
           
           fluidRow(
+            height = "600px",
             class = "custom-kaart-row", 
             leafletOutput("kaart", height = "600px"),
             div(downloadButton("download_kaart", "Download PNG", class = "custom-download-button"))
@@ -673,52 +674,37 @@ server <- function(input, output, session) {
     if (nrow(metrics()) != 0) {
       df <- metrics() %>%
         filter(!is.na(code) & overlap != 0) %>%
-        arrange(overlap) %>%
+        arrange(desc(overlap)) %>%
         mutate(code = factor(code, levels = code)) %>%
         mutate(y = overlap * 100)
       
       chart <- highchart() %>%
-        hc_chart(type = 'column') %>%
-        hc_xAxis(categories = df$code, title = list(text = ""), labels = list(rotation = -90)) %>%
-        hc_yAxis(title = list(text = 'Overlap (%)'), labels = list(format = '{value}%')) 
-      
-      if (nrow(metrics()) == 1) {
-        chart <- chart %>%
-          hc_plotOptions(column = list(
-            dataLabels = list(enabled = TRUE, format = '{point.y:.2f}%'),
-            color = "#c04384",
+        hc_chart(type = 'bar', height = 550) %>%
+        hc_xAxis(categories = df$code, title = list(text = ""), labels = list(fontSize = "8px", step = 1)) %>%
+        hc_yAxis(title = list(text = 'Overlap (%)'), labels = list(format = '{value}%')) %>%
+        hc_plotOptions(
+          bar = list(  
+            dataLabels = list(enabled = TRUE, format = '{point.y:.2f}%'), 
             borderColor = "black",
-            borderWidth = 0.5,
+            borderWidth = 0.2,
             pointPadding = 0.1, 
-            groupPadding = 0.1
-          ))
-      }
-      
-      else {
-        chart <- chart %>%
-          hc_plotOptions(
-            column = list(
-              dataLabels = list(enabled = TRUE, format = '{point.y:.2f}%'),
-              borderColor = "black",
-              borderWidth = 0.5,
-              pointPadding = 0.1, 
-              groupPadding = 0.1
-            ))
-      }
-      
-      chart <- chart %>%
+            groupPadding = 0
+          )
+        ) %>%
         hc_tooltip(
           headerFormat = '',
-          pointFormat = '<b>{point.naam} ({point.code}): {point.y:.2f}%</b>'
+          pointFormat = '<b>{point.category}: {point.y:.2f}%</b>',
+          style = list(color = "black", fontsize = '14px', fontWeight = 'bold')
         ) %>%
         hc_chart(backgroundColor = 'rgba(0, 0, 0, 0)') %>%
         hc_add_theme(hc_theme_elementary()) %>%
         hc_add_series(
-          name = "Overlap",
-          data = df %>% mutate(y = overlap * 100) %>% select(code, y, naam),
+          name = "Overlap (%)",
+          data = df$y,
           colorByPoint = TRUE,
-          colors = pal()(df$overlap)) %>%
-        hc_legend(enabled = FALSE) 
+          colors = pal()(df$overlap)
+        ) %>%
+        hc_legend(enabled = FALSE)
       
       chart
     }
