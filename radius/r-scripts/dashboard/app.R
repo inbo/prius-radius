@@ -212,7 +212,7 @@ habitats <- read_csv2("https://raw.githubusercontent.com/inbo/prius-radius/main/
 custom_css <- "
 
   .p {
-    font-size: 9px;
+    font-size: 10px;
     font-weight: normal;
     color: black;
   }
@@ -346,7 +346,7 @@ ui <- page_navbar(
   bg = "#c04384",
   inverse = TRUE,
   header = tags$head(
-    tags$style(HTML(custom_css)),
+    tags$style(HTML(custom_css)), 
     tags$link(rel = "stylesheet", href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css")
   ),
   
@@ -469,9 +469,9 @@ server <- function(input, output, session) {
   metrics <- reactive({
     list_metrics[[input$kaart]] %>%
       st_drop_geometry() %>%
-      filter(soort == input$soort & type == "in") %>%
+      filter(soort == input$soort & type %in% c("in", "of")) %>%
       left_join(species_list, by = c("soort" = "Soort"), relationship = "many-to-many") %>%
-      select(soort, species, abbr, Groep, code, naam, overlap, EU_lijst) %>%
+      select(soort, species, abbr, Groep, code, naam, type, overlap, EU_lijst) %>%
       distinct()
   })
 
@@ -484,9 +484,24 @@ server <- function(input, output, session) {
       na.replace(0)
   })
 
-  pal <- reactive({
+  pal_bezetting <- reactive({
     df <- metrics() %>%
-      filter(!is.na(code))
+      filter(!is.na(code) & type == "of")
+    
+    colors <- c("lightgrey", colorRampPalette(c("lightgrey", "#c04384"))(99))
+    
+    if (nrow(df) != 0) {
+      colorNumeric(
+        palette = colors,
+        domain = c(min(df$overlap), max(df$overlap))
+      )
+    }
+  })
+  
+  
+  pal_gebondenheid <- reactive({
+    df <- metrics() %>%
+      filter(!is.na(code) & type == "in")
     
     colors <- c("lightgrey", colorRampPalette(c("lightgrey", "#c04384"))(99))
     
@@ -501,28 +516,28 @@ server <- function(input, output, session) {
   ## OUTPUTS
   
   output$soortenfiches_input <- renderUI({
-    if (input$kaart %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)", "Natura 2000 Habitattypes", "Natuurbeheerplannen", "ANB patrimonium", "Soortenbeschermingsprogramma's (SBP's)")) {
-      data <- list_metrics[[input$kaart]]
-      
-      df <- data.frame(naam = data$naam, code = data$code, stringsAsFactors = FALSE)
-      
-      df <- na.omit(df)
-      df <- df[order(df$naam), ]
-      
-      choices <- setNames(df$code, paste(df$naam, "(", df$code, ")", sep = " "))
-      
-      selectizeInput("deelgebied", 
-                     label = "Deelgebied:", 
-                     choices = c("All" = "All", choices))
-    } else if (input$kaart == "ANB patrimonium") {
-      choices <- setNames(am_patdat_wgs84$code, paste(am_patdat_wgs84$naam, am_patdat_wgs84$code, sep = " - "))
-      
-      selectizeInput("regio", 
-                     label = "Beheerregio:", 
-                     choices = c("All" = "All", choices))
-    } else {
-      NULL 
-    }
+    # if (input$kaart %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)", "Natura 2000 Habitattypes", "Natuurbeheerplannen", "ANB patrimonium", "Soortenbeschermingsprogramma's (SBP's)")) {
+    #   data <- list_metrics[[input$kaart]]
+    #   
+    #   df <- data.frame(naam = data$naam, code = data$code, stringsAsFactors = FALSE)
+    #   
+    #   df <- na.omit(df)
+    #   df <- df[order(df$naam), ]
+    #   
+    #   choices <- setNames(df$code, paste(df$naam, "(", df$code, ")", sep = " "))
+    #   
+    #   selectizeInput("deelgebied", 
+    #                  label = "Deelgebied:", 
+    #                  choices = c("All" = "All", choices))
+    # } else if (input$kaart == "ANB patrimonium") {
+    #   choices <- setNames(am_patdat_wgs84$code, paste(am_patdat_wgs84$naam, am_patdat_wgs84$code, sep = " - "))
+    #   
+    #   selectizeInput("regio", 
+    #                  label = "Beheerregio:", 
+    #                  choices = c("All" = "All", choices))
+    # } else {
+    #   NULL 
+    # }
   })
 
   output$soort <- renderText({
@@ -586,56 +601,84 @@ server <- function(input, output, session) {
     paste(input$kaart)
   })
   
-  output$soortenfiches_ui <- renderUI(
+  output$soortenfiches_ui <- renderUI({
     tagList(
       div(
-        card="card",
+        card = "card",
         style = "border: 10px solid #fff; border-radius: 8px; overflow: hidden; margin-bottom: 20px;",
         
-        fluidRow(
-          height = "600px", 
-          column(
-            width = 3,
-            highchartOutput("piechart", height = "600px"),
-            full_screen = TRUE
+        navset_underline(
+          nav_panel(
+            title = "Gebondenheid", 
+            div(
+              style = "padding: 10px 0;",
+              p(paste0("Gebondenheid, uitgedrukt als percentage van het areaal van ", input$soort, " dat in ", input$kaart, " ligt (links). Weergegeven per gebied (rechts)."), class = "p")
+            ),
+            fluidRow(
+              height = "500px", 
+              column(
+                width = 3,
+                highchartOutput("piechart_gebondenheid", height = "500px"),
+                full_screen = TRUE
+              ),
+              column(
+                width = 9,
+                highchartOutput("barchart_gebondenheid", height = "500px")
+              )
+            ),
+            
+            # Only show the kaart row if this tab is selected
+            if (input$kaart %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)")) {
+              div(
+                card="card",
+                style="border: 0px solid #fff; border-radius: 8px; overflow: hidden; margin-bottom: 5px;",
+                
+                fluidRow(
+                  height="500px",
+                  class="custom-kaart-row", 
+                  leafletOutput("kaart", height="500px"),
+                  div(downloadButton("download_kaart", "Download PNG", class="custom-download-button"))
+                )
+              )
+            }
           ),
-          column(
-            width = 9,
-            highchartOutput("barchart", height = "600px")
+          nav_panel(
+            title = "Bezetting",  
+            div(
+              style = "padding: 10px 0;",
+              p(paste0("Bezetting, uitgedrukt als percentage van het totale oppervlak aan ", input$kaart, " dat door ", input$soort, " wordt bezet (links). Weergegeven per gebied (rechts)."), class = "p")
+            ),
+            fluidRow(
+              height = "500px", 
+              column(
+                width = 3,
+                highchartOutput("piechart_bezetting", height = "500px"),
+                full_screen = TRUE
+              ),
+              column(
+                width = 9,
+                highchartOutput("barchart_bezetting", height = "500px")
+              )
+            )
           )
         )
-      ),
-      
-      if (input$kaart %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)")) {
-        div(
-          card="card",
-          style = "border: 10px solid #fff; border-radius: 8px; overflow: hidden; margin-bottom: 20px;",
-          
-          fluidRow(
-            height = "600px",
-            class = "custom-kaart-row", 
-            leafletOutput("kaart", height = "600px"),
-            div(downloadButton("download_kaart", "Download PNG", class = "custom-download-button"))
-          )
-        )
-      }
+      )
     )
-  )
+  })
   
-  output$piechart <- renderHighchart({
+  output$piechart_gebondenheid <- renderHighchart({
     x <- metrics() %>%
-      filter(is.na(code)) %>%
+      filter(is.na(code) & type == "in") %>%
       pull(overlap)
-      
+    
     df <- data.frame(
-      label = c("IN", "NIET IN"),
-      gebied = c(paste("in", input$kaart), paste("niet in", input$kaart)),
+      gebied = c(paste("in", input$kaart), paste("buiten", input$kaart)),
       overlap = c(x, 1 - x),
       color = c("#c04384", "lightgrey"))
-
+    
     data_list <- df %>%
       mutate(y = overlap * 100, name = gebied) %>%
-      select(name, y, label, color) %>%
+      select(name, y, color) %>%
       list_parse()
     
     highchart() %>%
@@ -645,7 +688,6 @@ server <- function(input, output, session) {
         dataLabels = list(
           enabled = FALSE,
           distance = -30,
-          format = '<b>{point.label}</b> ',
           style = list(color = 'black', fontSize = '14px', fontWeight = 'bold'),
           backgroundColor = NULL,
           borderColor = NULL,
@@ -670,10 +712,10 @@ server <- function(input, output, session) {
   })
   
   
-  output$barchart <- renderHighchart({
+  output$barchart_gebondenheid <- renderHighchart({
     if (nrow(metrics()) != 0) {
       df <- metrics() %>%
-        filter(!is.na(code) & overlap != 0) %>%
+        filter(!is.na(code) & overlap != 0 & type == "in") %>%
         arrange(desc(overlap)) %>%
         mutate(code = factor(code, levels = code)) %>%
         mutate(y = overlap * 100)
@@ -702,7 +744,93 @@ server <- function(input, output, session) {
           name = "Overlap (%)",
           data = df$y,
           colorByPoint = TRUE,
-          colors = pal()(df$overlap)
+          colors = pal_gebondenheid()(df$overlap)
+        ) %>%
+        hc_legend(enabled = FALSE)
+      
+      chart
+    }
+  })
+  
+  output$piechart_bezetting <- renderHighchart({
+    x <- metrics() %>%
+      filter(is.na(code) & type == "of") %>%
+      pull(overlap)
+    
+    df <- data.frame(
+      gebied = c(paste("in", input$kaart), paste("buiten", input$kaart)),
+      overlap = c(x, 1 - x),
+      color = c("#c04384", "lightgrey"))
+    
+    data_list <- df %>%
+      mutate(y = overlap * 100, name = gebied) %>%
+      select(name, y, color) %>%
+      list_parse()
+    
+    highchart() %>%
+      hc_chart(type = "pie", width = NULL) %>%
+      hc_plotOptions(pie = list(
+        innerSize = '60%',
+        dataLabels = list(
+          enabled = FALSE,
+          distance = -30,
+          style = list(color = 'black', fontSize = '14px', fontWeight = 'bold'),
+          backgroundColor = NULL,
+          borderColor = NULL,
+          borderWidth = 0
+        ),
+        showInLegend = FALSE,
+        borderColor = "black",
+        borderWidth = 0.5
+      )) %>%
+      hc_add_series(
+        name = "Overlap",
+        data = data_list, 
+        tooltip = list(
+          pointFormat = '<b>{point.y:.2f}</b> %', 
+          style = list(color = "black", fontsize = '14px', fontWeight = 'bold')
+        )
+      ) %>%
+      hc_size(height = NULL) %>%
+      hc_chart(backgroundColor = 'rgba(0, 0, 0, 0)') %>%
+      hc_add_theme(hc_theme_elementary()) %>%
+      hc_legend(enabled = FALSE)
+  })
+  
+  
+  output$barchart_bezetting <- renderHighchart({
+    if (nrow(metrics()) != 0) {
+      df <- metrics() %>%
+        filter(!is.na(code) & overlap != 0 & type == "of") %>%
+        arrange(desc(overlap)) %>%
+        mutate(code = factor(code, levels = code)) %>%
+        mutate(y = overlap * 100)
+      
+      chart <- highchart() %>%
+        hc_chart(type = 'bar', height = 550) %>%
+        hc_xAxis(categories = df$code, title = list(text = ""), labels = list(fontSize = "8px", step = 1)) %>%
+        hc_yAxis(title = list(text = 'Overlap (%)'), labels = list(format = '{value}%')) %>%
+        hc_plotOptions(
+          bar = list(  
+            dataLabels = list(enabled = TRUE, format = '{point.y:.2f}%'), 
+            borderColor = "black",
+            borderWidth = 0.2,
+            pointPadding = 0.1, 
+            groupPadding = 0
+          )
+        ) %>%
+        hc_tooltip(
+          headerFormat = '',
+          pointFormat = '<b>{point.category}: {point.y:.2f}%</b>',
+          style = list(color = "black", fontsize = '14px', fontWeight = 'bold')
+        ) %>%
+        hc_chart(backgroundColor = 'rgba(0, 0, 0, 0)') %>%
+        hc_add_theme(hc_theme_elementary()) %>%
+        hc_add_series(
+          name = "Overlap (%)",
+          data = df$y,
+          colorByPoint = TRUE,
+          colors = pal_bezetting()(df$overlap)
         ) %>%
         hc_legend(enabled = FALSE)
       
@@ -730,7 +858,7 @@ server <- function(input, output, session) {
       
       if(nrow(metrics) != 0) {
         map <- map %>%
-          addPolygons(data = metrics, color = "black", fillColor = ~pal()(overlap), opacity = 1, weight = 0.5, fillOpacity = 1, label = ~paste0(naam, " (", gebied, "): ", round(overlap * 100, 1), "%"), highlight = highlightOptions(stroke = TRUE, color = "black", weight = 2))
+          addPolygons(data = metrics, color = "black", fillColor = ~pal_gebondenheid()(overlap), opacity = 1, weight = 0.5, fillOpacity = 1, label = ~paste0(naam, " (", gebied, "): ", round(overlap * 100, 1), "%"), highlight = highlightOptions(stroke = TRUE, color = "black", weight = 2))
       }
       
       map <- map %>%
@@ -741,11 +869,11 @@ server <- function(input, output, session) {
           options = layersControlOptions(collapsed = FALSE)
         ) %>%
         hideGroup("Waarnemingen") %>%
-        setView(lng = 4.240556, lat = 51.037778, zoom = 9)
+        setView(lng = 4.240556, lat = 51.037778, zoom = 8.5)
       
       if(nrow(metrics) != 0) {
         map <- map %>%
-          addLegend(pal = pal(), values = metrics$overlap, opacity = 0.8, position = "bottomright")
+          addLegend(pal = pal_gebondenheid(), values = metrics$overlap, opacity = 0.8, position = "bottomright")
       }
       
       map
