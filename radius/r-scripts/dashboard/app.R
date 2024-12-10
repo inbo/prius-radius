@@ -80,9 +80,9 @@ ps_nbhp_wgs84 <- readRDSfromURL("https://github.com/inbo/prius-radius/raw/dashbo
 am_patdat_wgs84 <- readRDSfromURL("https://github.com/inbo/prius-radius/raw/dashboard/radius/data/spatial/WGS84/am_patdat_wgs84.rds") %>%
   rename(code = regio, naam = domeinnaam)
 
-# lu_sbp_pgs <- readRDSfromURL("https://github.com/inbo/prius-radius/raw/dashboard/radius/data/spatial/lu_sbp_pgs.rds") 
-# 
-# lu_sbp_pls <- readRDSfromURL("https://github.com/inbo/prius-radius/raw/dashboard/radius/data/spatial/lu_sbp_pls.rds") 
+#lu_sbp_pgs <- readRDSfromURL("https://github.com/inbo/prius-radius/raw/dashboard/radius/data/spatial/lu_sbp_pgs.rds") 
+ 
+#lu_sbp_pls <- readRDSfromURL("https://github.com/inbo/prius-radius/raw/dashboard/radius/data/spatial/lu_sbp_pls.rds") 
 
 list_wfs <- list("Habitatrichtlijngebieden (SBZ-H)" = ps_hbtrl_wgs84, "Vogelrichtlijngebieden (SBZ-V)" = ps_vglrl_wgs84, "Natura 2000 Habitattypes" = n2khab_wgs84, "Natuurbeheerplannen" = ps_nbhp_wgs84, "ANB patrimonium" = am_patdat_wgs84)
 
@@ -467,12 +467,23 @@ server <- function(input, output, session) {
   })
 
   metrics <- reactive({
-    list_metrics[[input$kaart]] %>%
-      st_drop_geometry() %>%
-      filter(soort == input$soort & type %in% c("in", "of")) %>%
-      left_join(species_list, by = c("soort" = "Soort"), relationship = "many-to-many") %>%
-      select(soort, species, abbr, Groep, code, naam, type, overlap, EU_lijst) %>%
-      distinct()
+    if (input$kaart %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)", "Natura 2000 Habitattypes")) {
+      list_metrics[[input$kaart]] %>%
+        st_drop_geometry() %>%
+        filter(soort == input$soort & type %in% c("in", "of")) %>%
+        left_join(species_list, by = c("soort" = "Soort"), relationship = "many-to-many") %>%
+        select(soort, species, abbr, Groep, code, naam, type, overlap, EU_lijst) %>%
+        distinct()
+    }
+    # else if (input$kaart == "ANB patrimonium") {
+    #   list_metrics[[input$kaart]] %>%
+    #     st_drop_geometry() %>%
+    #     filter(soort == input$soort & type %in% c("in", "of")) %>%
+    #     rename(code = gebied) %>%
+    #     left_join(species_list, by = c("soort" = "Soort"), relationship = "many-to-many") %>%
+    #     select(soort, species, abbr, Groep, code, naam, type, overlap, EU_lijst) %>%
+    #     distinct()
+    # }
   })
 
   occ_sum <- reactive({
@@ -485,31 +496,35 @@ server <- function(input, output, session) {
   })
 
   pal_bezetting <- reactive({
-    df <- metrics() %>%
-      filter(!is.na(code) & type == "of")
-    
-    colors <- c("lightgrey", colorRampPalette(c("lightgrey", "#c04384"))(99))
-    
-    if (nrow(df) != 0) {
-      colorNumeric(
-        palette = colors,
-        domain = c(min(df$overlap), max(df$overlap))
-      )
+    if (input$kaart %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)", "Natura 2000 Habitattypes")) {
+      df <- metrics() %>%
+        filter(!is.na(code) & type == "of")
+      
+      colors <- c("lightgrey", colorRampPalette(c("lightgrey", "#c04384"))(99))
+      
+      if (nrow(df) != 0) {
+        colorNumeric(
+          palette = colors,
+          domain = c(min(df$overlap), max(df$overlap))
+        )
+      }
     }
   })
   
   
   pal_gebondenheid <- reactive({
-    df <- metrics() %>%
-      filter(!is.na(code) & type == "in")
-    
-    colors <- c("lightgrey", colorRampPalette(c("lightgrey", "#c04384"))(99))
-    
-    if (nrow(df) != 0) {
-      colorNumeric(
-        palette = colors,
-        domain = c(min(df$overlap), max(df$overlap))
-      )
+    if (input$kaart %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)", "Natura 2000 Habitattypes")) {
+      df <- metrics() %>%
+        filter(!is.na(code) & type == "in")
+      
+      colors <- c("lightgrey", colorRampPalette(c("lightgrey", "#c04384"))(99))
+      
+      if (nrow(df) != 0) {
+        colorNumeric(
+          palette = colors,
+          domain = c(min(df$overlap), max(df$overlap))
+        )
+      }
     }
   })
   
@@ -550,16 +565,18 @@ server <- function(input, output, session) {
   
   output$union_list <- renderUI({
     
-    if (unique(metrics()$EU_lijst) == 1) {
-      HTML('<span style="color: #c04384; font-weight: bold;"><i class="fas fa-bell"></i> Op unielijst (uitvoeringsverordening 2016/1141)</span>')
-    } else if (unique(metrics()$EU_lijst) == 2) {
-      HTML('<span style="color: #c04384; font-weight: bold;"><i class="fas fa-bell"></i> Op unielijst (uitvoeringsverordening 2017/1263)</span>')
-    } else if (unique(metrics()$EU_lijst) == 3) {
-      HTML('<span style="color: #c04384; font-weight: bold;"><i class="fas fa-bell"></i> Op unielijst (uitvoeringsverordening 2019/1262)</span>')
-    } else if (unique(metrics()$EU_lijst) == 4) {
-      HTML('<span style="color: #c04384; font-weight: bold;"><i class="fas fa-bell"></i> Op unielijst (uitvoeringsverordening 2022/1203)</span>')
-    } else {
-      HTML("")
+    if (input$kaart %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)", "Natura 2000 Habitattypes")) {
+      if (unique(metrics()$EU_lijst) == 1) {
+        HTML('<span style="color: #c04384; font-weight: bold;"><i class="fas fa-bell"></i> Op unielijst (uitvoeringsverordening 2016/1141)</span>')
+      } else if (unique(metrics()$EU_lijst) == 2) {
+        HTML('<span style="color: #c04384; font-weight: bold;"><i class="fas fa-bell"></i> Op unielijst (uitvoeringsverordening 2017/1263)</span>')
+      } else if (unique(metrics()$EU_lijst) == 3) {
+        HTML('<span style="color: #c04384; font-weight: bold;"><i class="fas fa-bell"></i> Op unielijst (uitvoeringsverordening 2019/1262)</span>')
+      } else if (unique(metrics()$EU_lijst) == 4) {
+        HTML('<span style="color: #c04384; font-weight: bold;"><i class="fas fa-bell"></i> Op unielijst (uitvoeringsverordening 2022/1203)</span>')
+      } else {
+        HTML("")
+      }
     }
   })
 
@@ -602,71 +619,88 @@ server <- function(input, output, session) {
   })
   
   output$soortenfiches_ui <- renderUI({
-    tagList(
-      div(
-        card = "card",
-        style = "border: 10px solid #fff; border-radius: 8px; overflow: hidden; margin-bottom: 20px;",
+    
+    if (input$kaart %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)", "Natura 2000 Habitattypes")) {
+      
+      if (nrow(metrics() %>% filter(type == "of" & overlap != 0)) == 0) {
+        div(class = "custom-value-box", 
+            height = "50px",
+            style = "padding: 10px; background-color: #f8f9fa; border: 1px solid #ccc; border-radius: 5px;",
+            paste0(input$soort, " komt niet voor in ", input$kaart)
+        )
+      }
+      else {
         
-        navset_underline(
-          nav_panel(
-            title = "Gebondenheid", 
-            div(
-              style = "padding: 10px 0;",
-              p(paste0("Gebondenheid, uitgedrukt als percentage van het areaal van ", input$soort, " dat in ", input$kaart, " ligt (links). Weergegeven per gebied (rechts)."), class = "p")
-            ),
-            fluidRow(
-              height = "500px", 
-              column(
-                width = 3,
-                highchartOutput("piechart_gebondenheid", height = "500px"),
-                full_screen = TRUE
-              ),
-              column(
-                width = 9,
-                highchartOutput("barchart_gebondenheid", height = "500px")
-              )
-            ),
+        tagList(
+          div(
+            card = "card",
+            style = "border: 10px solid #fff; border-radius: 8px; overflow: hidden; margin-bottom: 20px;",
             
-            # Only show the kaart row if this tab is selected
-            if (input$kaart %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)")) {
-              div(
-                card="card",
-                style="border: 0px solid #fff; border-radius: 8px; overflow: hidden; margin-bottom: 5px;",
-                
+            navset_underline(
+              nav_panel(
+                title = "Gebondenheid", 
+                div(
+                  style = "padding: 10px 0;",
+                  p(paste0("Gebondenheid, uitgedrukt als percentage van het areaal van ", input$soort, " dat in ", input$kaart, " ligt (links). Weergegeven per gebied (rechts)."), class = "p")
+                ),
                 fluidRow(
-                  height="500px",
-                  class="custom-kaart-row", 
-                  leafletOutput("kaart", height="500px"),
-                  div(downloadButton("download_kaart", "Download PNG", class="custom-download-button"))
-                )
-              )
-            }
-          ),
-          nav_panel(
-            title = "Bezetting",  
-            div(
-              style = "padding: 10px 0;",
-              p(paste0("Bezetting, uitgedrukt als percentage van het totale oppervlak aan ", input$kaart, " dat door ", input$soort, " wordt bezet (links). Weergegeven per gebied (rechts)."), class = "p")
-            ),
-            fluidRow(
-              height = "500px", 
-              column(
-                width = 3,
-                highchartOutput("piechart_bezetting", height = "500px"),
-                full_screen = TRUE
+                  height = "500px", 
+                  column(
+                    width = 3,
+                    highchartOutput("piechart_gebondenheid", height = "500px"),
+                    full_screen = TRUE
+                  ),
+                  column(
+                    width = 9,
+                    highchartOutput("barchart_gebondenheid", height = "500px")
+                  )
+                ),
+                
+                # Only show the kaart row if this tab is selected
+                if (input$kaart %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)")) {
+                  div(
+                    card="card",
+                    style="border: 0px solid #fff; border-radius: 8px; overflow: hidden; margin-bottom: 5px;",
+                    
+                    fluidRow(
+                      height="500px",
+                      class="custom-kaart-row", 
+                      leafletOutput("kaart", height="500px"),
+                      div(downloadButton("download_kaart", "Download PNG", class="custom-download-button"))
+                    )
+                  )
+                }
               ),
-              column(
-                width = 9,
-                highchartOutput("barchart_bezetting", height = "500px")
+              nav_panel(
+                title = "Bezetting",  
+                div(
+                  style = "padding: 10px 0;",
+                  p(paste0("Bezetting, uitgedrukt als percentage van het totale oppervlak aan ", input$kaart, " dat door ", input$soort, " wordt bezet (links). Weergegeven per gebied (rechts)."), class = "p")
+                ),
+                fluidRow(
+                  height = "500px", 
+                  column(
+                    width = 3,
+                    highchartOutput("piechart_bezetting", height = "500px"),
+                    full_screen = TRUE
+                  ),
+                  column(
+                    width = 9,
+                    highchartOutput("barchart_bezetting", height = "500px")
+                  )
+                )
               )
             )
           )
-        )
-      )
-    )
+        )}
+    }
+    else {
+      paste0("Dit onderdeel is nog in ontwikkeling.")
+    }
   })
   
   output$piechart_gebondenheid <- renderHighchart({
+    
     x <- metrics() %>%
       filter(is.na(code) & type == "in") %>%
       pull(overlap)
@@ -935,7 +969,7 @@ server <- function(input, output, session) {
     }
     else {
       data <- data %>% 
-        filter(gebied == input$sbp & type %in% c("in", "of") & soort %in% input$selected_species) %>%
+        filter(gebied == input$sbp & type %in% c("in", "of")) %>% # & soort %in% input$selected_species
         select(soort, species, abbr, Groep, gebied, deelgebied, type, overlap, EU_lijst) %>%
         distinct()
     }
@@ -995,12 +1029,12 @@ server <- function(input, output, session) {
                        label = "SBP:", 
                        choices = unique(list_metrics[[input$kaart2]]$gebied),
                        selected = NULL),
-        uiOutput("sbp_deelgebied"),
-        selectizeInput("selected_species",
-                       label = "Selecteer soorten:",
-                       choices = sort(unique(species_list$Soort)),
-                       multiple = TRUE,
-                       options = list(placeholder = 'Selecteer een of meerdere soorten'))
+        uiOutput("sbp_deelgebied_ui"),
+        # selectizeInput("selected_species",
+        #                label = "Selecteer soorten:",
+        #                choices = sort(unique(species_list$Soort)),
+        #                multiple = TRUE,
+        #                options = list(placeholder = 'Selecteer een of meerdere soorten'))
       )
     } else if (input$kaart2 %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)", "Natura 2000 Habitattypes")) {
       data <- list_metrics[[input$kaart2]]
@@ -1018,18 +1052,23 @@ server <- function(input, output, session) {
     } else if (input$kaart2 == "ANB patrimonium") {
       selectizeInput("deelgebied2", 
                      label = "Beheerregio:", 
-                     choices = c("All" = "All", unique(am_patdat_wgs84$code)))
+                     choices = c("All" = "All", unique(na.omit(am_patdat_wgs84$code))))
     } else {
       NULL 
     }
   })
   
-  output$sbp_deelgebied <- renderUI({
+  output$sbp_deelgebied_ui <- renderUI({
     req(input$sbp)
-    
+    print(paste("Condition result:", !input$sbp %in% c("SBP beekprik", "SBP rivierdonderpad", "SBP kleine modderkruiper")))
     if (!input$sbp %in% c("SBP beekprik", "SBP rivierdonderpad", "SBP kleine modderkruiper")) {
-      
-      deelgebieden <- unique(list_metrics[[input$kaart2]]$deelgebied2[list_metrics[[input$kaart2]]$gebied == input$sbp])
+      deelgebieden <- list_metrics[[input$kaart2]] %>%
+        st_drop_geometry() %>%
+        filter(gebied == input$sbp & soort %in% input$selected_species) %>%
+        filter(!is.na(deelgebied)) %>% 
+        distinct(deelgebied) %>% 
+        pull(deelgebied)
+      print(paste("Deelgebieden:", paste(deelgebieden, collapse = ", "))) 
       selectizeInput("sbp_deelgebied", 
                      label = "Deelgebied:", 
                      choices = c("All" = "All", deelgebieden))
@@ -1037,7 +1076,6 @@ server <- function(input, output, session) {
     else {
       NULL
     }
-    
   })
   
   output$deelgebied <- renderText({
@@ -1051,6 +1089,9 @@ server <- function(input, output, session) {
       
       paste0(unique(data$naam), " (", unique(data$code), ")")
     }
+    else if (input$kaart2 == "ANB patrimonium" & input$deelgebied2 != "All") {
+      input$deelgebied2
+    }
     else if (input$kaart2 == "Soortenbeschermingsprogramma's (SBP's)") {
       input$sbp
     }
@@ -1062,10 +1103,10 @@ server <- function(input, output, session) {
   output$gebiedsfiches_ui <- renderUI({
     req(input$kaart2, input$deelgebied2)
     
-    is_all_deelgebieden <- input$deelgebied2 == "All" || input$kaart2 %in% c("ANB patrimonium", "Natuurbeheerplannen")
-    
-    explanation_text_bezetting <- if (is_all_deelgebieden) {
-      HTML(paste0("Hieronder wordt voor alle aanwezige soorten, het voorkomen weergegeven als:<br>
+      is_all_deelgebieden <- input$deelgebied2 == "All" || input$kaart2 %in% c("ANB patrimonium", "Natuurbeheerplannen")
+      
+      explanation_text_bezetting <- if (is_all_deelgebieden) {
+        HTML(paste0("Hieronder wordt voor alle aanwezige soorten, het voorkomen weergegeven als:<br>
     (i) <strong>bezetting</strong>: percentage van totale oppervlak ", input$kaart2, " in Vlaanderen dat bezet wordt door de soort<br>
     (ii) totaal <strong>aantal",  ifelse(input$kaart2 == "Habitatrichtlijngebieden (SBZ-H)", " Habitatrichtlijngebieden",
                                          ifelse(input$kaart2 == "Vogelrichtlijngebieden (SBZ-V)", " Vogelrichtlijngebieden", 
@@ -1074,142 +1115,142 @@ server <- function(input, output, session) {
                                                               ifelse(input$kaart2 == "Natuurbeheerplannen", " natuurbeheerplannen", 
                                                                      " gebieden"))))), "</strong> waarin een soort voorkomt<br>
     (iii) de <strong>specificiteit</strong>: het percentage van het totale areaal dat binnen ", input$kaart2, " valt."))
-    } else {
-      HTML(paste0("Hieronder wordt voor alle aanwezige soorten, het voorkomen weergegeven als:<br><br>
+      } else {
+        HTML(paste0("Hieronder wordt voor alle aanwezige soorten, het voorkomen weergegeven als:<br><br>
     (i) <strong>bezetting</strong> (percentage van totale oppervlak ", input$deelgebied2, " in Vlaanderen dat bezet wordt door de soort)<br>
     (ii) de <strong>specificiteit</strong>: het percentage van het totale areaal dat binnen ", input$deelgebied2, " valt."))
-    }
-    
-    explanation_text_verspreiding <- "De onderstaande barplot toont het aantal soorten per deelgebied."
-    
-    tagList(
-      div(
-        style = "margin-bottom: 20px;",
-        h3("Soorten", style = "margin-left: 15px; margin-top: 15px; font-size: 18px; font-weight: bold;"),
-        
-        p(explanation_text_bezetting, 
-          style = "font-size: 12px; margin-top: 20px; margin-bottom: 10px; margin-left: 15px;"),
-        
-        # Tabs
-        navset_underline(
-          id = "tabset_bezetting",
-          nav_panel(title = "Bezetting", value = "percentage"),
-          if (is_all_deelgebieden) {
-            nav_panel(title = "Aantal Gebieden", value = "aantal_gebieden")
-          },
-          nav_panel(title = "Specificiteit", value = "specificiteit")
-        )
-      ),
+      }
       
-      div(
-        style = "padding: 5px;",
-        
-        # 'bezetting' tab
-        conditionalPanel(
-          condition = "input.tabset_bezetting == 'percentage'",
-          fluidRow(
-            height = "600px",
-            highchartOutput("percentage_oppervlak", height = "600px")
-          )
-        ),
-        
-        # 'aantal gebieden' tab
-        conditionalPanel(
-          condition = "input.tabset_bezetting == 'aantal_gebieden'",
-          fluidRow(
-            height = "600px",
-            highchartOutput("aantal_gebieden", height = "600px")
-          )
-        ),
-        
-        # 'specificiteit' tab
-        conditionalPanel(
-          condition = "input.tabset_bezetting == 'specificiteit'",
-          fluidRow(
-            height = "600px",
-            highchartOutput("specificiteit", height = "600px")
-          )
-        ),
-        
-        # Download buttons below the figures
-        fluidRow(
-          conditionalPanel(
-            condition = "input.tabset_bezetting == 'percentage'",
-            column(6, 
-                   actionButton("download_data_bezetting", 
-                                label = "Download Data", 
-                                icon = icon("download"), 
-                                style = "font-size: 12px; background-color: transparent; border: none; color: black;"),
-                   actionButton("download_png_bezetting", 
-                                label = "Download Figuur", 
-                                icon = icon("file-image"), 
-                                style = "font-size: 12px; background-color: transparent; border: none; color: black;")
-            )
-          ),
-          
-          conditionalPanel(
-            condition = "input.tabset_bezetting == 'aantal_gebieden'",
-            column(6,
-                   actionButton("download_data_aantal_gebieden", 
-                                label = "Download Data", 
-                                icon = icon("download"), 
-                                style = "font-size: 12px; background-color: transparent; border: none; color: black;"),
-                   actionButton("download_png_aantal_gebieden", 
-                                label = "Download Figuur", 
-                                icon = icon("file-image"), 
-                                style = "font-size: 12px; background-color: transparent; border: none; color: black;")
-            )
-          ),
-          conditionalPanel(
-            condition = "input.tabset_bezetting == 'specificiteit'",
-            column(6, 
-                   actionButton("download_data_specificiteit", 
-                                label = "Download Data", 
-                                icon = icon("download"), 
-                                style = "font-size: 12px; background-color: transparent; border: none; color: black;"),
-                   actionButton("download_png_specificiteit", 
-                                label = "Download Figuur", 
-                                icon = icon("file-image"), 
-                                style = "font-size: 12px; background-color: transparent; border: none; color: black;")
-            )
-          )
-        )
-      ),
+      explanation_text_verspreiding <- "De onderstaande barplot toont het aantal soorten per deelgebied."
       
-      # Barplot for Verspreiding
-      if (input$kaart2 %in% c("Habitatrichtlijngebieden (SBZ-H)", 
-                              "Vogelrichtlijngebieden (SBZ-V)", 
-                              "Natura 2000 Habitattypes", 
-                              "Soortenbeschermingsprogramma's (SBP's)") && 
-          is_all_deelgebieden) {
+      tagList(
         div(
           style = "margin-bottom: 20px;",
+          h3("Soorten", style = "margin-left: 15px; margin-top: 15px; font-size: 18px; font-weight: bold;"),
           
-          h3("Verspreiding", style = "margin-left: 15px; margin-top: 15px; font-size: 18px; font-weight: bold;"),
+          p(explanation_text_bezetting, 
+            style = "font-size: 12px; margin-top: 20px; margin-bottom: 10px; margin-left: 15px;"),
           
-          p(explanation_text_verspreiding, 
-            style = "font-size: 12px; margin-bottom: 10px; margin-left: 15px;"),
+          # Tabs
+          navset_underline(
+            id = "tabset_bezetting",
+            nav_panel(title = "Bezetting", value = "percentage"),
+            if (is_all_deelgebieden) {
+              nav_panel(title = "Aantal Gebieden", value = "aantal_gebieden")
+            },
+            nav_panel(title = "Specificiteit", value = "specificiteit")
+          )
+        ),
+        
+        div(
+          style = "padding: 5px;",
           
-          fluidRow(
-            height = "600px",
-            highchartOutput("barplot_verspreiding", height = "600px")
+          # 'bezetting' tab
+          conditionalPanel(
+            condition = "input.tabset_bezetting == 'percentage'",
+            fluidRow(
+              height = "600px",
+              highchartOutput("percentage_oppervlak", height = "600px")
+            )
           ),
           
+          # 'aantal gebieden' tab
+          conditionalPanel(
+            condition = "input.tabset_bezetting == 'aantal_gebieden'",
+            fluidRow(
+              height = "600px",
+              highchartOutput("aantal_gebieden", height = "600px")
+            )
+          ),
+          
+          # 'specificiteit' tab
+          conditionalPanel(
+            condition = "input.tabset_bezetting == 'specificiteit'",
+            fluidRow(
+              height = "600px",
+              highchartOutput("specificiteit", height = "600px")
+            )
+          ),
+          
+          # Download buttons below the figures
           fluidRow(
-            column(6,
-                   actionButton("download_data_percentage_oppervlak", 
-                                label = "Download Data", 
-                                icon = icon("download"), 
-                                style = "font-size: 12px;background-color: transparent;border:none;color:black"),
-                   actionButton("download_png_verspreiding", 
-                                label = "Download Figuur", 
-                                icon = icon("file-image"), 
-                                style = "font-size: 12px;background-color: transparent;border:none;color:black")
+            conditionalPanel(
+              condition = "input.tabset_bezetting == 'percentage'",
+              column(6, 
+                     actionButton("download_data_bezetting", 
+                                  label = "Download Data", 
+                                  icon = icon("download"), 
+                                  style = "font-size: 12px; background-color: transparent; border: none; color: black;"),
+                     actionButton("download_png_bezetting", 
+                                  label = "Download Figuur", 
+                                  icon = icon("file-image"), 
+                                  style = "font-size: 12px; background-color: transparent; border: none; color: black;")
+              )
+            ),
+            
+            conditionalPanel(
+              condition = "input.tabset_bezetting == 'aantal_gebieden'",
+              column(6,
+                     actionButton("download_data_aantal_gebieden", 
+                                  label = "Download Data", 
+                                  icon = icon("download"), 
+                                  style = "font-size: 12px; background-color: transparent; border: none; color: black;"),
+                     actionButton("download_png_aantal_gebieden", 
+                                  label = "Download Figuur", 
+                                  icon = icon("file-image"), 
+                                  style = "font-size: 12px; background-color: transparent; border: none; color: black;")
+              )
+            ),
+            conditionalPanel(
+              condition = "input.tabset_bezetting == 'specificiteit'",
+              column(6, 
+                     actionButton("download_data_specificiteit", 
+                                  label = "Download Data", 
+                                  icon = icon("download"), 
+                                  style = "font-size: 12px; background-color: transparent; border: none; color: black;"),
+                     actionButton("download_png_specificiteit", 
+                                  label = "Download Figuur", 
+                                  icon = icon("file-image"), 
+                                  style = "font-size: 12px; background-color: transparent; border: none; color: black;")
+              )
             )
           )
-        )
-      }
-    )
+        ),
+        
+        # Barplot for Verspreiding
+        if (input$kaart2 %in% c("Habitatrichtlijngebieden (SBZ-H)", 
+                                "Vogelrichtlijngebieden (SBZ-V)", 
+                                "Natura 2000 Habitattypes", 
+                                "Soortenbeschermingsprogramma's (SBP's)") && 
+            is_all_deelgebieden) {
+          div(
+            style = "margin-bottom: 20px;",
+            
+            h3("Verspreiding", style = "margin-left: 15px; margin-top: 15px; font-size: 18px; font-weight: bold;"),
+            
+            p(explanation_text_verspreiding, 
+              style = "font-size: 12px; margin-bottom: 10px; margin-left: 15px;"),
+            
+            fluidRow(
+              height = "600px",
+              highchartOutput("barplot_verspreiding", height = "600px")
+            ),
+            
+            fluidRow(
+              column(6,
+                     actionButton("download_data_percentage_oppervlak", 
+                                  label = "Download Data", 
+                                  icon = icon("download"), 
+                                  style = "font-size: 12px;background-color: transparent;border:none;color:black"),
+                     actionButton("download_png_verspreiding", 
+                                  label = "Download Figuur", 
+                                  icon = icon("file-image"), 
+                                  style = "font-size: 12px;background-color: transparent;border:none;color:black")
+              )
+            )
+          )
+        }
+      )
   })
   
   
@@ -1322,7 +1363,8 @@ server <- function(input, output, session) {
           ) %>%
           config(displayModeBar = FALSE)
       }
-    } else {
+    }
+    else {
       return()
     }
   })
@@ -1353,7 +1395,7 @@ server <- function(input, output, session) {
           filter(gebied == input$deelgebied2 & type == "of")
       }
     }
-    else if (input$kaart == "Soortenbeschermingsprogramma's (SBP's)") {
+    else if (input$kaart2 == "Soortenbeschermingsprogramma's (SBP's)") {
       data <- metrics2() %>%
         filter(is.na(deelgebied) & type == "of")
     }
@@ -1483,7 +1525,7 @@ server <- function(input, output, session) {
           filter(gebied == input$deelgebied2 & type == "in")
       }
     }
-    else if (input$kaart == "Soortenbeschermingsprogramma's (SBP's)") {
+    else if (input$kaart2 == "Soortenbeschermingsprogramma's (SBP's)") {
       data <- metrics2() %>%
         filter(is.na(deelgebied) & type == "in")
     }
