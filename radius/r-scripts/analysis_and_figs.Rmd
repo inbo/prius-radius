@@ -3547,21 +3547,36 @@ x$gebied <- factor(x$gebied, levels = c(
                  "Lage tot aan Hoge Kempen",
                  "Hoge Kempen tot Voeren"))
 
+facet_labels <- c("Kust & Westhoek" = "Kust & \nWesthoek",
+                 "Zandig Vlaanderen" = "Zandig \nVlaanderen",
+                 "Vlaamse Ardennen & Schelde-Leie" = "Vlaamse \nArdennen & \nSchelde-Leie",
+                 "Groene Gordels" = "Groene \nGordels",
+                 "Brabantse Wouden" = "Brabantse \nWouden",
+                 "Taxandria" = "Taxandria",
+                 "Demerland & Zuiderkempen" = "Demerland & \nZuiderkempen",
+                 "Antwerpse Kempen" = "Antwerpse \nKempen",
+                 "Lage tot aan Hoge Kempen" = "Lage tot aan \nHoge Kempen",
+                 "Hoge Kempen tot Voeren" = "Hoge Kempen \ntot Voeren")
+
 PATDAT_max5 <- x %>%
   dplyr::filter(overlap != 0) %>%
   group_by(gebied) %>%
-  slice_max(order_by = factor, n = 5, na_rm = TRUE) 
+  slice_max(order_by = factor, n = 5, na_rm = TRUE) %>%
+  mutate(type = "max")
 
 PATDAT_min5 <- x %>%
   dplyr::filter(overlap != 0) %>%
   group_by(gebied) %>%
-  slice_min(order_by = factor, n = 5, na_rm = TRUE) 
+  slice_min(order_by = factor, n = 5, na_rm = TRUE) %>%
+  mutate(type = "min")
 
 PATDAT_slice <- rbind(PATDAT_max5, PATDAT_min5)
 
+PATDAT_slice$type <- factor(PATDAT_slice$type, levels = c("min", "max"))
+
 ## max 5
 ggplot(data = PATDAT_max5, aes(x = factor + 0.0001, y = reorder_within(soort, factor, gebied), fill = gebied, color = gebied)) +
-  geom_point(color = "#c04384", size = 1.5, show.legend = FALSE) +
+  geom_point(color = "#c04384", size = 1, show.legend = FALSE) +
   facet_wrap(~ gebied, scales = "free_y", ncol = 1) +
   scale_y_reordered() +
   coord_trans(x = "log2") +
@@ -3572,16 +3587,19 @@ ggplot(data = PATDAT_max5, aes(x = factor + 0.0001, y = reorder_within(soort, fa
   labs(x = "Factor", y = NULL) +
   custom_theme() +
   theme(plot.title.position = "plot",
-        axis.text.x = element_text(angle = 90))
+        axis.text.x = element_text(angle = 90, size = 6), 
+        axis.text.y = element_text(size = 6),
+        axis.title.x = element_text(size = 6),
+        strip.text.x = element_text(size = 6, hjust = -0.01, vjust = 0),
+        strip.text.y = element_text(size = 6, hjust = 0, vjust = 0))
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/PATDAT/PATDAT_max5_per_br.png",
-       width = 23, height = 27, units = "cm", dpi=300)
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/PATDAT/PATDAT_max5_per_br.png",  width = 3.1, height = 8, units = "in", dpi=300)
 ggsave("./radius/data/output/figuren/patdat_max5_per_br.png",
-       width = 23, height = 27, units = "cm", dpi=300)
+       width = 3.1, height = 8, units = "in", dpi=300)
 
 ## min 5
 ggplot(data = PATDAT_min5, aes(x = factor + 0.0001, y = reorder_within(soort, factor, gebied), fill = gebied, color = gebied)) +
-  geom_point(color = "#c04384", size = 1.5, show.legend = FALSE) +
+  geom_point(color = "#c04384", size = 1, show.legend = FALSE) +
   facet_wrap(~ gebied, scales = "free_y", ncol = 1) +
   scale_y_reordered() +
   coord_trans(x = "log2") +
@@ -3592,36 +3610,33 @@ ggplot(data = PATDAT_min5, aes(x = factor + 0.0001, y = reorder_within(soort, fa
   labs(x = "Factor", y = NULL) +
   custom_theme() +
   theme(plot.title.position = "plot",
-        axis.text.x = element_text(angle = 90))
+        axis.text.x = element_text(angle = 90, size = 6), 
+        axis.text.y = element_text(size = 6),
+        axis.title.x = element_text(size = 6),
+        strip.text.x = element_text(size = 6, hjust = -0.01, vjust = 0),
+        strip.text.y = element_text(size = 6, hjust = 0, vjust = 0))
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/PATDAT/PATDAT_min5_per_br.png",
-       width = 23, height = 27, units = "cm", dpi=300)
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/PATDAT/PATDAT_min5_per_br.png",  width = 3.1, height = 8, units = "in", dpi=300)
 ggsave("./radius/data/output/figuren/patdat_min5_per_br.png",
-       width = 23, height = 27, units = "cm", dpi=300)
+       width = 3.1, height = 8, units = "in", dpi=300)
 
-plot_list <- list()
+## min/max combined
+ggplot(data = PATDAT_slice, aes(x = factor + 0.0001, y = reorder_within(soort, factor, gebied), fill = gebied, color = gebied)) +
+  geom_point(color = "#c04384", size = 1.5, show.legend = FALSE) +
+  facet_grid(gebied ~ type, scales = "free", labeller = labeller(gebied = facet_labels, type = c("min" = "Laagste gebondenheid", "max" = "Hoogste gebondenheid"))) +
+  scale_y_reordered() +
+  coord_trans(x = "log2") +
+  labs(x = "Factor", y = NULL) +
+  custom_theme() +
+  theme(plot.title.position = "plot",
+        axis.text.x = element_text(angle = 90, size = 8), 
+        axis.text.y = element_text(size = 9),
+        strip.text.x = element_text(size = 8, hjust = 0, vjust = 0),
+        strip.text.y = element_text(size = 8, hjust = 0, vjust = 0))
 
-for (i in unique(PATDAT_slice$gebied)) {
-  df <- PATDAT_slice %>%
-    dplyr::filter(gebied == i)
-  
-  plot_list[[i]] <- ggplot(data = df, aes(x = factor + 0.0001, y = reorder(soort, factor))) +
-    geom_point(color = "#c04384", size = 1.5, show.legend = FALSE) +
-    geom_vline(xintercept = 1) +
-    coord_trans(x = "log2") +
-    labs(title = paste(i), x = "Factor", y = NULL) +
-    custom_theme() +
-    theme(plot.title.position = "plot",
-          axis.text.x = element_text(angle = 90))
-}
-
-final_plot <- wrap_plots(plot_list) + plot_layout(ncol = 2)
-
-print(final_plot)
-
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/PATDAT/PATDAT_perc_per_br.png",
-       width = 23, height = 27, units = "cm", dpi=300)
-ggsave("./radius/data/output/figuren/patdat_perc_per_br.png",
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/PATDAT/PATDAT_min_max_per_br.png",
+       width = 23, height = 25, units = "cm", dpi=300)
+ggsave("./radius/data/output/figuren/patdat_min_max_per_br.png",
        width = 23, height = 27, units = "cm", dpi=300)
 ```
 
