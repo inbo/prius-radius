@@ -277,6 +277,47 @@ mapshot(map_5, file = "G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/P
 ```
 
 
+
+```{r}
+list.dfs <- list(df_nbhp = data.frame(), df_patdat = data.frame())
+
+for (i in c("Siberische grondeekhoorn", "kleine waterteunisbloem", "sikahert", "Chinese moerasslak", "Turkse rivierkreeft")) { 
+  
+  occ_species <- occ_flanders %>%
+    st_transform(31370) %>%
+    filter(Soort == i) 
+  
+  occ_intersection_nbhp <- occ_species %>%
+    st_intersection(ps_nbhp) %>% 
+    st_drop_geometry() %>%
+    distinct() 
+
+  list.dfs[[1]] <- rbind(list.dfs[[1]], data.frame(occ_intersection_nbhp))
+  
+  occ_intersection_patdat <- occ_species %>%
+    st_intersection(am_patdat) %>% 
+    st_drop_geometry() %>%
+    distinct() 
+  
+  list.dfs[[2]] <- rbind(list.dfs[[2]], data.frame(occ_intersection_patdat))
+}
+
+# Samenvattingen maken
+df_nbhp_summary <- list.dfs[[1]] %>%
+  transmute(Soort, namdssr, ntrbhrp, egndmty) %>%
+  distinct()
+
+write_csv2(df_nbhp_summary, "G:/Mijn Drive/Fleur/RadIUS/Rapport/tabellen/voorkomen_nbhrplannen.csv")
+
+df_patdat_summary <- list.dfs[[2]] %>%
+  transmute(Soort, domennm, regio, rchtnnb) %>%
+  distinct()
+
+write_csv2(df_patdat_summary, "G:/Mijn Drive/Fleur/RadIUS/Rapport/tabellen/voorkomen_anbdomeinen.csv")
+
+```
+
+
 # DATA EXPLORATIE
 
 ## sporadische soorten
