@@ -80,9 +80,8 @@ ps_nbhp_wgs84 <- readRDSfromURL("https://github.com/inbo/prius-radius/raw/dashbo
 am_patdat_wgs84 <- readRDSfromURL("https://github.com/inbo/prius-radius/raw/dashboard/radius/data/spatial/WGS84/am_patdat_wgs84.rds") %>%
   rename(code = regio, naam = domeinnaam)
 
-#lu_sbp_pgs <- readRDSfromURL("https://github.com/inbo/prius-radius/raw/dashboard/radius/data/spatial/lu_sbp_pgs.rds") 
- 
-#lu_sbp_pls <- readRDSfromURL("https://github.com/inbo/prius-radius/raw/dashboard/radius/data/spatial/lu_sbp_pls.rds") 
+# lu_sbp_pgs <- readRDSfromURL("https://github.com/inbo/prius-radius/raw/dashboard/radius/data/spatial/lu_sbp_pgs.rds")
+# lu_sbp_pls <- readRDSfromURL("https://github.com/inbo/prius-radius/raw/dashboard/radius/data/spatial/lu_sbp_pls.rds")
 
 list_wfs <- list("Habitatrichtlijngebieden (SBZ-H)" = ps_hbtrl_wgs84, "Vogelrichtlijngebieden (SBZ-V)" = ps_vglrl_wgs84, "Natura 2000 Habitattypes" = n2khab_wgs84, "Natuurbeheerplannen" = ps_nbhp_wgs84, "ANB patrimonium" = am_patdat_wgs84)
 
@@ -145,10 +144,31 @@ SBP_pgs <- read.csv("https://raw.githubusercontent.com/inbo/prius-radius/main/ra
 
 SBP_pls <- read.csv("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/output/SBP_pls_long.csv")
 
-SBP_pls$deelgebied <- NA
 
-SBP <- rbind(SBP_pgs, SBP_pls)
+SBP_pls_extra <- read.csv("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/output/SBP_pls_extra.csv") %>%
+  filter(!gebied %in% c("clusters") & !type %in% c("in_bek", "of_bek", "in_deelbek", "of_deelbek", "in_sbp_al", "in_sbp_ul", "of_sbp_al", "of_sbp_ul")) %>%
+  mutate(deelgebied = NA) %>%
+  mutate(
+    deelgebied = case_when(
+      type %in% c("in_clust", "of_clust") ~ gebied,
+      TRUE ~ deelgebied  
+    ),
+    gebied = case_when(
+      type %in% c("in_clust", "of_clust") ~ NA,
+      type %in% c("in_sbp", "of_sbp") ~ gebied,
+      TRUE ~ gebied  
+    ),
+    type = case_when(
+      type %in% c("in_clust", "in_sbp") ~ "in",
+      type %in% c("of_clust", "of_sbp") ~ "of",
+      TRUE ~ type 
+    ) 
+  ) %>%
+  mutate(deelgebied = gsub("\\)$", "", deelgebied)) %>%
+  mutate(gebied = gsub("\\s{2,}", " ", gebied))
 
+
+SBP <- rbind(SBP_pgs, SBP_pls_extra)
 
 list_metrics <- list("Habitatrichtlijngebieden (SBZ-H)" = HBTRL, "Vogelrichtlijngebieden (SBZ-V)" = VGLRL, "Natura 2000 Habitattypes" = N2KHAB, "Natuurbeheerplannen" = NBHP, "ANB patrimonium" = PATDAT, "Soortenbeschermingsprogramma's (SBP's)" = SBP)
 
@@ -558,7 +578,7 @@ server <- function(input, output, session) {
     else if (input$kaart == "Soortenbeschermingsprogramma's (SBP's)") {
       list_metrics[[input$kaart]] %>%
         st_drop_geometry() %>%
-        filter(soort == input$soort & gebied == input$sbp & type %in% c("in", "of")) %>%
+        filter(soort == input$soort & (gebied == input$sbp | is.na(gebied)) & type %in% c("in", "of")) %>%
         rename(code = deelgebied) %>%
         left_join(species_list, by = c("soort" = "Soort"), relationship = "many-to-many") %>%
         select(soort, species, Groep, code, type, overlap, EU_lijst) %>%
@@ -633,7 +653,7 @@ server <- function(input, output, session) {
 
       selectizeInput("sbp",
                      label = "Soortenbeschermingsprogramma:",
-                     choices = c(unique(data$gebied)))
+                     choices = c(na.omit(unique(data$gebied))))
     } else {
       NULL
     }
@@ -845,6 +865,7 @@ server <- function(input, output, session) {
     
     if (nrow(metrics()) != 0) {
       if (input$kaart %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)", "Natura 2000 Habitattypes", "Soortenbeschermingsprogramma's (SBP's)")) {
+    
         df <- metrics() %>%
           filter(!is.na(code) & overlap != 0 & type == "in") %>%
           mutate(code = factor(code, levels = code)) %>%
