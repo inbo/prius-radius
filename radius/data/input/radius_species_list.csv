@@ -29,6 +29,7 @@ dier,"Myocastor coypus Molina, 1782",beverrat,"Myocastor coypus (Molina, 1782)",
 dier,"Nyctereutes procyonoides Gray, 1834",wasbeerhond,"Nyctereutes procyonoides (Gray, 1834)",2434552,2,0,0,0
 dier,"Ondatra zibethicus Linnaeus, 1766",muskusrat,"Ondatra zibethicus (Linnaeus, 1766)",5219858,2,0,0,0
 dier,"Faxonius limosus Rafinesque, 1817",gevlekte Amerikaanse rivierkreeft,"Faxonius limosus (Rafinesque, 1817)",8909595,1,0,0,0
+dier,"Faxonius virilis Hagen, 1870",geknobbelde Amerikaanse rivierkreeft,"Faxonius virilis (Hagen, 1870)",8971201,1,1,0,0
 dier,"Oxyura jamaicensis Gmelin, 1789",rosse stekelstaart,"Oxyura jamaicensis (J.F.Gmelin, 1789)",2498305,1,0,0,0
 dier,"Pacifastacus leniusculus Dana, 1852",Californische rivierkreeft,"Pacifastacus leniusculus (Dana, 1852)",2226990,1,0,0,0
 dier,"Procambarus clarkii Girard, 1852",rode Amerikaanse rivierkreeft,"Procambarus clarkii (Girard, 1852)",2227300,1,1,0,0
@@ -36,7 +37,6 @@ dier,"Procambarus virginalis Lyko, 2017",marmerkreeft,"Procambarus virginalis Ly
 dier,"Procyon lotor L., 1758",wasbeer,"Procyon lotor (Linnaeus, 1758)",5218786,1,0,0,0
 dier,"Pseudorasbora parva Temminck & Schlegel, 1846",blauwbandgrondel,"Pseudorasbora parva (Temminck & Schlegel, 1846)",2362868,1,0,0,0
 dier,"Sciurus carolinensis Gmelin, 1788",grijze eekhoorn,"Sciurus carolinensis Gmelin, 1788",5219681,1,0,0,0
-dier,"Sciurus niger L., 1758",Amerikaanse voseekhoorn,"Sciurus niger Linnaeus, 1758",5219683,1,0,0,0
 dier,"Tamias sibiricus Laxmann, 1769",Siberische grondeekhoorn,"Tamias sibiricus (Laxmann, 1769)",2437450,1,0,0,0
 dier,"Threskiornis aethiopicus Latham, 1790",heilige ibis,"Threskiornis aethiopicus (Latham, 1790)",2480764,1,0,0,0
 dier,"Trachemys scripta Schoepff, 1792",lettersierschildpad,"Trachemys scripta (Thunberg In Schoepff, 1792)",2443002,1,0,0,0

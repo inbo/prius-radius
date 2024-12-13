@@ -79,7 +79,7 @@ hasCoordinate <- TRUE
 
 ## Trigger download
 ```{r gbif-download}
-# Trigger new download
+#Trigger new download
 # gbif_downloadKey <- occ_download(
 #   pred_in("taxonKey", taxonKeys),
 #   pred_in("country", countries),
@@ -98,7 +98,7 @@ hasCoordinate <- TRUE
 #                                   forbid_reuse = TRUE))
 
 # Or reuse existing download
-gbif_downloadKey <- "0035514-240506114902167" # aangepast 23/05
+gbif_downloadKey <- "0033454-241126133413365" # aangepast 23/05
 ```
 
 ## Get GBIF download to computer
