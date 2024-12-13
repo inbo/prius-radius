@@ -829,7 +829,7 @@ server <- function(input, output, session) {
         name = "Overlap",
         data = data_list, 
         tooltip = list(
-          pointFormat = '<b>{point.y:.1f}</b> %', 
+          pointFormat = '<b>{point.y:.3f}</b> %', 
           style = list(color = "black", fontsize = '14px', fontWeight = 'bold')
         )
       ) %>%
@@ -884,9 +884,9 @@ server <- function(input, output, session) {
         hc_tooltip(
           headerFormat = '',
           pointFormat = tooltip_format <- if(input$kaart %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)", "Natura 2000 Habitattypes", "Soortenbeschermingsprogramma's (SBP's)")) {
-            '<b>{point.naam} ({point.category}): {point.y:.2f}%</b>'
+            '<b>{point.naam} ({point.category}): {point.y:.3f}%</b>'
           } else {
-            '<b>{point.category}: {point.y:.2f}%</b>'
+            '<b>{point.category}: {point.y:.3f}%</b>'
           },
           style = list(color = "black", fontsize = '14px', fontWeight = 'bold')
         ) %>%
@@ -957,7 +957,7 @@ server <- function(input, output, session) {
         name = "Overlap",
         data = data_list, 
         tooltip = list(
-          pointFormat = '<b>{point.y:.2f}</b> %', 
+          pointFormat = '<b>{point.y:.3f}</b> %', 
           style = list(color = "black", fontsize = '14px', fontWeight = 'bold')
         )
       ) %>%
@@ -1011,9 +1011,9 @@ server <- function(input, output, session) {
         hc_tooltip(
           headerFormat = '',
           pointFormat = tooltip_format <- if(input$kaart %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)", "Natura 2000 Habitattypes")) {
-            '<b>{point.naam} ({point.category}): {point.y:.2f}%</b>'
+            '<b>{point.naam} ({point.category}): {point.y:.3f}%</b>'
           } else {
-            '<b>{point.category}: {point.y:.2f}%</b>'
+            '<b>{point.category}: {point.y:.3f}%</b>'
           },
           style = list(color = "black", fontsize = '14px', fontWeight = 'bold')
         ) %>%
