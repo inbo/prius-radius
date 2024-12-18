@@ -334,13 +334,13 @@ ggplot() +
 # Add columns with abbreviations
 ```{r add-abbreviations-patdat}
 am_patdat <- am_patdat %>%
-  mutate(rechtenanb_abb = case_when(
-    rechtenanb == "Technisch beheer conform bosdecreet" ~ "Bosdec",
-    rechtenanb == "Eigendom" ~ "Eigend",
-    rechtenanb == "Huur" ~ "Huur",
-    rechtenanb == "Beheerovereenkomst" ~ "BehOve",
-    rechtenanb == "Protocol landsverdediging" ~ "ProLan",
-    rechtenanb == "Erfpacht" ~ "Erfpac")) %>%
+  mutate(rchtnnb_abb = case_when(
+    rchtnnb == "Technisch beheer conform bosdecreet" ~ "Bosdec",
+    rchtnnb == "Eigendom" ~ "Eigend",
+    rchtnnb == "Huur" ~ "Huur",
+    rchtnnb == "Beheerovereenkomst" ~ "BehOve",
+    rchtnnb == "Protocol landsverdediging" ~ "ProLan",
+    rchtnnb == "Erfpacht" ~ "Erfpac")) %>%
   mutate(regio_abb = case_when(
     regio == "Antwerpse Kempen" ~ "AntKem",
     regio == "Hoge Kempen tot Voeren" ~ "HKeVoe",
@@ -359,34 +359,34 @@ am_patdat <- am_patdat %>%
 waarom? Op workshop werd vermeld dat een heel groot deel van de ANB domeinen onder technisch beheer conform bosdecreet vallen en door boswachters in de praktijk niet worden meegerekend als eigen domeinen. 
 ```{r}
 am_patdat_excl_ob <- am_patdat %>%
-  filter(rechtenanb != "Technisch beheer conform bosdecreet")
+  filter(rchtnnb != "Technisch beheer conform bosdecreet")
 ```
 
 
 ```{r add-abbreviations-nbhp}
 ps_nbhp <- ps_nbhp %>%
-  mutate(natuurbeheerplantype_abb = case_when(
-    natuurbeheerplantype == "Natuurbeheerplan Type 1" ~ "Type1",
-    natuurbeheerplantype == "Natuurbeheerplan Type 2" ~ "Type2",
-    natuurbeheerplantype == "Natuurbeheerplan Type 3" ~ "Type3",
-    natuurbeheerplantype == "Natuurbeheerplan Type 4" ~ "Type4",
-    natuurbeheerplantype == "Uitgebreid Bosbeheerplan" ~ "BosbeU",
-    natuurbeheerplantype == "Beheerplan Militair domein" ~ "MilDom",
-    natuurbeheerplantype == "Vlaams Natuurreservaat" ~ "VNatre",
-    natuurbeheerplantype == "Aangewezen Bosreservaat" ~ "BosreA",
-    natuurbeheerplantype == "Harmonisch Park- en Groenbeheerplan" ~ "HarmPG",
-    natuurbeheerplantype == "Erkend Natuurreservaat" ~ "Natres",
-    natuurbeheerplantype == "Erkend Bosreservaat" ~ "BosreE",
-    natuurbeheerplantype == "Domein met natuurprotocol" ~ "DomNa")) %>%
-  mutate(eigendomtype_abb = case_when(
-    eigendomtype == "Natuurlijke persoon" ~ "NatPer",
-    eigendomtype == "Privaatrechtelijke rechtspersoon" ~ "PrivRec",
-    eigendomtype == "Agentschap voor Natuur en Bos" ~ "VOANB",
-    eigendomtype == "Bestuur" ~ "Bestuur",
-    eigendomtype == "Andere Vlaamse overheid" ~ "VOander",
-    eigendomtype == "Andere" ~ "Andere"
+  mutate(ntrbhrp_abb = case_when(
+    ntrbhrp == "Natuurbeheerplan Type 1" ~ "Type1",
+    ntrbhrp == "Natuurbeheerplan Type 2" ~ "Type2",
+    ntrbhrp == "Natuurbeheerplan Type 3" ~ "Type3",
+    ntrbhrp == "Natuurbeheerplan Type 4" ~ "Type4",
+    ntrbhrp == "Uitgebreid Bosbeheerplan" ~ "BosbeU",
+    ntrbhrp == "Beheerplan Militair domein" ~ "MilDom",
+    ntrbhrp == "Vlaams Natuurreservaat" ~ "VNatre",
+    ntrbhrp == "Aangewezen Bosreservaat" ~ "BosreA",
+    ntrbhrp == "Harmonisch Park- en Groenbeheerplan" ~ "HarmPG",
+    ntrbhrp == "Erkend Natuurreservaat" ~ "Natres",
+    ntrbhrp == "Erkend Bosreservaat" ~ "BosreE",
+    ntrbhrp == "Domein met natuurprotocol" ~ "DomNa")) %>%
+  mutate(egndmty_abb = case_when(
+    egndmty == "Natuurlijke persoon" ~ "NatPer",
+    egndmty == "Privaatrechtelijke rechtspersoon" ~ "PrivRec",
+    egndmty == "Agentschap voor Natuur en Bos" ~ "VOANB",
+    egndmty == "Bestuur" ~ "Bestuur",
+    egndmty == "Andere Vlaamse overheid" ~ "VOander",
+    egndmty == "Andere" ~ "Andere"
   )) %>%
-  filter(!is.na(eigendomtype))
+  filter(!is.na(egndmty))
 ```
 
 # Calculating occupancy metrics
@@ -453,7 +453,7 @@ for (i in unique(occ_flanders$Soort)) {
     
     gebied_summary <- gebied %>%
       st_drop_geometry() %>%
-      select(code = if (j == 1) "gebcode" else if (j == 2) "na2000code" else if (j == 3) "type" else if (j %in% c(4,5)) "regio_abb" else "eigendomtype_abb", geb_area) %>%
+      select(code = if (j == 1) "gebcode" else if (j == 2) "na2000code" else if (j == 3) "type" else if (j %in% c(4,5)) "regio_abb" else "egndmty_abb", geb_area) %>%
       group_by(code) %>%
       summarise(geb_area = as.numeric(sum(geb_area)))
     
@@ -533,9 +533,9 @@ for (i in unique(occ_flanders$Soort)) {
         # aantal bezette domeinen per type recht anb
         anb_rechten <- occ_species_intersection %>%
           st_drop_geometry() %>%
-          select(id, rechtenanb, rechtenanb_abb) %>%
+          select(id, rchtnnb, rchtnnb_abb) %>%
           unique() %>%
-          group_by(rechtenanb_abb) %>%
+          group_by(rchtnnb_abb) %>%
           summarise(n = n()) 
         
         for (row in 1:nrow(anb_rechten)) {
@@ -597,9 +597,9 @@ for (i in unique(occ_flanders$Soort)) {
         # aantal bezette domeinen per type natuurbeheerplan
         n_per_beheerplantype <- occ_species_intersection %>%
           st_drop_geometry() %>%
-          select(id, natuurbeheerplantype, natuurbeheerplantype_abb) %>%
+          select(id, ntrbhrp, ntrbhrp_abb) %>%
           unique() %>%
-          group_by(natuurbeheerplantype_abb) %>%
+          group_by(ntrbhrp_abb) %>%
           summarise(n = n())
         
         for (row in 1:nrow(n_per_beheerplantype)) {
@@ -614,28 +614,28 @@ for (i in unique(occ_flanders$Soort)) {
         print("aantal domeinen per nbhptype: DONE")
         
         # percentage overlap per eigendomtype
-        overlap_per_eigendomtype <- occ_species_intersection %>%
+        overlap_per_egndmty <- occ_species_intersection %>%
           st_drop_geometry() %>%
-          select(eigendomtype_abb, intersect_area) %>%
+          select(egndmty_abb, intersect_area) %>%
           unique() %>%
-          group_by(eigendomtype_abb) %>%
+          group_by(egndmty_abb) %>%
           summarise(intersect_area = sum(intersect_area)) %>%
           arrange() %>%
-          full_join(gebied_summary, by = c("eigendomtype_abb" = "code")) %>%
+          full_join(gebied_summary, by = c("egndmty_abb" = "code")) %>%
           na.replace(0)
         
-        for (row in 1: nrow(overlap_per_eigendomtype)) {
+        for (row in 1: nrow(overlap_per_egndmty)) {
           # OPTIE 1: percentage van overlap met NBHP dat overlapt per eigendomtype
-          # percentage_overlap_in = as.numeric(overlap_per_eigendomtype[row,]$intersect_area / overlap_intersection)
+          # percentage_overlap_in = as.numeric(overlap_per_egndmty[row,]$intersect_area / overlap_intersection)
           # OPTIE 2: percentage van totale verspreiding dat overlapt per eigendomtype
-          percentage_overlap_in = overlap_per_eigendomtype[row,]$intersect_area / total_area
-          percentage_overlap_of = overlap_per_eigendomtype[row,]$intersect_area / overlap_per_eigendomtype[row,]$geb_area
+          percentage_overlap_in = overlap_per_egndmty[row,]$intersect_area / total_area
+          percentage_overlap_of = overlap_per_egndmty[row,]$intersect_area / overlap_per_egndmty[row,]$geb_area
           
           metrics_df <- data.frame(
             soort = i,
             species = paste(unique(occ_species$Species), collapse = ","), 
             abbr = unique(na.omit(occ_species$abbr)), 
-            gebied = as.character(overlap_per_eigendomtype[row,1]),
+            gebied = as.character(overlap_per_egndmty[row,1]),
             overlap = format(round(c(percentage_overlap_in, percentage_overlap_of), 6), scientific = FALSE), 
             type = paste0(c("in", "of")))
           
@@ -648,7 +648,7 @@ for (i in unique(occ_flanders$Soort)) {
       if (j %in% c(1,2,6)) {
         print("top 3 hbtrl, vglrl, nbhp")
         top_3 <- occ_species_intersection %>%
-          group_by(naam = if (j == 2) gebnaam else if (j == 6) naamdossier else naam) %>%
+          group_by(naam = if (j == 2) gebnaam else if (j == 6) namdssr else naam) %>%
           summarise(intersect_area = sum(intersect_area)) %>%
           slice_max(order_by = intersect_area, n = 3, na_rm = TRUE) %>%
           st_drop_geometry()
@@ -685,7 +685,7 @@ for (i in unique(occ_flanders$Soort)) {
         print("top 3 anb regio: DONE")
         
         top_3_domein <- occ_species_intersection %>%
-          group_by(domeinnaam) %>%
+          group_by(domennm) %>%
           summarise(intersect_area = sum(intersect_area)) %>%
           slice_max(order_by = intersect_area, n = 3, na_rm = TRUE) %>%
           st_drop_geometry()
@@ -959,7 +959,7 @@ ggplot() +
 
 
 ```{r}
-sbp_pls_species <- c("Amerikaanse stierkikker", "Kesslergrondel", "Pontische stroomgrondel", "marmergrondel", "zwartbekgrondel", "Californische rivierkreeft", "gestreepte Amerikaanse rivierkreeft", "gevlekte Amerikaanse rivierkreeft", "rode Amerikaanse rivierkreeft", "Turkse rivierkreeft","Chinese wolhandkrab"
+sbp_pls_species <- c("Amerikaanse stierkikker", "Kesslergrondel", "Pontische stroomgrondel", "marmergrondel", "zwartbekgrondel", "Californische rivierkreeft", "gestreepte Amerikaanse rivierkreeft", "gevlekte Amerikaanse rivierkreeft","geknobbelde Amerikaanse rivierkreeft", "rode Amerikaanse rivierkreeft", "Turkse rivierkreeft","Chinese wolhandkrab"
 ) 
 
 list.dfs <- list(
