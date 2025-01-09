@@ -1014,7 +1014,7 @@ server <- function(input, output, session) {
           NULL
         } else {
           chart <- highchart() %>%
-            hc_chart(type = 'bar', height = 550) %>%
+            hc_chart(type = 'bar', height = 500) %>%
             hc_xAxis(categories = df$code, title = list(text = ""), labels = list(fontSize = "8px", step = 1)) %>%
             hc_yAxis(title = list(text = 'Overlap (%)'), labels = list(format = '{value}%')) %>%
             hc_plotOptions(
@@ -1054,7 +1054,7 @@ server <- function(input, output, session) {
       } 
       else {
         chart <- highchart() %>%
-          hc_chart(type = 'bar', height = 550) %>%
+          hc_chart(type = 'bar', height = 500) %>%
           hc_xAxis(categories = df$code, title = list(text = ""), labels = list(fontSize = "8px", step = 1)) %>%
           hc_yAxis(title = list(text = 'Overlap (%)'), labels = list(format = '{value}%')) %>%
           hc_plotOptions(
@@ -1186,7 +1186,7 @@ server <- function(input, output, session) {
           NULL
         } else {
           chart <- highchart() %>%
-            hc_chart(type = 'bar', height = 550) %>%
+            hc_chart(type = 'bar', height = 500) %>%
             hc_xAxis(categories = df$code, title = list(text = ""), labels = list(fontSize = "8px", step = 1)) %>%
             hc_yAxis(title = list(text = 'Overlap (%)'), labels = list(format = '{value}%')) %>%
             hc_plotOptions(
@@ -1226,7 +1226,7 @@ server <- function(input, output, session) {
       } 
       else {
         chart <- highchart() %>%
-          hc_chart(type = 'bar', height = 550) %>%
+          hc_chart(type = 'bar', height = 500) %>%
           hc_xAxis(categories = df$code, title = list(text = ""), labels = list(fontSize = "8px", step = 1)) %>%
           hc_yAxis(title = list(text = 'Overlap (%)'), labels = list(format = '{value}%')) %>%
           hc_plotOptions(
@@ -1283,11 +1283,11 @@ server <- function(input, output, session) {
         addProviderTiles(providers$OpenStreetMap, group = "OSM (default)") %>%
         addProviderTiles(providers$Esri.WorldImagery, group = "Satellite") %>%
         addPolygons(data = Provincies_grenzen, color = "black", fillColor = "#f0f0f0", weight = 0.5, group = "Provincies") %>%
-        addPolygons(data = list_wfs[[input$kaart]], color = "black", fillColor = "lightgrey", opacity = 0.7, weight = 0.5, fillOpacity = 1, label = ~paste0(naam, " (", code, "): 0%"), highlight = highlightOptions(stroke = TRUE, color = "black", weight = 2)) 
+        addPolygons(data = list_wfs[[input$kaart]], color = "black", fillColor = "lightgrey", opacity = 0.7, weight = 0.5, fillOpacity = 0, label = ~paste0(naam, " (", code, "): 0%"), highlight = highlightOptions(stroke = TRUE, color = "black", weight = 2)) 
       
       if(nrow(metrics) != 0) {
         map <- map %>%
-          addPolygons(data = metrics, color = "black", fillColor = ~pal_gebondenheid()(overlap), opacity = 1, weight = 0.5, fillOpacity = 1, label = ~paste0(naam, " (", gebied, "): ", round(overlap * 100, 1), "%"), highlight = highlightOptions(stroke = TRUE, color = "black", weight = 2))
+          addPolygons(data = metrics, color = "black", fillColor = ~pal_gebondenheid()(overlap), opacity = 1, weight = 0.5, fillOpacity = 0.7, label = ~paste0(naam, " (", gebied, "): ", round(overlap * 100, 1), "%"), highlight = highlightOptions(stroke = TRUE, color = "black", weight = 2))
       }
       
       map <- map %>%
