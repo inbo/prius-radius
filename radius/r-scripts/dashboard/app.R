@@ -1362,11 +1362,22 @@ server <- function(input, output, session) {
         transmute(soort, species, abbr, Groep, code = gebied, type, overlap, EU_lijst) %>%
         distinct()
     }
-    else {
-      data <- data %>% 
-        filter(gebied == input$sbp2 & type %in% c("in", "of")) %>% # & soort %in% input$selected_species
-        transmute(soort, species, abbr, Groep, code = gebied, deelgebied, type, overlap, EU_lijst) %>%
-        distinct()
+    else if (input$kaart2 == "Soortenbeschermingsprogramma's (SBP's)"){
+      
+      if (input$sbp2 %in% c("SBP Beekprik", "SBP Kleine Modderkruiper", "SBP Rivierdonderpad")) {
+        list_metrics[[input$kaart2]] %>%
+          st_drop_geometry() %>%
+          filter((gebied == input$sbp2 | is.na(gebied)) & type %in% c("in", "of")) %>%
+          transmute(soort, species, abbr, gebied, code = deelgebied, type, overlap, EU_lijst) %>%
+          distinct()
+        
+      } else {
+        list_metrics[[input$kaart2]] %>%
+          st_drop_geometry() %>%
+          filter((gebied == input$sbp2) & type %in% c("in", "of")) %>%
+          transmute(soort, species, abbr, gebied, code = deelgebied, type, overlap, EU_lijst) %>%
+          distinct()
+      }
     }
     
     filtered_data <- switch(input$soort_selectie,
@@ -1398,9 +1409,8 @@ server <- function(input, output, session) {
     
     else if (input$kaart2 == "Soortenbeschermingsprogramma's (SBP's)") {
       df <- metrics2() %>%
-        filter(!is.na(deelgebied) & type == "of" & overlap != 0) %>%
-        group_by(deelgebied) %>%
-        rename(code = deelgebied) %>%
+        filter(!is.na(code) & type == "of" & overlap != 0) %>%
+        group_by(code) %>%
         summarise(y = n()) %>%
         arrange(desc(y))
     }
@@ -1423,7 +1433,7 @@ server <- function(input, output, session) {
       tagList(
         selectizeInput("sbp2", 
                        label = "Soortenbeschermingsprogramma:", 
-                       choices = unique(list_metrics[[input$kaart2]]$gebied),
+                       choices = na.omit(unique(list_metrics[[input$kaart2]]$gebied)),
                        selected = NULL),
         # uiOutput("sbp_deelgebied_ui"),
         # selectizeInput("selected_species",
@@ -1796,7 +1806,7 @@ server <- function(input, output, session) {
     }
     else if (input$kaart2 == "Soortenbeschermingsprogramma's (SBP's)") {
       data <- metrics2() %>%
-        filter(is.na(deelgebied) & type == "of")
+        filter(is.na(code) & type == "of")
     }
     
     
@@ -1879,7 +1889,7 @@ server <- function(input, output, session) {
     }
     else if (input$kaart2 == "Soortenbeschermingsprogramma's (SBP's)") {
       df <- metrics2() %>%
-        filter(!is.na(deelgebied) & type == "of" & overlap != 0) %>%
+        filter(!is.na(code) & type == "of" & overlap != 0) %>%
         group_by(soort) %>%
         summarise(y = n()) %>%
         arrange(desc(y)) 
@@ -1952,7 +1962,7 @@ server <- function(input, output, session) {
     }
     else if (input$kaart2 == "Soortenbeschermingsprogramma's (SBP's)") {
       data <- metrics2() %>%
-        filter(is.na(deelgebied) & type == "in")
+        filter(is.na(code) & type == "in")
     }
     
     
@@ -2026,8 +2036,7 @@ server <- function(input, output, session) {
         hc_xAxis(categories = df$code, title = list(text = ""), labels = list(rotation = -0, fontSize = "8px", step = 1)) %>%
         hc_yAxis(title = list(text = '# soorten'), labels = list(format = '{value}'), min = 0) %>%  
         hc_plotOptions(
-          bar = list( 
-            color = "#CCCCCC", 
+          bar = list(
             dataLabels = list(enabled = TRUE, format = '{point.y:.0f}'), 
             borderColor = "black",
             borderWidth = 0.2,
@@ -2047,7 +2056,11 @@ server <- function(input, output, session) {
         hc_add_theme(hc_theme_elementary()) %>%
         hc_add_series(
           name = "Overlap (%)",
-          data = df$y,
+          data = if (input$kaart %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)", "Natura 2000 Habitattypes")) {
+            df %>% select(y, naam) %>% list_parse()
+          } else {
+            df$y
+          },
           color = "#ecc7da"
         ) %>%
         hc_legend(enabled = FALSE)
