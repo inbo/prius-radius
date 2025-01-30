@@ -2046,11 +2046,7 @@ server <- function(input, output, session) {
         ) %>%
         hc_tooltip(
           headerFormat = '',
-          pointFormat = tooltip_format <- if(input$kaart2 %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)", "Natura 2000 Habitattypes", "Soortenbeschermingsprogramma's (SBP's)")) {
-            '<b>{point.naam} ({point.category}): {point.y:.2f}%</b>'
-          } else {
-            '<b>{point.category}: {point.y:.2f}%</b>'
-          },
+          pointFormat = '<b>{point.category}: {point.y:.0f}</b>',
           style = list(color = "black", fontsize = '14px', fontWeight = 'bold')
         ) %>%
         hc_add_theme(hc_theme_elementary()) %>%
