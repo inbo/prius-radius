@@ -568,7 +568,7 @@ ui <- page_navbar(
            
            fluidRow(
              column(12,
-                    p(paste("Laatste update van het dashboard: 7 januari 2025"), 
+                    p(paste("Laatste update van het dashboard: 30 januari 2025"), 
                       style = "text-align: right; margin-bottom: 1px; font-size: 11px; font-style: italic; color: #888;"),
                     p("*Let op: Deze datum betreft de laatste update van het dashboard zelf, niet van de onderliggende data.", 
                       style = "text-align: right; font-size: 10px; font-style: italic; color: #888;")
@@ -2046,13 +2046,22 @@ server <- function(input, output, session) {
         ) %>%
         hc_tooltip(
           headerFormat = '',
-          pointFormat = '<b>{point.category}: {point.y:.0f}</b>',
+          pointFormat = tooltip_format <- if(input$kaart2 %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)", "Natura 2000 Habitattypes")) {
+            '<b>{point.naam} ({point.category}): {point.y:.0f}</b>'
+          } else {
+            '<b>{point.category}: {point.y:.0f}</b>'
+          },
           style = list(color = "black", fontsize = '14px', fontWeight = 'bold')
         ) %>%
+        # hc_tooltip(
+        #   headerFormat = '',
+        #   pointFormat = '<b>{point.category}: {point.y:.0f}</b>',
+        #   style = list(color = "black", fontsize = '14px', fontWeight = 'bold')
+        # ) %>%
         hc_add_theme(hc_theme_elementary()) %>%
         hc_add_series(
           name = "Overlap (%)",
-          data = if (input$kaart %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)", "Natura 2000 Habitattypes")) {
+          data = if (input$kaart2 %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)", "Natura 2000 Habitattypes")) {
             df %>% select(y, naam) %>% list_parse()
           } else {
             df$y
