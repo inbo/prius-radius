@@ -522,7 +522,7 @@ ui <- page_navbar(
            fluidRow(
              column(12,
                     h2("Analyse", class = "h1"),
-                    p("Gekende puntlocaties werden omgezet in wolkvormige polygonen, waarna de overlap met de verschillende terreinen werd bepaald. Voor de omzetting werd een buffer toegepast. Een sensitiviteitsanalyse wees 100m aan als een geschikte radius voor de berekening van de rangschikking van soorten.", class = "p"),
+                    p("Gekende puntlocaties werden omgezet in wolkvormige polygonen, waarna de overlap met de verschillende terreinen werd bepaald. Voor de omzetting werd een buffer van 100m toegepast.", class = "p"),
                     p("De analyse beschouwt twee belangrijke aspecten:", class = "p"),
                     tags$ol(
                       tags$li("Bezetting: Het aandeel (percentage) van het oppervlak van gebied X dat door de soort wordt bedekt."),
@@ -568,7 +568,7 @@ ui <- page_navbar(
            
            fluidRow(
              column(12,
-                    p(paste("Laatste update van het dashboard: 30 januari 2025"), 
+                    p(paste("Laatste update van het dashboard: 9 april 2025"), 
                       style = "text-align: right; margin-bottom: 1px; font-size: 11px; font-style: italic; color: #888;"),
                     p("*Let op: Deze datum betreft de laatste update van het dashboard zelf, niet van de onderliggende data.", 
                       style = "text-align: right; font-size: 10px; font-style: italic; color: #888;")
@@ -1365,15 +1365,13 @@ server <- function(input, output, session) {
     else if (input$kaart2 == "Soortenbeschermingsprogramma's (SBP's)"){
       
       if (input$sbp2 %in% c("SBP Beekprik", "SBP Kleine Modderkruiper", "SBP Rivierdonderpad")) {
-        list_metrics[[input$kaart2]] %>%
-          st_drop_geometry() %>%
+        data <- data %>%
           filter((gebied == input$sbp2 | is.na(gebied)) & type %in% c("in", "of")) %>%
           transmute(soort, species, abbr, gebied, code = deelgebied, type, overlap, EU_lijst) %>%
           distinct()
         
       } else {
-        list_metrics[[input$kaart2]] %>%
-          st_drop_geometry() %>%
+        data <- data %>%
           filter((gebied == input$sbp2) & type %in% c("in", "of")) %>%
           transmute(soort, species, abbr, gebied, code = deelgebied, type, overlap, EU_lijst) %>%
           distinct()
@@ -1918,7 +1916,7 @@ server <- function(input, output, session) {
         ) %>%
         hc_tooltip(
           headerFormat = '',
-          pointFormat = '<b>{point.category}: {point.y:.0f}</b>',
+          pointFormat = '<b>{point.category}: {point.y:.0f} gebieden</b>',
           style = list(color = "black", fontsize = '14px', fontWeight = 'bold')
         ) %>%
         hc_chart(backgroundColor = 'rgba(0, 0, 0, 0)') %>%
@@ -2047,9 +2045,9 @@ server <- function(input, output, session) {
         hc_tooltip(
           headerFormat = '',
           pointFormat = tooltip_format <- if(input$kaart2 %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)", "Natura 2000 Habitattypes")) {
-            '<b>{point.naam} ({point.category}): {point.y:.0f}</b>'
+            '<b>{point.naam} ({point.category}): {point.y:.0f} soorten</b>'
           } else {
-            '<b>{point.category}: {point.y:.0f}</b>'
+            '<b>{point.category}: {point.y:.0f} soorten</b>'
           },
           style = list(color = "black", fontsize = '14px', fontWeight = 'bold')
         ) %>%
