@@ -18,6 +18,9 @@ library(rsconnect)
 library(ggtext)
 library(ggthemes)
 
+options(repos = c(CRAN = "https://cloud.r-project.org"))
+library(terra)
+
 # Custom plot theme
 
 custom_theme <- function() {
@@ -45,155 +48,19 @@ custom_theme <- function() {
 ##### DATA INLEZEN VOOR PUBLISHING
 # Data inlezen
 ## Spatial data
-Vlaanderen_grenzen <- st_read("https://raw.githubusercontent.com/inbo/prius-radius/main/prius/data/spatial/flanders_wgs84.geojson")
-Provincies_grenzen <- st_read("https://raw.githubusercontent.com/inbo/prius-radius/main/prius/data/spatial/Provincies.geojson")
-
-readRDSfromURL <- function(url) {
-  temp <- tempfile(fileext = ".rds")
-  download.file(url, temp, mode = "wb")
-  readRDS(temp)
-}
-
-ps_hbtrl_deel <- readRDSfromURL("https://github.com/inbo/prius-radius/raw/dashboard/radius/data/spatial/ps_hbtrl_deel.rds") %>%
-  rename(code = gebcode)
-
-#ps_hbtrl_deel$geom <- st_sfc(ps_hbtrl_deel$geometry)
-
-#Samenvatting van ps_hbtrl_deel zodat ik één rij/1 MULTIPOLYGON krijg per gebied
-ps_hbtrl_wgs84 <- ps_hbtrl_deel %>%
-  st_set_crs(31370) %>%
-  group_by(code, naam, gebopp_ha) %>%
-  summarise(geometry = sf::st_union(geom)) %>%
-  ungroup() %>%
-  st_transform(4326) %>%
-  sf::st_cast("MULTIPOLYGON")
-
-ps_vglrl_wgs84 <- readRDSfromURL("https://github.com/inbo/prius-radius/raw/dashboard/radius/data/spatial/WGS84/ps_vglrl_wgs84.rds") %>%
-  rename(code = na2000code, naam = gebnaam)
-
-n2khab_wgs84 <- readRDSfromURL("https://github.com/inbo/prius-radius/raw/dashboard/radius/data/spatial/WGS84/n2khab_wgs84.rds") %>%
-  rename(code = type, naam = name)
-
-ps_nbhp_wgs84 <- readRDSfromURL("https://github.com/inbo/prius-radius/raw/dashboard/radius/data/spatial/WGS84/ps_nbhp_wgs84.rds") %>%
-  rename(code = eigendomtype, naam = natuurbeheerplantype)
-
-am_patdat_wgs84 <- readRDSfromURL("https://github.com/inbo/prius-radius/raw/dashboard/radius/data/spatial/WGS84/am_patdat_wgs84.rds") %>%
-  rename(code = regio, naam = domeinnaam)
-
-# lu_sbp_pgs <- readRDSfromURL("https://github.com/inbo/prius-radius/raw/dashboard/radius/data/spatial/lu_sbp_pgs.rds")
-# lu_sbp_pls <- readRDSfromURL("https://github.com/inbo/prius-radius/raw/dashboard/radius/data/spatial/lu_sbp_pls.rds")
-
-list_wfs <- list("Habitatrichtlijngebieden (SBZ-H)" = ps_hbtrl_wgs84, "Vogelrichtlijngebieden (SBZ-V)" = ps_vglrl_wgs84, "Natura 2000 Habitattypes" = n2khab_wgs84, "Natuurbeheerplannen" = ps_nbhp_wgs84, "ANB patrimonium" = am_patdat_wgs84)
-
-## Metric data
-HBTRL <- ps_hbtrl_wgs84 %>%
-  right_join(read.csv("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/output/HBTRL_long.csv"), by = c("code" = "gebied"), keep = TRUE)
-VGLRL <- ps_vglrl_wgs84 %>%
-  right_join(read.csv("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/output/VGLRL_long.csv"), by = c("code" = "gebied"), keep = TRUE)
-N2KHAB <- n2khab_wgs84 %>%
-  right_join(read.csv("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/output/N2KHAB_long.csv"), by = c("code" = "gebied"), keep = TRUE)
-NBHP <- read.csv("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/output/NBHP_long.csv") %>%
-  mutate(gebied = case_when(
-    gebied == "Type1" ~ "Natuurbeheerplan Type 1",
-    gebied == "Type2" ~ "Natuurbeheerplan Type 2",
-    gebied == "Type3" ~ "Natuurbeheerplan Type 3",
-    gebied == "Type4" ~ "Natuurbeheerplan Type 4",
-    gebied == "BosbeU" ~ "Uitgebreid Bosbeheerplan",
-    gebied == "MilDom" ~ "Beheerplan Militair domein",
-    gebied == "VNatre" ~ "Vlaams Natuurreservaat",
-    gebied == "BosreA" ~ "Aangewezen Bosreservaat",
-    gebied == "HarmPG" ~ "Harmonisch Park- en Groenbeheerplan",
-    gebied == "Natres" ~ "Erkend Natuurreservaat",
-    gebied == "BosreE" ~ "Erkend Bosreservaat",
-    gebied == "NatPer" ~ "Natuurlijke persoon",
-    gebied == "PrivRec" ~ "Privaatrechtelijke rechtspersoon",
-    gebied == "VOANB" ~ "Agentschap voor Natuur en Bos",
-    gebied == "Bestuur" ~ "Bestuur",
-    gebied == "VOander" ~ "Andere Vlaamse overheid",
-    gebied == "Andere" ~ "Andere",
-    gebied == "DomNa" ~ "Domein met natuurprotocol",
-    TRUE ~ gebied
-  ))
-
-PATDAT <- read.csv("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/output/PATDAT_incl_ob_long.csv") %>%
-  mutate(gebied = case_when(
-    gebied == "Bosdec" ~ "Technisch beheer conform bosdecreet",
-    gebied == "Eigend" ~ "Eigendom",
-    gebied == "Huur" ~ "Huur",
-    gebied == "BehOve" ~ "Beheerovereenkomst",
-    gebied == "ProLan" ~ "Protocol landsverdediging",
-    gebied == "Erfpac" ~ "Erfpacht",
-    gebied == "AntKem" ~ "Antwerpse Kempen",
-    gebied == "HKeVoe" ~ "Hoge Kempen tot Voeren",
-    gebied == "GroGor" ~ "Groene Gordels",
-    gebied == "BraWou" ~ "Brabantse Wouden",
-    gebied == "DemZKe" ~ "Demerland & Zuiderkempen",
-    gebied == "VArSch" ~ "Vlaamse Ardennen & Schelde-Leie",
-    gebied == "KusWes" ~ "Kust & Westhoek",
-    gebied == "Taxand" ~ "Taxandria",
-    gebied == "LtHKem" ~ "Lage tot aan Hoge Kempen",
-    gebied == "ZanVla" ~ "Zandig Vlaanderen",
-    TRUE ~ gebied))
-
-SBP_pgs <- read.csv("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/output/SBP_pgs_long.csv") %>%
-  separate(gebied, into = c("gebied", "deelgebied"), sep = "\\s*\\(\\s*", fill = "right") %>%
-  mutate(deelgebied = gsub("\\)$", "", deelgebied)) %>%
-  mutate(gebied = gsub("\\s{2,}", " ", gebied)) %>%
-  arrange(gebied)
-
-
-SBP_pls <- read.csv("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/output/SBP_pls_long.csv") %>%
-  mutate(deelgebied = NA) %>%
-  filter(! soort %in% c("Amerikaanse stierkikker", "Chinese wolhandkrab", "gevlekte Amerikaanse rivierkreeft", "zwartbekgrondel", "gestreepte Amerikaanse rivierkreeft", "marmergrondel", "rode Amerikaanse rivierkreeft", "Kesslergrondel", "Turkse rivierkreeft", "Pontische stroomgrondel", "geknobbelde Amerikaanse rivierkreeft", "Californische rivierkreeft")) %>%
-  mutate(gebied = gsub("\\s{2,}", " ", gebied))
-
-
-SBP_pls_extra <- read.csv("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/output/SBP_pls_extra.csv") %>%
-  filter(!gebied %in% c("clusters") & !type %in% c("in_bek", "of_bek", "in_deelbek", "of_deelbek", "in_sbp_al", "in_sbp_ul", "of_sbp_al", "of_sbp_ul")) %>%
-  mutate(deelgebied = NA) %>%
-  mutate(
-    deelgebied = case_when(
-      type %in% c("in_clust", "of_clust") ~ gebied,
-      TRUE ~ deelgebied  
-    ),
-    gebied = case_when(
-      type %in% c("in_clust", "of_clust") ~ NA,
-      type %in% c("in_sbp", "of_sbp") ~ gebied,
-      TRUE ~ gebied  
-    ),
-    type = case_when(
-      type %in% c("in_clust", "in_sbp") ~ "in",
-      type %in% c("of_clust", "of_sbp") ~ "of",
-      TRUE ~ type 
-    ) 
-  ) %>%
-  mutate(deelgebied = gsub("\\)$", "", deelgebied)) %>%
-  mutate(gebied = gsub("\\s{2,}", " ", gebied))
-
-
-SBP <- rbind(SBP_pgs, SBP_pls, SBP_pls_extra)
-
-list_metrics <- list("Habitatrichtlijngebieden (SBZ-H)" = HBTRL, "Vogelrichtlijngebieden (SBZ-V)" = VGLRL, "Natura 2000 Habitattypes" = N2KHAB, "Natuurbeheerplannen" = NBHP, "ANB patrimonium" = PATDAT, "Soortenbeschermingsprogramma's (SBP's)" = SBP)
-
-## Species data
-species_list <- read_csv("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/input/radius_species_list.csv")
-
-occ_flanders <- read.csv("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/input/gbif_occ_flanders.csv") %>%
-  st_as_sf(coords = c("decimalLongitude", "decimalLatitude"), crs = "+proj=longlat +datum=WGS84") %>%
-  arrange(Soort, .locale = "en")
-
-habitats <- read_csv2("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/input/toewijzing_habitats.csv", col_types = cols(code = col_character()))
-
-##### DATA INLEZEN VOOR TESTEN APP
-
-# # Data inlezen
-# ## Spatial data
-# Vlaanderen_grenzen <- st_read("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/prius/data/spatial/flanders_wgs84.geojson")
-# Provincies_grenzen <- st_read("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/prius/data/spatial/Provincies.geojson")
+# Vlaanderen_grenzen <- st_read("https://raw.githubusercontent.com/inbo/prius-radius/main/prius/data/spatial/flanders_wgs84.geojson")
+# Provincies_grenzen <- st_read("https://raw.githubusercontent.com/inbo/prius-radius/main/prius/data/spatial/Provincies.geojson")
 # 
+# readRDSfromURL <- function(url) {
+#   temp <- tempfile(fileext = ".rds")
+#   download.file(url, temp, mode = "wb")
+#   readRDS(temp)
+# }
 # 
-# ps_hbtrl_deel <- readRDS("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/radius/data/spatial/ps_hbtrl_deel.rds") %>%
+# ps_hbtrl_deel <- readRDSfromURL("https://github.com/inbo/prius-radius/raw/dashboard/radius/data/spatial/ps_hbtrl_deel.rds") %>%
 #   rename(code = gebcode)
+# 
+# #ps_hbtrl_deel$geom <- st_sfc(ps_hbtrl_deel$geometry)
 # 
 # #Samenvatting van ps_hbtrl_deel zodat ik één rij/1 MULTIPOLYGON krijg per gebied
 # ps_hbtrl_wgs84 <- ps_hbtrl_deel %>%
@@ -204,30 +71,72 @@ habitats <- read_csv2("https://raw.githubusercontent.com/inbo/prius-radius/main/
 #   st_transform(4326) %>%
 #   sf::st_cast("MULTIPOLYGON")
 # 
-# ps_vglrl_wgs84 <- st_read("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/radius/data/spatial/WGS84/ps_vglrl_wgs84.shp") %>%
+# ps_vglrl_wgs84 <- readRDSfromURL("https://github.com/inbo/prius-radius/raw/dashboard/radius/data/spatial/WGS84/ps_vglrl_wgs84.rds") %>%
 #   rename(code = na2000code, naam = gebnaam)
 # 
-# n2khab_wgs84 <- readRDS("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/radius/data/spatial/WGS84/n2khab_wgs84.rds") %>%
+# n2khab_wgs84 <- readRDSfromURL("https://github.com/inbo/prius-radius/raw/dashboard/radius/data/spatial/WGS84/n2khab_wgs84.rds") %>%
 #   rename(code = type, naam = name)
 # 
-# ps_nbhp_wgs84 <- readRDS("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/radius/data/spatial/WGS84/ps_nbhp_wgs84.rds") %>%
+# ps_nbhp_wgs84 <- readRDSfromURL("https://github.com/inbo/prius-radius/raw/dashboard/radius/data/spatial/WGS84/ps_nbhp_wgs84.rds") %>%
 #   rename(code = eigendomtype, naam = natuurbeheerplantype)
 # 
-# am_patdat_wgs84 <- readRDS("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/radius/data/spatial/WGS84/am_patdat_wgs84.rds") %>%
+# am_patdat_wgs84 <- readRDSfromURL("https://github.com/inbo/prius-radius/raw/dashboard/radius/data/spatial/WGS84/am_patdat_wgs84.rds") %>%
 #   rename(code = regio, naam = domeinnaam)
+# 
+# # lu_sbp_pgs <- readRDSfromURL("https://github.com/inbo/prius-radius/raw/dashboard/radius/data/spatial/lu_sbp_pgs.rds")
+# # lu_sbp_pls <- readRDSfromURL("https://github.com/inbo/prius-radius/raw/dashboard/radius/data/spatial/lu_sbp_pls.rds")
 # 
 # list_wfs <- list("Habitatrichtlijngebieden (SBZ-H)" = ps_hbtrl_wgs84, "Vogelrichtlijngebieden (SBZ-V)" = ps_vglrl_wgs84, "Natura 2000 Habitattypes" = n2khab_wgs84, "Natuurbeheerplannen" = ps_nbhp_wgs84, "ANB patrimonium" = am_patdat_wgs84)
 # 
 # ## Metric data
 # HBTRL <- ps_hbtrl_wgs84 %>%
-#   right_join(read.csv("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/radius/data/output/HBTRL_long.csv"), by = c("code" = "gebied"), keep = TRUE)
+#   right_join(read.csv("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/output/HBTRL_long.csv"), by = c("code" = "gebied"), keep = TRUE)
 # VGLRL <- ps_vglrl_wgs84 %>%
-#   right_join(read.csv("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/radius/data/output/VGLRL_long.csv"), by = c("code" = "gebied"), keep = TRUE)
+#   right_join(read.csv("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/output/VGLRL_long.csv"), by = c("code" = "gebied"), keep = TRUE)
 # N2KHAB <- n2khab_wgs84 %>%
-#   right_join(read.csv("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/radius/data/output/N2KHAB_long.csv"), by = c("code" = "gebied"), keep = TRUE)
-# NBHP <- read.csv("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/radius/data/output/NBHP_long.csv")
+#   right_join(read.csv("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/output/N2KHAB_long.csv"), by = c("code" = "gebied"), keep = TRUE)
+# NBHP <- read.csv("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/output/NBHP_long.csv") %>%
+#   mutate(gebied = case_when(
+#     gebied == "Type1" ~ "Natuurbeheerplan Type 1",
+#     gebied == "Type2" ~ "Natuurbeheerplan Type 2",
+#     gebied == "Type3" ~ "Natuurbeheerplan Type 3",
+#     gebied == "Type4" ~ "Natuurbeheerplan Type 4",
+#     gebied == "BosbeU" ~ "Uitgebreid Bosbeheerplan",
+#     gebied == "MilDom" ~ "Beheerplan Militair domein",
+#     gebied == "VNatre" ~ "Vlaams Natuurreservaat",
+#     gebied == "BosreA" ~ "Aangewezen Bosreservaat",
+#     gebied == "HarmPG" ~ "Harmonisch Park- en Groenbeheerplan",
+#     gebied == "Natres" ~ "Erkend Natuurreservaat",
+#     gebied == "BosreE" ~ "Erkend Bosreservaat",
+#     gebied == "NatPer" ~ "Natuurlijke persoon",
+#     gebied == "PrivRec" ~ "Privaatrechtelijke rechtspersoon",
+#     gebied == "VOANB" ~ "Agentschap voor Natuur en Bos",
+#     gebied == "Bestuur" ~ "Bestuur",
+#     gebied == "VOander" ~ "Andere Vlaamse overheid",
+#     gebied == "Andere" ~ "Andere",
+#     gebied == "DomNa" ~ "Domein met natuurprotocol",
+#     TRUE ~ gebied
+#   ))
 # 
-# PATDAT <- read.csv("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/output/PATDAT_incl_ob_long.csv")
+# PATDAT <- read.csv("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/output/PATDAT_incl_ob_long.csv") %>%
+#   mutate(gebied = case_when(
+#     gebied == "Bosdec" ~ "Technisch beheer conform bosdecreet",
+#     gebied == "Eigend" ~ "Eigendom",
+#     gebied == "Huur" ~ "Huur",
+#     gebied == "BehOve" ~ "Beheerovereenkomst",
+#     gebied == "ProLan" ~ "Protocol landsverdediging",
+#     gebied == "Erfpac" ~ "Erfpacht",
+#     gebied == "AntKem" ~ "Antwerpse Kempen",
+#     gebied == "HKeVoe" ~ "Hoge Kempen tot Voeren",
+#     gebied == "GroGor" ~ "Groene Gordels",
+#     gebied == "BraWou" ~ "Brabantse Wouden",
+#     gebied == "DemZKe" ~ "Demerland & Zuiderkempen",
+#     gebied == "VArSch" ~ "Vlaamse Ardennen & Schelde-Leie",
+#     gebied == "KusWes" ~ "Kust & Westhoek",
+#     gebied == "Taxand" ~ "Taxandria",
+#     gebied == "LtHKem" ~ "Lage tot aan Hoge Kempen",
+#     gebied == "ZanVla" ~ "Zandig Vlaanderen",
+#     TRUE ~ gebied))
 # 
 # SBP_pgs <- read.csv("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/output/SBP_pgs_long.csv") %>%
 #   separate(gebied, into = c("gebied", "deelgebied"), sep = "\\s*\\(\\s*", fill = "right") %>%
@@ -236,18 +145,112 @@ habitats <- read_csv2("https://raw.githubusercontent.com/inbo/prius-radius/main/
 #   arrange(gebied)
 # 
 # 
-# SBP_pls <- read.csv("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/output/SBP_pls_long.csv")
+# SBP_pls <- read.csv("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/output/SBP_pls_long.csv") %>%
+#   mutate(deelgebied = NA) %>%
+#   filter(! soort %in% c("Amerikaanse stierkikker", "Chinese wolhandkrab", "gevlekte Amerikaanse rivierkreeft", "zwartbekgrondel", "gestreepte Amerikaanse rivierkreeft", "marmergrondel", "rode Amerikaanse rivierkreeft", "Kesslergrondel", "Turkse rivierkreeft", "Pontische stroomgrondel", "geknobbelde Amerikaanse rivierkreeft", "Californische rivierkreeft")) %>%
+#   mutate(gebied = gsub("\\s{2,}", " ", gebied))
 # 
-# list_metrics <- list("Habitatrichtlijngebieden (SBZ-H)" = HBTRL, "Vogelrichtlijngebieden (SBZ-V)" = VGLRL, "Natura 2000 Habitattypes" = N2KHAB, "Natuurbeheerplannen" = NBHP, "ANB patrimonium" = PATDAT, "Soortenbeschermingsprogramma's (SBP's)" = SBP_pgs)
+# 
+# SBP_pls_extra <- read.csv("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/output/SBP_pls_extra.csv") %>%
+#   filter(!gebied %in% c("clusters") & !type %in% c("in_bek", "of_bek", "in_deelbek", "of_deelbek", "in_sbp_al", "in_sbp_ul", "of_sbp_al", "of_sbp_ul")) %>%
+#   mutate(deelgebied = NA) %>%
+#   mutate(
+#     deelgebied = case_when(
+#       type %in% c("in_clust", "of_clust") ~ gebied,
+#       TRUE ~ deelgebied  
+#     ),
+#     gebied = case_when(
+#       type %in% c("in_clust", "of_clust") ~ NA,
+#       type %in% c("in_sbp", "of_sbp") ~ gebied,
+#       TRUE ~ gebied  
+#     ),
+#     type = case_when(
+#       type %in% c("in_clust", "in_sbp") ~ "in",
+#       type %in% c("of_clust", "of_sbp") ~ "of",
+#       TRUE ~ type 
+#     ) 
+#   ) %>%
+#   mutate(deelgebied = gsub("\\)$", "", deelgebied)) %>%
+#   mutate(gebied = gsub("\\s{2,}", " ", gebied))
+# 
+# 
+# SBP <- rbind(SBP_pgs, SBP_pls, SBP_pls_extra)
+# 
+# list_metrics <- list("Habitatrichtlijngebieden (SBZ-H)" = HBTRL, "Vogelrichtlijngebieden (SBZ-V)" = VGLRL, "Natura 2000 Habitattypes" = N2KHAB, "Natuurbeheerplannen" = NBHP, "ANB patrimonium" = PATDAT, "Soortenbeschermingsprogramma's (SBP's)" = SBP)
 # 
 # ## Species data
-# species_list <- read_csv("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/radius/data/input/radius_species_list.csv")
+# species_list <- read_csv("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/input/radius_species_list.csv")
 # 
-# occ_flanders <- read.csv("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/radius/data/input/gbif_occ_flanders.csv") %>%
+# occ_flanders <- read.csv("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/input/gbif_occ_flanders.csv") %>%
 #   st_as_sf(coords = c("decimalLongitude", "decimalLatitude"), crs = "+proj=longlat +datum=WGS84") %>%
 #   arrange(Soort, .locale = "en")
 # 
-# habitats <- read_csv2("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/radius/data/input/toewijzing_habitats.csv", col_types = cols(code = col_character()))
+# habitats <- read_csv2("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/input/toewijzing_habitats.csv", col_types = cols(code = col_character()))
+
+##### DATA INLEZEN VOOR TESTEN APP
+
+# Data inlezen
+## Spatial data
+Vlaanderen_grenzen <- st_read("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/prius/data/spatial/flanders_wgs84.geojson")
+Provincies_grenzen <- st_read("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/prius/data/spatial/Provincies.geojson")
+
+
+ps_hbtrl_deel <- readRDS("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/radius/data/spatial/ps_hbtrl_deel.rds") %>%
+  rename(code = gebcode)
+
+#Samenvatting van ps_hbtrl_deel zodat ik één rij/1 MULTIPOLYGON krijg per gebied
+ps_hbtrl_wgs84 <- ps_hbtrl_deel %>%
+  st_set_crs(31370) %>%
+  group_by(code, naam, gebopp_ha) %>%
+  summarise(geometry = sf::st_union(geom)) %>%
+  ungroup() %>%
+  st_transform(4326) %>%
+  sf::st_cast("MULTIPOLYGON")
+
+ps_vglrl_wgs84 <- st_read("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/radius/data/spatial/WGS84/ps_vglrl_wgs84.shp") %>%
+  rename(code = na2000code, naam = gebnaam)
+
+n2khab_wgs84 <- readRDS("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/radius/data/spatial/WGS84/n2khab_wgs84.rds") %>%
+  rename(code = type, naam = name)
+
+ps_nbhp_wgs84 <- readRDS("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/radius/data/spatial/WGS84/ps_nbhp_wgs84.rds") %>%
+  rename(code = eigendomtype, naam = natuurbeheerplantype)
+
+am_patdat_wgs84 <- readRDS("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/radius/data/spatial/WGS84/am_patdat_wgs84.rds") %>%
+  rename(code = regio, naam = domeinnaam)
+
+list_wfs <- list("Habitatrichtlijngebieden (SBZ-H)" = ps_hbtrl_wgs84, "Vogelrichtlijngebieden (SBZ-V)" = ps_vglrl_wgs84, "Natura 2000 Habitattypes" = n2khab_wgs84, "Natuurbeheerplannen" = ps_nbhp_wgs84, "ANB patrimonium" = am_patdat_wgs84)
+
+## Metric data
+HBTRL <- ps_hbtrl_wgs84 %>%
+  right_join(read.csv("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/radius/data/output/HBTRL_long.csv"), by = c("code" = "gebied"), keep = TRUE)
+VGLRL <- ps_vglrl_wgs84 %>%
+  right_join(read.csv("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/radius/data/output/VGLRL_long.csv"), by = c("code" = "gebied"), keep = TRUE)
+N2KHAB <- n2khab_wgs84 %>%
+  right_join(read.csv("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/radius/data/output/N2KHAB_long.csv"), by = c("code" = "gebied"), keep = TRUE)
+NBHP <- read.csv("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/radius/data/output/NBHP_long.csv")
+
+PATDAT <- read.csv("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/output/PATDAT_incl_ob_long.csv")
+
+SBP_pgs <- read.csv("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/output/SBP_pgs_long.csv") %>%
+  separate(gebied, into = c("gebied", "deelgebied"), sep = "\\s*\\(\\s*", fill = "right") %>%
+  mutate(deelgebied = gsub("\\)$", "", deelgebied)) %>%
+  mutate(gebied = gsub("\\s{2,}", " ", gebied)) %>%
+  arrange(gebied)
+
+
+SBP_pls <- read.csv("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/output/SBP_pls_long.csv")
+
+list_metrics <- list("Habitatrichtlijngebieden (SBZ-H)" = HBTRL, "Vogelrichtlijngebieden (SBZ-V)" = VGLRL, "Natura 2000 Habitattypes" = N2KHAB, "Natuurbeheerplannen" = NBHP, "ANB patrimonium" = PATDAT, "Soortenbeschermingsprogramma's (SBP's)" = SBP_pgs)
+
+## Species data
+species_list <- read_csv("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/radius/data/input/radius_species_list.csv")
+
+occ_flanders <- read.csv("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/radius/data/input/gbif_occ_flanders.csv") %>%
+  st_as_sf(coords = c("decimalLongitude", "decimalLatitude"), crs = "+proj=longlat +datum=WGS84") %>%
+  arrange(Soort, .locale = "en")
+
+habitats <- read_csv2("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/radius/data/input/toewijzing_habitats.csv", col_types = cols(code = col_character()))
 
 ############################
 ########### APP ############
@@ -1556,8 +1559,8 @@ server <- function(input, output, session) {
           conditionalPanel(
             condition = "input.tabset_bezetting == 'percentage'",
             fluidRow(
-              height = "600px",
-              highchartOutput("percentage_oppervlak", height = "600px")
+              
+              highchartOutput("percentage_oppervlak", height = "100%"),
             )
           ),
           
@@ -1565,8 +1568,8 @@ server <- function(input, output, session) {
           conditionalPanel(
             condition = "input.tabset_bezetting == 'aantal_gebieden'",
             fluidRow(
-              height = "600px",
-              highchartOutput("aantal_gebieden", height = "600px")
+              height = "100%",
+              highchartOutput("aantal_gebieden", height = "100%")
             )
           ),
           
@@ -1574,8 +1577,8 @@ server <- function(input, output, session) {
           conditionalPanel(
             condition = "input.tabset_bezetting == 'gebondenheid'",
             fluidRow(
-              height = "600px",
-              highchartOutput("gebondenheid", height = "600px")
+              height = "100%",
+              highchartOutput("gebondenheid", height = "100%")
             )
           ),
           
@@ -1631,7 +1634,7 @@ server <- function(input, output, session) {
                                 "Soortenbeschermingsprogramma's (SBP's)") && 
             is_all_deelgebieden) {
           div(
-            style = "margin-bottom: 20px;",
+            style = "margin-bottom: 20px; margin-left: 10px;",
             
             h3("Verspreiding", style = "margin-top: 15px; font-size: 18px; font-weight: bold;"),
             
@@ -1639,8 +1642,7 @@ server <- function(input, output, session) {
               style = "border-radius: 0px; font-size: 12px; margin: 2px; line-height: 1.4;"),
             
             fluidRow(
-              height = "600px",
-              highchartOutput("barplot_verspreiding", height = "600px")
+              highchartOutput("barplot_verspreiding", height = "100%")
             ),
             
             # fluidRow(
@@ -1777,6 +1779,7 @@ server <- function(input, output, session) {
   })
   
   output$percentage_oppervlak <- renderHighchart({
+    req(input$kaart2, input$deelgebied2)
     
     if (input$kaart2 %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)", "Natura 2000 Habitattypes")) {
       if (input$deelgebied2 == "All") {
@@ -1814,8 +1817,10 @@ server <- function(input, output, session) {
         arrange(desc(overlap)) %>%
         mutate(y = overlap * 100)
       
+      dynamic_height <- 100 + 10*nrow(data)
+      
       chart <- highchart() %>%
-        hc_chart(type = 'bar', height = 600) %>%
+        hc_chart(type = 'bar', height = paste0(dynamic_height, "px")) %>%
         hc_xAxis(categories = df$soort, title = list(text = ""), labels = list(rotation = -0, fontSize = "8px", step = 1), min = 0) %>%
         hc_yAxis(title = list(text = 'Overlap (%)'), labels = list(format = '{value}%')) %>%
         hc_plotOptions(
@@ -1872,6 +1877,7 @@ server <- function(input, output, session) {
   # })
   
   output$aantal_gebieden <- renderHighchart({
+    req(input$kaart2, input$deelgebied2)
     
     if (input$kaart2 == "Natuurbeheerplannen") {
       df <- metrics2() %>%
@@ -1901,8 +1907,10 @@ server <- function(input, output, session) {
     }
     
     if (nrow(df) != 0) {
+      dynamic_height <- 100 + 10*nrow(df)
+      
       chart <- highchart() %>%
-        hc_chart(type = 'bar') %>%
+        hc_chart(type = 'bar', height = paste0(dynamic_height, "px")) %>%
         hc_xAxis(categories = df$soort, title = list(text = ""), labels = list(rotation = -0, fontSize = "8px", step = 1)) %>%
         hc_yAxis(title = list(text = '# gebieden'), labels = list(format = '{value}'), min = 0) %>%  
         hc_plotOptions(
@@ -1933,6 +1941,7 @@ server <- function(input, output, session) {
   })
   
   output$gebondenheid <- renderHighchart({
+    req(input$kaart2, input$deelgebied2)
     
     if (input$kaart2 %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)", "Natura 2000 Habitattypes")) {
       if (input$deelgebied2 == "All") {
@@ -1965,13 +1974,16 @@ server <- function(input, output, session) {
     
     
     if (nrow(data) != 0) {
+      
       df <- data %>%
         filter(overlap != 0) %>%
         arrange(desc(overlap)) %>%
         mutate(y = overlap * 100)
       
+      dynamic_height <- 100 + 10*nrow(df)
+      
       chart <- highchart() %>%
-        hc_chart(type = 'bar', height = 600) %>%
+        hc_chart(type = 'bar', height = paste0(dynamic_height, "px")) %>%
         hc_xAxis(categories = df$soort, title = list(text = ""), labels = list(rotation = -0, fontSize = "8px", step = 1), min = 0) %>%
         hc_yAxis(title = list(text = 'Overlap (%)'), labels = list(format = '{value}%')) %>%
         hc_plotOptions(
@@ -2016,7 +2028,9 @@ server <- function(input, output, session) {
   # })
   
   output$barplot_verspreiding <- renderHighchart({
+    req(input$kaart2, input$deelgebied2)
     df <- metrics_nspec_per_gebied()
+    dynamic_height <- 100 + 10*nrow(df)
     
     if (nrow(df) != 0) {
       
@@ -2030,7 +2044,7 @@ server <- function(input, output, session) {
       # }
       
       chart <- highchart() %>%
-        hc_chart(type = 'bar', height = 500) %>%
+        hc_chart(type = 'bar', height = paste0(dynamic_height, "px")) %>%
         hc_xAxis(categories = df$code, title = list(text = ""), labels = list(rotation = -0, fontSize = "8px", step = 1)) %>%
         hc_yAxis(title = list(text = '# soorten'), labels = list(format = '{value}'), min = 0) %>%  
         hc_plotOptions(
