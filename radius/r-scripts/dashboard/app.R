@@ -1,4 +1,4 @@
-# Load library
+# ───────────────────────────────────────────── 1 Libraries ─────────────────────────────────────────────
 library(shiny)
 library(leaflet)
 library(plotly)
@@ -17,11 +17,9 @@ library(highcharter)
 library(rsconnect)
 library(ggtext)
 library(ggthemes)
+library(htmltools)
 
-options(repos = c(CRAN = "https://cloud.r-project.org"))
-library(terra)
-
-# Custom plot theme
+# ───────────────────────────────────────────── 2 Helpers ───────────────────────────────────────────────
 
 custom_theme <- function() {
   theme_few() +
@@ -44,6 +42,8 @@ custom_theme <- function() {
       plot.title.position = "plot"
     )
 }
+
+# ───────────────────────────────────────────── 3 Data laden ───────────────────────────────────────────
 
 ##### DATA INLEZEN VOOR PUBLISHING
 # Data inlezen
@@ -187,7 +187,7 @@ occ_flanders <- read.csv("https://raw.githubusercontent.com/inbo/prius-radius/ma
 
 habitats <- read_csv2("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/input/toewijzing_habitats.csv", col_types = cols(code = col_character()))
 
-# ##### DATA INLEZEN VOOR TESTEN APP
+# # ##### DATA INLEZEN VOOR TESTEN APP
 # 
 # # Data inlezen
 # ## Spatial data
@@ -252,147 +252,31 @@ habitats <- read_csv2("https://raw.githubusercontent.com/inbo/prius-radius/main/
 # 
 # habitats <- read_csv2("C:/Users/fleur_petersen/Documents/GitHub/prius-radius/radius/data/input/toewijzing_habitats.csv", col_types = cols(code = col_character()))
 
-############################
-########### APP ############
-############################
+# ───────────────────────────────────────────── 4 CSS ───────────────────────────────────────────
 
-# Custom CSS lay-out 
 custom_css <- "
-
-  .p {
-    font-size: 12px;
-    font-weight: normal;
-    color: black;
-  }
-  
-  .h1 {
-    font-size: 16px;
-    font-weight: bold;
-    color: black;
-    margin-bottom: 10
-  }
-  
-  .h2 {
-    font-size: 11px;
-    font-weight: normal;
-    color: black;
-  }
-
-  .custom-sidebar {
-    width: 250px;
-    height: 100%;
-    padding: 10px;
-    background-color: #f8f9fa; 
-    box-shadow: 0 4px 8px rgba(0,0,0.1,0.1);
-    border-radius: 0px;
-    font-size: 12px;
-  }
-  
-  label.control-label {
-    font-size: 12px; 
-  }
-  
-  .selectize-input {
-    font-size: 12px; 
-  }
-
-  .selectize-dropdown .option {
-    font-size: 11px; 
-  }
-
-  .custom-header {
-      font-size: 18px;
-      font-weight: bold;
-      color: black;
-  }
-  
-  .custom-header-row {
-      flex-direction: column;
-      height: 150px; 
-      margin-bottom: 10px;
-      padding-top: 10px;
-      margin-left: 5px;
-      margin-right: 5px;
-      background-color: #f8f9fa;
-      box-shadow: 0 4px 8px rgba(0,0,0.1,0.1);
-      border-radius: 0px;
-  }
-  
-  .custom-header-row2 {
-      flex-direction: column;
-      height: 100px; 
-      margin-bottom: 10px;
-      padding-top: 10px;
-      margin-left: 5px;
-      margin-right: 5px;
-      background-color: #f8f9fa;
-      box-shadow: 0 4px 8px rgba(0,0,0.1,0.1);
-      border-radius: 0px;
-  }
-  
-  .custom-subheader {
-      font-size: 1em;
-      font-weight: normal;
-      color: grey;
-      margin-bottom: 5px;
-  }
-  
-  .custom-value-box {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    height: 140px;
-    box-shadow: none; 
-    border: none; 
-    background-color: #f8f9fa !important;
-    border-radius: 0;
-   }
-  
-  .custom-valuebox-text {
-      font-size: 10px;
-      font-weight: bold;
-      color: grey;
-      margin-top: 5px;
-  }
-  
-  .custom-kaart-row {
-    height: 600px;
-    overflow: hidden; 
-  }
-  
-  .custom-container {
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-  }
-  
-  .nav-underline .nav-link {
-  font-size: 12px;
-  }
-  
-  .main-content {
-    flex: 1;
-    padding-left: 5px;
-    padding-right: 5px;
-    margin-left: 5px;
-    margin-right: 5px;
-    overflow-y: auto;
-  }
-  
-  custom-download-button {
-      margin: 2px;
-      border-color: #c04384;
-      height: 30px; 
-      padding: 5px 10px; 
-  }
-  
-  custom-card {
-      margin-bottom: 5px; 
-      padding: 10px; 
-  }
+  .p {font-size:12px;font-weight:normal;color:black;}
+  .h1{font-size:16px;font-weight:bold;color:black;margin-bottom:10}
+  .h2{font-size:11px;font-weight:normal;color:black;}
+  .custom-sidebar{width:250px;height:100%;padding:10px;background:#f8f9fa;box-shadow:0 4px 8px rgba(0,0,0,0.1);font-size:12px;}
+  label.control-label{font-size:12px;}
+  .selectize-input{font-size:12px;}
+  .selectize-dropdown .option{font-size:11px;}
+  .custom-header{font-size:18px;font-weight:bold;color:black;}
+  .custom-header-row{flex-direction:column;height:150px;margin-bottom:10px;padding-top:10px;margin-left:5px;margin-right:5px;background:#f8f9fa;box-shadow:0 4px 8px rgba(0,0,0,0.1);}
+  .custom-header-row2{flex-direction:column;height:100px;margin-bottom:10px;padding-top:10px;margin-left:5px;margin-right:5px;background:#f8f9fa;box-shadow:0 4px 8px rgba(0,0,0,0.1);}
+  .custom-subheader{font-size:1em;font-weight:normal;color:grey;margin-bottom:5px;}
+  .custom-value-box{display:flex;flex-direction:column;text-align:left;height:140px;box-shadow:none;border:none;background:#f8f9fa!important;border-radius:0;}
+  .custom-valuebox-text{font-size:10px;font-weight:bold;color:grey;margin-top:5px;}
+  .custom-kaart-row{height:600px;overflow:hidden;}
+  .custom-container{display:flex;flex-direction:row;height:100%;}
+  .nav-underline .nav-link{font-size:12px;}
+  .main-content{flex:1;padding-left:5px;padding-right:5px;margin-left:5px;margin-right:5px;overflow-y:auto;}
 "
 
-########### UI ############
+# ───────────────────────────────────────────── 5 UI & SERVER ───────────────────────────────────────────
+
+# ========================= UI ==========================
 
 ui <- page_navbar(
   title = "RadIUS dashboard",
@@ -403,8 +287,10 @@ ui <- page_navbar(
     tags$link(rel = "stylesheet", href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css")
   ),
   
-  
-  ## PAGINA 1 - SOORTENFICHES
+  #######################################################
+  ##########      PAGINA 1 – SOORTENFICHES      #########
+  #######################################################
+
   tabPanel(
     title = "Soortenfiches",
     div(class = "custom-container",
@@ -451,7 +337,10 @@ ui <- page_navbar(
     )
   ),
   
-  ## PAGINA 2 - GEBIEDSFICHES
+  #######################################################
+  ##########      PAGINA 2 – GEBIEDSFICHES      #########
+  #######################################################
+  
   tabPanel(
     title = "Gebiedsfiches",
     div(
@@ -490,7 +379,10 @@ ui <- page_navbar(
     )
   ),
   
-  ## PAGINA 3 - OVER DASHBOARD
+  #######################################################
+  #############       PAGINA 3 – OVER        ############
+  #######################################################
+  
   tabPanel("Over",
            tags$head(
              tags$style("
@@ -582,10 +474,13 @@ ui <- page_navbar(
 )
 
 
-########### SERVER ############
+# ======================= SERVER ========================
+
 server <- function(input, output, session) {
   
-  # PAGINA 1 - SOORTENFICHES
+  #######################################################
+  ##########      PAGINA 1 – SOORTENFICHES      #########
+  #######################################################
   
   ## REACTIEVE ELEMENTEN
   occ_species <- reactive({
@@ -979,7 +874,7 @@ server <- function(input, output, session) {
       hc_size(height = NULL) %>%
       hc_chart(backgroundColor = 'rgba(0, 0, 0, 0)') %>%
       hc_add_theme(hc_theme_elementary()) %>%
-      hc_legend(enabled = FALSE)
+      hc_legend(enabled = FALSE) 
   })
   
   
@@ -1050,7 +945,41 @@ server <- function(input, output, session) {
               colorByPoint = TRUE,
               colors = pal_gebondenheid()(df$overlap)
             ) %>%
-            hc_legend(enabled = FALSE)
+            hc_legend(enabled = FALSE) %>%
+            hc_exporting(
+              enabled                = TRUE,
+              fallbackToExportServer = FALSE,
+              # 3) verplaats de knoppen onderaan ipv bovenaan
+              buttonPosition = list(
+                align         = "right",        # uitlijnen aan de rechterkant
+                verticalAlign = "bottom",       # onderaan
+                x             = -10,           # 10px van de rand
+                y             = -20            # 20px onder de benedenrand (weg uit de plot)
+              ),
+              buttons = list(
+                contextButton = list(
+                  symbol    = "menu",           # de drie‐streepjes dropdown‐icoon
+                  symbolSize= 14,
+                  title     = "Export chart and data",
+                  menuItems = list(
+                    "downloadPNG",               # built‑in: PNG
+                    "downloadJPEG",              # JPEG
+                    "downloadPDF",               # PDF
+                    "downloadSVG",               # SVG
+                    "separator",
+                    list(                        # zelfgemaakte menu‑item
+                      text    = "Download CSV",
+                      onclick = JS("function () { this.downloadCSV(); }")
+                    )
+                  ),
+                  # geen floating → knop schuift mee met chart margin
+                  floating = FALSE
+                )
+              )
+            ) %>%
+            hc_add_dependency("modules/exporting.js") %>%
+            hc_add_dependency("modules/offline-exporting.js") %>%
+            hc_add_dependency("modules/export-data.js")
           
           chart
         }
@@ -1090,7 +1019,41 @@ server <- function(input, output, session) {
             colorByPoint = TRUE,
             colors = pal_gebondenheid()(df$overlap)
           ) %>%
-          hc_legend(enabled = FALSE)
+          hc_legend(enabled = FALSE) %>%
+          hc_exporting(
+            enabled                = TRUE,
+            fallbackToExportServer = FALSE,
+            # 3) verplaats de knoppen onderaan ipv bovenaan
+            buttonPosition = list(
+              align         = "right",        # uitlijnen aan de rechterkant
+              verticalAlign = "bottom",       # onderaan
+              x             = -10,           # 10px van de rand
+              y             = -20            # 20px onder de benedenrand (weg uit de plot)
+            ),
+            buttons = list(
+              contextButton = list(
+                symbol    = "menu",           # de drie‐streepjes dropdown‐icoon
+                symbolSize= 14,
+                title     = "Export chart and data",
+                menuItems = list(
+                  "downloadPNG",               # built‑in: PNG
+                  "downloadJPEG",              # JPEG
+                  "downloadPDF",               # PDF
+                  "downloadSVG",               # SVG
+                  "separator",
+                  list(                        # zelfgemaakte menu‑item
+                    text    = "Download CSV",
+                    onclick = JS("function () { this.downloadCSV(); }")
+                  )
+                ),
+                # geen floating → knop schuift mee met chart margin
+                floating = FALSE
+              )
+            )
+          ) %>%
+          hc_add_dependency("modules/exporting.js") %>%
+          hc_add_dependency("modules/offline-exporting.js") %>%
+          hc_add_dependency("modules/export-data.js")
         
         chart
       }
@@ -1153,7 +1116,7 @@ server <- function(input, output, session) {
       hc_size(height = NULL) %>%
       hc_chart(backgroundColor = 'rgba(0, 0, 0, 0)') %>%
       hc_add_theme(hc_theme_elementary()) %>%
-      hc_legend(enabled = FALSE)
+      hc_legend(enabled = FALSE) 
   })
   
   
@@ -1222,7 +1185,41 @@ server <- function(input, output, session) {
               colorByPoint = TRUE,
               colors = pal_bezetting()(df$overlap)
             ) %>%
-            hc_legend(enabled = FALSE)
+            hc_legend(enabled = FALSE) %>%
+            hc_exporting(
+              enabled                = TRUE,
+              fallbackToExportServer = FALSE,
+              # 3) verplaats de knoppen onderaan ipv bovenaan
+              buttonPosition = list(
+                align         = "right",        # uitlijnen aan de rechterkant
+                verticalAlign = "bottom",       # onderaan
+                x             = -10,           # 10px van de rand
+                y             = -20            # 20px onder de benedenrand (weg uit de plot)
+              ),
+              buttons = list(
+                contextButton = list(
+                  symbol    = "menu",           # de drie‐streepjes dropdown‐icoon
+                  symbolSize= 14,
+                  title     = "Export chart and data",
+                  menuItems = list(
+                    "downloadPNG",               # built‑in: PNG
+                    "downloadJPEG",              # JPEG
+                    "downloadPDF",               # PDF
+                    "downloadSVG",               # SVG
+                    "separator",
+                    list(                        # zelfgemaakte menu‑item
+                      text    = "Download CSV",
+                      onclick = JS("function () { this.downloadCSV(); }")
+                    )
+                  ),
+                  # geen floating → knop schuift mee met chart margin
+                  floating = FALSE
+                )
+              )
+            ) %>%
+            hc_add_dependency("modules/exporting.js") %>%
+            hc_add_dependency("modules/offline-exporting.js") %>%
+            hc_add_dependency("modules/export-data.js")
           
           chart
         }
@@ -1262,7 +1259,41 @@ server <- function(input, output, session) {
             colorByPoint = TRUE,
             colors = pal_bezetting()(df$overlap)
           ) %>%
-          hc_legend(enabled = FALSE)
+          hc_legend(enabled = FALSE) %>%
+          hc_exporting(
+            enabled                = TRUE,
+            fallbackToExportServer = FALSE,
+            # 3) verplaats de knoppen onderaan ipv bovenaan
+            buttonPosition = list(
+              align         = "right",        # uitlijnen aan de rechterkant
+              verticalAlign = "bottom",       # onderaan
+              x             = -10,           # 10px van de rand
+              y             = -20            # 20px onder de benedenrand (weg uit de plot)
+            ),
+            buttons = list(
+              contextButton = list(
+                symbol    = "menu",           # de drie‐streepjes dropdown‐icoon
+                symbolSize= 14,
+                title     = "Export chart and data",
+                menuItems = list(
+                  "downloadPNG",               # built‑in: PNG
+                  "downloadJPEG",              # JPEG
+                  "downloadPDF",               # PDF
+                  "downloadSVG",               # SVG
+                  "separator",
+                  list(                        # zelfgemaakte menu‑item
+                    text    = "Download CSV",
+                    onclick = JS("function () { this.downloadCSV(); }")
+                  )
+                ),
+                # geen floating → knop schuift mee met chart margin
+                floating = FALSE
+              )
+            )
+          ) %>%
+          hc_add_dependency("modules/exporting.js") %>%
+          hc_add_dependency("modules/offline-exporting.js") %>%
+          hc_add_dependency("modules/export-data.js")
         
         chart
       }
@@ -1332,7 +1363,9 @@ server <- function(input, output, session) {
     }
   )
   
-  # PAGINA 2 - GEBIEDSFICHES
+  #######################################################
+  ##########      PAGINA 2 – GEBIEDSFICHES      #########
+  #######################################################
   
   ## REACTIEVE ELEMENTEN
   metrics2 <- reactive({
@@ -1592,50 +1625,6 @@ server <- function(input, output, session) {
               highchartOutput("gebondenheid", height = "100%")
             )
           ),
-          
-          # # Download buttons below the figures
-          # fluidRow(
-          #   conditionalPanel(
-          #     condition = "input.tabset_bezetting == 'percentage'",
-          #     column(6, 
-          #            actionButton("download_data_bezetting", 
-          #                         label = "Download Data", 
-          #                         icon = icon("download"), 
-          #                         style = "font-size: 12px; background-color: transparent; border: none; color: black;"),
-          #            actionButton("download_png_bezetting", 
-          #                         label = "Download Figuur", 
-          #                         icon = icon("file-image"), 
-          #                         style = "font-size: 12px; background-color: transparent; border: none; color: black;")
-          #     )
-          #   ),
-          #   
-          #   conditionalPanel(
-          #     condition = "input.tabset_bezetting == 'aantal_gebieden'",
-          #     column(6,
-          #            actionButton("download_data_aantal_gebieden", 
-          #                         label = "Download Data", 
-          #                         icon = icon("download"), 
-          #                         style = "font-size: 12px; background-color: transparent; border: none; color: black;"),
-          #            actionButton("download_png_aantal_gebieden", 
-          #                         label = "Download Figuur", 
-          #                         icon = icon("file-image"), 
-          #                         style = "font-size: 12px; background-color: transparent; border: none; color: black;")
-          #     )
-          #   ),
-          #   conditionalPanel(
-          #     condition = "input.tabset_bezetting == 'gebondenheid'",
-          #     column(6, 
-          #            actionButton("download_data_gebondenheid", 
-          #                         label = "Download Data", 
-          #                         icon = icon("download"), 
-          #                         style = "font-size: 12px; background-color: transparent; border: none; color: black;"),
-          #            actionButton("download_png_gebondenheid", 
-          #                         label = "Download Figuur", 
-          #                         icon = icon("file-image"), 
-          #                         style = "font-size: 12px; background-color: transparent; border: none; color: black;")
-          #     )
-          #   )
-          # )
         ),
         
         # Barplot for Verspreiding
@@ -1654,73 +1643,13 @@ server <- function(input, output, session) {
             
             fluidRow(
               highchartOutput("barplot_verspreiding", height = "100%")
-            ),
-            
-            # fluidRow(
-            #   column(6,
-            #          actionButton("download_data_percentage_oppervlak", 
-            #                       label = "Download Data", 
-            #                       icon = icon("download"), 
-            #                       style = "font-size: 12px;background-color: transparent;border:none;color:black"),
-            #          actionButton("download_png_verspreiding", 
-            #                       label = "Download Figuur", 
-            #                       icon = icon("file-image"), 
-            #                       style = "font-size: 12px;background-color: transparent;border:none;coloexplanar:black")
-            #   )
-            # )
+            )
           )
         }
       )
   })
   
-  
-  output$download_data_bezetting <- downloadHandler(
-    filename = function() {
-      paste("data_bezetting_", input$kaart2, "_", Sys.Date(), ".csv", sep="")
-    },
-    content = function(file) {
-      write.csv(metrics2(), file, row.names = FALSE)
-    }
-  )
-  
-  output$download_data_percentage_oppervlak <- downloadHandler(
-    filename = function() {
-      paste("data_aantal_gebieden_", input$kaart2, "_", Sys.Date(), ".csv", sep="")
-    },
-    content = function(file) {
-      write.csv(metrics2(), file, row.names = FALSE)
-    }
-  )
-  
-  # Download PNG images based on current tab
-  output$download_png_bezetting <- downloadHandler(
-    filename = function() {
-      paste("png_bezetting_", input$kaart2, "_", Sys.Date(), ".png", sep="")
-    },
-    content = function(file) {
-      webshot::webshot(output$percentage_oppervlak, file = file)
-    }
-  )
-  
-  output$download_png_aantal_gebieden <- downloadHandler(
-    filename = function() {
-      paste("png_aantal_gebieden_", input$kaart2, "_", Sys.Date(), ".png", sep="")
-    },
-    content = function(file) {
-      webshot::webshot(output$aantal_gebieden, file = file)
-    }
-  )
-  
-  output$download_png_verspreiding <- downloadHandler(
-    filename = function() {
-      paste("barplot_verspreiding_", Sys.Date(), ".png", sep="")
-    },
-    content = function(file) {
-      webshot::webshot(output$barplot_verspreiding, file = file)
-    }
-  )
-  
-  output$kaart_header <- renderPlotly({
+   output$kaart_header <- renderPlotly({
     
     req(input$kaart2, input$deelgebied2)
     
@@ -1789,14 +1718,13 @@ server <- function(input, output, session) {
     }
   })
   
-  output$percentage_oppervlak <- renderHighchart({
+  hc_bezetting  <- reactive({                           
     req(input$kaart2, input$deelgebied2)
-    
     if (input$kaart2 %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)", "Natura 2000 Habitattypes")) {
       if (input$deelgebied2 == "All") {
         data <- metrics2() %>%
           filter(is.na(code) & type == "of")
-      } 
+      }
       else {
         data <- metrics2() %>%
           filter(code == input$deelgebied2 & type == "of")
@@ -1810,7 +1738,7 @@ server <- function(input, output, session) {
       if (input$deelgebied2 == "All") {
         data <- metrics2() %>%
           filter(type == "of" & code == "PATDAT_incl_ob")
-      } 
+      }
       else {
         data <- metrics2() %>%
           filter(code == input$deelgebied2 & type == "of")
@@ -1820,7 +1748,7 @@ server <- function(input, output, session) {
       if (input$deelgebied2 == "All") {
         data <- metrics2() %>%
           filter(is.na(code) & type == "of")
-      } 
+      }
       else {
         data <- metrics2() %>%
           filter(code == input$deelgebied2 & type == "of")
@@ -1836,17 +1764,25 @@ server <- function(input, output, session) {
       
       dynamic_height <- 100 + 8*nrow(data)
       
+      export_data_dep <- htmlDependency(
+        name    = "export-data",                    # naam van de module
+        version = "1.0.0",                          # willekeurige versie­string
+        src     = c(href = "https://code.highcharts.com/modules"),
+        script  = "export-data.js"                  # de JS‑file die we nodig hebben
+      )
+      
+      
       chart <- highchart() %>%
         hc_chart(type = 'bar', height = paste0(dynamic_height, "px")) %>%
         hc_xAxis(categories = df$soort, title = list(text = ""), labels = list(rotation = -0, fontSize = "8px", step = 1), min = 0) %>%
         hc_yAxis(title = list(text = 'Overlap (%)'), labels = list(format = '{value}%')) %>%
         hc_plotOptions(
-          bar = list(  
-            dataLabels = list(enabled = TRUE, format = '{point.y:.2f}%'), 
+          bar = list(
+            dataLabels = list(enabled = TRUE, format = '{point.y:.2f}%'),
             borderColor = "black",
             borderWidth = 0.2,
             #pointWidth = 10,
-            pointPadding = 0.1, 
+            pointPadding = 0.1,
             groupPadding = 0
           )
         ) %>%
@@ -1861,39 +1797,47 @@ server <- function(input, output, session) {
           data = df$y,
           color = "#ecc7da"
         ) %>%
-        hc_legend(enabled = FALSE)
+        hc_legend(enabled = FALSE) %>%
+        hc_exporting(
+          enabled                = TRUE,
+          fallbackToExportServer = FALSE,
+          # 3) verplaats de knoppen onderaan ipv bovenaan
+          buttonPosition = list(
+            align         = "right",        # uitlijnen aan de rechterkant
+            verticalAlign = "bottom",       # onderaan
+            x             = -10,           # 10px van de rand
+            y             = -20            # 20px onder de benedenrand (weg uit de plot)
+          ),
+          buttons = list(
+            contextButton = list(
+              symbol    = "menu",           # de drie‐streepjes dropdown‐icoon
+              symbolSize= 14,
+              title     = "Export chart and data",
+              menuItems = list(
+                "downloadPNG",               # built‑in: PNG
+                "downloadJPEG",              # JPEG
+                "downloadPDF",               # PDF
+                "downloadSVG",               # SVG
+                "separator",
+                list(                        # zelfgemaakte menu‑item
+                  text    = "Download CSV",
+                  onclick = JS("function () { this.downloadCSV(); }")
+                )
+              ),
+              # geen floating → knop schuift mee met chart margin
+              floating = FALSE
+            )
+          )
+        ) %>%
+        hc_add_dependency("modules/exporting.js") %>%
+        hc_add_dependency("modules/offline-exporting.js") %>%
+        hc_add_dependency("modules/export-data.js")
       
       chart
     }
   })
   
-  # pal_aantal2 <- reactive({
-  #   if (input$kaart2 %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)", "Natura 2000 Habitattypes", "Soortenbeschermingsprogramma's (SBP's)")) {
-  #     df <- metrics2() %>%
-  #       filter(!is.na(code) & overlap != 0 & type == "of") %>%
-  #       group_by(soort) %>%
-  #       summarise(overlap = n()) 
-  #   }
-  #   else if (input$kaart2 == "Natuurbeheerplannen") {
-  #     df <- metrics2() %>%
-  #       filter(type == "n_nbhp")
-  #   }
-  #   else if (input$kaart2 == "ANB patrimonium") {
-  #     df <- metrics2() %>%
-  #       filter(type == "n_domeinen")
-  #   }
-  #   
-  #   colors <- c("lightgrey", colorRampPalette(c("lightgrey", "#c04384"))(99))
-  #   
-  #   if (nrow(df) != 0) {
-  #     colorNumeric(
-  #       palette = colors,
-  #       domain = c(min(df$overlap), max(df$overlap))
-  #     )
-  #   }
-  # })
-  
-  output$aantal_gebieden <- renderHighchart({
+  hc_aantal_gebieden   <- reactive({                           
     req(input$kaart2, input$deelgebied2)
     
     if (input$kaart2 == "Natuurbeheerplannen") {
@@ -1913,14 +1857,14 @@ server <- function(input, output, session) {
         filter(!is.na(code) & type == "of" & overlap != 0) %>%
         group_by(soort) %>%
         summarise(y = n()) %>%
-        arrange(desc(y)) 
+        arrange(desc(y))
     }
     else {
       df <- metrics2() %>%
         filter(!is.na(code) & type == "of" & overlap != 0) %>%
         group_by(soort) %>%
         summarise(y = n()) %>%
-        arrange(desc(y)) 
+        arrange(desc(y))
     }
     
     if (nrow(df) != 0) {
@@ -1929,13 +1873,13 @@ server <- function(input, output, session) {
       chart <- highchart() %>%
         hc_chart(type = 'bar', height = paste0(dynamic_height, "px")) %>%
         hc_xAxis(categories = df$soort, title = list(text = ""), labels = list(rotation = -0, fontSize = "8px", step = 1)) %>%
-        hc_yAxis(title = list(text = '# gebieden'), labels = list(format = '{value}'), min = 0) %>%  
+        hc_yAxis(title = list(text = '# gebieden'), labels = list(format = '{value}'), min = 0) %>%
         hc_plotOptions(
-          bar = list(  
-            dataLabels = list(enabled = TRUE, format = '{point.y:.0f}'), 
+          bar = list(
+            dataLabels = list(enabled = TRUE, format = '{point.y:.0f}'),
             borderColor = "black",
             borderWidth = 0.2,
-            pointPadding = 0, 
+            pointPadding = 0,
             groupPadding = 0
           )
         ) %>%
@@ -1951,20 +1895,54 @@ server <- function(input, output, session) {
           data = df$y,
           color = "#ecc7da"
         ) %>%
-        hc_legend(enabled = FALSE)
+        hc_legend(enabled = FALSE) %>%
+        hc_exporting(
+          enabled                = TRUE,
+          fallbackToExportServer = FALSE,
+          # 3) verplaats de knoppen onderaan ipv bovenaan
+          buttonPosition = list(
+            align         = "right",        # uitlijnen aan de rechterkant
+            verticalAlign = "bottom",       # onderaan
+            x             = -10,           # 10px van de rand
+            y             = -20            # 20px onder de benedenrand (weg uit de plot)
+          ),
+          buttons = list(
+            contextButton = list(
+              symbol    = "menu",           # de drie‐streepjes dropdown‐icoon
+              symbolSize= 14,
+              title     = "Export chart and data",
+              menuItems = list(
+                "downloadPNG",               # built‑in: PNG
+                "downloadJPEG",              # JPEG
+                "downloadPDF",               # PDF
+                "downloadSVG",               # SVG
+                "separator",
+                list(                        # zelfgemaakte menu‑item
+                  text    = "Download CSV",
+                  onclick = JS("function () { this.downloadCSV(); }")
+                )
+              ),
+              # geen floating → knop schuift mee met chart margin
+              floating = FALSE
+            )
+          )
+        ) %>%
+        hc_add_dependency("modules/exporting.js") %>%
+        hc_add_dependency("modules/offline-exporting.js") %>%
+        hc_add_dependency("modules/export-data.js")
       
       chart
     }
   })
   
-  output$gebondenheid <- renderHighchart({
+  hc_gebondenheid <- reactive({
     req(input$kaart2, input$deelgebied2)
     
     if (input$kaart2 %in% c("Habitatrichtlijngebieden (SBZ-H)", "Vogelrichtlijngebieden (SBZ-V)", "Natura 2000 Habitattypes")) {
       if (input$deelgebied2 == "All") {
         data <- metrics2() %>%
           filter(is.na(code) & type == "in")
-      } 
+      }
       else {
         data <- metrics2() %>%
           filter(code == input$deelgebied2 & type == "in")
@@ -1978,7 +1956,7 @@ server <- function(input, output, session) {
       if (input$deelgebied2 == "All") {
         data <- metrics2() %>%
           filter(type == "in" & code == "PATDAT_incl_ob")
-      } 
+      }
       else {
         data <- metrics2() %>%
           filter(code == input$deelgebied2 & type == "in")
@@ -1988,7 +1966,7 @@ server <- function(input, output, session) {
       if (input$deelgebied2 == "All") {
         data <- metrics2() %>%
           filter(is.na(code) & type == "in")
-      } 
+      }
       else {
         data <- metrics2() %>%
           filter(code == input$deelgebied2 & type == "in")
@@ -2010,12 +1988,12 @@ server <- function(input, output, session) {
         hc_xAxis(categories = df$soort, title = list(text = ""), labels = list(rotation = -0, fontSize = "8px", step = 1), min = 0) %>%
         hc_yAxis(title = list(text = 'Overlap (%)'), labels = list(format = '{value}%')) %>%
         hc_plotOptions(
-          bar = list( 
-            dataLabels = list(enabled = TRUE, format = '{point.y:.2f}%'), 
+          bar = list(
+            dataLabels = list(enabled = TRUE, format = '{point.y:.2f}%'),
             borderColor = "black",
             borderWidth = 0.2,
             #pointWidth = 10,
-            pointPadding = 0.1, 
+            pointPadding = 0.1,
             groupPadding = 0
           )
         ) %>%
@@ -2030,27 +2008,47 @@ server <- function(input, output, session) {
           data = df$y,
           color = "#ecc7da"
         ) %>%
-        hc_legend(enabled = FALSE)
+        hc_legend(enabled = FALSE) %>%
+        hc_exporting(
+          enabled                = TRUE,
+          fallbackToExportServer = FALSE,
+          # 3) verplaats de knoppen onderaan ipv bovenaan
+          buttonPosition = list(
+            align         = "right",        # uitlijnen aan de rechterkant
+            verticalAlign = "bottom",       # onderaan
+            x             = -10,           # 10px van de rand
+            y             = -20            # 20px onder de benedenrand (weg uit de plot)
+          ),
+          buttons = list(
+            contextButton = list(
+              symbol    = "menu",           # de drie‐streepjes dropdown‐icoon
+              symbolSize= 14,
+              title     = "Export chart and data",
+              menuItems = list(
+                "downloadPNG",               # built‑in: PNG
+                "downloadJPEG",              # JPEG
+                "downloadPDF",               # PDF
+                "downloadSVG",               # SVG
+                "separator",
+                list(                        # zelfgemaakte menu‑item
+                  text    = "Download CSV",
+                  onclick = JS("function () { this.downloadCSV(); }")
+                )
+              ),
+              # geen floating → knop schuift mee met chart margin
+              floating = FALSE
+            )
+          )
+        ) %>%
+        hc_add_dependency("modules/exporting.js") %>%
+        hc_add_dependency("modules/offline-exporting.js") %>%
+        hc_add_dependency("modules/export-data.js")
       
       chart
     }
   })
   
-  # pal_verspreiding2 <- reactive({
-  #   
-  #   df <- metrics_nspec_per_gebied()
-  #   
-  #   colors <- c("lightgrey", colorRampPalette(c("lightgrey", "#c04384"))(99))
-  #   
-  #   if (nrow(df) != 0) {
-  #     colorNumeric(
-  #       palette = colors,
-  #       domain = c(min(df$y), max(df$y))
-  #     )
-  #   }
-  # })
-  
-  output$barplot_verspreiding <- renderHighchart({
+  hc_verspreiding <- reactive({
     req(input$kaart2, input$deelgebied2)
     df <- metrics_nspec_per_gebied()
     dynamic_height <- 100 + 8*nrow(df)
@@ -2060,7 +2058,7 @@ server <- function(input, output, session) {
       # if(input$kaart2 == "Natura 2000 Habitattypes") {
       #   df <- df %>%
       #     arrange(groep, desc(y))
-      #   
+      #
       #   chart <- highchart(df, type = "bar", hcaes(x = code, y = y, group = groep))
       # } else {
       #   chart <- highchart(df, type = "bar", hcaes(x = code, y = y))
@@ -2069,13 +2067,13 @@ server <- function(input, output, session) {
       chart <- highchart() %>%
         hc_chart(type = 'bar', height = paste0(dynamic_height, "px")) %>%
         hc_xAxis(categories = df$code, title = list(text = ""), labels = list(rotation = -0, fontSize = "8px", step = 1)) %>%
-        hc_yAxis(title = list(text = '# soorten'), labels = list(format = '{value}'), min = 0) %>%  
+        hc_yAxis(title = list(text = '# soorten'), labels = list(format = '{value}'), min = 0) %>%
         hc_plotOptions(
           bar = list(
-            dataLabels = list(enabled = TRUE, format = '{point.y:.0f}'), 
+            dataLabels = list(enabled = TRUE, format = '{point.y:.0f}'),
             borderColor = "black",
             borderWidth = 0.2,
-            pointPadding = 0.1, 
+            pointPadding = 0.1,
             groupPadding = 0
           )
         ) %>%
@@ -2103,11 +2101,50 @@ server <- function(input, output, session) {
           },
           color = "#ecc7da"
         ) %>%
-        hc_legend(enabled = FALSE)
+        hc_legend(enabled = FALSE) %>%
+        hc_exporting(
+          enabled                = TRUE,
+          fallbackToExportServer = FALSE,
+          # 3) verplaats de knoppen onderaan ipv bovenaan
+          buttonPosition = list(
+            align         = "right",        # uitlijnen aan de rechterkant
+            verticalAlign = "bottom",       # onderaan
+            x             = -10,           # 10px van de rand
+            y             = -20            # 20px onder de benedenrand (weg uit de plot)
+          ),
+          buttons = list(
+            contextButton = list(
+              symbol    = "menu",           # de drie‐streepjes dropdown‐icoon
+              symbolSize= 14,
+              title     = "Export chart and data",
+              menuItems = list(
+                "downloadPNG",               # built‑in: PNG
+                "downloadJPEG",              # JPEG
+                "downloadPDF",               # PDF
+                "downloadSVG",               # SVG
+                "separator",
+                list(                        # zelfgemaakte menu‑item
+                  text    = "Download CSV",
+                  onclick = JS("function () { this.downloadCSV(); }")
+                )
+              ),
+              # geen floating → knop schuift mee met chart margin
+              floating = FALSE
+            )
+          )
+        ) %>%
+        hc_add_dependency("modules/exporting.js") %>%
+        hc_add_dependency("modules/offline-exporting.js") %>%
+        hc_add_dependency("modules/export-data.js")
       
       chart
     }
   })
+  
+  output$percentage_oppervlak <- renderHighchart({ hc_bezetting() })
+  output$aantal_gebieden      <- renderHighchart({ hc_aantal_gebieden() })
+  output$gebondenheid         <- renderHighchart({ hc_gebondenheid() })
+  output$barplot_verspreiding <- renderHighchart({ hc_verspreiding() })
 }
 
 shinyApp(ui = ui, server = server)
