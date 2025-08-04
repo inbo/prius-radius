@@ -184,9 +184,6 @@ grid.arrange(right_column, plot_responses_anb_per_br, ncol = 2, widths = unit(c(
 dev.off()
 ```
  
-
-
-
 ### Vragen Workshop
 
 # Q1 - Welke soorten zijn het meest aanwezig **in Vlaanderen?** (top 10)
