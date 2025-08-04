@@ -265,7 +265,7 @@ custom_css <- "
   .p {font-size:12px;font-weight:normal;color:black;}
   .h1{font-size:16px;font-weight:bold;color:black;margin-bottom:10}
   .h2{font-size:11px;font-weight:normal;color:black;}
-  .custom-sidebar{width:250px;height:100%;padding:10px;background:#f8f9fa;box-shadow:0 4px 8px rgba(0,0,0,0.1);font-size:12px;}
+  .custom-sidebar{width:250px;height:1700px;padding:10px;background:#f8f9fa;box-shadow:0 4px 8px rgba(0,0,0,0.1);font-size:12px;}
   label.control-label{font-size:12px;}
   .selectize-input{font-size:12px;}
   .selectize-dropdown .option{font-size:11px;}
@@ -275,7 +275,7 @@ custom_css <- "
   .custom-subheader{font-size:1em;font-weight:normal;color:grey;margin-bottom:5px;}
   .custom-value-box{display:flex;flex-direction:column;text-align:left;height:140px;box-shadow:none;border:none;background:#f8f9fa!important;border-radius:0;}
   .custom-valuebox-text{font-size:10px;font-weight:bold;color:grey;margin-top:5px;}
-  .custom-kaart-row{height:600px;overflow:hidden;}
+  .custom-kaart-row{height:500px;magin-left:5px;overflow:visible;}
   .custom-container{display:flex;flex-direction:row;height:100%;}
   .nav-underline .nav-link{font-size:12px;}
   .main-content{flex:1;padding-left:5px;padding-right:5px;margin-left:5px;margin-right:5px;overflow-y:visible;}
@@ -472,7 +472,7 @@ ui <- page_navbar(
            
            fluidRow(
              column(12,
-                    p(paste("Laatste update van het dashboard: 16 april 2025"), 
+                    p(paste("Laatste update van het dashboard: 7 mei 2025"), 
                       style = "text-align: right; margin-bottom: 1px; font-size: 11px; font-style: italic; color: #888;"),
                     p("*Let op: Deze datum betreft de laatste update van het dashboard zelf, niet van de onderliggende data.", 
                       style = "text-align: right; font-size: 10px; font-style: italic; color: #888;")
@@ -763,7 +763,7 @@ server <- function(input, output, session) {
       tagList(
         div(
           card = "card",
-          style = "border: 10px solid #fff; border-radius: 8px; overflow: hidden; margin-bottom: 20px;",
+          style = "border: 10px solid #fff; border-radius: 8px; overflow: visible; margin-bottom: 20px;",
           p(explanation_text),
           
           navset_underline(
@@ -1356,22 +1356,6 @@ server <- function(input, output, session) {
     }
   })
   
-  output$download_kaart <- downloadHandler(
-    filename = function()
-      nameFile(soort = input$soort,
-               type = "in",
-               content = input$kaart, fileExt = "png"),
-    content = function(file) {
-      
-      tmpFile <- tempfile(fileext = ".html")
-      
-      htmlwidgets::saveWidget(kaart(), file = tmpFile, selfcontained = FALSE)
-      
-      webshot::webshot(url = tmpFile, file = file,
-                       vwidth = 1000, vheight = 500, cliprect = "viewport")
-    }
-  )
-  
   #######################################################
   ##########      PAGINA 2 – GEBIEDSFICHES      #########
   #######################################################
@@ -1684,10 +1668,12 @@ server <- function(input, output, session) {
             h3("Verspreiding",
                style = "margin-top: 15px; font-size: 18px; font-weight: bold;"),
             p(explanation_text_verspreiding,
-              style = "border-radius: 0px; font-size: 12px; margin: 2px;
+              style = "border-radius: 0px; font-size: 12px;;
                    line-height: 1.4;"),
             fluidRow(
-              leafletOutput("kaart_verspreiding", height = "600px")
+              class="custom-kaart-row", 
+              div(style = "height: 5px;"),  
+              leafletOutput("kaart_verspreiding", height = "500px")
             )
           )
           
@@ -2303,7 +2289,6 @@ server <- function(input, output, session) {
       addLegend(pal = pal_verspreiding(), values = df$y, opacity = 0.8, position = "bottomright") %>%
       addLayersControl(
         baseGroups = c("Zonder achtergrond", "OSM (default)", "Satellite"),
-        overlayGroups = c("Waarnemingen"),
         options = layersControlOptions(collapsed = FALSE)
       ) %>%
       
