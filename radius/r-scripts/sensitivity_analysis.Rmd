@@ -1,0 +1,273 @@
+
+```{r load-libary}
+library(tidyverse)
+library(sf)
+library(ggbump)
+library(corrplot)
+```
+
+```{r clear-memory}
+rm(list=ls())
+```
+
+```{r define-custom-theme, echo=FALSE, include=TRUE, global=TRUE}
+custom_theme <- function() {
+  theme_few() +
+    theme(
+      axis.title.y = element_text(size = 8, family = "Arial"),
+      axis.text.y = element_text(size = 8, family = "Arial"),
+      axis.title.x = element_text(size = 8, family = "Arial"),
+      axis.text.x = element_text(size = 8, family = "Arial"),
+      axis.ticks.length = unit(1.5, "pt"),
+      axis.ticks = element_line(colour = "grey90"),
+      legend.text = element_text(size = 8, family = "Arial"),
+      legend.title = element_blank(),
+      panel.border = element_rect(color = "grey90", fill = NA),
+      panel.grid.minor = element_blank(),
+      panel.grid.major = element_line(color = "grey90"),
+      panel.background = element_rect(color = "grey", fill = "grey98"),
+      strip.text = element_text(size = 9, face = "bold", hjust = -0.01, family = "Arial"),
+      #strip.text.x.top = element_text(margin = margin(0,0,3,0), hjust = 0.5, vjust = 0),
+      plot.title = element_text(size = 10, family = "Arial", face = "bold", hjust = 0.5),
+      plot.title.position = "plot"
+    )
+}
+```
+
+```{r load-data}
+species_list <- read_csv("./radius/data/input/radius_species_list.csv", show_col_types = FALSE) 
+
+occ_flanders <- read_csv("./radius/data/input/gbif_occ_flanders.csv", show_col_types = FALSE) %>%
+  left_join(species_list, by = c("speciesKey" = "GBIF_code", "Soort", "Species")) %>%
+  select(year, month, day, decimalLongitude, decimalLatitude, speciesKey, Soort, Species) %>%
+  st_as_sf(coords = c("decimalLongitude", "decimalLatitude"), crs = "+proj=longlat +datum=WGS84") %>%
+  st_transform(31370)
+
+#### ANB patrimonium
+am_patdat <- st_read("./radius/data/spatial/am_patdat.shp") %>%
+      st_transform(31370) %>%
+      mutate(geb_area = as.numeric(st_area(.)))
+```
+
+```{r define-buffers}
+buffers <- c(50, 75, 100, 125, 150, 200, 300, 400, 500) # verschillende bufferafstanden
+```
+
+```{r}
+df <- data.frame()
+
+for (i in unique(species_list$Soort)) {
+  print(i)
+  occ_species <- occ_flanders %>%
+    filter(Soort == i)
+  
+  for (j in buffers) {
+    print(j)
+    occ_buf <- occ_species %>%
+      st_buffer(j) %>%
+      st_union() %>%
+      st_cast('POLYGON') %>% 
+      st_sf() %>%
+      mutate(buf_area = as.numeric(st_area(.)))
+    
+    occ_intersection <- occ_buf %>%
+      st_intersection(am_patdat) %>% 
+      mutate(intersect_area = as.numeric(st_area(.)))
+    
+    overlap_intersection <- sum(occ_intersection$intersect_area)
+    percentage_overlap_of <- overlap_intersection / sum(am_patdat$geb_area)
+    
+    if (nrow(occ_intersection) != 0) {
+      
+      df <- rbind(df, 
+                  data.frame(
+                    soort = i,
+                    buffer = j,
+                    percentage = sum(occ_intersection$intersect_area) / sum(am_patdat$geb_area),
+                    aantal = length(unique(occ_intersection$domennm))))
+    }
+    else {
+      df <- rbind(df, 
+                  data.frame(
+                    soort = i,
+                    buffer = j,
+                    percentage = 0,
+                    aantal = 0))
+    }
+  }
+}
+
+library(data.table)
+
+result <- df %>%
+  group_by(buffer) %>%
+  mutate(
+    rang_percentage = frank(-percentage, ties.method = "dense"),
+    rang_aantal = frank(-aantal, ties.method = "dense")) %>%
+  ungroup() 
+
+write.csv2(result, "./radius/data/output/buffer_sensitivity.csv", row.names = FALSE)
+```
+
+```{r spearman-rank}
+data <- read_csv2("./radius/data/output/buffer_sensitivity.csv")
+
+bereken_spearman <- function(df, buffer1, buffer2, kolom) {
+  rang1 <- df[[paste0("rang_", kolom)]][df$buffer == buffer1]
+  rang2 <- df[[paste0("rang_", kolom)]][df$buffer == buffer2]
+  return(cor(rang1, rang2, method = "spearman"))
+}
+
+corr_percentage <- matrix(nrow = length(buffers), ncol = length(buffers))
+corr_aantal <- matrix(nrow = length(buffers), ncol = length(buffers))
+
+for (i in 1:length(buffers)) {
+  for (j in 1:length(buffers)) {
+    corr_percentage[i, j] <- bereken_spearman(data, buffers[i], buffers[j], "percentage")
+    corr_aantal[i, j] <- bereken_spearman(data, buffers[i], buffers[j], "aantal")
+  }
+}
+
+rownames(corr_percentage) <- colnames(corr_percentage) <- buffers
+rownames(corr_aantal) <- colnames(corr_aantal) <- buffers
+
+dev.new()
+par(mfrow = c(1, 2), mar = c(3, 3, 3, 3))  
+par(family = "Arial")
+
+png("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/sensitivity_corr_matrix.png", 
+       width = 23, height = 10, units = "cm", res=300)  
+
+corrplot(corr_percentage, method = "shade", type = "upper", 
+         col = brewer.pal(8, "BrBG"), bg = "grey97", 
+         addCoef.col = "white", outline = TRUE, 
+         tl.cex = 0.8, tl.col = "black", number.cex = 0.8, 
+         tl.srt = 0, tl.offset = 1,
+         cl.offset = 0.6,
+         cl.ratio = 0.2,
+         cl.align.text = "l",
+         cl.pos = "r",
+         cl.cex = 0.7,
+         title = "Spearman Correlatie - Percentage",
+         cex.main = 0.9, 
+         mar = c(0, 0, 1, 1))    
+
+corrplot(corr_aantal, method = "shade", type = "upper", 
+         col = brewer.pal(8, "BrBG"), bg = "grey97", 
+         addCoef.col = "white", outline = TRUE, 
+         tl.cex = 0.8, tl.col = "black", number.cex = 0.8, 
+         tl.srt = 0, tl.offset = 1,
+         cl.offset = 0.6,
+         cl.ratio = 0.2,
+         cl.align.text = "l",
+         cl.pos = "r",
+         cl.cex = 0.7,
+         title = "Spearman Correlatie - Aantal",
+         cex.main=0.9,
+         mar = c(0, 0, 1, 1))
+
+dev.off()
+```
+
+```{r bump-chart}
+x <- data %>%
+  filter(buffer == 50) %>%
+  mutate(
+    norm_rang_percentage = (rank(rang_percentage) - 1) / (n() - 1),
+    norm_rang_aantal = (rank(rang_aantal) - 1) / (n() - 1)
+  ) %>%
+  mutate(
+    col_percentage = colorRampPalette(brewer.pal(11, "BrBG")[c(1:5, 7:11)])(n())[rank(rang_percentage)],
+    col_aantal = colorRampPalette(brewer.pal(11, "BrBG")[c(1:5, 7:11)])(n())[rank(rang_aantal)]
+  ) %>%
+  select(soort, col_percentage, col_aantal)
+
+
+bump_data <- data %>%
+  select(soort, buffer, rang_percentage, rang_aantal) %>%
+  left_join(x, by = "soort") %>%
+  pivot_longer(
+    cols = c(rang_percentage, rang_aantal, col_percentage, col_aantal),
+    names_to = c(".value", "type"),
+    names_pattern = "(rang|col)_(percentage|aantal)"
+  ) %>%
+  mutate(buffer = as.numeric(buffer))
+
+
+plot_percentage <- ggplot(bump_data %>% filter(type == "percentage"), aes(x = buffer, y = rang, group = soort)) +
+  geom_bump(aes(col = col), size = 1, smooth = 8) +
+  geom_point(aes(col = col), size = 3) +
+  geom_vline(xintercept = unique(bump_data$buffer), color="black", size=0.5) +
+  scale_y_reverse(limits = c(74, 1), breaks = seq(1, 74, by = 10), expand = expansion(mult=c(0.05,0.05))) +
+  scale_x_continuous(breaks = unique(bump_data$buffer), labels = as.character(unique(bump_data$buffer))) +
+  scale_color_identity() +
+  labs(title = "",
+       x = "Bufferafstand (m)",
+       y = "Rang") +
+  custom_theme() +
+  theme(legend.position = "none",
+        plot.title = element_text(hjust = 0))
+
+plot_percentage
+
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/sensitivity_bump_percentage.png",
+       plot = plot_percentage,
+       width = 23, height = 20, units = "cm", dpi=300)
+
+ggsave("./radius/data/output/figuren/sensitivity_bump_percentage.png", 
+       width = 23, height = 20, units = "cm", dpi=300)
+
+# Maak een plot voor rang_aantal
+plot_aantal <- ggplot(bump_data %>% filter(type == "aantal"), aes(x = buffer, y = rang, group = soort)) +
+  geom_bump(aes(col = col), size = 1, smooth = 8) +
+  geom_point(aes(col = col), size = 3) +
+  geom_vline(xintercept = unique(bump_data$buffer), color="black", size=0.5) +
+  scale_y_reverse(limits = c(61, 1), breaks = seq(1, 61, by = 10), expand = expansion(mult=c(0.05,0.05))) +
+  scale_x_continuous(breaks = unique(bump_data$buffer), labels = as.character(unique(bump_data$buffer))) +
+  scale_color_identity() +
+  labs(title = "",
+       x = "Bufferafstand (m)",
+       y = "Rang") +
+  custom_theme() +
+  theme(legend.position = "none",
+        plot.title = element_text(hjust = 0))
+
+plot_aantal
+
+ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/sensitivity_bump_aantal.png",
+       plot = plot_aantal,
+       width = 23, height = 20, units = "cm", dpi=300)
+
+ggsave("./radius/data/output/figuren/sensitivity_bump_aantal.png", 
+       width = 23, height = 20, units = "cm", dpi=300)
+
+
+bump_data <- data %>%
+  select(soort, buffer, rang_percentage, rang_aantal) %>%
+  left_join(x, by = "soort") %>%
+  pivot_longer(
+    cols = c(rang_percentage, rang_aantal, col_percentage, col_aantal),
+    names_to = c(".value", "type"),
+    names_pattern = "(rang|col)_(percentage|aantal)"
+  ) %>%
+  mutate(buffer = as.numeric(buffer))
+
+ggplot(bump_data, aes(x = buffer, y = rang, group = soort)) +
+  geom_bump(aes(col = col), size = 1, smooth = 8) +
+  geom_point(aes(col = col), size = 3) +
+  geom_vline(xintercept = unique(bump_data$buffer), color="black", size=0.5) +
+  scale_y_reverse(limits = c(79, 1), breaks = seq(1, 79, by = 10)) +
+  scale_x_continuous(breaks = unique(bump_data$buffer), labels = as.character(unique(bump_data$buffer))) +
+  scale_color_identity() +
+  facet_wrap(~type, scales = "fixed", 
+             labeller = labeller(type = c("rang_percentage" = "Rang Percentage", "rang_aantal" = "Rang Aantal"))) +
+  theme_minimal() +
+  labs(title = NULL,
+       x = "Bufferafstand (m)",
+       y = "Rang") +
+  custom_theme() +
+  theme(legend.position = "none")
+
+# ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren/Resultaten/sensitivity_bump_cart.png", 
+#        width = 23, height = 15, units = "cm", dpi=300)
+```

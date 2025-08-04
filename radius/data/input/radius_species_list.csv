@@ -1,92 +1,49 @@
 Groep,Species,Soort,GBIF_scientific_name,GBIF_code,EU_lijst,RIPARIAS_lijst,DUNIAS_lijst,ANB_lijst
-plant,Acacia saligna (Labill.) H.L.Wendl.,wilgacacia,Acacia saligna (Labill.) H.L.Wendl.,2978552,3,0,0,0
 plant,Ailanthus altissima (Mill.) Swingle,hemelboom,Ailanthus altissima (Mill.) Swingle,3190653,3,0,1,0
-plant,Alternanthera philoxeroides (Mart.) Griseb.,alligatorkruid,Alternanthera philoxeroides (Mart.) Griseb.,3084923,2,0,0,0
-plant,Andropogon virginicus L.,Amerikaans bezemgras,Andropogon virginicus L.,2706080,3,0,0,0
 plant,Asclepias syriaca L.,zijdeplant,Asclepias syriaca L.,3170247,2,0,0,0
 plant,Baccharis halimifolia L.,struikaster,Baccharis halimifolia L.,3129663,1,0,1,0
 plant,Cabomba caroliniana Gray,waterwaaier,Cabomba caroliniana A.Gray,2882443,1,1,0,0
-plant,Cardiospermum grandiflorum Sw.,ballonrank,Cardiospermum grandiflorum Sw.,3189935,3,0,0,0
-plant,Cortaderia jubata (Lemoine ex Carrière) Stapf,hoog pampagras,Cortaderia jubata (Lemoine) Stapf,2704521,3,0,0,0
-plant,Ehrharta calycina Sm.,roze rimpelgras,Ehrharta calycina Sm.,2702865,3,0,0,0
 plant,Eichhornia crassipes (Martius) Solms,waterhyacint,Pontederia crassipes Mart.,2765942,1,0,0,0
 plant,Elodea nuttallii (Planch.) St. John,smalle waterpest,Elodea nuttallii (Planch.) H.St.John,5329212,2,0,0,0
 plant,Gunnera tinctoria (Molina) Mirbel,gewone gunnera,Gunnera tinctoria (Molina) Mirb.,2984306,2,0,0,0
-plant,Gymnocoronis spilanthoides (D.Don ex Hook. & Arn.) DC.,smalle theeplant,Gymnocoronis spilanthoides DC.,6063677,3,0,0,0
 plant,Heracleum mantegazzianum Sommier & Levier,reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,3034825,2,1,0,0
-plant,Heracleum persicum Fischer,Perzische berenklauw,Heracleum persicum Desf.,3628745,1,1,0,0
-plant,Heracleum sosnowskyi Mandenova,Sosnowsky's berenklauw,Heracleum sosnowskyi Manden.,3642949,1,1,0,0
-plant,Humulus scandens (Lour.) Merr.,oosterse hop,Humulus scandens (Lour.) Merr.,2984537,3,0,0,0
 plant,Hydrocotyle ranunculoides L. f.,grote waternavel,Hydrocotyle ranunculoides L.fil.,7978544,1,1,0,0
 plant,Impatiens glandulifera Royle,reuzenbalsemien,Impatiens glandulifera Royle,2891770,2,1,0,0
 plant,Lagarosiphon major (Ridley) Moss,verspreidbladige waterpest,Lagarosiphon major (Ridl.) Moss,2865565,1,1,0,0
-plant,Lespedeza cuneata (Dum.Cours.) G.Don,Chinese struikklaver,Lespedeza cuneata (Dum.Cours.) G.Don,8114276,3,0,0,0
 plant,Ludwigia grandiflora (Michx.) Greuter & Burdet,grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,5421039,1,1,0,0
 plant,Ludwigia peploides (Kunth) P.H. Raven,kleine waterteunisbloem,Ludwigia peploides (Kunth) P.H.Raven,5420991,1,1,0,0
-plant,Lygodium japonicum (Thunb.) Sw.,Japanse klimvaren,Lygodium japonicum (Thunb.) Sw.,2650436,3,0,0,0
 plant,Lysichiton americanus Hultén & H. St. John,moerasaronskelk,Lysichiton americanus Hultén & H.St.John,2869311,1,1,0,0
 plant,Microstegium vimineum (Trin.) A. Camus,Japans steltgras,Microstegium vimineum (Trin.) A.Camus,5289808,2,0,0,0
 plant,Myriophyllum aquaticum (Vell.) Verdc.,parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,5361785,1,1,0,0
 plant,Myriophyllum heterophyllum Michaux,ongelijkbladig vederkruid,Myriophyllum heterophyllum Michx.,5361762,2,1,0,0
-plant,Parthenium hysterophorus L.,schijnambrosia,Parthenium hysterophorus L.,3086784,1,0,0,0
 plant,Cenchrus setaceus (Forssk.) Morrone,fraai lampenpoetsersgras,Cenchrus setaceus (Forssk.) Morrone,5828232,2,0,0,0
-plant,Persicaria perfoliata (L.) H. Gross,gestekelde duizendknoop,Persicaria perfoliata (L.) H.Gross,4033648,1,0,0,0
-plant,Prosopis juliflora (Sw.) DC.,mesquite,Prosopis juliflora (Sw.) DC.,5358460,3,0,0,0
-plant,Pueraria montana (Lour.) Merr. var. lobata (Willd.),kudzu,Pueraria montana var. lobata (Willd.) Maesen & S.M.Almeida ex Sanjappa & Predeep,2977647,1,0,0,0
 plant,Salvinia molesta D.S.Mitch.,grote vlotvaren,Salvinia ×molesta D.S.Mitch.,5274863,3,0,0,0
-plant,Triadica sebifera (L.) Small,talgboom,Triadica sebifera (L.) Small,3054399,3,0,0,0
 dier,"Acridotheres tristis Linnaeus, 1766",treurmaina,"Acridotheres tristis (Linnaeus, 1766)",2489005,3,0,0,0
 dier,"Alopochen aegyptiacus Linnaeus, 1766",nijlgans,"Alopochen aegyptiaca (Linnaeus, 1766)",2498252,2,0,0,0
-dier,"Arthurdendyus triangulatus (Dendy, 1894) Jones & Gerard (1999)",Nieuw-Zeelandse platworm,"Arthurdendyus triangulatus (Dendy, 1895)",2502792,3,0,0,0
 dier,"Callosciurus erythraeus Pallas, 1779",Pallas' eekhoorn,"Callosciurus erythraeus (Pallas, 1779)",2437394,1,0,0,0
-dier,"Corvus splendens Viellot, 1817",huiskraai,"Corvus splendens Vieillot, 1817",2482499,1,0,0,0
 dier,"Eriocheir sinensis H. Milne Edwards, 1854",Chinese wolhandkrab,"Eriocheir sinensis H.Milne Edwards, 1853",2225776,1,0,0,0
-dier,"Herpestes javanicus É. Geoffroy Saint-Hilaire, 1818",Indische mangoeste,"Herpestes javanicus (É.Geoffroy Saint-Hilaire, 1818)",2434271,1,0,0,0
 dier,"Lepomis gibbosus Linnaeus, 1758",zonnebaars,"Lepomis gibbosus (Linnaeus, 1758)",2394486,3,0,0,0
 dier,"Lithobates (Rana) catesbeianus Shaw, 1802",Amerikaanse stierkikker,"Lithobates catesbeianus (Shaw, 1802)",2427091,1,0,0,0
 dier,"Muntiacus reevesi Ogilby, 1839",Chinese muntjak,"Muntiacus reevesi (Ogilby, 1839)",2440946,1,0,0,0
 dier,"Myocastor coypus Molina, 1782",beverrat,"Myocastor coypus (Molina, 1782)",4264680,1,0,0,0
-dier,"Nasua nasua L., 1766",rode neusbeer,"Nasua nasua (Linnaeus, 1766)",2433536,1,0,0,0
 dier,"Nyctereutes procyonoides Gray, 1834",wasbeerhond,"Nyctereutes procyonoides (Gray, 1834)",2434552,2,0,0,0
 dier,"Ondatra zibethicus Linnaeus, 1766",muskusrat,"Ondatra zibethicus (Linnaeus, 1766)",5219858,2,0,0,0
 dier,"Faxonius limosus Rafinesque, 1817",gevlekte Amerikaanse rivierkreeft,"Faxonius limosus (Rafinesque, 1817)",8909595,1,0,0,0
 dier,"Faxonius virilis Hagen, 1870",geknobbelde Amerikaanse rivierkreeft,"Faxonius virilis (Hagen, 1870)",8971201,1,1,0,0
 dier,"Oxyura jamaicensis Gmelin, 1789",rosse stekelstaart,"Oxyura jamaicensis (J.F.Gmelin, 1789)",2498305,1,0,0,0
 dier,"Pacifastacus leniusculus Dana, 1852",Californische rivierkreeft,"Pacifastacus leniusculus (Dana, 1852)",2226990,1,0,0,0
-dier,"Perccottus glenii Dybowski, 1877",amoergrondel,"Perccottus glenii Dybowski, 1877",2390064,1,0,0,0
-dier,"Plotosus lineatus (Thunberg, 1787)",gestreepte koraalmeerval,"Plotosus lineatus (Thunberg, 1787)",7965247,3,0,0,0
 dier,"Procambarus clarkii Girard, 1852",rode Amerikaanse rivierkreeft,"Procambarus clarkii (Girard, 1852)",2227300,1,1,0,0
 dier,"Procambarus virginalis Lyko, 2017",marmerkreeft,"Procambarus virginalis Lyko, 2017",9442269,1,1,0,0
 dier,"Procyon lotor L., 1758",wasbeer,"Procyon lotor (Linnaeus, 1758)",5218786,1,0,0,0
 dier,"Pseudorasbora parva Temminck & Schlegel, 1846",blauwbandgrondel,"Pseudorasbora parva (Temminck & Schlegel, 1846)",2362868,1,0,0,0
 dier,"Sciurus carolinensis Gmelin, 1788",grijze eekhoorn,"Sciurus carolinensis Gmelin, 1788",5219681,1,0,0,0
-dier,"Sciurus niger L., 1758",Amerikaanse voseekhoorn,"Sciurus niger Linnaeus, 1758",5219683,1,0,0,0
 dier,"Tamias sibiricus Laxmann, 1769",Siberische grondeekhoorn,"Tamias sibiricus (Laxmann, 1769)",2437450,1,0,0,0
 dier,"Threskiornis aethiopicus Latham, 1790",heilige ibis,"Threskiornis aethiopicus (Latham, 1790)",2480764,1,0,0,0
 dier,"Trachemys scripta Schoepff, 1792",lettersierschildpad,"Trachemys scripta (Thunberg In Schoepff, 1792)",2443002,1,0,0,0
-dier,"Vespa velutina nigrithorax de Buysson, 1905",Aziatische hoornaar (ondersoort),"Vespa velutina nigrithorax Buysson, 1905",6247411,1,0,0,0
 dier,"Vespa velutina Lepeletier, 1836",Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",1311477,1,0,0,0
-dier,"Ameiurus melas (Rafinesque, 1820)",zwarte dwergmeerval,"Ameiurus melas (Rafinesque, 1820)",2340977,4,0,0,0
-dier,"Axis axis (Erxleben, 1777)",axishert,"Axis axis (Erxleben, 1777)",2440934,4,0,0,0
-dier,"Callosciurus finlaysonii (Horsfield, 1823)",Thailandeekhoorn,"Callosciurus finlaysonii (Horsfield, 1823)",2437399,4,0,0,0
 plant,Celastrus orbiculatus Thunb.,Aziatische boomwurger,Celastrus orbiculatus Thunb.,3169169,4,0,0,0
-dier,"Channa argus (Cantor, 1842)",noordelijke slangekopvis,"Channa argus (Cantor, 1842)",4284921,4,0,0,0
-dier,"Faxonius rusticus (Girard, 1852)",roestbruine Amerikaanse rivierkreeft,"Faxonius rusticus (Girard, 1852)",8979506,4,1,0,0
-dier,"Fundulus heteroclitus (Linnaeus, 1766)",mummichog,"Fundulus heteroclitus (Linnaeus, 1766)",5712056,4,0,0,0
-dier,"Gambusia affinis (Baird & Girard, 1853)",westelijk muskietenvisje,"Gambusia affinis (Baird & Girard, 1853)",2350580,4,0,0,0
-dier,"Gambusia holbrooki Girard, 1859",oostelijk muskietenvisje,"Gambusia holbrooki Girard, 1859",2350570,4,0,0,0
-plant,Hakea sericea Schrad. & J.C.Wendl.,hakea,Hakea sericea Schrad. & J.C.Wendl.,7287606,4,0,0,0
 plant,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,8848208,4,1,0,0
-dier,"Lampropeltis getula (Linnaeus, 1766)",gewone koningsslang,"Lampropeltis getula (Linnaeus, 1766)",9799308,4,0,0,0
-dier,"Limnoperna fortunei (Dunker, 1857)",gouden mossel,"Limnoperna fortunei (Dunker, 1857)",5855350,4,0,0,0
-dier,"Morone americana (Gmelin, 1789)",Amerikaanse baars,"Morone americana (Gmelin, 1789)",2394604,4,0,0,0
 plant,Pistia stratiotes L.,watersla,Pistia stratiotes L.,2870583,4,0,0,0
-dier,"Pycnonotus cafer (Linnaeus, 1766)",roodbuikbuulbuul,"Pycnonotus cafer (Linnaeus, 1766)",2486131,4,0,0,0
-plant,"Rugulopteryx okamurae (E.Y.Dawson) I.K.Hwang, W.J.Lee & H.S.Kim, 2009",stomp gaffelwier,"Rugulopteryx okamurae (E.Y.Dawson) I.K.Hwang, W.J.Lee & H.S.Kim, 2009",5824863,4,0,0,0
-dier,"Solenopsis geminata (Fabricius, 1804)",tropische vuurmier,"Solenopsis geminata (Fabricius, 1804)",5035187,4,0,0,0
-dier,"Solenopsis invicta Buren, 1972",rode vuurmier,"Solenopsis invicta Buren, 1972",5035230,4,0,0,0
-dier,"Solenopsis richteri Forel, 1909",zwarte vuurmier,"Solenopsis richteri Forel, 1909",5035017,4,0,0,0
-dier,"Wasmannia auropunctata (Roger, 1863)",dwergvuurmier,"Wasmannia auropunctata (Roger, 1863)",1315391,4,0,0,0
 dier,"Xenopus laevis (Daudin, 1802)",Afrikaanse klauwkikker,"Xenopus laevis (Daudin, 1802)",5217334,4,0,0,0
 plant,Crassula helmsii (Kirk) Cockayne,watercrassula,Crassula helmsii (Kirk) Cockayne,5362054,0,1,0,1
 plant,Reynoutria japonica Houtt.,invasieve duizendknopen,Reynoutria japonica Houtt.,2889173,0,0,0,1
@@ -95,10 +52,7 @@ plant,Reynoutria ×bohemica Chrtek & Chrtková,invasieve duizendknopen,Reynoutri
 dier,"Branta canadensis (Linnaeus, 1758)",Canadese gans,"Branta canadensis (Linnaeus, 1758)",5232437,0,0,0,1
 dier,"Mustela vison Schreber, 1777",Amerikaanse nerts,"Mustela vison Schreber, 1777",5218823,0,0,0,1
 dier,"Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)",Noord-Aziatische modderkruiper,"Misgurnus mohoity (Dybowski, 1869)",2367911,0,0,0,1
-dier,"Faxonius juvenilis (Hagen, 1870)",Kentuckyrivierkreeft,"Faxonius juvenilis (Hagen, 1870)",8721209,0,1,0,1
-dier,"Faxonius immunis (Hagen, 1870)",Calicotrivierkreeft,"Faxonius immunis (Hagen, 1870)",8930656,0,1,0,1
 dier,"Procambarus acutus (Girard, 1852)",gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",2227289,0,1,0,1
-dier,"Cherax destructor Clark, 1936",gewone yabby,"Cherax destructor Clark, 1936",4417558,0,1,0,1
 plant,Houttuynia cordata Thunb.,moerasanemoon,Houttuynia cordata Thunb.,5384931,0,1,0,1
 plant,Aponogeton distachyos L.f.,Kaapse waterlelie,Aponogeton distachyos L.f.,5328593,0,1,0,1
 plant,Elodea densa (Planch.) Casp.,egeria,Elodea densa (Planch.) Casp.,5329263,0,1,0,1
