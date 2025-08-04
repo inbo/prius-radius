@@ -568,7 +568,7 @@ for (i in unique(occ_flanders$Soort)) {
           
           percentage_overlap_of = overlap_per_anb_regio[row,]$intersect_area / overlap_per_anb_regio[row,]$geb_area
           selectivity = percentage_overlap_in / (overlap_per_anb_regio[row,]$geb_area / sum(Vlaanderen_grenzen$OPPERVL))
-          
+
           metrics_df <- data.frame(
             soort = i,
             species = paste(unique(occ_species$Species), collapse = ","), 
@@ -1190,4 +1190,3 @@ SBP_pls_extra <- rbind(list.results$SBP_pls, list.results$clusters_sbp, list.res
 write_csv(SBP_pls_extra, "./radius/data/output/SBP_pls_extra.csv", append = FALSE)
 st_write(sbp_intersections %>% st_as_sf(), "./radius/data/spatial/sbp_pls_intersects.shp", append = FALSE)
 ```
-
