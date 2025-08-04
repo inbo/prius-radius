@@ -79,7 +79,7 @@ hasCoordinate <- TRUE
 
 ## Trigger download
 ```{r gbif-download}
-# Trigger new download
+#Trigger new download
 # gbif_downloadKey <- occ_download(
 #   pred_in("taxonKey", taxonKeys),
 #   pred_in("country", countries),
@@ -91,14 +91,14 @@ hasCoordinate <- TRUE
 #   pwd = rstudioapi::askForPassword("GBIF password"),
 #   email = rstudioapi::askForPassword("Email address for notification")
 # )
-# 
-# occ_download_wait(gbif_downloadKey, 
+
+# occ_download_wait(gbif_downloadKey,
 #                   curlopts = list(verbose = TRUE,
 #                                   http_version = 2,
 #                                   forbid_reuse = TRUE))
 
 # Or reuse existing download
-gbif_downloadKey <- "0082987-231120084113126" # aangepast 29/01
+gbif_downloadKey <- "0033454-241126133413365" # aangepast 23/05
 ```
 
 ## Get GBIF download to computer
@@ -150,7 +150,8 @@ occ_filtered <- occ_raw %>%
   filter(!occurrenceStatus %in% occurrenceStatus_to_discard) %>%  # filter out absence data
   filter(!issue %in% issues_to_discard) %>%   # filter out specified issues
   filter(!identificationVerificationStatus %in% identificationVerificationStatus_to_discard) %>% # filter out verification status to discard
-  filter(!gbifID == 4430037392)   # manueel wegfilteren van foutieve waarneming van schijnambrosia of waarnemingen.be
+  filter(coordinateUncertaintyInMeters <= 100 | is.na(coordinateUncertaintyInMeters)) %>% # wegfilteren van occs met onzekerheid boven 100m, NAs worden ook meegenomen in analyse
+  filter(!gbifID == 4430037392) # manueel wegfilteren van foutieve waarneming van schijnambrosia of waarnemingen.be
 
 ```
 
@@ -299,6 +300,15 @@ List_species_not_present <- vsetdiff(unique(species_list$Soort) , List_species_p
 write_csv(in_flanders, "./radius/data/intermediate/species_in_flanders.csv")
 write_csv(not_in_flanders, "./radius/data/intermediate/species_not_in_flanders.csv")
 ```
+
+## Remove absent species from species list
+```{r}
+species_list <- species_list %>%
+  filter(Soort %in% in_flanders$Soort)
+
+write_csv(species_list, "./radius/data/input/radius_species_list.csv")
+```
+
 
 ## Save occurrence dataset flanders
 
