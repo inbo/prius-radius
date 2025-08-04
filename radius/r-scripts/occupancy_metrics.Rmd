@@ -329,8 +329,6 @@ ggplot() +
   geom_sf(data = lu_sbp_pls %>% filter(soort == "Kleine Modderkruiper"), fill = "blue", color = "blue")
 ```
 
-
-
 # Add columns with abbreviations
 ```{r add-abbreviations-patdat}
 am_patdat <- am_patdat %>%
