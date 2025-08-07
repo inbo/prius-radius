@@ -1,0 +1,183 @@
+Version: 2025-08-07
+
+The species list is a compilation of
+
+  1. the (previous) PrIUS list
+  2. the fourth Union list update (fifth list)
+  3. LIFE RIPARIAS
+  4. LIFE DUNIAS
+  5. Technisch Vademecum
+  6. ad hoc selection
+
+```{r prep packages}
+library(tidyverse)
+library(readr)
+library(rgbif)
+```
+
+# PrIUS
+
+Largely inspired on the RadIUS workflow (Fleur): we take the PrIUS list, but also check the mapping on the Union list (pre-update), and check whether nothing has changed on GBIF. 
+
+```{r zenodo}
+# For reference
+# Note : link retrieved by rightclicking on 'Download' button in Zenodo
+zenodo <- read.csv(
+  "https://zenodo.org/records/7678524/files/Dhondt_etal_2022_PrIUS_table.csv?download=1"
+  )
+```
+
+```{r prius}
+prius <- read_csv("./prius/data/input/prius_species_list.csv",
+                       locale = locale(encoding = "ISO-8859-1"),
+                       show_col_types = FALSE)  
+```
+
+```{r union}
+# dataset "https://www.gbif.org/dataset/79d65658-526c-4c78-9d24-1870d67f8439"
+union <- name_usage(datasetKey = "79d65658-526c-4c78-9d24-1870d67f8439",
+                    limit = 10000)$data %>%
+  subset(rank != "KINGDOM") # Animalia, Chromista, Plantae wegfilteren
+```
+
+Small corrections of species names in both datasets to assure comparability.
+
+```{r species name corrections}
+
+# union
+
+union$scientificName[union$scientificName == "Sciurus carolinensis Gmelin,1788"] <-
+  "Sciurus carolinensis Gmelin, 1788"
+union$scientificName[union$scientificName == "Sciurus niger Linnaeus, 1758"] <-
+  "Sciurus niger L., 1758"
+union$scientificName[union$scientificName == "Nasua nasua Linnaeus, 1766"] <-
+  "Nasua nasua L., 1766"
+union$scientificName[union$scientificName == "Procyon lotor Linnaeus, 1758"] <-
+  "Procyon lotor L., 1758"
+union$scientificName[union$scientificName == "Salvinia molesta D.S. Mitch."] <-
+  "Salvinia molesta D.S.Mitch."
+union$scientificName[union$scientificName == "Lysichiton americanus Hultén and St. John"] <-
+  "Lysichiton americanus Hultén & H. St. John"
+
+# prius
+
+prius$Species[prius$Species == "Triadica sebífera (L.) Small"] <-
+  "Triadica sebifera (L.) Small"
+```
+
+Update GBIF scientific name in both lists.
+
+```{r update-scientific-names}
+
+prius$prius_scientificName <- 0
+
+for(i in 1:nrow(prius)) {
+  name_usage(key = prius$GBIF_code[i]) -> temp
+  temp$data$scientificName -> prius$prius_scientificName[i]
+  }
+
+union$union_scientificName <- 0
+
+for(i in 1:nrow(union)) {
+  name_usage(key = union$nubKey[i]) -> temp
+  temp$data$scientificName -> union$union_scientificName[i]
+}
+
+rm(i,temp)
+```
+
+Compare the two lists.
+
+```{r join prius-union}
+list_check <- full_join(prius, union, by = c("Species" = "scientificName")) %>%
+  transmute(Species,
+            Soort,
+            Lijst,
+            prius_gbif_code = GBIF_code,
+            prius_scientificName,
+            union_gbif_code = nubKey,
+            union_scientificName) %>%
+  mutate(code_check = if_else(prius_gbif_code == union_gbif_code, "TRUE", "FALSE"),
+         prius_name_check = if_else(Species == prius_scientificName, "TRUE", "FALSE"))
+```
+
+Check taxonomic status and whether any codes were recently deleted from GBIF.
+
+```{r make function}
+# Define a function to check the taxonomicStatus and whether the GBIF code was (recently) deleted
+check_status_and_deleted <- function(code_column, status_column, deleted_column) {
+  result <- lapply(code_column, function(code) {
+    if (is.na(code)) {
+      status <- "NA"
+      deleted <- "NA"
+    } else {
+      name_usage(key = code) -> temp
+      status <- temp$data$taxonomicStatus
+      deleted <- if ("deleted" %in% colnames(temp$data)) "TRUE" else "FALSE"
+    }
+    return(data.frame(Status = status, Deleted = deleted))
+  })
+  return(do.call(rbind, result))
+}
+```
+
+```{r use function}
+# Check the status and deleted columns for Prius list
+prius_result <- check_status_and_deleted(list_check$prius_gbif_code,
+                                         "prius_status_check", "prius_deleted")
+
+# Check the status and deleted columns for Union list
+union_result <- check_status_and_deleted(list_check$union_gbif_code,
+                                         "union_status_check", "union_deleted")
+
+# Assign the results back to the data frame
+list_check$prius_status_check <- prius_result$Status
+list_check$union_status_check <- union_result$Status
+list_check$prius_deleted <- prius_result$Deleted
+list_check$union_deleted <- union_result$Deleted
+
+# Remove unnecessary variables
+rm(prius_result, union_result)
+```
+
+Add issue column that separates different issues.
+
+```{r add-issue-column}
+list_check <- list_check %>%
+  mutate(issue = case_when(code_check == "TRUE" & prius_name_check == "TRUE" ~ "ok",
+                           code_check == "TRUE" & prius_name_check == "FALSE" ~ "name_issue",   #name_issue: in prius list Species is not equal to gbif scientific name
+                           code_check == "FALSE" & prius_name_check == "TRUE" ~ "code_issue",   #code_issue: gbif codes differ between prius and union list
+                           code_check == "FALSE" & prius_name_check == "FALSE" ~ "code_name_issue",   #code_name_issue: combination of two previous issues
+                           is.na(code_check) & prius_name_check == "FALSE" ~ "name_issue")) %>%
+  arrange(issue)
+```
+
+```{r me}
+# Single out batches of issues
+explore <- list_check %>% 
+  select(Species,
+         prius_scientificName,  union_scientificName, 
+         prius_gbif_code, union_gbif_code,
+         prius_status_check, union_status_check,
+         issue) %>% 
+  filter(issue == "name_issue")
+View(explore)
+
+rm(explore)
+```
+
+Initiating RadIUS based on the lessons learnt.
+
+```{r}
+radius <- prius %>%
+  transmute(Groep,
+            Species,
+            GBIF_scientific_name,
+            GBIF_code = if_else(GBIF_code == 3034613, 7978544, # Hydrocotyle
+                                GBIF_code),
+            Soort,
+            Lijst)
+```
+
+As of 2025-08-07 : ook de andere issues nog eens goed checken.
+Species = Naam_cf_verordening - kolom gewoon zo hernoemen?
