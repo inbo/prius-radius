@@ -1,6 +1,6 @@
-Version: 2025-08-07
+Version: 2025-08-11
 
-The species list is a compilation of
+The species list of PrIUS-II is a compilation of
 
   1. the (previous) PrIUS list
   2. the fourth Union list update (fifth list)
@@ -15,9 +15,14 @@ library(readr)
 library(rgbif)
 ```
 
+```{r prep memory}
+rm(list = ls())
+rm(list = setdiff(ls(), c("raw", "clean")))
+```
+
 # PrIUS
 
-Largely inspired on the RadIUS workflow (Fleur): we take the PrIUS list, but also check the mapping on the Union list (pre-update), and check whether nothing has changed on GBIF. 
+Largely inspired on the RadIUS workflow (Fleur): we will take the PrIUS list, but let us first check whether it complies with the Union list (pre-update), and whether nothing has changed on GBIF. 
 
 ```{r zenodo}
 # For reference
@@ -28,78 +33,123 @@ zenodo <- read.csv(
 ```
 
 ```{r prius}
-prius <- read_csv("./prius/data/input/prius_species_list.csv",
+prius_raw <- read_csv("./prius/data/input/prius_species_list.csv",
                        locale = locale(encoding = "ISO-8859-1"),
-                       show_col_types = FALSE)  
+                       show_col_types = FALSE)
+
+prius <- prius_raw %>%
+  filter(Lijst %in% c("1", "2", "3", "4")) %>% 
+  rename(EU_legal_name = Species)  # To clarify where this name comes from # IS HET NIET !!
 ```
 
 ```{r union}
 # dataset "https://www.gbif.org/dataset/79d65658-526c-4c78-9d24-1870d67f8439"
-union <- name_usage(datasetKey = "79d65658-526c-4c78-9d24-1870d67f8439",
+union_raw <- name_usage(datasetKey = "79d65658-526c-4c78-9d24-1870d67f8439",
                     limit = 10000)$data %>%
   subset(rank != "KINGDOM") # Animalia, Chromista, Plantae wegfilteren
+
+union <- union_raw
 ```
 
-Small corrections of species names in both datasets to assure comparability.
+Small corrections of species names, as based on the Implementing Regulations, in both datasets to assure comparability.
 
 ```{r species name corrections}
 
-# union
-
+## mistakes seemingly on behalf of GBIF dataset
+## note : issue raised as https://github.com/riparias/union-list/issues/21 - may need follow-up
 union$scientificName[union$scientificName == "Sciurus carolinensis Gmelin,1788"] <-
   "Sciurus carolinensis Gmelin, 1788"
-union$scientificName[union$scientificName == "Sciurus niger Linnaeus, 1758"] <-
-  "Sciurus niger L., 1758"
-union$scientificName[union$scientificName == "Nasua nasua Linnaeus, 1766"] <-
-  "Nasua nasua L., 1766"
-union$scientificName[union$scientificName == "Procyon lotor Linnaeus, 1758"] <-
-  "Procyon lotor L., 1758"
 union$scientificName[union$scientificName == "Salvinia molesta D.S. Mitch."] <-
   "Salvinia molesta D.S.Mitch."
-union$scientificName[union$scientificName == "Lysichiton americanus Hultén and St. John"] <-
-  "Lysichiton americanus Hultén & H. St. John"
+union$scientificName[union$scientificName == "Triadica sebifera (L.) Small"] <-
+  "Triadica sebífera (L.) Small"
 
-# prius
-
-prius$Species[prius$Species == "Triadica sebífera (L.) Small"] <-
-  "Triadica sebifera (L.) Small"
+## mistakes seemingly on behalf of prius
+## ref. : https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32016R1141&qid=1754922548880
+prius$EU_legal_name[prius$EU_legal_name == "Sciurus niger L., 1758"] <-
+  "Sciurus niger Linnaeus, 1758"
+prius$EU_legal_name[prius$EU_legal_name == "Nasua nasua L., 1766"] <-
+  "Nasua nasua Linnaeus, 1766"
+prius$EU_legal_name[prius$EU_legal_name == "Procyon lotor L., 1758"] <-
+  "Procyon lotor Linnaeus, 1758"
+prius$EU_legal_name[prius$EU_legal_name == "Lysichiton americanus Hultén & H. St. John"] <-
+   "Lysichiton americanus Hultén and St. John"
 ```
 
-Update GBIF scientific name in both lists.
+Update GBIF scientific names in prius. Make sure to be logged in to GBIF!
 
-```{r update-scientific-names}
+```{r}
+# ditch the previous names
+prius <- prius %>% 
+  select(-GBIF_scientific_name)
 
+# go get the names
 prius$prius_scientificName <- 0
 
 for(i in 1:nrow(prius)) {
   name_usage(key = prius$GBIF_code[i]) -> temp
   temp$data$scientificName -> prius$prius_scientificName[i]
-  }
+}
 
+rm(i,temp)
+```
+
+For optimal comparison, let's do the same in union.
+
+```{r update-scientific-names}
 union$union_scientificName <- 0
-
 for(i in 1:nrow(union)) {
   name_usage(key = union$nubKey[i]) -> temp
   temp$data$scientificName -> union$union_scientificName[i]
 }
-
 rm(i,temp)
 ```
 
 Compare the two lists.
 
 ```{r join prius-union}
-list_check <- full_join(prius, union, by = c("Species" = "scientificName")) %>%
-  transmute(Species,
-            Soort,
-            Lijst,
+list_compare <- full_join(prius, union, by = c("prius_scientificName" = "union_scientificName")) %>%
+  transmute(scientificName = prius_scientificName,
             prius_gbif_code = GBIF_code,
-            prius_scientificName,
-            union_gbif_code = nubKey,
-            union_scientificName) %>%
-  mutate(code_check = if_else(prius_gbif_code == union_gbif_code, "TRUE", "FALSE"),
-         prius_name_check = if_else(Species == prius_scientificName, "TRUE", "FALSE"))
+            union_nubKey = nubKey,
+            ) %>%
+  arrange(scientificName) %>% 
+  mutate(code_check = if_else(prius_gbif_code == union_nubKey, "ok", ""))
 ```
+
+Here, I prefer a manual check.
+
+As of 2025-08-11, 12 lines give a difference.
+
+1 prius lists Cenchrus setaceus (Forssk.) Morrone 5828232
+2 union lists Pennisetum setaceum (Forssk.) Chiov. 2706134
+CHECK : 2 is synonym of 1 - no fix needed
+
+1 prius lists Heracleum persicum Desf. 3628745
+2 union lists Heracleum persicum Desf. ex Fisch., C.A.Mey. & Avé-Lall.	8000520
+CHECK : 2 is synonym of 1 - no fix needed
+
+1 prius lists Pontederia crassipes Mart. 2765942
+2 union lists Eichhornia crassipes (Mart.) Solms 2765940
+CHECK : 2 is synonym of 1 - no fix needed
+
+1 union lists Rana catesbeiana Shaw, 1802 2427092
+2 prius doesn't
+CHECK : union listed this as a synonym on top of Lithobates c. - no fix needed
+
+1 prius lists Vespa velutina Lepeletier, 1836 1311477
+2 union doesn't
+CHECK : prius does to make sure to take all V. velutina, although only nigrithorax is listed - no fix needed
+
+1 prius lists Lampropeltis getula (Linnaeus, 1766) 9799308
+2 union lists Lampropeltis getula (Blainville, 1835) 5224480
+CHECK : 2 seems to be a doubtful taxon - FIX NEEDED
+
+1 Hydrocotyle ranunculoides L.f. 3034613
+2 Hydrocotyle ranunculoides L.fil. 7978544
+CHECK : 1 has been deleted - FIX NEEDED
+
+##########
 
 Check taxonomic status and whether any codes were recently deleted from GBIF.
 
