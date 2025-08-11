@@ -1,0 +1,174 @@
+Version: 2025-08-11
+
+The species list of PrIUS-II is a compilation of
+
+  1. the (previous) PrIUS list
+  2. the fourth Union list update (fifth list)
+  3. LIFE RIPARIAS
+  4. LIFE DUNIAS
+  5. Technisch Vademecum
+  6. ad hoc selection
+
+It seems wisest to start from the prius-i list. But note that knowledge from the radius workflow should be taken along.
+
+```{r prep packages}
+library(tidyverse)
+# library(readr)
+library(readxl)
+# library(rgbif)
+```
+
+```{r prep memory}
+# rm(list = ls())
+rm(list = setdiff(ls(), c("zenodo")))
+```
+
+```{r zenodo}
+# Note : link retrieved by rightclicking on 'Download' button in Zenodo
+zenodo <- read.csv(
+  "https://zenodo.org/records/7678524/files/Dhondt_etal_2022_PrIUS_table.csv?download=1"
+  ) %>% 
+  arrange(lijst, species)
+```
+
+```{r}
+prius2 <- zenodo
+```
+
+# Opschonen van vorige set
+
+Alvorens soorten toe te voegen, zullen we eerste de bestaande set opschonen. Het gaat dan met name om soortnamen en GBIF-codes.
+
+Het PrIUS-kader maakt er een punt van dat de naamgeving van soorten heel nauw de wetgeving volgt. Om kenbaarder te maken dat 'species' in Zenodo verwijst naar de exacte naamgeving volgens de Uitvoeringsverordeningen, gaan we dat uitwerken. Naarmate de lijst groeit en de tijd vordert, wordt traceerbaarheid namelijk een groeiende uitdaging.
+
+```{r}
+prius2 <- prius2 %>% 
+  rename(species_wettelijke_naam = species)
+# de niet-Unielijstsoorten gaan we verwijderen
+# we halen de namen later opnieuw op via GBIF (neemt meteen evl. wijzigingen mee)
+prius2$species_wettelijke_naam[prius2$lijst == "nvt"] <- NA
+```
+
+Zoals opgemerkt door Fleur (RadIUS), waren enkele namen geen perfecte match met de Uitvoeringsverordeningen. Dit zijn dus zuivere correcties. Bij manuele controle vond ik er zelf ook nog eentje.
+
+```{r}
+# Fleur
+prius2$species_wettelijke_naam[prius2$species_wettelijke_naam == "Sciurus niger L., 1758"] <-
+  "Sciurus niger Linnaeus, 1758"
+prius2$species_wettelijke_naam[prius2$species_wettelijke_naam == "Nasua nasua L., 1766"] <-
+  "Nasua nasua Linnaeus, 1766"
+prius2$species_wettelijke_naam[prius2$species_wettelijke_naam == "Procyon lotor L., 1758"] <-
+  "Procyon lotor Linnaeus, 1758"
+prius2$species_wettelijke_naam[prius2$species_wettelijke_naam ==
+                                 "Lysichiton americanus Hultén & H. St. John"] <-
+                                 "Lysichiton americanus Hultén and St. John"
+# Bram
+prius2$species_wettelijke_naam[prius2$species_wettelijke_naam ==
+                                 "Celastrus orbiculatus C.P. Thunberg ex A. Murray"] <-
+                                 "Celastrus orbiculatus Thunb."
+```
+
+Tenslotte staat talgboom strikt genomen neergeschreven als T. "sebífera" i.p.v. "sebifera", maar dit zullen we negeren.
+
+De wettelijke naam van Unielijstsoorten volgt niet altijd meer de initiële Uitvoeringsverordening, maar kan middels volgende Uitvoeringsverordeningen zijn bijgesteld. Om dit te traceren, wordt een kolom toegevoegd. 
+
+```{r}
+prius2 <- prius2 %>% 
+  mutate(species_wettelijke_naam_bron = lijst, .after = lijst)
+prius2$species_wettelijke_naam_bron[prius2$lijst == "nvt"] <- NA
+
+# wijzigingen met lijst-3
+prius2$species_wettelijke_naam_bron[prius2$soort == "gevlekte Amerikaanse rivierkreeft"] <- 3
+prius2$species_wettelijke_naam_bron[prius2$soort == "geknobbelde Amerikaanse rivierkreeft"] <- 3
+prius2$species_wettelijke_naam_bron[prius2$soort == "marmerkreeft"] <- 3
+
+# wijzigingen met lijst-5 (DRAFT 24/02/2025)
+case <- "Eichhornia crassipes (Martius) Solms"
+prius2$species_wettelijke_naam_bron[prius2$species_wettelijke_naam == case] <- 5
+prius2$species_wettelijke_naam[prius2$species_wettelijke_naam == case] <- "Pontederia crassipes Mart"
+rm(case)
+
+case <- "Hakea sericea Schrad. & J.C.Wendl."
+prius2$species_wettelijke_naam_bron[prius2$species_wettelijke_naam == case] <- 5
+prius2$species_wettelijke_naam[prius2$species_wettelijke_naam == case] <- "Hakea sericea Schrad. & J.C.Wendl. s.l."
+rm(case)
+
+case <- "Pennisetum setaceum (Forssk.) Chiov."
+prius2$species_wettelijke_naam_bron[prius2$species_wettelijke_naam == case] <- 5
+prius2$species_wettelijke_naam[prius2$species_wettelijke_naam == case] <- "Cenchrus setaceus (Forssk.) Morrone (Pennisetum setaceum (Forssk.) Chiov.)"
+rm(case)
+
+case <- "Tamias sibiricus Laxmann, 1769"
+prius2$species_wettelijke_naam_bron[prius2$species_wettelijke_naam == case] <- 5
+prius2$species_wettelijke_naam[prius2$species_wettelijke_naam == case] <- "Tamias sibiricus Laxmann, 1769 (Eutamias sibiricus (Laxmann, 1769))"
+rm(case)
+```
+
+Nu richten we ons op de codes.
+
+Ondertussen is de oorspronkelijke code voor H. ranunculoides in onbruik geraakt. Deze moet worden vervangen.
+
+```{r}
+prius2$GBIF_codes[prius2$soort == "grote waternavel"] <- "7978544"
+```
+
+We willen naar één code per rij = per GBIF-taxon gaan. Waar momenteel meerdere codes worden gegeven, kunnen daarvoor drie redenen zijn (één slechte, twee goede).
+
+Slechte: de codes zijn synoniemen. In PrIUS werden deze gegeven om te verwijzen naar het oorspronkelijke taxon, zoals vermeld in de Uitvoeringsverordening. Dit is onnodig gedetailleerd. Deze kunnen dus worden herleid tot één code.
+
+```{r}
+# gevlekte Amerikaanse rivierkreeft
+prius2$GBIF_codes[prius2$GBIF_codes == "2227000 (8909595)"] <- "8909595"
+# geknobbelde Amerikaanse rivierkreeft
+prius2$GBIF_codes[prius2$GBIF_codes == "2227064 (8971201)"] <- "8971201"
+# marmerkreeft
+prius2$GBIF_codes[prius2$GBIF_codes == "8879526 (9442269)"] <- "9442269"
+# gestekelde duizendknoop
+prius2$GBIF_codes[prius2$GBIF_codes == "4033648 (5334406)"] <- "4033648"
+# kudzu
+prius2$GBIF_codes[prius2$GBIF_codes == "2977647 (2977654)"] <- "2977647"
+# wilgacacia
+prius2$GBIF_codes[prius2$GBIF_codes == "2978552 (2980328)"] <- "2978552"
+# Chinese struikklaver
+prius2$GBIF_codes[prius2$GBIF_codes == "8114276(2955720)"] <- "8114276" # (bemerk de spatiefout)
+# grote vlotvaren
+prius2$GBIF_codes[prius2$GBIF_codes == "5274863 (5579439)"] <- "5274863"
+# talgboom
+prius2$GBIF_codes[prius2$GBIF_codes == "3054399 (7748792)"] <- "3054399"
+```
+
+Az. hoornaar is een speciaal geval. Hier wordt bewust de soort i.p.v. ondersoort gekozen, omdat anders data verloren geraakt, en in de wetenschap dat alle V. velutina in Vlaanderen V. velutina nigrithorax zijn.
+
+```{r}
+# Aziatische hoornaar
+prius2$GBIF_codes[prius2$GBIF_codes == "6247411, 1311477"] <- "1311477"
+```
+
+Blijft enkel: de invasieve duizendknopen (drie codes gelumpt). Deze wordt echter overruled door de toevoeging van de vijfde lijst. Merk op: we gaan voorlopig uit van uitsplitsing van de drie taxa.
+
+# Toevoegen soorten.
+
+## 5de lijst
+
+De basisgegevens van de vijfde lijst zijn voor het gemak extern verzameld.
+
+```{r}
+list5 <- read_excel("./prius2/input/lijst-5.xlsx", col_names = TRUE)
+missing_cols <- setdiff(names(prius2), names(list5))
+list5[missing_cols] <- NA
+prius2 <- rbind(prius2, list5)
+```
+
+toevoegen GBIF-codes
+oplossen hetgeen er al in zat
+
+## 
+
+# Binnentrekken GBIF-namen
+
+Zie functie Fleur.
+
+Visueel eens controleren?
+
+Toetsen aan EU-lijst?
+Toetsen aan RadIUS?
