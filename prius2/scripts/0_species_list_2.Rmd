@@ -15,7 +15,7 @@ It seems wisest to start from the prius-i list. But note that knowledge from the
 library(tidyverse)
 # library(readr)
 library(readxl)
-# library(rgbif)
+library(rgbif)
 ```
 
 ```{r prep memory}
@@ -32,8 +32,26 @@ zenodo <- read.csv(
 ```
 
 ```{r}
-prius2 <- zenodo
+prius2 <- zenodo %>% 
+  select(-nr)
 ```
+
+We voorzien de tabel van een overzicht van de verschillende 'herkomsten' (opnameredenen).
+
+```{r}
+prius2 <- prius2 %>% 
+  mutate(reg = NA, # EU Regulation (all)
+         rip = NA, # LIFE RIPARIAS
+         dun = NA, # LIFE DUNIAS (selection)
+         vad = NA, # Technisch Vademecum - relevant? (selection)
+         glo = NA, # GlobUS (ANB) - relevant? (selection)
+         hoc = NA, # adhoc (including the PrIUS-I leftovers)
+         .after = lijst) %>%
+  # tilt lijst into reg and delete lijst
+  mutate(reg = if_else(lijst %in% c("1", "2", "3", "4"), lijst, NA)) %>% 
+  select(-lijst)
+```
+
 
 # Opschonen van vorige set
 
@@ -46,7 +64,7 @@ prius2 <- prius2 %>%
   rename(species_wettelijke_naam = species)
 # de niet-Unielijstsoorten gaan we verwijderen
 # we halen de namen later opnieuw op via GBIF (neemt meteen evl. wijzigingen mee)
-prius2$species_wettelijke_naam[prius2$lijst == "nvt"] <- NA
+prius2$species_wettelijke_naam[is.na(prius2$reg)] <- NA
 ```
 
 Zoals opgemerkt door Fleur (RadIUS), waren enkele namen geen perfecte match met de Uitvoeringsverordeningen. Dit zijn dus zuivere correcties. Bij manuele controle vond ik er zelf ook nog eentje.
@@ -74,8 +92,8 @@ De wettelijke naam van Unielijstsoorten volgt niet altijd meer de initiële Uitv
 
 ```{r}
 prius2 <- prius2 %>% 
-  mutate(species_wettelijke_naam_bron = lijst, .after = lijst)
-prius2$species_wettelijke_naam_bron[prius2$lijst == "nvt"] <- NA
+  mutate(species_wettelijke_naam_bron = reg, .after = species_wettelijke_naam)
+prius2$species_wettelijke_naam_bron[is.na(prius2$reg)] <- NA
 
 # wijzigingen met lijst-3
 prius2$species_wettelijke_naam_bron[prius2$soort == "gevlekte Amerikaanse rivierkreeft"] <- 3
@@ -153,13 +171,79 @@ Blijft enkel: de invasieve duizendknopen (drie codes gelumpt). Deze wordt echter
 De basisgegevens van de vijfde lijst zijn voor het gemak extern verzameld.
 
 ```{r}
-list5 <- read_excel("./prius2/input/lijst-5.xlsx", col_names = TRUE)
+# let op dat kolomnamen in list5 exact moeten overeenkomen met prius2 !
+list5 <- read_excel("./prius2/input/lijst-5_ondraft_v25-08-12.xlsx", col_names = TRUE)
 missing_cols <- setdiff(names(prius2), names(list5))
 list5[missing_cols] <- NA
 prius2 <- rbind(prius2, list5)
 ```
 
-toevoegen GBIF-codes
+## LIFE RIPARIAS
+
+Deels gebaseerd op RadIUS (Fleur), deels gebaseerd op eigen werk. Het is namelijk zo dat de nubKey via de eerste route wordt bekomen, maar de Nederlandse namen via de tweede route.
+
+```{r GBIF download}
+# "https://www.gbif.org/dataset/fd004d9a-2ea4-4244-bb60-0df508d20a15"
+# cf. voor nubKey
+rip1 <- name_usage(datasetKey = "fd004d9a-2ea4-4244-bb60-0df508d20a15")$data %>%
+  subset(rank != "KINGDOM")
+```
+
+```{r manuele download}
+# in mapje input
+# cf. voor Nederlandstalige namen
+path <- "./prius2/input/life_riparias_gbif_species_checklist_manual_download_asof25-08-13/"
+
+rip2 <- read.delim(paste0(path, "taxon.txt"), sep = "\t")
+rip3 <- read.delim(paste0(path, "vernacularname.txt"), sep = "\t") %>% 
+  filter(language == "nl") %>% 
+  filter(!vernacularName == "snoekkruid") # enige soort met 2 namen, voorkeur = moerashyacint
+
+rip2 <- rip2 %>%
+  left_join(rip3, by = "id")
+
+# scientificName gaan we negeren, want er zitten verschillen in tussen auto en manuele download
+# link dus uitsluitend leggen via taxonID
+
+rip2 <- rip2 %>%
+  select(taxonID,
+         vernacularName)
+
+rm(rip3)
+
+```
+
+```{r}
+rip <- left_join(rip1, rip2, by = "taxonID")
+```
+
+2do :
+
+- misschien was de stap via rip2 geeneens nodig : controleer of in taxon id en taxonID identiek zijn
+- zoja, dan kun je id uit rip3 per direct joinen met taxonID uit rip1
+
+```{r 2check}
+# %>% 
+#   transmute(
+#     Groep = ifelse(kingdom == 'Plantae', "plant", "dier"), 
+#     Species = if_else(scientificName == "Egeria densa", "Elodea densa", scientificName),
+#     Soort = vernacularName,  
+#     GBIF_code = if_else(nubKey == 5329260,5329263, nubKey), 
+#     Lijst = "0") %>%
+#   mutate(Soort = case_when(Soort == "Kentucky river crayfish" ~ "Kentuckyrivierkreeft",
+#                            Soort == "calico crayfish" ~ "Calicotrivierkreeft", 
+#                            Soort == "white river crayfish" ~ "gestreepte Amerikaanse rivierkreeft",
+#                            Soort == "Australian yabbi" ~ "gewone yabby",
+#                            Soort == "Chinese lizard tail" ~ "moerasanemoon",
+#                            Soort == "Cape-pondweed" ~ "Kaapse waterlelie", 
+#                            Soort == "greater pondweed" ~ "egeria",
+#                            Soort == "pickerelweed" ~ "moerashyacint",
+#                            Soort == "giant butterbur" ~ "Japans hoefblad", 
+#                            Soort == "lizard's tail" ~ "Leidse plant",
+#                            Soort == "monkeyflower" ~ "gele maskerbloem",
+#                            Soort == "Manchurian wildrice" ~ "Mantsjoerese wilde rijst")) 
+```
+
 oplossen hetgeen er al in zat
 
 ## 

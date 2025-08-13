@@ -1,0 +1,446 @@
+    <eml:eml xmlns:eml="eml://ecoinformatics.org/eml-2.1.1"
+             xmlns:dc="http://purl.org/dc/terms/"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="eml://ecoinformatics.org/eml-2.1.1 http://rs.gbif.org/schema/eml-gbif-profile/1.2/eml.xsd"
+             packageId="fd004d9a-2ea4-4244-bb60-0df508d20a15/v1.47" system="http://gbif.org" scope="system"
+    xml:lang="eng">
+
+        <dataset>
+                <alternateIdentifier>fd004d9a-2ea4-4244-bb60-0df508d20a15</alternateIdentifier>
+                <alternateIdentifier>https://ipt.inbo.be/resource?r=riparias-target-list</alternateIdentifier>
+                <title xml:lang="eng">RIPARIAS target species list</title>
+                    <creator>
+            <individualName>
+                    <givenName>Etienne</givenName>
+                <surName>Branquart</surName>
+            </individualName>
+            <organizationName>Service Public de Wallonie</organizationName>
+            <address>
+                    <country>BE</country>
+            </address>
+            <electronicMailAddress>etienne.branquart@spw.wallonie.be</electronicMailAddress>
+                    </creator>
+                    <creator>
+            <individualName>
+                    <givenName>Tim</givenName>
+                <surName>Adriaens</surName>
+            </individualName>
+            <organizationName>Research Institute for Nature and Forest (INBO)</organizationName>
+            <address>
+                    <country>BE</country>
+            </address>
+            <electronicMailAddress>tim.adriaens@inbo.be</electronicMailAddress>
+                    <userId directory="http://orcid.org/">0000-0001-7268-4200</userId>
+                    </creator>
+                    <creator>
+            <individualName>
+                    <givenName>Peter</givenName>
+                <surName>Desmet</surName>
+            </individualName>
+            <organizationName>Research Institute for Nature and Forest (INBO)</organizationName>
+            <address>
+                    <country>BE</country>
+            </address>
+            <electronicMailAddress>peter.desmet@inbo.be</electronicMailAddress>
+                    <userId directory="http://orcid.org/">0000-0002-8442-8025</userId>
+                    </creator>
+                    <creator>
+            <individualName>
+                    <givenName>Sander</givenName>
+                <surName>Devisscher</surName>
+            </individualName>
+            <organizationName>Research Institute for Nature and Forest (INBO)</organizationName>
+            <address>
+                    <country>BE</country>
+            </address>
+            <electronicMailAddress>sander.devisscher@inbo.be</electronicMailAddress>
+                    <userId directory="http://orcid.org/">0000-0003-2015-5731</userId>
+                    </creator>
+                    <creator>
+            <individualName>
+                    <givenName>Bram</givenName>
+                <surName>D&apos;hondt</surName>
+            </individualName>
+            <organizationName>Research Institute for Nature and Forest (INBO)</organizationName>
+            <address>
+                    <country>BE</country>
+            </address>
+            <electronicMailAddress>Bram.dhondt@inbo.be</electronicMailAddress>
+                    <userId directory="http://orcid.org/">0000-0002-1330-1457</userId>
+                    </creator>
+                    <creator>
+            <individualName>
+                    <givenName>Luc</givenName>
+                <surName>Denys</surName>
+            </individualName>
+            <organizationName>Research Institute for Nature and Forest (INBO)</organizationName>
+            <address>
+                    <country>BE</country>
+            </address>
+            <electronicMailAddress>luc.denys@inbo.be</electronicMailAddress>
+                    <userId directory="http://orcid.org/">0000-0002-1841-6579</userId>
+                    </creator>
+                    <creator>
+            <individualName>
+                    <givenName>Antoine</givenName>
+                <surName>Dumortier</surName>
+            </individualName>
+            <organizationName>Université Libre de Bruxelles</organizationName>
+            <address>
+                    <country>BE</country>
+            </address>
+            <electronicMailAddress>adantoinedumortier@gmail.com</electronicMailAddress>
+                    </creator>
+                    <creator>
+            <individualName>
+                    <givenName>Adrien</givenName>
+                <surName>Latli</surName>
+            </individualName>
+            <organizationName>Service Public de Wallonie</organizationName>
+            <address>
+                    <country>BE</country>
+            </address>
+            <electronicMailAddress>adrien.latli@spw.wallonie.be</electronicMailAddress>
+                    <userId directory="http://orcid.org/">0000-0001-6640-5930</userId>
+                    </creator>
+                    <creator>
+            <individualName>
+                    <givenName>Damiano</givenName>
+                <surName>Oldoni</surName>
+            </individualName>
+            <organizationName>Research Institute for Nature and Forest (INBO)</organizationName>
+            <address>
+                    <country>BE</country>
+            </address>
+            <electronicMailAddress>damiano.oldoni@inbo.be</electronicMailAddress>
+                    <userId directory="http://orcid.org/">0000-0003-3445-7562</userId>
+                    </creator>
+                    <creator>
+            <individualName>
+                    <givenName>Jo</givenName>
+                <surName>Packet</surName>
+            </individualName>
+            <organizationName>Research Institute for Nature and Forest (INBO)</organizationName>
+            <address>
+                    <country>BE</country>
+            </address>
+            <electronicMailAddress>jo.packet@inbo.be</electronicMailAddress>
+                    <userId directory="http://orcid.org/">0000-0001-5590-323X</userId>
+                    </creator>
+                    <creator>
+            <individualName>
+                    <givenName>Kevin</givenName>
+                <surName>Scheers</surName>
+            </individualName>
+            <organizationName>Research Institute for Nature and Forest (INBO)</organizationName>
+            <address>
+                    <country>BE</country>
+            </address>
+            <electronicMailAddress>kevin.scheers@inbo.be</electronicMailAddress>
+                    <userId directory="http://orcid.org/">0000-0002-4756-4247</userId>
+                    </creator>
+                    <creator>
+            <individualName>
+                    <givenName>Sonia</givenName>
+                <surName>Vanderhoeven</surName>
+            </individualName>
+            <organizationName>Belgian Biodiversity Platform</organizationName>
+            <address>
+                    <country>BE</country>
+            </address>
+            <electronicMailAddress>s.vanderhoeven@biodiversity.be</electronicMailAddress>
+                    <userId directory="http://orcid.org/">0000-0002-6298-5373</userId>
+                    </creator>
+                    <creator>
+            <individualName>
+                    <givenName>Xavier</givenName>
+                <surName>Vermeersch</surName>
+            </individualName>
+            <organizationName>Brussels Environment</organizationName>
+            <electronicMailAddress>xvermeersch@leefmilieu.brussels</electronicMailAddress>
+                    <userId directory="http://orcid.org/">0000-0003-1752-8226</userId>
+                    </creator>
+                    <creator>
+            <individualName>
+                    <givenName>Romain</givenName>
+                <surName>Willeput</surName>
+            </individualName>
+            <organizationName>Université Libre de Bruxelles</organizationName>
+            <address>
+                    <country>BE</country>
+            </address>
+            <electronicMailAddress>romain@willeput.eu</electronicMailAddress>
+                    </creator>
+                    <metadataProvider>
+            <individualName>
+                    <givenName>Tim</givenName>
+                <surName>Adriaens</surName>
+            </individualName>
+            <organizationName>Research Institute for Nature and Forest (INBO)</organizationName>
+            <address>
+                    <country>BE</country>
+            </address>
+            <electronicMailAddress>tim.adriaens@inbo.be</electronicMailAddress>
+                    <userId directory="http://orcid.org/">0000-0001-7268-4200</userId>
+                    </metadataProvider>
+                    <associatedParty>
+            <individualName>
+                    <givenName>Peter</givenName>
+                <surName>Desmet</surName>
+            </individualName>
+            <electronicMailAddress>peter.desmet@inbo.be</electronicMailAddress>
+            <role>user</role>
+                    </associatedParty>
+            <pubDate>
+                    2023-05-22
+            </pubDate>
+            <language>eng</language>
+                <abstract>
+                            <para>The RIPARIAS target species list is a species checklist dataset published by the Research Institute for Nature and Forest (INBO). It contains (1) the target species of the LIFE RIPARIAS project (LIFE19 NAT/BE/000953), all of them invasive alien species (IAS) of the Regulation (EU) 1143/2014 (https://ec.europa.eu/environment/nature/invasivealien/)  and (2) the alert list species that currently do not occur in the LIFE RIPARIAS project area, but have proven to have negative impacts on biodiversity and need to be rapidly removed should they be encountered. The alert list was drafted within the LIFE RIPARIAS project following an evidence-based methodology involving climate matching and risk assessment (Branquart et al. 2022). By publishing this list on GBIF it can be used for general reference, early warning systems, data extractions, baseline reporting, project KPIs etc. Issues with the dataset can be reported at: https://github.com/riparias/riparias-target-list</para>
+                            <para>We have released this dataset to the public domain under a Creative Commons Zero waiver. We would appreciate it if you follow the INBO norms for data use (https://www.inbo.be/en/norms-data-use) when using the data. If you have any questions regarding this dataset, don&apos;t hesitate to contact us via the contact information provided in the metadata or via opendata@inbo.be.</para>
+                            <para>This dataset was published as open data for the LIFE RIPARIAS project (Reaching Integrated and Prompt Action in Response to Invasive Alien Species https://www.riparias.be/), with technical support provided by the Research Institute for Nature and Forest (INBO).</para>
+                </abstract>
+                        <keywordSet>
+                                    <keyword>Checklist</keyword>
+                            <keywordThesaurus>GBIF Dataset Type Vocabulary: http://rs.gbif.org/vocabulary/gbif/dataset_type_2015-07-10.xml</keywordThesaurus>
+                        </keywordSet>
+                        <keywordSet>
+                                    <keyword>Inventorythematic</keyword>
+                            <keywordThesaurus>GBIF Dataset Subtype Vocabulary: http://rs.gbif.org/vocabulary/gbif/dataset_subtype.xml</keywordThesaurus>
+                        </keywordSet>
+                        <keywordSet>
+                                    <keyword>checklist</keyword>
+                                    <keyword>invasive alien species</keyword>
+                                    <keyword>Belgium</keyword>
+                                    <keyword>early warning</keyword>
+                                    <keyword>alert list</keyword>
+                                    <keyword>risk assessment</keyword>
+                                    <keyword>LIFE RIPARIAS</keyword>
+                            <keywordThesaurus>N/A</keywordThesaurus>
+                        </keywordSet>
+                <intellectualRights>
+                    <para>To the extent possible under law, the publisher has waived all rights to these data and has dedicated them to the <ulink url="http://creativecommons.org/publicdomain/zero/1.0/legalcode"><citetitle>Public Domain (CC0 1.0)</citetitle></ulink>. Users may copy, modify, distribute and use the work, including for commercial purposes, without restriction.</para>
+                </intellectualRights>
+                <distribution scope="document">
+                    <online>
+                        <url function="information">https://www.riparias.be/</url>
+                    </online>
+                </distribution>
+                <coverage>
+                                <temporalCoverage>
+                                        <rangeOfDates>
+                                                <beginDate>
+                                                    <calendarDate>2021-01-01</calendarDate>
+                                                </beginDate>
+                                            <endDate>
+                                                <calendarDate>2026-12-31</calendarDate>
+                                            </endDate>
+                                        </rangeOfDates>
+                                </temporalCoverage>
+                                <taxonomicCoverage>
+                                        <generalTaxonomicCoverage>This checklist includes 29 alien species from two kingdoms (8 non-native crayfish, 13 aquatic and 9 riparian plants).</generalTaxonomicCoverage>
+                                        <taxonomicClassification>
+                                                <taxonRankName>kingdom</taxonRankName>
+                                            <taxonRankValue>Animalia</taxonRankValue>
+                                                <commonName>animals</commonName>
+                                        </taxonomicClassification>
+                                        <taxonomicClassification>
+                                                <taxonRankName>kingdom</taxonRankName>
+                                            <taxonRankValue>Plantae</taxonRankValue>
+                                                <commonName>plants</commonName>
+                                        </taxonomicClassification>
+                                </taxonomicCoverage>
+                </coverage>
+                <maintenance>
+                    <description>
+                        <para></para>
+                    </description>
+                    <maintenanceUpdateFrequency>asNeeded</maintenanceUpdateFrequency>
+                </maintenance>
+
+                    <contact>
+            <individualName>
+                    <givenName>Peter</givenName>
+                <surName>Desmet</surName>
+            </individualName>
+            <organizationName>Research Institute for Nature and Forest (INBO)</organizationName>
+            <address>
+                    <country>BE</country>
+            </address>
+            <electronicMailAddress>peter.desmet@inbo.be</electronicMailAddress>
+                    <userId directory="http://orcid.org/">0000-0002-8442-8025</userId>
+                    </contact>
+                <methods>
+                            <methodStep>
+                                <description>
+                                    <para>The source data for this standardized checklist can be consulted on https://github.com/riparias/riparias-target-list/tree/master/data/raw.</para>
+                                </description>
+                            </methodStep>
+                            <methodStep>
+                                <description>
+                                    <para>This source data is versioned on GitHub (https://github.com/riparias/riparias-target-list). See https://riparias.github.io/riparias-target-list/ for an introduction to this repository and the mapping of this dataset</para>
+                                </description>
+                            </methodStep>
+                            <methodStep>
+                                <description>
+                                    <para>We developed an RMarkdown script to document and perform the transformation of the data to Darwin Core, which includes the following steps:</para>
+                                </description>
+                            </methodStep>
+                            <methodStep>
+                                <description>
+                                    <para>Perform some basic data cleaning of the raw data.</para>
+                                </description>
+                            </methodStep>
+                            <methodStep>
+                                <description>
+                                    <para>Generate stable and unique identifiers for each taxon (taxonID).</para>
+                                </description>
+                            </methodStep>
+                            <methodStep>
+                                <description>
+                                    <para>Create a taxon core file (http://rs.gbif.org/core/dwc_taxon.xml).</para>
+                                </description>
+                            </methodStep>
+                            <methodStep>
+                                <description>
+                                    <para>Create a vernacular name extension file (https://rs.gbif.org/extension/gbif/1.0/vernacularname.xml) with English, Dutch and French vernacular names of taxa.</para>
+                                </description>
+                            </methodStep>
+                            <methodStep>
+                                <description>
+                                    <para>The resulting Darwin Core data files are uploaded to the INBO IPT and documented with metadata.</para>
+                                </description>
+                            </methodStep>
+                            <methodStep>
+                                <description>
+                                    <para>The dataset is published and registered with GBIF.</para>
+                                </description>
+                            </methodStep>
+                        <sampling>
+                            <studyExtent>
+                                <description>
+                                    <para>LIFE RIPARIAS is piloted in river basins Dijle (128 404 ha), Mark (17 865 ha) and Zenne (116 834 ha) of the Scheldt river basin district, the workflow and tools will subsequently be made available for IAS management across Belgium and in other Member States.</para>
+                                </description>
+                            </studyExtent>
+                            <samplingDescription>
+                                <para>Data for this checklist are compiled directly by IAS specialists. The checklist is maintained in a Google Spreadsheet where we aim to collect the scientific and vernacular names (in English, Dutch and French) for each LIFE RIPARIAS target and alert list species.</para>
+                            </samplingDescription>
+                        </sampling>
+                        <qualityControl>
+                            <description>
+                                <para>See step description.</para>
+                            </description>
+                        </qualityControl>
+                </methods>
+                <project id="LIFE RIPARIAS">
+                    <title>Reaching Integrated and Prompt Action in Response to Invasive Alien Species (LIFE RIPARIAS)</title>
+                        <personnel>
+                            <individualName>
+                                    <givenName>Tim</givenName>
+                                <surName>Adriaens</surName>
+                            </individualName>
+                                        <userId directory="http://orcid.org/">0000-0001-7268-4200</userId>
+                            <role>author</role>
+                        </personnel>
+                        <personnel>
+                            <individualName>
+                                    <givenName>Etienne</givenName>
+                                <surName>Branquart</surName>
+                            </individualName>
+                            <role>author</role>
+                        </personnel>
+                        <personnel>
+                            <individualName>
+                                    <givenName>Peter</givenName>
+                                <surName>Desmet</surName>
+                            </individualName>
+                                        <userId directory="http://orcid.org/">0000-0002-8442-8025</userId>
+                            <role>author</role>
+                        </personnel>
+                        <personnel>
+                            <individualName>
+                                    <givenName>Dido</givenName>
+                                <surName>Gosse</surName>
+                            </individualName>
+                            <role>author</role>
+                        </personnel>
+                        <personnel>
+                            <individualName>
+                                    <givenName>Jérémie</givenName>
+                                <surName>Guyon</surName>
+                            </individualName>
+                            <role>author</role>
+                        </personnel>
+                        <personnel>
+                            <individualName>
+                                    <givenName>Damiano</givenName>
+                                <surName>Oldoni</surName>
+                            </individualName>
+                                        <userId directory="http://orcid.org/">0000-0003-3445-7562</userId>
+                            <role>author</role>
+                        </personnel>
+                        <personnel>
+                            <individualName>
+                                    <givenName>Lien</givenName>
+                                <surName>Reyserhove</surName>
+                            </individualName>
+                                        <userId directory="http://orcid.org/">0000-0001-7484-9267</userId>
+                            <role>author</role>
+                        </personnel>
+                        <personnel>
+                            <individualName>
+                                    <givenName>Sonia</givenName>
+                                <surName>Vanderhoeven</surName>
+                            </individualName>
+                                        <userId directory="http://orcid.org/">0000-0002-6298-5373</userId>
+                            <role>author</role>
+                        </personnel>
+                        <personnel>
+                            <individualName>
+                                    <givenName>Xavier</givenName>
+                                <surName>Vermeersch</surName>
+                            </individualName>
+                                        <userId directory="http://orcid.org/">0000-0003-1752-8226</userId>
+                            <role>principalInvestigator</role>
+                        </personnel>
+                        <abstract>
+                            <para>The spread of invasive alien species (IAS) is not hampered by administrative borders. Aquatic IAS, in particular, spread rapidly through the hydrographic network. To effectively control such species requires coordinated management at higher spatial scales. LIFE RIPARIAS (Reaching Integrated and Prompt Action in Response to Invasive Alien Species) aims to achieve such coordination across regional borders in Belgium, supported by open data and open infrastructure for early warning and management reporting.
+
+LIFE RIPARIAS aims at improving decision making on IAS management, early warning systems and management reporting tools. To this end, it develops an evidence-based workflow, translating national management objectives into concrete actions in an efficient manner. 
+
+Ultimately the project aims at increasing the conservation status of aquatic and riparian habitats. 
+
+More information on LIFE RIPARIAS is available at the project homepage: https://www.riparias.be/. You can also follow LIFE RIPARIAS on Twitter (@LIFEriparias) and Facebook (LIFE Riparias)</para>
+                        </abstract>
+                        <funding>
+                            <para>LIFE RIPARIAS is co-funded by the three Belgian regions and the European Union in the framework of the LIFE Programme (LIFE19 NAT/BE/000953). It is running from 2021 to 2026.</para>
+                        </funding>
+                        <studyAreaDescription>
+                            <descriptor name="generic"
+                                        citableClassificationSystem="false">
+                                <descriptorValue>Dijle, Mark and Zenne river basin of the Scheldt district, Belgium.</descriptorValue>
+                            </descriptor>
+                        </studyAreaDescription>
+                        <designDescription>
+                            <description>
+                                <para>LIFE RIPARIAS focuses on aquatic and riparian plants as well as crayfish species located in the Dijle, Mark and Zenne river basin of the Scheldt district in Belgium. Cumulative observation data collected in 2000-2015, completed by data gathered from field surveillance in 2021-2022, will provide the baseline to design management objectives and define quantitative targets.</para>
+                            </description>
+                        </designDescription>
+                </project>
+        </dataset>
+            <additionalMetadata>
+                <metadata>
+                    <gbif>
+                            <dateStamp>2022-03-08T22:09:02.881+01:00</dateStamp>
+                            <hierarchyLevel>dataset</hierarchyLevel>
+                                <citation>Branquart E, Adriaens T, Desmet P, Devisscher S, D&apos;hondt B, Denys L, Dumortier A, Latli A, Oldoni D, Packet J, Scheers K, Vanderhoeven S, Vermeersch X, Willeput R (2023). RIPARIAS target species list. Version 1.47. Research Institute for Nature and Forest (INBO). Checklist dataset. https://ipt.inbo.be/resource?r=riparias-target-list&amp;v=1.47</citation>
+                            <bibliography>
+                                        <citation>Branquart E., Adriaens T., Devisscher S., D’hondt B., Denys L., Dumortier A., Latli A., Packet J., Scheers K., Vanderhoeven S. &amp; Willeput R. (2021) Belgian alert lists of alien aquatic plants and crayfish. Report prepared in support of implementing action A1 of the LIFE RIPARIAS project LIFE19 NAT/BE/000953, 15 pages</citation>
+                                        <citation>Regulation (EU) No 1143/2014 of the European Parliament and of the Council of 22 October 2014 on the prevention and management of the introduction and spread of invasive alien species. OJ L 317, 4.11.2014: 35–55. ELI: http://data.europa.eu/eli/reg/2014/1143/oj</citation>
+                            </bibliography>
+                            <resourceLogoUrl>https://ipt.inbo.be/logo.do?r=riparias-target-list</resourceLogoUrl>
+                            <dc:replaces>fd004d9a-2ea4-4244-bb60-0df508d20a15/v1.47.xml</dc:replaces>
+                    </gbif>
+                </metadata>
+            </additionalMetadata>
+    </eml:eml>

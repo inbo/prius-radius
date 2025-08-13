@@ -1,0 +1,95 @@
+id	vernacularName	language
+riparias-target-list:taxon:dafe31f90689d987cca186122e881b51	floating pennywort	en
+riparias-target-list:taxon:dafe31f90689d987cca186122e881b51	grote waternavel	nl
+riparias-target-list:taxon:dafe31f90689d987cca186122e881b51	hydrocotyle fausse-renoncule	fr
+riparias-target-list:taxon:54838cb38e1f9cecfe059593e32123e6	water-primrose	en
+riparias-target-list:taxon:54838cb38e1f9cecfe059593e32123e6	waterteunisbloem	nl
+riparias-target-list:taxon:54838cb38e1f9cecfe059593e32123e6	jussie à grandes fleurs	fr
+riparias-target-list:taxon:2854a8568656c31c950b2ee198a4aaf2	floating primrose-willow	en
+riparias-target-list:taxon:2854a8568656c31c950b2ee198a4aaf2	kleine waterteunisbloem	nl
+riparias-target-list:taxon:2854a8568656c31c950b2ee198a4aaf2	jussie rampante	fr
+riparias-target-list:taxon:98fb8615055cc6d6e58dd5bba656f594	parrot's feather	en
+riparias-target-list:taxon:98fb8615055cc6d6e58dd5bba656f594	parelvederkruid	nl
+riparias-target-list:taxon:98fb8615055cc6d6e58dd5bba656f594	myriophylle du Brésil	fr
+riparias-target-list:taxon:701d040f80f720a60634ede2d563c8cc	broadleaf watermilfoil	en
+riparias-target-list:taxon:701d040f80f720a60634ede2d563c8cc	ongelijkbladig vederkruid	nl
+riparias-target-list:taxon:701d040f80f720a60634ede2d563c8cc	myriophylle hétérophylle	fr
+riparias-target-list:taxon:0c23faf898d4a38a958864dd9722f92d	curly waterweed	en
+riparias-target-list:taxon:0c23faf898d4a38a958864dd9722f92d	verspreidbladige waterpest	nl
+riparias-target-list:taxon:0c23faf898d4a38a958864dd9722f92d	élodée à feuilles alternes	fr
+riparias-target-list:taxon:4612ba981762e7729ee775ea0f9fb57a	fanwort	en
+riparias-target-list:taxon:4612ba981762e7729ee775ea0f9fb57a	waterwaaier	nl
+riparias-target-list:taxon:4612ba981762e7729ee775ea0f9fb57a	cabomba	fr
+riparias-target-list:taxon:6fb43445cb41bab620b5365d614d46b2	giant hogweed	en
+riparias-target-list:taxon:6fb43445cb41bab620b5365d614d46b2	reuzenberenklauw	nl
+riparias-target-list:taxon:6fb43445cb41bab620b5365d614d46b2	berce du Caucase	fr
+riparias-target-list:taxon:aaa4bf314e99f24d73599f0608e6602a	Persian hogweed	en
+riparias-target-list:taxon:aaa4bf314e99f24d73599f0608e6602a	Perzische berenklauw	nl
+riparias-target-list:taxon:aaa4bf314e99f24d73599f0608e6602a	berce de Perse	fr
+riparias-target-list:taxon:00bf4bcd0509e25730f73ad66bc82c2e	Sosnowsky's hogweed	en
+riparias-target-list:taxon:00bf4bcd0509e25730f73ad66bc82c2e	Sosnowsky's berenklauw	nl
+riparias-target-list:taxon:00bf4bcd0509e25730f73ad66bc82c2e	berce de Sosnowsky	fr
+riparias-target-list:taxon:bbf57991e39ed609b78e5d565d54e791	Himalayan balsam	en
+riparias-target-list:taxon:bbf57991e39ed609b78e5d565d54e791	reuzenbalsemien	nl
+riparias-target-list:taxon:bbf57991e39ed609b78e5d565d54e791	balsamine de l'Himalaya	fr
+riparias-target-list:taxon:650cb9d46fed5e32a25b73c0c8d01f0e	Himalayan knotweed	en
+riparias-target-list:taxon:650cb9d46fed5e32a25b73c0c8d01f0e	Afghaanse duizendknoop	nl
+riparias-target-list:taxon:650cb9d46fed5e32a25b73c0c8d01f0e	renouée à nombreux épis	fr
+riparias-target-list:taxon:eebfdcf8e4d628954189e69240723ab7	American skunk cabbage	en
+riparias-target-list:taxon:eebfdcf8e4d628954189e69240723ab7	moerasaronskelk	nl
+riparias-target-list:taxon:eebfdcf8e4d628954189e69240723ab7	faux arum	fr
+riparias-target-list:taxon:ad6ef633d9bc18930d8894c8e33e9f3a	red swamp crayfish	en
+riparias-target-list:taxon:ad6ef633d9bc18930d8894c8e33e9f3a	rode Amerikaanse rivierkreeft	nl
+riparias-target-list:taxon:ad6ef633d9bc18930d8894c8e33e9f3a	écrevisse de Louisiane	fr
+riparias-target-list:taxon:0ee766ce27cceadb968c628051a173e6	virile crayfish	en
+riparias-target-list:taxon:0ee766ce27cceadb968c628051a173e6	geknobbelde Amerikaanse rivierkreeft	nl
+riparias-target-list:taxon:0ee766ce27cceadb968c628051a173e6	écrevisse à pinces bleues	fr
+riparias-target-list:taxon:45879ab97f046fe2fb75fa4d9ab54665	rusty crayfish	en
+riparias-target-list:taxon:45879ab97f046fe2fb75fa4d9ab54665	roestbruine Amerikaanse rivierkreeft	nl
+riparias-target-list:taxon:45879ab97f046fe2fb75fa4d9ab54665	écrevisse à taches rouges	fr
+riparias-target-list:taxon:de7320ca63664be077e4cc666cef44d1	marbled crayfish	en
+riparias-target-list:taxon:de7320ca63664be077e4cc666cef44d1	marmerkreeft	nl
+riparias-target-list:taxon:de7320ca63664be077e4cc666cef44d1	écrevisse marbrée	fr
+riparias-target-list:taxon:9cb6039b5c56d1d4a61ff6a409bc7671	greater pondweed	en
+riparias-target-list:taxon:9cb6039b5c56d1d4a61ff6a409bc7671	egeria	nl
+riparias-target-list:taxon:9cb6039b5c56d1d4a61ff6a409bc7671	élodée dense	fr
+riparias-target-list:taxon:daa459bc1f06497b4c7204e046b13c01	Cape-pondweed	en
+riparias-target-list:taxon:daa459bc1f06497b4c7204e046b13c01	water hawthorn	en
+riparias-target-list:taxon:daa459bc1f06497b4c7204e046b13c01	Kaapse waterlelie	nl
+riparias-target-list:taxon:daa459bc1f06497b4c7204e046b13c01	vanille d'eau	fr
+riparias-target-list:taxon:daa459bc1f06497b4c7204e046b13c01	aponogéton odorant	fr
+riparias-target-list:taxon:7b843a153385f2dd615bb0fbbd3275b0	pickerelweed	en
+riparias-target-list:taxon:7b843a153385f2dd615bb0fbbd3275b0	moerashyacint	nl
+riparias-target-list:taxon:7b843a153385f2dd615bb0fbbd3275b0	snoekkruid	nl
+riparias-target-list:taxon:7b843a153385f2dd615bb0fbbd3275b0	pontédérie à feuilles en cœur	fr
+riparias-target-list:taxon:22d67081268100791b4d829409fa17fa	New Zealand pigmyweed	en
+riparias-target-list:taxon:22d67081268100791b4d829409fa17fa	Australian swamp stonecrop	en
+riparias-target-list:taxon:22d67081268100791b4d829409fa17fa	watercrassula	nl
+riparias-target-list:taxon:22d67081268100791b4d829409fa17fa	crassule des étangs	fr
+riparias-target-list:taxon:72f67670de31c81564744eaa4411aa8d	giant butterbur	en
+riparias-target-list:taxon:72f67670de31c81564744eaa4411aa8d	Japans hoefblad	nl
+riparias-target-list:taxon:72f67670de31c81564744eaa4411aa8d	pétasitè du Japon	fr
+riparias-target-list:taxon:dcdbdbb1c27c86ecb331ba4f4828c603	Manchurian wildrice	en
+riparias-target-list:taxon:dcdbdbb1c27c86ecb331ba4f4828c603	Mantsjoerese wilde rijst	nl
+riparias-target-list:taxon:dcdbdbb1c27c86ecb331ba4f4828c603	riz sauvage de Mandchourie	fr
+riparias-target-list:taxon:e7707384fdc3348d50953fcb6994123a	monkeyflower	en
+riparias-target-list:taxon:e7707384fdc3348d50953fcb6994123a	gele maskerbloem	nl
+riparias-target-list:taxon:e7707384fdc3348d50953fcb6994123a	mimule tachetée	fr
+riparias-target-list:taxon:eacc7e68568cb194281e03109e3f881d	Chinese lizard tail	en
+riparias-target-list:taxon:eacc7e68568cb194281e03109e3f881d	moerasanemoon	nl
+riparias-target-list:taxon:eacc7e68568cb194281e03109e3f881d	poivre de Chine	fr
+riparias-target-list:taxon:509dce8d0af1d61c30ebc7cbca9b7327	lizard's tail	en
+riparias-target-list:taxon:509dce8d0af1d61c30ebc7cbca9b7327	Leidse plant	nl
+riparias-target-list:taxon:509dce8d0af1d61c30ebc7cbca9b7327	lézardelle penchée	fr
+riparias-target-list:taxon:8d33f6ebfbcdbf5a7ba38211853bc07c	white river crayfish	en
+riparias-target-list:taxon:8d33f6ebfbcdbf5a7ba38211853bc07c	gestreepte Amerikaanse rivierkreeft	nl
+riparias-target-list:taxon:8d33f6ebfbcdbf5a7ba38211853bc07c	écrevisse blanche de rivière	fr
+riparias-target-list:taxon:b9379f3fa97e8033620d69c79372e63c	calico crayfish	en
+riparias-target-list:taxon:b9379f3fa97e8033620d69c79372e63c	calicotrivierkreeft	nl
+riparias-target-list:taxon:b9379f3fa97e8033620d69c79372e63c	écrevisse calicot	fr
+riparias-target-list:taxon:effc3f0be85335b18eb1ccaeb314ab79	Kentucky river crayfish	en
+riparias-target-list:taxon:effc3f0be85335b18eb1ccaeb314ab79	Kentuckyrivierkreeft	nl
+riparias-target-list:taxon:effc3f0be85335b18eb1ccaeb314ab79	écrevisse juvénile	fr
+riparias-target-list:taxon:50312d36e99ebf5b3bf236e396f2cd10	Australian yabbi	en
+riparias-target-list:taxon:50312d36e99ebf5b3bf236e396f2cd10	gewone yabby	nl
+riparias-target-list:taxon:50312d36e99ebf5b3bf236e396f2cd10	écrevisse de Murray	fr
