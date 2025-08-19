@@ -1,13 +1,15 @@
 Version: 2025-08-19
 
+! Deze versie volgt de afspraken zoals op de startvergadering vastgelegd. Later is, per mail, een belangrijke heroriëntatie doorgevoerd door de opdrachtgever. Zie het ander script.
+
 The species list of PrIUS-II is a compilation of
 
   1. the (previous) PrIUS list
-  2. the fourth Union list update (fifth list) - ALL species
-  3. LIFE RIPARIAS - ALL species
-  4. LIFE DUNIAS - SELECTION
-  5. Technisch Vademecum - SELECTION
-  6. ad hoc choices - SELECTION
+  2. the fourth Union list update (fifth list)
+  3. LIFE RIPARIAS
+  4. LIFE DUNIAS
+  5. Technisch Vademecum
+  6. ad hoc selection
 
 It seems wisest to start from the prius-i list. But note that knowledge from the radius workflow should be taken along.
 
@@ -356,7 +358,7 @@ Noot: egeria (5329260) is synoniem voor Elodea densa (5329263). Zou geen problee
 
 ```{r}
 # let op dat kolomnamen in input exact moeten overeenkomen met prius2 !
-dun <- read_excel("./prius2/input/dunias_v25-08-19.xlsx", col_names = TRUE, sheet = 1)
+dun <- read_excel("./prius2/input/dunias_v25-08-14.xlsx", col_names = TRUE, sheet = 1)
 
 # previous issue on (invisible!) mismatches because of (non-breaking) spaces
 dun$soort <- dun$soort %>%
@@ -489,15 +491,6 @@ prius2 <- prius2 %>%
          GBIF_codes = `prius2$GBIF_codes`)
 ```
 
-## conclude
-
-Oorspronkelijke prIUS-soorten die zijn meegereisd, maar nergens meer thuishoren.
-
-```{r}
-prius2 <- prius2 %>% 
-  filter(soort != "alsemambrosia")
-```
-
 # Checks
 
 ```{r}
@@ -512,16 +505,6 @@ prius2 %>%
     )
 ```
 
-```{r}
-# een soort die is aangemeld als ad-hoc, zou in principe niet in de andere groepen mogen
-prius2 %>% 
-  filter(
-    (is.na(reg) == F | is.na(rip) == F | is.na(dun) == F | is.na(vad) == F) &
-      hoc == 1
-    )
-```
-
-
 # Binnentrekken GBIF-namen
 
 ```{r}
@@ -535,6 +518,9 @@ prius2 <- relocate(prius2, GBIF_scientificName, .after = soort)
 prius2 <- relocate(prius2, GBIF_canonicalName, .after = soort)
 ```
 
+
+
+
 ```{r DRAFT FOR NICOLAS}
 draft <- prius2 %>% 
   transmute(groep,
@@ -547,7 +533,7 @@ draft <- prius2 %>%
             vad,
             hoc)
 
-write_excel_csv2(draft, "./prius2/temp/prius2_list_v25-08-19_new.csv")
+write_excel_csv2(draft, "./prius2/temp/prius2_list_v25-08-19.csv")
 ```
 
 
