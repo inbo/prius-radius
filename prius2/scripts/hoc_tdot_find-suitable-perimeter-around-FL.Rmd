@@ -1,0 +1,54 @@
+An ad hoc script to assess a suitable perimeter around Flanders for downloading distribution data (i.e. generating cube data).
+
+```{r prep packages}
+library(sf)
+library(tidyverse)
+library(rworldmap)
+```
+
+```{r prep memory}
+rm(list = ls())
+```
+
+```{r}
+vla <- st_read("./prius/data/spatial/flanders_wgs84.geojson")
+```
+
+```{r}
+vla_100km <- st_buffer(vla, dist = 100000) # afstand in meter
+vla_150km <- st_buffer(vla, dist = 150000) # afstand in meter
+vla_200km <- st_buffer(vla, dist = 200000) # afstand in meter
+```
+
+
+```{r quick test}
+ggplot() +
+  geom_sf(data = vla_100km) +
+  geom_sf(data = vla) +
+  theme_void()
+```
+
+
+```{r}
+w_eur <- getMap(resolution = "high")  # rworldmap package
+w_eur <- st_as_sf(w_eur) %>%
+  filter(row.names(.) %in% c("Belgium", "Netherlands", "France", "Germany", "Luxembourg")) # exclusief UK?
+```
+
+```{r}
+ggplot() +
+  geom_sf(data = w_eur) +
+  geom_sf(data = vla_100km, fill = NA, color = "blue") + 
+  geom_sf(data = vla_150km, fill = NA, color = "red") +
+  geom_sf(data = vla_200km, fill = NA, color = "green") +
+  coord_sf(xlim = c(-7.5, +17.5), ylim = c(+40, +57.5), expand = FALSE) +
+  theme_bw()
+
+# Overzeese gebieden wel behouden, niet getoond 
+```
+
+
+```{r save plot}
+ggsave("./prius2/output/deleteme_buffer.png",
+       width = 10, height = 10, units= "cm")
+```
