@@ -549,11 +549,3 @@ draft <- prius2 %>%
 
 write_excel_csv2(draft, "./prius2/temp/prius2_list_v25-08-19_new.csv")
 ```
-
-
-Visueel eens controleren?
-
-Te overwegen:
-toetsen aan EU-lijst?
-toetsen aan RadIUS?
-Voorlopig van afgezien. Ik vertrouw op de lijst, en vrees veel energie in weinig meerwaarde te moeten steken (bv. uitklaren synoniemen).
