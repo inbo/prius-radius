@@ -30,14 +30,20 @@ ggplot() +
 
 
 ```{r}
-w_eur <- getMap(resolution = "high")  # rworldmap package
-w_eur <- st_as_sf(w_eur) %>%
-  filter(row.names(.) %in% c("Belgium", "Netherlands", "France", "Germany", "Luxembourg")) # exclusief UK?
+raw <- getMap(resolution = "high")  # rworldmap package
+w_eur <- st_as_sf(raw) %>%
+  filter(row.names(.) %in% c("Belgium", "Netherlands", "France", "Germany", "Luxembourg"))
+```
+
+```{r}
+uk <- st_as_sf(raw) %>% 
+  filter(row.names(.) %in% c("United Kingdom"))
 ```
 
 ```{r}
 ggplot() +
   geom_sf(data = w_eur) +
+  geom_sf(data = uk, fill = NA, color = "grey") +
   geom_sf(data = vla_100km, fill = NA, color = "blue") + 
   geom_sf(data = vla_150km, fill = NA, color = "red") +
   geom_sf(data = vla_200km, fill = NA, color = "green") +
