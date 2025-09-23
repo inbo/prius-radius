@@ -1,6 +1,6 @@
 Version: 2025-08-19
 
-The species list of PrIUS-II is a compilation of
+The species list of PrIUS-II is a revision of 
 
   1. the (previous) PrIUS list
   2. the fourth Union list update (fifth list) - ALL species
@@ -13,14 +13,13 @@ It seems wisest to start from the prius-i list. But note that knowledge from the
 
 ```{r prep packages}
 library(tidyverse)
-# library(readr)
 library(readxl)
 library(rgbif)
 library(stringr)
 ```
 
 ```{r prep memory}
-# rm(list = ls())
+rm(list = ls())
 rm(list = setdiff(ls(), c("zenodo")))
 ```
 
@@ -212,7 +211,7 @@ De basisgegevens van de vijfde lijst zijn voor het gemak extern verzameld.
 
 ```{r}
 # let op dat kolomnamen in list5 exact moeten overeenkomen met prius2 !
-list5 <- read_excel("./prius2/input/lijst-5_v25-08-19.xlsx", col_names = TRUE)
+list5 <- read_excel("./prius2/input/spp_lijst-5_v25-08-19.xlsx", col_names = TRUE)
 
 # previous issue on (invisible!) mismatches because of (non-breaking) spaces
 list5$soort <- list5$soort %>%
@@ -356,7 +355,7 @@ Noot: egeria (5329260) is synoniem voor Elodea densa (5329263). Zou geen problee
 
 ```{r}
 # let op dat kolomnamen in input exact moeten overeenkomen met prius2 !
-dun <- read_excel("./prius2/input/dunias_v25-08-19.xlsx", col_names = TRUE, sheet = 1)
+dun <- read_excel("./prius2/input/spp_dunias_v25-08-19.xlsx", col_names = TRUE, sheet = 1)
 
 # previous issue on (invisible!) mismatches because of (non-breaking) spaces
 dun$soort <- dun$soort %>%
@@ -401,7 +400,7 @@ prius2 <- prius2 %>%
 
 ```{r}
 # let op dat kolomnamen in input exact moeten overeenkomen met prius2 !
-vad <- read_excel("./prius2/input/technisch_vademecum_v25-08-19.xlsx",
+vad <- read_excel("./prius2/input/spp_technisch_vademecum_v25-08-19.xlsx",
                   col_names = TRUE, sheet = 1)
 
 # previous issue on (invisible!) mismatches because of (non-breaking) spaces
@@ -447,7 +446,7 @@ prius2 <- prius2 %>%
 
 ```{r}
 # let op dat kolomnamen in input exact moeten overeenkomen met prius2 !
-hoc <- read_excel("./prius2/input/ad-hoc_v25-08-19.xlsx",
+hoc <- read_excel("./prius2/input/spp_ad-hoc_v25-08-19.xlsx",
                   col_names = TRUE, sheet = 1)
 
 # previous issue on (invisible!) mismatches because of (non-breaking) spaces
@@ -535,17 +534,25 @@ prius2 <- relocate(prius2, GBIF_scientificName, .after = soort)
 prius2 <- relocate(prius2, GBIF_canonicalName, .after = soort)
 ```
 
-```{r DRAFT FOR NICOLAS}
-draft <- prius2 %>% 
-  transmute(groep,
-            soort,
-            species = GBIF_canonicalName,
-            GBIF_code = GBIF_codes,
-            reg,
-            rip,
-            dun,
-            vad,
-            hoc)
+# Opslaan
 
-write_excel_csv2(draft, "./prius2/temp/prius2_list_v25-08-19_new.csv")
+```{r DRAFT FOR NICOLAS}
+# draft <- prius2 %>%
+#   transmute(groep,
+#             soort,
+#             species = GBIF_canonicalName,
+#             GBIF_code = GBIF_codes,
+#             reg,
+#             rip,
+#             dun,
+#             vad,
+#             hoc)
+# 
+# write_excel_csv2(draft, "./prius2/temp/prius2_list_v25-08-19_trimmedforANB.csv")
+```
+
+```{r FULL LIST FOR FURTHER ANALYSIS}
+prius2 <- prius2 %>% rename(GBIF_code = GBIF_codes)
+
+write.csv(prius2, "./prius2/temp/prius2_list_v25-09-23.csv", row.names = FALSE)
 ```
