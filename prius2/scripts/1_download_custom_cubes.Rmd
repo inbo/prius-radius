@@ -1,0 +1,60 @@
+---
+title: "1_download_custom_cube"
+author: "Sander Devisscher"
+date: "2025-09-25"
+output: html_document
+---
+
+```{r set parameters}
+
+```
+
+```{r libraries}
+
+```
+
+```{r read species list}
+
+```
+
+```{r extract species list}
+
+```
+
+```{r extract class list}
+
+```
+
+```{r read species query}
+
+```
+
+```{r fill species query}
+
+```
+
+```{r read class query}
+
+```
+
+```{r fill class query}
+
+```
+
+```{r execute species query}
+
+```
+
+```{r execute class query}
+
+```
+
+```{r export species cube}
+
+```
+
+```{r export class cube}
+
+```
+
+
