@@ -126,19 +126,35 @@ class_query <- gsub(pattern = "year",
 ```
 
 ```{r execute species query}
-
+species_cube_download <- occ_download_sql(q = species_query,
+                                          format = "SQL_TSV_ZIP",
+                                          email = Sys.getenv("email"),
+                                          user = Sys.getenv("gbif_user"),
+                                          pwd = Sys.getenv("gbif_pwd"))
 ```
 
 ```{r execute class query}
-
+class_cube_download <- occ_download_sql(q = class_query,
+                                        format = "SQL_TSV_ZIP",
+                                        email = Sys.getenv("email"),
+                                        user = Sys.getenv("gbif_user"),
+                                        pwd = Sys.getenv("gbif_pwd"))
 ```
 
 ```{r export species cube}
+occ_download_wait(species_cube_download)
 
+species_cube <- occ_download_get(species_cube_download, overwrite = TRUE) %>% 
+  occ_download_import() %>% 
+  write_csv(file = paste0(prius_version, "/input/", prius_version, "_species_cube.csv"))
 ```
 
 ```{r export class cube}
+occ_download_wait(class_cube_download)
 
+class_cube <- occ_download_get(class_cube_download, overwrite = TRUE) %>% 
+  occ_download_import() %>% 
+  write_csv(file = paste0(prius_version, "/input/", prius_version, "_class_cube.csv"))
 ```
 
 
