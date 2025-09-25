@@ -141,14 +141,6 @@ species_cube_download <- occ_download_sql(q = species_query,
                                           pwd = Sys.getenv("gbif_pwd"))
 ```
 
-```{r execute class query}
-class_cube_download <- occ_download_sql(q = class_query,
-                                        format = "SQL_TSV_ZIP",
-                                        email = Sys.getenv("email"),
-                                        user = Sys.getenv("gbif_user"),
-                                        pwd = Sys.getenv("gbif_pwd"))
-```
-
 ```{r export species cube}
 occ_download_wait(species_cube_download)
 
@@ -165,17 +157,44 @@ drive_auth(Sys.getenv("email"))
 drive_path <- as_id("1MbndBTzOePHKi-nX4eZDFZ2QyRnEZR1d")
 ```
 
-```{r}
+```{r upload species cube to google drive}
 drive_put(species_cube_path,
           drive_path)
 ```
 
-```{r export class cube}
-occ_download_wait(class_cube_download)
-
-class_cube <- occ_download_get(class_cube_download, overwrite = TRUE) %>% 
-  occ_download_import() %>% 
-  write_csv(file = paste0(prius_version, "/input/", prius_version, "_class_cube.csv"))
+```{r}
+dwnl_class <- menu(title = "donwload classcube ?",
+                   choices = c("N", "Y"),
+                   graphics = TRUE)
 ```
 
 
+```{r execute class query}
+if(dwnl_class == 2){
+  class_cube_download <- occ_download_sql(q = class_query,
+                                        format = "SQL_TSV_ZIP",
+                                        email = Sys.getenv("email"),
+                                        user = Sys.getenv("gbif_user"),
+                                        pwd = Sys.getenv("gbif_pwd"))
+}
+
+```
+
+```{r export class cube}
+if(dwnl_class == 2){
+occ_download_wait(class_cube_download)
+
+class_cube_path <- paste0(prius_version, "/input/", prius_version, "_class_cube.csv")
+
+class_cube <- occ_download_get(class_cube_download, overwrite = TRUE) %>% 
+  occ_download_import() %>% 
+  write_csv(file = class_cube_path)
+}
+```
+
+```{r upload class cube to google drive}
+if(dwnl_class == 2){
+drive_put(class_cube_path,
+          drive_path)
+}
+```
