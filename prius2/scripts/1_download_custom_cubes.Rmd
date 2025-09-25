@@ -100,11 +100,29 @@ species_query <- gsub(pattern = "year",
 ```
 
 ```{r read class query}
+query_file <- paste0(prius_version, "/input/gbif_sql_query_class_base.txt")
 
+class_query_base <- gsub(pattern = "  ",
+                         replacement = "",
+                         paste0(readLines(query_file), collapse = " "))
 ```
 
 ```{r fill class query}
+class_query <- gsub(pattern = "<--nubkeys-->", 
+                    replacement = paste0(class_keys, collapse = ", "),
+                    x = class_query_base)
 
+class_query <- gsub(pattern = "<--year-->", 
+                    replacement = year,
+                    x = class_query)
+
+class_query <- gsub(pattern = "<--buffer_wkt-->", 
+                    replacement = vla_buf_wkt,
+                    x = class_query)
+
+class_query <- gsub(pattern = "year",
+                    replacement = "\"year\"",
+                    class_query)
 ```
 
 ```{r execute species query}
