@@ -14,9 +14,9 @@ SELECT
   FROM
     occurrence
   WHERE
-    occurrenceStatus = 'PRESENT'
-    AND countrycode = 'BE'
-    AND year >= 1900
+    classKey IN (<--nubkeys-->)
+    AND occurrenceStatus = 'PRESENT'
+    AND year >= <--year-->
     AND hasCoordinate = TRUE
     AND NOT ARRAY_CONTAINS(issue, 'ZERO_COORDINATE')
     AND NOT ARRAY_CONTAINS(issue, 'COORDINATE_OUT_OF_RANGE')
@@ -34,8 +34,8 @@ SELECT
       'unconfirmed - not reviewed',
       'validation requested'
       ) OR identificationVerificationStatus IS NULL)
-   AND classKey IN (<--nubkeys-->)
    AND COALESCE(coordinateUncertaintyInMeters, 1000) <= 10000
+   AND GBIF_Within(<--buffer_wkt-->, decimalLatitude, decimalLongitude) = TRUE
  GROUP BY
     year,
     eeaCellCode,
