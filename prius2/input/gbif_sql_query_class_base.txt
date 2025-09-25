@@ -1,0 +1,47 @@
+SELECT
+    year,
+    GBIF_EEARGCode(
+      1000,
+      decimalLatitude,
+      decimalLongitude,
+      COALESCE(coordinateUncertaintyInMeters, 1000)
+    ) AS eeaCellCode,
+    classKey,
+    class,
+    COUNT(*) AS occurrences,
+    MIN(COALESCE(coordinateUncertaintyInMeters, 1000)) AS minCoordinateUncertaintyInMeters,
+    MIN(GBIF_TemporalUncertainty(eventDate, null)) AS minTemporalUncertainty
+  FROM
+    occurrence
+  WHERE
+    occurrenceStatus = 'PRESENT'
+    AND countrycode = 'BE'
+    AND year >= 1900
+    AND hasCoordinate = TRUE
+    AND NOT ARRAY_CONTAINS(issue, 'ZERO_COORDINATE')
+    AND NOT ARRAY_CONTAINS(issue, 'COORDINATE_OUT_OF_RANGE')
+    AND NOT ARRAY_CONTAINS(issue, 'COORDINATE_INVALID')
+    AND NOT ARRAY_CONTAINS(issue, 'COUNTRY_COORDINATE_MISMATCH')
+    AND (LOWER(identificationVerificationStatus) NOT IN (
+      'unverified',
+      'unvalidated',
+      'not validated',
+      'under validation',
+      'not able to validate',
+      'control could not be conclusive due to insufficient knowledge',
+      'uncertain',
+      'unconfirmed',
+      'unconfirmed - not reviewed',
+      'validation requested'
+      ) OR identificationVerificationStatus IS NULL)
+   AND classKey IN (<--nubkeys-->)
+   AND COALESCE(coordinateUncertaintyInMeters, 1000) <= 10000
+ GROUP BY
+    year,
+    eeaCellCode,
+    classKey,
+    class
+  ORDER BY
+    year DESC,
+    eeaCellCode ASC,
+    classKey ASC;
