@@ -15,9 +15,13 @@ vla <- st_read("./prius/data/spatial/flanders_wgs84.geojson")
 ```
 
 ```{r}
-vla_100km <- st_buffer(vla, dist = 100000) # afstand in meter
-vla_150km <- st_buffer(vla, dist = 150000) # afstand in meter
-vla_200km <- st_buffer(vla, dist = 200000) # afstand in meter
+# vla_100km <- st_buffer(vla, dist = 100000) # afstand in meter
+# vla_150km <- st_buffer(vla, dist = 150000) # afstand in meter
+# vla_200km <- st_buffer(vla, dist = 200000) # afstand in meter
+vla_250km <- st_buffer(vla, dist = 250000) # afstand in meter
+vla_300km <- st_buffer(vla, dist = 300000) # afstand in meter
+vla_400km <- st_buffer(vla, dist = 400000) # afstand in meter
+vla_500km <- st_buffer(vla, dist = 500000) # afstand in meter
 ```
 
 
@@ -44,10 +48,12 @@ uk <- st_as_sf(raw) %>%
 ggplot() +
   geom_sf(data = w_eur) +
   geom_sf(data = uk, fill = NA, color = "grey") +
-  geom_sf(data = vla_100km, fill = NA, color = "blue") + 
-  geom_sf(data = vla_150km, fill = NA, color = "red") +
-  geom_sf(data = vla_200km, fill = NA, color = "green") +
+  # geom_sf(data = vla_250km, fill = NA, color = "blue") + 
+  geom_sf(data = vla_300km, fill = NA, color = "green") +
+  geom_sf(data = vla_400km, fill = NA, color = "red") +
+  geom_sf(data = vla_500km, fill = NA, color = "blue") +
   coord_sf(xlim = c(-7.5, +17.5), ylim = c(+40, +57.5), expand = FALSE) +
+  ggtitle("groen=300/rood=400/blauw=500") +
   theme_bw()
 
 # Overzeese gebieden wel behouden, niet getoond 
