@@ -38,7 +38,7 @@ SELECT
       'validation requested'
       ) OR identificationVerificationStatus IS NULL)
     AND COALESCE(coordinateUncertaintyInMeters, 1000) <= 10000
-    AND GBIF_Within(<--buffer_wkt-->, decimalLatitude, decimalLongitude) = TRUE
+    AND GBIF_Within('<--buffer_wkt-->', decimalLatitude, decimalLongitude) = TRUE
   GROUP BY
     year,
     eeaCellCode,
