@@ -54,19 +54,29 @@ class_keys <- class_list %>%
   pull()
 ```
 
-```{r extract species list}
+```{r calculate buffer wkt}
+vla <- st_read("./prius/data/spatial/flanders_wgs84.geojson")
+
+vla_buf_wkt <- vla %>% 
+  st_buffer(vla, dist = buffer) %>% 
+  st_geometry() %>% 
+  st_as_text()
+```
+
+```{r test wkt, eval=FALSE}
+geom <- st_as_sfc(vla_buf_wkt)
+
+library(leaflet)
+leaflet(geom) %>%
+  addTiles() %>%
+  addPolygons()
+```
+
+```{r read species query base}
 
 ```
 
-```{r extract class list}
-
-```
-
-```{r read species query}
-
-```
-
-```{r fill species query}
+```{r fill species query base}
 
 ```
 
