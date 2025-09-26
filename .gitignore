@@ -41,3 +41,4 @@ vignettes/*.pdf
 *.zip
 data/input/be_species_cube.csv
 prius2/input/prius2_species_cube.csv
+prius2/input/prius2_class_cube.csv
