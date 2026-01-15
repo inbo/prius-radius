@@ -77,6 +77,11 @@ write(List_species_not_present, "./prius2/output/distribution_maps/species_not_p
 ```
 
 ```{r maps}
+my_breaks <- seq(min(IAS_Cube_1km_spec$year, na.rm = TRUE), 
+                 2025, 
+                 length.out = 4) %>% 
+  round(0)
+
 for (species_name in unique(in_cube$soort)){
   print(species_name)
   GBIF_codes <- in_cube[which(in_cube$soort==species_name),]$GBIF_code
@@ -92,10 +97,6 @@ for (species_name in unique(in_cube$soort)){
                              by.y='eeacellcode',
                              all.y=TRUE)
   
-  my_breaks <- seq(min(IAS_Cube_1km_spec$year, na.rm = TRUE), 
-                 max(IAS_Cube_1km_spec$year, na.rm = TRUE), 
-                 length.out = 4)
-  
   temp_plot<- ggplot() +
     geom_sf(data = Vlaanderen_grenzen, fill= "#f0f0f0", size = 0.2)+ #te activeren indien achterkleur grijs
     geom_sf(data= ps_vglrl, colour= "#a4e98f", fill="#a4e98f") + 
@@ -104,12 +105,17 @@ for (species_name in unique(in_cube$soort)){
     geom_sf(data=IAS_Cube_1km_spec,  aes(colour = year))+
     scale_colour_gradientn(
       colors = c("#00007F", "blue", "#007FFF", "cyan", "#7FFF7F", "yellow", "#FF7F00", "red", "#7F0000"),
+      limits = c(2015, 2026),
       breaks = my_breaks,
-      labels = round(my_breaks, 0) # Removes the decimals (.0)
-    ) +
+      labels = my_breaks) +  # Removes the decimals (.0)) +
     theme_void() + # Zonder "assen" (coördinaten)
-    theme(legend.position="bottom", legend.title = element_blank()) +
-    theme(plot.margin=grid::unit(c(0,0,0,0), "mm"))+
+    theme(
+      legend.position = "bottom", 
+      legend.title = element_blank(),
+      # Increase width slightly so the '2025' label has space on the right edge
+      legend.text = element_text(size = 9),
+      plot.margin = grid::unit(c(0, 5, 0, 5), "mm") # Added side margins to prevent cropping
+    ) +
     coord_sf()
   
   ggsave(temp_plot, file=paste0("./prius2/output/distribution_maps/", species_name,".png"), width = 15, height = 6.4, units = "cm", dpi=200)
