@@ -131,5 +131,5 @@ showme <- showme %>%
   ))
   
 
-write.csv(showme, "./prius2/output/absent-sporadic-present/absent-sporadic-present.csv")
+write_csv(showme, "./prius2/output/absent-sporadic-present/absent-sporadic-present.csv")
 ```
