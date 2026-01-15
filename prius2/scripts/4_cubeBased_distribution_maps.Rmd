@@ -82,7 +82,9 @@ for (species_name in unique(in_cube$soort)){
   GBIF_codes <- in_cube[which(in_cube$soort==species_name),]$GBIF_code
   print(GBIF_codes)
   IAS_Cube_temp <- IAS_Cube %>%
-    filter(specieskey %in% GBIF_codes)
+    filter(specieskey %in% GBIF_codes) %>% 
+    group_by(eeacellcode, specieskey) %>%
+    summarise(year = as.integer(max(year, na.rm = TRUE)))
   print(IAS_Cube_temp)
   IAS_Cube_1km_spec <- merge(vla_1km,
                              IAS_Cube_temp,
@@ -90,12 +92,21 @@ for (species_name in unique(in_cube$soort)){
                              by.y='eeacellcode',
                              all.y=TRUE)
   
+  my_breaks <- seq(min(IAS_Cube_1km_spec$year, na.rm = TRUE), 
+                 max(IAS_Cube_1km_spec$year, na.rm = TRUE), 
+                 length.out = 4)
+  
   temp_plot<- ggplot() +
     geom_sf(data = Vlaanderen_grenzen, fill= "#f0f0f0", size = 0.2)+ #te activeren indien achterkleur grijs
     geom_sf(data= ps_vglrl, colour= "#a4e98f", fill="#a4e98f") + 
     geom_sf(data= ps_hbtrl_deel, colour="#a4e98f", fill="#a4e98f")+
     geom_sf(data = Provincies_grenzen, fill= NA, size=0.2) +
-    geom_sf(data=IAS_Cube_1km_spec,  colour="red")+
+    geom_sf(data=IAS_Cube_1km_spec,  aes(colour = year))+
+    scale_colour_gradientn(
+      colors = c("#00007F", "blue", "#007FFF", "cyan", "#7FFF7F", "yellow", "#FF7F00", "red", "#7F0000"),
+      breaks = my_breaks,
+      labels = round(my_breaks, 0) # Removes the decimals (.0)
+    ) +
     theme_void() + # Zonder "assen" (coördinaten)
     theme(legend.position="bottom", legend.title = element_blank()) +
     theme(plot.margin=grid::unit(c(0,0,0,0), "mm"))+
