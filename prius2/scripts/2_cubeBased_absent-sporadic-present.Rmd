@@ -116,5 +116,20 @@ colnames(showme) <- showme[1,]    ## First row to column names...
 showme <- showme[-1,]             ## ... and delete first row
 showme <- as.data.frame(showme)
 
+# Determine whether the species is absent, sporadic or present
+# Absent: 0 occupied 1km2 cells in all years
+# Present: more than 1km2 cells occupied 5 last years (2020-2025)
+# Sporadic: everything else
+showme <- showme %>%
+  rownames_to_column(var = "species") %>%
+  mutate(across(-species, as.numeric)) %>% 
+  rowwise() %>%
+  mutate(status = case_when(
+    sum(c_across(`2015`:`2025`)) == 0 ~ "absent",
+    sum(c_across(`2020`:`2025`) > 0) >= 5 ~ "present",
+    TRUE ~ "sporadic"
+  ))
+  
+
 write.csv(showme, "./prius2/output/absent-sporadic-present/absent-sporadic-present.csv")
 ```
