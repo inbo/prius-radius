@@ -15,67 +15,81 @@ species_list <-  read_csv("./prius2/temp/prius2_list_v25-09-23.csv")
 ```
 
 ```{r get shapes}
-vla_1km <- st_read("./data/spatial/grids/vla_1km.geojson")
+vla_1km <- st_read("./prius/data/spatial/grids/vla_1km.geojson")
 ```
 
 NOTE: the species cube is (too) heavy to push to the git, and making connection with zenodo within the script is too slow. It is therefore best to download the cube dataset locally (to be put in the input folder), and include it in gitignore.
 
+https://drive.google.com/file/d/154S4vww2G1f0vH7_jt1cZJXeUEmXlZaL/view?usp=drive_link
+
+```{r update cube locally}
+fistools::download_gdrive_if_missing(gfileID = "154S4vww2G1f0vH7_jt1cZJXeUEmXlZaL",
+                                     destfile = "prius2/input/prius2_species_cube.csv",
+                                     update_always = TRUE,
+                                     email = Sys.getenv("email"))
+```
+
 ```{r get cube data}
-IAS_Cube <- read_csv(file = "./data/input/be_species_cube.csv")
-                       #"https://zenodo.org/record/6341688/files/be_species_cube.csv?download=1")
+IAS_Cube <- read_csv(file = "./prius2/input/prius2_species_cube.csv") %>% 
+  as_tibble()
+
 gc()
 IAS_Cube <- IAS_Cube %>%
   filter(year >= 2015) %>% 
-  filter(speciesKey %in% species_list$GBIF_code) %>% 
-  filter(eea_cell_code %in% vla_1km$CELLCODE)
+  filter(specieskey %in% species_list$GBIF_code) %>% 
+  filter(eeacellcode %in% vla_1km$CELLCODE)
 ```
 
 ```{r test data completeness}
 IAS_Cube_summarise <- IAS_Cube %>% 
-  group_by(speciesKey) %>% 
-  summarise(n_tot = sum(n, na.rm = TRUE))
+  group_by(specieskey) %>% 
+  summarise(n_tot = sum(occurrences, na.rm = TRUE))
 
 not_in_cube <- species_list %>% 
-  left_join(IAS_Cube_summarise, by = c("GBIF_code" = "speciesKey")) %>% 
+  left_join(IAS_Cube_summarise, by = c("GBIF_code" = "specieskey")) %>% 
   filter(is.na(n_tot))
 
-write_csv(not_in_cube, "./data/intermediate/taxonkeys_not_in_cube.csv")
+write_csv(not_in_cube, "./prius2/output/absent-sporadic-present/taxonkeys_not_in_cube.csv")
 
 in_cube <- species_list %>% 
-  left_join(IAS_Cube_summarise, by = c("GBIF_code" = "speciesKey")) %>% 
+  left_join(IAS_Cube_summarise, by = c("GBIF_code" = "specieskey")) %>% 
   filter(!is.na(n_tot))
 
-not_in_cube$Soort %in% in_cube$Soort
+not_in_cube$soort %in% in_cube$soort
 
-List_species_present <- unique(in_cube$Soort)
-List_species_not_present <- vsetdiff(unique(species_list$Soort) , List_species_present)
-write(List_species_present, "./data/output/absent-sporadic-present/species_present.txt")
-write(List_species_not_present, "./data/output/absent-sporadic-present/species_not_present.txt")
+List_species_present <- unique(in_cube$soort)
+List_species_not_present <- vsetdiff(unique(species_list$soort) , List_species_present)
+write(List_species_present, "./prius2/output/absent-sporadic-present/species_present.txt")
+write(List_species_not_present, "./prius2/output/absent-sporadic-present/species_not_present.txt")
 ```
 
 ```{r}
-keep_all <- data.frame(year = c(2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022)) ## Keep all species
+keep_all <- data.frame(year = seq.int(from = 2015,
+                                      to = 2025,
+                                      by = 1)) ## Keep all species
 keep_all$year <- as.factor(keep_all$year)                                        ## For compatibility with below
 
-for (species_name in unique(in_cube$Soort)){
+for (species_name in unique(in_cube$soort)){
   print(species_name)
-  GBIF_codes<- in_cube[which(in_cube$Soort==species_name),]$GBIF_code
+  GBIF_codes<- in_cube[which(in_cube$soort==species_name),]$GBIF_code
   print(GBIF_codes)
   IAS_Cube_temp <- IAS_Cube %>%
-    filter(speciesKey %in% GBIF_codes)
+    filter(specieskey %in% GBIF_codes)
   print(IAS_Cube_temp)
-  IAS_Cube_1km_spec <- merge(vla_1km,
-                      IAS_Cube_temp,
-                      by.x='CELLCODE',
-                      by.y='eea_cell_code',
-                      all.y=TRUE)
+  IAS_Cube_1km_spec <-IAS_Cube_temp %>% 
+    left_join(vla_1km, by = c("eeacellcode" = "CELLCODE")) %>% 
+    as.data.frame() %>%
+    select(-geometry) %>%
+    filter(occurrences > 0)
   IAS_Cube_sporadic <- IAS_Cube_1km_spec %>% 
   group_by(year)%>%
   summarize(n=n())
   
   IAS_Cube_sporadic$year <- as.factor(IAS_Cube_sporadic$year)
   
-  data <- data.frame(year = c(2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022))
+  data <- data.frame(year = seq.int(from = 2015,
+                                      to = 2025,
+                                      by = 1))
   
   data$year <- as.factor(data$year)
   
@@ -102,5 +116,5 @@ colnames(showme) <- showme[1,]    ## First row to column names...
 showme <- showme[-1,]             ## ... and delete first row
 showme <- as.data.frame(showme)
 
-write.csv(showme, "./data/output/absent-sporadic-present/absent-sporadic-present.csv")
+write.csv(showme, "./prius2/output/absent-sporadic-present/absent-sporadic-present.csv")
 ```
