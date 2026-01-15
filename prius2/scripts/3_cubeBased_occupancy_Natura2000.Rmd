@@ -23,66 +23,71 @@ habitat <- df_prot_areas %>% filter(habitat == TRUE)
 ```
 
 ```{r get shapes}
-vla_1km <- st_read("./data/spatial/grids/vla_1km.geojson")
+vla_1km <- st_read("./prius/data/spatial/grids/vla_1km.geojson")
+```
+
+```{r update cube locally}
+fistools::download_gdrive_if_missing(gfileID = "154S4vww2G1f0vH7_jt1cZJXeUEmXlZaL",
+                                     destfile = "prius2/input/prius2_species_cube.csv",
+                                     update_always = TRUE,
+                                     email = Sys.getenv("email"))
 ```
 
 ```{r get cube data}
-IAS_Cube <- read_csv(file = "./data/input/be_species_cube.csv") %>%
+IAS_Cube <- read_csv(file = "./prius2/input/prius2_species_cube.csv") %>% 
+  as_tibble()
+
+IAS_Cube <- IAS_Cube %>%
   filter(year >= 2015) %>% 
-  filter(speciesKey %in% species_list$GBIF_code) %>% 
-  filter(eea_cell_code %in% vla_1km$CELLCODE)
+  filter(specieskey %in% species_list$GBIF_code) %>% 
+  filter(eeacellcode %in% vla_1km$CELLCODE)
 ```
 
 ```{r test data completeness}
 IAS_Cube_summarise <- IAS_Cube %>% 
-  group_by(speciesKey) %>% 
-  summarise(n_tot = sum(n, na.rm = TRUE))
+  group_by(specieskey) %>% 
+  summarise(n_tot = sum(occurrences, na.rm = TRUE))
 
 in_cube <- species_list %>% 
-  left_join(IAS_Cube_summarise, by = c("GBIF_code" = "speciesKey")) %>% 
+  left_join(IAS_Cube_summarise, by = c("GBIF_code" = "specieskey")) %>% 
   filter(!is.na(n_tot))
 ```
 
 ```{r}
 df <- data.frame()
 
-for (species_name in unique(in_cube$Soort)){
+for (species_name in unique(in_cube$soort)){
   
   print(species_name)
-  GBIF_codes <- in_cube[which(in_cube$Soort==species_name),]$GBIF_code
+  GBIF_codes <- in_cube[which(in_cube$soort==species_name),]$GBIF_code
   print(GBIF_codes)
   IAS_Cube_temp <- IAS_Cube %>%
-    filter(speciesKey %in% GBIF_codes)
+    filter(specieskey %in% GBIF_codes)
 
-  N_occ_spec <- as.numeric(n_distinct(IAS_Cube_temp$eea_cell_code)) # nodig, want zelfde cel voor verschillende jaren
+  N_occ_spec <- as.numeric(n_distinct(IAS_Cube_temp$eeacellcode)) # nodig, want zelfde cel voor verschillende jaren
   N_Natura2000 <- as.numeric(n_distinct(Natura2000$CELLCODE))
   N_spa <- as.numeric(n_distinct(spa$CELLCODE))
   N_habitat <- as.numeric(n_distinct(habitat$CELLCODE))
   
   N_occ_spec_in_Natura2000 <- as.numeric(n_distinct(
-    IAS_Cube_temp[which(IAS_Cube_temp$eea_cell_code %in% Natura2000$CELLCODE),]$eea_cell_code))
+    IAS_Cube_temp[which(IAS_Cube_temp$eeacellcode %in% Natura2000$CELLCODE),]$eeacellcode))
   N_occ_spec_in_spa <- as.numeric(n_distinct(
-    IAS_Cube_temp[which(IAS_Cube_temp$eea_cell_code %in% spa$CELLCODE),]$eea_cell_code))
+    IAS_Cube_temp[which(IAS_Cube_temp$eeacellcode %in% spa$CELLCODE),]$eeacellcode))
   N_occ_spec_in_habitat <- as.numeric(n_distinct(
-    IAS_Cube_temp[which(IAS_Cube_temp$eea_cell_code %in% habitat$CELLCODE),]$eea_cell_code))
+    IAS_Cube_temp[which(IAS_Cube_temp$eeacellcode %in% habitat$CELLCODE),]$eeacellcode))
                   
 df <- rbind(df, data.frame(species_name,
-                           
                            N_occ_spec,
                            N_occ_spec_in_Natura2000,
-                           
                            N_occ_spec_in_Natura2000/N_occ_spec,
                            N_occ_spec_in_habitat/N_occ_spec,
                            N_occ_spec_in_spa/N_occ_spec,
-                           
                            round(100*(N_occ_spec_in_Natura2000/N_occ_spec), digits = 1),  # Idem, as percent (%), for report
                            round(100*(N_occ_spec_in_habitat/N_occ_spec), digits = 1),     # Idem, as percent (%), for report
                            round(100*(N_occ_spec_in_spa/N_occ_spec), digits = 1),         # Idem, as percent (%), for report
-                           
                            N_occ_spec_in_Natura2000/N_Natura2000,
                            N_occ_spec_in_habitat/N_habitat,
                            N_occ_spec_in_spa/N_spa,
-                           
                            round(1000*(N_occ_spec_in_Natura2000/N_Natura2000), digits = 1), # Idem, as promille (‰), for report
                            round(1000*(N_occ_spec_in_habitat/N_habitat), digits = 1),       # Idem, as promille (‰), for report
                            round(1000*(N_occ_spec_in_spa/N_spa), digits = 1)))              # Idem, as promille (‰), for report
@@ -111,14 +116,14 @@ colnames(df) <- c("species",
 ```
 
 ```{r}
-write.csv(df, "./data/output/occupancy_Natura2000/occupancy_Natura2000.csv")
+write_csv(df, "./prius2/output/occupancy_Natura2000/occupancy_Natura2000.csv")
 ```
 
 ```{r}
 # The only purpose of this chunck is to prepare the data for easy copy-paste into the PrIUS report
 helper <- df %>% 
-  left_join(species_list, by = c("species" = "Soort")) %>% 
-  select(species, Species,
+  left_join(species_list, by = c("species" = "soort")) %>% 
+  select(species, Species = species_wettelijke_naam,
          `%_in_N2000`, `%_in_HRL`, `%_in_VRL`,
          `‰_of_N2000`, `‰_of_HRL`, `‰_of_VRL`) %>% 
   arrange(Species)
