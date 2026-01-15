@@ -1,0 +1,60 @@
+groep,soort,GBIF_canonicalName,GBIF_scientificName,GBIF_code,species_wettelijke_naam,species_wettelijke_naam_bron,reg,rip,dun,vad,hoc,marien,brakwater,zoetwater,terrestrisch,natuur,volksgezondheid,veiligheid,infrastructuur,socioeconomisch,indamming_min,indamming_gem,indamming_stafw,indamming_max,uitroeiing_min,uitroeiing_gem,uitroeiing_stafw,uitroeiing_max,int_groep,n_tot
+dier,Amerikaanse baars,Morone americana,"Morone americana (Gmelin, 1789)",2394604,"Morone americana (Gmelin, 1789)",4,4,NA,NA,NA,NA,1,1,1,0,1,0,0,0,1,NA,NA,NA,NA,NA,NA,NA,NA,IRR,NA
+dier,Amynthas agrestis,Amynthas agrestis,"Amynthas agrestis (Goto & Hatai, 1899)",9225458,NA,NA,NA,NA,NA,NA,1,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+dier,Amynthas tokioensis,Amynthas tokioensis,"Amynthas tokioensis (Beddard, 1892)",9448251,NA,NA,NA,NA,NA,NA,1,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+dier,Aziatische modderkruiper,Misgurnus anguillicaudatus,"Misgurnus anguillicaudatus (Cantor, 1842)",2367919,"Misgurnus anguillicaudatus (Cantor, 1842)",5,5,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+dier,Aziatische naaldmier,Brachyponera chinensis,"Brachyponera chinensis (Emery, 1895)",10314173,"Brachyponera chinensis (Emery, 1895)",5,5,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+dier,Aziatische reuzenhoornaar,Vespa mandarinia,"Vespa mandarinia Smith, 1852",5871429,"Vespa mandarinia Smith, 1852",5,5,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+dier,Canadese bever,Castor canadensis,"Castor canadensis Kuhl, 1820",2439838,"Castor canadensis Kuhl, 1820",5,5,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+dier,Indische mangoeste,Herpestes javanicus,"Herpestes javanicus (É.Geoffroy Saint-Hilaire, 1818)",2434271,"Herpestes javanicus É. Geoffroy Saint-Hilaire, 1818",1,1,NA,NA,NA,NA,0,0,0,1,1,0,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA
+dier,Kentuckyrivierkreeft,Faxonius juvenilis,"Faxonius juvenilis (Hagen, 1870)",8721209,NA,NA,NA,1,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+dier,Metaphire hilgendorfi,Metaphire hilgendorfi,"Metaphire hilgendorfi (Michaelsen, 1892)",8458912,NA,NA,NA,NA,NA,NA,1,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+dier,Nieuw-Guinese landplatworm,Platydemus manokwari,"Platydemus manokwari Beauchamp, 1962",5892137,"Platydemus manokwari de Beauchamp, 1963",5,5,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+dier,Nieuw-Zeelandse platworm,Arthurdendyus triangulatus,"Arthurdendyus triangulatus (Dendy, 1895)",2502792,"Arthurdendyus triangulatus (Dendy, 1894) Jones & Gerard (1999)",3,3,NA,NA,NA,NA,0,0,0,1,1,0,0,0,1,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA
+dier,Noord-Atlantische zeester,Asterias amurensis,"Asterias amurensis Lutken, 1871",5187508,"Asterias amurensis Lutken, 1871",5,5,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+dier,Noord-Aziatische modderkruiper,Misgurnus bipartitus,"Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)",2367913,"Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)",5,5,NA,NA,NA,NA,0,0,1,0,1,0,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA,REL-AAN-SPO,NA
+dier,Procambarus zonangulus,Procambarus zonangulus,"Procambarus zonangulus Hobbs & Hobbs Iii, 1990",2227231,NA,NA,NA,NA,NA,NA,1,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+dier,Thailandeekhoorn,Callosciurus finlaysonii,"Callosciurus finlaysonii (Horsfield, 1823)",2437399,"Callosciurus finlaysonii (Horsfield, 1823)",4,4,NA,NA,NA,NA,0,0,0,1,1,0,0,1,0,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA
+dier,amoergrondel,Perccottus glenii,"Perccottus glenii Dybowski, 1877",2390064,"Perccottus glenii Dybowski, 1877",1,1,NA,NA,NA,NA,0,1,1,0,1,0,0,0,1,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA
+dier,axishert,Axis axis,"Axis axis (Erxleben, 1777)",2440934,"Axis axis (Erxleben, 1777)",4,4,NA,NA,NA,NA,0,0,0,1,1,0,1,0,1,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA
+dier,calicotrivierkreeft,Faxonius immunis,"Faxonius immunis (Hagen, 1870)",8930656,"Faxonius immunis (Hagen, 1870)",5,5,1,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+dier,dwergvuurmier,Wasmannia auropunctata,"Wasmannia auropunctata (Roger, 1863)",1315391,"Wasmannia auropunctata (Roger, 1863)",4,4,NA,NA,NA,NA,0,0,0,1,1,1,0,1,1,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA
+dier,gestreepte koraalmeerval,Plotosus lineatus,"Plotosus lineatus (Thunberg, 1787)",7965247,"Plotosus lineatus (Thunberg, 1787)",3,3,NA,NA,NA,NA,1,1,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,IRR,NA
+dier,gewone yabby,Cherax destructor,"Cherax destructor Clark, 1936",4417558,"Cherax destructor Clark, 1936",5,5,1,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+dier,gouden mossel,Limnoperna fortunei,"Limnoperna fortunei (Dunker, 1857)",5855350,"Limnoperna fortunei (Dunker, 1857)",4,4,NA,NA,NA,NA,0,0,1,0,1,0,0,1,0,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA
+dier,huiskraai,Corvus splendens,"Corvus splendens Vieillot, 1817",2482499,"Corvus splendens Viellot, 1817",1,1,NA,NA,NA,NA,0,0,0,1,1,0,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA
+dier,marisaslak,Marisa cornuarietis,"Marisa cornuarietis (Linnaeus, 1758)",2292586,Marisa cornuarietis (Linnaeus 1758),5,5,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+dier,mummichog,Fundulus heteroclitus,"Fundulus heteroclitus (Linnaeus, 1766)",5712056,"Fundulus heteroclitus (Linnaeus, 1766)",4,4,NA,NA,NA,NA,1,1,1,0,1,0,0,0,1,NA,NA,NA,NA,NA,NA,NA,NA,IRR,NA
+dier,noordelijke slangekopvis,Channa argus,"Channa argus (Cantor, 1842)",4284921,"Channa argus (Cantor, 1842)",4,4,NA,NA,NA,NA,0,0,1,0,1,0,0,0,1,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA
+dier,oostelijk muskietenvisje,Gambusia holbrooki,"Gambusia holbrooki Girard, 1859",2350570,"Gambusia holbrooki Girard, 1859",4,4,NA,NA,NA,NA,0,1,1,0,1,0,0,0,1,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA
+dier,rode neusbeer,Nasua nasua,"Nasua nasua (Linnaeus, 1766)",2433536,"Nasua nasua Linnaeus, 1766",1,1,NA,NA,NA,NA,0,0,0,1,1,0,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA
+dier,rode vuurmier,Solenopsis invicta,"Solenopsis invicta Buren, 1972",5035230,"Solenopsis invicta Buren, 1972",4,4,NA,NA,NA,NA,0,0,0,1,1,1,0,1,1,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA
+dier,roestbruine Amerikaanse rivierkreeft,Faxonius rusticus,"Faxonius rusticus (Girard, 1852)",8979506,"Faxonius rusticus (Girard, 1852)",4,4,1,NA,NA,NA,0,0,1,0,1,0,0,1,1,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA
+dier,roodbuikbuulbuul,Pycnonotus cafer,"Pycnonotus cafer (Linnaeus, 1766)",2486131,"Pycnonotus cafer (Linnaeus, 1766)",4,4,NA,NA,NA,NA,0,0,0,1,1,0,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA
+dier,roodoorbuulbuul,Pycnonotus jocosus,"Pycnonotus jocosus (Linnaeus, 1758)",2486151,"Pycnonotus jocosus (Linnaeus, 1758)",5,5,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+dier,tropische vuurmier,Solenopsis geminata,"Solenopsis geminata (Fabricius, 1804)",5035187,"Solenopsis geminata (Fabricius, 1804)",4,4,NA,NA,NA,NA,0,0,0,1,1,1,0,1,1,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA
+dier,westelijk muskietenvisje,Gambusia affinis,"Gambusia affinis (Baird & Girard, 1853)",2350580,"Gambusia affinis (Baird & Girard, 1853)",4,4,NA,NA,NA,NA,0,1,1,0,1,0,0,0,1,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA
+dier,zwarte vuurmier,Solenopsis richteri,"Solenopsis richteri Forel, 1909",5035017,"Solenopsis richteri Forel, 1909",4,4,NA,NA,NA,NA,0,0,0,1,1,1,0,1,1,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA
+plant,Acacia mearnsii,Acacia mearnsii,Acacia mearnsii De Wild.,2979775,"Acacia mearnsii [as ‘mearnsi’] De Wild., Pl. Bequaert. 3: 61 (1925)",5,5,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+plant,Amerikaans bezemgras,Andropogon virginicus,Andropogon virginicus L.,2706080,Andropogon virginicus L.,3,3,NA,NA,NA,NA,0,0,0,1,1,0,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA
+plant,Chinese struikklaver,Lespedeza cuneata,Lespedeza cuneata (Dum.Cours.) G.Don,8114276,Lespedeza cuneata (Dum.Cours.) G.Don (Lespedeza juncea var. sericea (Thunb.) Lace & Hauech),3,3,NA,NA,NA,NA,0,0,0,1,1,0,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA
+plant,Delairea odorata,Delairea odorata,Delairea odorata Lem.,3134183,Delairea odorata Lem.,5,5,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+plant,Japans zeegras,Nanozostera japonica,Nanozostera japonica (Asch. & Graebn.) Toml. & Posl.,2863941,"Nanozostera japonica (Ascherson & Graebner) Tomlinson & Posluszny, 2001",5,5,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+plant,Japanse klimvaren,Lygodium japonicum,Lygodium japonicum (Thunb.) Sw.,2650436,Lygodium japonicum (Thunb.) Sw.,3,3,NA,NA,NA,NA,0,0,0,1,1,0,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA
+plant,Perzische berenklauw,Heracleum persicum,Heracleum persicum Desf.,3628745,Heracleum persicum Fischer,1,1,1,NA,NA,NA,0,0,0,1,1,1,0,1,0,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA
+plant,Sosnowsky's berenklauw,Heracleum sosnowskyi,Heracleum sosnowskyi Manden.,3642949,Heracleum sosnowskyi Mandenova,1,1,1,NA,NA,NA,0,0,0,1,1,1,0,1,0,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA
+plant,alligatorkruid,Alternanthera philoxeroides,Alternanthera philoxeroides (Mart.) Griseb.,3084923,Alternanthera philoxeroides (Mart.) Griseb.,2,2,NA,NA,NA,NA,0,0,1,1,1,0,0,1,1,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA
+plant,ballonrank,Cardiospermum grandiflorum,Cardiospermum grandiflorum Sw.,3189935,Cardiospermum grandiflorum Sw.,3,3,NA,NA,NA,NA,0,0,0,1,1,0,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA
+plant,egeria,Egeria densa,Egeria densa Planch.,5329260,NA,NA,NA,1,NA,1,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+plant,gestekelde duizendknoop,Persicaria perfoliata,Persicaria perfoliata (L.) H.Gross,4033648,Persicaria perfoliata (L.) H. Gross (Polygonum perfoliatum L.),1,1,NA,NA,NA,NA,0,0,0,1,1,0,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA
+plant,hakea,Hakea sericea,Hakea sericea Schrad. & J.C.Wendl.,7287606,Hakea sericea Schrad. & J.C.Wendl. s.l.,5,4,NA,NA,NA,NA,0,0,0,1,1,0,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA
+plant,hoog pampagras,Cortaderia jubata,Cortaderia jubata (Lemoine) Stapf,2704521,Cortaderia jubata (Lemoine ex Carrière) Stapf,3,3,NA,NA,NA,NA,0,0,0,1,1,0,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA
+plant,kudzu,Pueraria montana lobata,Pueraria montana var. lobata (Willd.) Maesen & S.M.Almeida ex Sanjappa & Predeep,2977647,Pueraria montana (Lour.) Merr. var. lobata (Willd.) (Pueraria lobata (Willd.) Ohwi),1,1,NA,NA,NA,NA,0,0,0,1,1,0,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA
+plant,mesquite,Prosopis juliflora,Prosopis juliflora (Sw.) DC.,5358460,Prosopis juliflora (Sw.) DC.,3,3,NA,NA,NA,NA,0,0,0,1,1,0,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA
+plant,oosterse hop,Humulus scandens,Humulus scandens (Lour.) Merr.,2984537,Humulus scandens (Lour.) Merr.,3,3,NA,NA,NA,NA,0,0,0,1,1,1,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA
+plant,roze rimpelgras,Ehrharta calycina,Ehrharta calycina Sm.,2702865,Ehrharta calycina Sm.,3,3,NA,NA,NA,NA,0,0,0,1,1,0,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA
+plant,schijnambrosia,Parthenium hysterophorus,Parthenium hysterophorus L.,3086784,Parthenium hysterophorus L.,1,1,NA,NA,NA,NA,0,0,0,1,1,1,0,0,1,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA
+plant,smalle theeplant,Gymnocoronis spilanthoides,Gymnocoronis spilanthoides DC.,6063677,Gymnocoronis spilanthoides (D.Don ex Hook. & Arn.) DC.,3,3,NA,NA,NA,NA,0,0,0,1,1,0,0,1,1,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA
+plant,stomp gaffelwier,Rugulopteryx okamurae,"Rugulopteryx okamurae (E.Y.Dawson) I.K.Hwang, W.J.Lee & H.S.Kim, 2009",5824863,"Rugulopteryx okamurae (E.Y.Dawson) I.K.Hwang, W.J.Lee & H.S.Kim, 2009",4,4,NA,NA,NA,NA,1,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,IRR,NA
+plant,talgboom,Triadica sebifera,Triadica sebifera (L.) Small,3054399,Triadica sebifera (L.) Small (Sapium sebiferum (L.) Roxb.),3,3,NA,NA,NA,NA,0,0,0,1,1,1,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA
+plant,wilgacacia,Acacia saligna,Acacia saligna (Labill.) H.L.Wendl.,2978552,Acacia saligna (Labill.) H.L.Wendl. (Acacia cyanophylla Lindl.),3,3,NA,NA,NA,NA,0,0,0,1,1,0,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA
