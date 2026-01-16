@@ -7,7 +7,7 @@ output: html_document
 
 ```{r set parameters}
 buffer <- 500000
-year <- 2015
+year <- 2000
 prius_version <- "prius2"
 ```
 
