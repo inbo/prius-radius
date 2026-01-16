@@ -8,6 +8,7 @@ output: html_document
 ```{r set parameters}
 buffer <- 500000
 year <- 2000
+year_max <- 2025
 prius_version <- "prius2"
 ```
 
@@ -100,6 +101,10 @@ species_query <- gsub(pattern = "<--year-->",
 
 species_query <- gsub(pattern = "<--buffer_wkt-->", 
                       replacement = vla_buf_wkt,
+                      x = species_query)
+
+species_query <- gsub(pattern = "<--year_max-->", 
+                      replacement = year_max,
                       x = species_query)
 
 species_query <- gsub(pattern = "year",

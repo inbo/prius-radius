@@ -19,6 +19,7 @@ SELECT
     occurrenceStatus = 'PRESENT'
     AND speciesKey IN (<--nubkeys-->)
     AND year >= <--year-->
+    AND year <= <--year_max-->
     AND hasCoordinate = TRUE    
     AND speciesKey IS NOT NULL
     AND NOT ARRAY_CONTAINS(issue, 'ZERO_COORDINATE')
