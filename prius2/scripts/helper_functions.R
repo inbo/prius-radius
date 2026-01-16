@@ -50,6 +50,8 @@ read_species_list <- function(file_path = NULL,
       dplyr::filter(!is.na(version_date)) |>
       dplyr::filter(version_date == max(version_date, na.rm = TRUE)) |>
       dplyr::pull(file_path)
+    
+    cat("Reading species list from:", latest_file, "\n")
 
     # Read the most recent species list
     species_list <- read.csv(latest_file, stringsAsFactors = FALSE)
