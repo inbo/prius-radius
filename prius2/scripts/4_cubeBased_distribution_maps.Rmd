@@ -4,27 +4,24 @@ library(leaflet)
 library(tidyverse)
 library(dplyr)
 library(vecsets)
+library(colorRamps) # for Matlab-like plots
 
 source("./prius2/scripts/helper_functions.R")
 ```
 
 ```{r clear memory}
-rm(list=ls())
+rm(list = setdiff(ls(), c("read_species_list", "IAS_Cube")))
 ```
 
 ```{r get species list}
 species_list <- read_species_list(file_path = "./prius2/temp/",
                                   prius_version = 2)
-
-# No distribution map needed for Aedes albopictus. See adhoc.
-# species_list <- species_list %>% 
-#   filter(!Soort == "Aziatische tijgermug")
 ```
 
 ```{r get shapes}
 vla_1km <- st_read("./prius/data/spatial/grids/vla_1km.geojson")
 Vlaanderen_grenzen <- st_read("./prius/data/spatial/flanders_wgs84.geojson")
-Provincies_grenzen <- st_read("./prius/data/spatial/Provincies.geojson")
+Provincies_grenzen <- st_read("./prius2/spatial/provincies2025.geojson") # !! updated
 ps_vglrl <- st_read("./prius/data/spatial/ps_vglrl.geojson")
 ps_hbtrl_deel <- st_read("./prius/data/spatial/ps_hbtrl_deel.geojson")
 ```
@@ -43,9 +40,17 @@ IAS_Cube <- read_csv(file = "./prius2/input/prius2_species_cube.csv") %>%
   as_tibble()
 
 gc()
+```
 
+```{r set time frame}
+time.frame.start <- 2015 # !! first year
+time.frame.stop  <- 2025 # !! last year (included)
+```
+
+```{r}
 IAS_Cube <- IAS_Cube %>%
-  filter(year >= 2015) %>% 
+  filter(year >= time.frame.start &
+           year <= time.frame.stop) %>%
   filter(specieskey %in% species_list$GBIF_code) %>% 
   filter(eeacellcode %in% vla_1km$CELLCODE)
 ```
@@ -80,10 +85,10 @@ write(List_species_not_present, "./prius2/output/distribution_maps/species_not_p
 ```
 
 ```{r maps}
-my_breaks <- seq(min(IAS_Cube_1km_spec$year, na.rm = TRUE), 
-                 2025, 
-                 length.out = 4) %>% 
-  round(0)
+# note : colour gradient (matlab-like) over years, as requested by ANB
+# note : to save space, legend not included in graphs, but shown in separate fig.
+
+my.cols <- matlab.like(n_distinct(seq(time.frame.start, time.frame.stop)))
 
 for (species_name in unique(in_cube$soort)){
   print(species_name)
@@ -96,31 +101,59 @@ for (species_name in unique(in_cube$soort)){
   print(IAS_Cube_temp)
   IAS_Cube_1km_spec <- merge(vla_1km,
                              IAS_Cube_temp,
-                             by.x='CELLCODE',
-                             by.y='eeacellcode',
-                             all.y=TRUE)
+                             by.x = 'CELLCODE',
+                             by.y = 'eeacellcode',
+                             all.y = TRUE)
   
-  temp_plot<- ggplot() +
-    geom_sf(data = Vlaanderen_grenzen, fill= "#f0f0f0", size = 0.2)+ #te activeren indien achterkleur grijs
+  temp_plot <- ggplot() +
+    geom_sf(data = Vlaanderen_grenzen, fill= "#f0f0f0", size = 0.2) +
     geom_sf(data= ps_vglrl, colour= "#a4e98f", fill="#a4e98f") + 
-    geom_sf(data= ps_hbtrl_deel, colour="#a4e98f", fill="#a4e98f")+
+    geom_sf(data= ps_hbtrl_deel, colour="#a4e98f", fill="#a4e98f") +
     geom_sf(data = Provincies_grenzen, fill= NA, size=0.2) +
-    geom_sf(data=IAS_Cube_1km_spec,  aes(colour = year))+
-    scale_colour_gradientn(
-      colors = c("#00007F", "blue", "#007FFF", "cyan", "#7FFF7F", "yellow", "#FF7F00", "red", "#7F0000"),
-      limits = c(2015, 2026),
-      breaks = my_breaks,
-      labels = my_breaks) +  # Removes the decimals (.0)) +
-    theme_void() + # Zonder "assen" (coördinaten)
+    geom_sf(data = IAS_Cube_1km_spec,  aes(colour = year, fill = year),
+            stroke = 0) + # only show filling, not lines
+    scale_colour_gradientn(colors = my.cols,
+                         limits = c(time.frame.start, time.frame.stop)) +
+    scale_fill_gradientn(colors = my.cols,
+                         limits = c(time.frame.start, time.frame.stop)) +
+    theme_void() +
     theme(
-      legend.position = "bottom", 
-      legend.title = element_blank(),
-      # Increase width slightly so the '2025' label has space on the right edge
-      legend.text = element_text(size = 9),
-      plot.margin = grid::unit(c(0, 5, 0, 5), "mm") # Added side margins to prevent cropping
-    ) +
+      legend.position = "none",
+      legend.title = element_blank()
+      ) +
     coord_sf()
   
-  ggsave(temp_plot, file=paste0("./prius2/output/distribution_maps/", species_name,".png"), width = 15, height = 6.4, units = "cm", dpi=200)
+  ggsave(temp_plot, file=paste0(
+    "./prius2/output/distribution_maps/", species_name,".png"),
+    width = 15.0, height = 5.1, # important for fluent incorporation in report
+    units = "cm", dpi = 200)
 }
+```
+
+```{r legend}
+# one-off figure to extract the legend
+# based on the last species of the above loop 
+
+ggplot() +
+  geom_sf(data = Vlaanderen_grenzen, fill= "#f0f0f0", size = 0.2) +
+  geom_sf(data = IAS_Cube_1km_spec,  aes(colour = year, fill = year),
+          stroke = 0) +
+  scale_colour_gradientn(colors = my.cols,
+                         limits = c(time.frame.start, time.frame.stop),
+                         breaks = seq(time.frame.start, time.frame.stop, by = 2)) +
+  scale_fill_gradientn(colors = my.cols,
+                       limits = c(time.frame.start, time.frame.stop),
+                       breaks = seq(time.frame.start, time.frame.stop, by = 2)) +
+  theme_void() +
+  theme(
+    legend.position = "bottom",
+    legend.key.width = unit(2, "cm"),
+    legend.title = element_blank()
+    ) +
+    coord_sf()
+
+ggsave(file=paste0("./prius2/output/distribution_maps/",
+                   "_legende.png"),
+       width = 15.0, height = 5.1,
+       units = "cm", dpi = 200)
 ```

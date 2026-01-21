@@ -1,0 +1,41 @@
+Update van de kaart met de provinciegrenzen, cf. recente gemeentefusies (over provinciegrenzen heen).
+
+```{r prep packages}
+library(tidyverse)
+library(sf)
+```
+
+```{r prep memory}
+rm(list = ls())
+rm(list = setdiff(ls(), c("ensure_multipolygons")))
+```
+
+```{r prep multisurface}
+library(gdalUtilities)
+ensure_multipolygons <- function(X) {
+    tmp1 <- tempfile(fileext = ".gpkg")
+    tmp2 <- tempfile(fileext = ".gpkg")
+    st_write(X, tmp1)
+    ogr2ogr(tmp1, tmp2, f = "GPKG", nlt = "MULTIPOLYGON")
+    Y <- st_read(tmp2)
+    st_sf(st_drop_geometry(X), geom = st_geometry(Y))
+    }
+```
+
+```{r maps}
+# Provincies
+# note : multisurface
+map <- read_sf("https://geo.api.vlaanderen.be/VRBG/wfs?service=WFS&version=2.0.0&request=GetFeature&typeName=VRBG:Refprv") %>%
+  ensure_multipolygons()
+
+# noot: identiek aan :
+
+# map <- read_sf("https://geo.api.vlaanderen.be/VRBG2025/wfs?service=WFS&version=2.0.0&request=GetFeature&typeName=VRBG2025:Refprv") %>%
+#   ensure_multipolygons()
+
+# zie: https://www.vlaanderen.be/datavindplaats/catalogus/voorlopig-referentiebestand-gemeentegrenzen-toestand-01-01-2025-correctie-11-02-2025
+```
+
+```{r}
+st_write(map, "./prius2/spatial/provincies2025.geojson", driver = "GeoJSON")
+```
