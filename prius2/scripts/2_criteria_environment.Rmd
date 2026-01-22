@@ -1,0 +1,36 @@
+```{r prep packages}
+library(tidyverse)
+library(readxl)
+
+source("./prius2/scripts/helper_functions.R")
+```
+
+```{r prep memory}
+rm(list = ls())
+rm(list = setdiff(ls(), c("read_species_list")))
+```
+
+```{r get species list}
+species_list <- read_species_list(file_path = "./prius2/temp/",
+                                  prius_version = 2)
+```
+
+```{r}
+# data gathered by Wannes Dermout (INBO)
+raw <- read_excel("./prius2/input/criterium_milieu-impact_v26-01-21.xlsx",
+                  sheet = 1)
+```
+
+```{r}
+env <- raw %>% 
+  select(soort,
+         GBIF_code,
+         marien,
+         brakwater,
+         zoetwater,
+         terrestrisch)
+```
+
+```{r}
+write_csv(env, "./prius2/temp/criteria_environment_v26-01-22.csv")
+```

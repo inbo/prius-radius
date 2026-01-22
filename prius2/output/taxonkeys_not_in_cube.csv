@@ -11,7 +11,6 @@ dier,Kentuckyrivierkreeft,Faxonius juvenilis,"Faxonius juvenilis (Hagen, 1870)",
 dier,Metaphire hilgendorfi,Metaphire hilgendorfi,"Metaphire hilgendorfi (Michaelsen, 1892)",8458912,NA,NA,NA,NA,NA,NA,1,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 dier,Nieuw-Guinese landplatworm,Platydemus manokwari,"Platydemus manokwari Beauchamp, 1962",5892137,"Platydemus manokwari de Beauchamp, 1963",5,5,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 dier,Nieuw-Zeelandse platworm,Arthurdendyus triangulatus,"Arthurdendyus triangulatus (Dendy, 1895)",2502792,"Arthurdendyus triangulatus (Dendy, 1894) Jones & Gerard (1999)",3,3,NA,NA,NA,NA,0,0,0,1,1,0,0,0,1,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA,NA
-dier,Noord-Atlantische zeester,Asterias amurensis,"Asterias amurensis Lutken, 1871",5187508,"Asterias amurensis Lutken, 1871",5,5,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 dier,Noord-Aziatische modderkruiper,Misgurnus bipartitus,"Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)",2367913,"Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)",5,5,NA,NA,NA,NA,0,0,1,0,1,0,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA,REL-AAN-SPO,NA,NA
 dier,Procambarus zonangulus,Procambarus zonangulus,"Procambarus zonangulus Hobbs & Hobbs Iii, 1990",2227231,NA,NA,NA,NA,NA,NA,1,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 dier,Thailandeekhoorn,Callosciurus finlaysonii,"Callosciurus finlaysonii (Horsfield, 1823)",2437399,"Callosciurus finlaysonii (Horsfield, 1823)",4,4,NA,NA,NA,NA,0,0,0,1,1,0,0,1,0,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA,NA
@@ -19,7 +18,6 @@ dier,amoergrondel,Perccottus glenii,"Perccottus glenii Dybowski, 1877",2390064,"
 dier,axishert,Axis axis,"Axis axis (Erxleben, 1777)",2440934,"Axis axis (Erxleben, 1777)",4,4,NA,NA,NA,NA,0,0,0,1,1,0,1,0,1,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA,NA
 dier,calicotrivierkreeft,Faxonius immunis,"Faxonius immunis (Hagen, 1870)",8930656,"Faxonius immunis (Hagen, 1870)",5,5,1,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 dier,dwergvuurmier,Wasmannia auropunctata,"Wasmannia auropunctata (Roger, 1863)",1315391,"Wasmannia auropunctata (Roger, 1863)",4,4,NA,NA,NA,NA,0,0,0,1,1,1,0,1,1,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA,NA
-dier,gestreepte koraalmeerval,Plotosus lineatus,"Plotosus lineatus (Thunberg, 1787)",7965247,"Plotosus lineatus (Thunberg, 1787)",3,3,NA,NA,NA,NA,1,1,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,IRR,NA,NA
 dier,gewone yabby,Cherax destructor,"Cherax destructor Clark, 1936",4417558,"Cherax destructor Clark, 1936",5,5,1,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 dier,gouden mossel,Limnoperna fortunei,"Limnoperna fortunei (Dunker, 1857)",5855350,"Limnoperna fortunei (Dunker, 1857)",4,4,NA,NA,NA,NA,0,0,1,0,1,0,0,1,0,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA,NA
 dier,huiskraai,Corvus splendens,"Corvus splendens Vieillot, 1817",2482499,"Corvus splendens Viellot, 1817",1,1,NA,NA,NA,NA,0,0,0,1,1,0,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA,NA
@@ -38,7 +36,6 @@ plant,Acacia mearnsii,Acacia mearnsii,Acacia mearnsii De Wild.,2979775,"Acacia m
 plant,Amerikaans bezemgras,Andropogon virginicus,Andropogon virginicus L.,2706080,Andropogon virginicus L.,3,3,NA,NA,NA,NA,0,0,0,1,1,0,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA,NA
 plant,Chinese struikklaver,Lespedeza cuneata,Lespedeza cuneata (Dum.Cours.) G.Don,8114276,Lespedeza cuneata (Dum.Cours.) G.Don (Lespedeza juncea var. sericea (Thunb.) Lace & Hauech),3,3,NA,NA,NA,NA,0,0,0,1,1,0,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA,NA
 plant,Delairea odorata,Delairea odorata,Delairea odorata Lem.,3134183,Delairea odorata Lem.,5,5,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-plant,Japans zeegras,Nanozostera japonica,Nanozostera japonica (Asch. & Graebn.) Toml. & Posl.,2863941,"Nanozostera japonica (Ascherson & Graebner) Tomlinson & Posluszny, 2001",5,5,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 plant,Japanse klimvaren,Lygodium japonicum,Lygodium japonicum (Thunb.) Sw.,2650436,Lygodium japonicum (Thunb.) Sw.,3,3,NA,NA,NA,NA,0,0,0,1,1,0,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA,NA
 plant,Perzische berenklauw,Heracleum persicum,Heracleum persicum Desf.,3628745,Heracleum persicum Fischer,1,1,1,NA,NA,NA,0,0,0,1,1,1,0,1,0,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA,NA
 plant,Sosnowsky's berenklauw,Heracleum sosnowskyi,Heracleum sosnowskyi Manden.,3642949,Heracleum sosnowskyi Mandenova,1,1,1,NA,NA,NA,0,0,0,1,1,1,0,1,0,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA,NA
@@ -54,6 +51,5 @@ plant,oosterse hop,Humulus scandens,Humulus scandens (Lour.) Merr.,2984537,Humul
 plant,roze rimpelgras,Ehrharta calycina,Ehrharta calycina Sm.,2702865,Ehrharta calycina Sm.,3,3,NA,NA,NA,NA,0,0,0,1,1,0,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA,NA
 plant,schijnambrosia,Parthenium hysterophorus,Parthenium hysterophorus L.,3086784,Parthenium hysterophorus L.,1,1,NA,NA,NA,NA,0,0,0,1,1,1,0,0,1,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA,NA
 plant,smalle theeplant,Gymnocoronis spilanthoides,Gymnocoronis spilanthoides DC.,6063677,Gymnocoronis spilanthoides (D.Don ex Hook. & Arn.) DC.,3,3,NA,NA,NA,NA,0,0,0,1,1,0,0,1,1,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA,NA
-plant,stomp gaffelwier,Rugulopteryx okamurae,"Rugulopteryx okamurae (E.Y.Dawson) I.K.Hwang, W.J.Lee & H.S.Kim, 2009",5824863,"Rugulopteryx okamurae (E.Y.Dawson) I.K.Hwang, W.J.Lee & H.S.Kim, 2009",4,4,NA,NA,NA,NA,1,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,IRR,NA,NA
 plant,talgboom,Triadica sebifera,Triadica sebifera (L.) Small,3054399,Triadica sebifera (L.) Small (Sapium sebiferum (L.) Roxb.),3,3,NA,NA,NA,NA,0,0,0,1,1,1,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA,NA
 plant,wilgacacia,Acacia saligna,Acacia saligna (Labill.) H.L.Wendl.,2978552,Acacia saligna (Labill.) H.L.Wendl. (Acacia cyanophylla Lindl.),3,3,NA,NA,NA,NA,0,0,0,1,1,0,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA,REL-AFW,NA,NA

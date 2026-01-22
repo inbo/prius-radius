@@ -10,7 +10,6 @@ Kentuckyrivierkreeft
 Metaphire hilgendorfi
 Nieuw-Guinese landplatworm
 Nieuw-Zeelandse platworm
-Noord-Atlantische zeester
 Noord-Aziatische modderkruiper
 Procambarus zonangulus
 Thailandeekhoorn
@@ -18,7 +17,6 @@ amoergrondel
 axishert
 calicotrivierkreeft
 dwergvuurmier
-gestreepte koraalmeerval
 gewone yabby
 gouden mossel
 huiskraai
@@ -37,7 +35,6 @@ Acacia mearnsii
 Amerikaans bezemgras
 Chinese struikklaver
 Delairea odorata
-Japans zeegras
 Japanse klimvaren
 Perzische berenklauw
 Sosnowsky's berenklauw
@@ -53,6 +50,5 @@ oosterse hop
 roze rimpelgras
 schijnambrosia
 smalle theeplant
-stomp gaffelwier
 talgboom
 wilgacacia
