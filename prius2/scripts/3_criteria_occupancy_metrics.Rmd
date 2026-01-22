@@ -97,112 +97,58 @@ ias.cube.summ <- ias.cube %>%
 spp.list.metrics <- spp.list %>%
   select(soort, GBIF_code) %>%
   left_join(ias.cube.summ, by = c("GBIF_code" = "specieskey"))
-
 ```
 
 ```{r absent}
+# "Soorten die in geen enkel kalenderjaar zijn vastgesteld, beschouwen we als afwezig."
 spp.list.metrics <- spp.list.metrics %>% 
   mutate(aanwezigheid = ifelse(is.na(unique_cells), "afwezig", NA))
 ```
 
-sporadic vs. present
+```{r present}
+# "Soorten die in elk van de vijf meest recente kalenderjaren zijn vastgesteld -> aanwezig"
 
-```{r needed?}
-cells_per_species <- ias.cube.summ %>%
-  left_join(spp.list, by = c("specieskey" = "GBIF_code")) %>%
-  select(specieskey, unique_cells, soort)
+present.time <- c(seq(time.frame.stop-4, time.frame.stop))
 
-not_in_cube <- spp.list %>%
-  left_join(ias.cube.summ, by = c("GBIF_code" = "specieskey")) %>%
-  filter(is.na(n_tot))
+present.temp.1 <- ias.cube %>% 
+  group_by(species, specieskey, year) %>% 
+  summarize(unique_cells = n_distinct(eeacellcode)) %>%
+  filter(year %in% present.time)
 
-write_csv(not_in_cube, "./prius2/output/taxonkeys_not_in_cube.csv")
+present.temp.2 <- present.temp.1 %>% 
+  pivot_wider(values_from = unique_cells,
+              names_from = year) %>%
+  filter(if_all(c("2021", "2022", "2023", "2024", "2025"),
+                                       ~ !is.na(.x))) %>% 
+  mutate(aanwezigheid = "aanwezig")
 
-in_cube <- spp.list %>%
-  left_join(ias.cube.summ, by = c("GBIF_code" = "specieskey")) %>%
-  filter(!is.na(n_tot))
+spp.list.metrics <- spp.list.metrics %>%
+  left_join(present.temp.2[, c("specieskey", "aanwezigheid")],
+            by = c("GBIF_code" = "specieskey"))
+            
+spp.list.metrics <- spp.list.metrics %>%
+  mutate(aanwezigheid = coalesce(aanwezigheid.x, aanwezigheid.y)) %>%
+  select(-aanwezigheid.x,
+         -aanwezigheid.y)
 
-not_in_cube$soort %in% in_cube$soort
-
-List_species_present <- unique(in_cube$soort)
-
-write_csv2(cells_per_species, "./prius2/output/cells_per_species.csv")
-write(List_species_present, "./prius2/output/species_present.txt")
+rm(present.temp.1, present.temp.2)
 ```
 
-```{r}
-keep_all <- data.frame(year = seq.int(from = 2015,
-                                      to = 2025,
-                                      by = 1)) ## Keep all species
+```{r sporadic}
+# "De overige soorten beschouwen we als sporadisch."
 
-keep_all$year <- as.factor(keep_all$year) ## For compatibility with below
-
-for (species_name in unique(in_cube$soort)){
-  print(species_name)
-  GBIF_codes<- in_cube[which(in_cube$soort==species_name),]$GBIF_code
-  print(GBIF_codes)
-  IAS_Cube_temp <- ias.cube %>%
-    filter(specieskey %in% GBIF_codes)
-  print(IAS_Cube_temp)
-  IAS_Cube_1km_spec <-IAS_Cube_temp %>% 
-    left_join(map.flan.grid, by = c("eeacellcode" = "CELLCODE")) %>% 
-    as.data.frame() %>%
-    select(-geometry) %>%
-    filter(occurrences > 0)
-  IAS_Cube_sporadic <- IAS_Cube_1km_spec %>% 
-  group_by(year)%>%
-  summarize(n=n())
-  
-  IAS_Cube_sporadic$year <- as.factor(IAS_Cube_sporadic$year)
-  
-  data <- data.frame(year = seq.int(from = 2015,
-                                      to = 2025,
-                                      by = 1))
-  
-  data$year <- as.factor(data$year)
-  
-  x <- merge(data, IAS_Cube_sporadic)
-  x <- replace(x, is.na(x), 0)
-                  
-  temp_plot<- ggplot(data=x, aes(x=year, y=n)) +
-  geom_bar(stat="identity")+
-  labs(y = expression ("Occupancy in"~km^2))+
-  scale_x_discrete(drop = FALSE)
-  
-  # ggsave(temp_plot, file=paste0("./data/output/absent-sporadic-present/", species_name,".png"), dpi=200)
-  
-  keep_all <- keep_all %>% 
-    left_join(x[,1:2], by = "year") %>% 
-    rename(!!species_name:=n)  ## Geef kolom naam van soort (m.o.: gebruik !! := want variabele)
-    
-}
-```
-
-```{r summary across species}
-showme <- t(keep_all)             ## Transpose
-colnames(showme) <- showme[1,]    ## First row to column names...
-showme <- showme[-1,]             ## ... and delete first row
-showme <- as.data.frame(showme)
-
-# Determine whether the species is absent, sporadic or present
-# Absent: 0 occupied 1km2 cells in all years
-# Present: more than 1km2 cells occupied 5 last years (2020-2025)
-# Sporadic: everything else
-showme <- showme %>%
-  rownames_to_column(var = "species") %>%
-  mutate(across(-species, as.numeric)) %>% 
-  rowwise() %>%
-  mutate(status = case_when(
-    sum(c_across(`2015`:`2025`)) == 0 ~ "absent",
-    sum(c_across(`2020`:`2025`) > 0) >= 5 ~ "present",
-    TRUE ~ "sporadic"
-  ))
-  
-
-write_csv(showme, "./prius2/output/absent-sporadic-present/absent-sporadic-present.csv")
+spp.list.metrics$aanwezigheid[is.na(spp.list.metrics$aanwezigheid)] = "sporadisch"
 ```
 
 # NATURA 2000
+
+Nog op te schonen.
+
+```{r needed?}
+in_cube <- spp.list %>%
+  left_join(ias.cube.summ, by = c("GBIF_code" = "specieskey")) %>%
+  filter(!is.na(n_tot))
+```
 
 ```{r}
 df <- data.frame()

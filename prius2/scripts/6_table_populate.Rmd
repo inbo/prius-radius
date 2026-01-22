@@ -1,5 +1,9 @@
-```{r}
-# output from criteria_environment
+```{r environment}
 # ("./prius2/temp/criteria_environment_v26-01-22.csv")
+```
+
+```{r occupancy metrics}
+# "Aanwezigheid"
+zie spp.list.metrics in "3_..."
 ```
 
