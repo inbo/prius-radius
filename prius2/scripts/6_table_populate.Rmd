@@ -7,3 +7,5 @@
 zie spp.list.metrics in "3_..."
 ```
 
+gebruik 'coalesce'
+behoud ook prius-1-status, voor vergelijking ? (of hoe vergelijking ook in andere vars te maken -> 7de script?)

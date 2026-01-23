@@ -21,8 +21,8 @@ map.flan.grid <- st_read("./prius/data/spatial/grids/vla_1km.geojson")
 
 # protected areas (clean + grid)
 
-map.VRL.clean <- st_read("./prius/data/spatial/ps_vglrl.geojson") # VRL = vogelrichtlijn
-map.HRL.clean <- st_read("./prius/data/spatial/ps_hbtrl_deel.geojson") # HRL = habitatrichtlijn
+map.VRL.clean <- st_read("./prius2/spatial/vogelrichtlijn2025.geojson") # !! updated
+map.HRL.clean <- st_read("./prius2/spatial/habitatrichtlijn2025.geojson") # !! updated
 
 map.N2K.raw <- read_tsv(
   "https://raw.githubusercontent.com/trias-project/indicators/master/data/interim/intersect_EEA_ref_grid_protected_areas.tsv",
@@ -87,15 +87,14 @@ ias.cube <- ias.cube %>%
 
 ias.cube.summ <- ias.cube %>%
   group_by(specieskey) %>% 
-  summarise(n_tot = sum(occurrences, na.rm = TRUE), 
-            unique_cells = n_distinct(eeacellcode))
+  summarise(unique_cells = n_distinct(eeacellcode))
 ```
 
 # ABSENT / SPORADIC / PRESENT
 
 ```{r}
 spp.list.metrics <- spp.list %>%
-  select(soort, GBIF_code) %>%
+  select(soort, GBIF_canonicalName, GBIF_code) %>%
   left_join(ias.cube.summ, by = c("GBIF_code" = "specieskey"))
 ```
 
@@ -140,9 +139,17 @@ rm(present.temp.1, present.temp.2)
 spp.list.metrics$aanwezigheid[is.na(spp.list.metrics$aanwezigheid)] = "sporadisch"
 ```
 
+```{r to delete}
+# tussentijds wegschrijven (voor overname rapport)
+# take.out <- spp.list.raw[c("GBIF_canonicalName", "reg")] %>%
+#   left_join(spp.list.metrics[c("GBIF_canonicalName", "aanwezigheid")],
+#             by = "GBIF_canonicalName")
+# write.csv(take.out, "./prius2/temp/delete_mij.csv")
+```
+
 # NATURA 2000
 
-Nog op te schonen.
+Nog op te schonen. Zie beneden (analoog aan kaartjes).
 
 ```{r needed?}
 in_cube <- spp.list %>%
@@ -247,32 +254,35 @@ for (soortje in unique(helper$Species)){
 # note : colour gradient (matlab-like) over years, as requested by ANB
 # note : to save space, legend not included in graphs, but shown in separate fig.
 
+spp.to.map <- subset(spp.list.metrics, aanwezigheid != "afwezig")
 my.cols <- matlab.like(n_distinct(seq(time.frame.start, time.frame.stop)))
 
-for (species_name in unique(in_cube$soort)){
-  print(species_name)
-  GBIF_codes <- in_cube[which(in_cube$soort==species_name),]$GBIF_code
-  print(GBIF_codes)
-  IAS_Cube_temp <- ias.cube %>%
-    filter(specieskey %in% GBIF_codes) %>% 
+for (GBIF_canonicalName in spp.to.map$GBIF_canonicalName){
+  
+  print(GBIF_canonicalName)
+  GBIF_code <- spp.to.map[spp.to.map$GBIF_canonicalName == GBIF_canonicalName, "GBIF_code"]
+  print(GBIF_code)
+  
+  temp.ias.cube <- ias.cube %>%
+    filter(specieskey %in% GBIF_code) %>%
     group_by(eeacellcode, specieskey) %>%
     summarise(year = as.integer(max(year, na.rm = TRUE)))
-  print(IAS_Cube_temp)
-  IAS_Cube_1km_spec <- merge(map.flan.grid,
-                             IAS_Cube_temp,
-                             by.x = 'CELLCODE',
-                             by.y = 'eeacellcode',
-                             all.y = TRUE)
+  
+  temp.ias.cube.spec <- merge(map.flan.grid,
+                              temp.ias.cube,
+                              by.x = 'CELLCODE',
+                              by.y = 'eeacellcode',
+                              all.y = TRUE)
   
   temp_plot <- ggplot() +
     geom_sf(data = map.flan.clean, fill= "#f0f0f0", size = 0.2) +
-    geom_sf(data= map.VRL.clean, colour= "#a4e98f", fill="#a4e98f") + 
-    geom_sf(data= map.HRL.clean, colour="#a4e98f", fill="#a4e98f") +
-    geom_sf(data = map.prov.clean, fill= NA, size=0.2) +
-    geom_sf(data = IAS_Cube_1km_spec,  aes(colour = year, fill = year),
+    geom_sf(data = map.VRL.clean, colour= "#a4e98f", fill = "#a4e98f") + 
+    geom_sf(data = map.HRL.clean, colour="#a4e98f", fill = "#a4e98f") +
+    geom_sf(data = map.prov.clean, fill= NA, size = 0.2) +
+    geom_sf(data = temp.ias.cube.spec,  aes(colour = year, fill = year),
             stroke = 0) + # only show filling, not lines
     scale_colour_gradientn(colors = my.cols,
-                         limits = c(time.frame.start, time.frame.stop)) +
+                           limits = c(time.frame.start, time.frame.stop)) +
     scale_fill_gradientn(colors = my.cols,
                          limits = c(time.frame.start, time.frame.stop)) +
     theme_void() +
@@ -283,10 +293,12 @@ for (species_name in unique(in_cube$soort)){
     coord_sf()
   
   ggsave(temp_plot, file=paste0(
-    "./prius2/output/distribution_maps/", species_name,".png"),
+    "./prius2/output/distribution_maps/", GBIF_canonicalName,".png"),
     width = 15.0, height = 5.1, # important for fluent incorporation in report
     units = "cm", dpi = 200)
 }
+
+rm(spp.to.map, my.cols)
 ```
 
 ```{r legend}

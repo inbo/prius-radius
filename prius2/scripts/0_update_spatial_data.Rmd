@@ -1,4 +1,4 @@
-Update van de kaart met de provinciegrenzen, cf. recente gemeentefusies (over provinciegrenzen heen).
+Updates van kaarten. Bv. provinciegrenzen <-> recente gemeentefusies (over provinciegrenzen heen)!
 
 ```{r prep packages}
 library(tidyverse)
@@ -22,8 +22,7 @@ ensure_multipolygons <- function(X) {
     }
 ```
 
-```{r maps}
-# Provincies
+```{r Provincies}
 # note : multisurface
 map <- read_sf("https://geo.api.vlaanderen.be/VRBG/wfs?service=WFS&version=2.0.0&request=GetFeature&typeName=VRBG:Refprv") %>%
   ensure_multipolygons()
@@ -38,4 +37,29 @@ map <- read_sf("https://geo.api.vlaanderen.be/VRBG/wfs?service=WFS&version=2.0.0
 
 ```{r}
 st_write(map, "./prius2/spatial/provincies2025.geojson", driver = "GeoJSON")
+```
+
+```{r Habitatrichtlijn}
+hrl <- read_sf("https://www.mercator.vlaanderen.be/raadpleegdienstenmercatorpubliek/wfs?service=WFS&version=2.0.0&request=getFeature&typeName=ps:ps_hbtrl_deel") %>%
+  st_set_crs(31370) %>%  # Geen CRS toegekend, maar is in feite Lambert (zie webpagina)
+  ensure_multipolygons()
+```
+
+```{r}
+st_write(hrl, "./prius2/spatial/habitatrichtlijn2025.geojson", driver = "GeoJSON")
+```
+
+```{r Vogelrichtlijn}
+# https://www.vlaanderen.be/datavindplaats/catalogus/vogelrichtlijngebieden
+vrl <- read_sf("https://www.mercator.vlaanderen.be/raadpleegdienstenmercatorpubliek/wfs?service=WFS&version=2.0.0&request=getFeature&typeName=ps:ps_vglrl") %>% 
+  st_set_crs(31370) %>%  # Geen CRS toegekend, maar is in feite Lambert (zie webpagina)
+  ensure_multipolygons()
+```
+
+```{r}
+st_write(vrl, "./prius2/spatial/vogelrichtlijn2025.geojson", driver = "GeoJSON")
+```
+
+```{r}
+rm(hrl, vrl)
 ```
