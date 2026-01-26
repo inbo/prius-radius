@@ -109,28 +109,38 @@ spp.list.metrics <- spp.list.metrics %>%
 
 present.time <- c(seq(time.frame.stop-4, time.frame.stop))
 
-present.temp.1 <- ias.cube %>% 
+present.temp.L <- ias.cube %>% 
   group_by(species, specieskey, year) %>% 
-  summarize(unique_cells = n_distinct(eeacellcode)) %>%
-  filter(year %in% present.time)
+  summarize(unique_cells = n_distinct(eeacellcode))
+  # filter(year %in% present.time)
 
-present.temp.2 <- present.temp.1 %>% 
+present.temp.W <- present.temp.L %>% 
   pivot_wider(values_from = unique_cells,
-              names_from = year) %>%
-  filter(if_all(c("2021", "2022", "2023", "2024", "2025"),
-                                       ~ !is.na(.x))) %>% 
-  mutate(aanwezigheid = "aanwezig")
+              names_from = year)
+
+# order column names
+ix  <- 3:ncol(present.temp.W)
+present.temp.W  <- present.temp.W[ , c(1:2,
+  ix[order(names(present.temp.W)[ix])]
+  )]
+
+present.temp.W <- present.temp.W %>% 
+  mutate(aanwezigheid = if_else(if_all(as.character(c(
+    time.frame.stop - 4, # prius-2 : year 2021
+    time.frame.stop - 3,           # year 2022
+    time.frame.stop - 2,           # year 2023
+    time.frame.stop - 1,           # year 2024
+    time.frame.stop)),             # year 2025
+    ~ !is.na(.x)), "aanwezig", NA))
 
 spp.list.metrics <- spp.list.metrics %>%
-  left_join(present.temp.2[, c("specieskey", "aanwezigheid")],
+  left_join(present.temp.W[, c("specieskey", "aanwezigheid")],
             by = c("GBIF_code" = "specieskey"))
             
 spp.list.metrics <- spp.list.metrics %>%
   mutate(aanwezigheid = coalesce(aanwezigheid.x, aanwezigheid.y)) %>%
   select(-aanwezigheid.x,
          -aanwezigheid.y)
-
-rm(present.temp.1, present.temp.2)
 ```
 
 ```{r sporadic}
