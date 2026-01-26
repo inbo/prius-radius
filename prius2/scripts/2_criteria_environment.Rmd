@@ -17,7 +17,7 @@ species_list <- read_species_list(file_path = "./prius2/temp/",
 
 ```{r}
 # data gathered by Wannes Dermout (INBO)
-raw <- read_excel("./prius2/input/criterium_milieu-impact_v26-01-21.xlsx",
+raw <- read_excel("./prius2/input/criterium_milieu_v26-01-26.xlsx",
                   sheet = 1)
 ```
 
