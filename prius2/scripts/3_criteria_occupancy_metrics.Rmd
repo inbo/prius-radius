@@ -24,6 +24,7 @@ map.flan.grid <- st_read("./prius/data/spatial/grids/vla_1km.geojson")
 map.VRL.clean <- st_read("./prius2/spatial/vogelrichtlijn2025.geojson") # !! updated
 map.HRL.clean <- st_read("./prius2/spatial/habitatrichtlijn2025.geojson") # !! updated
 
+# kaart hieronder overbodig dankzij check Soria - te vervangen
 map.N2K.raw <- read_tsv(
   "https://raw.githubusercontent.com/trias-project/indicators/master/data/interim/intersect_EEA_ref_grid_protected_areas.tsv",
   na = "")
