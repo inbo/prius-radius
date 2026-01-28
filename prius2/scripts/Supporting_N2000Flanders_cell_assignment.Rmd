@@ -1,0 +1,117 @@
+---
+title: "Get cells of Belgian EEA reference grid containing protected areas"
+author: 
+  - Damiano Oldoni
+  - Tim Adriaens
+  - Soria Delva
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    number_sections: true
+editor_options: 
+  chunk_output_type: console
+---
+
+# Goal
+
+Given the EEA reference grid of Belgium at 1km resolution and the Flemish Natura2000 protected areas, this document assigns cells to their respective Flemish Natura2000 site, or to Flanders in general, if applicable.
+
+# Setup 
+
+```{r load_libraries, message=FALSE, warning=FALSE}
+library(tidyverse)  # To do datascience
+library(tidylog) # To provide feedback on dplyr functions
+library(here) # To find files
+library(sf) # To work with geospatial data
+library(BelgiumMaps.StatBel)  # To load Belgian administrative boundaries
+library(INBOtheme)  # To apply INBO style to plots
+library(leaflet)  # To make interactive maps
+```
+
+# Read input data
+
+## Import EEA reference grid
+
+We import UTM grid data of Belgium at 1 by 1 km resolution. All grids have CRS (Coordinate Reference System) equal to _Belge Lambert 1972_:
+  
+```{r import_grids_of_BE_from_EEA}
+be_grid <- st_read(here::here("prius2","spatial", "utm1_bel"))
+```
+
+## Read FLemish Natura2000 protected areas 
+
+We read the shapefiles for the habitat directive areas and the bird directive areas
+
+```{r protected_areas}
+habitatrichtlijn <- st_read(file.path("prius2", "spatial", "habitatrichtlijn2025.geojson"))
+vogelrichtlijn <- st_read(file.path("prius2", "spatial", "vogelrichtlijn2025.geojson"))
+
+```
+
+Convert to one big polygon and make sure crs matches that of be_grid
+
+```{r crs_comparison}
+habitatrichtlijn <- habitatrichtlijn %>%
+  st_union() %>%
+  st_transform(st_crs(be_grid)) %>%
+  st_as_sf() %>%
+  dplyr::mutate(name = "Habitatrichtlijn_Flanders")%>%
+  dplyr::rename(geometry = x)
+
+vogelrichtlijn <- vogelrichtlijn %>%
+  st_union() %>%
+  st_transform(st_crs(be_grid)) %>%
+  st_as_sf() %>%
+  dplyr::mutate(name = "vogelrichtlijn_Flanders")%>%
+  dplyr::rename(geometry = x)
+```
+
+## Read shapefile of Flanders
+
+```{r Flanders}
+Flanders<- st_read("./prius/data/spatial/flanders_wgs84.geojson")%>%
+   st_transform(st_crs(be_grid))
+  
+```
+
+## Add regional information to UTM1 cells
+
+In this section we add columns to know whether a cell belongs to Flanders or not and whether it belongs to a Flemish protected area 
+
+```{r}
+be_grid$isFlanders <-st_intersects(be_grid, Flanders, sparse = FALSE)[, 1]
+be_grid$isFlandersSAC <- st_intersects(be_grid, habitatrichtlijn, sparse = FALSE)[, 1] #Habitatrichtlijngebieden
+be_grid$isFlandersSPA <-st_intersects(be_grid, vogelrichtlijn, sparse = FALSE)[, 1] #Vogelrichtlijngebieden
+be_grid <- be_grid%>%
+  dplyr::mutate(isFlandersN2000 = isFlandersSAC | isFlandersSPA)
+```
+
+
+## Visualize to check
+
+```{r Visualize Natura2000 cells}
+n2000<-dplyr::filter(be_grid, isFlandersN2000)
+ggplot()+
+  geom_sf(data=Flanders, fill="grey")+
+  geom_sf(data=n2000, fill="blue")+
+  geom_sf(data=vogelrichtlijn, fill="green")+
+  geom_sf(data=habitatrichtlijn, fill="orange")+
+  theme_bw()
+
+
+  mapview(Flanders, col.regions = "grey", alpha = 0.4, layer.name = "Flanders")+
+  mapview(n2000, col.regions = "blue", alpha = 0.4, layer.name = "Natura2000")+
+  mapview(vogelrichtlijn, col.regions="red", alpha = 0.4, layer.name = "SPA")+
+  mapview(habitatrichtlijn,col.regions="orange", alpha = 0.4, layer.name = "SAC")
+
+```
+
+##Export be_grid with region info
+```{r Store be_grid}
+st_write(be_grid, file.path("prius2", "spatial", "utm1_bel_regions.geojson"), driver = "GeoJSON")
+
+```
+
