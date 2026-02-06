@@ -46,10 +46,10 @@ spp.list.raw <- read_species_list(file_path = "./prius2/temp/",
 NOTE: the species cube is (too) heavy to push to the git. This will give an error when running the script. I needed to download it locally (making connection with zenodo within the script was too slow). So maybe best to download the most recent version of the species cube and put it in the folder data/input before running it.
 
 ```{r update cube locally}
-fistools::download_gdrive_if_missing(gfileID = "154S4vww2G1f0vH7_jt1cZJXeUEmXlZaL",
-                                     destfile = "prius2/input/prius2_species_cube.csv",
-                                     update_always = TRUE,
-                                     email = Sys.getenv("email"))
+# fistools::download_gdrive_if_missing(gfileID = "154S4vww2G1f0vH7_jt1cZJXeUEmXlZaL",
+#                                      destfile = "prius2/input/prius2_species_cube.csv",
+#                                      update_always = TRUE,
+#                                      email = Sys.getenv("email"))
 ```
 
 ```{r get cube data}
@@ -152,10 +152,10 @@ spp.list.metrics$aanwezigheid[is.na(spp.list.metrics$aanwezigheid)] = "sporadisc
 
 ```{r to delete}
 # tussentijds wegschrijven (voor overname rapport)
-take.out <- spp.list.raw[c("soort", "GBIF_canonicalName", "reg")] %>%
-  left_join(spp.list.metrics[c("GBIF_canonicalName", "aanwezigheid")],
-            by = "GBIF_canonicalName")
-write.csv(take.out, "./prius2/temp/delete_mij_new.csv", row.names = F)
+# take.out <- spp.list.raw[c("soort", "GBIF_canonicalName", "reg")] %>%
+#   left_join(spp.list.metrics[c("GBIF_canonicalName", "aanwezigheid")],
+#             by = "GBIF_canonicalName")
+# write.csv(take.out, "./prius2/temp/delete_mij_new.csv", row.names = F)
 ```
 
 # NATURA 2000
