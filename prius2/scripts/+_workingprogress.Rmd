@@ -1,0 +1,28 @@
+```{r}
+old <- read.csv("./prius2/temp/prius2_list_v25-09-23.csv")
+new <- read.csv("./prius2/temp/prius2_list_v26-02-06.csv")
+```
+
+```{r}
+old.sel <- old[,c("soort", "GBIF_canonicalName", "GBIF_scientificName", "GBIF_code")]
+new.sel <- new[,c("soort", "GBIF_canonicalName", "GBIF_scientificName", "GBIF_code")]
+```
+
+```{r OLD}
+# diff <- anti_join(old.sel, new.sel, by = c("soort", "GBIF_canonicalName"))
+# diff2 <- anti_join(old.sel, new.sel, by = c("soort", "GBIF_code"))
+# diff3 <- anti_join(old.sel, new.sel, by = c("soort", "GBIF_scientificName"))
+```
+
+```{r NEW}
+diff <- anti_join(new.sel, old.sel, by = c("soort", "GBIF_canonicalName"))
+diff2 <- anti_join(new.sel, old.sel, by = c("soort", "GBIF_code"))
+diff3 <- anti_join(new.sel, old.sel, by = c("soort", "GBIF_scientificName"))
+```
+
+```{r}
+identical(diff, diff2)
+identical(diff, diff3)
+identical(diff2, diff3)
+```
+
