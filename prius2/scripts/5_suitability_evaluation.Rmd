@@ -1,0 +1,101 @@
+A check on which species have WiSDM-output generated.
+
+```{r prep packages}
+library(tidyverse)
+source("./prius2/scripts/helper_functions.R")
+```
+
+```{r prep memory}
+rm(list = setdiff(ls(), c("read_species_list")))
+```
+
+# Lists and checks
+
+```{r lists}
+
+# all prius species
+
+spp.list.raw <- read_species_list(file_path = "./prius2/temp/",
+                                  prius_version = 2)
+
+# all irrelvant species (marine/brackish)
+
+irr <- read.csv("./prius2/temp/criteria_environment_v26-02-06.csv") %>% 
+  mutate(irr = ifelse(zoetwater == 0 & terrestrisch == 0, 1, 0)) %>% 
+  filter(irr == 1)
+
+# all species for which a map was expected
+
+spp.list <- spp.list.raw %>%
+  filter(!GBIF_code %in% irr$GBIF_code) %>% 
+  mutate(GBIF_code = as.integer(GBIF_code))
+
+# all species that have gone into the WiSDM flow
+
+wisdm.log <- read.csv("./prius2/output/suitability/PrIUS2_taxa_info.csv", sep = ";") %>% 
+  mutate(acceptedTaxonKey = as.integer(acceptedTaxonKey))
+
+# all species that came out of WiSDM - climate + habitat
+
+wisdm.cnh <- list.files(path = "./prius2/output/suitability/combined_climate-habitat",
+                        pattern = "\\.png$",   # only *.png
+                        full.names = FALSE)
+
+wisdm.cnh2 <- data.frame(species = stringr::str_remove(wisdm.cnh, "\\.png$"),
+                         stringsAsFactors = FALSE) %>% 
+  mutate(species = str_replace_all(species, "_", " "))
+
+wisdm.cnh2$species[wisdm.cnh2$species == "Hyacinthoides × massartiana Geerinck"] <- "Hyacinthoides massartiana"
+wisdm.cnh2$species[wisdm.cnh2$species == "Reynoutria × bohemica Chrtek & Chrtková"] <- "Reynoutria bohemica"
+wisdm.cnh2$species[wisdm.cnh2$species == "Salvinia × molesta D.S.Mitch."] <- "Salvinia molesta"
+wisdm.cnh2$species[wisdm.cnh2$species == "Pueraria montana"] <- "Pueraria montana lobata"
+
+# all species that came out of WiSDM - climate-only
+
+wisdm.con <- list.files(path = "./prius2/output/suitability/climate-only",
+                        pattern = "\\.png$",   # only *.png
+                        full.names = FALSE)
+
+wisdm.con2 <- data.frame(species = stringr::str_remove(wisdm.con, "\\.png$"),
+                         stringsAsFactors = FALSE) %>% 
+  mutate(species = str_replace_all(species, "_", " "))
+
+wisdm.con2$species[wisdm.con2$species == "Hyacinthoides × massartiana Geerinck"] <- "Hyacinthoides massartiana"
+wisdm.con2$species[wisdm.con2$species == "Reynoutria × bohemica Chrtek & Chrtková"] <- "Reynoutria bohemica"
+wisdm.con2$species[wisdm.con2$species == "Salvinia × molesta D.S.Mitch."] <- "Salvinia molesta"
+wisdm.con2$species[wisdm.con2$species == "Pueraria montana"] <- "Pueraria montana lobata"
+
+```
+
+```{r checks}
+# all relevante soorten zijn in WiSDM gegaan
+c <- anti_join(spp.list,
+               wisdm.log,
+               by = c("GBIF_code" = "acceptedTaxonKey"))
+
+# de enige overige soorten uit WiSDM zijn de mariene
+c <- anti_join(wisdm.log,
+               spp.list,
+               by = c("acceptedTaxonKey" = "GBIF_code"))
+
+# van één irrelevante soort is toch een kaartje gedraaid (Mulinia) 
+c <- anti_join(wisdm.cnh2,
+               spp.list,
+               by = c("species" = "GBIF_canonicalName"))
+
+# van de relevante soorten ontbreken er 43 cnh-kaartjes
+c <- anti_join(spp.list,   # 143 soorten
+               wisdm.cnh2, # minus Mulinia (zie hoger) = 100 soorten
+               by = c("GBIF_canonicalName" = "species"))
+
+# van drie irrelvante soorten is toch een kaartje gedraaid (Mulinia, Plotosus, Zostera)
+c <- anti_join(wisdm.con2,
+               spp.list,
+               by = c("species" = "GBIF_canonicalName"))
+
+# van de relevante soorten ontbreken er 8 kaartjes tout court
+c <- anti_join(spp.list,   # 143 soorten
+               wisdm.con2, # minus drie (zie hoger) = 135 soorten
+               by = c("GBIF_canonicalName" = "species"))
+
+```
