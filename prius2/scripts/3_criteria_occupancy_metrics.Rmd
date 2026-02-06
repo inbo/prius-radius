@@ -30,7 +30,7 @@ map.N2K.raw <- read_tsv(
   na = "")
 
 map.N2K.grid <- map.N2K.raw %>% filter(natura2000 == TRUE)
-map.SPA.grid <- map.N2K.raw %>% filter(spa == TRUE) # = VRL? hernoemen?
+map.VRL.grid <- map.N2K.raw %>% filter(spa == TRUE)
 map.HRL.grid <- map.N2K.raw %>% filter(habitat == TRUE)
 
 rm(map.N2K.raw)
@@ -62,7 +62,7 @@ gc()
 ```{r exclude marine species}
 # according to PrIUS philosophy, purely marine/brackish species are excluded (irrelevant)
 
-irr <- read.csv("./prius2/temp/criteria_environment_v26-01-22.csv") %>% 
+irr <- read.csv("./prius2/temp/criteria_environment_v26-02-06.csv") %>% 
   mutate(irr = ifelse(zoetwater == 0 & terrestrisch == 0, 1, 0)) %>% 
   filter(irr == 1) %>% 
   print()
@@ -152,10 +152,10 @@ spp.list.metrics$aanwezigheid[is.na(spp.list.metrics$aanwezigheid)] = "sporadisc
 
 ```{r to delete}
 # tussentijds wegschrijven (voor overname rapport)
-# take.out <- spp.list.raw[c("GBIF_canonicalName", "reg")] %>%
-#   left_join(spp.list.metrics[c("GBIF_canonicalName", "aanwezigheid")],
-#             by = "GBIF_canonicalName")
-# write.csv(take.out, "./prius2/temp/delete_mij.csv")
+take.out <- spp.list.raw[c("soort", "GBIF_canonicalName", "reg")] %>%
+  left_join(spp.list.metrics[c("GBIF_canonicalName", "aanwezigheid")],
+            by = "GBIF_canonicalName")
+write.csv(take.out, "./prius2/temp/delete_mij_new.csv", row.names = F)
 ```
 
 # NATURA 2000
@@ -181,13 +181,13 @@ for (species_name in unique(in_cube$soort)){
 
   N_occ_spec <- as.numeric(n_distinct(IAS_Cube_temp$eeacellcode)) # nodig, want zelfde cel voor verschillende jaren
   N_Natura2000 <- as.numeric(n_distinct(map.N2K.grid$CELLCODE))
-  N_spa <- as.numeric(n_distinct(map.SPA.grid$CELLCODE))
+  N_spa <- as.numeric(n_distinct(map.VRL.grid$CELLCODE))
   N_habitat <- as.numeric(n_distinct(map.HRL.grid$CELLCODE))
   
   N_occ_spec_in_Natura2000 <- as.numeric(n_distinct(
     IAS_Cube_temp[which(IAS_Cube_temp$eeacellcode %in% map.N2K.grid$CELLCODE),]$eeacellcode))
   N_occ_spec_in_spa <- as.numeric(n_distinct(
-    IAS_Cube_temp[which(IAS_Cube_temp$eeacellcode %in% map.SPA.grid$CELLCODE),]$eeacellcode))
+    IAS_Cube_temp[which(IAS_Cube_temp$eeacellcode %in% map.VRL.grid$CELLCODE),]$eeacellcode))
   N_occ_spec_in_habitat <- as.numeric(n_distinct(
     IAS_Cube_temp[which(IAS_Cube_temp$eeacellcode %in% map.HRL.grid$CELLCODE),]$eeacellcode))
                   
@@ -318,7 +318,7 @@ rm(spp.to.map, my.cols)
 
 ggplot() +
   geom_sf(data = map.flan.clean, fill= "#f0f0f0", size = 0.2) +
-  geom_sf(data = IAS_Cube_1km_spec,  aes(colour = year, fill = year),
+  geom_sf(data = temp.ias.cube.spec,  aes(colour = year, fill = year),
           stroke = 0) +
   scale_colour_gradientn(colors = my.cols,
                          limits = c(time.frame.start, time.frame.stop),
