@@ -1,0 +1,280 @@
+
+```{r load-library, echo=FALSE, message=FALSE}
+library(tidyverse)
+library(here)
+library(sf)
+library(gtools)
+library(ggplot2)
+library(ggthemes)
+library(scales)
+```
+
+```{r clear-memory, echo=FALSE}
+rm(list=ls())
+```
+
+```{r data-import, echo=FALSE, message=FALSE}
+# species list
+species_list <- read_csv(here("radius", "data", "input", "radius_species_list.csv"))
+species_abbr <- read_csv2(here("radius", "data", "input", "species_abbr.csv"))
+
+# species occurrences
+occ_flanders <- read_csv(here("radius", "data", "input", "gbif_occ_flanders.csv")) %>%
+  left_join(species_list,by = c("speciesKey" = "GBIF_code", "Soort", "Species")) %>%
+  left_join(species_abbr,by = c("Soort", "Species")) %>%
+  select(year, month, day,decimalLongitude, decimalLatitude,speciesKey, Soort, Species, abbr) %>%
+  st_as_sf(coords = c("decimalLongitude", "decimalLatitude"),crs = 4326) %>%
+  st_transform(31370) 
+
+# spatial layers
+Vlaanderen_grenzen <- st_read(here("prius", "data", "spatial", "flanders_wgs84.geojson"))
+Provincies_grenzen <- st_read(here("prius", "data", "spatial", "Provincies.geojson"))
+```
+```{r sporadic-species, echo=FALSE}
+spor_species <- occ_flanders %>%
+  group_by(Soort) %>%
+  summarise(n_obs = n()) %>%
+  arrange(n_obs) %>%
+  dplyr::filter(n_obs < 20) %>%
+  st_drop_geometry()
+```
+
+# Analyse voorkomen in Limburg
+```{r occupancy-limburg, warning=FALSE, message=FALSE}
+list.dfs <- list(
+  PV = Provincies_grenzen,
+  VL = data.frame()
+)
+
+list.results <- lapply(list.dfs, function(x) data.frame())
+
+for (i in unique(occ_flanders$Soort)) {
+  print(i)
+  
+  occ_species <- occ_flanders[occ_flanders$Soort == i,]
+  
+  occ_species_buf <- occ_species %>%
+    st_buffer(dist = 100) %>%
+    st_union() %>% 
+    st_cast('POLYGON') %>% 
+    st_sf() %>%
+    mutate(buf_area = as.numeric(st_area(.))) 
+  
+  total_area <- sum(occ_species_buf$buf_area)
+  
+  list.results[[2]] <- rbind(list.results[[2]], data.frame(
+    soort = i,
+    species = paste(unique(occ_species$Species), collapse = ","), 
+    abbr = unique(na.omit(occ_species$abbr)), 
+    gebied = "VL",
+    overlap = as.numeric(format(round(total_area / Vlaanderen_grenzen$OPPERVL,6), scientific = FALSE)),
+    type = "of"
+  ))
+  
+  for (j in seq_along(list.dfs[1])) {
+    print(j)
+    
+    gebied <- list.dfs[[j]] %>%
+      st_transform(31370) %>%
+      mutate(geb_area = as.numeric(st_area(.)))
+    
+    # intersection buffered occurrences with wfs-map
+    occ_species_intersection <- occ_species_buf %>%
+      st_intersection(gebied) %>% 
+      mutate(intersect_area = as.numeric(st_area(.)))
+    
+    overlap_intersection <- sum(occ_species_intersection$intersect_area)
+    percentage_overlap_in <- overlap_intersection / total_area
+    percentage_overlap_of <- overlap_intersection / sum(gebied$geb_area)
+    selectivity <- percentage_overlap_in / (sum(gebied$geb_area) / sum(Vlaanderen_grenzen$OPPERVL))
+    
+    if (nrow(occ_species_intersection) != 0) {
+      
+      overlap_per_gebied <- occ_species_intersection %>%
+        group_by(NAAM, geb_area) %>%
+        summarise(intersect_area = sum(intersect_area)) %>%
+        st_drop_geometry() %>%
+        na.replace(0)
+      
+      for (row in 1:nrow(overlap_per_gebied)) {
+        percentage_overlap_in = overlap_per_gebied[row,]$intersect_area / total_area
+        percentage_overlap_of = overlap_per_gebied[row,]$intersect_area / overlap_per_gebied[row,]$geb_area
+        
+        metrics_df <- data.frame(
+          soort = i,
+          species = paste(unique(occ_species$Species), collapse = ","), 
+          abbr = unique(na.omit(occ_species$abbr)), 
+          gebied = as.character(overlap_per_gebied[row,1]),
+          overlap = as.numeric(format(round(c(percentage_overlap_in, percentage_overlap_of), 6), scientific = FALSE)), 
+          type = paste0(c("in", "of")))
+        
+        list.results[[j]] <- rbind(list.results[[j]], metrics_df)
+      }
+    }
+  }
+}
+
+PV <- list.results$PV
+VL <- list.results$VL
+```
+
+
+
+# Visualisatie voorkomen in Limburg
+
+```{r custom-theme, echo=FALSE}
+custom_theme <- function(base_family = "Arial") {
+  theme_few() +
+    theme(
+      axis.title.y = element_text(size = 10, family = base_family),
+      axis.text.y  = element_text(size = 10, family = base_family),
+      axis.title.x = element_text(size = 10, family = base_family),
+      axis.text.x  = element_text(size = 10, family = base_family),
+
+      axis.ticks.length = unit(1.5, "pt"),
+      axis.ticks = element_line(colour = "grey90"),
+
+      legend.text  = element_text(size = 10, family = base_family),
+      legend.title = element_blank(),
+
+      panel.border = element_rect(color = "grey90", fill = NA),
+      panel.grid.minor = element_blank(),
+      panel.grid.major = element_line(color = "grey90"),
+      panel.background = element_rect(color = "grey", fill = "grey98"),
+
+      strip.text = element_text(size = 10, face = "bold", hjust = -0.01, family = base_family),
+
+      plot.title = element_text(size = 10, family = base_family, face = "bold", hjust = 0.5),
+      plot.title.position = "plot"
+    )
+}
+
+```
+
+
+## Bezetting van Limburg ("of" metric) 
+
+Percentage van oppervlakte van Limburg bezet per soort 
+```{r bezetting-limburg-top-10, echo=FALSE, warning=FALSE}
+Limburg_of <- PV %>%
+  filter(gebied == "Limburg" & type == "of") %>%
+  slice_max(order_by = overlap, n = 10) %>%
+  mutate(
+    label = ifelse(
+      soort %in% spor_species$Soort,
+      paste0("italic('", soort, "')~'*'"),
+      paste0("'", soort, "'")
+    )
+  )
+
+ggplot(Limburg_of,
+       aes(x = (overlap * 100) + 0.04,
+           y = reorder(label, overlap))) +
+  geom_col(width = 0.7,
+           fill = "#c04384",
+           show.legend = FALSE) +
+  scale_x_continuous(
+    expand = expansion(mult = c(0, 0.05)),
+    labels = scales::percent_format(scale = 1)
+  ) +
+  scale_y_discrete(labels = function(x) parse(text = x)) +
+  labs(
+    x = "Bezetting van Limburg",
+    y = NULL,
+    caption = "* minder dan 20 waarnemingen sinds 2015"
+  ) +
+  custom_theme() +
+  theme(
+    strip.placement = "outside",
+    strip.text.y = element_text(angle = 270, hjust = 0, vjust = 0.5, size = 10),
+    strip.background = element_blank()
+  )
+
+```
+
+## Gebondenheid aan Limburg ("in" metric)
+
+Percentage van verspreiding van een soort dat in Limburg ligt
+
+
+Let op! Sporadische soorten (soorten met minder dan 20 waarnemingen sinds 2015) werden hier niet meegenomen! 
+
+```{r gebondenheid-limburg-top10, echo=FALSE, warning=FALSE}
+Limburg_in <- PV %>%
+  filter(gebied == "Limburg" & type == "in") %>%
+  mutate(
+    label = ifelse(
+      soort %in% spor_species$Soort,
+      paste0("italic('", soort, "')~'*'"),
+      paste0("'", soort, "'")
+    )
+  )
+
+Limburg_in_top10 <- Limburg_in %>%
+  filter(!soort %in% spor_species$Soort) %>%
+  slice_max(order_by = overlap, n = 10) 
+
+ggplot(Limburg_in_top10, aes(x = (overlap * 100) + 0.04,
+                       y = reorder(label, overlap))) +
+  geom_bar(stat = "identity",
+           show.legend = FALSE,
+           width = 0.7,
+           fill = "#c04384") +
+  scale_x_continuous(
+    expand = expansion(mult = c(0, 0.05)),
+    labels = scales::percent_format(scale = 1)
+  ) +
+  scale_y_discrete(labels = function(x) parse(text = x)) +
+  labs(
+    x = "Bezetting van Limburg",
+    y = NULL,
+    caption = "* minder dan 20 waarnemingen sinds 2015"
+  ) +
+  custom_theme() +
+  theme(text = element_text(family = "sans"))
+```
+
+## Oververtegenwoordiging in Limburg? 
+
+Bezetting van Limburg vs bezetting in Vlaanderen
+--> toont de soorten waarvan de bezetting in Limburg het sterkst afwijkt van de bezetting over Vlaanderen.
+--> sterk positieve waarden wijzen op soorten die oververtegenwoordigd zijn in Limburg en dus waarvoor Limburg de "grootste verantwoordelijkheid" draagt
+
+Let op! Sporadische soorten (soorten met minder dan 20 waarnemingen sinds 2015) werden hier niet meegenomen! 
+
+```{r oververtegenwoordiging-in-limburg, echo=FALSE}
+LIvsVL <- Limburg_in %>%
+  left_join(VL, by = c("soort", "species", "abbr")) %>%
+  transmute(
+    soort, 
+    species, 
+    label,
+    overlap_LI = overlap.x, 
+    overlap_VL = overlap.y
+    ) %>%
+  mutate(
+    LIvsVL = overlap_LI / overlap_VL
+  ) 
+
+
+LIvsVL_top10 <- LIvsVL %>%
+  filter(!soort %in% spor_species$Soort) %>%
+  slice_max(order_by = LIvsVL, n = 10) %>%
+  arrange(LIvsVL)
+
+ggplot(LIvsVL_top10, aes(x = LIvsVL, y = reorder(label, LIvsVL))) +
+  geom_col(width = 0.7, fill = "#c04384") +
+  scale_y_discrete(labels = function(x) parse(text = x)) +
+  scale_x_continuous(labels = label_number()) + 
+  labs(
+    x = "Relatieve bezetting (Limburg t.o.v. Vlaanderen)",
+    y = NULL,
+    caption = "* minder dan 20 waarnemingen sinds 2015"
+  ) +
+  custom_theme()
+```
+
+```{r}
+
+```
+
