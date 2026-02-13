@@ -1,0 +1,93 @@
+
+Pro memorie : https://trias-project.github.io/indicators/07_occurrence_indicators_modelling.html .
+
+    3: emerging
+    2: potentially emerging
+    1: unclear
+    0: not emerging
+
+```{r prep packages}
+library(tidyverse)
+```
+
+```{r prep memory}
+rm(list = ls())
+```
+
+```{r data}
+# output from 4_~_preprocessing.Rmd
+fla.raw <- read.csv(
+  "./prius2/output/GAM_outputs2000/output_GAM_2000_occupancy_isFlanders.tsv",
+                    sep = "\t",
+                    header = TRUE)
+
+n2k.raw <- read.csv(
+  "./prius2/output/GAM_outputs2000/output_GAM_2000_occupancy_isFlandersN2000.tsv",
+                    sep = "\t",
+                    header = TRUE)
+```
+
+```{r filtering if needed}
+fla <- fla.raw
+n2k <- n2k.raw
+```
+
+To avoid duplication in the code (given the two sets of plots), I define part of the plotting code as a function, here.
+
+```{r}
+make_the_plot <- function(my_data){
+  
+  temp_plot <- ggplot(data = my_data,
+                      aes(x = year, y = ncells)) +
+    theme_bw() +
+    ylab("# cellen (1-km²)") +
+    theme(
+      axis.title.x = element_blank(),
+      axis.title = element_text(size = 6),
+      axis.text = element_text(size = 6)) +
+    scale_x_continuous(limits = c(2000, 2025)) +
+    geom_point(color = "black", size = 1) +
+    geom_line(aes(x = .data$year, y = .data$fit), color = "grey50", size = 0.5) +
+    geom_point(aes(x = year, y = fit), shape = 1, size = 1) +
+    geom_ribbon(aes(ymax = ucl, ymin = lcl), fill = grey(0.5), alpha = 0.4)
+    
+}
+```
+
+```{r plot flanders}
+for (species in unique(fla$canonicalName)[1:20]){
+  
+  print(species)
+  temp <- fla %>% filter(canonicalName == species)
+  
+  # only make a plot if there actually has been an GAM fitted
+  if(!all(is.na(temp$fit))) {
+    # plot function above
+    temp_plot <- make_the_plot(my_data = temp)
+    ggsave(temp_plot, file=paste0("./prius2/output/GAM_outputs2000/Flanders_4report/",
+                                species,
+                                ".png"),
+           width = 7, height = 4, # important for fluent incorporation in report
+           units = "cm")
+    } else {print(paste("Skipped ", species, " because no GAM was fitted."))}
+}
+```
+
+```{r plot n2k}
+for (species in unique(n2k$canonicalName)[1:20]){
+  
+  print(species)
+  temp <- n2k %>% filter(canonicalName == species)
+  
+  # only make a plot if there actually has been an GAM fitted
+    if(!all(is.na(temp$fit))) {
+    # plot function above
+    temp_plot <- make_the_plot(my_data = temp)
+    ggsave(temp_plot, file=paste0("./prius2/output/GAM_outputs2000/FlandersN2000_4report/",
+                                species,
+                                ".png"),
+           width = 7, height = 4, # important for fluent incorporation in report
+           units = "cm")
+  } else {print(paste("Skipped ", species, " because no GAM was fitted."))}
+}
+```
