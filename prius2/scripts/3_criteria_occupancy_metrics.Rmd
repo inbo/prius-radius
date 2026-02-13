@@ -150,12 +150,14 @@ spp.list.metrics <- spp.list.metrics %>%
 spp.list.metrics$aanwezigheid[is.na(spp.list.metrics$aanwezigheid)] = "sporadisch"
 ```
 
-```{r to delete}
-# tussentijds wegschrijven (voor overname rapport)
-# take.out <- spp.list.raw[c("soort", "GBIF_canonicalName", "reg")] %>%
-#   left_join(spp.list.metrics[c("GBIF_canonicalName", "aanwezigheid")],
-#             by = "GBIF_canonicalName")
-# write.csv(take.out, "./prius2/temp/delete_mij_new.csv", row.names = F)
+```{r write}
+# tussentijds wegschrijven
+take.out <- spp.list.raw[c("soort", "GBIF_canonicalName", "reg")] %>%
+  left_join(spp.list.metrics[c("GBIF_canonicalName", "aanwezigheid")],
+            by = "GBIF_canonicalName")
+write.csv(take.out,
+          paste0("./prius2/temp/criteria_aanwezigheid_", Sys.Date(), ".csv"),
+          row.names = F)
 ```
 
 # NATURA 2000

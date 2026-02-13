@@ -55,7 +55,7 @@ make_the_plot <- function(my_data){
 ```
 
 ```{r plot flanders}
-for (species in unique(fla$canonicalName)[1:20]){
+for (species in unique(fla$canonicalName)){
   
   print(species)
   temp <- fla %>% filter(canonicalName == species)
@@ -74,7 +74,7 @@ for (species in unique(fla$canonicalName)[1:20]){
 ```
 
 ```{r plot n2k}
-for (species in unique(n2k$canonicalName)[1:20]){
+for (species in unique(n2k$canonicalName)){
   
   print(species)
   temp <- n2k %>% filter(canonicalName == species)
@@ -90,4 +90,45 @@ for (species in unique(n2k$canonicalName)[1:20]){
            units = "cm")
   } else {print(paste("Skipped ", species, " because no GAM was fitted."))}
 }
+```
+
+```{r summary4report}
+summ.fla <- fla %>% 
+  filter(year == 2025) %>% 
+  select(canonicalName, em_status) %>%
+  mutate(status.vlaanderen = case_when(
+    em_status == 0 ~ "niet opkomend",
+    em_status == 1 ~ "onduidelijk",
+    em_status == 2 ~ "potentieel opkomend",
+    em_status == 3 ~ "opkomend",
+    is.na(em_status) ~ "onvoldoende data"
+  ))
+
+summ.n2k <- n2k %>% 
+  filter(year == 2025) %>% 
+  select(canonicalName, em_status) %>%
+  mutate(status.natura2000 = case_when(
+    em_status == 0 ~ "niet opkomend",
+    em_status == 1 ~ "onduidelijk",
+    em_status == 2 ~ "potentieel opkomend",
+    em_status == 3 ~ "opkomend",
+    is.na(em_status) ~ "onvoldoende data"
+  ))
+
+summ <- read.csv("./prius2/temp/criteria_aanwezigheid_2026-02-13.csv") %>%
+  left_join(summ.fla, by = c("GBIF_canonicalName" = "canonicalName")) %>% 
+  left_join(summ.n2k, by = c("GBIF_canonicalName" = "canonicalName"))
+
+summ.slim <- summ %>% 
+  filter(aanwezigheid %in% c("aanwezig", "sporadisch")) %>% # exclusie "afwezig" en marien
+  select(soort, GBIF_canonicalName, status.vlaanderen, status.natura2000)
+
+# bovenstaande stap kan opnieuw NA's hebben geïncorporeerd; deze kunnen opnieuw als "datadeficiënt"
+
+summ.slim[is.na(summ.slim)] <- "onvoldoende data*"
+
+write.csv(summ.slim, paste0("./prius2/output/GAM_outputs2000/summary4report_",
+                            Sys.Date(),
+                            ".csv"),
+          row.names = F)
 ```
