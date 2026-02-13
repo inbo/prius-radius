@@ -7,6 +7,10 @@ library(gtools)
 library(ggplot2)
 library(ggthemes)
 library(scales)
+library(ggspatial)
+library(dplyr)
+library(stringr)
+library(ragg)
 ```
 
 ```{r clear-memory, echo=FALSE}
@@ -21,14 +25,17 @@ species_abbr <- read_csv2(here("radius", "data", "input", "species_abbr.csv"))
 # species occurrences
 occ_flanders <- read_csv(here("radius", "data", "input", "gbif_occ_flanders.csv")) %>%
   left_join(species_list,by = c("speciesKey" = "GBIF_code", "Soort", "Species")) %>%
-  left_join(species_abbr,by = c("Soort", "Species")) %>%
-  select(year, month, day,decimalLongitude, decimalLatitude,speciesKey, Soort, Species, abbr) %>%
+  select(year, month, day,decimalLongitude, decimalLatitude,speciesKey, Soort, Species) %>%
   st_as_sf(coords = c("decimalLongitude", "decimalLatitude"),crs = 4326) %>%
   st_transform(31370) 
 
 # spatial layers
 Vlaanderen_grenzen <- st_read(here("prius", "data", "spatial", "flanders_wgs84.geojson"))
 Provincies_grenzen <- st_read(here("prius", "data", "spatial", "Provincies.geojson"))
+
+# habitat- en vogelrichtlijngebieden
+ps_hbtrl_deel <- st_read(here("radius", "data", "spatial", "ps_hbtrl_deel.shp"))
+ps_vglrl <- st_read(here("radius", "data", "spatial", "ps_vglrl.shp")) 
 ```
 ```{r sporadic-species, echo=FALSE}
 spor_species <- occ_flanders %>%
@@ -49,8 +56,6 @@ list.dfs <- list(
 list.results <- lapply(list.dfs, function(x) data.frame())
 
 for (i in unique(occ_flanders$Soort)) {
-  print(i)
-  
   occ_species <- occ_flanders[occ_flanders$Soort == i,]
   
   occ_species_buf <- occ_species %>%
@@ -65,15 +70,12 @@ for (i in unique(occ_flanders$Soort)) {
   list.results[[2]] <- rbind(list.results[[2]], data.frame(
     soort = i,
     species = paste(unique(occ_species$Species), collapse = ","), 
-    abbr = unique(na.omit(occ_species$abbr)), 
     gebied = "VL",
     overlap = as.numeric(format(round(total_area / Vlaanderen_grenzen$OPPERVL,6), scientific = FALSE)),
     type = "of"
   ))
   
   for (j in seq_along(list.dfs[1])) {
-    print(j)
-    
     gebied <- list.dfs[[j]] %>%
       st_transform(31370) %>%
       mutate(geb_area = as.numeric(st_area(.)))
@@ -103,7 +105,6 @@ for (i in unique(occ_flanders$Soort)) {
         metrics_df <- data.frame(
           soort = i,
           species = paste(unique(occ_species$Species), collapse = ","), 
-          abbr = unique(na.omit(occ_species$abbr)), 
           gebied = as.character(overlap_per_gebied[row,1]),
           overlap = as.numeric(format(round(c(percentage_overlap_in, percentage_overlap_of), 6), scientific = FALSE)), 
           type = paste0(c("in", "of")))
@@ -117,8 +118,6 @@ for (i in unique(occ_flanders$Soort)) {
 PV <- list.results$PV
 VL <- list.results$VL
 ```
-
-
 
 # Visualisatie voorkomen in Limburg
 
@@ -190,6 +189,16 @@ ggplot(Limburg_of,
     strip.background = element_blank()
   )
 
+ggsave(
+  filename = here("radius", "r-scripts", "likona2026", "output", "bezetting_top10.png"),
+  plot = p,
+  width = 15,
+  height = 6,
+  units = "cm",
+  dpi = 300,
+  device = ragg::agg_png,
+  bg = "white"
+)
 ```
 
 ## Gebondenheid aan Limburg ("in" metric)
@@ -214,7 +223,7 @@ Limburg_in_top10 <- Limburg_in %>%
   filter(!soort %in% spor_species$Soort) %>%
   slice_max(order_by = overlap, n = 10) 
 
-ggplot(Limburg_in_top10, aes(x = (overlap * 100) + 0.04,
+p <- ggplot(Limburg_in_top10, aes(x = (overlap * 100) + 0.04,
                        y = reorder(label, overlap))) +
   geom_bar(stat = "identity",
            show.legend = FALSE,
@@ -226,12 +235,139 @@ ggplot(Limburg_in_top10, aes(x = (overlap * 100) + 0.04,
   ) +
   scale_y_discrete(labels = function(x) parse(text = x)) +
   labs(
-    x = "Bezetting van Limburg",
+    x = "Gebondenheid aan Limburg",
     y = NULL,
     caption = "* minder dan 20 waarnemingen sinds 2015"
   ) +
   custom_theme() +
   theme(text = element_text(family = "sans"))
+
+ggsave(
+  filename = here("radius", "r-scripts", "likona2026", "output", "gebondenheid_top10.png"),
+  plot = p,
+  width = 15,
+  height = 6,
+  units = "cm",
+  dpi = 300,
+  device = ragg::agg_png,
+  bg = "white"
+)
+```
+
+### Kaartjes gebondenheid
+```{r kaartje-gebondenheid, echo=FALSE}
+limburg_sf_3857 <- Provincies_grenzen %>%
+  filter(NAAM == "Limburg") %>%
+  st_transform(3857)
+
+occ_limburg_3857 <- occ_flanders %>%
+  st_transform(3857) %>%
+  st_intersection(limburg_sf_3857)
+
+bb <- st_bbox(limburg_sf_3857)
+
+pad_frac <- 0.04  
+
+bb_pad <- bb
+bb_pad["xmin"] <- bb["xmin"] - pad_frac * (bb["xmax"] - bb["xmin"])
+bb_pad["xmax"] <- bb["xmax"] + pad_frac * (bb["xmax"] - bb["xmin"])
+bb_pad["ymin"] <- bb["ymin"] - pad_frac * (bb["ymax"] - bb["ymin"])
+bb_pad["ymax"] <- bb["ymax"] + pad_frac * (bb["ymax"] - bb["ymin"])
+
+
+bb_pad_poly <- st_as_sfc(bb_pad) %>%
+  st_set_crs(st_crs(limburg_sf_3857))
+
+mask_outside_limburg <- st_difference(
+  bb_pad_poly,
+  st_union(limburg_sf_3857)
+)
+
+soorten <- Limburg_in_top10$soort |> unique() |> sort()
+
+safe_filename <- function(x) {
+  x |>
+    str_to_lower() |>
+    str_replace_all("\\s+", "_") |>
+    str_replace_all("[^a-z0-9_\\-]", "") |>
+    str_squish()
+}
+
+out_dir <- here("radius", "likona2026", "output")
+dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
+
+for (s in soorten) {
+
+  occ_s_limburg <- occ_limburg_3857 %>%
+    filter(Soort == s)
+
+  if (nrow(occ_s_limburg) == 0) next
+
+  p <- ggplot() +
+    annotation_map_tile(type = "cartolight", zoomin = 0) +
+    # geom_sf(
+    #   data = ps_hbtrl_deel,
+    #   fill="#a4e98f", 
+    #   color ="#a4e98f", 
+    #   linewidth = 0.01,
+    #   alpha = 0.9
+    # ) +
+    # geom_sf(
+    #   data = ps_vglrl,
+    #   fill="#a4e98f", 
+    #   color ="#a4e98f", 
+    #   linewidth = 0.01,
+    #   alpha = 0.9
+    # ) +
+    geom_sf(data = mask_outside_limburg, fill = "white", color = NA) +
+    geom_sf(
+      data = limburg_sf_3857,
+      fill = NA,
+      color = "#2B2B2B",
+      linewidth = 0.12
+    ) +
+    geom_sf(
+      data = occ_s_limburg,
+      shape = 21,
+      size = 2,
+      stroke = 0.05,
+      color = "black",
+      fill = "#C04384",
+      alpha = 0.85
+    ) +
+    coord_sf(
+      xlim = c(bb_pad["xmin"], bb_pad["xmax"]),
+      ylim = c(bb_pad["ymin"], bb_pad["ymax"]),
+      expand = FALSE
+    ) +
+    labs(title = s) +
+    theme_void(base_family = "Arial") +
+    theme(
+      plot.title.position = "plot",
+      plot.title = element_text(
+        size = 9,
+        face = "plain",
+        hjust = 0,
+        color = "#2B2B2B",
+        margin = margin(t = 3, b = 3)
+      ),
+      plot.background = element_rect(fill = "white", color = NA),
+      plot.margin = grid::unit(c(3, 3, 3, 3), "mm")
+    )
+
+  file_out <- file.path(out_dir, paste0(safe_filename(s), "_limburg.png"))
+
+  ggsave(
+    filename = file_out,
+    plot = p,
+    width = 9,
+    height = 9,
+    units = "cm",
+    dpi = 300,
+    device = ragg::agg_png,
+    bg = "white"
+  )
+}
 ```
 
 ## Oververtegenwoordiging in Limburg? 
@@ -244,7 +380,7 @@ Let op! Sporadische soorten (soorten met minder dan 20 waarnemingen sinds 2015) 
 
 ```{r oververtegenwoordiging-in-limburg, echo=FALSE}
 LIvsVL <- Limburg_in %>%
-  left_join(VL, by = c("soort", "species", "abbr")) %>%
+  left_join(VL, by = c("soort", "species")) %>%
   transmute(
     soort, 
     species, 
@@ -273,6 +409,7 @@ ggplot(LIvsVL_top10, aes(x = LIvsVL, y = reorder(label, LIvsVL))) +
   ) +
   custom_theme()
 ```
+
 
 ```{r}
 
