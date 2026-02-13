@@ -19,7 +19,6 @@ plant,Triadica sebifera (L.) Small,talgboom,3054399
 dier,"Arthurdendyus triangulatus (Dendy, 1894) Jones & Gerard (1999)",Nieuw-Zeelandse platworm,2502792
 dier,"Corvus splendens Viellot, 1817",huiskraai,2482499
 dier,"Herpestes javanicus É. Geoffroy Saint-Hilaire, 1818",Indische mangoeste,2434271
-dier,"Nasua nasua L., 1766",rode neusbeer,2433536
 dier,"Perccottus glenii Dybowski, 1877",amoergrondel,2390064
 dier,"Plotosus lineatus (Thunberg, 1787)",gestreepte koraalmeerval,7965247
 dier,"Sciurus niger L., 1758",Amerikaanse voseekhoorn,5219683
@@ -32,7 +31,6 @@ dier,"Fundulus heteroclitus (Linnaeus, 1766)",mummichog,5712056
 dier,"Gambusia affinis (Baird & Girard, 1853)",westelijk muskietenvisje,2350580
 dier,"Gambusia holbrooki Girard, 1859",oostelijk muskietenvisje,2350570
 plant,Hakea sericea Schrad. & J.C.Wendl.,hakea,7287606
-dier,"Lampropeltis getula (Linnaeus, 1766)",gewone koningsslang,9799308
 dier,"Limnoperna fortunei (Dunker, 1857)",gouden mossel,5855350
 dier,"Morone americana (Gmelin, 1789)",Amerikaanse baars,2394604
 dier,"Pycnonotus cafer (Linnaeus, 1766)",roodbuikbuulbuul,2486131
@@ -44,3 +42,4 @@ dier,"Wasmannia auropunctata (Roger, 1863)",dwergvuurmier,1315391
 dier,"Faxonius juvenilis (Hagen, 1870)",Kentuckyrivierkreeft,8721209
 dier,"Faxonius immunis (Hagen, 1870)",Calicotrivierkreeft,8930656
 dier,"Cherax destructor Clark, 1936",gewone yabby,4417558
+dier,"Neogobius fluviatilis (Pallas, 1814)",Pontische stroomgrondel,2379105
