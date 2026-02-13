@@ -26,6 +26,7 @@ dier,"Lepomis gibbosus Linnaeus, 1758",zonnebaars,"Lepomis gibbosus (Linnaeus, 1
 dier,"Lithobates (Rana) catesbeianus Shaw, 1802",Amerikaanse stierkikker,"Lithobates catesbeianus (Shaw, 1802)",2427091,1,0,0,0
 dier,"Muntiacus reevesi Ogilby, 1839",Chinese muntjak,"Muntiacus reevesi (Ogilby, 1839)",2440946,1,0,0,0
 dier,"Myocastor coypus Molina, 1782",beverrat,"Myocastor coypus (Molina, 1782)",4264680,1,0,0,0
+dier,"Nasua nasua L., 1766",rode neusbeer,"Nasua nasua (Linnaeus, 1766)",2433536,1,0,0,0
 dier,"Nyctereutes procyonoides Gray, 1834",wasbeerhond,"Nyctereutes procyonoides (Gray, 1834)",2434552,2,0,0,0
 dier,"Ondatra zibethicus Linnaeus, 1766",muskusrat,"Ondatra zibethicus (Linnaeus, 1766)",5219858,2,0,0,0
 dier,"Faxonius limosus Rafinesque, 1817",gevlekte Amerikaanse rivierkreeft,"Faxonius limosus (Rafinesque, 1817)",8909595,1,0,0,0
@@ -43,6 +44,7 @@ dier,"Trachemys scripta Schoepff, 1792",lettersierschildpad,"Trachemys scripta (
 dier,"Vespa velutina Lepeletier, 1836",Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",1311477,1,0,0,0
 plant,Celastrus orbiculatus Thunb.,Aziatische boomwurger,Celastrus orbiculatus Thunb.,3169169,4,0,0,0
 plant,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,8848208,4,1,0,0
+dier,"Lampropeltis getula (Linnaeus, 1766)",gewone koningsslang,"Lampropeltis getula (Linnaeus, 1766)",9799308,4,0,0,0
 plant,Pistia stratiotes L.,watersla,Pistia stratiotes L.,2870583,4,0,0,0
 dier,"Xenopus laevis (Daudin, 1802)",Afrikaanse klauwkikker,"Xenopus laevis (Daudin, 1802)",5217334,4,0,0,0
 plant,Crassula helmsii (Kirk) Cockayne,watercrassula,Crassula helmsii (Kirk) Cockayne,5362054,0,1,0,1
@@ -75,7 +77,6 @@ dier,"Pontastacus leptodactylus (Eschscholtz, 1823)",Turkse rivierkreeft,"Pontas
 plant,Prunus serotina Ehrh.,Amerikaanse vogelkers,Prunus serotina Ehrh.,3021850,0,0,0,1
 dier,"Neogobius melanostomus (Pallas, 1814)",zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",2379089,0,0,0,1
 dier,"Ponticola kessleri (Günther, 1861)",Kesslergrondel,"Ponticola kessleri (Günther, 1861)",4285968,0,0,0,1
-dier,"Neogobius fluviatilis (Pallas, 1814)",Pontische stroomgrondel,"Neogobius fluviatilis (Pallas, 1814)",2379105,0,0,0,1
 dier,"Proterorhinus semilunaris (Heckel, 1837)",marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",2379245,0,0,0,1
 plant,Solidago gigantea Aiton,late guldenroede,Solidago gigantea Aiton,5389017,0,0,0,1
 plant,Solidago canadensis L.,Canadese guldenroede,Solidago canadensis L.,5389029,0,0,0,1
