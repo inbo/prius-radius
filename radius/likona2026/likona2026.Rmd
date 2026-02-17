@@ -155,10 +155,12 @@ custom_theme <- function(base_family = "Arial") {
 
 Percentage van oppervlakte van Limburg bezet per soort 
 ```{r bezetting-limburg-top-10, echo=FALSE, warning=FALSE}
-Limburg_of <- PV %>%
+Limburg_of_top10 <- PV %>%
   filter(gebied == "Limburg" & type == "of") %>%
   slice_max(order_by = overlap, n = 10) %>%
+  
   mutate(
+    soort = ifelse(soort == "Aziatische hoornaar (soort)", "Aziatische hoornaar", soort),
     label = ifelse(
       soort %in% spor_species$Soort,
       paste0("italic('", soort, "')~'*'"),
@@ -166,7 +168,7 @@ Limburg_of <- PV %>%
     )
   )
 
-ggplot(Limburg_of,
+p <- ggplot(Limburg_of_top10,
        aes(x = (overlap * 100) + 0.04,
            y = reorder(label, overlap))) +
   geom_col(width = 0.7,
@@ -179,8 +181,7 @@ ggplot(Limburg_of,
   scale_y_discrete(labels = function(x) parse(text = x)) +
   labs(
     x = "Bezetting van Limburg",
-    y = NULL,
-    caption = "* minder dan 20 waarnemingen sinds 2015"
+    y = NULL
   ) +
   custom_theme() +
   theme(
@@ -190,7 +191,7 @@ ggplot(Limburg_of,
   )
 
 ggsave(
-  filename = here("radius", "r-scripts", "likona2026", "output", "bezetting_top10.png"),
+  filename = here("radius", "likona2026", "output", "bezetting_top10.png"),
   plot = p,
   width = 15,
   height = 6,
@@ -201,60 +202,7 @@ ggsave(
 )
 ```
 
-## Gebondenheid aan Limburg ("in" metric)
-
-Percentage van verspreiding van een soort dat in Limburg ligt
-
-
-Let op! Sporadische soorten (soorten met minder dan 20 waarnemingen sinds 2015) werden hier niet meegenomen! 
-
-```{r gebondenheid-limburg-top10, echo=FALSE, warning=FALSE}
-Limburg_in <- PV %>%
-  filter(gebied == "Limburg" & type == "in") %>%
-  mutate(
-    label = ifelse(
-      soort %in% spor_species$Soort,
-      paste0("italic('", soort, "')~'*'"),
-      paste0("'", soort, "'")
-    )
-  )
-
-Limburg_in_top10 <- Limburg_in %>%
-  filter(!soort %in% spor_species$Soort) %>%
-  slice_max(order_by = overlap, n = 10) 
-
-p <- ggplot(Limburg_in_top10, aes(x = (overlap * 100) + 0.04,
-                       y = reorder(label, overlap))) +
-  geom_bar(stat = "identity",
-           show.legend = FALSE,
-           width = 0.7,
-           fill = "#c04384") +
-  scale_x_continuous(
-    expand = expansion(mult = c(0, 0.05)),
-    labels = scales::percent_format(scale = 1)
-  ) +
-  scale_y_discrete(labels = function(x) parse(text = x)) +
-  labs(
-    x = "Gebondenheid aan Limburg",
-    y = NULL,
-    caption = "* minder dan 20 waarnemingen sinds 2015"
-  ) +
-  custom_theme() +
-  theme(text = element_text(family = "sans"))
-
-ggsave(
-  filename = here("radius", "r-scripts", "likona2026", "output", "gebondenheid_top10.png"),
-  plot = p,
-  width = 15,
-  height = 6,
-  units = "cm",
-  dpi = 300,
-  device = ragg::agg_png,
-  bg = "white"
-)
-```
-
-### Kaartjes gebondenheid
+# Kaartjes bezetting
 ```{r kaartje-gebondenheid, echo=FALSE}
 limburg_sf_3857 <- Provincies_grenzen %>%
   filter(NAAM == "Limburg") %>%
@@ -283,7 +231,7 @@ mask_outside_limburg <- st_difference(
   st_union(limburg_sf_3857)
 )
 
-soorten <- Limburg_in_top10$soort |> unique() |> sort()
+soorten <- Limburg_of_top10$soort |> unique() |> sort()
 
 safe_filename <- function(x) {
   x |>
@@ -305,20 +253,20 @@ for (s in soorten) {
 
   p <- ggplot() +
     annotation_map_tile(type = "cartolight", zoomin = 0) +
-    # geom_sf(
-    #   data = ps_hbtrl_deel,
-    #   fill="#a4e98f", 
-    #   color ="#a4e98f", 
-    #   linewidth = 0.01,
-    #   alpha = 0.9
-    # ) +
-    # geom_sf(
-    #   data = ps_vglrl,
-    #   fill="#a4e98f", 
-    #   color ="#a4e98f", 
-    #   linewidth = 0.01,
-    #   alpha = 0.9
-    # ) +
+    geom_sf(
+      data = ps_hbtrl_deel,
+      fill="#a4e98f",
+      color ="#a4e98f",
+      linewidth = 0.01,
+      alpha = 0.9
+    ) +
+    geom_sf(
+      data = ps_vglrl,
+      fill="#a4e98f",
+      color ="#a4e98f",
+      linewidth = 0.01,
+      alpha = 0.9
+    ) +
     geom_sf(data = mask_outside_limburg, fill = "white", color = NA) +
     geom_sf(
       data = limburg_sf_3857,
@@ -357,6 +305,150 @@ for (s in soorten) {
 
   file_out <- file.path(out_dir, paste0(safe_filename(s), "_limburg.png"))
 
+  ggsave(
+    filename = file_out,
+    plot = p,
+    width = 9,
+    height = 9,
+    units = "cm",
+    dpi = 300,
+    device = ragg::agg_png,
+    bg = "white"
+  )
+}
+```
+
+## Gebondenheid aan Limburg ("in" metric)
+
+Percentage van verspreiding van een soort dat in Limburg ligt
+
+
+Let op! Sporadische soorten (soorten met minder dan 20 waarnemingen sinds 2015) werden hier niet meegenomen! 
+
+```{r gebondenheid-limburg-top10, echo=FALSE, warning=FALSE}
+Limburg_in <- PV %>%
+  filter(gebied == "Limburg" & type == "in") %>%
+  mutate(
+    label = ifelse(
+      soort %in% spor_species$Soort,
+      paste0("italic('", soort, "')~'*'"),
+      paste0("'", soort, "'")
+    )
+  )
+
+Limburg_in_top10 <- Limburg_in %>%
+  #filter(!soort %in% spor_species$Soort) %>%
+  slice_max(order_by = overlap, n = 10) 
+
+p <- ggplot(Limburg_in_top10, aes(x = (overlap * 100) + 0.04,
+                       y = reorder(label, overlap))) +
+  geom_bar(stat = "identity",
+           show.legend = FALSE,
+           width = 0.7,
+           fill = "#c04384") +
+  scale_x_continuous(
+    expand = expansion(mult = c(0, 0.05)),
+    labels = scales::percent_format(scale = 1)
+  ) +
+  scale_y_discrete(labels = function(x) parse(text = x)) +
+  labs(
+    x = "Gebondenheid aan Limburg",
+    y = NULL,
+    caption = "* minder dan 20 waarnemingen sinds 2015"
+  ) +
+  custom_theme() +
+  theme(text = element_text(family = "sans"))
+
+p
+
+ggsave(
+  filename = here("radius", "likona2026", "output", "gebondenheid_top10.png"),
+  plot = p,
+  width = 15,
+  height = 6,
+  units = "cm",
+  dpi = 300,
+  device = ragg::agg_png,
+  bg = "white"
+)
+```
+
+### Kaartjes gebondenheid
+```{r kaartje-gebondenheid, echo=FALSE}
+soorten <- Limburg_in_top10$soort |> unique() |> sort()
+
+safe_filename <- function(x) {
+  x |>
+    str_to_lower() |>
+    str_replace_all("\\s+", "_") |>
+    str_replace_all("[^a-z0-9_\\-]", "") |>
+    str_squish()
+}
+
+out_dir <- here("radius", "likona2026", "output")
+dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
+
+for (s in soorten) {
+
+  occ_s_limburg <- occ_limburg_3857 %>%
+    filter(Soort == s)
+
+  if (nrow(occ_s_limburg) == 0) next
+
+  p <- ggplot() +
+    annotation_map_tile(type = "cartolight", zoomin = 0) +
+    geom_sf(
+      data = ps_hbtrl_deel,
+      fill="#a4e98f",
+      color ="#a4e98f",
+      linewidth = 0.01,
+      alpha = 0.9
+    ) +
+    geom_sf(
+      data = ps_vglrl,
+      fill="#a4e98f",
+      color ="#a4e98f",
+      linewidth = 0.01,
+      alpha = 0.9
+    ) +
+    geom_sf(data = mask_outside_limburg, fill = "white", color = NA) +
+    geom_sf(
+      data = limburg_sf_3857,
+      fill = NA,
+      color = "#2B2B2B",
+      linewidth = 0.12
+    ) +
+    geom_sf(
+      data = occ_s_limburg,
+      shape = 21,
+      size = 2,
+      stroke = 0.05,
+      color = "black",
+      fill = "#C04384",
+      alpha = 0.85
+    ) +
+    coord_sf(
+      xlim = c(bb_pad["xmin"], bb_pad["xmax"]),
+      ylim = c(bb_pad["ymin"], bb_pad["ymax"]),
+      expand = FALSE
+    ) +
+    labs(title = s) +
+    theme_void(base_family = "Arial") +
+    theme(
+      plot.title.position = "plot",
+      plot.title = element_text(
+        size = 9,
+        face = "plain",
+        hjust = 0,
+        color = "#2B2B2B",
+        margin = margin(t = 3, b = 3)
+      ),
+      plot.background = element_rect(fill = "white", color = NA),
+      plot.margin = grid::unit(c(3, 3, 3, 3), "mm")
+    )
+
+  file_out <- file.path(out_dir, paste0(safe_filename(s), "_limburg.png"))
+  
   ggsave(
     filename = file_out,
     plot = p,
