@@ -153,6 +153,22 @@ species_cube_download <- occ_download_sql(q = species_query,
                                           pwd = Sys.getenv("gbif_pwd"))
 ```
 
+```{r}
+dwnl_class <- menu(title = "donwload classcube ?",
+                   choices = c("N", "Y"),
+                   graphics = TRUE)
+```
+
+```{r execute class query}
+if(dwnl_class == 2){
+  class_cube_download <- occ_download_sql(q = class_query,
+                                        format = "SQL_TSV_ZIP",
+                                        email = Sys.getenv("email"),
+                                        user = Sys.getenv("gbif_user"),
+                                        pwd = Sys.getenv("gbif_pwd"))
+}
+```
+
 ```{r export species cube}
 occ_download_wait(species_cube_download)
 
@@ -172,24 +188,6 @@ drive_path <- as_id("1MbndBTzOePHKi-nX4eZDFZ2QyRnEZR1d")
 ```{r upload species cube to google drive}
 drive_put(species_cube_path,
           drive_path)
-```
-
-```{r}
-dwnl_class <- menu(title = "donwload classcube ?",
-                   choices = c("N", "Y"),
-                   graphics = TRUE)
-```
-
-
-```{r execute class query}
-if(dwnl_class == 2){
-  class_cube_download <- occ_download_sql(q = class_query,
-                                        format = "SQL_TSV_ZIP",
-                                        email = Sys.getenv("email"),
-                                        user = Sys.getenv("gbif_user"),
-                                        pwd = Sys.getenv("gbif_pwd"))
-}
-
 ```
 
 ```{r export class cube}
