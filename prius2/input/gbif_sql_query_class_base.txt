@@ -17,6 +17,7 @@ SELECT
     classKey IN (<--nubkeys-->)
     AND occurrenceStatus = 'PRESENT'
     AND year >= <--year-->
+    AND year <= <--year_max-->
     AND hasCoordinate = TRUE
     AND NOT ARRAY_CONTAINS(issue, 'ZERO_COORDINATE')
     AND NOT ARRAY_CONTAINS(issue, 'COORDINATE_OUT_OF_RANGE')
