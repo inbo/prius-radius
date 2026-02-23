@@ -139,6 +139,10 @@ class_query <- gsub(pattern = "<--buffer_wkt-->",
 class_query <- gsub(pattern = "year",
                     replacement = "\"year\"",
                     class_query)
+
+class_query <- gsub(pattern = "<--year_max-->", 
+                      replacement = year_max,
+                      x = class_query)
 ```
 
 ```{r execute species query}
