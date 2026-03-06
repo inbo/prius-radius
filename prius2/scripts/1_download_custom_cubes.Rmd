@@ -4,6 +4,9 @@ author: "Sander Devisscher"
 date: "2025-09-25"
 output: html_document
 ---
+The downloads underlying the latest species and class cubes can be consulted here:
+https://www.gbif.org/occurrence/download/0003251-260221153910048 (class cube)
+https://www.gbif.org/occurrence/download/0003241-260221153910048 (species cube)
 
 ```{r set parameters}
 buffer <- 400000
