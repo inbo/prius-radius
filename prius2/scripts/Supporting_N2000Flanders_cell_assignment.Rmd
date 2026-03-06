@@ -22,13 +22,11 @@ Given the EEA reference grid of Belgium at 1km resolution and the Flemish Natura
 # Setup 
 
 ```{r load_libraries, message=FALSE, warning=FALSE}
-library(tidyverse)  # To do datascience
-library(tidylog) # To provide feedback on dplyr functions
-library(here) # To find files
-library(sf) # To work with geospatial data
-library(BelgiumMaps.StatBel)  # To load Belgian administrative boundaries
-library(INBOtheme)  # To apply INBO style to plots
-library(leaflet)  # To make interactive maps
+library(tidyverse) 
+library(tidylog)
+library(here) 
+library(sf)
+library(mapview)
 ```
 
 # Read input data
