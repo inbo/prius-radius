@@ -20,20 +20,9 @@ map.prov.clean <- st_read("./prius2/spatial/provincies2025.geojson") # !! update
 map.flan.grid <- st_read("./prius/data/spatial/grids/vla_1km.geojson")
 
 # protected areas (clean + grid)
-
 map.VRL.clean <- st_read("./prius2/spatial/vogelrichtlijn2025.geojson") # !! updated
 map.HRL.clean <- st_read("./prius2/spatial/habitatrichtlijn2025.geojson") # !! updated
 
-# kaart hieronder overbodig dankzij check Soria - te vervangen
-map.N2K.raw <- read_tsv(
-  "https://raw.githubusercontent.com/trias-project/indicators/master/data/interim/intersect_EEA_ref_grid_protected_areas.tsv",
-  na = "")
-
-map.N2K.grid <- map.N2K.raw %>% filter(natura2000 == TRUE)
-map.VRL.grid <- map.N2K.raw %>% filter(spa == TRUE)
-map.HRL.grid <- map.N2K.raw %>% filter(habitat == TRUE)
-
-rm(map.N2K.raw)
 ```
 
 # Species list
@@ -162,16 +151,20 @@ write.csv(take.out,
 
 # NATURA 2000
 
-Nog op te schonen. Zie beneden (analoog aan kaartjes).
 
-```{r needed?}
-in_cube <- spp.list %>%
-  left_join(ias.cube.summ, by = c("GBIF_code" = "specieskey")) %>%
-  filter(!is.na(n_tot))
-```
+```{r Calulate_N2000_occupancy_metrics}
 
-```{r}
-df <- data.frame()
+#Load Flemish shapefiles with EEA grid cells for Natura 2000, Birds's directive, and Habitat's directive areas
+eea_cells<-st_read(file.path("prius2", "spatial","utm1_bel_regions.geojson"))
+
+map.N2K.grid<-eea_cells%>%
+  filter(isFlandersN2000)
+
+map.VRL.grid<-eea_cells%>%
+  filter(isFlandersSPA)
+
+map.HRL.grid<-eea_cells%>%
+  filter(isFlandersSAC)
 
 for (species_name in unique(in_cube$soort)){
   
