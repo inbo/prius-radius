@@ -69,7 +69,7 @@ for (species in unique(fla$canonicalName)){
   if(!all(is.na(temp$fit))) {
     # plot function above
     temp_plot <- make_the_plot(my_data = temp)
-    ggsave(temp_plot, file=file.path(plot_folder, paste0(species,".png")),
+    ggsave(temp_plot, file=file.path(plot_folder, paste0(gsub(" ", "_", species),".png")),
            width = 7, height = 4, # important for fluent incorporation in report
            units = "cm")
     } else {print(paste("Skipped ", species, " because no GAM was fitted."))}
@@ -91,7 +91,7 @@ for (species in unique(n2k$canonicalName)){
     if(!all(is.na(temp$fit))) {
     # plot function above
     temp_plot <- make_the_plot(my_data = temp)
-    ggsave(temp_plot, file=file.path(plot_N2000_folder, paste0(species,".png")),
+    ggsave(temp_plot, file=file.path(plot_N2000_folder, paste0(gsub(" ", "_", species),".png")),
            width = 7, height = 4, # important for fluent incorporation in report
            units = "cm")
   } else {print(paste("Skipped ", species, " because no GAM was fitted."))}
