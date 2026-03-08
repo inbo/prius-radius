@@ -25,14 +25,12 @@ map.HRL.clean <- st_read("./prius2/spatial/habitatrichtlijn2025.geojson") # !! u
 
 ```
 
-# Species list
-
 ```{r get species list}
 spp.list.raw <- read_species_list(file_path = "./prius2/temp/",
                                   prius_version = 2)
 ```
 
-NOTE: the species cube is (too) heavy to push to the git. This will give an error when running the script. I needed to download it locally (making connection with zenodo within the script was too slow). So maybe best to download the most recent version of the species cube and put it in the folder data/input before running it.
+NOTE: the species cube is (too) heavy to push to the git. Therefore, at first use, it is downloaded to the local disk from Drive.
 
 ```{r update cube locally}
 # fistools::download_gdrive_if_missing(gfileID = "154S4vww2G1f0vH7_jt1cZJXeUEmXlZaL",
@@ -68,7 +66,7 @@ time.frame.start <- 2015 # !! first year
 time.frame.stop  <- 2025 # !! last year (included)
 ```
 
-```{r wrangle ias.cube}
+```{r wrangle ias.cube Flanders}
 ias.cube <- ias.cube %>%
   filter(year >= time.frame.start &
            year <= time.frame.stop) %>%
@@ -80,7 +78,7 @@ ias.cube.summ <- ias.cube %>%
   summarise(unique_cells = n_distinct(eeacellcode))
 ```
 
-# ABSENT / SPORADIC / PRESENT
+# ABSENT / SPORADIC / PRESENT (Flanders)
 
 ```{r}
 spp.list.metrics <- spp.list %>%
@@ -149,8 +147,11 @@ write.csv(take.out,
           row.names = F)
 ```
 
-# NATURA 2000
+# ABSENT / SPORADIC / PRESENT (neighbouring regions)
 
+The same analysis is performed for the regions neighbouring Flanders (WA, FR, NL...). As to retain the focus in this script on Flanders, this neighbour-region-analysis is developed in a different script.
+
+# NATURA 2000
 
 ```{r Calulate_N2000_occupancy_metrics}
 
