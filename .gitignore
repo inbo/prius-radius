@@ -42,3 +42,4 @@ vignettes/*.pdf
 data/input/be_species_cube.csv
 prius2/input/prius2_species_cube.csv
 prius2/input/prius2_class_cube.csv
+prius2/spatial/EEA-1km-GRID-COUNTRIES-2013.gpkg
