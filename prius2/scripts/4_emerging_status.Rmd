@@ -133,8 +133,8 @@ summ.slim <- summ %>%
 
 summ.slim[is.na(summ.slim)] <- "onvoldoende data*"
 
-write.csv(summ.slim, paste0("./prius2/output/GAM_outputs_2000_2025_Occupancy/summary4report_",
+write.csv(summ.slim, gsub("-", "_", paste0("./prius2/output/GAM_outputs_2000_2025_Occupancy/summary4report_",
                             Sys.Date(),
-                            ".csv"),
+                            ".csv")),
           row.names = F)
 ```
