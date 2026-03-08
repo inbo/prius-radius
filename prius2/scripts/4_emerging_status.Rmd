@@ -15,14 +15,15 @@ rm(list = ls())
 ```
 
 ```{r data}
+#Define output folder
+GAM_folder<-file.path("prius2","output", "GAM_outputs_2000_2025_Occupancy")
+
 # output from 4_~_preprocessing.Rmd
-fla.raw <- read.csv(
-  "./prius2/output/GAM_outputs2000/output_GAM_2000_occupancy_isFlanders.tsv",
+fla.raw <- read.csv(file.path(GAM_folder,"output_GAM_2000_occupancy_isFlanders.tsv"),
                     sep = "\t",
                     header = TRUE)
 
-n2k.raw <- read.csv(
-  "./prius2/output/GAM_outputs2000/output_GAM_2000_occupancy_isFlandersN2000.tsv",
+n2k.raw <- read.csv(file.path(GAM_folder,"output_GAM_2000_occupancy_isFlandersN2000.tsv"),
                     sep = "\t",
                     header = TRUE)
 ```
@@ -55,6 +56,10 @@ make_the_plot <- function(my_data){
 ```
 
 ```{r plot flanders}
+#Create folder for storing all plots for Flanders
+plot_folder<-file.path(GAM_folder,  "Flanders_4report")
+if(!dir.exists(plot_folder)) dir.create(plot_folder)
+
 for (species in unique(fla$canonicalName)){
   
   print(species)
@@ -64,9 +69,7 @@ for (species in unique(fla$canonicalName)){
   if(!all(is.na(temp$fit))) {
     # plot function above
     temp_plot <- make_the_plot(my_data = temp)
-    ggsave(temp_plot, file=paste0("./prius2/output/GAM_outputs2000/Flanders_4report/",
-                                species,
-                                ".png"),
+    ggsave(temp_plot, file=file.path(plot_folder, paste0(species,".png")),
            width = 7, height = 4, # important for fluent incorporation in report
            units = "cm")
     } else {print(paste("Skipped ", species, " because no GAM was fitted."))}
@@ -74,6 +77,11 @@ for (species in unique(fla$canonicalName)){
 ```
 
 ```{r plot n2k}
+
+#Create folder for storing all plots for Natura 2000 areas in Flanders
+plot_N2000_folder<-file.path(GAM_folder,  "FlandersN2000_4report")
+if(!dir.exists(plot_N2000_folder)) dir.create(plot_N2000_folder)
+
 for (species in unique(n2k$canonicalName)){
   
   print(species)
@@ -83,9 +91,7 @@ for (species in unique(n2k$canonicalName)){
     if(!all(is.na(temp$fit))) {
     # plot function above
     temp_plot <- make_the_plot(my_data = temp)
-    ggsave(temp_plot, file=paste0("./prius2/output/GAM_outputs2000/FlandersN2000_4report/",
-                                species,
-                                ".png"),
+    ggsave(temp_plot, file=file.path(plot_N2000_folder, paste0(species,".png")),
            width = 7, height = 4, # important for fluent incorporation in report
            units = "cm")
   } else {print(paste("Skipped ", species, " because no GAM was fitted."))}
@@ -127,7 +133,7 @@ summ.slim <- summ %>%
 
 summ.slim[is.na(summ.slim)] <- "onvoldoende data*"
 
-write.csv(summ.slim, paste0("./prius2/output/GAM_outputs2000/summary4report_",
+write.csv(summ.slim, paste0("./prius2/output/GAM_outputs_2000_2025_Occupancy/summary4report_",
                             Sys.Date(),
                             ".csv"),
           row.names = F)
