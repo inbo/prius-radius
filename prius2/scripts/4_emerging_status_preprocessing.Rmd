@@ -46,10 +46,10 @@ This was generated on 26/01/2026.
 NOTE: the species cube is (too) heavy to push to the git. This will give an error when running the script. I needed to download it locally (making connection with zenodo within the script was too slow). So maybe best to download the most recent version of the species cube and put it in the folder data/input before running it.
 
 ```{r update cube locally}
-fistools::download_gdrive_if_missing(gfileID = "154S4vww2G1f0vH7_jt1cZJXeUEmXlZaL",
-                                     destfile = "prius2/input/prius2_species_cube.csv",
-                                     update_always = TRUE,
-                                     email = Sys.getenv("email"))
+# fistools::download_gdrive_if_missing(gfileID = "154S4vww2G1f0vH7_jt1cZJXeUEmXlZaL",
+#                                      destfile = "prius2/input/prius2_species_cube.csv",
+#                                      update_always = TRUE,
+#                                      email = Sys.getenv("email"))
 ```
 
 ```{r read_data_cube, message = FALSE, warning = FALSE}
@@ -144,13 +144,13 @@ Apply temporal restraint to occurrence data:
 ```{r apply_restraints_time_space_occ_data}
 df <-
   df %>%
-  tidylog::filter(year >= first_year) #Only keep occurrence data from after 2000
+  tidylog::filter(year >= first_year) #Only keep occurrence data from 2000 or later
 ```
 
 
-## Add information about presence in protected areas
+## Add information about presence in protected areas or Flanders
 
-We add whether the grid cell intersects any of the Natura2000 Flemish protected areas and we keep only cells in those
+We add whether the grid cell intersects any of the Natura2000 Flemish protected areas or Flanders and we keep only cells in those
 
 ```{r add_natura2000_col}
 df <-
@@ -158,7 +158,7 @@ df <-
   tidylog::left_join(eea_grid_regions,
     by = c("eea_cell_code" = "CELLCODE")
   )%>%
-  tidylog::filter(isFlandersN2000)
+  tidylog::filter(isFlandersN2000|isFlanders)
 ```
 
 
@@ -229,6 +229,7 @@ df_ts <-
   tidylog::left_join( 
     eea_grid_regions %>% tidylog::select(CELLCODE,
                            isFlandersN2000,
+                           isFlanders,
                            geometry), 
                     by = c("eea_cell_code" = "CELLCODE"))
 
@@ -281,6 +282,7 @@ df_ts <-
                     obs, 
                     pa_obs, 
                     classKey,
+                    isFlanders,
                     isFlandersN2000,
                     geometry)
 
@@ -302,10 +304,10 @@ filter_compact_time_series <- function(df, col_to_filter) {
 }
 ```
 
-Apply the function to the time series data to create this dataset for the region(s) of interest, in our case the natura2000 areas in Wallonia:
+Apply the function to the time series data to create this dataset for the region(s) of interest, in our case the natura2000 areas in Flanders and Flanders as a whole.
 
 ```{r df_ts_compact}
-colnames_to_filter <- c("isFlandersN2000")
+colnames_to_filter <- c("isFlandersN2000", "isFlanders")
 gc()
 df_ts_compact <- purrr::map(
   colnames_to_filter,
@@ -314,7 +316,7 @@ df_ts_compact <- purrr::map(
 
 #Remove original df_ts dataset as we don't need it anymore
 rm(df_ts)
-gc()
+
 ```
 
 
@@ -372,7 +374,7 @@ remove_appearing_taxa <- function(df, min_eval_year) {
 ```
 
 ```{r remove_appearing_taxa}
-# Apply the function to the Natura2000 regions of Flanders
+# Apply the function to two datasets
 df_ts_compact <- purrr::map(df_ts_compact,
                             remove_appearing_taxa,
                             min_eval_year = min(evaluation_years)
@@ -518,8 +520,7 @@ gam_occupancy <- purrr::imap(
 Save complete outputs and summaries:
 
 ```{r  save_gam_outputs}
-# Define function to save GAM model outputs and summaries for Belgium, its
-# regions and protected areas
+# Define function to save GAM model outputs and summaries for Flanders and its protected areas
 save_gam_output <- function(gam_results,
                             region,
                             indicator) {
@@ -554,7 +555,7 @@ save_gam_output <- function(gam_results,
 
 
 
-# Apply function to save decision rules outputs applied to occupancy
+# Apply function to save GAM outputs
 purrr::iwalk(gam_occupancy, function(df, region) {
   save_gam_output(df, region, indicator = "occupancy")
 })
@@ -587,4 +588,3 @@ png_folders<-list.dirs(folder_path,
                        recursive = FALSE)
 unlink(png_folders, recursive = TRUE)
 ```
-
