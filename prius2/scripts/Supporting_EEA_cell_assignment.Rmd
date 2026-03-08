@@ -66,6 +66,13 @@ gc()
 
 
 ```{r Load_country_EEA_grid}
+#Download the EEA grid geopackage from the Google drive
+fistools::download_gdrive_if_missing(gfileID = "1XX9eYv9N_aBCquUm7SkN2CvVizgVvm29",
+                                      destfile = "prius2/spatial/EEA-1km-GRID-COUNTRIES-2013.gpkg",
+                                      update_always = TRUE,
+                                      email = Sys.getenv("email"))
+
+
 #Check different layers of the EEA grid geopackage
 EEA_grid_Europe <- file.path("prius2","spatial", "EEA-1km-GRID-COUNTRIES-2013.gpkg")
 layers_info <- st_layers(EEA_grid_Europe)
