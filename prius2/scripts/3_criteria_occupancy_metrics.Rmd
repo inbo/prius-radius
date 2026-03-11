@@ -179,11 +179,11 @@ N_HRL <- as.numeric(n_distinct(map.HRL.grid$CELLCODE))
 
 #Prepare the species cube for calculations
 species.cube <- ias.cube.raw %>% 
-  filter(!specieskey %in% irr$GBIF_code)%>%
-    filter(year >= 2015 &
+  dplyr::filter(!specieskey %in% irr$GBIF_code)%>%
+  dplyr::filter(year >= 2015 &
            year <= 2025) %>%
-  filter(specieskey %in% spp.list$GBIF_code) %>% 
-  filter(eeacellcode %in% c(map.flan.grid$CELLCODE|map.N2K.grid$CELLCODE)) 
+  dplyr::filter(specieskey %in% spp.list$GBIF_code) %>% 
+  dplyr::filter(eeacellcode %in% c(map.flan.grid$CELLCODE, map.N2K.grid$CELLCODE)) 
 
 
 #Calculate a number of occupancy metrics for each species
