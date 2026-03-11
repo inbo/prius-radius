@@ -4,12 +4,15 @@ library(tidyverse)
 library(vecsets)
 library(colorRamps) # for continuous-scale plots (Matlab-like)
 
-source("./prius2/scripts/helper_functions.R")
 ```
 
 ```{r prep memory}
 rm(list = ls())
 rm(list = setdiff(ls(), c("read_species_list", "ias.cube.raw")))
+```
+
+```{r source helpers}
+source("./prius2/scripts/helper_functions.R")
 ```
 
 ```{r prep spatial}
