@@ -8,6 +8,7 @@ Pro memorie : https://trias-project.github.io/indicators/07_occurrence_indicator
 
 ```{r prep packages}
 library(tidyverse)
+source("./prius2/scripts/helper_functions.R")
 ```
 
 ```{r prep memory}
@@ -137,4 +138,27 @@ write.csv(summ.slim, gsub("-", "_", paste0("./prius2/output/GAM_outputs_2000_202
                             Sys.Date(),
                             ".csv")),
           row.names = F)
+```
+
+# Bram: extended list
+
+a quick file to wrangle the gam output, for easier incorporation into the report
+
+```{r get species list}
+spp.list.raw <- read_species_list(file_path = "./prius2/temp/",
+                                  prius_version = 2) %>% 
+  select(soort, GBIF_canonicalName, reg)
+
+spp.list.raw$reg[!is.na(spp.list.raw$reg)] = 1
+spp.list.raw$reg[ is.na(spp.list.raw$reg)] = 0
+
+gam <- read.csv("./prius2/output/GAM_outputs_2000_2025_Occupancy/summary4report_2026_03_08.csv")
+
+new <- spp.list.raw %>% 
+  left_join(gam, by = "GBIF_canonicalName") %>% 
+  select(!soort.y) %>% 
+  arrange(desc(reg),
+          GBIF_canonicalName)
+
+write.csv(new, "./prius2/output/GAM_outputs_2000_2025_Occupancy/summary4report_2026_03_08_full.csv")
 ```

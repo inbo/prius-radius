@@ -3,7 +3,6 @@ See other script for the analogous analysis for Flanders.
 # ABSENT / SPORADIC / PRESENT (neighbouring regions)
 
 ```{r prep packages}
-library(sf)
 library(tidyverse)
 ```
 
@@ -14,10 +13,16 @@ rm(list = setdiff(ls(), c("spp.list.raw", "spp.list", "near.cube.raw", "time.fra
 
 ```{r}
 # cube prepared by Soria, with booleans indicating overlap per region
-# temporary location - to be solved (Drive)
-near.cube.raw <- read.csv(
-  "C:/Users/bram_dhondt/Desktop/prius-2_countries_tdot/speciescube_country_assignment.csv"
-  )
+# "toegevoegd op de drive onder speciescube_country_assignment.csv in de map 2_data_download"
+# ID: 16l3ar1JnrzVlP_IwmHiOPITKNHhjWvXC
+
+fistools::download_gdrive_if_missing(gfileID = "16l3ar1JnrzVlP_IwmHiOPITKNHhjWvXC",
+                                     destfile = "prius2/input/speciescube_country_assignment.csv",
+                                     update_always = TRUE,
+                                     email = Sys.getenv("email"))
+
+near.cube.raw <- read_csv(file = "./prius2/input/speciescube_country_assignment.csv") %>% 
+  as_tibble()
 ```
 
 Apply the same filters as were done for Flanders.
