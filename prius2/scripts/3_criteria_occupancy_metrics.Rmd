@@ -3,11 +3,10 @@ library(sf)
 library(tidyverse)
 library(vecsets)
 library(colorRamps) # for continuous-scale plots (Matlab-like)
-
 ```
 
 ```{r prep memory}
-rm(list = ls())
+# rm(list = ls())
 rm(list = setdiff(ls(), c("read_species_list", "ias.cube.raw")))
 ```
 
@@ -17,7 +16,6 @@ source("./prius2/scripts/helper_functions.R")
 
 ```{r prep spatial}
 # flanders (clean + grid)
-
 map.flan.clean <- st_read("./prius/data/spatial/flanders_wgs84.geojson")
 map.prov.clean <- st_read("./prius2/spatial/provincies2025.geojson") # !! updated
 map.flan.grid <- st_read("./prius/data/spatial/grids/vla_1km.geojson")
@@ -26,6 +24,11 @@ map.flan.grid <- st_read("./prius/data/spatial/grids/vla_1km.geojson")
 map.VRL.clean <- st_read("./prius2/spatial/vogelrichtlijn2025.geojson") # !! updated
 map.HRL.clean <- st_read("./prius2/spatial/habitatrichtlijn2025.geojson") # !! updated
 
+# shapefiles Flanders with EEA grid cells for N2K, VRL, HRL
+eea_cells <- st_read(file.path("prius2", "spatial","utm1_bel_regions.geojson"))
+map.N2K.grid <- eea_cells %>% filter(isFlandersN2000)
+map.VRL.grid <- eea_cells %>% filter(isFlandersSPA)
+map.HRL.grid <- eea_cells %>% filter(isFlandersSAC)
 ```
 
 ```{r get species list}
@@ -156,51 +159,43 @@ The same analysis is performed for the regions neighbouring Flanders (WA, FR, NL
 
 # NATURA 2000
 
+```{r}
+# Prepare the species cube for calculations
+
+# original - highly redundant with above
+# inclusion of map.N2K.grid only adds one cell (for very widespread spp)
+
+# ias.cube <- ias.cube.raw %>% 
+#   filter(!specieskey %in% irr$GBIF_code) %>%
+#   filter(year >= time.frame.start &
+#            year <= time.frame.stop) %>%
+#   filter(specieskey %in% spp.list$GBIF_code) %>% 
+#   filter(eeacellcode %in% c(map.flan.grid$CELLCODE, map.N2K.grid$CELLCODE)) 
+```
+
 ```{r Calulate_N2000_occupancy_metrics}
+# Define number of cells in N2K, VRL, HRL
 
-#Load Flemish shapefiles with EEA grid cells for Natura 2000, Birds's directive, and Habitat's directive areas
-eea_cells<-st_read(file.path("prius2", "spatial","utm1_bel_regions.geojson"))
-
-map.N2K.grid<-eea_cells%>%
-  filter(isFlandersN2000)
-
-map.VRL.grid<-eea_cells%>%
-  filter(isFlandersSPA)
-
-map.HRL.grid<-eea_cells%>%
-  filter(isFlandersSAC)
-
-
-#Define the number of cells in Natura 2000, Birds's directive, and Habitat's directive areas
 N_Natura2000 <- as.numeric(n_distinct(map.N2K.grid$CELLCODE))
 N_VLR <- as.numeric(n_distinct(map.VRL.grid$CELLCODE))
 N_HRL <- as.numeric(n_distinct(map.HRL.grid$CELLCODE))
 
-
-#Prepare the species cube for calculations
-species.cube <- ias.cube.raw %>% 
-  dplyr::filter(!specieskey %in% irr$GBIF_code)%>%
-  dplyr::filter(year >= 2015 &
-           year <= 2025) %>%
-  dplyr::filter(specieskey %in% spp.list$GBIF_code) %>% 
-  dplyr::filter(eeacellcode %in% c(map.flan.grid$CELLCODE, map.N2K.grid$CELLCODE)) 
-
-
-#Calculate a number of occupancy metrics for each species
-df<- species.cube %>%
+# calculate a number of occupancy metrics for each species
+df <- ias.cube %>%
   left_join(spp.list %>%
               select(GBIF_code, soort), by = c("specieskey" = "GBIF_code")) %>%
   arrange(soort) %>%
   group_by(soort) %>%
   summarise(
     N_occ = as.numeric(n_distinct(eeacellcode)),
-    
-    N_occ_in_N2000 = as.numeric(n_distinct(eeacellcode[eeacellcode %in% map.N2K.grid$CELLCODE])),
-    N_occ_in_VRL   = as.numeric(n_distinct(eeacellcode[eeacellcode %in% map.VRL.grid$CELLCODE])),
-    N_occ_in_HRL   = as.numeric(n_distinct(eeacellcode[eeacellcode %in% map.HRL.grid$CELLCODE])),
-    
+    N_occ_in_N2000 = as.numeric(
+      n_distinct(eeacellcode[eeacellcode %in% map.N2K.grid$CELLCODE])),
+    N_occ_in_VRL = as.numeric(
+      n_distinct(eeacellcode[eeacellcode %in% map.VRL.grid$CELLCODE])),
+    N_occ_in_HRL = as.numeric(
+      n_distinct(eeacellcode[eeacellcode %in% map.HRL.grid$CELLCODE])),
     .groups = "drop"
-  ) %>%
+    ) %>%
   mutate(
     share_in_N2000 = N_occ_in_N2000 / N_occ,
     share_in_HRL   = N_occ_in_HRL   / N_occ,
@@ -217,7 +212,7 @@ df<- species.cube %>%
     `‰_of_N2000` = round(1000 * share_of_N2000, 1),
     `‰_of_HRL`   = round(1000 * share_of_HRL, 1),
     `‰_of_VRL`   = round(1000 * share_of_VRL, 1)
-  ) %>%
+    ) %>%
   rename(species = soort)%>%
   select(-c(N_occ_in_VRL, N_occ_in_HRL))%>%
   as.data.frame()
@@ -228,28 +223,45 @@ write_csv(df, "./prius2/output/occupancy_Natura2000/occupancy_Natura2000.csv")
 ```
 
 ```{r}
-# The only purpose of this chunck is to prepare the data for easy copy-paste into the PrIUS report
-helper <- df %>% 
-  left_join(spp.list, by = c("species" = "soort")) %>% 
-  select(species, Species = species_wettelijke_naam,
-         `%_in_N2000`, `%_in_HRL`, `%_in_VRL`,
-         `‰_of_N2000`, `‰_of_HRL`, `‰_of_VRL`) %>% 
-  arrange(Species)
+dfs <- read_csv("./prius2/output/occupancy_Natura2000/occupancy_Natura2000.csv")
 
-for (soortje in unique(helper$Species)){
+# The only purpose of this chunck is to prepare the data for easy copy-paste into the PrIUS report
+
+n2k.out <- spp.list.raw[c("soort", "GBIF_canonicalName", "reg")] %>%
+  left_join(dfs,
+            by = c("soort" = "species"))
+
+# ordering as in report
+n2k.out$reg[!is.na(n2k.out$reg)] <- 1
+n2k.out$reg[is.na(n2k.out$reg)]  <- 0
+n2k.out <- arrange(n2k.out, desc(reg), GBIF_canonicalName)
+
+n2k.out <- n2k.out %>%
+  select(GBIF_canonicalName,
+         `%_in_N2000`, `%_in_HRL`, `%_in_VRL`,
+         `‰_of_N2000`, `‰_of_HRL`, `‰_of_VRL`)
+
+for (soortje in unique(n2k.out$GBIF_canonicalName)){
   
-  A <- subset(helper, Species == soortje)
-  B <- matrix(A[3:8], nrow = 3, ncol = 2, byrow = FALSE)
+  A <- subset(n2k.out, GBIF_canonicalName == soortje)
+  # B <- matrix(A[2:7], nrow = 2, ncol = 3, byrow = FALSE)
 
   # C <- as.data.frame(B)
   # D <- format(C, decimal.mark = ",", nsmall = 1)
   # lay-out goed, maar print helaas niet in de Console
-
+  
   print(soortje)
-  print(B, row.names = FALSE, right = FALSE)
+  print(paste0("% in N2000: ", A[2], "___", "‰ of N2000: ", A[5], "_tab_", # column 1 of report
+               "% in HRL: ",   A[3], "___", "‰ of HRL: ",   A[6], "_tab_", # column 2 of report
+               "% in VRL: ",   A[4], "___", "‰ of VRL: ",   A[7])          # column 3 of report
+        )
+  print("---") # a bit of free space (for readability)
+    }
 
-  }
-# Take into account the adhoc species (see elsewhere), viz. Aedes albopictus
+# next steps involve copying into notepad and word, with targeted replacements,
+# e.g. change _tab_ to a real tab, points to commas, etc.
+# in the report, change ___ to line break (code: ^p)
+# see occupancy_Natura2000_4report....docx
 ```
 
 # DISTRIBUTION MAPS
