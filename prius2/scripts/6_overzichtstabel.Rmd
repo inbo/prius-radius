@@ -20,19 +20,20 @@ spp.list.raw <- read_species_list(file_path = "./prius2/temp/",
 table <- spp.list.raw %>%
   transmute(groep = groep,
             
+            GBIF_code = GBIF_code,
+            
             soort = soort,
             species = GBIF_canonicalName,
-            # GBIF_scientificName # ditched (redundant met code)
-            GBIF_code = GBIF_code,
+            # GBIF_scientificName     # ditched (redundant met code)
             
             naam_Unielijst = species_wettelijke_naam,
             naam_Unielijst_lijst = species_wettelijke_naam_bron,
             Unielijst = ifelse(is.na(reg), 0, reg),
             
-            rip = ifelse(is.na(rip), 0, rip),
-            dun = ifelse(is.na(dun), 0, dun),
-            vad = ifelse(is.na(vad), 0, vad),
-            hoc = ifelse(is.na(hoc), 0, hoc),
+            lijst_rip = ifelse(is.na(rip), 0, rip),
+            lijst_dun = ifelse(is.na(dun), 0, dun),
+            lijst_vad = ifelse(is.na(vad), 0, vad),
+            lijst_hoc = ifelse(is.na(hoc), 0, hoc),
             
             # marien,             # overruled by new env
             # brakwater,          # "
@@ -45,14 +46,14 @@ table <- spp.list.raw %>%
             # infrastructuur,     # "
             # socioeconomisch,    # "
             
-            # indam_gem = indamming_gem,
-            # indam_min = indamming_min,
-            # indam_max = indamming_max,
-            # indam_std = indamming_stafw,
-            # uitroei_gem = uitroeiing_gem,
-            # uitroei_min = uitroeiing_min,
-            # uitroei_max = uitroeiing_max,
-            # uitroei_std = uitroeiing_stafw,
+            # indam_gem = indamming_gem,        # ditched
+            # indam_min = indamming_min,        # "
+            # indam_max = indamming_max,        # "
+            # indam_std = indamming_stafw,      # "
+            # uitroei_gem = uitroeiing_gem,     # "
+            # uitroei_min = uitroeiing_min,     # "
+            # uitroei_max = uitroeiing_max,     # "
+            # uitroei_std = uitroeiing_stafw,   # "
             
             # int_groep           # overruled
             )
@@ -98,7 +99,7 @@ n2k <- read.csv("./prius2/output/occupancy_Natura2000/occupancy_Natura2000.csv")
          X._in_N2000, X._in_HRL, X._in_VRL,
          X._of_N2000, X._of_HRL, X._of_VRL)
 
-table2 <- table %>% 
+table <- table %>% 
   left_join(n2k, by = c("soort" = "species")) %>% 
   rename(hokken_VL = N_occ,
          hokken_N2000 = N_occ_in_N2000,
@@ -113,23 +114,72 @@ table2 <- table %>%
 # TOENAME
 
 ```{r}
+toe <- read.csv("./prius2/output/GAM_outputs_2000_2025_Occupancy/summary4report_2026_03_08_full.csv") %>% 
+  select(GBIF_canonicalName, status.vlaanderen, status.natura2000)
 
+table <- table %>% 
+  left_join(toe, by = c("species" = "GBIF_canonicalName")) %>% 
+  rename(toename_VL = status.vlaanderen,
+         toename_N2000 = status.natura2000) %>% 
+  mutate(toename_VL = stringr::str_replace(toename_VL, "\\*", ""),
+         toename_N2000 = stringr::str_replace(toename_N2000, "\\*", ""))
 ```
 
 # BUURREGIO'S
 
 ```{r}
+buu <- read.csv("./prius2/temp/criteria_buurregios_2026-03-08.csv") %>% 
+  select(-soort, -reg)
 
+table <- table %>% 
+  left_join(buu, by = c("species" = "GBIF_canonicalName"))
 ```
 
 # BEHEERBAARHEID
 
 ```{r}
-
+# ditched
 ```
 
 # PRIUS-CATEGORIE
 
 ```{r}
+# prius_groep is temporarily abbreviated to G for ease of scripting
+table$G <- NA
 
+# IRR
+table$G[is.na(table$G) &
+          table$natuur == 0] <- "IRR" # no nature impact
+table$G[is.na(table$G) &
+          table$zoetwater == 0 & table$terrestrisch == 0] <- "IRR" # purely marine/brackish
+
+# REL-AFW
+table$G[is.na(table$G) &
+          table$aanwezig_VL == "afwezig"] <- "REL-AFW"
+
+# REL-AAN-SPO
+table$G[is.na(table$G) &
+          table$aanwezig_VL == "sporadisch"] <- "REL-AAN-SPO"
+
+table$G[table$soort %in% c("moerasaronskelk",
+                           # "zijdeplant",
+                           "rosse stekelstaart")] <- "REL-AAN-SPO" # cf. Prius p. 55
+
+# REL-AAN-GEV-BEP
+table$G[is.na(table$G) &
+          table$hokken_VL < 120] <- "REL-AAN-GEV-BEP" # cf. Prius p. 56
+
+# REL-AAN-GEV-VER-BUI + REL-AAN-GEV-VER-NAT
+table$G[is.na(table$G) &
+          table$percent_in_N2000 <= 0.5] <- "REL-AAN-GEV-VER-BUI" # cf. Prius p. 57
+
+table$G[is.na(table$G) &
+          table$percent_in_N2000 > 0.5] <- "REL-AAN-GEV-VER-NAT" # cf. Prius p. 57
+
+table <- table %>% 
+  rename(prius_groep = G)
+```
+
+```{r}
+write.csv(table, "./prius2/output/final_table_v26-03-12.csv")
 ```
