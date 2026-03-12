@@ -1,0 +1,135 @@
+Populate the table with all of the output, for report and Zenodo.
+
+```{r prep packages}
+library(tidyverse)
+library(readxl)
+source("./prius2/scripts/helper_functions.R")
+```
+
+```{r prep memory}
+# rm(list = ls())
+rm(list = setdiff(ls(), c("read_species_list")))
+```
+
+```{r species list}
+spp.list.raw <- read_species_list(file_path = "./prius2/temp/",
+                                  prius_version = 2)
+```
+
+```{r some first mutations}
+table <- spp.list.raw %>%
+  transmute(groep = groep,
+            
+            soort = soort,
+            species = GBIF_canonicalName,
+            # GBIF_scientificName # ditched (redundant met code)
+            GBIF_code = GBIF_code,
+            
+            naam_Unielijst = species_wettelijke_naam,
+            naam_Unielijst_lijst = species_wettelijke_naam_bron,
+            Unielijst = ifelse(is.na(reg), 0, reg),
+            
+            rip = ifelse(is.na(rip), 0, rip),
+            dun = ifelse(is.na(dun), 0, dun),
+            vad = ifelse(is.na(vad), 0, vad),
+            hoc = ifelse(is.na(hoc), 0, hoc),
+            
+            # marien,             # overruled by new env
+            # brakwater,          # "
+            # zoetwater,          # "
+            # terrestrisch,       # "
+            
+            # natuur,             # overruled by new imp
+            # volksgezondheid,    # "
+            # veiligheid,         # "
+            # infrastructuur,     # "
+            # socioeconomisch,    # "
+            
+            # indam_gem = indamming_gem,
+            # indam_min = indamming_min,
+            # indam_max = indamming_max,
+            # indam_std = indamming_stafw,
+            # uitroei_gem = uitroeiing_gem,
+            # uitroei_min = uitroeiing_min,
+            # uitroei_max = uitroeiing_max,
+            # uitroei_std = uitroeiing_stafw,
+            
+            # int_groep           # overruled
+            )
+```
+
+# MILIEU
+
+```{r populate environment}
+env <- read.csv("./prius2/temp/criterium_milieu_v26-02-06.csv") %>% 
+  select(-soort) # only keep GBIF_code for matching
+
+table <- table %>% 
+  left_join(env, by = "GBIF_code")
+```
+
+# IMPACT
+
+```{r}
+imp <- read.csv("./prius2/temp/criterium_impact_v26-03-12.csv") %>%
+  select(-soort) # only keep GBIF_code for matching
+
+table <- table %>% 
+  left_join(imp, by = "GBIF_code")
+```
+
+# AANWEZIGHEID
+
+```{r}
+aan <- read.csv("./prius2/temp/criterium_aanwezigheid_2026-02-13.csv") %>%
+  select(GBIF_canonicalName, aanwezigheid)
+
+table <- table %>% 
+  left_join(aan, by = c("species" = "GBIF_canonicalName")) %>% 
+  rename(aanwezig_VL = aanwezigheid)
+```
+
+# NATURA2000
+
+```{r}
+n2k <- read.csv("./prius2/output/occupancy_Natura2000/occupancy_Natura2000.csv") %>%
+  select(species,
+         N_occ, N_occ_in_N2000,
+         X._in_N2000, X._in_HRL, X._in_VRL,
+         X._of_N2000, X._of_HRL, X._of_VRL)
+
+table2 <- table %>% 
+  left_join(n2k, by = c("soort" = "species")) %>% 
+  rename(hokken_VL = N_occ,
+         hokken_N2000 = N_occ_in_N2000,
+         percent_in_N2000 = X._in_N2000, 
+         percent_in_HRL = X._in_HRL, 
+         percent_in_VRL = X._in_VRL,
+         promille_van_N2000 = X._of_N2000, 
+         promille_van_HRL = X._of_HRL, 
+         promille_van_VRL = X._of_VRL)
+```
+
+# TOENAME
+
+```{r}
+
+```
+
+# BUURREGIO'S
+
+```{r}
+
+```
+
+# BEHEERBAARHEID
+
+```{r}
+
+```
+
+# PRIUS-CATEGORIE
+
+```{r}
+
+```

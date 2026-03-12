@@ -6,17 +6,12 @@ source("./prius2/scripts/helper_functions.R")
 ```
 
 ```{r prep memory}
-rm(list = ls())
+# rm(list = ls())
 rm(list = setdiff(ls(), c("read_species_list")))
 ```
 
-```{r get species list}
-species_list <- read_species_list(file_path = "./prius2/temp/",
-                                  prius_version = 2)
-```
-
 ```{r}
-raw <- read_excel("./prius2/input/criterium_milieu_v26-02-06.xlsx",
+raw <- read_excel("./prius2/temp/criterium_milieu_v26-02-06.xlsx",
                   sheet = 1)
 ```
 
@@ -31,5 +26,5 @@ env <- raw %>%
 ```
 
 ```{r}
-write_csv(env, "./prius2/temp/criteria_environment_v26-02-06.csv")
+write_csv(env, "./prius2/temp/criterium_milieu_v26-02-06.csv")
 ```
