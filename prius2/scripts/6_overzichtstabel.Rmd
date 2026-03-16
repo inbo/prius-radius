@@ -183,3 +183,8 @@ table <- table %>%
 ```{r}
 write.csv(table, "./prius2/output/final_table_v26-03-12.csv")
 ```
+
+```{r read csv}
+# for the calculation of brief in-report stats
+yo <- read.csv("./prius2/output/final_table_v26-03-12.csv")
+```
