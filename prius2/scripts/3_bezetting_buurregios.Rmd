@@ -187,3 +187,37 @@ write.csv(country.statuses,
           paste0("./prius2/temp/criteria_buurregios_", Sys.Date(), ".csv"),
           row.names = F)
 ```
+
+# supplement
+
+```{r}
+# SUPPLEMENT
+# The single purpose is to prepare the data for easy copy-paste into the PrIUS report
+
+dfs <- read_csv("./prius2/temp/criteria_buurregios_2026-03-08.csv")
+
+# ordering as in report
+dfs$reg[!is.na(dfs$reg)] <- 1
+dfs$reg[is.na(dfs$reg)]  <- 0
+dfs <- arrange(dfs, desc(reg), GBIF_canonicalName)
+
+for (soortje in unique(dfs$GBIF_canonicalName)){
+  
+  A <- subset(dfs, GBIF_canonicalName == soortje)
+  
+  print(soortje)
+  print(paste0("WA: ", A$WA, "_tab_",
+               "NL: ", A$NL, "_tab_",
+               "DE: ", A$DE, "_tab_",
+               "FR: ", A$FR, "_tab_",
+               "LU: ", A$LU, "_tab_",
+               "UK: ", A$UK)
+        )
+  print("---") # a bit of free space (for readability)
+    }
+
+# next steps involve copying into notepad and word, with targeted replacements,
+# e.g. change _tab_ to a real tab, points to commas, etc.
+# in the report, change ___ to line break (code: ^p)
+# see occupancy_Natura2000_4report....docx
+```

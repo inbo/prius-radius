@@ -223,9 +223,10 @@ write_csv(df, "./prius2/output/occupancy_Natura2000/occupancy_Natura2000.csv")
 ```
 
 ```{r}
-dfs <- read_csv("./prius2/output/occupancy_Natura2000/occupancy_Natura2000.csv")
+# SUPPLEMENT
+# The single purpose is to prepare the data for easy copy-paste into the PrIUS report
 
-# The only purpose of this chunck is to prepare the data for easy copy-paste into the PrIUS report
+dfs <- read_csv("./prius2/output/occupancy_Natura2000/occupancy_Natura2000.csv")
 
 n2k.out <- spp.list.raw[c("soort", "GBIF_canonicalName", "reg")] %>%
   left_join(dfs,
@@ -244,11 +245,6 @@ n2k.out <- n2k.out %>%
 for (soortje in unique(n2k.out$GBIF_canonicalName)){
   
   A <- subset(n2k.out, GBIF_canonicalName == soortje)
-  # B <- matrix(A[2:7], nrow = 2, ncol = 3, byrow = FALSE)
-
-  # C <- as.data.frame(B)
-  # D <- format(C, decimal.mark = ",", nsmall = 1)
-  # lay-out goed, maar print helaas niet in de Console
   
   print(soortje)
   print(paste0("% in N2000: ", A[2], "___", "‰ of N2000: ", A[5], "_tab_", # column 1 of report
