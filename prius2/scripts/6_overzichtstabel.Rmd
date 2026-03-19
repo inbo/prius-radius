@@ -153,6 +153,12 @@ table$G[is.na(table$G) &
 table$G[is.na(table$G) &
           table$zoetwater == 0 & table$terrestrisch == 0] <- "IRR" # purely marine/brackish
 
+# randgevallen : Amerikaanse baars en mummichog
+# cf. PrIUS-1 ook tot marien/brakwater gerekend
+
+table$G[table$soort == "Amerikaanse baars"] <- "IRR"
+table$G[table$soort == "mummichog"] <- "IRR"
+
 # REL-AFW
 table$G[is.na(table$G) &
           table$aanwezig_VL == "afwezig"] <- "REL-AFW"
@@ -171,20 +177,15 @@ table$G[is.na(table$G) &
 
 # REL-AAN-GEV-VER-BUI + REL-AAN-GEV-VER-NAT
 table$G[is.na(table$G) &
-          table$percent_in_N2000 <= 0.5] <- "REL-AAN-GEV-VER-BUI" # cf. Prius p. 57
+          table$percent_in_N2000 <= 50.0] <- "REL-AAN-GEV-VER-BUI" # cf. Prius p. 57
 
 table$G[is.na(table$G) &
-          table$percent_in_N2000 > 0.5] <- "REL-AAN-GEV-VER-NAT" # cf. Prius p. 57
+          table$percent_in_N2000 > 50.0] <- "REL-AAN-GEV-VER-NAT" # cf. Prius p. 57
 
 table <- table %>% 
   rename(prius_groep = G)
 ```
 
 ```{r}
-write.csv(table, "./prius2/output/final_table_v26-03-12.csv")
-```
-
-```{r read csv}
-# for the calculation of brief in-report stats
-yo <- read.csv("./prius2/output/final_table_v26-03-12.csv")
+write.csv(table, "./prius2/output/final_table_v26-03-19.csv")
 ```
