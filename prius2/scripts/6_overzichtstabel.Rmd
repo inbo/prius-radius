@@ -187,5 +187,6 @@ table <- table %>%
 ```
 
 ```{r}
-write.csv(table, "./prius2/output/final_table_v26-03-19.csv")
+write.csv(table, "./prius2/output/final_table_v26-03-21.csv",
+          row.names = FALSE)
 ```
