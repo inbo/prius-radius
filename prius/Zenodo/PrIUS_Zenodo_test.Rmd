@@ -1,0 +1,70 @@
+Conversie van de tabel in xlsx-formaat naar csv-formaat.
+
+```{r libraries}
+library(readxl)
+library(tidyverse)
+```
+
+```{r clear}
+rm(list = ls())
+```
+
+```{r}
+raw <- read_excel("C:/Users/bram_dhondt/Documents/PRJ_PrIUS/Zenodo/Dhondt_etal_2022_PrIUS_table.xlsx",
+                  sheet = "PrIUS", skip = 2)
+```
+
+```{r rename and make numeric}
+# NOOT : overal waar het as.numeric()-statement wordt gebruikt, wordt "nvt" -> "NA" !
+
+dat <- raw %>% 
+  transmute(nr = `nr.`,
+            groep = `groep`,
+            soort = `soort`,
+            species = `species`,
+            lijst = `lijst`,
+            GBIF_codes = `GBIF-codes`,
+            marien = `marien`,
+            brakwater = `brakwater`,
+            zoetwater = `zoetwater`,
+            terrestrisch = `terrestrisch`,
+            Cfa = as.numeric(`Cfa`),
+            Cfb = as.numeric(`Cfb`),
+            somCfaCfb = as.numeric(`∑(Cfa,Cfb)`),
+            natuur = as.numeric(`"natuur"`),
+            volksgezondheid = as.numeric(`"volksgezondheid"`),
+            veiligheid = as.numeric(`"veiligheid"`), 
+            infrastructuur = as.numeric(`"infrastructuur"`),
+            socioeconomisch = as.numeric(`"(socio)economisch"`),
+            aan_Vlaanderen = `aan_Vlaanderen`,
+            hokken_VL = as.numeric(`hokken_VL`),
+            hokken_N2000 = as.numeric(`hokken_N2000`),
+            percent_in_N2000 = as.numeric(`%_in_N2000`),
+            percent_in_HRL = as.numeric(`%_in_HRL`),
+            percent_in_VRL = as.numeric(`%_in_VRL`),
+            promille_van_N2000 = as.numeric(`‰_van_N2000`),
+            promille_van_HRL = as.numeric(`‰_van_HRL`),
+            promille_van_VRL = as.numeric(`‰_van_VRL`),
+            svt_Vlaanderen = `svt_Vlaanderen`,
+            svt_N2000 = `svt_N2000`,
+            indamming_min = as.numeric(`indamming_min.`),
+            indamming_gem = as.numeric(`indamming_gem.`),
+            indamming_stafw = as.numeric(`indamming_st.afw.`),
+            indamming_max = as.numeric(`indamming_max.`),
+            uitroeiing_min = as.numeric(`uitroeiing_min.`),
+            uitroeiing_gem = as.numeric(`uitroeiing_gem.`),
+            uitroeiing_stafw = as.numeric(`uitroeiing_st.afw.`),
+            uitroeiing_max = as.numeric(`uitroeiing_max.`),
+            int_groep = `int_groep`)
+```
+
+```{r write csv}
+write.csv(dat, "C:/Users/bram_dhondt/Documents/PRJ_PrIUS/Zenodo/Dhondt_etal_2022_PrIUS_table.csv",
+          row.names = FALSE)
+```
+
+```{r test}
+rm(list = ls())
+dat <- read.delim("C:/Users/bram_dhondt/Documents/PRJ_PrIUS/Zenodo/Dhondt_etal_2022_PrIUS_table.csv",
+                  sep = ",")
+```

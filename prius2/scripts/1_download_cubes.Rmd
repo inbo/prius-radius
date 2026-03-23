@@ -1,0 +1,214 @@
+---
+title: "1_download_custom_cube"
+author: "Sander Devisscher"
+date: "2025-09-25"
+output: html_document
+---
+The downloads underlying the latest species and class cubes can be consulted here:
+https://www.gbif.org/occurrence/download/0003251-260221153910048 (class cube)
+https://www.gbif.org/occurrence/download/0003241-260221153910048 (species cube)
+
+```{r set parameters}
+buffer <- 400000
+year <- 2000
+year_max <- 2025
+prius_version <- "prius2"
+```
+
+```{r libraries}
+library(rgbif)
+library(sf)
+library(tidyverse)
+library(googledrive)
+
+source("./prius2/scripts/helper_functions.R")
+```
+
+```{r read species list}
+species_list <- read_species_list(file_path = "./prius2/temp/",
+                                  prius_version = 2)
+```
+
+```{r extract species keys}
+species_keys <- species_list %>% 
+  distinct(GBIF_code) %>% 
+  pull() 
+```
+
+```{r extract class keys}
+class_list <- data.frame()
+
+for(s in species_keys){
+  temp_class <- name_usage(key = s,
+                           data = "parents")$data %>% 
+    filter(rank == "CLASS") 
+  
+  if(nrow(temp_class) == 0){
+    cat("no class found for", s, "\n")
+    next
+  }
+  
+  temp_class <- temp_class %>% 
+    distinct(classKey, class)
+  
+  if(nrow(class_list) == 0){
+    class_list <- temp_class
+  }else{
+    class_list <- rbind(class_list, temp_class)
+  }
+}
+
+class_keys <- class_list %>% 
+  distinct(classKey) %>% 
+  pull()
+```
+
+```{r calculate buffer wkt}
+vla <- st_read("./prius/data/spatial/flanders_wgs84.geojson")
+
+vla_buf_wkt <- vla %>% 
+  st_buffer(vla, dist = buffer) %>% 
+  st_geometry() %>% 
+  st_simplify() %>% 
+  st_as_text()
+```
+
+```{r test wkt, eval=FALSE}
+geom <- st_as_sfc(vla_buf_wkt)
+
+if (!st_is_valid(geom)) st_is_valid_reason(geom)
+
+library(leaflet)
+leaflet(geom) %>%
+  addTiles() %>%
+  addPolygons()
+```
+
+```{r troubleshoot wkt ingestion by rgbif function, eval=FALSE}
+vla_buf_wkt <- "POLYGON ((-1 54, -1 55, 0 55, 0 54, -1 54))"
+```
+
+```{r read species query base}
+query_file <- paste0(prius_version, "/input/gbif_sql_query_species_base.txt")
+
+species_query_base <- gsub(pattern = "  ",
+                           replacement = "",
+                           paste0(readLines(query_file), collapse = " "))
+```
+
+```{r fill species query base}
+species_query <- gsub(pattern = "<--nubkeys-->", 
+                      replacement = paste0(species_keys, collapse = ", "),
+                      x = species_query_base)
+
+species_query <- gsub(pattern = "<--year-->", 
+                      replacement = year,
+                      x = species_query)
+
+species_query <- gsub(pattern = "<--buffer_wkt-->", 
+                      replacement = vla_buf_wkt,
+                      x = species_query)
+
+species_query <- gsub(pattern = "<--year_max-->", 
+                      replacement = year_max,
+                      x = species_query)
+
+species_query <- gsub(pattern = "year",
+                      replacement = "\"year\"",
+                      species_query)
+```
+
+```{r read class query}
+query_file <- paste0(prius_version, "/input/gbif_sql_query_class_base.txt")
+
+class_query_base <- gsub(pattern = "  ",
+                         replacement = "",
+                         paste0(readLines(query_file), collapse = " "))
+```
+
+```{r fill class query}
+class_query <- gsub(pattern = "<--nubkeys-->", 
+                    replacement = paste0(class_keys, collapse = ", "),
+                    x = class_query_base)
+
+class_query <- gsub(pattern = "<--year-->", 
+                    replacement = year,
+                    x = class_query)
+
+class_query <- gsub(pattern = "<--buffer_wkt-->", 
+                    replacement = vla_buf_wkt,
+                    x = class_query)
+
+class_query <- gsub(pattern = "<--year_max-->", 
+                      replacement = year_max,
+                      x = class_query)
+
+class_query <- gsub(pattern = "year",
+                    replacement = "\"year\"",
+                    class_query)
+
+```
+
+```{r execute species query}
+species_cube_download <- occ_download_sql(q = species_query,
+                                          format = "SQL_TSV_ZIP",
+                                          email = Sys.getenv("email"),
+                                          user = Sys.getenv("gbif_user"),
+                                          pwd = Sys.getenv("gbif_pwd"))
+```
+
+```{r}
+dwnl_class <- menu(title = "donwload classcube ?",
+                   choices = c("N", "Y"),
+                   graphics = TRUE)
+```
+
+```{r execute class query}
+if(dwnl_class == 2){
+  class_cube_download <- occ_download_sql(q = class_query,
+                                        format = "SQL_TSV_ZIP",
+                                        email = Sys.getenv("email"),
+                                        user = Sys.getenv("gbif_user"),
+                                        pwd = Sys.getenv("gbif_pwd"))
+}
+```
+
+```{r export species cube}
+occ_download_wait(species_cube_download)
+
+species_cube_path <- paste0(prius_version, "/input/", prius_version, "_species_cube.csv")
+
+species_cube <- occ_download_get(species_cube_download, overwrite = TRUE) %>% 
+  occ_download_import() %>% 
+  write_csv(file = species_cube_path)
+```
+
+```{r authenticate googledrive}
+drive_auth(Sys.getenv("email"))
+
+drive_path <- as_id("1MbndBTzOePHKi-nX4eZDFZ2QyRnEZR1d")
+```
+
+```{r upload species cube to google drive}
+drive_put(species_cube_path,
+          drive_path)
+```
+
+```{r export class cube}
+if(dwnl_class == 2){
+occ_download_wait(class_cube_download)
+
+class_cube_path <- paste0(prius_version, "/input/", prius_version, "_class_cube.csv")
+
+class_cube <- occ_download_get(class_cube_download, overwrite = TRUE) %>% 
+  occ_download_import() %>% 
+  write_csv(file = class_cube_path)
+}
+```
+
+```{r upload class cube to google drive}
+if(dwnl_class == 2){
+drive_put(class_cube_path,
+          drive_path)
+}
+```

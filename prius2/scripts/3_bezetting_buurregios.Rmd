@@ -1,0 +1,223 @@
+See other script for the analogous analysis for Flanders.
+
+# ABSENT / SPORADIC / PRESENT (neighbouring regions)
+
+```{r prep packages}
+library(tidyverse)
+```
+
+```{r prep memory}
+# rm(list = ls())
+rm(list = setdiff(ls(), c("spp.list.raw", "spp.list", "near.cube.raw", "time.frame.start", "time.frame.stop")))
+```
+
+```{r}
+# cube prepared by Soria, with booleans indicating overlap per region
+# "toegevoegd op de drive onder speciescube_country_assignment.csv in de map 2_data_download"
+# ID: 16l3ar1JnrzVlP_IwmHiOPITKNHhjWvXC
+
+fistools::download_gdrive_if_missing(gfileID = "16l3ar1JnrzVlP_IwmHiOPITKNHhjWvXC",
+                                     destfile = "prius2/input/speciescube_country_assignment.csv",
+                                     update_always = TRUE,
+                                     email = Sys.getenv("email"))
+
+near.cube.raw <- read_csv(file = "./prius2/input/speciescube_country_assignment.csv") %>% 
+  as_tibble()
+```
+
+Apply the same filters as were done for Flanders.
+
+To minimize error, the below code demands that time.frame.start, time.frame.stop and spp.list are loaded from the other script.
+
+```{r}
+near.cube <- near.cube.raw %>%
+  filter(year >= time.frame.start &
+           year <= time.frame.stop) %>%
+  filter(taxonKey %in% spp.list$GBIF_code)
+```
+
+```{r code as function}
+
+# Logic must be identical to that in the script for Flanders
+
+presence_status <- function(COUNTRY_CUBE){
+  
+  # CREATE COUNTRY SUMMARY
+  country.cube.summ <- COUNTRY_CUBE %>%
+  group_by(taxonKey) %>% 
+  summarise(unique_cells = n_distinct(eea_cell_code))
+  
+  # PREPARE OUTPUT
+  spp.list.near.metrics <- spp.list %>%
+    select(soort, GBIF_canonicalName, GBIF_code) %>%
+    left_join(country.cube.summ,
+              by = c("GBIF_code" = "taxonKey"))
+  
+  # ABSENT
+  # "Soorten die in geen enkel kalenderjaar zijn vastgesteld, beschouwen we als afwezig."
+  
+  spp.list.near.metrics <- spp.list.near.metrics %>%
+    mutate(aanwezigheid = ifelse(is.na(unique_cells), "afwezig", NA))
+  
+  # PRESENT
+  # "Soorten die in elk van de vijf meest recente kalenderjaren zijn vastgesteld -> aanwezig"
+  
+  present.time <- c(seq(time.frame.stop-4, time.frame.stop))
+  
+  present.temp.L <- COUNTRY_CUBE %>%
+    group_by(species, taxonKey, year) %>%
+    summarize(unique_cells = n_distinct(eea_cell_code))
+  
+  present.temp.W <- present.temp.L %>%
+    pivot_wider(values_from = unique_cells,
+                names_from = year)
+  
+  # order column names
+  ix  <- 3:ncol(present.temp.W)
+  present.temp.W  <- present.temp.W[ , c(1:2,
+                                         ix[order(names(present.temp.W)[ix])]
+                                         )]
+  present.temp.W <- present.temp.W %>%
+    mutate(aanwezigheid = if_else(if_all(as.character(c(
+      time.frame.stop - 4, # prius-2 : year 2021
+      time.frame.stop - 3,           # year 2022
+      time.frame.stop - 2,           # year 2023
+      time.frame.stop - 1,           # year 2024
+      time.frame.stop)),             # year 2025
+      ~ !is.na(.x)), "aanwezig", NA))
+  
+  spp.list.near.metrics <- spp.list.near.metrics %>%
+    left_join(present.temp.W[, c("taxonKey", "aanwezigheid")],
+              by = c("GBIF_code" = "taxonKey"))
+  
+  spp.list.near.metrics <- spp.list.near.metrics %>%
+    mutate(aanwezigheid = coalesce(aanwezigheid.x, aanwezigheid.y)) %>%
+    select(-aanwezigheid.x,
+           -aanwezigheid.y)
+  
+  # SPORADIC
+  # "De overige soorten beschouwen we als sporadisch."
+  
+  spp.list.near.metrics$aanwezigheid[is.na(spp.list.near.metrics$aanwezigheid)] = "sporadisch"
+
+  return(spp.list.near.metrics)
+  
+}
+
+```
+
+# APPLY PER COUNTRY (REGION)
+
+```{r WA}
+status.WA <- presence_status(near.cube %>%
+                               filter(inWallonia == T) %>%
+                               select(year, eea_cell_code, taxonKey, species, obs)
+                             )
+```
+
+```{r NL}
+status.NL <- presence_status(near.cube %>%
+                               filter(inNetherlands == T) %>%
+                               select(year, eea_cell_code, taxonKey, species, obs)
+                             )
+```
+
+```{r DE}
+status.DE <- presence_status(near.cube %>%
+                               filter(inGermany == T) %>%
+                               select(year, eea_cell_code, taxonKey, species, obs)
+                             )
+```
+
+```{r FR}
+status.FR <- presence_status(near.cube %>%
+                               filter(inFrance == T) %>%
+                               select(year, eea_cell_code, taxonKey, species, obs)
+                             )
+```
+
+```{r LU}
+status.LU <- presence_status(near.cube %>%
+                               filter(inLuxembourg == T) %>%
+                               select(year, eea_cell_code, taxonKey, species, obs)
+                             )
+```
+
+```{r UK}
+status.UK <- presence_status(near.cube %>%
+                               filter(inUK == T) %>%
+                               select(year, eea_cell_code, taxonKey, species, obs)
+                             )
+```
+
+# BIND
+
+```{r}
+country.statuses <- spp.list.raw[c("soort", "GBIF_canonicalName", "reg")] %>% # *
+  
+  # * we take 'reg' along to accomodate for sorting (report: Union-listed species come first)
+  
+  # WA
+  left_join(status.WA[c("GBIF_canonicalName", "aanwezigheid")], by = "GBIF_canonicalName") %>% 
+  rename(WA = aanwezigheid) %>% 
+  
+  # NL
+  left_join(status.NL[c("GBIF_canonicalName", "aanwezigheid")], by = "GBIF_canonicalName") %>% 
+  rename(NL = aanwezigheid) %>% 
+  
+  # DE
+  left_join(status.DE[c("GBIF_canonicalName", "aanwezigheid")], by = "GBIF_canonicalName") %>%
+  rename(DE = aanwezigheid) %>% 
+  
+  # FR
+  left_join(status.FR[c("GBIF_canonicalName", "aanwezigheid")], by = "GBIF_canonicalName") %>%
+  rename(FR = aanwezigheid) %>% 
+  
+  # LU
+  left_join(status.LU[c("GBIF_canonicalName", "aanwezigheid")], by = "GBIF_canonicalName") %>%
+  rename(LU = aanwezigheid) %>% 
+  
+  # UK
+  left_join(status.UK[c("GBIF_canonicalName", "aanwezigheid")], by = "GBIF_canonicalName") %>% 
+  rename(UK = aanwezigheid)
+```
+
+```{r}
+write.csv(country.statuses,
+          paste0("./prius2/temp/criteria_buurregios_", Sys.Date(), ".csv"),
+          row.names = F)
+```
+
+# supplement
+
+```{r}
+# SUPPLEMENT
+# The single purpose is to prepare the data for easy copy-paste into the PrIUS report
+
+dfs <- read_csv("./prius2/temp/criteria_buurregios_2026-03-08.csv")
+
+# ordering as in report
+dfs$reg[!is.na(dfs$reg)] <- 1
+dfs$reg[is.na(dfs$reg)]  <- 0
+dfs <- arrange(dfs, desc(reg), GBIF_canonicalName)
+
+for (soortje in unique(dfs$GBIF_canonicalName)){
+  
+  A <- subset(dfs, GBIF_canonicalName == soortje)
+  
+  print(soortje)
+  print(paste0("WA: ", A$WA, "_tab_",
+               "NL: ", A$NL, "_tab_",
+               "DE: ", A$DE, "_tab_",
+               "FR: ", A$FR, "_tab_",
+               "LU: ", A$LU, "_tab_",
+               "UK: ", A$UK)
+        )
+  print("---") # a bit of free space (for readability)
+    }
+
+# next steps involve copying into notepad and word, with targeted replacements,
+# e.g. change _tab_ to a real tab, points to commas, etc.
+# in the report, change ___ to line break (code: ^p)
+# see occupancy_Natura2000_4report....docx
+```
