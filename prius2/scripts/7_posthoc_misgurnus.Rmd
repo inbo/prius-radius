@@ -1,0 +1,63 @@
+
+Cf. vraag van opdrachtgever om de eDNA-data zeker mee te nemen.
+
+Er is voor gekozen om de workflow op de punten waar dat toe doet (i.e. Natura2000-indices + Verspreidingskaart) hier te hernemen, i.p.v. de verbeterde data in de vorige dataflows op te nemen.
+
+```{r prep packages}
+library(sf)
+library(tidyverse)
+library(vecsets)
+library(colorRamps) # for continuous-scale plots (Matlab-like)
+library(readxl)
+```
+
+```{r}
+# ensure to have these loaded from 3_bezetting_VL.Rmd
+ias.cube.raw
+
+map.flan.clean
+map.prov.clean
+map.flan.grid
+
+map.VRL.clean
+map.HRL.clean
+
+eea_cells
+map.N2K.grid
+map.VRL.grid
+map.HRL.grid
+```
+
+```{r old data}
+old <- ias.cube.raw %>%
+  filter(specieskey == "Misgurnus mohoity")
+```
+
+```{r extra data}
+# verleend door Rein Brys, as of 2026-05-12
+gendf <- "./prius2/input/posthoc_misgurnus/eDNA_AMK_Vlaanderen_asof26-05-12.xlsx"
+
+# 2024
+new24 <- read_excel(gendf, sheet = 1) %>% 
+  filter(positief == 1) %>% 
+  st_as_sf(wkt = "WKT", crs = 4326)
+
+ggplot() + geom_sf(data = new24)
+
+# 2025 - no positive detections !
+# new25 <- read_excel(gendf, sheet = 2)
+```
+
+```{r extra data grid}
+# unique grid cells
+join1 <- st_join(new24, map.flan.grid)
+
+join2 <- st_join(map.flan.grid, new24) %>% 
+  filter(positief == 1)
+
+ggplot() +
+  geom_sf(data = join2) +
+  geom_sf(data = new24)
+
+```
+
