@@ -1,0 +1,173 @@
+
+Cf. vraag van opdrachtgever om de eDNA-data zeker mee te nemen.
+
+Er is voor gekozen om de workflow op de punten waar dat toe doet (i.e. Natura2000-indices + Verspreidingskaart) hier te hernemen, i.p.v. de verbeterde data in de vorige dataflows op te nemen.
+
+```{r prep packages}
+library(sf)
+library(tidyverse)
+library(vecsets)
+library(colorRamps) # for continuous-scale plots (Matlab-like)
+library(readxl)
+```
+
+```{r prep memory}
+# rm(list = ls())
+rm(list = setdiff(ls(), c()))
+```
+
+```{r}
+# ensure to have these loaded from 3_bezetting_VL.Rmd
+ias.cube.raw
+
+time.frame.start
+time.frame.stop
+
+map.flan.clean
+map.prov.clean
+map.flan.grid
+
+map.VRL.clean
+map.HRL.clean
+
+eea_cells
+map.N2K.grid
+map.VRL.grid
+map.HRL.grid
+```
+
+```{r old data}
+old <- ias.cube.raw %>%
+  filter(species == "Misgurnus mohoity") %>% 
+  filter(year >= time.frame.start &
+           year <= time.frame.stop) %>%
+  filter(eeacellcode %in% map.flan.grid$CELLCODE)
+```
+
+```{r extra data}
+# verleend door Rein Brys, as of 2026-05-12
+gendf <- "./prius2/input/posthoc_misgurnus/eDNA_AMK_Vlaanderen_asof26-05-12.xlsx"
+
+# 2024
+new24 <- read_excel(gendf, sheet = 1) %>% 
+  filter(positief == 1) %>% 
+  st_as_sf(wkt = "WKT", crs = 4326)
+
+ggplot() + geom_sf(data = new24)
+
+# 2025 - no positive detections !
+# new25 <- read_excel(gendf, sheet = 2)
+```
+
+```{r extra data grid}
+new24.grid <- st_join(map.flan.grid, new24) %>% 
+  filter(positief == 1)
+
+ggplot() +
+  geom_sf(data = new24.grid) +
+  geom_sf(data = new24)
+```
+
+```{r}
+# make data frame with new observations to bind to old observations
+new24.inc <- data.frame(
+  year = 2024,
+  eeacellcode = new24.grid$CELLCODE,
+  species = "Misgurnus mohoity"
+  )
+
+missing_cols <- setdiff(names(old), names(new24.inc))
+new24.inc[missing_cols] <- NA
+
+# bind
+old.new <- rbind(old, new24.inc)
+```
+
+# MAP
+
+Copied-in code for map.
+
+```{r}
+temp.ias.cube.spec <- merge(map.flan.grid,
+                            old.new, ################
+                            by.x = 'CELLCODE',
+                            by.y = 'eeacellcode',
+                            all.y = TRUE)
+```
+
+```{r}
+my.cols <- matlab.like(n_distinct(seq(time.frame.start, time.frame.stop)))
+
+ggplot() +
+  geom_sf(data = map.flan.clean, fill= "#f0f0f0", size = 0.2) +
+  geom_sf(data = map.VRL.clean, colour= "#a4e98f", fill = "#a4e98f") +
+  geom_sf(data = map.HRL.clean, colour="#a4e98f", fill = "#a4e98f") +
+  geom_sf(data = map.prov.clean, fill= NA, size = 0.2) +
+  geom_sf(data = temp.ias.cube.spec,  aes(colour = year, fill = year),
+          stroke = 0) + # only show filling, not lines
+  scale_colour_gradientn(colors = my.cols,
+                         limits = c(time.frame.start, time.frame.stop)) +
+  scale_fill_gradientn(colors = my.cols,
+                         limits = c(time.frame.start, time.frame.stop)) +
+  theme_void() +
+  theme(
+    legend.position = "none",
+    legend.title = element_blank()
+    ) +
+  coord_sf()
+```
+
+```{r}
+ggsave(file = paste0(
+  "./prius2/output/distribution_maps/", "Misgurnus mohoity_NEW",".png"),
+  width = 15.0, height = 5.1, # important for fluent incorporation in report
+  units = "cm", dpi = 200)
+```
+
+# NATURA 2000
+
+```{r Calulate_N2000_occupancy_metrics}
+# Define number of cells in N2K, VRL, HRL
+
+N_Natura2000 <- as.numeric(n_distinct(map.N2K.grid$CELLCODE))
+N_VLR <- as.numeric(n_distinct(map.VRL.grid$CELLCODE))
+N_HRL <- as.numeric(n_distinct(map.HRL.grid$CELLCODE))
+
+# calculate a number of occupancy metrics for each species
+df <- old.new %>%
+  summarise(
+    N_occ = as.numeric(n_distinct(eeacellcode)),
+    N_occ_in_N2000 = as.numeric(
+      n_distinct(eeacellcode[eeacellcode %in% map.N2K.grid$CELLCODE])),
+    N_occ_in_VRL = as.numeric(
+      n_distinct(eeacellcode[eeacellcode %in% map.VRL.grid$CELLCODE])),
+    N_occ_in_HRL = as.numeric(
+      n_distinct(eeacellcode[eeacellcode %in% map.HRL.grid$CELLCODE])),
+    .groups = "drop"
+    ) %>%
+  mutate(
+    share_in_N2000 = N_occ_in_N2000 / N_occ,
+    share_in_HRL   = N_occ_in_HRL   / N_occ,
+    share_in_VRL   = N_occ_in_VRL   / N_occ,
+    
+    `%_in_N2000` = round(100 * share_in_N2000, 1),
+    `%_in_HRL`   = round(100 * share_in_HRL, 1),
+    `%_in_VRL`   = round(100 * share_in_VRL, 1),
+    
+    share_of_N2000 = N_occ_in_N2000 / N_Natura2000,
+    share_of_HRL   = N_occ_in_HRL   / N_HRL,
+    share_of_VRL   = N_occ_in_VRL   / N_VLR,
+    
+    `‰_of_N2000` = round(1000 * share_of_N2000, 1),
+    `‰_of_HRL`   = round(1000 * share_of_HRL, 1),
+    `‰_of_VRL`   = round(1000 * share_of_VRL, 1)
+    ) %>%
+  # rename(species = soort) %>%
+  select(-c(N_occ_in_VRL, N_occ_in_HRL))%>%
+  as.data.frame()
+```
+
+```{r}
+write_csv(df %>% select(`%_in_N2000`, `%_in_HRL`, `%_in_VRL`, `‰_of_N2000`, `‰_of_HRL`, `‰_of_VRL`),
+          "./prius2/output/occupancy_Natura2000/occupancy_Natura2000_Misgurnus_mohoity_NEW.csv")
+```

@@ -1,0 +1,611 @@
+Version: 2025-08-19
+
+The species list of PrIUS-II is a revision of 
+
+  1. the (previous) PrIUS list
+  2. the fourth Union list update (fifth list) - ALL species
+  3. LIFE RIPARIAS - ALL species
+  4. LIFE DUNIAS - SELECTION
+  5. Technisch Vademecum - SELECTION
+  6. ad hoc choices - SELECTION
+
+It seems wisest to start from the prius-i list. But note that knowledge from the radius workflow should be taken along.
+
+```{r prep packages}
+library(tidyverse)
+library(readxl)
+library(rgbif)
+library(stringr)
+```
+
+```{r prep memory}
+rm(list = ls())
+rm(list = setdiff(ls(), c("zenodo")))
+```
+
+```{r zenodo}
+# Note : link retrieved by rightclicking on 'Download' button in Zenodo
+zenodo <- read.csv(
+  "https://zenodo.org/records/7678524/files/Dhondt_etal_2022_PrIUS_table.csv?download=1"
+  ) %>% 
+  arrange(lijst, species)
+```
+
+```{r}
+prius2 <- zenodo
+```
+
+Voor het gemak van coderen gaan we tabel ontdoen van de kolommen waarvoor prius-ii zeker nieuwe waarden gaat opleveren. Voor het overige zijn we behoudensgezind.
+
+```{r}
+prius2 <- prius2 %>%
+  # mag weg
+  select(-nr) %>% 
+  # later terug in te voeren
+  select(
+    -Cfa,
+    -Cfb,
+    -somCfaCfb,
+    -aan_Vlaanderen,
+    -hokken_VL,
+    -hokken_N2000,
+    -percent_in_N2000,
+    -percent_in_HRL,
+    -percent_in_VRL,
+    -promille_van_N2000,
+    -promille_van_HRL,
+    -promille_van_VRL,
+    -svt_Vlaanderen,
+    -svt_N2000,
+    ) 
+# int_groep voorlopig bewaren, maar te bezien/herzien
+```
+
+We voorzien de tabel van een overzicht van de verschillende 'herkomsten' (opnameredenen).
+
+```{r}
+prius2 <- prius2 %>% 
+  mutate(reg = NA, # EU Regulation (all)
+         rip = NA, # LIFE RIPARIAS (all)
+         dun = NA, # LIFE DUNIAS (selection)
+         vad = NA, # Technisch Vademecum - relevant? (selection)
+         # glo = NA, # GlobUS (ANB) - relevant? (selection)
+         hoc = NA, # adhoc (including the PrIUS-I leftovers)
+         .after = lijst) %>%
+  # tilt lijst into reg and delete lijst
+  mutate(reg = if_else(lijst %in% c("1", "2", "3", "4"), lijst, NA)) %>% 
+  select(-lijst)
+```
+
+# Opschonen van vorige set
+
+Alvorens soorten toe te voegen, zullen we eerste de bestaande set opschonen. Het gaat dan met name om soortnamen en GBIF-codes.
+
+Het PrIUS-kader maakt er een punt van dat de naamgeving van soorten heel nauw de wetgeving volgt. Om kenbaarder te maken dat 'species' in Zenodo verwijst naar de exacte naamgeving volgens de Uitvoeringsverordeningen, gaan we dat uitwerken. Naarmate de lijst groeit en de tijd vordert, wordt traceerbaarheid namelijk een groeiende uitdaging.
+
+```{r}
+prius2 <- prius2 %>% 
+  rename(species_wettelijke_naam = species)
+# van de niet-Unielijstsoorten gaan we de namen verwijderen
+# we halen de namen later opnieuw op via GBIF (neemt meteen evl. wijzigingen mee)
+prius2$species_wettelijke_naam[is.na(prius2$reg)] <- NA
+```
+
+Zoals opgemerkt door Fleur (RadIUS), waren enkele namen geen perfecte match met de Uitvoeringsverordeningen. Dit zijn dus zuivere correcties. Bij manuele controle vond ik er zelf ook nog eentje.
+
+```{r}
+# Fleur
+prius2$species_wettelijke_naam[prius2$species_wettelijke_naam == "Sciurus niger L., 1758"] <-
+  "Sciurus niger Linnaeus, 1758"
+prius2$species_wettelijke_naam[prius2$species_wettelijke_naam == "Nasua nasua L., 1766"] <-
+  "Nasua nasua Linnaeus, 1766"
+prius2$species_wettelijke_naam[prius2$species_wettelijke_naam == "Procyon lotor L., 1758"] <-
+  "Procyon lotor Linnaeus, 1758"
+prius2$species_wettelijke_naam[prius2$species_wettelijke_naam ==
+                                 "Lysichiton americanus Hultén & H. St. John"] <-
+                                 "Lysichiton americanus Hultén and St. John"
+# Bram
+prius2$species_wettelijke_naam[prius2$species_wettelijke_naam ==
+                                 "Celastrus orbiculatus C.P. Thunberg ex A. Murray"] <-
+                                 "Celastrus orbiculatus Thunb."
+```
+
+Tenslotte staat talgboom strikt genomen neergeschreven als T. "sebífera" i.p.v. "sebifera", maar dit zullen we negeren.
+
+De wettelijke naam van Unielijstsoorten volgt niet altijd meer de initiële Uitvoeringsverordening, maar kan middels volgende Uitvoeringsverordeningen zijn bijgesteld. Om dit te traceren, wordt een kolom toegevoegd. 
+
+```{r}
+# noot: eleganter coderen via mutate, case_when?
+prius2 <- prius2 %>% 
+  mutate(species_wettelijke_naam_bron = reg, .after = species_wettelijke_naam)
+prius2$species_wettelijke_naam_bron[is.na(prius2$reg)] <- NA
+
+# wijzigingen met lijst-3
+prius2$species_wettelijke_naam_bron[prius2$soort == "gevlekte Amerikaanse rivierkreeft"] <- 3
+prius2$species_wettelijke_naam_bron[prius2$soort == "geknobbelde Amerikaanse rivierkreeft"] <- 3
+prius2$species_wettelijke_naam_bron[prius2$soort == "marmerkreeft"] <- 3
+
+# wijzigingen met lijst-5
+case <- "Eichhornia crassipes (Martius) Solms"
+prius2$species_wettelijke_naam_bron[prius2$species_wettelijke_naam == case] <- 5
+prius2$species_wettelijke_naam[prius2$species_wettelijke_naam == case] <- "Pontederia crassipes Mart"
+rm(case)
+
+case <- "Hakea sericea Schrad. & J.C.Wendl."
+prius2$species_wettelijke_naam_bron[prius2$species_wettelijke_naam == case] <- 5
+prius2$species_wettelijke_naam[prius2$species_wettelijke_naam == case] <- "Hakea sericea Schrad. & J.C.Wendl. s.l."
+rm(case)
+
+case <- "Pennisetum setaceum (Forssk.) Chiov."
+prius2$species_wettelijke_naam_bron[prius2$species_wettelijke_naam == case] <- 5
+prius2$species_wettelijke_naam[prius2$species_wettelijke_naam == case] <- "Cenchrus setaceus (Forssk.) Morrone (Pennisetum setaceum (Forssk.) Chiov.)"
+rm(case)
+
+case <- "Tamias sibiricus Laxmann, 1769"
+prius2$species_wettelijke_naam_bron[prius2$species_wettelijke_naam == case] <- 5
+prius2$species_wettelijke_naam[prius2$species_wettelijke_naam == case] <- "Tamias sibiricus Laxmann, 1769 (Eutamias sibiricus (Laxmann, 1769))"
+rm(case)
+```
+
+En tenslotte...
+
+```{r}
+prius2$soort[prius2$soort == "grote waterteunisbloem"] <- "waterteunisbloem"
+```
+
+Noot: Lampropeltis, opmerking bij Uitvoeringsverordening van lijst-5. Alle vermelde (onder)soorten blijken onder de vermelde GBIF-code te ressorteren (indirect, via synonymie en/of ondersoorten).
+
+Nu richten we ons op de codes.
+
+Ondertussen is de oorspronkelijke code voor H. ranunculoides in onbruik geraakt. Deze moet worden vervangen.
+
+```{r}
+prius2$GBIF_codes[prius2$soort == "grote waternavel"] <- "7978544"
+```
+
+Op aangeven van Hugo blijft "Misgurnus bipartitus" beter als dusdanig herkend, in plaats van over te schakelen op het synoniem "Misgurnus mohoity" (bv. canonicalName).
+
+```{r}
+prius2$GBIF_codes[prius2$soort == "Noord-Aziatische modderkruiper"] <- "2367913"
+```
+
+We willen naar één code per rij = per GBIF-taxon gaan. Waar momenteel meerdere codes worden gegeven, kunnen daarvoor drie redenen zijn (één slechte, twee goede).
+
+Slechte: de codes zijn synoniemen. In PrIUS werden deze gegeven om te verwijzen naar het oorspronkelijke taxon, zoals vermeld in de Uitvoeringsverordening. Dit is onnodig gedetailleerd. Deze kunnen dus worden herleid tot één code.
+
+```{r}
+# gevlekte Amerikaanse rivierkreeft
+prius2$GBIF_codes[prius2$GBIF_codes == "2227000 (8909595)"] <- "8909595"
+# geknobbelde Amerikaanse rivierkreeft
+prius2$GBIF_codes[prius2$GBIF_codes == "2227064 (8971201)"] <- "8971201"
+# marmerkreeft
+prius2$GBIF_codes[prius2$GBIF_codes == "8879526 (9442269)"] <- "9442269"
+# gestekelde duizendknoop
+prius2$GBIF_codes[prius2$GBIF_codes == "4033648 (5334406)"] <- "4033648"
+# kudzu
+prius2$GBIF_codes[prius2$GBIF_codes == "2977647 (2977654)"] <- "2977647"
+# wilgacacia
+prius2$GBIF_codes[prius2$GBIF_codes == "2978552 (2980328)"] <- "2978552"
+# Chinese struikklaver
+prius2$GBIF_codes[prius2$GBIF_codes == "8114276(2955720)"] <- "8114276" # (bemerk de spatiefout)
+# grote vlotvaren
+prius2$GBIF_codes[prius2$GBIF_codes == "5274863 (5579439)"] <- "5274863"
+# talgboom
+prius2$GBIF_codes[prius2$GBIF_codes == "3054399 (7748792)"] <- "3054399"
+```
+
+Az. hoornaar is een speciaal geval. Hier wordt bewust de soort i.p.v. ondersoort gekozen, omdat anders data verloren geraakt, en in de wetenschap dat alle V. velutina in Vlaanderen V. velutina nigrithorax zijn.
+
+```{r}
+# Aziatische hoornaar
+prius2$GBIF_codes[prius2$GBIF_codes == "6247411, 1311477"] <- "1311477"
+```
+
+Blijft enkel: de invasieve duizendknopen (drie codes gelumpt). Deze wordt echter overruled door de toevoeging van de vijfde lijst. Zie verder. Merk op: we gaan voorlopig uit van uitsplitsing van de drie taxa.
+
+# Toevoegen soorten.
+
+## 5de lijst
+
+De basisgegevens van de vijfde lijst zijn voor het gemak extern verzameld.
+
+```{r}
+# let op dat kolomnamen in list5 exact moeten overeenkomen met prius2 !
+list5 <- read_excel("./prius2/input/spp_lijst-5_v25-08-19.xlsx", col_names = TRUE)
+
+# previous issue on (invisible!) mismatches because of (non-breaking) spaces
+list5$soort <- list5$soort %>%
+  str_replace_all("\\s+", " ")
+```
+
+```{r bind}
+missing_cols <- setdiff(names(prius2), names(list5))
+list5[missing_cols] <- NA
+prius2 <- rbind(prius2, list5)
+rm(missing_cols)
+```
+
+```{r identify the duplicates}
+unique(prius2$soort[duplicated(prius2$soort)])
+unique(prius2$GBIF_codes[duplicated(prius2$GBIF_codes)])
+```
+
+```{r routine for those that were there already}
+# not necessarily a simple deletion, as redundant species may need to be flagged under a second batch (e.g. rip = 1)
+# basically: where doubles have a non-NA value, take that non-NA value
+
+# ! onduidelijk waarom ik hier prius2$ moet specifiëren. zou niet mogen, maar werkt anders niet...
+
+prius2 <- prius2 %>% 
+  group_by(prius2$groep, prius2$soort, prius2$GBIF_codes) %>% # !
+  summarise(
+    across(-c(`groep`, `soort`, `GBIF_codes`), ~ .x[!is.na(.x)][1]),
+    .groups = "drop"
+    )
+
+# ! hierdoor moet ik ook de namen terug corrigeren
+
+prius2 <- prius2 %>% 
+  rename(groep = `prius2$groep`,
+         soort = `prius2$soort`,
+         GBIF_codes = `prius2$GBIF_codes`)
+```
+
+De duizendknopen. Daar dragen we informatie over op elk van de drie soorten.
+
+```{r}
+# copy
+for (sp in c("Japanse duizendknoop",
+             "Sachalinse duizendknoop",
+             "Japanse x Sachalinse duizendknoop"))
+     {
+       prius2$marien[prius2$soort == sp] <- prius2$marien[prius2$soort == "invasieve duizendknopen"]
+       prius2$brakwater[prius2$soort == sp] <- prius2$brakwater[prius2$soort == "invasieve duizendknopen"]
+       prius2$zoetwater[prius2$soort == sp] <- prius2$zoetwater[prius2$soort == "invasieve duizendknopen"]
+       prius2$terrestrisch[prius2$soort == sp] <- prius2$terrestrisch[prius2$soort == "invasieve duizendknopen"]
+       
+       prius2$natuur[prius2$soort == sp] <- prius2$natuur[prius2$soort == "invasieve duizendknopen"]
+       prius2$volksgezondheid[prius2$soort == sp] <- prius2$volksgezondheid[prius2$soort == "invasieve duizendknopen"]
+       prius2$veiligheid[prius2$soort == sp] <- prius2$veiligheid[prius2$soort == "invasieve duizendknopen"]
+       prius2$infrastructuur[prius2$soort == sp] <- prius2$infrastructuur[prius2$soort == "invasieve duizendknopen"]
+       prius2$socioeconomisch[prius2$soort == sp] <- prius2$socioeconomisch[prius2$soort == "invasieve duizendknopen"]
+       
+       prius2$int_groep[prius2$soort == sp] <- prius2$int_groep[prius2$soort == "invasieve duizendknopen"]
+}
+# remove 'invasieve duizendknopen'
+prius2 <- prius2 %>% 
+  filter(soort != "invasieve duizendknopen")
+```
+
+## LIFE RIPARIAS
+
+Deels gebaseerd op RadIUS (Fleur), deels gebaseerd op eigen werk. Het is namelijk zo dat de nubKey via de eerste route wordt bekomen, maar de Nederlandse namen via de tweede route.
+
+```{r GBIF download}
+# "https://www.gbif.org/dataset/fd004d9a-2ea4-4244-bb60-0df508d20a15"
+# cf. voor nubKey
+rip1 <- name_usage(datasetKey = "fd004d9a-2ea4-4244-bb60-0df508d20a15")$data %>%
+  subset(rank != "KINGDOM")
+```
+
+```{r manuele download & join}
+# in mapje input
+# cf. voor Nederlandstalige namen
+rip2 <- read.delim(paste0("./prius2/input/life_riparias_gbif_species_checklist_manual_download_asof25-08-13/",
+                         "vernacularname.txt"),
+                  sep = "\t") %>% 
+  filter(language == "nl") %>% 
+  filter(!vernacularName == "snoekkruid") # enige soort met 2 namen, voorkeur = moerashyacint
+
+# ripX <- read.delim(paste0(path, "taxon.txt"), sep = "\t")
+# deze tabel bewijst dat taxonID identiek is aan id 
+
+rip <- left_join(rip1, rip2, by = c("taxonID" = "id"))
+rm(rip1, rip2)
+```
+
+```{r}
+rip <- rip %>%
+  transmute(groep = kingdom,
+            soort = vernacularName.y,
+            GBIF_codes = nubKey,
+            rip = 1)
+
+rip$groep[rip$groep == "Animalia"] <- "dier"
+rip$groep[rip$groep == "Plantae"] <- "plant"
+```
+
+```{r merge}
+missing_cols <- setdiff(names(prius2), names(rip))
+rip[missing_cols] <- NA
+prius2 <- rbind(prius2, rip)
+rm(missing_cols)
+```
+
+```{r identify the duplicates}
+unique(prius2$soort[duplicated(prius2$soort)])
+unique(prius2$GBIF_codes[duplicated(prius2$GBIF_codes)])
+```
+
+```{r routine for those that were there already}
+# IDENTICAL CHUNCK AS ABOVE
+# not necessarily a simple deletion, as redundant species may need to be flagged under a second batch (e.g. rip = 1)
+# basically: where doubles have a non-NA value, take that non-NA value
+
+# ! onduidelijk waarom ik hier prius2$ moet specifiëren. zou niet mogen, maar werkt anders niet...
+
+prius2 <- prius2 %>% 
+  group_by(prius2$groep, prius2$soort, prius2$GBIF_codes) %>% # !
+  summarise(
+    across(-c(`groep`, `soort`, `GBIF_codes`), ~ .x[!is.na(.x)][1]),
+    .groups = "drop"
+    )
+
+# ! hierdoor moet ik ook de namen terug corrigeren
+
+prius2 <- prius2 %>% 
+  rename(groep = `prius2$groep`,
+         soort = `prius2$soort`,
+         GBIF_codes = `prius2$GBIF_codes`)
+```
+
+Noot: egeria (5329260) is synoniem voor Elodea densa (5329263). Zou geen probleem mogen zijn. 
+
+## LIFE DUNIAS
+
+```{r}
+# let op dat kolomnamen in input exact moeten overeenkomen met prius2 !
+dun <- read_excel("./prius2/input/spp_dunias_v25-08-19.xlsx", col_names = TRUE, sheet = 1)
+
+# previous issue on (invisible!) mismatches because of (non-breaking) spaces
+dun$soort <- dun$soort %>%
+  str_replace_all("\\s+", " ")
+```
+
+```{r bind}
+missing_cols <- setdiff(names(prius2), names(dun))
+dun[missing_cols] <- NA
+prius2 <- rbind(prius2, dun)
+rm(missing_cols)
+```
+
+```{r identify the duplicates}
+unique(prius2$soort[duplicated(prius2$soort)])
+unique(prius2$GBIF_codes[duplicated(prius2$GBIF_codes)])
+```
+
+```{r routine for those that were there already}
+# IDENTICAL CHUNCK AS ABOVE
+# not necessarily a simple deletion, as redundant species may need to be flagged under a second batch (e.g. rip = 1)
+# basically: where doubles have a non-NA value, take that non-NA value
+
+# ! onduidelijk waarom ik hier prius2$ moet specifiëren. zou niet mogen, maar werkt anders niet...
+
+prius2 <- prius2 %>% 
+  group_by(prius2$groep, prius2$soort, prius2$GBIF_codes) %>% # !
+  summarise(
+    across(-c(`groep`, `soort`, `GBIF_codes`), ~ .x[!is.na(.x)][1]),
+    .groups = "drop"
+    )
+
+# ! hierdoor moet ik ook de namen terug corrigeren
+
+prius2 <- prius2 %>% 
+  rename(groep = `prius2$groep`,
+         soort = `prius2$soort`,
+         GBIF_codes = `prius2$GBIF_codes`)
+```
+
+## Technisch Vademecum
+
+```{r}
+# let op dat kolomnamen in input exact moeten overeenkomen met prius2 !
+vad <- read_excel("./prius2/input/spp_technisch_vademecum_v25-08-19.xlsx",
+                  col_names = TRUE, sheet = 1)
+
+# previous issue on (invisible!) mismatches because of (non-breaking) spaces
+vad$soort <- vad$soort %>%
+  str_replace_all("\\s+", " ")
+```
+
+```{r bind}
+missing_cols <- setdiff(names(prius2), names(vad))
+vad[missing_cols] <- NA
+prius2 <- rbind(prius2, vad)
+rm(missing_cols)
+```
+
+```{r identify the duplicates}
+unique(prius2$soort[duplicated(prius2$soort)])
+unique(prius2$GBIF_codes[duplicated(prius2$GBIF_codes)])
+```
+
+```{r routine for those that were there already}
+# IDENTICAL CHUNCK AS ABOVE
+# not necessarily a simple deletion, as redundant species may need to be flagged under a second batch (e.g. rip = 1)
+# basically: where doubles have a non-NA value, take that non-NA value
+
+# ! onduidelijk waarom ik hier prius2$ moet specifiëren. zou niet mogen, maar werkt anders niet...
+
+prius2 <- prius2 %>% 
+  group_by(prius2$groep, prius2$soort, prius2$GBIF_codes) %>% # !
+  summarise(
+    across(-c(`groep`, `soort`, `GBIF_codes`), ~ .x[!is.na(.x)][1]),
+    .groups = "drop"
+    )
+
+# ! hierdoor moet ik ook de namen terug corrigeren
+
+prius2 <- prius2 %>% 
+  rename(groep = `prius2$groep`,
+         soort = `prius2$soort`,
+         GBIF_codes = `prius2$GBIF_codes`)
+```
+
+## adhoc
+
+```{r}
+# let op dat kolomnamen in input exact moeten overeenkomen met prius2 !
+hoc <- read_excel("./prius2/input/spp_ad-hoc_v25-08-19.xlsx",
+                  col_names = TRUE, sheet = 1)
+
+# previous issue on (invisible!) mismatches because of (non-breaking) spaces
+hoc$soort <- hoc$soort %>%
+  str_replace_all("\\s+", " ")
+```
+
+```{r bind}
+missing_cols <- setdiff(names(prius2), names(hoc))
+hoc[missing_cols] <- NA
+prius2 <- rbind(prius2, hoc)
+rm(missing_cols)
+```
+
+```{r identify the duplicates}
+unique(prius2$soort[duplicated(prius2$soort)])
+unique(prius2$GBIF_codes[duplicated(prius2$GBIF_codes)])
+```
+
+```{r routine for those that were there already}
+# IDENTICAL CHUNCK AS ABOVE
+# not necessarily a simple deletion, as redundant species may need to be flagged under a second batch (e.g. rip = 1)
+# basically: where doubles have a non-NA value, take that non-NA value
+
+# ! onduidelijk waarom ik hier prius2$ moet specifiëren. zou niet mogen, maar werkt anders niet...
+
+prius2 <- prius2 %>% 
+  group_by(prius2$groep, prius2$soort, prius2$GBIF_codes) %>% # !
+  summarise(
+    across(-c(`groep`, `soort`, `GBIF_codes`), ~ .x[!is.na(.x)][1]),
+    .groups = "drop"
+    )
+
+# ! hierdoor moet ik ook de namen terug corrigeren
+
+prius2 <- prius2 %>% 
+  rename(groep = `prius2$groep`,
+         soort = `prius2$soort`,
+         GBIF_codes = `prius2$GBIF_codes`)
+```
+
+## conclude
+
+Oorspronkelijke prIUS-soorten die zijn meegereisd, maar nergens meer thuishoren.
+
+```{r}
+prius2 <- prius2 %>% 
+  filter(soort != "alsemambrosia")
+```
+
+# Checks
+
+```{r}
+# elke soort zou minstens één aanmelding moeten hebben
+prius2 %>% 
+  filter(
+    is.na(reg) == T &
+    is.na(rip) == T &
+    is.na(dun) == T &
+    is.na(vad) == T &
+    is.na(hoc) == T
+    )
+```
+
+```{r}
+# een soort die is aangemeld als ad-hoc, zou in principe niet in de andere groepen mogen
+prius2 %>% 
+  filter(
+    (is.na(reg) == F | is.na(rip) == F | is.na(dun) == F | is.na(vad) == F) &
+      hoc == 1
+    )
+```
+
+
+# Binnentrekken GBIF-namen
+
+```{r}
+for(i in 1:nrow(prius2)) {
+  name_usage(key = prius2$GBIF_codes[i]) -> temp
+  temp$data$scientificName -> prius2$GBIF_scientificName[i]
+  temp$data$canonicalName -> prius2$GBIF_canonicalName[i]
+}
+
+prius2 <- relocate(prius2, GBIF_scientificName, .after = soort)
+prius2 <- relocate(prius2, GBIF_canonicalName, .after = soort)
+```
+
+# Opslaan
+
+```{r DRAFT FOR NICOLAS}
+# draft <- prius2 %>%
+#   transmute(groep,
+#             soort,
+#             species = GBIF_canonicalName,
+#             GBIF_code = GBIF_codes,
+#             reg,
+#             rip,
+#             dun,
+#             vad,
+#             hoc)
+# 
+# write_excel_csv2(draft, "./prius2/temp/prius2_list_v25-08-19_trimmedforANB.csv")
+```
+
+```{r FULL LIST FOR FURTHER ANALYSIS}
+prius2 <- prius2 %>% rename(GBIF_code = GBIF_codes)
+
+write.csv(prius2, "./prius2/temp/prius2_list_v25-09-23.csv", row.names = FALSE)
+```
+
+# post-initiation changes
+
+Eenmaal in de uitvoerende fase (geschiktheid, cf. WiSDM) zijn toch nog enkele aanbevelingen tot wijziging opgedoken (Soria). De betreffende code is hieronder opgenomen (i.p.v. bovenin geïntegreerd).
+
+```{r}
+oldlist <- read.csv(file.path("prius2", "temp", "prius2_list_v25-09-23.csv"))
+
+newlist <- oldlist %>%
+  dplyr::mutate(
+    GBIF_canonicalName = case_when(
+      GBIF_canonicalName == "Amynthas tokioensis" ~ "Perichaeta tokioensis",
+      GBIF_canonicalName == "Brachyponera chinensis" ~ "Pachycondyla chinensis",
+      GBIF_canonicalName == "Metaphire hilgendorfi" ~ "Perichaeta hilgendorfi",
+      GBIF_canonicalName == "Misgurnus bipartitus" ~ "Misgurnus mohoity",
+      GBIF_canonicalName == "Nanozostera japonica" ~ "Zostera japonica",
+      GBIF_canonicalName == "Egeria densa" ~ "Elodea densa",
+      TRUE ~ GBIF_canonicalName ),
+    GBIF_scientificName= case_when(
+      GBIF_canonicalName == "Perichaeta tokioensis" ~ "Perichaeta tokioensis Beddard, 1892",
+      GBIF_canonicalName == "Pachycondyla chinensis" ~ "Pachycondyla chinensis (Emery, 1895)",
+      GBIF_canonicalName == "Perichaeta hilgendorfi" ~ "Perichaeta hilgendorfi Michaelsen, 1892",
+      GBIF_canonicalName == "Misgurnus mohoity" ~ "Misgurnus mohoity (Dybowski, 1869)",
+      GBIF_canonicalName == "Zostera japonica" ~ "Zostera japonica Asch. & Graebn.",
+      GBIF_canonicalName == "Elodea densa" ~ "Elodea densa (Planch.) Casp.",
+      TRUE ~ GBIF_scientificName ),
+    GBIF_code= case_when(
+      GBIF_canonicalName == "Perichaeta tokioensis" ~ 9711540,
+      GBIF_canonicalName == "Pachycondyla chinensis" ~ 1319870,
+      GBIF_canonicalName == "Perichaeta hilgendorfi" ~ 9565801,
+      GBIF_canonicalName == "Misgurnus mohoity" ~ 2367911,
+      GBIF_canonicalName == "Zostera japonica" ~ 2863943,
+      GBIF_canonicalName == "Elodea densa" ~ 5329263,
+      TRUE ~ GBIF_code ))
+
+write.csv(newlist, file.path("prius2", "temp", "prius2_list_v26-01-16.csv"))
+```
+
+En dus ook enkele Nederlandstalige namen.
+
+```{r}
+newerlist <- read.csv(file.path("prius2", "temp", "prius2_list_v26-01-16.csv")) %>%
+  select(-X) %>%
+  mutate(
+    soort = case_when(
+      soort == "Amynthas tokioensis" ~ "Perichaeta tokioensis",
+      soort == "Metaphire hilgendorfi" ~ "Perichaeta hilgendorfi",
+      TRUE ~ soort)
+    )
+
+write.csv(newerlist, file.path("prius2", "temp", "prius2_list_v26-02-06.csv"),
+          row.names = F)
+```

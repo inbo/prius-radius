@@ -1,0 +1,342 @@
+```{r prep packages}
+library(sf)
+library(tidyverse)
+library(vecsets)
+library(colorRamps) # for continuous-scale plots (Matlab-like)
+```
+
+```{r prep memory}
+# rm(list = ls())
+rm(list = setdiff(ls(), c("read_species_list", "ias.cube.raw")))
+```
+
+```{r source helpers}
+source("./prius2/scripts/helper_functions.R")
+```
+
+```{r prep spatial}
+# flanders (clean + grid)
+map.flan.clean <- st_read("./prius/data/spatial/flanders_wgs84.geojson")
+map.prov.clean <- st_read("./prius2/spatial/provincies2025.geojson") # !! updated
+map.flan.grid <- st_read("./prius/data/spatial/grids/vla_1km.geojson")
+
+# protected areas (clean + grid)
+map.VRL.clean <- st_read("./prius2/spatial/vogelrichtlijn2025.geojson") # !! updated
+map.HRL.clean <- st_read("./prius2/spatial/habitatrichtlijn2025.geojson") # !! updated
+
+# shapefiles Flanders with EEA grid cells for N2K, VRL, HRL
+eea_cells <- st_read(file.path("prius2", "spatial","utm1_bel_regions.geojson"))
+map.N2K.grid <- eea_cells %>% filter(isFlandersN2000)
+map.VRL.grid <- eea_cells %>% filter(isFlandersSPA)
+map.HRL.grid <- eea_cells %>% filter(isFlandersSAC)
+```
+
+```{r get species list}
+spp.list.raw <- read_species_list(file_path = "./prius2/temp/",
+                                  prius_version = 2)
+```
+
+NOTE: the species cube is (too) heavy to push to the git. Therefore, at first use, it is downloaded to the local disk from Drive.
+
+```{r update cube locally}
+# fistools::download_gdrive_if_missing(gfileID = "154S4vww2G1f0vH7_jt1cZJXeUEmXlZaL",
+#                                      destfile = "prius2/input/prius2_species_cube.csv",
+#                                      update_always = TRUE,
+#                                      email = Sys.getenv("email"))
+```
+
+```{r get cube data}
+ias.cube.raw <- read_csv(file = "./prius2/input/prius2_species_cube.csv") %>% 
+  as_tibble()
+
+gc()
+```
+
+```{r exclude marine species}
+# according to PrIUS philosophy, purely marine/brackish species are excluded (irrelevant)
+
+irr <- read.csv("./prius2/temp/criterium_milieu_v26-02-06.csv") %>% 
+  mutate(irr = ifelse(zoetwater == 0 & terrestrisch == 0, 1, 0)) %>% 
+  filter(irr == 1) %>% 
+  print()
+
+spp.list <- spp.list.raw %>% 
+  filter(!GBIF_code %in% irr$GBIF_code)
+
+ias.cube <- ias.cube.raw %>% 
+  filter(!specieskey %in% irr$GBIF_code)
+```
+
+```{r set time frame}
+time.frame.start <- 2015 # !! first year
+time.frame.stop  <- 2025 # !! last year (included)
+```
+
+```{r wrangle ias.cube Flanders}
+ias.cube <- ias.cube %>%
+  filter(year >= time.frame.start &
+           year <= time.frame.stop) %>%
+  filter(specieskey %in% spp.list$GBIF_code) %>% 
+  filter(eeacellcode %in% map.flan.grid$CELLCODE)
+
+ias.cube.summ <- ias.cube %>%
+  group_by(specieskey) %>% 
+  summarise(unique_cells = n_distinct(eeacellcode))
+```
+
+# ABSENT / SPORADIC / PRESENT (Flanders)
+
+```{r}
+spp.list.metrics <- spp.list %>%
+  select(soort, GBIF_canonicalName, GBIF_code) %>%
+  left_join(ias.cube.summ, by = c("GBIF_code" = "specieskey"))
+```
+
+```{r absent}
+# "Soorten die in geen enkel kalenderjaar zijn vastgesteld, beschouwen we als afwezig."
+spp.list.metrics <- spp.list.metrics %>% 
+  mutate(aanwezigheid = ifelse(is.na(unique_cells), "afwezig", NA))
+```
+
+```{r present}
+# "Soorten die in elk van de vijf meest recente kalenderjaren zijn vastgesteld -> aanwezig"
+
+present.time <- c(seq(time.frame.stop-4, time.frame.stop))
+
+present.temp.L <- ias.cube %>% 
+  group_by(species, specieskey, year) %>% 
+  summarize(unique_cells = n_distinct(eeacellcode))
+  # filter(year %in% present.time)
+
+present.temp.W <- present.temp.L %>% 
+  pivot_wider(values_from = unique_cells,
+              names_from = year)
+
+# order column names
+ix  <- 3:ncol(present.temp.W)
+present.temp.W  <- present.temp.W[ , c(1:2,
+  ix[order(names(present.temp.W)[ix])]
+  )]
+
+present.temp.W <- present.temp.W %>% 
+  mutate(aanwezigheid = if_else(if_all(as.character(c(
+    time.frame.stop - 4, # prius-2 : year 2021
+    time.frame.stop - 3,           # year 2022
+    time.frame.stop - 2,           # year 2023
+    time.frame.stop - 1,           # year 2024
+    time.frame.stop)),             # year 2025
+    ~ !is.na(.x)), "aanwezig", NA))
+
+spp.list.metrics <- spp.list.metrics %>%
+  left_join(present.temp.W[, c("specieskey", "aanwezigheid")],
+            by = c("GBIF_code" = "specieskey"))
+            
+spp.list.metrics <- spp.list.metrics %>%
+  mutate(aanwezigheid = coalesce(aanwezigheid.x, aanwezigheid.y)) %>%
+  select(-aanwezigheid.x,
+         -aanwezigheid.y)
+```
+
+```{r sporadic}
+# "De overige soorten beschouwen we als sporadisch."
+
+spp.list.metrics$aanwezigheid[is.na(spp.list.metrics$aanwezigheid)] = "sporadisch"
+```
+
+```{r write}
+# tussentijds wegschrijven
+take.out <- spp.list.raw[c("soort", "GBIF_canonicalName", "reg")] %>%
+  left_join(spp.list.metrics[c("GBIF_canonicalName", "aanwezigheid")],
+            by = "GBIF_canonicalName")
+write.csv(take.out,
+          paste0("./prius2/temp/criterium_aanwezigheid_", Sys.Date(), ".csv"),
+          row.names = F)
+```
+
+# ABSENT / SPORADIC / PRESENT (neighbouring regions)
+
+The same analysis is performed for the regions neighbouring Flanders (WA, FR, NL...). As to retain the focus in this script on Flanders, this neighbour-region-analysis is developed in a different script.
+
+# NATURA 2000
+
+```{r}
+# Prepare the species cube for calculations
+
+# original - highly redundant with above
+# inclusion of map.N2K.grid only adds one cell (for very widespread spp)
+
+# ias.cube <- ias.cube.raw %>% 
+#   filter(!specieskey %in% irr$GBIF_code) %>%
+#   filter(year >= time.frame.start &
+#            year <= time.frame.stop) %>%
+#   filter(specieskey %in% spp.list$GBIF_code) %>% 
+#   filter(eeacellcode %in% c(map.flan.grid$CELLCODE, map.N2K.grid$CELLCODE)) 
+```
+
+```{r Calulate_N2000_occupancy_metrics}
+# Define number of cells in N2K, VRL, HRL
+
+N_Natura2000 <- as.numeric(n_distinct(map.N2K.grid$CELLCODE))
+N_VLR <- as.numeric(n_distinct(map.VRL.grid$CELLCODE))
+N_HRL <- as.numeric(n_distinct(map.HRL.grid$CELLCODE))
+
+# calculate a number of occupancy metrics for each species
+df <- ias.cube %>%
+  left_join(spp.list %>%
+              select(GBIF_code, soort), by = c("specieskey" = "GBIF_code")) %>%
+  arrange(soort) %>%
+  group_by(soort) %>%
+  summarise(
+    N_occ = as.numeric(n_distinct(eeacellcode)),
+    N_occ_in_N2000 = as.numeric(
+      n_distinct(eeacellcode[eeacellcode %in% map.N2K.grid$CELLCODE])),
+    N_occ_in_VRL = as.numeric(
+      n_distinct(eeacellcode[eeacellcode %in% map.VRL.grid$CELLCODE])),
+    N_occ_in_HRL = as.numeric(
+      n_distinct(eeacellcode[eeacellcode %in% map.HRL.grid$CELLCODE])),
+    .groups = "drop"
+    ) %>%
+  mutate(
+    share_in_N2000 = N_occ_in_N2000 / N_occ,
+    share_in_HRL   = N_occ_in_HRL   / N_occ,
+    share_in_VRL   = N_occ_in_VRL   / N_occ,
+    
+    `%_in_N2000` = round(100 * share_in_N2000, 1),
+    `%_in_HRL`   = round(100 * share_in_HRL, 1),
+    `%_in_VRL`   = round(100 * share_in_VRL, 1),
+    
+    share_of_N2000 = N_occ_in_N2000 / N_Natura2000,
+    share_of_HRL   = N_occ_in_HRL   / N_HRL,
+    share_of_VRL   = N_occ_in_VRL   / N_VLR,
+    
+    `‰_of_N2000` = round(1000 * share_of_N2000, 1),
+    `‰_of_HRL`   = round(1000 * share_of_HRL, 1),
+    `‰_of_VRL`   = round(1000 * share_of_VRL, 1)
+    ) %>%
+  rename(species = soort)%>%
+  select(-c(N_occ_in_VRL, N_occ_in_HRL))%>%
+  as.data.frame()
+```
+
+```{r}
+write_csv(df, "./prius2/output/occupancy_Natura2000/occupancy_Natura2000.csv")
+```
+
+```{r}
+# SUPPLEMENT
+# The single purpose is to prepare the data for easy copy-paste into the PrIUS report
+
+dfs <- read_csv("./prius2/output/occupancy_Natura2000/occupancy_Natura2000.csv")
+
+n2k.out <- spp.list.raw[c("soort", "GBIF_canonicalName", "reg")] %>%
+  left_join(dfs,
+            by = c("soort" = "species"))
+
+# ordering as in report
+n2k.out$reg[!is.na(n2k.out$reg)] <- 1
+n2k.out$reg[is.na(n2k.out$reg)]  <- 0
+n2k.out <- arrange(n2k.out, desc(reg), GBIF_canonicalName)
+
+n2k.out <- n2k.out %>%
+  select(GBIF_canonicalName,
+         `%_in_N2000`, `%_in_HRL`, `%_in_VRL`,
+         `‰_of_N2000`, `‰_of_HRL`, `‰_of_VRL`)
+
+for (soortje in unique(n2k.out$GBIF_canonicalName)){
+  
+  A <- subset(n2k.out, GBIF_canonicalName == soortje)
+  
+  print(soortje)
+  print(paste0("% in N2000: ", A[2], "___", "‰ of N2000: ", A[5], "_tab_", # column 1 of report
+               "% in HRL: ",   A[3], "___", "‰ of HRL: ",   A[6], "_tab_", # column 2 of report
+               "% in VRL: ",   A[4], "___", "‰ of VRL: ",   A[7])          # column 3 of report
+        )
+  print("---") # a bit of free space (for readability)
+    }
+
+# next steps involve copying into notepad and word, with targeted replacements,
+# e.g. change _tab_ to a real tab, points to commas, etc.
+# in the report, change ___ to line break (code: ^p)
+# see occupancy_Natura2000_4report....docx
+```
+
+# DISTRIBUTION MAPS
+
+```{r maps}
+# note : colour gradient (matlab-like) over years, as requested by ANB
+# note : to save space, legend not included in graphs, but shown in separate fig.
+
+spp.to.map <- subset(spp.list.metrics, aanwezigheid != "afwezig")
+my.cols <- matlab.like(n_distinct(seq(time.frame.start, time.frame.stop)))
+
+for (GBIF_canonicalName in spp.to.map$GBIF_canonicalName){
+  
+  print(GBIF_canonicalName)
+  GBIF_code <- spp.to.map[spp.to.map$GBIF_canonicalName == GBIF_canonicalName, "GBIF_code"]
+  print(GBIF_code)
+  
+  temp.ias.cube <- ias.cube %>%
+    filter(specieskey %in% GBIF_code) %>%
+    group_by(eeacellcode, specieskey) %>%
+    summarise(year = as.integer(max(year, na.rm = TRUE)))
+  
+  temp.ias.cube.spec <- merge(map.flan.grid,
+                              temp.ias.cube,
+                              by.x = 'CELLCODE',
+                              by.y = 'eeacellcode',
+                              all.y = TRUE)
+  
+  temp_plot <- ggplot() +
+    geom_sf(data = map.flan.clean, fill= "#f0f0f0", size = 0.2) +
+    geom_sf(data = map.VRL.clean, colour= "#a4e98f", fill = "#a4e98f") + 
+    geom_sf(data = map.HRL.clean, colour="#a4e98f", fill = "#a4e98f") +
+    geom_sf(data = map.prov.clean, fill= NA, size = 0.2) +
+    geom_sf(data = temp.ias.cube.spec,  aes(colour = year, fill = year),
+            stroke = 0) + # only show filling, not lines
+    scale_colour_gradientn(colors = my.cols,
+                           limits = c(time.frame.start, time.frame.stop)) +
+    scale_fill_gradientn(colors = my.cols,
+                         limits = c(time.frame.start, time.frame.stop)) +
+    theme_void() +
+    theme(
+      legend.position = "none",
+      legend.title = element_blank()
+      ) +
+    coord_sf()
+  
+  ggsave(temp_plot, file=paste0(
+    "./prius2/output/distribution_maps/", GBIF_canonicalName,".png"),
+    width = 15.0, height = 5.1, # important for fluent incorporation in report
+    units = "cm", dpi = 200)
+}
+
+rm(spp.to.map, my.cols)
+```
+
+```{r legend}
+# one-off figure to extract the legend
+# based on the last species of the above loop 
+
+ggplot() +
+  geom_sf(data = map.flan.clean, fill= "#f0f0f0", size = 0.2) +
+  geom_sf(data = temp.ias.cube.spec,  aes(colour = year, fill = year),
+          stroke = 0) +
+  scale_colour_gradientn(colors = my.cols,
+                         limits = c(time.frame.start, time.frame.stop),
+                         breaks = seq(time.frame.start, time.frame.stop, by = 2)) +
+  scale_fill_gradientn(colors = my.cols,
+                       limits = c(time.frame.start, time.frame.stop),
+                       breaks = seq(time.frame.start, time.frame.stop, by = 2)) +
+  theme_void() +
+  theme(
+    legend.position = "bottom",
+    legend.key.width = unit(2, "cm"),
+    legend.title = element_blank()
+    ) +
+    coord_sf()
+
+ggsave(file=paste0("./prius2/output/distribution_maps/",
+                   "_legende.png"),
+       width = 15.0, height = 5.1,
+       units = "cm", dpi = 200)
+```

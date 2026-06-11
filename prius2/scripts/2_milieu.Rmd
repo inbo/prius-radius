@@ -1,0 +1,30 @@
+```{r prep packages}
+library(tidyverse)
+library(readxl)
+
+source("./prius2/scripts/helper_functions.R")
+```
+
+```{r prep memory}
+# rm(list = ls())
+rm(list = setdiff(ls(), c("read_species_list")))
+```
+
+```{r}
+raw <- read_excel("./prius2/temp/criterium_milieu_v26-02-06.xlsx",
+                  sheet = 1)
+```
+
+```{r}
+env <- raw %>% 
+  select(soort,
+         GBIF_code,
+         marien,
+         brakwater,
+         zoetwater,
+         terrestrisch)
+```
+
+```{r}
+write_csv(env, "./prius2/temp/criterium_milieu_v26-02-06.csv")
+```

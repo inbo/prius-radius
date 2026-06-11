@@ -1,0 +1,32 @@
+```{r prep packages}
+library(tidyverse)
+library(readxl)
+
+source("./prius2/scripts/helper_functions.R")
+```
+
+```{r prep memory}
+# rm(list = ls())
+rm(list = setdiff(ls(), c("read_species_list")))
+```
+
+```{r}
+raw <- read_excel("./prius2/temp/criterium_impact_v26-02-06.xlsx",
+                  sheet = 1)
+```
+
+```{r}
+imp <- raw %>% 
+  transmute(soort,
+            GBIF_code,
+            natuur = na_if(natuur, "NA"),
+            volksgezondheid = na_if(volksgezondheid, "NA"),
+            veiligheid = na_if(veiligheid, "NA"),
+            infrastructuur = na_if(infrastructuur, "NA"),
+            socioeconomisch = na_if(socioeconomisch, "NA")
+  )
+```
+
+```{r}
+write_csv(imp, "./prius2/temp/criterium_impact_v26-03-12.csv")
+```
