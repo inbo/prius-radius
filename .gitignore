@@ -40,3 +40,4 @@ vignettes/*.pdf
 .Renviron
 *.zip
 data/input/be_species_cube.csv
+.positai
