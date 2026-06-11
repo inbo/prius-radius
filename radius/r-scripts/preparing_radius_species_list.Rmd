@@ -24,6 +24,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)   
 library(rgbif)        
 library(trias)
+library(here)
 ```
 
 ```{r clear_memory}
@@ -34,14 +35,16 @@ rm(list=ls())
 
 ## Get PrIUS species list and Union list
 ```{r prius_list}
-prius_list <- read_csv("./prius/data/input/prius_species_list.csv", locale = locale(encoding = "ISO-8859-1"), show_col_types = FALSE)  
+prius_list <- read_csv(here("prius", "data", "input", "prius_species_list.csv"), locale = locale(encoding = "ISO-8859-1"), show_col_types = FALSE)  
 ```
 
 ```{r union_list}
 datasetKey <- "79d65658-526c-4c78-9d24-1870d67f8439" #linked to unionlist dataset ("https://www.gbif.org/dataset/79d65658-526c-4c78-9d24-1870d67f8439")
 union_list <- name_usage(datasetKey = datasetKey, limit = 10000)$data %>%
-  subset(rank != "KINGDOM") #Animalia, Chromista, Plantae wegfilteren
+  subset(rank != "KINGDOM" & !is.na(nubKey)) #Animalia, Chromista, Plantae wegfilteren
 ```
+
+! Opgelet: in versie van unielijst zoals beschikbaar op 12/02/2026 is er geen nubKey voor *Neogale vison* en *Triadica* spec. --> deze laat ik daarom achterwege
 
 ## Small adjustments of species names in both datasets to assure comparability
 ```{r union_list_adjustments}
@@ -277,6 +280,6 @@ radius_list_update <- radius_list_update %>%
 
 ## Export RadIUS species list
 ```{r export-radius-list}
-write_csv(radius_list_update, "./radius/data/input/radius_species_list.csv")
+write_csv(radius_list_update, here("radius", "data", "input", "radius_species_list.csv"))
 ```
 
