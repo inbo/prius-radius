@@ -1,0 +1,192 @@
+"","Soort","Buffer","Type","Overlap"
+"1","watercrassula",10,"Agentschap voor Natuur en Bos",0.401915416228572
+"2","watercrassula",10,"Andere Vlaamse overheid",0.0921548878009972
+"3","watercrassula",10,"Bestuur",0.0789211131885511
+"4","watercrassula",10,"Natuurlijke persoon",0.0230044632580154
+"5","watercrassula",10,"Privaatrechtelijke rechtspersoon",0.350253317456222
+"6","struikaster",10,"Agentschap voor Natuur en Bos",0.355788834116211
+"7","struikaster",10,"Andere Vlaamse overheid",0.0706505984721446
+"8","struikaster",10,"Bestuur",0.203573042314141
+"9","struikaster",10,"Natuurlijke persoon",0.0190180283644552
+"10","struikaster",10,"Privaatrechtelijke rechtspersoon",0.350969496733049
+"11","reuzenberenklauw",10,"Agentschap voor Natuur en Bos",0.209307668526322
+"12","reuzenberenklauw",10,"Andere",0.00362743320843244
+"13","reuzenberenklauw",10,"Andere Vlaamse overheid",0.172962836670428
+"14","reuzenberenklauw",10,"Bestuur",0.159972818640389
+"15","reuzenberenklauw",10,"Natuurlijke persoon",0.0769193629350796
+"16","reuzenberenklauw",10,"Privaatrechtelijke rechtspersoon",0.365342686506919
+"17","Chinese muntjak",10,"Agentschap voor Natuur en Bos",0.59219059433129
+"18","Chinese muntjak",10,"Andere Vlaamse overheid",0.0233893487815821
+"19","Chinese muntjak",10,"Bestuur",0.107878043319724
+"20","Chinese muntjak",10,"Natuurlijke persoon",0.184743879467531
+"21","Chinese muntjak",10,"Privaatrechtelijke rechtspersoon",0.0655700957856163
+"22","watercrassula",20,"Agentschap voor Natuur en Bos",0.460588204305359
+"23","watercrassula",20,"Andere Vlaamse overheid",0.0656658016616028
+"24","watercrassula",20,"Bestuur",0.0778089512837219
+"25","watercrassula",20,"Natuurlijke persoon",0.0287873660485704
+"26","watercrassula",20,"Privaatrechtelijke rechtspersoon",0.34478921684553
+"27","struikaster",20,"Agentschap voor Natuur en Bos",0.409782493108604
+"28","struikaster",20,"Andere Vlaamse overheid",0.0761756236659402
+"29","struikaster",20,"Bestuur",0.155442121948952
+"30","struikaster",20,"Natuurlijke persoon",0.0243424125014703
+"31","struikaster",20,"Privaatrechtelijke rechtspersoon",0.334257348775033
+"32","reuzenberenklauw",20,"Agentschap voor Natuur en Bos",0.217505667749431
+"33","reuzenberenklauw",20,"Andere",0.00511332309545215
+"34","reuzenberenklauw",20,"Andere Vlaamse overheid",0.152300929731131
+"35","reuzenberenklauw",20,"Bestuur",0.169556052532107
+"36","reuzenberenklauw",20,"Natuurlijke persoon",0.0796006487596828
+"37","reuzenberenklauw",20,"Privaatrechtelijke rechtspersoon",0.372022623746108
+"38","Chinese muntjak",20,"Agentschap voor Natuur en Bos",0.580826582511916
+"39","Chinese muntjak",20,"Andere Vlaamse overheid",0.0261845258905205
+"40","Chinese muntjak",20,"Bestuur",0.112124536408548
+"41","Chinese muntjak",20,"Natuurlijke persoon",0.186430936429049
+"42","Chinese muntjak",20,"Privaatrechtelijke rechtspersoon",0.067312483781288
+"43","watercrassula",30,"Agentschap voor Natuur en Bos",0.483316474492068
+"44","watercrassula",30,"Andere Vlaamse overheid",0.0541002847735302
+"45","watercrassula",30,"Bestuur",0.0778855786769995
+"46","watercrassula",30,"Natuurlijke persoon",0.0326278746564541
+"47","watercrassula",30,"Privaatrechtelijke rechtspersoon",0.343193210322093
+"48","struikaster",30,"Agentschap voor Natuur en Bos",0.437151299395033
+"49","struikaster",30,"Andere Vlaamse overheid",0.0797922622416254
+"50","struikaster",30,"Bestuur",0.127346051658685
+"51","struikaster",30,"Natuurlijke persoon",0.030222859943158
+"52","struikaster",30,"Privaatrechtelijke rechtspersoon",0.325487526761498
+"53","reuzenberenklauw",30,"Agentschap voor Natuur en Bos",0.22500706747902
+"54","reuzenberenklauw",30,"Andere",0.0056017037734573
+"55","reuzenberenklauw",30,"Andere Vlaamse overheid",0.133228880251482
+"56","reuzenberenklauw",30,"Bestuur",0.173507834253144
+"57","reuzenberenklauw",30,"Natuurlijke persoon",0.0809332765621473
+"58","reuzenberenklauw",30,"Privaatrechtelijke rechtspersoon",0.378770420894309
+"59","Chinese muntjak",30,"Agentschap voor Natuur en Bos",0.585994372738601
+"60","Chinese muntjak",30,"Andere Vlaamse overheid",0.0286012924467727
+"61","Chinese muntjak",30,"Bestuur",0.117811318446376
+"62","Chinese muntjak",30,"Natuurlijke persoon",0.189184912378439
+"63","Chinese muntjak",30,"Privaatrechtelijke rechtspersoon",0.0641788321045735
+"64","watercrassula",40,"Agentschap voor Natuur en Bos",0.491690132581203
+"65","watercrassula",40,"Andere Vlaamse overheid",0.0486958083974194
+"66","watercrassula",40,"Bestuur",0.0798840956755453
+"67","watercrassula",40,"Natuurlijke persoon",0.0356765217819722
+"68","watercrassula",40,"Privaatrechtelijke rechtspersoon",0.338269631861162
+"69","struikaster",40,"Agentschap voor Natuur en Bos",0.449639063927124
+"70","struikaster",40,"Andere Vlaamse overheid",0.0789564873277202
+"71","struikaster",40,"Bestuur",0.113579625420039
+"72","struikaster",40,"Natuurlijke persoon",0.0345203477775349
+"73","struikaster",40,"Privaatrechtelijke rechtspersoon",0.323304475547581
+"74","reuzenberenklauw",40,"Agentschap voor Natuur en Bos",0.233071638262045
+"75","reuzenberenklauw",40,"Andere",0.00543188499222615
+"76","reuzenberenklauw",40,"Andere Vlaamse overheid",0.119610971698021
+"77","reuzenberenklauw",40,"Bestuur",0.176667973511063
+"78","reuzenberenklauw",40,"Natuurlijke persoon",0.0819584593438089
+"79","reuzenberenklauw",40,"Privaatrechtelijke rechtspersoon",0.380018719394597
+"80","Chinese muntjak",40,"Agentschap voor Natuur en Bos",0.593182814341368
+"81","Chinese muntjak",40,"Andere Vlaamse overheid",0.029200459906916
+"82","Chinese muntjak",40,"Bestuur",0.123534097428278
+"83","Chinese muntjak",40,"Natuurlijke persoon",0.193277021443676
+"84","Chinese muntjak",40,"Privaatrechtelijke rechtspersoon",0.0608056068797623
+"85","watercrassula",50,"Agentschap voor Natuur en Bos",0.49522159334523
+"86","watercrassula",50,"Andere Vlaamse overheid",0.0444215340979945
+"87","watercrassula",50,"Bestuur",0.0827025274079832
+"88","watercrassula",50,"Natuurlijke persoon",0.0385980794199008
+"89","watercrassula",50,"Privaatrechtelijke rechtspersoon",0.335829859044532
+"90","struikaster",50,"Agentschap voor Natuur en Bos",0.457964868515824
+"91","struikaster",50,"Andere Vlaamse overheid",0.0776279858870359
+"92","struikaster",50,"Bestuur",0.106060547534091
+"93","struikaster",50,"Natuurlijke persoon",0.0365794796738763
+"94","struikaster",50,"Privaatrechtelijke rechtspersoon",0.321767118389172
+"95","reuzenberenklauw",50,"Agentschap voor Natuur en Bos",0.238122946186288
+"96","reuzenberenklauw",50,"Andere",0.00505897822556541
+"97","reuzenberenklauw",50,"Andere Vlaamse overheid",0.108389107936137
+"98","reuzenberenklauw",50,"Bestuur",0.181622799539693
+"99","reuzenberenklauw",50,"Natuurlijke persoon",0.0831764455463482
+"100","reuzenberenklauw",50,"Privaatrechtelijke rechtspersoon",0.381886223487331
+"101","Chinese muntjak",50,"Agentschap voor Natuur en Bos",0.585238787492547
+"102","Chinese muntjak",50,"Andere Vlaamse overheid",0.027010996155289
+"103","Chinese muntjak",50,"Bestuur",0.126649584640993
+"104","Chinese muntjak",50,"Natuurlijke persoon",0.200356389889166
+"105","Chinese muntjak",50,"Privaatrechtelijke rechtspersoon",0.0607442418220051
+"106","watercrassula",100,"Agentschap voor Natuur en Bos",0.504269595615172
+"107","watercrassula",100,"Andere Vlaamse overheid",0.0283051739237144
+"108","watercrassula",100,"Bestuur",0.0982937193180142
+"109","watercrassula",100,"Natuurlijke persoon",0.0481491296320846
+"110","watercrassula",100,"Privaatrechtelijke rechtspersoon",0.320982381511015
+"111","struikaster",100,"Agentschap voor Natuur en Bos",0.493105534475036
+"112","struikaster",100,"Andere Vlaamse overheid",0.0720238205717379
+"113","struikaster",100,"Bestuur",0.102539137561869
+"114","struikaster",100,"Natuurlijke persoon",0.031169986068227
+"115","struikaster",100,"Privaatrechtelijke rechtspersoon",0.30116152132313
+"116","reuzenberenklauw",100,"Agentschap voor Natuur en Bos",0.268521421779539
+"117","reuzenberenklauw",100,"Andere",0.00452402965944544
+"118","reuzenberenklauw",100,"Andere Vlaamse overheid",0.0771370209911235
+"119","reuzenberenklauw",100,"Bestuur",0.184846543028671
+"120","reuzenberenklauw",100,"Natuurlijke persoon",0.0896288670149234
+"121","reuzenberenklauw",100,"Privaatrechtelijke rechtspersoon",0.375342117526298
+"122","Chinese muntjak",100,"Agentschap voor Natuur en Bos",0.519908235495432
+"123","Chinese muntjak",100,"Andere Vlaamse overheid",0.0194094044963515
+"124","Chinese muntjak",100,"Bestuur",0.145456074073025
+"125","Chinese muntjak",100,"Natuurlijke persoon",0.241529666295501
+"126","Chinese muntjak",100,"Privaatrechtelijke rechtspersoon",0.0736966196396899
+"127","watercrassula",150,"Agentschap voor Natuur en Bos",0.50442937214753
+"128","watercrassula",150,"Andere Vlaamse overheid",0.0215604943797737
+"129","watercrassula",150,"Bestuur",0.110002475874304
+"130","watercrassula",150,"Natuurlijke persoon",0.0553850557702776
+"131","watercrassula",150,"Privaatrechtelijke rechtspersoon",0.308622601828115
+"132","struikaster",150,"Agentschap voor Natuur en Bos",0.517853201402814
+"133","struikaster",150,"Andere Vlaamse overheid",0.0626786088233502
+"134","struikaster",150,"Bestuur",0.114719416147947
+"135","struikaster",150,"Natuurlijke persoon",0.0259458043631382
+"136","struikaster",150,"Privaatrechtelijke rechtspersoon",0.278802969262751
+"137","reuzenberenklauw",150,"Agentschap voor Natuur en Bos",0.284657396775211
+"138","reuzenberenklauw",150,"Andere",0.00465023166396973
+"139","reuzenberenklauw",150,"Andere Vlaamse overheid",0.0636773278791154
+"140","reuzenberenklauw",150,"Bestuur",0.185974788840503
+"141","reuzenberenklauw",150,"Natuurlijke persoon",0.0950806458061531
+"142","reuzenberenklauw",150,"Privaatrechtelijke rechtspersoon",0.365959609035047
+"143","Chinese muntjak",150,"Agentschap voor Natuur en Bos",0.473253903394092
+"144","Chinese muntjak",150,"Andere Vlaamse overheid",0.0154738031292402
+"145","Chinese muntjak",150,"Bestuur",0.159413515631536
+"146","Chinese muntjak",150,"Natuurlijke persoon",0.261510384201002
+"147","Chinese muntjak",150,"Privaatrechtelijke rechtspersoon",0.0903483936441294
+"148","watercrassula",200,"Agentschap voor Natuur en Bos",0.501888469708769
+"149","watercrassula",200,"Andere",0.000149633959232027
+"150","watercrassula",200,"Andere Vlaamse overheid",0.0180018812140433
+"151","watercrassula",200,"Bestuur",0.119781388488014
+"152","watercrassula",200,"Natuurlijke persoon",0.0617830962951185
+"153","watercrassula",200,"Privaatrechtelijke rechtspersoon",0.298395530334823
+"154","struikaster",200,"Agentschap voor Natuur en Bos",0.528371255663354
+"155","struikaster",200,"Andere Vlaamse overheid",0.053367895537499
+"156","struikaster",200,"Bestuur",0.131403352961587
+"157","struikaster",200,"Natuurlijke persoon",0.0211336244637956
+"158","struikaster",200,"Privaatrechtelijke rechtspersoon",0.265723871373765
+"159","reuzenberenklauw",200,"Agentschap voor Natuur en Bos",0.296135097938974
+"160","reuzenberenklauw",200,"Andere",0.00521117479986768
+"161","reuzenberenklauw",200,"Andere Vlaamse overheid",0.0532918140280565
+"162","reuzenberenklauw",200,"Bestuur",0.187368775622772
+"163","reuzenberenklauw",200,"Natuurlijke persoon",0.100734013607723
+"164","reuzenberenklauw",200,"Privaatrechtelijke rechtspersoon",0.357259124002606
+"165","Chinese muntjak",200,"Agentschap voor Natuur en Bos",0.435849338763723
+"166","Chinese muntjak",200,"Andere Vlaamse overheid",0.0148348446202581
+"167","Chinese muntjak",200,"Bestuur",0.168928396176787
+"168","Chinese muntjak",200,"Natuurlijke persoon",0.279568713414194
+"169","Chinese muntjak",200,"Privaatrechtelijke rechtspersoon",0.100818707025038
+"170","watercrassula",250,"Agentschap voor Natuur en Bos",0.496473483703854
+"171","watercrassula",250,"Andere",0.000467736711391829
+"172","watercrassula",250,"Andere Vlaamse overheid",0.0160995617776682
+"173","watercrassula",250,"Bestuur",0.128393297093586
+"174","watercrassula",250,"Natuurlijke persoon",0.0674534861000165
+"175","watercrassula",250,"Privaatrechtelijke rechtspersoon",0.291112434613484
+"176","struikaster",250,"Agentschap voor Natuur en Bos",0.532833018012297
+"177","struikaster",250,"Andere Vlaamse overheid",0.0447327231112956
+"178","struikaster",250,"Bestuur",0.147912176989281
+"179","struikaster",250,"Natuurlijke persoon",0.0174461725116179
+"180","struikaster",250,"Privaatrechtelijke rechtspersoon",0.257075909375508
+"181","reuzenberenklauw",250,"Agentschap voor Natuur en Bos",0.30530949662667
+"182","reuzenberenklauw",250,"Andere",0.00530411298293787
+"183","reuzenberenklauw",250,"Andere Vlaamse overheid",0.0460590332583659
+"184","reuzenberenklauw",250,"Bestuur",0.189187537620507
+"185","reuzenberenklauw",250,"Natuurlijke persoon",0.105228943222653
+"186","reuzenberenklauw",250,"Privaatrechtelijke rechtspersoon",0.348910876288865
+"187","Chinese muntjak",250,"Agentschap voor Natuur en Bos",0.408733082424318
+"188","Chinese muntjak",250,"Andere Vlaamse overheid",0.0152834924415041
+"189","Chinese muntjak",250,"Bestuur",0.175428734465229
+"190","Chinese muntjak",250,"Natuurlijke persoon",0.293253758197784
+"191","Chinese muntjak",250,"Privaatrechtelijke rechtspersoon",0.107300932471165

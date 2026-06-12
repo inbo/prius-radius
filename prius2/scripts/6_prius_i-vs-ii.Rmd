@@ -1,0 +1,75 @@
+Just for fun, a comparison among PrIUS-I and PrIUS-II groups.
+
+```{r prep packages}
+library(tidyverse)
+library(ggalluvial)
+```
+
+```{r prep memory}
+# rm(list = ls())
+rm(list = setdiff(ls(), c()))
+```
+
+```{r prius-1}
+old <- read.csv(
+  "https://zenodo.org/records/7678524/files/Dhondt_etal_2022_PrIUS_table.csv?download=1"
+  ) %>% 
+  transmute(soort = soort,
+            lijst = lijst,
+            groep = int_groep) %>%
+  filter(lijst %in% c("1", "2", "3", "4")) %>% 
+  mutate(lijst = as.integer(lijst))
+
+old$soort[old$soort == "grote waterteunisbloem"] <- "waterteunisbloem"
+
+old <- old %>%
+  arrange(soort)
+```
+
+```{r prius-2}
+new <- read.csv("./prius2/output/final_table_v26-03-19.csv") %>% 
+  transmute(soort = soort,
+            lijst = Unielijst,
+            groep = prius_groep) %>% 
+  filter(lijst %in% c(1, 2, 3, 4)) %>% 
+  arrange(soort)
+```
+
+```{r join}
+comp <- new %>% 
+  left_join(old, by = "soort") %>% 
+  transmute(soort = soort,
+            PrIUS_2 = groep.x, # !
+            PrIUS_1 = groep.y) # !
+```
+
+```{r}
+comp_long <- comp %>% 
+  tidyr::gather(key = "time", value = "groep", -soort) %>% 
+  mutate(time = factor(time))
+
+comp_long$groep <- factor(comp_long$groep,
+                          levels = c("IRR",
+                                     "REL-AFW",
+                                     "REL-AAN-SPO",
+                                     "REL-AAN-GEV-BEP",
+                                     "REL-AAN-GEV-VER-BUI",
+                                     "REL-AAN-GEV-VER-NAT"))
+```
+
+```{r alluvial plot}
+ggplot(comp_long,
+       aes(x = time, stratum = groep, alluvium = soort, fill = groep)) +
+  geom_flow(alpha = 0.6) +
+  geom_stratum(alpha = 1) +
+  scale_fill_brewer(palette = "Set1") +
+  theme_minimal() +
+  labs(title = NULL,
+       x = NULL) +
+  theme(legend.position = "bottom")
+```
+
+```{r}
+ggsave("./prius2/output/graph_prius_i-vs-ii.png",
+       width = 15, height = 10, units = "cm")
+```

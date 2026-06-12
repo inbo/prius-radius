@@ -1,0 +1,296 @@
+"","Soort","Buffer","Type","Domeinen"
+"1","watercrassula",10,"Beheerplan Militair domein",3
+"2","watercrassula",10,"Harmonisch Park- en Groenbeheerplan",1
+"3","watercrassula",10,"Natuurbeheerplan Type 1",2
+"4","watercrassula",10,"Natuurbeheerplan Type 2",13
+"5","watercrassula",10,"Natuurbeheerplan Type 3",27
+"6","watercrassula",10,"Natuurbeheerplan Type 4",69
+"7","watercrassula",10,"Uitgebreid Bosbeheerplan",19
+"8","watercrassula",10,"Vlaams Natuurreservaat",7
+"9","struikaster",10,"Beheerplan Militair domein",1
+"10","struikaster",10,"Natuurbeheerplan Type 1",1
+"11","struikaster",10,"Natuurbeheerplan Type 2",5
+"12","struikaster",10,"Natuurbeheerplan Type 3",5
+"13","struikaster",10,"Natuurbeheerplan Type 4",8
+"14","struikaster",10,"Uitgebreid Bosbeheerplan",1
+"15","struikaster",10,"Vlaams Natuurreservaat",4
+"16","reuzenberenklauw",10,"Beheerplan Militair domein",6
+"17","reuzenberenklauw",10,"Erkend Natuurreservaat",4
+"18","reuzenberenklauw",10,"Harmonisch Park- en Groenbeheerplan",1
+"19","reuzenberenklauw",10,"Natuurbeheerplan Type 1",19
+"20","reuzenberenklauw",10,"Natuurbeheerplan Type 2",38
+"21","reuzenberenklauw",10,"Natuurbeheerplan Type 3",52
+"22","reuzenberenklauw",10,"Natuurbeheerplan Type 4",130
+"23","reuzenberenklauw",10,"Uitgebreid Bosbeheerplan",61
+"24","reuzenberenklauw",10,"Vlaams Natuurreservaat",7
+"25","Chinese muntjak",10,"Beheerplan Militair domein",2
+"26","Chinese muntjak",10,"Natuurbeheerplan Type 1",5
+"27","Chinese muntjak",10,"Natuurbeheerplan Type 2",6
+"28","Chinese muntjak",10,"Natuurbeheerplan Type 3",2
+"29","Chinese muntjak",10,"Natuurbeheerplan Type 4",2
+"30","Chinese muntjak",10,"Uitgebreid Bosbeheerplan",7
+"31","Chinese muntjak",10,"Vlaams Natuurreservaat",1
+"32","watercrassula",20,"Beheerplan Militair domein",3
+"33","watercrassula",20,"Harmonisch Park- en Groenbeheerplan",1
+"34","watercrassula",20,"Natuurbeheerplan Type 1",3
+"35","watercrassula",20,"Natuurbeheerplan Type 2",15
+"36","watercrassula",20,"Natuurbeheerplan Type 3",27
+"37","watercrassula",20,"Natuurbeheerplan Type 4",69
+"38","watercrassula",20,"Uitgebreid Bosbeheerplan",20
+"39","watercrassula",20,"Vlaams Natuurreservaat",7
+"40","struikaster",20,"Beheerplan Militair domein",1
+"41","struikaster",20,"Natuurbeheerplan Type 1",1
+"42","struikaster",20,"Natuurbeheerplan Type 2",5
+"43","struikaster",20,"Natuurbeheerplan Type 3",7
+"44","struikaster",20,"Natuurbeheerplan Type 4",9
+"45","struikaster",20,"Uitgebreid Bosbeheerplan",1
+"46","struikaster",20,"Vlaams Natuurreservaat",4
+"47","reuzenberenklauw",20,"Beheerplan Militair domein",6
+"48","reuzenberenklauw",20,"Erkend Natuurreservaat",4
+"49","reuzenberenklauw",20,"Harmonisch Park- en Groenbeheerplan",1
+"50","reuzenberenklauw",20,"Natuurbeheerplan Type 1",22
+"51","reuzenberenklauw",20,"Natuurbeheerplan Type 2",45
+"52","reuzenberenklauw",20,"Natuurbeheerplan Type 3",56
+"53","reuzenberenklauw",20,"Natuurbeheerplan Type 4",143
+"54","reuzenberenklauw",20,"Uitgebreid Bosbeheerplan",67
+"55","reuzenberenklauw",20,"Vlaams Natuurreservaat",8
+"56","Chinese muntjak",20,"Beheerplan Militair domein",2
+"57","Chinese muntjak",20,"Natuurbeheerplan Type 1",5
+"58","Chinese muntjak",20,"Natuurbeheerplan Type 2",6
+"59","Chinese muntjak",20,"Natuurbeheerplan Type 3",2
+"60","Chinese muntjak",20,"Natuurbeheerplan Type 4",3
+"61","Chinese muntjak",20,"Uitgebreid Bosbeheerplan",7
+"62","Chinese muntjak",20,"Vlaams Natuurreservaat",1
+"63","watercrassula",30,"Beheerplan Militair domein",3
+"64","watercrassula",30,"Harmonisch Park- en Groenbeheerplan",1
+"65","watercrassula",30,"Natuurbeheerplan Type 1",4
+"66","watercrassula",30,"Natuurbeheerplan Type 2",17
+"67","watercrassula",30,"Natuurbeheerplan Type 3",29
+"68","watercrassula",30,"Natuurbeheerplan Type 4",70
+"69","watercrassula",30,"Uitgebreid Bosbeheerplan",20
+"70","watercrassula",30,"Vlaams Natuurreservaat",7
+"71","struikaster",30,"Beheerplan Militair domein",1
+"72","struikaster",30,"Natuurbeheerplan Type 1",2
+"73","struikaster",30,"Natuurbeheerplan Type 2",5
+"74","struikaster",30,"Natuurbeheerplan Type 3",7
+"75","struikaster",30,"Natuurbeheerplan Type 4",9
+"76","struikaster",30,"Uitgebreid Bosbeheerplan",2
+"77","struikaster",30,"Vlaams Natuurreservaat",4
+"78","reuzenberenklauw",30,"Beheerplan Militair domein",6
+"79","reuzenberenklauw",30,"Erkend Natuurreservaat",4
+"80","reuzenberenklauw",30,"Harmonisch Park- en Groenbeheerplan",1
+"81","reuzenberenklauw",30,"Natuurbeheerplan Type 1",26
+"82","reuzenberenklauw",30,"Natuurbeheerplan Type 2",46
+"83","reuzenberenklauw",30,"Natuurbeheerplan Type 3",61
+"84","reuzenberenklauw",30,"Natuurbeheerplan Type 4",146
+"85","reuzenberenklauw",30,"Uitgebreid Bosbeheerplan",73
+"86","reuzenberenklauw",30,"Vlaams Natuurreservaat",10
+"87","Chinese muntjak",30,"Beheerplan Militair domein",3
+"88","Chinese muntjak",30,"Natuurbeheerplan Type 1",7
+"89","Chinese muntjak",30,"Natuurbeheerplan Type 2",6
+"90","Chinese muntjak",30,"Natuurbeheerplan Type 3",2
+"91","Chinese muntjak",30,"Natuurbeheerplan Type 4",5
+"92","Chinese muntjak",30,"Uitgebreid Bosbeheerplan",7
+"93","Chinese muntjak",30,"Vlaams Natuurreservaat",1
+"94","watercrassula",40,"Aangewezen Bosreservaat",1
+"95","watercrassula",40,"Beheerplan Militair domein",3
+"96","watercrassula",40,"Harmonisch Park- en Groenbeheerplan",1
+"97","watercrassula",40,"Natuurbeheerplan Type 1",4
+"98","watercrassula",40,"Natuurbeheerplan Type 2",19
+"99","watercrassula",40,"Natuurbeheerplan Type 3",29
+"100","watercrassula",40,"Natuurbeheerplan Type 4",75
+"101","watercrassula",40,"Uitgebreid Bosbeheerplan",21
+"102","watercrassula",40,"Vlaams Natuurreservaat",7
+"103","struikaster",40,"Beheerplan Militair domein",1
+"104","struikaster",40,"Natuurbeheerplan Type 1",2
+"105","struikaster",40,"Natuurbeheerplan Type 2",6
+"106","struikaster",40,"Natuurbeheerplan Type 3",8
+"107","struikaster",40,"Natuurbeheerplan Type 4",10
+"108","struikaster",40,"Uitgebreid Bosbeheerplan",2
+"109","struikaster",40,"Vlaams Natuurreservaat",4
+"110","reuzenberenklauw",40,"Beheerplan Militair domein",6
+"111","reuzenberenklauw",40,"Erkend Natuurreservaat",4
+"112","reuzenberenklauw",40,"Harmonisch Park- en Groenbeheerplan",2
+"113","reuzenberenklauw",40,"Natuurbeheerplan Type 1",27
+"114","reuzenberenklauw",40,"Natuurbeheerplan Type 2",49
+"115","reuzenberenklauw",40,"Natuurbeheerplan Type 3",62
+"116","reuzenberenklauw",40,"Natuurbeheerplan Type 4",152
+"117","reuzenberenklauw",40,"Uitgebreid Bosbeheerplan",76
+"118","reuzenberenklauw",40,"Vlaams Natuurreservaat",10
+"119","Chinese muntjak",40,"Beheerplan Militair domein",3
+"120","Chinese muntjak",40,"Natuurbeheerplan Type 1",8
+"121","Chinese muntjak",40,"Natuurbeheerplan Type 2",6
+"122","Chinese muntjak",40,"Natuurbeheerplan Type 3",2
+"123","Chinese muntjak",40,"Natuurbeheerplan Type 4",5
+"124","Chinese muntjak",40,"Uitgebreid Bosbeheerplan",7
+"125","Chinese muntjak",40,"Vlaams Natuurreservaat",1
+"126","watercrassula",50,"Aangewezen Bosreservaat",1
+"127","watercrassula",50,"Beheerplan Militair domein",3
+"128","watercrassula",50,"Harmonisch Park- en Groenbeheerplan",1
+"129","watercrassula",50,"Natuurbeheerplan Type 1",5
+"130","watercrassula",50,"Natuurbeheerplan Type 2",20
+"131","watercrassula",50,"Natuurbeheerplan Type 3",31
+"132","watercrassula",50,"Natuurbeheerplan Type 4",76
+"133","watercrassula",50,"Uitgebreid Bosbeheerplan",24
+"134","watercrassula",50,"Vlaams Natuurreservaat",7
+"135","struikaster",50,"Beheerplan Militair domein",1
+"136","struikaster",50,"Natuurbeheerplan Type 1",2
+"137","struikaster",50,"Natuurbeheerplan Type 2",6
+"138","struikaster",50,"Natuurbeheerplan Type 3",8
+"139","struikaster",50,"Natuurbeheerplan Type 4",10
+"140","struikaster",50,"Uitgebreid Bosbeheerplan",2
+"141","struikaster",50,"Vlaams Natuurreservaat",4
+"142","reuzenberenklauw",50,"Beheerplan Militair domein",6
+"143","reuzenberenklauw",50,"Erkend Natuurreservaat",4
+"144","reuzenberenklauw",50,"Harmonisch Park- en Groenbeheerplan",2
+"145","reuzenberenklauw",50,"Natuurbeheerplan Type 1",29
+"146","reuzenberenklauw",50,"Natuurbeheerplan Type 2",50
+"147","reuzenberenklauw",50,"Natuurbeheerplan Type 3",64
+"148","reuzenberenklauw",50,"Natuurbeheerplan Type 4",158
+"149","reuzenberenklauw",50,"Uitgebreid Bosbeheerplan",77
+"150","reuzenberenklauw",50,"Vlaams Natuurreservaat",10
+"151","Chinese muntjak",50,"Beheerplan Militair domein",3
+"152","Chinese muntjak",50,"Natuurbeheerplan Type 1",8
+"153","Chinese muntjak",50,"Natuurbeheerplan Type 2",7
+"154","Chinese muntjak",50,"Natuurbeheerplan Type 3",2
+"155","Chinese muntjak",50,"Natuurbeheerplan Type 4",6
+"156","Chinese muntjak",50,"Uitgebreid Bosbeheerplan",8
+"157","Chinese muntjak",50,"Vlaams Natuurreservaat",1
+"158","watercrassula",100,"Aangewezen Bosreservaat",1
+"159","watercrassula",100,"Beheerplan Militair domein",3
+"160","watercrassula",100,"Harmonisch Park- en Groenbeheerplan",1
+"161","watercrassula",100,"Natuurbeheerplan Type 1",6
+"162","watercrassula",100,"Natuurbeheerplan Type 2",23
+"163","watercrassula",100,"Natuurbeheerplan Type 3",36
+"164","watercrassula",100,"Natuurbeheerplan Type 4",83
+"165","watercrassula",100,"Uitgebreid Bosbeheerplan",33
+"166","watercrassula",100,"Vlaams Natuurreservaat",7
+"167","struikaster",100,"Beheerplan Militair domein",1
+"168","struikaster",100,"Natuurbeheerplan Type 1",2
+"169","struikaster",100,"Natuurbeheerplan Type 2",7
+"170","struikaster",100,"Natuurbeheerplan Type 3",9
+"171","struikaster",100,"Natuurbeheerplan Type 4",11
+"172","struikaster",100,"Uitgebreid Bosbeheerplan",2
+"173","struikaster",100,"Vlaams Natuurreservaat",4
+"174","reuzenberenklauw",100,"Aangewezen Bosreservaat",1
+"175","reuzenberenklauw",100,"Beheerplan Militair domein",6
+"176","reuzenberenklauw",100,"Erkend Bosreservaat",1
+"177","reuzenberenklauw",100,"Erkend Natuurreservaat",5
+"178","reuzenberenklauw",100,"Harmonisch Park- en Groenbeheerplan",2
+"179","reuzenberenklauw",100,"Natuurbeheerplan Type 1",39
+"180","reuzenberenklauw",100,"Natuurbeheerplan Type 2",64
+"181","reuzenberenklauw",100,"Natuurbeheerplan Type 3",78
+"182","reuzenberenklauw",100,"Natuurbeheerplan Type 4",180
+"183","reuzenberenklauw",100,"Uitgebreid Bosbeheerplan",99
+"184","reuzenberenklauw",100,"Vlaams Natuurreservaat",11
+"185","Chinese muntjak",100,"Beheerplan Militair domein",3
+"186","Chinese muntjak",100,"Natuurbeheerplan Type 1",8
+"187","Chinese muntjak",100,"Natuurbeheerplan Type 2",9
+"188","Chinese muntjak",100,"Natuurbeheerplan Type 3",3
+"189","Chinese muntjak",100,"Natuurbeheerplan Type 4",11
+"190","Chinese muntjak",100,"Uitgebreid Bosbeheerplan",10
+"191","Chinese muntjak",100,"Vlaams Natuurreservaat",2
+"192","watercrassula",150,"Aangewezen Bosreservaat",1
+"193","watercrassula",150,"Beheerplan Militair domein",4
+"194","watercrassula",150,"Harmonisch Park- en Groenbeheerplan",1
+"195","watercrassula",150,"Natuurbeheerplan Type 1",7
+"196","watercrassula",150,"Natuurbeheerplan Type 2",29
+"197","watercrassula",150,"Natuurbeheerplan Type 3",39
+"198","watercrassula",150,"Natuurbeheerplan Type 4",90
+"199","watercrassula",150,"Uitgebreid Bosbeheerplan",42
+"200","watercrassula",150,"Vlaams Natuurreservaat",9
+"201","struikaster",150,"Beheerplan Militair domein",2
+"202","struikaster",150,"Natuurbeheerplan Type 1",2
+"203","struikaster",150,"Natuurbeheerplan Type 2",7
+"204","struikaster",150,"Natuurbeheerplan Type 3",9
+"205","struikaster",150,"Natuurbeheerplan Type 4",13
+"206","struikaster",150,"Uitgebreid Bosbeheerplan",2
+"207","struikaster",150,"Vlaams Natuurreservaat",4
+"208","reuzenberenklauw",150,"Aangewezen Bosreservaat",2
+"209","reuzenberenklauw",150,"Beheerplan Militair domein",6
+"210","reuzenberenklauw",150,"Erkend Bosreservaat",1
+"211","reuzenberenklauw",150,"Erkend Natuurreservaat",6
+"212","reuzenberenklauw",150,"Harmonisch Park- en Groenbeheerplan",2
+"213","reuzenberenklauw",150,"Natuurbeheerplan Type 1",49
+"214","reuzenberenklauw",150,"Natuurbeheerplan Type 2",77
+"215","reuzenberenklauw",150,"Natuurbeheerplan Type 3",92
+"216","reuzenberenklauw",150,"Natuurbeheerplan Type 4",206
+"217","reuzenberenklauw",150,"Uitgebreid Bosbeheerplan",109
+"218","reuzenberenklauw",150,"Vlaams Natuurreservaat",13
+"219","Chinese muntjak",150,"Beheerplan Militair domein",3
+"220","Chinese muntjak",150,"Natuurbeheerplan Type 1",8
+"221","Chinese muntjak",150,"Natuurbeheerplan Type 2",9
+"222","Chinese muntjak",150,"Natuurbeheerplan Type 3",4
+"223","Chinese muntjak",150,"Natuurbeheerplan Type 4",12
+"224","Chinese muntjak",150,"Uitgebreid Bosbeheerplan",11
+"225","Chinese muntjak",150,"Vlaams Natuurreservaat",2
+"226","watercrassula",200,"Aangewezen Bosreservaat",1
+"227","watercrassula",200,"Beheerplan Militair domein",5
+"228","watercrassula",200,"Erkend Natuurreservaat",1
+"229","watercrassula",200,"Harmonisch Park- en Groenbeheerplan",1
+"230","watercrassula",200,"Natuurbeheerplan Type 1",8
+"231","watercrassula",200,"Natuurbeheerplan Type 2",34
+"232","watercrassula",200,"Natuurbeheerplan Type 3",42
+"233","watercrassula",200,"Natuurbeheerplan Type 4",95
+"234","watercrassula",200,"Uitgebreid Bosbeheerplan",46
+"235","watercrassula",200,"Vlaams Natuurreservaat",9
+"236","struikaster",200,"Beheerplan Militair domein",2
+"237","struikaster",200,"Natuurbeheerplan Type 1",2
+"238","struikaster",200,"Natuurbeheerplan Type 2",7
+"239","struikaster",200,"Natuurbeheerplan Type 3",9
+"240","struikaster",200,"Natuurbeheerplan Type 4",13
+"241","struikaster",200,"Uitgebreid Bosbeheerplan",3
+"242","struikaster",200,"Vlaams Natuurreservaat",4
+"243","reuzenberenklauw",200,"Aangewezen Bosreservaat",2
+"244","reuzenberenklauw",200,"Beheerplan Militair domein",7
+"245","reuzenberenklauw",200,"Erkend Bosreservaat",1
+"246","reuzenberenklauw",200,"Erkend Natuurreservaat",7
+"247","reuzenberenklauw",200,"Harmonisch Park- en Groenbeheerplan",2
+"248","reuzenberenklauw",200,"Natuurbeheerplan Type 1",63
+"249","reuzenberenklauw",200,"Natuurbeheerplan Type 2",83
+"250","reuzenberenklauw",200,"Natuurbeheerplan Type 3",96
+"251","reuzenberenklauw",200,"Natuurbeheerplan Type 4",216
+"252","reuzenberenklauw",200,"Uitgebreid Bosbeheerplan",118
+"253","reuzenberenklauw",200,"Vlaams Natuurreservaat",16
+"254","Chinese muntjak",200,"Beheerplan Militair domein",3
+"255","Chinese muntjak",200,"Natuurbeheerplan Type 1",8
+"256","Chinese muntjak",200,"Natuurbeheerplan Type 2",9
+"257","Chinese muntjak",200,"Natuurbeheerplan Type 3",5
+"258","Chinese muntjak",200,"Natuurbeheerplan Type 4",13
+"259","Chinese muntjak",200,"Uitgebreid Bosbeheerplan",13
+"260","Chinese muntjak",200,"Vlaams Natuurreservaat",2
+"261","watercrassula",250,"Aangewezen Bosreservaat",1
+"262","watercrassula",250,"Beheerplan Militair domein",5
+"263","watercrassula",250,"Erkend Natuurreservaat",1
+"264","watercrassula",250,"Harmonisch Park- en Groenbeheerplan",1
+"265","watercrassula",250,"Natuurbeheerplan Type 1",9
+"266","watercrassula",250,"Natuurbeheerplan Type 2",38
+"267","watercrassula",250,"Natuurbeheerplan Type 3",45
+"268","watercrassula",250,"Natuurbeheerplan Type 4",98
+"269","watercrassula",250,"Uitgebreid Bosbeheerplan",52
+"270","watercrassula",250,"Vlaams Natuurreservaat",9
+"271","struikaster",250,"Beheerplan Militair domein",2
+"272","struikaster",250,"Natuurbeheerplan Type 1",2
+"273","struikaster",250,"Natuurbeheerplan Type 2",7
+"274","struikaster",250,"Natuurbeheerplan Type 3",9
+"275","struikaster",250,"Natuurbeheerplan Type 4",13
+"276","struikaster",250,"Uitgebreid Bosbeheerplan",3
+"277","struikaster",250,"Vlaams Natuurreservaat",4
+"278","reuzenberenklauw",250,"Aangewezen Bosreservaat",2
+"279","reuzenberenklauw",250,"Beheerplan Militair domein",7
+"280","reuzenberenklauw",250,"Erkend Bosreservaat",1
+"281","reuzenberenklauw",250,"Erkend Natuurreservaat",8
+"282","reuzenberenklauw",250,"Harmonisch Park- en Groenbeheerplan",3
+"283","reuzenberenklauw",250,"Natuurbeheerplan Type 1",82
+"284","reuzenberenklauw",250,"Natuurbeheerplan Type 2",93
+"285","reuzenberenklauw",250,"Natuurbeheerplan Type 3",105
+"286","reuzenberenklauw",250,"Natuurbeheerplan Type 4",231
+"287","reuzenberenklauw",250,"Uitgebreid Bosbeheerplan",122
+"288","reuzenberenklauw",250,"Vlaams Natuurreservaat",17
+"289","Chinese muntjak",250,"Beheerplan Militair domein",3
+"290","Chinese muntjak",250,"Natuurbeheerplan Type 1",9
+"291","Chinese muntjak",250,"Natuurbeheerplan Type 2",10
+"292","Chinese muntjak",250,"Natuurbeheerplan Type 3",5
+"293","Chinese muntjak",250,"Natuurbeheerplan Type 4",14
+"294","Chinese muntjak",250,"Uitgebreid Bosbeheerplan",14
+"295","Chinese muntjak",250,"Vlaams Natuurreservaat",2

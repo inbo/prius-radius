@@ -1,0 +1,71 @@
+Aim: to label all the climate-only maps, so this is understood by the readership.
+
+```{r}
+library(magick)
+```
+
+# SINGLE
+
+```{r}
+# read original PNG
+img <- image_read("./prius2/output/suitability/Climate_only/Acacia_mearnsii.png")
+
+# add text in the top-left corner
+img2 <- image_annotate(
+  img,
+  text      = "Noot: enkel o.b.v. klimaat.",
+  gravity   = "northwest",   # top-left
+  location  = "+0+0",      # pixel offset right/down from top-left
+  size      = 28,            # font size in points
+  color     = "black",
+  font      = "Calibri"
+)
+
+# write to a new file
+image_write(img2,
+            path = "./prius2/output/suitability/me_test/Acacia_mearnsii.png",
+            format = "png")
+```
+
+# MULTIPLE
+
+```{r multiplex}
+maps.raw <- list.files(path = "./prius2/output/suitability/climate-only",
+                       pattern = "\\.png$",   # only *.png
+                       full.names = FALSE)
+
+maps <- data.frame(species = stringr::str_remove(maps.raw, "\\.png$"),
+                   stringsAsFactors = FALSE)
+```
+
+```{r}
+
+for (species in maps$species){
+  
+  print(species)
+  
+  # read original PNG
+  img <- image_read(paste0("./prius2/output/suitability/climate-only/",
+                           species,
+                           ".png"
+                           )
+                    )
+  # add text in the top-left corner
+  img2 <- image_annotate(
+    img,
+    text      = "Noot: enkel o.b.v. klimaat.",
+    gravity   = "northwest",   # top-left
+    location  = "+0+0",      # pixel offset right/down from top-left
+    size      = 28,            # font size in points
+    color     = "black",
+    font      = "Calibri"
+    )
+  
+  # write to a new file
+  image_write(img2,
+              path = paste0("./prius2/output/suitability/climate-only_labeled/",
+                            species,
+                            ".png"),
+              format = "png")
+  }
+```

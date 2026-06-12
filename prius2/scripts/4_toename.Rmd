@@ -1,0 +1,164 @@
+
+Pro memorie : https://trias-project.github.io/indicators/07_occurrence_indicators_modelling.html .
+
+    3: emerging
+    2: potentially emerging
+    1: unclear
+    0: not emerging
+
+```{r prep packages}
+library(tidyverse)
+source("./prius2/scripts/helper_functions.R")
+```
+
+```{r prep memory}
+rm(list = ls())
+```
+
+```{r data}
+#Define output folder
+GAM_folder<-file.path("prius2","output", "GAM_outputs_2000_2025_Occupancy")
+
+# output from 4_~_preprocessing.Rmd
+fla.raw <- read.csv(file.path(GAM_folder,"output_GAM_2000_occupancy_isFlanders.tsv"),
+                    sep = "\t",
+                    header = TRUE)
+
+n2k.raw <- read.csv(file.path(GAM_folder,"output_GAM_2000_occupancy_isFlandersN2000.tsv"),
+                    sep = "\t",
+                    header = TRUE)
+```
+
+```{r filtering if needed}
+fla <- fla.raw
+n2k <- n2k.raw
+```
+
+To avoid duplication in the code (given the two sets of plots), I define part of the plotting code as a function, here.
+
+```{r}
+make_the_plot <- function(my_data){
+  
+  temp_plot <- ggplot(data = my_data,
+                      aes(x = year, y = ncells)) +
+    theme_bw() +
+    ylab("# cellen (1-km²)") +
+    theme(
+      axis.title.x = element_blank(),
+      axis.title = element_text(size = 6),
+      axis.text = element_text(size = 6)) +
+    scale_x_continuous(limits = c(2000, 2025)) +
+    geom_point(color = "black", size = 1) +
+    geom_line(aes(x = .data$year, y = .data$fit), color = "grey50", size = 0.5) +
+    geom_point(aes(x = year, y = fit), shape = 1, size = 1) +
+    geom_ribbon(aes(ymax = ucl, ymin = lcl), fill = grey(0.5), alpha = 0.4)
+    
+}
+```
+
+```{r plot flanders}
+#Create folder for storing all plots for Flanders
+plot_folder<-file.path(GAM_folder,  "Flanders_4report")
+if(!dir.exists(plot_folder)) dir.create(plot_folder)
+
+for (species in unique(fla$canonicalName)){
+  
+  print(species)
+  temp <- fla %>% filter(canonicalName == species)
+  
+  # only make a plot if there actually has been an GAM fitted
+  if(!all(is.na(temp$fit))) {
+    # plot function above
+    temp_plot <- make_the_plot(my_data = temp)
+    ggsave(temp_plot, file=file.path(plot_folder, paste0(gsub(" ", "_", species),".png")),
+           width = 7, height = 4, # important for fluent incorporation in report
+           units = "cm")
+    } else {print(paste("Skipped ", species, " because no GAM was fitted."))}
+}
+```
+
+```{r plot n2k}
+
+#Create folder for storing all plots for Natura 2000 areas in Flanders
+plot_N2000_folder<-file.path(GAM_folder,  "FlandersN2000_4report")
+if(!dir.exists(plot_N2000_folder)) dir.create(plot_N2000_folder)
+
+for (species in unique(n2k$canonicalName)){
+  
+  print(species)
+  temp <- n2k %>% filter(canonicalName == species)
+  
+  # only make a plot if there actually has been an GAM fitted
+    if(!all(is.na(temp$fit))) {
+    # plot function above
+    temp_plot <- make_the_plot(my_data = temp)
+    ggsave(temp_plot, file=file.path(plot_N2000_folder, paste0(gsub(" ", "_", species),".png")),
+           width = 7, height = 4, # important for fluent incorporation in report
+           units = "cm")
+  } else {print(paste("Skipped ", species, " because no GAM was fitted."))}
+}
+```
+
+```{r summary4report}
+summ.fla <- fla %>% 
+  filter(year == 2025) %>% 
+  select(canonicalName, em_status) %>%
+  mutate(status.vlaanderen = case_when(
+    em_status == 0 ~ "niet opkomend",
+    em_status == 1 ~ "onduidelijk",
+    em_status == 2 ~ "potentieel opkomend",
+    em_status == 3 ~ "opkomend",
+    is.na(em_status) ~ "onvoldoende data"
+  ))
+
+summ.n2k <- n2k %>% 
+  filter(year == 2025) %>% 
+  select(canonicalName, em_status) %>%
+  mutate(status.natura2000 = case_when(
+    em_status == 0 ~ "niet opkomend",
+    em_status == 1 ~ "onduidelijk",
+    em_status == 2 ~ "potentieel opkomend",
+    em_status == 3 ~ "opkomend",
+    is.na(em_status) ~ "onvoldoende data"
+  ))
+
+summ <- read.csv("./prius2/temp/criteria_aanwezigheid_2026-02-13.csv") %>%
+  left_join(summ.fla, by = c("GBIF_canonicalName" = "canonicalName")) %>% 
+  left_join(summ.n2k, by = c("GBIF_canonicalName" = "canonicalName"))
+
+summ.slim <- summ %>% 
+  filter(aanwezigheid %in% c("aanwezig", "sporadisch")) %>% # exclusie "afwezig" en marien
+  select(soort, GBIF_canonicalName, status.vlaanderen, status.natura2000)
+
+# bovenstaande stap kan opnieuw NA's hebben geïncorporeerd; deze kunnen opnieuw als "datadeficiënt"
+
+summ.slim[is.na(summ.slim)] <- "onvoldoende data*"
+
+write.csv(summ.slim, gsub("-", "_", paste0("./prius2/output/GAM_outputs_2000_2025_Occupancy/summary4report_",
+                            Sys.Date(),
+                            ".csv")),
+          row.names = F)
+```
+
+# Bram: extended list
+
+a quick file to wrangle the gam output, for easier incorporation into the report
+
+```{r get species list}
+spp.list.raw <- read_species_list(file_path = "./prius2/temp/",
+                                  prius_version = 2) %>% 
+  select(soort, GBIF_canonicalName, reg)
+
+spp.list.raw$reg[!is.na(spp.list.raw$reg)] = 1
+spp.list.raw$reg[ is.na(spp.list.raw$reg)] = 0
+
+gam <- read.csv("./prius2/output/GAM_outputs_2000_2025_Occupancy/summary4report_2026_03_08.csv")
+
+new <- spp.list.raw %>% 
+  left_join(gam, by = "GBIF_canonicalName") %>% 
+  select(!soort.y) %>% 
+  arrange(desc(reg),
+          GBIF_canonicalName)
+
+write.csv(new, "./prius2/output/GAM_outputs_2000_2025_Occupancy/summary4report_2026_03_08_full.csv")
+```

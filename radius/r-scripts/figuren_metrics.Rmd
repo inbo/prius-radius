@@ -1,0 +1,355 @@
+
+```{r}
+library(tidyverse)
+```
+
+
+```{r clear-memory}
+rm(list=ls())
+```
+
+```{r import-metric-files, message=FALSE}
+HBTRL <- read_csv("./radius/data/output/HBTRL.csv")
+VGLRL <- read_csv("./radius/data/output/VGLRL.csv")
+N2KHAB <- read_csv("./radius/data/output/N2KHAB.csv")
+PATDAT <- read_csv("./radius/data/output/PATDAT.csv")
+NBHP <- read_csv("./radius/data/output/NBHP.csv")
+TOP3 <- read_csv("./radius/data/output/TOP3.csv")
+```
+
+# Visualisatie van de berekende metrics
+
+## Vogelrichtlijn (VGLRL)
+
+Percentage van totale verspreidingsoppervlak dat overlapt met vogelrichtlijngebied
+```{r}
+ggplot(data = VGLRL, aes(x = reorder(Soort, inVGLRL), y = inVGLRL)) +
+  geom_col(colour = "#c04384", fill = "#c04384") +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0,1), breaks = c(0,0.25,0.50,0.75,1) ) +
+  ylab("Percentage overlap (%)") +
+  theme_bw() +
+  theme(axis.text = element_text(size = 9),
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+        axis.title.x = element_blank(),
+        axis.title = element_text(size = 9)) 
+```
+
+Percentage van totaal oppervlak vogelrichtlijngebied dat overlapt verspreiding per soort
+```{r}
+ggplot(data = VGLRL, aes(x = reorder(Soort, ofVGLRL), y = ofVGLRL)) +
+  geom_col(colour = "#c04384", fill = "#c04384") +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0,0.3), breaks = c(0,0.05,0.1,0.15,0.2,0.25,0.3) ) +
+  ylab("Percentage overlap (%)") +
+  theme_bw() +
+  theme(axis.text = element_text(size = 9),
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+        axis.title.x = element_blank(),
+        axis.title = element_text(size = 9)) 
+```
+ratio van bovenstaande metrics
+```{r}
+ggplot(data = VGLRL, aes(x = inVGLRL, y = ofVGLRL + 0.01)) +
+  geom_point(colour = "#c04384", fill = "#c04384") +
+  geom_text(aes(label = Soort)) +
+  coord_trans(y="log2") +
+  scale_x_continuous(limits = c(0,1)) +
+  ylab("Proportie van VGLRL dat bezet is") +
+  xlab("Proportie van bezette hokken in VGLRL") + 
+  theme_bw() +
+  theme(
+    axis.text = element_text(size = 9),
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+        axis.title = element_text(size = 9))
+```
+Per soort: overlap tussen verspreiding en de vogelrichtlijngebieden
+```{r}
+for (i in unique(VGLRL$Soort)) {
+  soort_in_vglrl <- VGLRL %>%
+    filter(Soort == i) %>%
+    select(contains("inBE"))
+  
+  names(soort_in_vglrl) <- gsub("in", "", names(soort_in_vglrl))
+  
+  soort_in_vglrl <- soort_in_vglrl %>%
+    pivot_longer(everything(), names_to = "Gebied", values_to = "Overlap") 
+  
+  print(ggplot(data = soort_in_vglrl, aes(x = Gebied, y = Overlap)) +
+    geom_col(colour = "#c04384", fill = "#c04384") +
+    scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0,1)) +
+    ylab("Percentage van totale overlap (%)") +
+    ggtitle(paste(i)) +
+    theme_bw() +
+    theme(axis.text = element_text(size = 9),
+          axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+          axis.title.x = element_blank(),
+          axis.title = element_text(size = 9)))
+    
+}
+```
+
+
+
+## Habitatrichtlijn (HBTRL)
+
+Percentage van totale verspreidingsoppervlak dat overlapt met habitatrichtlijngebied
+```{r}
+ggplot(data = HBTRL, aes(x = reorder(Soort, inHBTRL), y = inHBTRL)) +
+  geom_col(colour = "#c04384", fill = "#c04384") +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0,0.75), breaks = c(0,0.25,0.50,0.75) ) +
+  ylab("Percentage overlap (%)") +
+  theme_bw() +
+  theme(axis.text = element_text(size = 9),
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+        axis.title.x = element_blank(),
+        axis.title = element_text(size = 9)) 
+```
+
+Percentage van totaal oppervlak habitatrichtlijngebied dat overlapt verspreiding
+```{r}
+ggplot(data = HBTRL, aes(x = reorder(Soort, ofHBTRL), y = ofHBTRL)) +
+  geom_col(colour = "#c04384", fill = "#c04384") +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0,0.25), breaks = c(0,0.05,0.1,0.15,0.2,0.25) ) +
+  ylab("Percentage overlap (%)") +
+  theme_bw() +
+  theme(axis.text = element_text(size = 9),
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+        axis.title.x = element_blank(),
+        axis.title = element_text(size = 9)) 
+```
+
+ratio van bovenstaande metrics
+```{r}
+ggplot(data = HBTRL, aes(x = inHBTRL, y = ofHBTRL + 0.01)) +
+  geom_point(colour = "#c04384", fill = "#c04384") +
+  geom_text(aes(label = Soort)) +
+  coord_trans(y="log2") +
+  scale_x_continuous(limits = c(0,1)) +
+  ylab("Proportie van HBTRL dat bezet is") +
+  xlab("Proportie van bezette hokken in HBTRL") + 
+  theme_bw() +
+  theme(
+    axis.text = element_text(size = 9),
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+        axis.title = element_text(size = 9))
+```
+
+Per soort: overlap tussen verspreiding en de habitatrichtlijngebieden
+```{r}
+for (i in unique(HBTRL$Soort)) {
+  soort_in_hbtrl <- HBTRL %>%
+    filter(Soort == i) %>%
+    select(contains("inBE"))
+  
+  names(soort_in_hbtrl) <- gsub("in", "", names(soort_in_hbtrl))
+  
+  soort_in_hbtrl <- soort_in_hbtrl %>%
+    pivot_longer(everything(), names_to = "Gebied", values_to = "Overlap") 
+  
+  print(ggplot(data = soort_in_hbtrl, aes(x = Gebied, y = Overlap)) +
+    geom_col(colour = "#c04384", fill = "#c04384") +
+    scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0,1)) +
+    ylab("Percentage van totale overlap (%)") +
+    ggtitle(paste(i)) +
+    theme_bw() +
+    theme(axis.text = element_text(size = 9),
+          axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+          axis.title.x = element_blank(),
+          axis.title = element_text(size = 9)))
+    
+}
+```
+
+
+## N2000 Habitats
+
+Percentage van totale verspreidingsoppervlak dat overlapt met N2000 habitat
+```{r}
+ggplot(data = N2KHAB, aes(x = reorder(Soort, inN2KHAB), y = inN2KHAB)) +
+  geom_col(colour = "#c04384", fill = "#c04384") +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0,0.75), breaks = c(0,0.25,0.50,0.75) ) +
+  ylab("Percentage overlap (%)") +
+  theme_bw() +
+  theme(axis.text = element_text(size = 9),
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+        axis.title.x = element_blank(),
+        axis.title = element_text(size = 9)) 
+```
+
+Percentage van totaal oppervlak N2000 habitat dat overlapt verspreiding
+```{r}
+ggplot(data = N2KHAB, aes(x = reorder(Soort, ofN2KHAB), y = ofN2KHAB)) +
+  geom_col(colour = "#c04384", fill = "#c04384") +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0,0.25), breaks = c(0,0.05,0.1,0.15,0.2,0.25) ) +
+  ylab("Percentage overlap (%)") +
+  theme_bw() +
+  theme(axis.text = element_text(size = 9),
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+        axis.title.x = element_blank(),
+        axis.title = element_text(size = 9)) 
+```
+
+ratio van bovenstaande metrics
+```{r}
+ggplot(data = N2KHAB, aes(x = inN2KHAB, y = ofN2KHAB + 0.01)) +
+  geom_point(colour = "#c04384", fill = "#c04384") +
+  geom_text(aes(label = Soort)) +
+  coord_trans(y="log2") +
+  scale_x_continuous(limits = c(0,1)) +
+  ylab("Proportie van N2KHAB dat bezet is") +
+  xlab("Proportie van bezette hokken in N2KHAB") + 
+  theme_bw() +
+  theme(
+    axis.text = element_text(size = 9),
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+        axis.title = element_text(size = 9))
+```
+
+Per soort: overlap tussen verspreiding en de N2000 habitattypes
+```{r}
+for (i in unique(N2KHAB$Soort)) {
+  soort_in_n2khab <- N2KHAB %>%
+    filter(Soort == i) %>%
+    select(contains("in"))
+  
+  names(soort_in_n2khab) <- gsub("in", "", names(soort_in_n2khab))
+  
+  soort_in_n2khab <- soort_in_n2khab %>%
+    pivot_longer(everything(), names_to = "Gebied", values_to = "Overlap") %>%
+    filter(grepl('^[0-9]', Gebied))
+  
+  print(ggplot(data = soort_in_n2khab, aes(x = Gebied, y = Overlap)) +
+    geom_col(colour = "#c04384", fill = "#c04384") +
+    scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0,1)) +
+    ylab("Percentage van totale overlap (%)") +
+    ggtitle(paste(i)) +
+    theme_bw() +
+    theme(axis.text = element_text(size = 9),
+          axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+          axis.title.x = element_blank(),
+          axis.title = element_text(size = 9)))
+    
+}
+```
+
+## Natuurbeheerplannen (NBHP)
+
+Percentage van totale verspreidingsoppervlak dat overlapt met natuurbeheerplannen
+```{r}
+ggplot(data = NBHP, aes(x = reorder(Soort, inNBHP), y = inNBHP)) +
+  geom_col(colour = "#c04384", fill = "#c04384") +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0,1), breaks = c(0,0.25,0.50,0.75,1) ) +
+  ylab("Percentage overlap (%)") +
+  theme_bw() +
+  theme(axis.text = element_text(size = 9),
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+        axis.title.x = element_blank(),
+        axis.title = element_text(size = 9)) 
+```
+
+Aantal natuurbeheerplannen waarmee verspreiding overlapt
+```{r}
+ggplot(data = NBHP, aes(x = reorder(Soort, nNBHP), y = nNBHP)) +
+  geom_col(colour = "#c04384", fill = "#c04384") +
+  ylab("Aantal natuurbeheerplannen") +
+  theme_bw() +
+  theme(axis.text = element_text(size = 9),
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+        axis.title.x = element_blank(),
+        axis.title = element_text(size = 9)) 
+```
+
+Per soort: weergave van verantwoordelijkheden
+```{r}
+for (i in unique(NBHP$Soort)) {
+  soort_in_nbhp <- NBHP %>%
+    filter(Soort == i) %>%
+    select(contains("in") & !c("inNBHP"))
+  
+  names(soort_in_nbhp) <- gsub("in", "", names(soort_in_nbhp))
+  
+  soort_in_nbhp <- soort_in_nbhp %>%
+    pivot_longer(everything(), names_to = "Gebied", values_to = "Overlap") 
+  
+  print(ggplot(data = soort_in_nbhp, aes(x = Gebied, y = Overlap)) +
+    geom_col(colour = "#c04384", fill = "#c04384") +
+    scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0,1)) +
+    ylab("Percentage van totale overlap (%)") +
+    ggtitle(paste(i)) +
+    theme_bw() +
+    theme(axis.text = element_text(size = 9),
+          axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+          axis.title.x = element_blank(),
+          axis.title = element_text(size = 9)))
+    
+}
+```
+
+
+## ANB Patrimonium (PATDAT)
+
+Percentage van totale verspreidingsoppervlak dat overlapt met ANB domeinen
+```{r}
+ggplot(data = PATDAT, aes(x = reorder(Soort, inPATDAT), y = inPATDAT)) +
+  geom_col(colour = "#c04384", fill = "#c04384") +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0,1), breaks = c(0,0.25,0.50,0.75,1) ) +
+  ylab("Percentage overlap (%)") +
+  theme_bw() +
+  theme(axis.text = element_text(size = 9),
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+        axis.title.x = element_blank(),
+        axis.title = element_text(size = 9)) 
+```
+Percentage van totaal oppervlak ANB patrimonium dat overlapt verspreiding
+```{r}
+ggplot(data = PATDAT, aes(x = reorder(Soort, ofPATDAT), y = ofPATDAT)) +
+  geom_col(colour = "#c04384", fill = "#c04384") +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0,0.25), breaks = c(0,0.05,0.1,0.15,0.2,0.25) ) +
+  ylab("Percentage overlap (%)") +
+  theme_bw() +
+  theme(axis.text = element_text(size = 9),
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+        axis.title.x = element_blank(),
+        axis.title = element_text(size = 9)) 
+```
+
+ratio van bovenstaande metrics
+```{r}
+ggplot(data = PATDAT, aes(x = inPATDAT, y = ofPATDAT + 0.01)) +
+  geom_point(colour = "#c04384", fill = "#c04384") +
+  geom_text(aes(label = Soort)) +
+  coord_trans(y="log2") +
+  scale_x_continuous(limits = c(0,1)) +
+  ylab("Proportie van PATDAT dat bezet is") +
+  xlab("Proportie van bezette hokken in PATDAT") + 
+  theme_bw() +
+  theme(
+    axis.text = element_text(size = 9),
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+        axis.title = element_text(size = 9))
+```
+
+Per soort: weergave van overlap per beheerregio
+```{r}
+for (i in unique(PATDAT$Soort)) {
+  soort_in_patdat <- PATDAT %>%
+    filter(Soort == i) %>%
+    select(contains("in") & !c("inPATDAT"))
+  
+  names(soort_in_patdat) <- gsub("in", "", names(soort_in_patdat))
+  
+  soort_in_patdat <- soort_in_patdat %>%
+    pivot_longer(everything(), names_to = "Gebied", values_to = "Overlap") 
+  
+  print(ggplot(data = soort_in_patdat, aes(x = Gebied, y = Overlap)) +
+    geom_col(colour = "#c04384", fill = "#c04384") +
+    scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0,1)) +
+    ylab("Percentage van totale overlap (%)") +
+    ggtitle(paste(i)) +
+    theme_bw() +
+    theme(axis.text = element_text(size = 9),
+          axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+          axis.title.x = element_blank(),
+          axis.title = element_text(size = 9)))
+    
+}
+```

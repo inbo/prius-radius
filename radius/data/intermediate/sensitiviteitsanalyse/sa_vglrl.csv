@@ -1,0 +1,550 @@
+"","Soort","Buffer","Overlap"
+"1","Chinese wolhandkrab","10",0.167174986934425
+"2","heilige ibis","10",0.43776053353595
+"3","nijlgans","10",0.21520687682555
+"4","invasieve duizendknopen","10",0.0757025636504493
+"5","reuzenbalsemien","10",0.138506077251375
+"6","boksdoorn","10",0.0677937929506628
+"7","rimpelroos","10",0.138308085359036
+"8","mahonie","10",0.208818582510978
+"9","reuzenberenklauw","10",0.0504381190273611
+"10","vijfbladige wingerd","10",0.0808760633172785
+"11","struikaster","10",0.106437989482917
+"12","hemelboom","10",0.0255580353792558
+"13","Canadese gans","10",0.260860677958839
+"14","smalle waterpest","10",0.237074386067367
+"15","watercrassula","10",0.37041667261508
+"16","late guldenroede","10",0.0815221636603558
+"17","Canadese guldenroede","10",0.106613172526942
+"18","grote waternavel","10",0.154218659160647
+"19","sneeuwbes","10",0.0690885894975606
+"20","verspreidbladige waterpest","10",0.0327542775978615
+"21","zonnebaars","10",0.188326618163858
+"22","muskusrat","10",0.229657898811348
+"23","rosse stekelstaart","10",0.450652825112801
+"24","parelvederkruid","10",0.179194108944844
+"25","Chinese muntjak","10",0.0332139211862154
+"26","Japans hoefblad","10",0.0164033177256938
+"27","Amerikaanse hondsvis","10",0.431659930071936
+"28","Siberische grondeekhoorn","10",0.0443421739454904
+"29","blauwbandgrondel","10",0.167109700518782
+"30","lettersierschildpad","10",0.116598922056793
+"31","smalle olijfwilg","10",0.196631673440214
+"32","Amerikaanse nerts","10",0.160668098980071
+"33","zwartbekgrondel","10",0.0521926733227964
+"34","gevlekte Amerikaanse rivierkreeft","10",0.118315807430934
+"35","Amerikaanse stierkikker","10",0.0785305483449122
+"36","beverrat","10",0.310441601312926
+"37","moerashyacint","10",0.215512440180542
+"38","valse wingerd","10",0.0814685789860182
+"39","Afghaanse duizendknoop","10",0.163303150865726
+"40","wasbeer","10",0.130442261556908
+"41","grote waterteunisbloem","10",0.456301983380491
+"42","gele maskerbloem","10",0.120996739155138
+"43","rode Amerikaanse rivierkreeft","10",0.197948334110351
+"44","marmergrondel","10",0.197653818791159
+"45","kleine waterteunisbloem","10",0.801836659993068
+"46","egeria","10",0.0491861924198006
+"47","ongelijkbladig vederkruid","10",0.0510555733926005
+"48","zijdeplant","10",0.0337031331162827
+"49","gestreepte Amerikaanse rivierkreeft","10",0.388447979193971
+"50","Kaapse waterlelie","10",0.668654702755451
+"51","watersla","10",0.0729403660928942
+"52","moerasaronskelk","10",0.147536785362914
+"53","Chinese moerasslak","10",0.525628802602843
+"54","waterhyacint","10",0.214285714286011
+"55","Aziatische hoornaar (soort)","10",0.011420295603523
+"56","Leidse plant","10",0.233968336408891
+"57","moerasanemoon","10",0.042759172162493
+"58","Turkse rivierkreeft","10",0.146006715264716
+"59","sikahert","10",0.747501414840341
+"60","Noord-Aziatische modderkruiper","10",1.00000000000005
+"61","Chinese wolhandkrab","20",0.167165814417426
+"62","heilige ibis","20",0.448726677401503
+"63","nijlgans","20",0.209650286943784
+"64","invasieve duizendknopen","20",0.0742365906510343
+"65","reuzenbalsemien","20",0.134653367580534
+"66","boksdoorn","20",0.0706565922700828
+"67","rimpelroos","20",0.13119288862452
+"68","mahonie","20",0.159104432758709
+"69","reuzenberenklauw","20",0.0517206576505202
+"70","vijfbladige wingerd","20",0.0781767181878
+"71","struikaster","20",0.11599330387431
+"72","hemelboom","20",0.0257987755946526
+"73","Canadese gans","20",0.257728530000031
+"74","smalle waterpest","20",0.241056609602103
+"75","watercrassula","20",0.348469371045104
+"76","late guldenroede","20",0.0815010787418606
+"77","Canadese guldenroede","20",0.105474128311049
+"78","grote waternavel","20",0.162576608960586
+"79","sneeuwbes","20",0.0669571984831555
+"80","verspreidbladige waterpest","20",0.0342418240757843
+"81","zonnebaars","20",0.189118445975073
+"82","muskusrat","20",0.224453041082772
+"83","rosse stekelstaart","20",0.469584389280373
+"84","parelvederkruid","20",0.184125583749985
+"85","Chinese muntjak","20",0.0335028321772705
+"86","Japans hoefblad","20",0.0198060778139438
+"87","Amerikaanse hondsvis","20",0.433873699022193
+"88","Siberische grondeekhoorn","20",0.0552338137264813
+"89","blauwbandgrondel","20",0.167674976956019
+"90","lettersierschildpad","20",0.118006867018477
+"91","smalle olijfwilg","20",0.214255080162795
+"92","Amerikaanse nerts","20",0.164077268368749
+"93","zwartbekgrondel","20",0.0498897605090529
+"94","gevlekte Amerikaanse rivierkreeft","20",0.117108289090791
+"95","Amerikaanse stierkikker","20",0.0692716907263246
+"96","beverrat","20",0.315236956473931
+"97","moerashyacint","20",0.219505110344932
+"98","valse wingerd","20",0.0818399002186084
+"99","Afghaanse duizendknoop","20",0.136189163815899
+"100","wasbeer","20",0.132699849346584
+"101","grote waterteunisbloem","20",0.431938055257
+"102","gele maskerbloem","20",0.115278538512992
+"103","rode Amerikaanse rivierkreeft","20",0.196397067517275
+"104","marmergrondel","20",0.192527407599454
+"105","kleine waterteunisbloem","20",0.772078511634645
+"106","egeria","20",0.0495861520854217
+"107","ongelijkbladig vederkruid","20",0.0537187472618098
+"108","zijdeplant","20",0.033258471413336
+"109","gestreepte Amerikaanse rivierkreeft","20",0.402534920286256
+"110","Kaapse waterlelie","20",0.635179217815247
+"111","watersla","20",0.0779731020720957
+"112","moerasaronskelk","20",0.132094314279052
+"113","Chinese moerasslak","20",0.51319842572613
+"114","waterhyacint","20",0.214285714285735
+"115","Aziatische hoornaar (soort)","20",0.0113822200237605
+"116","Leidse plant","20",0.279524951668187
+"117","moerasanemoon","20",0.0454593263467996
+"118","Turkse rivierkreeft","20",0.161803366161718
+"119","sikahert","20",0.746112450906709
+"120","Noord-Aziatische modderkruiper","20",1.00000000000076
+"121","Chinese wolhandkrab","30",0.165978276347265
+"122","heilige ibis","30",0.454836756126009
+"123","nijlgans","30",0.202860372082687
+"124","invasieve duizendknopen","30",0.0741028790707338
+"125","reuzenbalsemien","30",0.131436410648188
+"126","boksdoorn","30",0.0735175063119467
+"127","rimpelroos","30",0.126887232556075
+"128","mahonie","30",0.134894145553371
+"129","reuzenberenklauw","30",0.0529351080396622
+"130","vijfbladige wingerd","30",0.0773806794502813
+"131","struikaster","30",0.124788802779522
+"132","hemelboom","30",0.0258474204448144
+"133","Canadese gans","30",0.250891731534317
+"134","smalle waterpest","30",0.242401793397629
+"135","watercrassula","30",0.339755267697816
+"136","late guldenroede","30",0.081679887356748
+"137","Canadese guldenroede","30",0.105506728887306
+"138","grote waternavel","30",0.168953200108336
+"139","sneeuwbes","30",0.0659489350345716
+"140","verspreidbladige waterpest","30",0.0363916102859079
+"141","zonnebaars","30",0.188667136949347
+"142","muskusrat","30",0.217098606794529
+"143","rosse stekelstaart","30",0.477330232228926
+"144","parelvederkruid","30",0.186033721939453
+"145","Chinese muntjak","30",0.0342149548996311
+"146","Japans hoefblad","30",0.0219869076719587
+"147","Amerikaanse hondsvis","30",0.437240966378028
+"148","Siberische grondeekhoorn","30",0.0661276411689018
+"149","blauwbandgrondel","30",0.169050806395387
+"150","lettersierschildpad","30",0.119116978932365
+"151","smalle olijfwilg","30",0.221444744115258
+"152","Amerikaanse nerts","30",0.158493098865231
+"153","zwartbekgrondel","30",0.0473892061071219
+"154","gevlekte Amerikaanse rivierkreeft","30",0.117491758757308
+"155","Amerikaanse stierkikker","30",0.0673510468909931
+"156","beverrat","30",0.31065571149052
+"157","moerashyacint","30",0.222979177191567
+"158","valse wingerd","30",0.0823063853582851
+"159","Afghaanse duizendknoop","30",0.121462064968617
+"160","wasbeer","30",0.133219148659272
+"161","grote waterteunisbloem","30",0.413663963123636
+"162","gele maskerbloem","30",0.113036291367774
+"163","rode Amerikaanse rivierkreeft","30",0.19751522230633
+"164","marmergrondel","30",0.190623029594382
+"165","kleine waterteunisbloem","30",0.737029893448425
+"166","egeria","30",0.0502120149496386
+"167","ongelijkbladig vederkruid","30",0.0554292787419945
+"168","zijdeplant","30",0.0335953756167135
+"169","gestreepte Amerikaanse rivierkreeft","30",0.409472668223269
+"170","Kaapse waterlelie","30",0.614503875591769
+"171","watersla","30",0.0801973929912325
+"172","Kesslergrondel","30",0.000172858068309176
+"173","moerasaronskelk","30",0.124049434984716
+"174","Chinese moerasslak","30",0.50888299140998
+"175","waterhyacint","30",0.214285714285642
+"176","Aziatische hoornaar (soort)","30",0.0113349567244273
+"177","Leidse plant","30",0.295983644404146
+"178","moerasanemoon","30",0.0468003728432161
+"179","Turkse rivierkreeft","30",0.168080054749849
+"180","sikahert","30",0.741818308972749
+"181","Noord-Aziatische modderkruiper","30",0.999999999999796
+"182","Chinese wolhandkrab","40",0.164745756478893
+"183","heilige ibis","40",0.455153516607257
+"184","nijlgans","40",0.195533291328597
+"185","invasieve duizendknopen","40",0.0743736828290471
+"186","reuzenbalsemien","40",0.128847081070684
+"187","boksdoorn","40",0.075636459624002
+"188","rimpelroos","40",0.123216918719823
+"189","mahonie","40",0.119527867682328
+"190","reuzenberenklauw","40",0.0539618762070814
+"191","vijfbladige wingerd","40",0.0775209999046468
+"192","struikaster","40",0.131390237065686
+"193","hemelboom","40",0.0259576367784862
+"194","Canadese gans","40",0.243173873002338
+"195","smalle waterpest","40",0.2432048044767
+"196","watercrassula","40",0.334609268254699
+"197","late guldenroede","40",0.0818112819641759
+"198","Canadese guldenroede","40",0.105804454664105
+"199","grote waternavel","40",0.174225422533841
+"200","sneeuwbes","40",0.0651232965135626
+"201","verspreidbladige waterpest","40",0.0378245255823712
+"202","zonnebaars","40",0.18899667168297
+"203","muskusrat","40",0.20938972561199
+"204","rosse stekelstaart","40",0.481223707389161
+"205","parelvederkruid","40",0.186378935476425
+"206","Chinese muntjak","40",0.034819440496612
+"207","Japans hoefblad","40",0.0222790050411917
+"208","Amerikaanse hondsvis","40",0.441085857467682
+"209","Siberische grondeekhoorn","40",0.0756712646612905
+"210","blauwbandgrondel","40",0.170775840657507
+"211","lettersierschildpad","40",0.119981805096235
+"212","smalle olijfwilg","40",0.226691227897647
+"213","Amerikaanse nerts","40",0.155856477359667
+"214","zwartbekgrondel","40",0.0468723927827278
+"215","gevlekte Amerikaanse rivierkreeft","40",0.117882682986971
+"216","Amerikaanse stierkikker","40",0.0664764004465034
+"217","beverrat","40",0.303592921029642
+"218","moerashyacint","40",0.225989822822245
+"219","valse wingerd","40",0.0824957551277868
+"220","Afghaanse duizendknoop","40",0.112044889530012
+"221","wasbeer","40",0.132535589221841
+"222","grote waterteunisbloem","40",0.397258999383442
+"223","gele maskerbloem","40",0.111888292888825
+"224","rode Amerikaanse rivierkreeft","40",0.198314286735774
+"225","marmergrondel","40",0.191736505641562
+"226","kleine waterteunisbloem","40",0.700600594935805
+"227","egeria","40",0.0507991075250927
+"228","ongelijkbladig vederkruid","40",0.0551505153639741
+"229","zijdeplant","40",0.0342208436297476
+"230","gestreepte Amerikaanse rivierkreeft","40",0.413166868949089
+"231","Kaapse waterlelie","40",0.602125298681692
+"232","watersla","40",0.0814146767494218
+"233","Kesslergrondel","40",0.00808362071102458
+"234","moerasaronskelk","40",0.118330731525689
+"235","Chinese moerasslak","40",0.506693515751755
+"236","waterhyacint","40",0.214285714285722
+"237","Aziatische hoornaar (soort)","40",0.0113809733547223
+"238","Leidse plant","40",0.301099013494653
+"239","moerasanemoon","40",0.047543580347004
+"240","Turkse rivierkreeft","40",0.171382137882347
+"241","sikahert","40",0.734050388318672
+"242","Noord-Aziatische modderkruiper","40",1.00000000000008
+"243","Chinese wolhandkrab","50",0.163871424456401
+"244","heilige ibis","50",0.452992097186875
+"245","nijlgans","50",0.188330978913751
+"246","invasieve duizendknopen","50",0.0747373496013464
+"247","reuzenbalsemien","50",0.126666430625259
+"248","boksdoorn","50",0.0779086183156914
+"249","rimpelroos","50",0.119517711264595
+"250","mahonie","50",0.108767286536899
+"251","reuzenberenklauw","50",0.0547567107185555
+"252","vijfbladige wingerd","50",0.0777774227145063
+"253","struikaster","50",0.136093899419926
+"254","hemelboom","50",0.0260363587462006
+"255","Canadese gans","50",0.235363635424959
+"256","smalle waterpest","50",0.24438298657917
+"257","watercrassula","50",0.329482705974063
+"258","late guldenroede","50",0.0819325153230324
+"259","Canadese guldenroede","50",0.106056842457605
+"260","grote waternavel","50",0.178765520966115
+"261","sneeuwbes","50",0.0644643604322264
+"262","verspreidbladige waterpest","50",0.0367549510046846
+"263","zonnebaars","50",0.190192884473919
+"264","muskusrat","50",0.201987087984123
+"265","rosse stekelstaart","50",0.481699718250362
+"266","parelvederkruid","50",0.186863255220187
+"267","Chinese muntjak","50",0.0353581352062239
+"268","Japans hoefblad","50",0.022251175661257
+"269","Amerikaanse hondsvis","50",0.445197980137623
+"270","Siberische grondeekhoorn","50",0.0849271250083544
+"271","blauwbandgrondel","50",0.172629225692863
+"272","lettersierschildpad","50",0.120533001445119
+"273","smalle olijfwilg","50",0.229388416909816
+"274","Amerikaanse nerts","50",0.154784474968323
+"275","zwartbekgrondel","50",0.046936080618095
+"276","gevlekte Amerikaanse rivierkreeft","50",0.118260507084928
+"277","Amerikaanse stierkikker","50",0.0659413541992272
+"278","beverrat","50",0.293350012025654
+"279","moerashyacint","50",0.228205065682063
+"280","valse wingerd","50",0.0825533769790816
+"281","Afghaanse duizendknoop","50",0.107424376856308
+"282","wasbeer","50",0.131972305203388
+"283","grote waterteunisbloem","50",0.383146500936375
+"284","gele maskerbloem","50",0.111253296106455
+"285","rode Amerikaanse rivierkreeft","50",0.198479334492283
+"286","marmergrondel","50",0.191818570442311
+"287","kleine waterteunisbloem","50",0.663913407422056
+"288","egeria","50",0.0514872959338176
+"289","ongelijkbladig vederkruid","50",0.0547165786075373
+"290","zijdeplant","50",0.034880794177715
+"291","gestreepte Amerikaanse rivierkreeft","50",0.415153946439508
+"292","Kaapse waterlelie","50",0.59403496104281
+"293","watersla","50",0.0821564785274596
+"294","Kesslergrondel","50",0.0180343775236544
+"295","moerasaronskelk","50",0.113440739070215
+"296","Chinese moerasslak","50",0.505369730860104
+"297","waterhyacint","50",0.214285714285697
+"298","Aziatische hoornaar (soort)","50",0.0115087572692031
+"299","Leidse plant","50",0.298091718175001
+"300","moerasanemoon","50",0.048009383066821
+"301","Turkse rivierkreeft","50",0.173411092090856
+"302","sikahert","50",0.724799432405593
+"303","Noord-Aziatische modderkruiper","50",1.00000000000017
+"304","Chinese wolhandkrab","100",0.161457651681681
+"305","heilige ibis","100",0.44417458392304
+"306","nijlgans","100",0.159340577253566
+"307","invasieve duizendknopen","100",0.0761535198009065
+"308","reuzenbalsemien","100",0.117481858252397
+"309","boksdoorn","100",0.0850709831568357
+"310","rimpelroos","100",0.102578419507964
+"311","mahonie","100",0.0812205885410817
+"312","reuzenberenklauw","100",0.0573279535068509
+"313","vijfbladige wingerd","100",0.0789218693713118
+"314","struikaster","100",0.147480457812857
+"315","hemelboom","100",0.0268879429009234
+"316","Canadese gans","100",0.202627486481442
+"317","smalle waterpest","100",0.247682318770548
+"318","watercrassula","100",0.303981309949039
+"319","late guldenroede","100",0.082365566330284
+"320","Canadese guldenroede","100",0.106816586136705
+"321","grote waternavel","100",0.189591555827517
+"322","sneeuwbes","100",0.0631340226973901
+"323","verspreidbladige waterpest","100",0.0313206864470944
+"324","zonnebaars","100",0.1950449913798
+"325","muskusrat","100",0.174801329639704
+"326","rosse stekelstaart","100",0.469543780630569
+"327","parelvederkruid","100",0.190212586443512
+"328","Chinese muntjak","100",0.0376402681564369
+"329","Japans hoefblad","100",0.0253521704313482
+"330","Amerikaanse hondsvis","100",0.456466136152365
+"331","Siberische grondeekhoorn","100",0.110392292061782
+"332","blauwbandgrondel","100",0.175947847297881
+"333","lettersierschildpad","100",0.121520176952735
+"334","smalle olijfwilg","100",0.23080696060356
+"335","Amerikaanse nerts","100",0.151405839501908
+"336","zwartbekgrondel","100",0.0482075588263991
+"337","gevlekte Amerikaanse rivierkreeft","100",0.122596238121979
+"338","Amerikaanse stierkikker","100",0.0662699882608927
+"339","beverrat","100",0.252203596878502
+"340","moerashyacint","100",0.227859562589957
+"341","valse wingerd","100",0.0796305636132267
+"342","Afghaanse duizendknoop","100",0.100649042665023
+"343","wasbeer","100",0.132494504654194
+"344","grote waterteunisbloem","100",0.33245851110965
+"345","gele maskerbloem","100",0.108908071499499
+"346","rode Amerikaanse rivierkreeft","100",0.196958573499598
+"347","marmergrondel","100",0.189777043798291
+"348","kleine waterteunisbloem","100",0.545996851199074
+"349","egeria","100",0.0561345719400358
+"350","ongelijkbladig vederkruid","100",0.0544456915055026
+"351","zijdeplant","100",0.0370411794911372
+"352","gestreepte Amerikaanse rivierkreeft","100",0.409994688100477
+"353","Kaapse waterlelie","100",0.554740882152906
+"354","watersla","100",0.0814231272119804
+"355","Kesslergrondel","100",0.0440131385807507
+"356","moerasaronskelk","100",0.100476996898496
+"357","Chinese moerasslak","100",0.502699859419326
+"358","waterhyacint","100",0.215677042585342
+"359","Aziatische hoornaar (soort)","100",0.0127073490036248
+"360","Leidse plant","100",0.279264394642255
+"361","moerasanemoon","100",0.0527825098246629
+"362","Turkse rivierkreeft","100",0.187014513849475
+"363","sikahert","100",0.675833673928826
+"364","Noord-Aziatische modderkruiper","100",1.00000000000006
+"365","Chinese wolhandkrab","150",0.161572451471488
+"366","heilige ibis","150",0.428305979479905
+"367","nijlgans","150",0.139696802702466
+"368","invasieve duizendknopen","150",0.076592586820875
+"369","reuzenbalsemien","150",0.11001646979758
+"370","boksdoorn","150",0.0898765904007326
+"371","rimpelroos","150",0.0904306853818224
+"372","mahonie","150",0.0693368942640989
+"373","reuzenberenklauw","150",0.0585453769376064
+"374","vijfbladige wingerd","150",0.0782220466060228
+"375","struikaster","150",0.151700846579761
+"376","hemelboom","150",0.0287916672281258
+"377","Canadese gans","150",0.178044707967837
+"378","smalle waterpest","150",0.247712418653257
+"379","watercrassula","150",0.282565112981056
+"380","late guldenroede","150",0.0819374252886738
+"381","Canadese guldenroede","150",0.106760801605781
+"382","grote waternavel","150",0.192393340651718
+"383","sneeuwbes","150",0.0630985722189068
+"384","verspreidbladige waterpest","150",0.0288996193425399
+"385","zonnebaars","150",0.195624908206645
+"386","muskusrat","150",0.157639860983308
+"387","rosse stekelstaart","150",0.448255902028289
+"388","parelvederkruid","150",0.189621563424734
+"389","Chinese muntjak","150",0.0397379807854297
+"390","Japans hoefblad","150",0.0282638615259568
+"391","Amerikaanse hondsvis","150",0.456156082981914
+"392","Siberische grondeekhoorn","150",0.112301985179103
+"393","blauwbandgrondel","150",0.175014279722415
+"394","lettersierschildpad","150",0.121212331845939
+"395","smalle olijfwilg","150",0.225936695144292
+"396","Amerikaanse nerts","150",0.152635107702363
+"397","zwartbekgrondel","150",0.0505031376299574
+"398","gevlekte Amerikaanse rivierkreeft","150",0.127724295467649
+"399","Amerikaanse stierkikker","150",0.0688588367349042
+"400","beverrat","150",0.227253133428982
+"401","moerashyacint","150",0.227923722972135
+"402","valse wingerd","150",0.0759635287962193
+"403","Afghaanse duizendknoop","150",0.0948669746093369
+"404","wasbeer","150",0.132972162252973
+"405","grote waterteunisbloem","150",0.298864953519985
+"406","gele maskerbloem","150",0.107184178666206
+"407","rode Amerikaanse rivierkreeft","150",0.196813392836612
+"408","marmergrondel","150",0.191108520755635
+"409","kleine waterteunisbloem","150",0.486853894274627
+"410","egeria","150",0.0605578750485494
+"411","ongelijkbladig vederkruid","150",0.0561347539180304
+"412","zijdeplant","150",0.0379484390871102
+"413","gestreepte Amerikaanse rivierkreeft","150",0.400026169103403
+"414","Kaapse waterlelie","150",0.534678611617328
+"415","watersla","150",0.0788356156591075
+"416","Kesslergrondel","150",0.0651390901880798
+"417","moerasaronskelk","150",0.0940912042089496
+"418","Chinese moerasslak","150",0.491183486954022
+"419","waterhyacint","150",0.221522492696104
+"420","Aziatische hoornaar (soort)","150",0.0141839726382066
+"421","Leidse plant","150",0.270759578362497
+"422","moerasanemoon","150",0.0563552097703957
+"423","Turkse rivierkreeft","150",0.193456762033826
+"424","sikahert","150",0.620027879919926
+"425","Noord-Aziatische modderkruiper","150",0.994106458315442
+"426","Chinese wolhandkrab","200",0.160836234533787
+"427","heilige ibis","200",0.408438012177526
+"428","nijlgans","200",0.125346476732796
+"429","invasieve duizendknopen","200",0.0767003965743505
+"430","reuzenbalsemien","200",0.103842383304968
+"431","boksdoorn","200",0.0921811905958752
+"432","rimpelroos","200",0.0814152195888889
+"433","mahonie","200",0.0622604163343609
+"434","reuzenberenklauw","200",0.0592224333777845
+"435","vijfbladige wingerd","200",0.0775474180577069
+"436","struikaster","200",0.15456446460138
+"437","hemelboom","200",0.030722513099538
+"438","Canadese gans","200",0.159566679034547
+"439","smalle waterpest","200",0.246168877866853
+"440","watercrassula","200",0.265694079319382
+"441","late guldenroede","200",0.0810911514074307
+"442","Canadese guldenroede","200",0.105709369332053
+"443","grote waternavel","200",0.192096297881212
+"444","sneeuwbes","200",0.0630417736971839
+"445","verspreidbladige waterpest","200",0.0281911706536519
+"446","zonnebaars","200",0.193919507991601
+"447","muskusrat","200",0.144383548432225
+"448","rosse stekelstaart","200",0.426107060821083
+"449","parelvederkruid","200",0.187835173973768
+"450","Chinese muntjak","200",0.0418194165498229
+"451","Japans hoefblad","200",0.0297861309076275
+"452","Amerikaanse hondsvis","200",0.45221833079276
+"453","Siberische grondeekhoorn","200",0.108946153506117
+"454","blauwbandgrondel","200",0.172606709216704
+"455","lettersierschildpad","200",0.119484325700113
+"456","smalle olijfwilg","200",0.221971781679022
+"457","Amerikaanse nerts","200",0.155509036058479
+"458","zwartbekgrondel","200",0.0519091878880068
+"459","gevlekte Amerikaanse rivierkreeft","200",0.129835550465937
+"460","Amerikaanse stierkikker","200",0.0706544788985099
+"461","beverrat","200",0.215395137126705
+"462","moerashyacint","200",0.22556003418716
+"463","valse wingerd","200",0.0733899362786586
+"464","Afghaanse duizendknoop","200",0.0914499088649188
+"465","wasbeer","200",0.130863541231311
+"466","grote waterteunisbloem","200",0.272346341527738
+"467","gele maskerbloem","200",0.104148289656091
+"468","rode Amerikaanse rivierkreeft","200",0.195930109745589
+"469","marmergrondel","200",0.193168063336189
+"470","kleine waterteunisbloem","200",0.449354540375417
+"471","egeria","200",0.0638722363397421
+"472","ongelijkbladig vederkruid","200",0.0568782517577962
+"473","zijdeplant","200",0.0384737832097865
+"474","gestreepte Amerikaanse rivierkreeft","200",0.387915968876435
+"475","Kaapse waterlelie","200",0.509666343012448
+"476","watersla","200",0.0783810895772886
+"477","Kesslergrondel","200",0.0789443567200738
+"478","grijze eekhoorn","200",0.00109795240300439
+"479","moerasaronskelk","200",0.0901345540376256
+"480","Chinese moerasslak","200",0.466219210883666
+"481","waterhyacint","200",0.22710583156874
+"482","Aziatische hoornaar (soort)","200",0.0157398071915109
+"483","Leidse plant","200",0.263610122256047
+"484","moerasanemoon","200",0.0582789820373325
+"485","Turkse rivierkreeft","200",0.195552642205824
+"486","sikahert","200",0.569122673538063
+"487","Noord-Aziatische modderkruiper","200",0.971785489006328
+"488","Chinese wolhandkrab","250",0.159334264437029
+"489","heilige ibis","250",0.393310378930881
+"490","nijlgans","250",0.114538650530499
+"491","invasieve duizendknopen","250",0.0765746781994102
+"492","reuzenbalsemien","250",0.0982915864160421
+"493","boksdoorn","250",0.0915569577413528
+"494","rimpelroos","250",0.0749582711080291
+"495","mahonie","250",0.0581396284475981
+"496","reuzenberenklauw","250",0.0596086674462907
+"497","vijfbladige wingerd","250",0.0771250920638565
+"498","struikaster","250",0.154344563098389
+"499","hemelboom","250",0.0324534742215095
+"500","Canadese gans","250",0.144956665199154
+"501","smalle waterpest","250",0.242880523101642
+"502","watercrassula","250",0.252349742340695
+"503","late guldenroede","250",0.0802348716246657
+"504","Canadese guldenroede","250",0.104702399676111
+"505","grote waternavel","250",0.18932422230105
+"506","sneeuwbes","250",0.0629921008156709
+"507","verspreidbladige waterpest","250",0.0290117986312855
+"508","zonnebaars","250",0.19055009107467
+"509","muskusrat","250",0.134242465081736
+"510","rosse stekelstaart","250",0.406152562423035
+"511","parelvederkruid","250",0.185288474119309
+"512","Chinese muntjak","250",0.043299036288412
+"513","Japans hoefblad","250",0.0309844909250333
+"514","Amerikaanse hondsvis","250",0.447003792338562
+"515","Siberische grondeekhoorn","250",0.10464514539257
+"516","blauwbandgrondel","250",0.169801883759843
+"517","lettersierschildpad","250",0.116944757754586
+"518","smalle olijfwilg","250",0.216011541731436
+"519","Amerikaanse nerts","250",0.157491617518831
+"520","zwartbekgrondel","250",0.0528227034848476
+"521","gevlekte Amerikaanse rivierkreeft","250",0.130943518383475
+"522","Amerikaanse stierkikker","250",0.0717010328710546
+"523","beverrat","250",0.20939092338347
+"524","moerashyacint","250",0.221010897699923
+"525","valse wingerd","250",0.0710027256366233
+"526","Afghaanse duizendknoop","250",0.0890315205022559
+"527","wasbeer","250",0.128807539525202
+"528","grote waterteunisbloem","250",0.251108117005296
+"529","gele maskerbloem","250",0.100856920230851
+"530","rode Amerikaanse rivierkreeft","250",0.193779987930526
+"531","marmergrondel","250",0.194995298833342
+"532","kleine waterteunisbloem","250",0.421408145884878
+"533","egeria","250",0.0663207751811809
+"534","ongelijkbladig vederkruid","250",0.0576134037940209
+"535","zijdeplant","250",0.0389696196742913
+"536","gestreepte Amerikaanse rivierkreeft","250",0.376776945164466
+"537","Kaapse waterlelie","250",0.488183880095416
+"538","watersla","250",0.0793299313319229
+"539","Kesslergrondel","250",0.0873063235032531
+"540","grijze eekhoorn","250",0.0112434696086073
+"541","moerasaronskelk","250",0.0858246866134829
+"542","Chinese moerasslak","250",0.446562829453373
+"543","waterhyacint","250",0.233196450765379
+"544","Aziatische hoornaar (soort)","250",0.0172907187901578
+"545","Leidse plant","250",0.24997504333743
+"546","moerasanemoon","250",0.0590886144626773
+"547","Turkse rivierkreeft","250",0.196712604934302
+"548","sikahert","250",0.529956117738684
+"549","Noord-Aziatische modderkruiper","250",0.953553458820367

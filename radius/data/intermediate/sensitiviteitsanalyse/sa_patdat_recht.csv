@@ -1,0 +1,196 @@
+"","Soort","Buffer","Recht","Domeinen"
+"1","watercrassula",10,"Beheerovereenkomst",30
+"2","watercrassula",10,"Eigendom",44
+"3","watercrassula",10,"Erfpacht",1
+"4","watercrassula",10,"Huur",3
+"5","watercrassula",10,"Protocol landsverdediging",3
+"6","watercrassula",10,"Technisch beheer conform bosdecreet",26
+"7","struikaster",10,"Beheerovereenkomst",10
+"8","struikaster",10,"Eigendom",12
+"9","struikaster",10,"Erfpacht",1
+"10","struikaster",10,"Technisch beheer conform bosdecreet",5
+"11","reuzenberenklauw",10,"Beheerovereenkomst",31
+"12","reuzenberenklauw",10,"Eigendom",97
+"13","reuzenberenklauw",10,"Erfpacht",5
+"14","reuzenberenklauw",10,"Huur",2
+"15","reuzenberenklauw",10,"Protocol landsverdediging",5
+"16","reuzenberenklauw",10,"Technisch beheer conform bosdecreet",110
+"17","Chinese muntjak",10,"Beheerovereenkomst",1
+"18","Chinese muntjak",10,"Eigendom",6
+"19","Chinese muntjak",10,"Erfpacht",1
+"20","Chinese muntjak",10,"Protocol landsverdediging",2
+"21","Chinese muntjak",10,"Technisch beheer conform bosdecreet",4
+"22","watercrassula",20,"Beheerovereenkomst",30
+"23","watercrassula",20,"Eigendom",46
+"24","watercrassula",20,"Erfpacht",1
+"25","watercrassula",20,"Huur",3
+"26","watercrassula",20,"Protocol landsverdediging",4
+"27","watercrassula",20,"Technisch beheer conform bosdecreet",28
+"28","struikaster",20,"Beheerovereenkomst",10
+"29","struikaster",20,"Eigendom",13
+"30","struikaster",20,"Erfpacht",1
+"31","struikaster",20,"Technisch beheer conform bosdecreet",6
+"32","reuzenberenklauw",20,"Beheerovereenkomst",32
+"33","reuzenberenklauw",20,"Eigendom",109
+"34","reuzenberenklauw",20,"Erfpacht",6
+"35","reuzenberenklauw",20,"Huur",4
+"36","reuzenberenklauw",20,"Protocol landsverdediging",5
+"37","reuzenberenklauw",20,"Technisch beheer conform bosdecreet",121
+"38","Chinese muntjak",20,"Beheerovereenkomst",3
+"39","Chinese muntjak",20,"Eigendom",9
+"40","Chinese muntjak",20,"Erfpacht",1
+"41","Chinese muntjak",20,"Protocol landsverdediging",2
+"42","Chinese muntjak",20,"Technisch beheer conform bosdecreet",5
+"43","watercrassula",30,"Beheerovereenkomst",31
+"44","watercrassula",30,"Eigendom",47
+"45","watercrassula",30,"Erfpacht",1
+"46","watercrassula",30,"Huur",3
+"47","watercrassula",30,"Protocol landsverdediging",4
+"48","watercrassula",30,"Technisch beheer conform bosdecreet",31
+"49","struikaster",30,"Beheerovereenkomst",10
+"50","struikaster",30,"Eigendom",14
+"51","struikaster",30,"Erfpacht",1
+"52","struikaster",30,"Technisch beheer conform bosdecreet",7
+"53","reuzenberenklauw",30,"Beheerovereenkomst",35
+"54","reuzenberenklauw",30,"Eigendom",121
+"55","reuzenberenklauw",30,"Erfpacht",7
+"56","reuzenberenklauw",30,"Huur",4
+"57","reuzenberenklauw",30,"Protocol landsverdediging",6
+"58","reuzenberenklauw",30,"Technisch beheer conform bosdecreet",128
+"59","Chinese muntjak",30,"Beheerovereenkomst",3
+"60","Chinese muntjak",30,"Eigendom",10
+"61","Chinese muntjak",30,"Erfpacht",1
+"62","Chinese muntjak",30,"Protocol landsverdediging",3
+"63","Chinese muntjak",30,"Technisch beheer conform bosdecreet",6
+"64","watercrassula",40,"Beheerovereenkomst",32
+"65","watercrassula",40,"Eigendom",52
+"66","watercrassula",40,"Erfpacht",1
+"67","watercrassula",40,"Huur",3
+"68","watercrassula",40,"Protocol landsverdediging",4
+"69","watercrassula",40,"Technisch beheer conform bosdecreet",32
+"70","struikaster",40,"Beheerovereenkomst",10
+"71","struikaster",40,"Eigendom",15
+"72","struikaster",40,"Erfpacht",1
+"73","struikaster",40,"Protocol landsverdediging",1
+"74","struikaster",40,"Technisch beheer conform bosdecreet",7
+"75","reuzenberenklauw",40,"Beheerovereenkomst",37
+"76","reuzenberenklauw",40,"Eigendom",125
+"77","reuzenberenklauw",40,"Erfpacht",7
+"78","reuzenberenklauw",40,"Huur",4
+"79","reuzenberenklauw",40,"Protocol landsverdediging",6
+"80","reuzenberenklauw",40,"Technisch beheer conform bosdecreet",134
+"81","Chinese muntjak",40,"Beheerovereenkomst",3
+"82","Chinese muntjak",40,"Eigendom",11
+"83","Chinese muntjak",40,"Erfpacht",1
+"84","Chinese muntjak",40,"Protocol landsverdediging",3
+"85","Chinese muntjak",40,"Technisch beheer conform bosdecreet",7
+"86","watercrassula",50,"Beheerovereenkomst",33
+"87","watercrassula",50,"Eigendom",52
+"88","watercrassula",50,"Erfpacht",1
+"89","watercrassula",50,"Huur",4
+"90","watercrassula",50,"Protocol landsverdediging",4
+"91","watercrassula",50,"Technisch beheer conform bosdecreet",35
+"92","struikaster",50,"Beheerovereenkomst",10
+"93","struikaster",50,"Eigendom",16
+"94","struikaster",50,"Erfpacht",1
+"95","struikaster",50,"Protocol landsverdediging",1
+"96","struikaster",50,"Technisch beheer conform bosdecreet",7
+"97","reuzenberenklauw",50,"Beheerovereenkomst",37
+"98","reuzenberenklauw",50,"Eigendom",128
+"99","reuzenberenklauw",50,"Erfpacht",8
+"100","reuzenberenklauw",50,"Huur",4
+"101","reuzenberenklauw",50,"Protocol landsverdediging",6
+"102","reuzenberenklauw",50,"Technisch beheer conform bosdecreet",138
+"103","Chinese muntjak",50,"Beheerovereenkomst",3
+"104","Chinese muntjak",50,"Eigendom",12
+"105","Chinese muntjak",50,"Erfpacht",1
+"106","Chinese muntjak",50,"Protocol landsverdediging",3
+"107","Chinese muntjak",50,"Technisch beheer conform bosdecreet",8
+"108","watercrassula",100,"Beheerovereenkomst",38
+"109","watercrassula",100,"Eigendom",59
+"110","watercrassula",100,"Erfpacht",1
+"111","watercrassula",100,"Huur",4
+"112","watercrassula",100,"Protocol landsverdediging",4
+"113","watercrassula",100,"Technisch beheer conform bosdecreet",46
+"114","struikaster",100,"Beheerovereenkomst",10
+"115","struikaster",100,"Eigendom",17
+"116","struikaster",100,"Erfpacht",1
+"117","struikaster",100,"Protocol landsverdediging",1
+"118","struikaster",100,"Technisch beheer conform bosdecreet",8
+"119","reuzenberenklauw",100,"Beheerovereenkomst",43
+"120","reuzenberenklauw",100,"Eigendom",149
+"121","reuzenberenklauw",100,"Erfpacht",8
+"122","reuzenberenklauw",100,"Huur",4
+"123","reuzenberenklauw",100,"Protocol landsverdediging",6
+"124","reuzenberenklauw",100,"Technisch beheer conform bosdecreet",186
+"125","Chinese muntjak",100,"Beheerovereenkomst",5
+"126","Chinese muntjak",100,"Eigendom",16
+"127","Chinese muntjak",100,"Erfpacht",1
+"128","Chinese muntjak",100,"Protocol landsverdediging",3
+"129","Chinese muntjak",100,"Technisch beheer conform bosdecreet",9
+"130","watercrassula",150,"Beheerovereenkomst",41
+"131","watercrassula",150,"Eigendom",67
+"132","watercrassula",150,"Erfpacht",1
+"133","watercrassula",150,"Huur",5
+"134","watercrassula",150,"Protocol landsverdediging",5
+"135","watercrassula",150,"Technisch beheer conform bosdecreet",57
+"136","struikaster",150,"Beheerovereenkomst",10
+"137","struikaster",150,"Eigendom",17
+"138","struikaster",150,"Erfpacht",1
+"139","struikaster",150,"Protocol landsverdediging",2
+"140","struikaster",150,"Technisch beheer conform bosdecreet",8
+"141","reuzenberenklauw",150,"Beheerovereenkomst",44
+"142","reuzenberenklauw",150,"Eigendom",167
+"143","reuzenberenklauw",150,"Erfpacht",8
+"144","reuzenberenklauw",150,"Huur",5
+"145","reuzenberenklauw",150,"Protocol landsverdediging",9
+"146","reuzenberenklauw",150,"Technisch beheer conform bosdecreet",221
+"147","Chinese muntjak",150,"Beheerovereenkomst",7
+"148","Chinese muntjak",150,"Eigendom",16
+"149","Chinese muntjak",150,"Erfpacht",1
+"150","Chinese muntjak",150,"Protocol landsverdediging",3
+"151","Chinese muntjak",150,"Technisch beheer conform bosdecreet",11
+"152","watercrassula",200,"Beheerovereenkomst",42
+"153","watercrassula",200,"Eigendom",73
+"154","watercrassula",200,"Erfpacht",2
+"155","watercrassula",200,"Huur",5
+"156","watercrassula",200,"Protocol landsverdediging",7
+"157","watercrassula",200,"Technisch beheer conform bosdecreet",74
+"158","struikaster",200,"Beheerovereenkomst",11
+"159","struikaster",200,"Eigendom",18
+"160","struikaster",200,"Erfpacht",1
+"161","struikaster",200,"Protocol landsverdediging",2
+"162","struikaster",200,"Technisch beheer conform bosdecreet",8
+"163","reuzenberenklauw",200,"Beheerovereenkomst",53
+"164","reuzenberenklauw",200,"Eigendom",191
+"165","reuzenberenklauw",200,"Erfpacht",9
+"166","reuzenberenklauw",200,"Huur",5
+"167","reuzenberenklauw",200,"Protocol landsverdediging",11
+"168","reuzenberenklauw",200,"Technisch beheer conform bosdecreet",260
+"169","Chinese muntjak",200,"Beheerovereenkomst",9
+"170","Chinese muntjak",200,"Eigendom",17
+"171","Chinese muntjak",200,"Erfpacht",1
+"172","Chinese muntjak",200,"Protocol landsverdediging",3
+"173","Chinese muntjak",200,"Technisch beheer conform bosdecreet",16
+"174","watercrassula",250,"Beheerovereenkomst",44
+"175","watercrassula",250,"Eigendom",80
+"176","watercrassula",250,"Erfpacht",2
+"177","watercrassula",250,"Huur",5
+"178","watercrassula",250,"Protocol landsverdediging",7
+"179","watercrassula",250,"Technisch beheer conform bosdecreet",79
+"180","struikaster",250,"Beheerovereenkomst",11
+"181","struikaster",250,"Eigendom",21
+"182","struikaster",250,"Erfpacht",1
+"183","struikaster",250,"Protocol landsverdediging",2
+"184","struikaster",250,"Technisch beheer conform bosdecreet",8
+"185","reuzenberenklauw",250,"Beheerovereenkomst",58
+"186","reuzenberenklauw",250,"Eigendom",215
+"187","reuzenberenklauw",250,"Erfpacht",9
+"188","reuzenberenklauw",250,"Huur",6
+"189","reuzenberenklauw",250,"Protocol landsverdediging",12
+"190","reuzenberenklauw",250,"Technisch beheer conform bosdecreet",297
+"191","Chinese muntjak",250,"Beheerovereenkomst",9
+"192","Chinese muntjak",250,"Eigendom",18
+"193","Chinese muntjak",250,"Erfpacht",1
+"194","Chinese muntjak",250,"Protocol landsverdediging",3
+"195","Chinese muntjak",250,"Technisch beheer conform bosdecreet",17

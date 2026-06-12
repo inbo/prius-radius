@@ -1,0 +1,80 @@
+soort,species,abbr,inSBP  Beekprik,inSBP  Kleine Modderkruiper,inSBP  Rivierdonderpad,ofSBP  Beekprik,ofSBP  Kleine Modderkruiper,ofSBP  Rivierdonderpad,selSBP  Beekprik,selSBP  Kleine Modderkruiper,selSBP  Rivierdonderpad
+heilige ibis,"Threskiornis aethiopicus Latham, 1790",Ta,0.001431,0.001174,0.002555,0.000274,0.000225,0.000489,0.509361,0.417810,0.909331
+nijlgans,"Alopochen aegyptiacus Linnaeus, 1766",Aae,0.001954,0.003172,0.002677,0.058458,0.094887,0.080090,0.695584,1.129050,0.952977
+rimpelroos,Rosa rugosa Thunb.,Rr,0.002199,0.003083,0.002881,0.004919,0.006897,0.006446,0.782610,1.097248,1.025430
+Amerikaanse vogelkers,Prunus serotina Ehrh.,Pse,0.002891,0.002030,0.001774,0.034593,0.024290,0.021223,1.028996,0.722521,0.631283
+reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,Hm,0.004185,0.003573,0.005463,0.011785,0.010062,0.015382,1.489719,1.271929,1.944359
+Canadese gans,"Branta canadensis (Linnaeus, 1758)",Bc,0.002250,0.004382,0.003374,0.046169,0.089927,0.069230,0.800835,1.559838,1.200827
+verspreidbladige waterpest,Lagarosiphon major (Ridley) Moss,Lm,0,0,0,0,0,0,0,0,0
+zonnebaars,"Lepomis gibbosus Linnaeus, 1758",Lgi,0.012283,0.019803,0.012510,0.004355,0.007021,0.004436,4.372168,7.048803,4.452770
+rosse stekelstaart,"Oxyura jamaicensis Gmelin, 1789",Oj,0,0.006195,0,0,0.000669,0,0,2.204894,0
+sneeuwbes,Symphoricarpos albus (L.) K.Koch,Sa,0.002256,0.001958,0.003275,0.003545,0.003077,0.005147,0.803000,0.697102,1.165802
+parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,Mya,0.009787,0.011981,0.005815,0.003728,0.004564,0.002215,3.483600,4.264372,2.069721
+late guldenroede,Solidago gigantea Aiton,Sg,0.003062,0.007051,0.006870,0.010082,0.023216,0.022621,1.089941,2.509737,2.445379
+smalle waterpest,Elodea nuttallii (Planch.) St. John,En,0.012099,0.009266,0.009004,0.005274,0.004040,0.003925,4.306637,3.298316,3.204915
+mahonie,Mahonia aquifolium (Pursh) Nutt.,Maa,0.000714,0.001054,0.000861,0.001382,0.002040,0.001666,0.254165,0.375013,0.306337
+grote waternavel,Hydrocotyle ranunculoides L. f.,Hr,0.010210,0.008451,0.007405,0.007222,0.005978,0.005238,3.634175,3.008043,2.635573
+Chinese muntjak,"Muntiacus reevesi Ogilby, 1839",Mr,0.000602,0.000805,0.001568,0.000101,0.000135,0.000262,0.214246,0.286609,0.558071
+Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,Pj,0.001731,0.004052,0,0.000143,0.000335,0,0.616263,1.442205,0
+hemelboom,Ailanthus altissima (Mill.) Swingle,Aal,0.000194,0.001617,0.001546,0.000160,0.001334,0.001275,0.069008,0.575612,0.550271
+Amerikaanse nerts,"Mustela vison Schreber, 1777",Mvis,0.005118,0,0,0.000146,0,0,1.821659,0,0
+Amerikaanse hondsvis,"Umbra pygmaea (DeKay, 1842)",Up,0.024172,0.018323,0.012528,0.001311,0.000994,0.000680,8.603668,6.521748,4.459120
+Chinese wolhandkrab,"Eriocheir sinensis H. Milne Edwards, 1854",Es,0.006246,0.013201,0.008848,0.003607,0.007624,0.005110,2.223084,4.698606,3.149467
+invasieve duizendknopen,"Reynoutria japonica Houtt.,Reynoutria sachalinensis (F.Schmidt) Nakai,Reynoutria ×bohemica Chrtek & Chrtková",Rj,0.003135,0.003674,0.005159,0.022912,0.026848,0.037700,1.116003,1.307681,1.836260
+Siberische grondeekhoorn,"Tamias sibiricus Laxmann, 1769",Tsi,0,0,0,0,0,0,0,0,0
+boksdoorn,Lycium barbarum L.,Lb,0,0.000046,0,0,0.000013,0,0,0.016522,0
+muskusrat,"Ondatra zibethicus Linnaeus, 1766",Oz,0.003645,0.004510,0.007947,0.015555,0.019244,0.033911,1.297530,1.605198,2.828679
+lettersierschildpad,"Trachemys scripta Schoepff, 1792",Tsc,0.002771,0.004285,0.003795,0.002376,0.003673,0.003253,0.986469,1.525269,1.350785
+smalle olijfwilg,Elaeagnus angustifolia L.,Ea,0,0,0,0,0,0,0,0,0
+watercrassula,Crassula helmsii (Kirk) Cockayne,Ch,0.001019,0.003324,0.000819,0.000770,0.002513,0.000619,0.362716,1.183142,0.291515
+Canadese guldenroede,Solidago canadensis L.,Sc,0.001888,0.003227,0.004439,0.001167,0.001994,0.002743,0.672182,1.148590,1.579969
+reuzenbalsemien,Impatiens glandulifera Royle,Ig,0.010261,0.007620,0.012442,0.061468,0.045648,0.074536,3.652209,2.712240,4.428719
+Chinese prachtslang,"Elaphe taeniura (Cope, 1861)",Et,0,0,0,0,0,0,0,0,0
+gevlekte Amerikaanse rivierkreeft,"Faxonius limosus Rafinesque, 1817",Fl,0.011535,0.016767,0.011216,0.002983,0.004336,0.002900,4.105754,5.968124,3.992236
+blauwbandgrondel,"Pseudorasbora parva Temminck & Schlegel, 1846",Pp,0.006839,0.014088,0.011936,0.002073,0.004271,0.003619,2.434130,5.014324,4.248458
+struikaster,Baccharis halimifolia L.,Bh,0,0.000695,0,0,0.000101,0,0,0.247410,0
+zwartbekgrondel,"Neogobius melanostomus (Pallas, 1814)",Nm,0.006719,0.011775,0.010832,0.001209,0.002118,0.001949,2.391500,4.191020,3.855375
+Amerikaanse stierkikker,"Lithobates (Rana) catesbeianus Shaw, 1802",Lc,0.022547, 0.036745,0.022964,0.005430, 0.008849,0.005531,8.025209,13.078875,8.173872
+beverrat,"Myocastor coypus Molina, 1782",Mc,0.009402,0.007082,0.011162,0.000923,0.000696,0.001096,3.346525,2.520846,3.972970
+moerashyacint,Pontederia cordata L.,Pco,0.017180,0.011392,0.009165,0.002439,0.001617,0.001301,6.115194,4.054985,3.262095
+vijfbladige wingerd,Parthenocissus quinquefolia (L.) Planch.,Pq,0.002222,0.001709,0.001226,0.000204,0.000157,0.000113,0.790964,0.608229,0.436478
+valse wingerd,Parthenocissus inserta (A.Kern.) Fritsch,Pi,0.000526,0.002129,0.002613,0.000105,0.000425,0.000521,0.187158,0.757714,0.930180
+Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,Kp,0.007408,0,0.000124,0.000256,0,0.000004,2.636693,0,0.043972
+grote waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,Lgr,0.018824, 0.032588,0.024426,0.014988, 0.025948,0.019449,6.700056,11.599519,8.694177
+wasbeer,"Procyon lotor L., 1758",Plo,0.008546,0.009763,0.017250,0.000998,0.001140,0.002014,3.042002,3.474997,6.139999
+gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,Eg,0.005103,0.006022,0.005903,0.000764,0.000902,0.000884,1.816292,2.143506,2.101266
+rode Amerikaanse rivierkreeft,"Procambarus clarkii Girard, 1852",Pcl,0.001779,0.000968,0.001272,0.000599,0.000326,0.000429,0.633051,0.344596,0.452845
+marmergrondel,"Proterorhinus semilunaris (Heckel, 1837)",Ps,0.011314, 0.031233, 0.038438,0.000339, 0.000936, 0.001153,4.027018,11.117045,13.681470
+kleine waterteunisbloem,Ludwigia peploides (Kunth) P.H. Raven,Lp,0,0.014823,0.004260,0,0.000389,0.000112,0,5.276099,1.516135
+egeria,Elodea densa (Planch.) Casp.,Ed,0.006549,0,0,0.000107,0,0,2.331006,0,0
+ongelijkbladig vederkruid,Myriophyllum heterophyllum Michaux,Mh,0,0.002205,0.002205,0,0.000107,0.000107,0,0.784731,0.784731
+Aziatische boomwurger,Celastrus orbiculatus Thunb.,Co,0,0,0,0,0,0,0,0,0
+zijdeplant,Asclepias syriaca L.,As,0,0,0,0,0,0,0,0,0
+waterhyacint,Eichhornia crassipes (Martius) Solms,Ec, 0.082918, 0.072117, 0.062683, 0.000742, 0.000645, 0.000561,29.514002,25.669391,22.311490
+watersla,Pistia stratiotes L.,Pst, 0.060034, 0.053171, 0.057715, 0.001981, 0.001754, 0.001904,21.368485,18.925560,20.543101
+Californische rivierkreeft,"Pacifastacus leniusculus Dana, 1852",Plen,0,0,0,0,0,0,0,0,0
+gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",Pa,0.010965, 0.030516,0.010248,0.000578, 0.001608,0.000540,3.902745,10.861713,3.647641
+Kaapse waterlelie,Aponogeton distachyos L.f.,Ad,0,0.001976,0,0,0.000090,0,0,0.703237,0
+grijze eekhoorn,"Sciurus carolinensis Gmelin, 1788",Sca,0,0,0,0,0,0,0,0,0
+Mantsjoerese wilde rijst,Zizania latifolia (Griseb.) Hance ex F.Muell.,Zl,0,0,0,0,0,0,0,0,0
+Pallas' eekhoorn,"Callosciurus erythraeus Pallas, 1779",Ce,0,0,0,0,0,0,0,0,0
+moerasaronskelk,Lysichiton americanus Hultén & H. St. John,La,0.013869,0.002711,0.004994,0.000586,0.000115,0.000211,4.936472,0.964887,1.777443
+waterwaaier,Cabomba caroliniana Gray,Cca,0,0.024019,0.024019,0,0.000196,0.000196,0,8.549432,8.549432
+Chinese moerasslak,"Cipangopaludina chinensis (J.E.Gray, 1833)",Cch,0.020162, 0.047823,0.020162,0.000066, 0.000157,0.000066,7.176581,17.022224,7.176581
+Kesslergrondel,"Ponticola kessleri (Günther, 1861)",Pk,0, 0.038443, 0.038443,0, 0.000314, 0.000314,0,13.683256,13.683256
+wasbeerhond,"Nyctereutes procyonoides Gray, 1834",Np,0,0,0,0,0,0,0,0,0
+Aziatische hoornaar (soort),"Vespa velutina Lepeletier, 1836",Vv,0.000475,0.000462,0.000830,0.011618,0.011289,0.020285,0.169173,0.164382,0.295372
+Leidse plant,Saururus cernuus L.,Sce,0, 0.036246,0,0, 0.000227,0,0,12.901509,0
+treurmaina,"Acridotheres tristis Linnaeus, 1766",At,0,0,0.016303,0,0,0.000053,0,0,5.802754
+moerasanemoon,Houttuynia cordata Thunb.,Hc,0.002863,0.007631,0.002159,0.000117,0.000311,0.000088,1.018989,2.716236,0.768621
+Turkse rivierkreeft,"Pontastacus leptodactylus (Eschscholtz, 1823)",Plep,0,0,0.010113,0,0,0.000105,0,0,3.599606
+sikahert,"Cervus nippon Temminck, 1838",Cn,0.002517,0.005389,0.005587,0.000081,0.000174,0.000180,0.895792,1.918052,1.988629
+gewone gunnera,Gunnera tinctoria (Molina) Mirbel,Gt,0,0.004905,0,0,0.000045,0,0,1.745998,0
+marmerkreeft,"Procambarus virginalis Lyko, 2017",Pv,0,0,0,0,0,0,0,0,0
+Noord-Aziatische modderkruiper,"Misgurnus bipartitus (Sauvage & Dabry de Thiersant, 1874)",Mb,0,0,0,0,0,0,0,0,0
+Japans steltgras,Microstegium vimineum (Trin.) A. Camus,Mvim,0,0,0,0,0,0,0,0,0
+Pontische stroomgrondel,"Neogobius fluviatilis (Pallas, 1814)",Nf,0, 0.093055, 0.093055,0, 0.000076, 0.000076,0,33.121830,33.121830
+Afrikaanse klauwkikker,"Xenopus laevis (Daudin, 1802)",Xl,0,0,0,0,0,0,0,0,0
+fraai lampenpoetsersgras,Cenchrus setaceus (Forssk.) Morrone,Cs,0,0,0,0,0,0,0,0,0
+grote vlotvaren,Salvinia molesta D.S.Mitch.,Sm,0,0,0,0,0,0,0,0,0
+geknobbelde Amerikaanse rivierkreeft,"Faxonius virilis Hagen, 1870",Fv,0,0,0,0,0,0,0,0,0

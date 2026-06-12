@@ -1,0 +1,296 @@
+"","Soort","Buffer","Gebied","Overlap"
+"1","watercrassula",10,"Antwerpse Kempen",0.372262976245158
+"2","watercrassula",10,"Brabantse Wouden",0.0105785314311605
+"3","watercrassula",10,"Demerland & Zuiderkempen",0.024467963390423
+"4","watercrassula",10,"Groene Gordels",0.0339327707571684
+"5","watercrassula",10,"Hoge Kempen tot Voeren",0.00110138177177615
+"6","watercrassula",10,"Kust & Westhoek",0.115134562929897
+"7","watercrassula",10,"Lage tot aan Hoge Kempen",0.00982830740122522
+"8","watercrassula",10,"Taxandria",0.264139670941438
+"9","watercrassula",10,"Vlaamse Ardennen & Schelde-Leie",0.0109185388970421
+"10","watercrassula",10,"Zandig Vlaanderen",0.110275880048173
+"11","struikaster",10,"Groene Gordels",0.0219854247904378
+"12","struikaster",10,"Kust & Westhoek",0.896813415027186
+"13","struikaster",10,"Vlaamse Ardennen & Schelde-Leie",0.022393606060399
+"14","struikaster",10,"Zandig Vlaanderen",0.0588075541219776
+"15","reuzenberenklauw",10,"Antwerpse Kempen",0.100496981113762
+"16","reuzenberenklauw",10,"Brabantse Wouden",0.0815642886093806
+"17","reuzenberenklauw",10,"Demerland & Zuiderkempen",0.0739878778466122
+"18","reuzenberenklauw",10,"Groene Gordels",0.198079069441493
+"19","reuzenberenklauw",10,"Hoge Kempen tot Voeren",0.0471825248256318
+"20","reuzenberenklauw",10,"Kust & Westhoek",0.140072775801213
+"21","reuzenberenklauw",10,"Lage tot aan Hoge Kempen",0.0483652485352954
+"22","reuzenberenklauw",10,"Taxandria",0.0328270358427128
+"23","reuzenberenklauw",10,"Vlaamse Ardennen & Schelde-Leie",0.170628465876617
+"24","reuzenberenklauw",10,"Zandig Vlaanderen",0.091190056781158
+"25","Chinese muntjak",10,"Antwerpse Kempen",0.348462619153106
+"26","Chinese muntjak",10,"Demerland & Zuiderkempen",0.0151340642147051
+"27","Chinese muntjak",10,"Groene Gordels",0.466953863849171
+"28","Chinese muntjak",10,"Taxandria",0.0439458961517724
+"29","Chinese muntjak",10,"Vlaamse Ardennen & Schelde-Leie",0.0817907306336682
+"30","Chinese muntjak",10,"Zandig Vlaanderen",0.0144155618963909
+"31","watercrassula",20,"Antwerpse Kempen",0.403508578637168
+"32","watercrassula",20,"Brabantse Wouden",0.0114579264273676
+"33","watercrassula",20,"Demerland & Zuiderkempen",0.0268145561461075
+"34","watercrassula",20,"Groene Gordels",0.029619279410045
+"35","watercrassula",20,"Hoge Kempen tot Voeren",0.00137844407346148
+"36","watercrassula",20,"Kust & Westhoek",0.0995070139338048
+"37","watercrassula",20,"Lage tot aan Hoge Kempen",0.0107344428221471
+"38","watercrassula",20,"Taxandria",0.284434287178996
+"39","watercrassula",20,"Vlaamse Ardennen & Schelde-Leie",0.0111463999673334
+"40","watercrassula",20,"Zandig Vlaanderen",0.102100854375112
+"41","struikaster",20,"Groene Gordels",0.0226000414386652
+"42","struikaster",20,"Kust & Westhoek",0.878992096399036
+"43","struikaster",20,"Vlaamse Ardennen & Schelde-Leie",0.0342156730414038
+"44","struikaster",20,"Zandig Vlaanderen",0.064192189120895
+"45","reuzenberenklauw",20,"Antwerpse Kempen",0.108880737749203
+"46","reuzenberenklauw",20,"Brabantse Wouden",0.0740232532593136
+"47","reuzenberenklauw",20,"Demerland & Zuiderkempen",0.0716029683073369
+"48","reuzenberenklauw",20,"Groene Gordels",0.195712821942041
+"49","reuzenberenklauw",20,"Hoge Kempen tot Voeren",0.051761227723053
+"50","reuzenberenklauw",20,"Kust & Westhoek",0.137787084645598
+"51","reuzenberenklauw",20,"Lage tot aan Hoge Kempen",0.0517901898162536
+"52","reuzenberenklauw",20,"Taxandria",0.0330969765914196
+"53","reuzenberenklauw",20,"Vlaamse Ardennen & Schelde-Leie",0.182692328567247
+"54","reuzenberenklauw",20,"Zandig Vlaanderen",0.0871624865755163
+"55","Chinese muntjak",20,"Antwerpse Kempen",0.345578850739058
+"56","Chinese muntjak",20,"Demerland & Zuiderkempen",0.020592115925895
+"57","Chinese muntjak",20,"Groene Gordels",0.464611770245192
+"58","Chinese muntjak",20,"Hoge Kempen tot Voeren",6.76318982099673e-09
+"59","Chinese muntjak",20,"Kust & Westhoek",0.00090824665923025
+"60","Chinese muntjak",20,"Taxandria",0.0449174028830475
+"61","Chinese muntjak",20,"Vlaamse Ardennen & Schelde-Leie",0.08005403643505
+"62","Chinese muntjak",20,"Zandig Vlaanderen",0.0129440407606784
+"63","watercrassula",30,"Antwerpse Kempen",0.419063491694506
+"64","watercrassula",30,"Brabantse Wouden",0.0119749115339673
+"65","watercrassula",30,"Demerland & Zuiderkempen",0.0295470461643222
+"66","watercrassula",30,"Groene Gordels",0.0274405666064328
+"67","watercrassula",30,"Hoge Kempen tot Voeren",0.00159850515747786
+"68","watercrassula",30,"Kust & Westhoek",0.0909610034606333
+"69","watercrassula",30,"Lage tot aan Hoge Kempen",0.0114897693028194
+"70","watercrassula",30,"Taxandria",0.284547402362659
+"71","watercrassula",30,"Vlaamse Ardennen & Schelde-Leie",0.0117287652021795
+"72","watercrassula",30,"Zandig Vlaanderen",0.100459002412683
+"73","struikaster",30,"Groene Gordels",0.0228943031979071
+"74","struikaster",30,"Kust & Westhoek",0.871551184016022
+"75","struikaster",30,"Vlaamse Ardennen & Schelde-Leie",0.0395673501472437
+"76","struikaster",30,"Zandig Vlaanderen",0.065987162638827
+"77","reuzenberenklauw",30,"Antwerpse Kempen",0.116185539730032
+"78","reuzenberenklauw",30,"Brabantse Wouden",0.0723836334727823
+"79","reuzenberenklauw",30,"Demerland & Zuiderkempen",0.071339310263477
+"80","reuzenberenklauw",30,"Groene Gordels",0.191762367023899
+"81","reuzenberenklauw",30,"Hoge Kempen tot Voeren",0.0554257094649079
+"82","reuzenberenklauw",30,"Kust & Westhoek",0.128699547523067
+"83","reuzenberenklauw",30,"Lage tot aan Hoge Kempen",0.0529028124247367
+"84","reuzenberenklauw",30,"Taxandria",0.0347199697819214
+"85","reuzenberenklauw",30,"Vlaamse Ardennen & Schelde-Leie",0.186593609729501
+"86","reuzenberenklauw",30,"Zandig Vlaanderen",0.0879589656684083
+"87","Chinese muntjak",30,"Antwerpse Kempen",0.367643108466325
+"88","Chinese muntjak",30,"Demerland & Zuiderkempen",0.0246027853826098
+"89","Chinese muntjak",30,"Groene Gordels",0.471275830269919
+"90","Chinese muntjak",30,"Hoge Kempen tot Voeren",0.000779356877464141
+"91","Chinese muntjak",30,"Kust & Westhoek",0.00292867604189124
+"92","Chinese muntjak",30,"Taxandria",0.0477492224653032
+"93","Chinese muntjak",30,"Vlaamse Ardennen & Schelde-Leie",0.0721401465510728
+"94","Chinese muntjak",30,"Zandig Vlaanderen",0.0128808739454138
+"95","watercrassula",40,"Antwerpse Kempen",0.431298015974932
+"96","watercrassula",40,"Brabantse Wouden",0.012202853752411
+"97","watercrassula",40,"Demerland & Zuiderkempen",0.0325477359993862
+"98","watercrassula",40,"Groene Gordels",0.0268510958342364
+"99","watercrassula",40,"Hoge Kempen tot Voeren",0.00179203146024296
+"100","watercrassula",40,"Kust & Westhoek",0.0880786041321435
+"101","watercrassula",40,"Lage tot aan Hoge Kempen",0.0123751917248514
+"102","watercrassula",40,"Taxandria",0.280929024317771
+"103","watercrassula",40,"Vlaamse Ardennen & Schelde-Leie",0.012360640585247
+"104","watercrassula",40,"Zandig Vlaanderen",0.0997727747585366
+"105","struikaster",40,"Groene Gordels",0.0216438772718107
+"106","struikaster",40,"Kust & Westhoek",0.872978544247629
+"107","struikaster",40,"Vlaamse Ardennen & Schelde-Leie",0.039995722699613
+"108","struikaster",40,"Zandig Vlaanderen",0.0653818557809473
+"109","reuzenberenklauw",40,"Antwerpse Kempen",0.121904245485349
+"110","reuzenberenklauw",40,"Brabantse Wouden",0.0723273675457726
+"111","reuzenberenklauw",40,"Demerland & Zuiderkempen",0.0712242906471971
+"112","reuzenberenklauw",40,"Groene Gordels",0.187832136070191
+"113","reuzenberenklauw",40,"Hoge Kempen tot Voeren",0.0581698277540198
+"114","reuzenberenklauw",40,"Kust & Westhoek",0.121071258895189
+"115","reuzenberenklauw",40,"Lage tot aan Hoge Kempen",0.0542441552498998
+"116","reuzenberenklauw",40,"Taxandria",0.0356909846512593
+"117","reuzenberenklauw",40,"Vlaamse Ardennen & Schelde-Leie",0.187598038973631
+"118","reuzenberenklauw",40,"Zandig Vlaanderen",0.0899376947274919
+"119","Chinese muntjak",40,"Antwerpse Kempen",0.381340945886189
+"120","Chinese muntjak",40,"Demerland & Zuiderkempen",0.0274907189447533
+"121","Chinese muntjak",40,"Groene Gordels",0.462452491082217
+"122","Chinese muntjak",40,"Hoge Kempen tot Voeren",0.00155358223193832
+"123","Chinese muntjak",40,"Kust & Westhoek",0.00428047320752068
+"124","Chinese muntjak",40,"Taxandria",0.0468917964172605
+"125","Chinese muntjak",40,"Vlaamse Ardennen & Schelde-Leie",0.0628570534935894
+"126","Chinese muntjak",40,"Zandig Vlaanderen",0.0131329387365316
+"127","watercrassula",50,"Antwerpse Kempen",0.430507048827209
+"128","watercrassula",50,"Brabantse Wouden",0.0124181544283159
+"129","watercrassula",50,"Demerland & Zuiderkempen",0.0356712901586029
+"130","watercrassula",50,"Groene Gordels",0.0262393618226064
+"131","watercrassula",50,"Hoge Kempen tot Voeren",0.00197046542960698
+"132","watercrassula",50,"Kust & Westhoek",0.086463423772611
+"133","watercrassula",50,"Lage tot aan Hoge Kempen",0.0132906464445321
+"134","watercrassula",50,"Taxandria",0.278074027297623
+"135","watercrassula",50,"Vlaamse Ardennen & Schelde-Leie",0.0130828339765099
+"136","watercrassula",50,"Zandig Vlaanderen",0.100312282412777
+"137","struikaster",50,"Groene Gordels",0.0205130088399306
+"138","struikaster",50,"Kust & Westhoek",0.851858242866396
+"139","struikaster",50,"Vlaamse Ardennen & Schelde-Leie",0.0394455748473899
+"140","struikaster",50,"Zandig Vlaanderen",0.064381602477615
+"141","reuzenberenklauw",50,"Antwerpse Kempen",0.12488745268644
+"142","reuzenberenklauw",50,"Brabantse Wouden",0.0734272138467658
+"143","reuzenberenklauw",50,"Demerland & Zuiderkempen",0.0712948641671341
+"144","reuzenberenklauw",50,"Groene Gordels",0.183667640506156
+"145","reuzenberenklauw",50,"Hoge Kempen tot Voeren",0.0606628955684642
+"146","reuzenberenklauw",50,"Kust & Westhoek",0.115703412588388
+"147","reuzenberenklauw",50,"Lage tot aan Hoge Kempen",0.0563820035026637
+"148","reuzenberenklauw",50,"Taxandria",0.0365493229886641
+"149","reuzenberenklauw",50,"Vlaamse Ardennen & Schelde-Leie",0.186857678424822
+"150","reuzenberenklauw",50,"Zandig Vlaanderen",0.0905423187824788
+"151","reuzenberenklauw",50,NA,2.51969380238269e-05
+"152","Chinese muntjak",50,"Antwerpse Kempen",0.395196749474315
+"153","Chinese muntjak",50,"Demerland & Zuiderkempen",0.0299417458502826
+"154","Chinese muntjak",50,"Groene Gordels",0.454322032958663
+"155","Chinese muntjak",50,"Hoge Kempen tot Voeren",0.00234580195529784
+"156","Chinese muntjak",50,"Kust & Westhoek",0.00528856391933688
+"157","Chinese muntjak",50,"Taxandria",0.0446736003665672
+"158","Chinese muntjak",50,"Vlaamse Ardennen & Schelde-Leie",0.0547859194366256
+"159","Chinese muntjak",50,"Zandig Vlaanderen",0.0134455860389122
+"160","watercrassula",100,"Antwerpse Kempen",0.407922391773187
+"161","watercrassula",100,"Brabantse Wouden",0.0121457555129281
+"162","watercrassula",100,"Demerland & Zuiderkempen",0.0498379268630171
+"163","watercrassula",100,"Groene Gordels",0.0257675026794019
+"164","watercrassula",100,"Hoge Kempen tot Voeren",0.00280278829678088
+"165","watercrassula",100,"Kust & Westhoek",0.0864491129654844
+"166","watercrassula",100,"Lage tot aan Hoge Kempen",0.0156624836094849
+"167","watercrassula",100,"Taxandria",0.277060496866946
+"168","watercrassula",100,"Vlaamse Ardennen & Schelde-Leie",0.0170996505485722
+"169","watercrassula",100,"Zandig Vlaanderen",0.105251890884197
+"170","struikaster",100,"Groene Gordels",0.0125034714284514
+"171","struikaster",100,"Kust & Westhoek",0.89000195198471
+"172","struikaster",100,"Vlaamse Ardennen & Schelde-Leie",0.0393168743113668
+"173","struikaster",100,"Zandig Vlaanderen",0.0581777022754721
+"174","reuzenberenklauw",100,"Antwerpse Kempen",0.131894888894417
+"175","reuzenberenklauw",100,"Brabantse Wouden",0.0828862436200587
+"176","reuzenberenklauw",100,"Demerland & Zuiderkempen",0.0749839948472222
+"177","reuzenberenklauw",100,"Groene Gordels",0.160277388942253
+"178","reuzenberenklauw",100,"Hoge Kempen tot Voeren",0.0700583628358457
+"179","reuzenberenklauw",100,"Kust & Westhoek",0.104870075369179
+"180","reuzenberenklauw",100,"Lage tot aan Hoge Kempen",0.0661682654256394
+"181","reuzenberenklauw",100,"Taxandria",0.041861265504729
+"182","reuzenberenklauw",100,"Vlaamse Ardennen & Schelde-Leie",0.179216730001332
+"183","reuzenberenklauw",100,"Zandig Vlaanderen",0.0874504232473049
+"184","reuzenberenklauw",100,NA,0.000332361312019175
+"185","Chinese muntjak",100,"Antwerpse Kempen",0.451459163472526
+"186","Chinese muntjak",100,"Demerland & Zuiderkempen",0.0393169982529461
+"187","Chinese muntjak",100,"Groene Gordels",0.388206836374539
+"188","Chinese muntjak",100,"Hoge Kempen tot Voeren",0.00636408195842007
+"189","Chinese muntjak",100,"Kust & Westhoek",0.00867326758711412
+"190","Chinese muntjak",100,"Lage tot aan Hoge Kempen",0.000563352831986965
+"191","Chinese muntjak",100,"Taxandria",0.0519618531256691
+"192","Chinese muntjak",100,"Vlaamse Ardennen & Schelde-Leie",0.0370954170411763
+"193","Chinese muntjak",100,"Zandig Vlaanderen",0.0163590293556219
+"194","watercrassula",150,"Antwerpse Kempen",0.379407773430175
+"195","watercrassula",150,"Brabantse Wouden",0.0126814799332659
+"196","watercrassula",150,"Demerland & Zuiderkempen",0.0602167706947831
+"197","watercrassula",150,"Groene Gordels",0.0276034438155707
+"198","watercrassula",150,"Hoge Kempen tot Voeren",0.003332583732792
+"199","watercrassula",150,"Kust & Westhoek",0.0907552654222801
+"200","watercrassula",150,"Lage tot aan Hoge Kempen",0.0162793495442046
+"201","watercrassula",150,"Taxandria",0.280610640863805
+"202","watercrassula",150,"Vlaamse Ardennen & Schelde-Leie",0.0215795399800453
+"203","watercrassula",150,"Zandig Vlaanderen",0.107533152583078
+"204","struikaster",150,"Groene Gordels",0.0104563734347543
+"205","struikaster",150,"Kust & Westhoek",0.88780102355711
+"206","struikaster",150,"Vlaamse Ardennen & Schelde-Leie",0.043984970385226
+"207","struikaster",150,"Zandig Vlaanderen",0.0577576326229095
+"208","reuzenberenklauw",150,"Antwerpse Kempen",0.136590044440261
+"209","reuzenberenklauw",150,"Brabantse Wouden",0.0876669521917565
+"210","reuzenberenklauw",150,"Demerland & Zuiderkempen",0.0798723957465178
+"211","reuzenberenklauw",150,"Groene Gordels",0.142752881745744
+"212","reuzenberenklauw",150,"Hoge Kempen tot Voeren",0.0741392254175736
+"213","reuzenberenklauw",150,"Kust & Westhoek",0.102512133295997
+"214","reuzenberenklauw",150,"Lage tot aan Hoge Kempen",0.0724143990025631
+"215","reuzenberenklauw",150,"Taxandria",0.047232035039544
+"216","reuzenberenklauw",150,"Vlaamse Ardennen & Schelde-Leie",0.170939060000984
+"217","reuzenberenklauw",150,"Zandig Vlaanderen",0.0856127869433699
+"218","reuzenberenklauw",150,NA,0.000268086175689696
+"219","Chinese muntjak",150,"Antwerpse Kempen",0.486454290570498
+"220","Chinese muntjak",150,"Demerland & Zuiderkempen",0.0484088751379024
+"221","Chinese muntjak",150,"Groene Gordels",0.321583101518043
+"222","Chinese muntjak",150,"Hoge Kempen tot Voeren",0.00950685403796418
+"223","Chinese muntjak",150,"Kust & Westhoek",0.01137308095797
+"224","Chinese muntjak",150,"Lage tot aan Hoge Kempen",0.00428083661234038
+"225","Chinese muntjak",150,"Taxandria",0.0687672451330708
+"226","Chinese muntjak",150,"Vlaamse Ardennen & Schelde-Leie",0.0256957626370799
+"227","Chinese muntjak",150,"Zandig Vlaanderen",0.0239299533951316
+"228","watercrassula",200,"Antwerpse Kempen",0.356335600446279
+"229","watercrassula",200,"Brabantse Wouden",0.0133345924573382
+"230","watercrassula",200,"Demerland & Zuiderkempen",0.06739553242534
+"231","watercrassula",200,"Groene Gordels",0.0295624231212285
+"232","watercrassula",200,"Hoge Kempen tot Voeren",0.00378342205056019
+"233","watercrassula",200,"Kust & Westhoek",0.0945012803918901
+"234","watercrassula",200,"Lage tot aan Hoge Kempen",0.0179944234630744
+"235","watercrassula",200,"Taxandria",0.279303651090291
+"236","watercrassula",200,"Vlaamse Ardennen & Schelde-Leie",0.0263359162090459
+"237","watercrassula",200,"Zandig Vlaanderen",0.111453158344953
+"238","struikaster",200,"Groene Gordels",0.0106702614481514
+"239","struikaster",200,"Kust & Westhoek",0.886353728129461
+"240","struikaster",200,"Vlaamse Ardennen & Schelde-Leie",0.0447575010186558
+"241","struikaster",200,"Zandig Vlaanderen",0.0582185094037323
+"242","reuzenberenklauw",200,"Antwerpse Kempen",0.140479042009891
+"243","reuzenberenklauw",200,"Brabantse Wouden",0.0911079592499074
+"244","reuzenberenklauw",200,"Demerland & Zuiderkempen",0.0835876634754623
+"245","reuzenberenklauw",200,"Groene Gordels",0.128007578136808
+"246","reuzenberenklauw",200,"Hoge Kempen tot Voeren",0.0760600661767896
+"247","reuzenberenklauw",200,"Kust & Westhoek",0.101360521995741
+"248","reuzenberenklauw",200,"Lage tot aan Hoge Kempen",0.0786367122972704
+"249","reuzenberenklauw",200,"Taxandria",0.0513970113469641
+"250","reuzenberenklauw",200,"Vlaamse Ardennen & Schelde-Leie",0.164602957950606
+"251","reuzenberenklauw",200,"Zandig Vlaanderen",0.084374159356067
+"252","reuzenberenklauw",200,NA,0.000386328004492335
+"253","Chinese muntjak",200,"Antwerpse Kempen",0.5132028953785
+"254","Chinese muntjak",200,"Demerland & Zuiderkempen",0.0586391721564033
+"255","Chinese muntjak",200,"Groene Gordels",0.262452139168861
+"256","Chinese muntjak",200,"Hoge Kempen tot Voeren",0.0149192013625549
+"257","Chinese muntjak",200,"Kust & Westhoek",0.013555915453541
+"258","Chinese muntjak",200,"Lage tot aan Hoge Kempen",0.00699232973589967
+"259","Chinese muntjak",200,"Taxandria",0.081768166349805
+"260","Chinese muntjak",200,"Vlaamse Ardennen & Schelde-Leie",0.0185525533540854
+"261","Chinese muntjak",200,"Zandig Vlaanderen",0.0299176270403494
+"262","watercrassula",250,"Antwerpse Kempen",0.337351275840001
+"263","watercrassula",250,"Brabantse Wouden",0.01385870059093
+"264","watercrassula",250,"Demerland & Zuiderkempen",0.0724257228608922
+"265","watercrassula",250,"Groene Gordels",0.0318732571052328
+"266","watercrassula",250,"Hoge Kempen tot Voeren",0.0042548552570709
+"267","watercrassula",250,"Kust & Westhoek",0.0972981217407917
+"268","watercrassula",250,"Lage tot aan Hoge Kempen",0.0203740140078053
+"269","watercrassula",250,"Taxandria",0.275150006920804
+"270","watercrassula",250,"Vlaamse Ardennen & Schelde-Leie",0.0304084092244511
+"271","watercrassula",250,"Zandig Vlaanderen",0.117005636452021
+"272","struikaster",250,"Groene Gordels",0.0102819919390834
+"273","struikaster",250,"Kust & Westhoek",0.888602153036724
+"274","struikaster",250,"Vlaamse Ardennen & Schelde-Leie",0.0426075108526246
+"275","struikaster",250,"Zandig Vlaanderen",0.0585083441715681
+"276","reuzenberenklauw",250,"Antwerpse Kempen",0.143250359168616
+"277","reuzenberenklauw",250,"Brabantse Wouden",0.0942167512179797
+"278","reuzenberenklauw",250,"Demerland & Zuiderkempen",0.087536329454959
+"279","reuzenberenklauw",250,"Groene Gordels",0.117425468411283
+"280","reuzenberenklauw",250,"Hoge Kempen tot Voeren",0.077334521473139
+"281","reuzenberenklauw",250,"Kust & Westhoek",0.0993052404168085
+"282","reuzenberenklauw",250,"Lage tot aan Hoge Kempen",0.0839492765421328
+"283","reuzenberenklauw",250,"Taxandria",0.0540034414823132
+"284","reuzenberenklauw",250,"Vlaamse Ardennen & Schelde-Leie",0.158475684156039
+"285","reuzenberenklauw",250,"Zandig Vlaanderen",0.0838743491704326
+"286","reuzenberenklauw",250,NA,0.000628578506297377
+"287","Chinese muntjak",250,"Antwerpse Kempen",0.524471374797722
+"288","Chinese muntjak",250,"Demerland & Zuiderkempen",0.065225905801879
+"289","Chinese muntjak",250,"Groene Gordels",0.221172184376796
+"290","Chinese muntjak",250,"Hoge Kempen tot Voeren",0.0193893844361636
+"291","Chinese muntjak",250,"Kust & Westhoek",0.0183859815513427
+"292","Chinese muntjak",250,"Lage tot aan Hoge Kempen",0.00846237780397248
+"293","Chinese muntjak",250,"Taxandria",0.0918164709238998
+"294","Chinese muntjak",250,"Vlaamse Ardennen & Schelde-Leie",0.0177228095266845
+"295","Chinese muntjak",250,"Zandig Vlaanderen",0.0333535107815401

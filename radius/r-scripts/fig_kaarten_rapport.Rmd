@@ -1,0 +1,118 @@
+
+```{r load-library, message=FALSE}
+library(sf)
+library(ggplot2)
+library(ggthemes)
+```
+
+```{r load-data, include=FALSE}
+Provincies_grenzen <- st_read("./prius/data/spatial/Provincies.geojson") %>%
+  st_transform(4326)
+ps_hbtrl_deel <- st_read("./radius/data/spatial/ps_hbtrl_deel.shp")
+ps_vglrl <- st_read("./radius/data/spatial/ps_vglrl.shp") 
+n2khab <- st_read("./radius/data/spatial/n2khab.shp")
+ps_nbhp <- st_read("./radius/data/spatial/ps_nbhp.shp")
+am_patdat <- st_read("./radius/data/spatial/am_patdat.shp")
+lu_sbp_pls <- st_read("./radius/data/spatial/lu_sbp_pls.shp")
+lu_sbp_pgs <- st_read("./radius/data/spatial/lu_sbp_pgs.shp")
+```
+
+# Habitatrichtlijngebieden (SBZ-H)
+```{r map-hbtrl}
+plot_hbtrl <- ggplot() +
+  geom_sf(data = Provincies_grenzen,  fill= "#f0f0f0", linewidth = 0.2) +
+  geom_sf(data = ps_hbtrl_deel, fill="#a4e98f", color ="#a4e98f", linewidth = 0.01) +
+  theme_map()
+
+plot_hbtrl
+
+ggsave("./radius/data/output/fig_maps/map_hbtrl.png", plot = plot_hbtrl, width = 23, height = 8, units = "cm")
+```
+
+# Vogelrichtlijngebieden (SBZ-V)
+```{r map-vglrl}
+plot_vglrl <- ggplot() +
+  geom_sf(data = Provincies_grenzen,  fill= "#f0f0f0", linewidth = 0.2) +
+  geom_sf(data = ps_vglrl, fill="#a4e98f", color ="#a4e98f", linewidth = 0.01) +
+  theme_map()
+
+plot_vglrl
+
+ggsave("./radius/data/output/fig_maps/map_vglrl.png", plot = plot_vglrl, width = 23, height = 8, units = "cm")
+```
+
+# N2000 Habitats
+```{r map-n2khab}
+plot_n2khab <- ggplot() +
+  geom_sf(data = Provincies_grenzen,  fill= "#f0f0f0", linewidth = 0.2) +
+  geom_sf(data = n2khab, fill="#a4e98f", color ="#a4e98f", linewidth = 0.01) +
+  theme_map()
+
+plot_n2khab
+
+ggsave("./radius/data/output/fig_maps/map_n2khab.png", plot = plot_n2khab, width = 23, height = 8, units = "cm")
+```
+
+# Natuurbeheerplannen
+```{r map-nbhp}
+plot_nbhp <- ggplot() +
+  geom_sf(data = Provincies_grenzen,  fill= "#f0f0f0", linewidth = 0.2) +
+  geom_sf(data = ps_nbhp, fill="#a4e98f", color ="#a4e98f", linewidth = 0.01) +
+  theme_map()
+
+plot_nbhp
+
+ggsave("./radius/data/output/fig_maps/map_nbhp.png", plot = plot_nbhp, width = 23, height = 8, units = "cm")
+```
+
+# ANB patrimonium
+```{r map-patdat}
+plot_patdat <- ggplot() +
+  geom_sf(data = Provincies_grenzen,  fill= "#f0f0f0", linewidth = 0.2) +
+  geom_sf(data = am_patdat, fill="#a4e98f", color ="#a4e98f", linewidth = 0.01) +
+  theme_map()
+
+plot_patdat
+
+ggsave("./radius/data/output/fig_maps/map_patdat.png", plot = plot_patdat, width = 23, height = 8, units = "cm")
+```
+
+# Soortenbeschermingsprogramma's (SBPs)
+```{r map-sbp-pls}
+plot_sbp_pls <- ggplot() +
+  geom_sf(data = Provincies_grenzen,  fill= "#f0f0f0", linewidth = 0.2) +
+  geom_sf(data = lu_sbp_pls, fill="#a4e98f", color ="#a4e98f", linewidth = 0.8) +
+  theme_map()
+
+plot_sbp_pls
+
+ggsave("./radius/data/output/fig_maps/map_sbp_pls.png", plot = plot_sbp_pls, width = 23, height = 8, units = "cm")
+```
+
+```{r plot-sbp-pgs}
+plot_sbp_pgs <- ggplot() +
+  geom_sf(data = Provincies_grenzen,  fill= "#f0f0f0", linewidth = 0.2) +
+  geom_sf(data = lu_sbp_pgs, fill="#a4e98f", color ="#a4e98f", linewidth = 0.01) +
+  theme_map()
+
+plot_sbp_pgs
+
+ggsave("./radius/data/output/fig_maps/map_sbp_pgs.png", plot = plot_sbp_pgs, width = 23, height = 8, units = "cm")
+```
+
+
+```{r plot-sbp-combined}
+plot_sbp <- ggplot() +
+  geom_sf(data = Provincies_grenzen,  fill= "#f0f0f0", linewidth = 0.2) +
+  geom_sf(data = lu_sbp_pgs, fill="#a4e98f", color ="grey80", linewidth = 0.01) +
+  geom_sf(data = lu_sbp_pls, fill="royalblue", color ="royalblue", linewidth = 0.8) +
+  theme_map()
+
+plot_sbp
+
+ggsave("./radius/data/output/fig_maps/map_sbp_combined.png", plot = plot_sbp, width = 23, height = 8, units = "cm")
+```
+
+
+
+
