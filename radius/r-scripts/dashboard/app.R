@@ -58,7 +58,7 @@ readRDSfromURL <- function(url) {
   readRDS(temp)
 }
 
-ps_hbtrl_deel <- readRDSfromURL("https://github.com/inbo/prius-radius/raw/dashboard/radius/data/spatial/ps_hbtrl_deel.rds") %>%
+ps_hbtrl_deel <- readRDSfromURL("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/spatial/ps_hbtrl_deel.rds") %>%
   rename(code = gebcode)
 
 #ps_hbtrl_deel$geom <- st_sfc(ps_hbtrl_deel$geometry)
@@ -72,26 +72,26 @@ ps_hbtrl_wgs84 <- ps_hbtrl_deel %>%
   st_transform(4326) %>%
   sf::st_cast("MULTIPOLYGON")
 
-ps_vglrl_wgs84 <- readRDSfromURL("https://github.com/inbo/prius-radius/raw/dashboard/radius/data/spatial/WGS84/ps_vglrl_wgs84.rds") %>%
+ps_vglrl_wgs84 <- readRDSfromURL("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/spatial/WGS84/ps_vglrl_wgs84.rds") %>%
   rename(code = na2000code, naam = gebnaam)
 
-n2khab_wgs84 <- readRDSfromURL("https://github.com/inbo/prius-radius/raw/dashboard/radius/data/spatial/WGS84/n2khab_wgs84.rds") %>%
+n2khab_wgs84 <- readRDSfromURL("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/spatial/WGS84/n2khab_wgs84.rds") %>%
   rename(code = type, naam = name)
 
-ps_nbhp_wgs84 <- readRDSfromURL("https://github.com/inbo/prius-radius/raw/dashboard/radius/data/spatial/WGS84/ps_nbhp_wgs84.rds") %>%
+ps_nbhp_wgs84 <- readRDSfromURL("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/spatial/WGS84/ps_nbhp_wgs84.rds") %>%
   rename(code = eigendomtype, naam = natuurbeheerplantype)
 
-am_patdat_wgs84 <- readRDSfromURL("https://github.com/inbo/prius-radius/raw/dashboard/radius/data/spatial/WGS84/am_patdat_wgs84.rds") %>%
+am_patdat_wgs84 <- readRDSfromURL("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/spatial/WGS84/am_patdat_wgs84.rds") %>%
   rename(code = regio, naam = domeinnaam)
 
-beheerregios_anb <- readRDSfromURL("https://github.com/inbo/prius-radius/raw/dashboard/radius/data/spatial/beheerregios_anb.rds") %>%
+beheerregios_anb <- readRDSfromURL("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/spatial/beheerregios_anb.rds") %>%
   rename(code = NAAM) %>%
   mutate(code = case_when(
     code == "Brabantse wouden" ~ "Brabantse Wouden",
     TRUE ~ code))
 
-# lu_sbp_pgs <- readRDSfromURL("https://github.com/inbo/prius-radius/raw/dashboard/radius/data/spatial/lu_sbp_pgs.rds")
-# lu_sbp_pls <- readRDSfromURL("https://github.com/inbo/prius-radius/raw/dashboard/radius/data/spatial/lu_sbp_pls.rds")
+# lu_sbp_pgs <- readRDSfromURL("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/spatial/lu_sbp_pgs.rds")
+# lu_sbp_pls <- readRDSfromURL("https://raw.githubusercontent.com/inbo/prius-radius/main/radius/data/spatial/lu_sbp_pls.rds")
 
 list_wfs <- list("Habitatrichtlijngebieden (SBZ-H)" = ps_hbtrl_wgs84, "Vogelrichtlijngebieden (SBZ-V)" = ps_vglrl_wgs84, "Natura 2000 Habitattypes" = n2khab_wgs84, "Natuurbeheerplannen" = ps_nbhp_wgs84, "ANB patrimonium" = beheerregios_anb)
 
