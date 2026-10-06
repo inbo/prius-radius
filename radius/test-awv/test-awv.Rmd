@@ -1,0 +1,194 @@
+---
+title: "Voorkomen van invasieve uitheemse soorten langs autosnelwegen in Vlaanderen"
+output: html_document
+---
+
+# Voorbereiding
+
+## Packages laden
+
+```{r packages-laden, message=FALSE, warning=FALSE}
+library(sf)
+library(tidyverse)
+library(httr)
+library(gdalUtilities)
+library(ggplot2)
+```
+
+## Werkomgeving leegmaken
+
+```{r geheugen-leegmaken}
+rm(list = ls())
+```
+
+## Algemene instellingen
+
+Voor alle ruimtelijke analyses gebruiken we Lambert 72 (`EPSG:31370`).  
+Dit is een geprojecteerd coördinatenstelsel waarbij afstanden in meter worden uitgedrukt en dat daardoor geschikt is voor het uitvoeren van buffers en andere ruimtelijke bewerkingen.
+
+```{r algemene-instellingen}
+crs_analysis <- 31370
+```
+
+# Hulpfuncties
+
+De kaartlaag van het Wegenregister bevat lijngeometrieën.  
+Onderstaande functie zet deze waar nodig om naar `MULTILINESTRING`.
+
+```{r functie-multilinestring}
+ensure_multilinestrings <- function(x) {
+  
+  tmp1 <- tempfile(fileext = ".gpkg")
+  tmp2 <- tempfile(fileext = ".gpkg")
+  
+  st_write(x, tmp1, quiet = TRUE)
+  ogr2ogr(tmp1, tmp2, f = "GPKG", nlt = "MULTILINESTRING")
+  
+  y <- st_read(tmp2, quiet = TRUE)
+  
+  st_sf(
+    st_drop_geometry(x),
+    geometry = st_geometry(y)
+  )
+}
+```
+
+# Data inlezen
+
+## Soortenlijst
+
+Inlezen van de lijst met invasieve uitheemse soorten die binnen de analyse worden meegenomen.
+
+```{r soortenlijst-inlezen}
+species_list <- read_csv(
+  "../data/input/radius_species_list.csv",
+  show_col_types = FALSE
+)
+```
+
+## Voorkomen van soorten in Vlaanderen
+
+Inlezen van de soortwaarnemingen in Vlaanderen.
+
+De oorspronkelijke coördinaten staan in WGS84 (`EPSG:4326`).  
+De waarnemingen worden na het inlezen omgezet naar Lambert 72 (`EPSG:31370`) voor verdere ruimtelijke analyses.
+
+```{r soortvoorkomen-inlezen}
+occ_flanders <- read_csv(
+  "../data/input/gbif_occ_flanders.csv",
+  show_col_types = FALSE
+) %>%
+  left_join(
+    species_list,
+    by = c(
+      "speciesKey" = "GBIF_code",
+      "Soort",
+      "Species"
+    )
+  ) %>%
+  select(
+    year,
+    month,
+    day,
+    decimalLongitude,
+    decimalLatitude,
+    speciesKey,
+    Soort,
+    Species
+  ) %>%
+  st_as_sf(
+    coords = c("decimalLongitude", "decimalLatitude"),
+    crs = 4326
+  ) %>%
+  st_transform(crs_analysis)
+```
+
+## Provinciegrenzen Vlaanderen
+
+Inlezen van de provinciegrenzen als referentielaag voor visualisatie.
+
+```{r provinciegrenzen-inlezen}
+Provincies_grenzen <- st_read(
+  "../../prius/data/spatial/Provincies.geojson",
+  quiet = TRUE
+) %>%
+  st_transform(crs_analysis)
+```
+
+## Autosnelwegen
+
+De autosnelwegen worden rechtstreeks ingelezen via de WFS-service van het Wegenregister.
+
+Enkel wegsegmenten waarvoor `morfologischeWegklasse` gelijk is aan `"autosnelweg"` worden opgevraagd.
+
+```{r autosnelwegen-inlezen}
+wfs_wegenregister <- "https://geo.api.vlaanderen.be/Wegenregister/wfs"
+
+url <- parse_url(wfs_wegenregister)
+
+url$query <- list(
+  service = "WFS",
+  version = "2.0.0",
+  request = "GetFeature",
+  typeName = "Wegenregister:Wegsegment",
+  outputFormat = "application/json",
+  srsName = paste0("EPSG:", crs_analysis),
+  CQL_FILTER = "morfologischeWegklasse='autosnelweg'"
+)
+
+request <- build_url(url)
+
+wegsegmenten <- read_sf(
+  request,
+  quiet = TRUE
+) %>%
+  st_transform(crs_analysis) %>%
+  ensure_multilinestrings()
+```
+
+# Controle van de ingelezen data
+
+## Aantal records
+
+```{r controle-aantal-records}
+nrow(species_list)
+nrow(occ_flanders)
+nrow(wegsegmenten)
+```
+
+## Coördinatenstelsels
+
+Controleren of alle ruimtelijke gegevens in hetzelfde coördinatenstelsel staan.
+
+```{r controle-crs}
+st_crs(Provincies_grenzen)
+st_crs(occ_flanders)
+st_crs(wegsegmenten)
+```
+
+## Autosnelwegen controleren
+
+Controleren of uitsluitend wegsegmenten met de morfologische wegklasse `autosnelweg` werden ingelezen.
+
+```{r controle-autosnelwegen}
+table(wegsegmenten$morfologischeWegklasse)
+```
+
+# Visualisatie
+
+Eerste visuele controle van de ingelezen autosnelwegen ten opzichte van de provinciegrenzen.
+
+```{r visualisatie-autosnelwegen, fig.width=9, fig.height=7}
+ggplot() +
+  geom_sf(
+    data = Provincies_grenzen,
+    fill = NA,
+    color = "grey50",
+    linewidth = 0.3
+  ) +
+  geom_sf(
+    data = wegsegmenten,
+    linewidth = 0.4
+  ) +
+  theme_void()
+```
