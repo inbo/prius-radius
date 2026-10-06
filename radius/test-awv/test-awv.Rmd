@@ -53,6 +53,47 @@ ensure_multilinestrings <- function(x) {
 }
 ```
 
+```{r custom-theme}
+# Eigen ggplot-thema
+custom_theme <- function() {
+  ggthemes::theme_few() +
+    theme(
+      axis.title.y = element_text(size = 10, family = "Arial"),
+      axis.text.y = element_text(size = 10, family = "Arial"),
+      axis.title.x = element_text(size = 10, family = "Arial"),
+      axis.text.x = element_text(size = 10, family = "Arial"),
+      axis.ticks.length = grid::unit(1.5, "pt"),
+      axis.ticks = element_line(colour = "grey90"),
+      legend.text = element_text(size = 10, family = "Arial"),
+      legend.title = element_blank(),
+      panel.border = element_rect(
+        color = "grey90",
+        fill = NA
+      ),
+      panel.grid.minor = element_blank(),
+      panel.grid.major = element_line(color = "grey90"),
+      panel.background = element_rect(
+        color = "grey",
+        fill = "grey98"
+      ),
+      strip.text = element_text(
+        size = 10,
+        face = "bold",
+        hjust = -0.01,
+        family = "Arial"
+      ),
+      plot.title = element_text(
+        size = 10,
+        family = "Arial",
+        face = "bold",
+        hjust = 0.5
+      ),
+      plot.title.position = "plot"
+    )
+}
+```
+
+
 # Data inlezen
 
 ## Soortenlijst
@@ -324,3 +365,153 @@ for (i in unique(occ_flanders$Soort)) {
 }
 ```
 
+# Resultaten invasieve uitheemse planten
+
+Voor de verdere analyse wordt gefocust op invasieve uitheemse planten. Deze zijn vanuit het beheerperspectief van AWV het meest relevant, aangezien AWV instaat voor het beheer van de wegbermen.
+
+```{r resultaten-planten-voorbereiden}
+# Aantal waarnemingen per soort
+aantal_waarnemingen <- occ_flanders %>%
+  st_drop_geometry() %>%
+  count(Soort, name = "n_obs")
+
+# Resultaten beperken tot planten
+autosnelwegen_planten <- autosnelwegen_metrics %>%
+  left_join(
+    species_list %>%
+      select(Soort, Groep) %>%
+      distinct(),
+    by = "Soort"
+  ) %>%
+  left_join(
+    aantal_waarnemingen,
+    by = "Soort"
+  ) %>%
+  filter(Groep == "plant")
+```
+
+## Bezetting van de autosnelwegbermen
+
+De `of` metric geeft aan welk aandeel van de totale gebufferde autosnelwegzone overlapt met de verspreiding van een plantensoort.
+
+Deze metric geeft daarmee een indicatie van hoe sterk een soort verspreid voorkomt binnen het areaal dat door AWV wordt beheerd.
+
+```{r of-autosnelwegen-planten}
+of_planten <- autosnelwegen_planten %>%
+  filter(`of` > 0) %>%
+  arrange(`of`)
+
+ggplot(
+  of_planten,
+  aes(
+    x = `of`,
+    y = reorder(Soort, `of`)
+  )
+) +
+  geom_col(
+    width = 0.7,
+    fill = "#c04384"
+  ) +
+  scale_x_continuous(
+    labels = scales::percent_format(accuracy = 0.1),
+    expand = expansion(mult = c(0, 0.05))
+  ) +
+  labs(
+    x = "Bezetting van de autosnelwegbermen",
+    y = NULL
+  ) +
+  custom_theme()
+```
+
+## Aandeel van de verspreiding in autosnelwegbermen
+
+De `in` metric geeft aan welk aandeel van de totale Vlaamse verspreiding van een plantensoort overlapt met de autosnelwegbermen.
+
+Soorten met minder dan 20 waarnemingen worden hier buiten beschouwing gelaten, omdat hun resultaat sterk kan worden bepaald door enkele individuele waarnemingen.
+
+```{r in-autosnelwegen-planten}
+in_planten <- autosnelwegen_planten %>%
+  filter(
+    `in` > 0,
+    n_obs >= 20
+  ) %>%
+  arrange(`in`)
+
+ggplot(
+  in_planten,
+  aes(
+    x = `in`,
+    y = reorder(Soort, `in`)
+  )
+) +
+  geom_col(
+    width = 0.7,
+    fill = "#c04384"
+  ) +
+  scale_x_continuous(
+    labels = scales::percent_format(accuracy = 1),
+    expand = expansion(mult = c(0, 0.05))
+  ) +
+  labs(
+    x = "Aandeel van de Vlaamse verspreiding in autosnelwegbermen",
+    y = NULL
+  ) +
+  custom_theme()
+```
+
+## Bezetting versus aandeel van de verspreiding
+
+Door beide metrics samen te bekijken kunnen plantensoorten met een verschillende beheerrelevantie worden onderscheiden.
+
+```{r in-vs-of-autosnelwegen-planten}
+in_vs_of_planten <- autosnelwegen_planten %>%
+  filter(
+    `in` > 0,
+    `of` > 0,
+    n_obs >= 20
+  )
+
+ggplot(
+  in_vs_of_planten,
+  aes(
+    x = `in`,
+    y = `of`
+  )
+) +
+  geom_point(
+    size = 2.5,
+    color = "#c04384"
+  ) +
+  ggrepel::geom_text_repel(
+    aes(label = Soort),
+    size = 3,
+    max.overlaps = Inf
+  ) +
+  scale_x_continuous(
+    labels = scales::percent_format(accuracy = 1),
+    expand = expansion(mult = c(0.05, 0.1))
+  ) +
+  scale_y_log10(
+    labels = scales::percent_format(accuracy = 0.01),
+    expand = expansion(mult = c(0.05, 0.1))
+  ) +
+  labs(
+    x = "Aandeel van de Vlaamse verspreiding in autosnelwegbermen",
+    y = "Bezetting van de autosnelwegbermen"
+  ) +
+  custom_theme()
+```
+
+## Overzicht resultaten
+
+```{r tabel-resultaten-planten}
+autosnelwegen_planten %>%
+  filter(`in` > 0 | `of` > 0) %>%
+  arrange(desc(`of`)) %>%
+  transmute(
+    Soort,
+    `Aantal waarnemingen` = n_obs,
+    `Aandeel verspreiding in bermen (%)` = round(`in` * 100, 2),
+    `Bezetting autosnelwegbermen (%)` = round(`of` * 100, 2)
+  )
+```
