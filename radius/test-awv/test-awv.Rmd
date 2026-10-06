@@ -192,3 +192,60 @@ ggplot() +
   ) +
   theme_void()
 ```
+
+# Voorbereiding autosnelweglaag
+
+De autosnelwegen in het Wegenregister worden weergegeven als lijngeometrieën. Voor de verdere analyse worden deze lijnen gebufferd zodat naast het wegdek ook de direct aangrenzende wegbermen worden meegenomen.
+
+Er wordt een buffer van 25 m aan weerszijden van elk wegsegment gebruikt. Overlappende buffers worden vervolgens samengevoegd tot één geometrie, zodat overlap tussen aangrenzende of parallelle wegsegmenten niet dubbel wordt geteld.
+
+```{r buffer-autosnelwegen}
+# Bufferafstand rond de middellijn van elk wegsegment, in meter
+buffer_autosnelweg <- 25
+
+# Autosnelwegen bufferen en overlappende buffers samenvoegen
+autosnelwegen_buffer <- wegsegmenten %>%
+  st_buffer(dist = buffer_autosnelweg) %>%
+  st_union() %>%
+  st_sf()
+```
+
+## Interactieve controle van de buffer
+
+Om na te gaan of de gekozen bufferafstand een realistische benadering geeft van de breedte van de autosnelwegen, worden zowel de oorspronkelijke wegsegmenten als de gebufferde autosnelwegen interactief weergegeven op een luchtfoto.
+
+Voor de visualisatie worden de ruimtelijke lagen omgezet naar WGS84 (`EPSG:4326`).
+
+```{r visualisatie-buffer-leaflet}
+library(leaflet)
+wegsegmenten_leaflet <- wegsegmenten %>%
+  st_transform(4326)
+
+autosnelwegen_buffer_leaflet <- autosnelwegen_buffer %>%
+  st_transform(4326)
+
+leaflet() %>%
+  addProviderTiles(
+    providers$Esri.WorldImagery,
+    group = "Luchtfoto"
+  ) %>%
+  addPolygons(
+    data = autosnelwegen_buffer_leaflet,
+    color = "yellow",
+    weight = 1,
+    fillColor = "yellow",
+    fillOpacity = 0.35,
+    group = "Buffer"
+  ) %>%
+  addPolylines(
+    data = wegsegmenten_leaflet,
+    color = "red",
+    weight = 2,
+    opacity = 1,
+    group = "Wegsegmenten"
+  ) %>%
+  addLayersControl(
+    overlayGroups = c("Buffer", "Wegsegmenten"),
+    options = layersControlOptions(collapsed = FALSE)
+  )
+```
