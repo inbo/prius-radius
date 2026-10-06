@@ -515,3 +515,257 @@ autosnelwegen_planten %>%
     `Bezetting autosnelwegbermen (%)` = round(`of` * 100, 2)
   )
 ```
+
+
+# Ruimtelijke druk van IUS in autosnelwegbermen
+
+Om ruimtelijke hotspots van invasieve uitheemse planten langs autosnelwegen te identificeren, wordt Vlaanderen opgedeeld in hexagonen van 2 km.
+
+Per hexagoon wordt bepaald hoeveel verschillende invasieve uitheemse plantensoorten voorkomen in het deel van de autosnelwegberm dat binnen de hexagoon ligt.
+
+```{r drukkaart-voorbereiden, warning=FALSE, message=FALSE}
+# Grootte van de hexagonen, in meter
+grid_grootte <- 2000
+
+# Alleen invasieve uitheemse planten selecteren
+occ_planten <- occ_flanders %>%
+  left_join(
+    species_list %>%
+      select(Soort, Groep) %>%
+      distinct(),
+    by = "Soort"
+  ) %>%
+  filter(Groep == "plant")
+
+# Per soort één gebufferde verspreidingslaag maken
+species_buffers <- lapply(
+  unique(occ_planten$Soort),
+  function(i) {
+    
+    occ_soort <- occ_planten %>%
+      filter(Soort == i)
+    
+    geometrie <- occ_soort %>%
+      st_buffer(dist = buffer_soort) %>%
+      st_union()
+    
+    st_sf(
+      Soort = i,
+      geometry = geometrie
+    )
+  }
+) %>%
+  do.call(rbind, .)
+
+# Vlaanderen samenvoegen tot één geometrie
+vlaanderen_union <- Provincies_grenzen %>%
+  st_union()
+
+# Hexagonaal grid maken
+grid <- st_make_grid(
+  vlaanderen_union,
+  cellsize = grid_grootte,
+  square = FALSE
+) %>%
+  st_sf() %>%
+  mutate(grid_id = row_number())
+
+# Alleen hexagonen behouden die de autosnelwegzone raken
+grid_autosnelwegen <- grid[
+  lengths(st_intersects(grid, autosnelwegen_buffer)) > 0,
+]
+
+# Werkelijke autosnelwegzone binnen iedere hexagoon bepalen
+berm_per_grid <- st_intersection(
+  grid_autosnelwegen,
+  autosnelwegen_buffer
+)
+
+# Voor iedere hexagoon bepalen welke soorten aanwezig zijn
+soorten_per_grid <- st_intersects(
+  berm_per_grid,
+  species_buffers
+)
+
+# Aantal verschillende soorten per hexagoon
+berm_per_grid$n_soorten <- lengths(soorten_per_grid)
+
+# Resultaten terugkoppelen aan de volledige hexagonen
+drukkaart <- grid_autosnelwegen %>%
+  left_join(
+    berm_per_grid %>%
+      st_drop_geometry() %>%
+      select(grid_id, n_soorten),
+    by = "grid_id"
+  ) %>%
+  mutate(
+    n_soorten = replace_na(n_soorten, 0)
+  )
+```
+
+## Hotspotkaart
+
+```{r drukkaart-autosnelwegen, fig.width=10, fig.height=7}
+ggplot() +
+  geom_sf(
+    data = Provincies_grenzen,
+    fill = "grey95",
+    color = "grey70",
+    linewidth = 0.3
+  ) +
+  geom_sf(
+    data = drukkaart,
+    aes(fill = n_soorten),
+    color = "white",
+    linewidth = 0.05
+  ) +
+  geom_sf(
+    data = wegsegmenten,
+    color = "grey30",
+    linewidth = 0.15
+  ) +
+  scale_fill_gradient(
+    low = "#f2d9e6",
+    high = "#c04384",
+    name = "Aantal IUS-planten"
+  ) +
+  labs(
+    fill = "Aantal IUS-planten"
+  ) +
+  ggthemes::theme_map() +
+  theme(
+    legend.position = "right"
+  )
+```
+
+## Interactieve kaart IUS langs autosnelwegen
+
+De interactieve kaart toont enerzijds de totale IUS-soortenrijkdom langs autosnelwegen en anderzijds de geschatte verspreiding van afzonderlijke plantensoorten.
+
+Via het lagenmenu kunnen individuele soorten worden geselecteerd.
+
+```{r interactieve-kaart-autosnelwegen, message=FALSE, warning=FALSE}
+library(leaflet)
+
+# Omzetten naar WGS84 voor Leaflet
+provincies_leaflet <- Provincies_grenzen %>%
+  st_transform(4326)
+
+wegen_leaflet <- wegsegmenten %>%
+  st_transform(4326)
+
+drukkaart_leaflet <- drukkaart %>%
+  st_transform(4326)
+
+species_buffers_leaflet <- species_buffers %>%
+  st_transform(4326)
+
+# Kleurschaal voor aantal soorten
+pal_druk <- colorNumeric(
+  palette = "magma",
+  domain = drukkaart_leaflet$n_soorten,
+  na.color = "transparent"
+)
+
+# Basiskaart
+kaart_awv <- leaflet(
+  options = leafletOptions(
+    preferCanvas = TRUE
+  )
+) %>%
+  addProviderTiles(
+    providers$CartoDB.Positron,
+    group = "Kaart"
+  ) %>%
+  addProviderTiles(
+    providers$Esri.WorldImagery,
+    group = "Luchtfoto"
+  ) %>%
+  
+  # Provinciegrenzen
+  addPolygons(
+    data = provincies_leaflet,
+    fill = FALSE,
+    color = "grey40",
+    weight = 1,
+    opacity = 0.7,
+    group = "Provinciegrenzen"
+  ) %>%
+  
+  # Hotspotkaart
+  addPolygons(
+    data = drukkaart_leaflet,
+    fillColor = ~pal_druk(n_soorten),
+    fillOpacity = 0.75,
+    color = "white",
+    weight = 0.4,
+    popup = ~paste0(
+      "<b>Aantal IUS-planten:</b> ",
+      n_soorten
+    ),
+    group = "Alle IUS-planten"
+  ) %>%
+  
+  # Autosnelwegen
+  addPolylines(
+    data = wegen_leaflet,
+    color = "grey20",
+    weight = 2,
+    opacity = 0.8,
+    group = "Autosnelwegen"
+  )
+
+# Afzonderlijke soorten als selecteerbare kaartlagen toevoegen
+for (soort in sort(unique(species_buffers_leaflet$Soort))) {
+  
+  soort_data <- species_buffers_leaflet %>%
+    filter(Soort == soort)
+  
+  kaart_awv <- kaart_awv %>%
+    addPolygons(
+      data = soort_data,
+      color = "#c04384",
+      fillColor = "#c04384",
+      weight = 1,
+      fillOpacity = 0.45,
+      popup = paste0(
+        "<b>", soort, "</b>"
+      ),
+      group = soort
+    )
+}
+
+# Lagenmenu toevoegen
+kaart_awv <- kaart_awv %>%
+  addLayersControl(
+    baseGroups = c(
+      "Kaart",
+      "Luchtfoto"
+    ),
+    overlayGroups = c(
+      "Alle IUS-planten",
+      "Autosnelwegen",
+      "Provinciegrenzen",
+      sort(unique(species_buffers_leaflet$Soort))
+    ),
+    options = layersControlOptions(
+      collapsed = TRUE
+    )
+  ) %>%
+  
+  # Soortlagen standaard verbergen
+  hideGroup(
+    sort(unique(species_buffers_leaflet$Soort))
+  ) %>%
+  
+  # Legende
+  addLegend(
+    position = "bottomright",
+    pal = pal_druk,
+    values = drukkaart_leaflet$n_soorten,
+    title = "Aantal IUS-planten",
+    opacity = 0.8
+  )
+
+kaart_awv
+```
