@@ -249,3 +249,78 @@ leaflet() %>%
     options = layersControlOptions(collapsed = FALSE)
   )
 ```
+
+# Voorkomen van invasieve uitheemse soorten langs autosnelwegen
+
+Voor iedere soort wordt de verspreiding benaderd door een buffer van 100 m rond de waarnemingen. Overlappende buffers worden samengevoegd.
+
+Vervolgens wordt de overlap met de gebufferde autosnelwegcorridor berekend.
+
+De `in` metric geeft het aandeel van de gebufferde verspreiding van een soort dat binnen de autosnelwegcorridor ligt.
+
+De `of` metric geeft het aandeel van de autosnelwegcorridor dat overlapt met de gebufferde verspreiding van een soort.
+
+```{r occupancy-metrics-autosnelwegen, warning=FALSE}
+# Bufferafstand rond soortwaarnemingen, in meter
+buffer_soort <- 100
+
+# Totale oppervlakte van de gebufferde autosnelwegcorridor
+oppervlakte_autosnelwegen <- as.numeric(
+  st_area(autosnelwegen_buffer)
+)
+
+# Dataframe voor resultaten
+autosnelwegen_metrics <- tibble()
+
+# Bereken de metrics per soort
+for (i in unique(occ_flanders$Soort)) {
+  
+  message("Verwerken: ", i)
+  
+  # Waarnemingen van de soort selecteren
+  occ_species <- occ_flanders %>%
+    filter(Soort == i)
+  
+  # Waarnemingen bufferen en overlappende buffers samenvoegen
+  occ_species_buffer <- occ_species %>%
+    st_buffer(dist = buffer_soort) %>%
+    st_union() %>%
+    st_sf()
+  
+  # Totale gebufferde verspreidingsoppervlakte van de soort
+  oppervlakte_soort <- as.numeric(
+    st_area(occ_species_buffer)
+  )
+  
+  # Overlap met de autosnelwegcorridor
+  overlap <- suppressWarnings(
+    st_intersection(
+      occ_species_buffer,
+      autosnelwegen_buffer
+    )
+  )
+  
+  # Oppervlakte van de overlap
+  oppervlakte_overlap <- if (nrow(overlap) == 0) {
+    0
+  } else {
+    sum(as.numeric(st_area(overlap)))
+  }
+  
+  # Occupancy metrics berekenen
+  metric_in <- oppervlakte_overlap / oppervlakte_soort
+  metric_of <- oppervlakte_overlap / oppervlakte_autosnelwegen
+  
+  # Resultaten toevoegen
+  autosnelwegen_metrics <- bind_rows(
+    autosnelwegen_metrics,
+    tibble(
+      Soort = i,
+      Species = paste(unique(occ_species$Species), collapse = ","),
+      `in` = metric_in,
+      `of` = metric_of
+    )
+  )
+}
+```
+
