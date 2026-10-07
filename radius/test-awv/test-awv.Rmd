@@ -1,126 +1,165 @@
 ---
-title: "Voorkomen van invasieve uitheemse soorten langs autosnelwegen in Vlaanderen"
-output: html_document
+title: "Invasieve uitheemse planten langs autosnelwegen in Vlaanderen"
+subtitle: "Verkennende screening voor Agentschap Wegen en Verkeer"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 2
+    number_sections: true
+    theme: flatly
+    self_contained: true
 ---
 
-# Voorbereiding
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  fig.align = "center",
+  out.width = "100%",
+  dpi = 150
+)
 
-## Packages laden
-
-```{r packages-laden, message=FALSE, warning=FALSE}
 library(sf)
 library(tidyverse)
 library(httr)
-library(gdalUtilities)
-library(ggplot2)
-```
+library(ggthemes)
+library(leaflet)
 
-## Werkomgeving leegmaken
-
-```{r geheugen-leegmaken}
-rm(list = ls())
-```
-
-## Algemene instellingen
-
-Voor alle ruimtelijke analyses gebruiken we Lambert 72 (`EPSG:31370`).  
-Dit is een geprojecteerd coördinatenstelsel waarbij afstanden in meter worden uitgedrukt en dat daardoor geschikt is voor het uitvoeren van buffers en andere ruimtelijke bewerkingen.
-
-```{r algemene-instellingen}
+# Coördinatenstelsel voor ruimtelijke analyses
 crs_analysis <- 31370
-```
 
-# Hulpfuncties
+# Analyseparameters, in meter
+buffer_autosnelweg <- 25
+buffer_soort <- 100
+grid_grootte <- 2000
 
-De kaartlaag van het Wegenregister bevat lijngeometrieën.  
-Onderstaande functie zet deze waar nodig om naar `MULTILINESTRING`.
+# Kleuren
+kleur_inbo <- "#C04384"
+kleur_awv_bestaand <- "#C04384"
+kleur_awv_uitbreiding <- "#E29ABC"
+kleur_overig <- "#BDBDBD"
 
-```{r functie-multilinestring}
-ensure_multilinestrings <- function(x) {
-  
-  tmp1 <- tempfile(fileext = ".gpkg")
-  tmp2 <- tempfile(fileext = ".gpkg")
-  
-  st_write(x, tmp1, quiet = TRUE)
-  ogr2ogr(tmp1, tmp2, f = "GPKG", nlt = "MULTILINESTRING")
-  
-  y <- st_read(tmp2, quiet = TRUE)
-  
-  st_sf(
-    st_drop_geometry(x),
-    geometry = st_geometry(y)
-  )
-}
-```
-
-```{r custom-theme}
 # Eigen ggplot-thema
 custom_theme <- function() {
   ggthemes::theme_few() +
     theme(
-      axis.title.y = element_text(size = 10, family = "Arial"),
-      axis.text.y = element_text(size = 10, family = "Arial"),
-      axis.title.x = element_text(size = 10, family = "Arial"),
-      axis.text.x = element_text(size = 10, family = "Arial"),
+      text = element_text(family = "Arial"),
+      axis.title = element_text(size = 10),
+      axis.text = element_text(size = 10),
       axis.ticks.length = grid::unit(1.5, "pt"),
       axis.ticks = element_line(colour = "grey90"),
-      legend.text = element_text(size = 10, family = "Arial"),
-      legend.title = element_blank(),
+      legend.text = element_text(size = 9),
+      legend.title = element_text(size = 9, face = "bold"),
       panel.border = element_rect(
         color = "grey90",
         fill = NA
       ),
       panel.grid.minor = element_blank(),
-      panel.grid.major = element_line(color = "grey90"),
+      panel.grid.major = element_line(
+        color = "grey90"
+      ),
       panel.background = element_rect(
         color = "grey",
         fill = "grey98"
-      ),
-      strip.text = element_text(
-        size = 10,
-        face = "bold",
-        hjust = -0.01,
-        family = "Arial"
-      ),
-      plot.title = element_text(
-        size = 10,
-        family = "Arial",
-        face = "bold",
-        hjust = 0.5
-      ),
-      plot.title.position = "plot"
+      )
     )
+}
+
+# Soorten uit de AWV-visie en actualisatievraag herkennen
+patroon_bestaand <- paste(
+  c(
+    "duizendknoop",
+    "fallopia",
+    "reynoutria",
+    "reuzenberenklauw",
+    "heracleum mantegazzianum",
+    "grote waternavel",
+    "hydrocotyle ranunculoides"
+  ),
+  collapse = "|"
+)
+
+patroon_uitbreiding <- paste(
+  c(
+    "amerikaanse vogelkers",
+    "prunus serotina",
+    "valse acacia",
+    "robinia pseudoacacia",
+    "hemelboom",
+    "ailanthus altissima",
+    "zijdeplant",
+    "asclepias syriaca",
+    "watercrassula",
+    "crassula helmsii",
+    "reuzenbalsemien",
+    "impatiens glandulifera"
+  ),
+  collapse = "|"
+)
+
+classificeer_awv_soort <- function(soort, species) {
+  
+  naam <- str_to_lower(
+    paste(
+      soort,
+      species
+    )
+  )
+  
+  case_when(
+    str_detect(
+      naam,
+      patroon_bestaand
+    ) ~ "Reeds in AWV-visie",
+    
+    str_detect(
+      naam,
+      patroon_uitbreiding
+    ) ~ "Vermeld in actualisatievraag",
+    
+    TRUE ~ "Overige IUS"
+  )
 }
 ```
 
+# Doel en afbakening
 
-# Data inlezen
+Deze verkennende analyse onderzoekt hoe beschikbare verspreidingsgegevens van invasieve uitheemse planten kunnen worden vertaald naar beheergerichte informatie voor het Agentschap Wegen en Verkeer.
 
-## Soortenlijst
+De analyse geeft een eerste beeld van:
 
-Inlezen van de lijst met invasieve uitheemse soorten die binnen de analyse worden meegenomen.
+**welke invasieve uitheemse planten sterk voorkomen langs autosnelwegen, waar ruimtelijke concentraties liggen en hoe het voorkomen verschilt tussen AWV-districten.**
 
-```{r soortenlijst-inlezen}
+De resultaten vormen een screening op basis van **voorkomen**. Ze mogen niet rechtstreeks als beheerprioritering worden geïnterpreteerd. Ook impact, wettelijke verplichtingen, veiligheid, beheersbaarheid en kosten zijn relevant voor uiteindelijke beheerkeuzes.
+
+# Methode
+
+## Soortgegevens
+
+De analyse gebruikt beschikbare waarnemingen van invasieve uitheemse plantensoorten in Vlaanderen.
+
+```{r data-inlezen, include=FALSE}
+# Soortenlijst
 species_list <- read_csv(
   "../data/input/radius_species_list.csv",
   show_col_types = FALSE
 )
-```
 
-## Voorkomen van soorten in Vlaanderen
-
-Inlezen van de soortwaarnemingen in Vlaanderen.
-
-De oorspronkelijke coördinaten staan in WGS84 (`EPSG:4326`).  
-De waarnemingen worden na het inlezen omgezet naar Lambert 72 (`EPSG:31370`) voor verdere ruimtelijke analyses.
-
-```{r soortvoorkomen-inlezen}
+# Soortwaarnemingen
 occ_flanders <- read_csv(
   "../data/input/gbif_occ_flanders.csv",
   show_col_types = FALSE
 ) %>%
   left_join(
-    species_list,
+    species_list %>%
+      select(
+        GBIF_code,
+        Soort,
+        Species,
+        Groep
+      ),
     by = c(
       "speciesKey" = "GBIF_code",
       "Soort",
@@ -135,37 +174,63 @@ occ_flanders <- read_csv(
     decimalLatitude,
     speciesKey,
     Soort,
-    Species
+    Species,
+    Groep
+  ) %>%
+  filter(
+    !is.na(decimalLongitude),
+    !is.na(decimalLatitude),
+    !is.na(Soort)
   ) %>%
   st_as_sf(
-    coords = c("decimalLongitude", "decimalLatitude"),
+    coords = c(
+      "decimalLongitude",
+      "decimalLatitude"
+    ),
     crs = 4326
   ) %>%
-  st_transform(crs_analysis)
-```
+  st_transform(
+    crs_analysis
+  )
 
-## Provinciegrenzen Vlaanderen
+# Alleen planten behouden
+occ_planten <- occ_flanders %>%
+  filter(
+    str_to_lower(Groep) == "plant"
+  )
 
-Inlezen van de provinciegrenzen als referentielaag voor visualisatie.
+if (nrow(occ_planten) == 0) {
+  stop(
+    "Er werden geen plantensoorten gevonden."
+  )
+}
 
-```{r provinciegrenzen-inlezen}
+# Provinciegrenzen
 Provincies_grenzen <- st_read(
   "../../prius/data/spatial/Provincies.geojson",
   quiet = TRUE
 ) %>%
-  st_transform(crs_analysis)
+  st_transform(
+    crs_analysis
+  ) %>%
+  st_make_valid()
 ```
 
-## Autosnelwegen
+## Autosnelwegcorridor
 
-De autosnelwegen worden rechtstreeks ingelezen via de WFS-service van het Wegenregister.
+Autosnelwegsegmenten worden rechtstreeks ingelezen uit het Wegenregister.
 
-Enkel wegsegmenten waarvoor `morfologischeWegklasse` gelijk is aan `"autosnelweg"` worden opgevraagd.
+Rond ieder segment wordt een buffer van `r buffer_autosnelweg` m gebruikt als ruimtelijke benadering van de autosnelweg en de onmiddellijk aangrenzende bermzone. Overlappende buffers worden samengevoegd.
 
-```{r autosnelwegen-inlezen}
-wfs_wegenregister <- "https://geo.api.vlaanderen.be/Wegenregister/wfs"
+```{r autosnelwegen-inlezen, include=FALSE}
+wfs_wegenregister <- paste0(
+  "https://geo.api.vlaanderen.be/",
+  "Wegenregister/wfs"
+)
 
-url <- parse_url(wfs_wegenregister)
+url <- parse_url(
+  wfs_wegenregister
+)
 
 url$query <- list(
   service = "WFS",
@@ -173,599 +238,918 @@ url$query <- list(
   request = "GetFeature",
   typeName = "Wegenregister:Wegsegment",
   outputFormat = "application/json",
-  srsName = paste0("EPSG:", crs_analysis),
-  CQL_FILTER = "morfologischeWegklasse='autosnelweg'"
+  srsName = paste0(
+    "EPSG:",
+    crs_analysis
+  ),
+  CQL_FILTER = paste0(
+    "morfologischeWegklasse=",
+    "'autosnelweg'"
+  )
 )
 
-request <- build_url(url)
+request <- build_url(
+  url
+)
 
 wegsegmenten <- read_sf(
   request,
   quiet = TRUE
 ) %>%
-  st_transform(crs_analysis) %>%
-  ensure_multilinestrings()
-```
-
-# Controle van de ingelezen data
-
-## Aantal records
-
-```{r controle-aantal-records}
-nrow(species_list)
-nrow(occ_flanders)
-nrow(wegsegmenten)
-```
-
-## Coördinatenstelsels
-
-Controleren of alle ruimtelijke gegevens in hetzelfde coördinatenstelsel staan.
-
-```{r controle-crs}
-st_crs(Provincies_grenzen)
-st_crs(occ_flanders)
-st_crs(wegsegmenten)
-```
-
-## Autosnelwegen controleren
-
-Controleren of uitsluitend wegsegmenten met de morfologische wegklasse `autosnelweg` werden ingelezen.
-
-```{r controle-autosnelwegen}
-table(wegsegmenten$morfologischeWegklasse)
-```
-
-# Visualisatie
-
-Eerste visuele controle van de ingelezen autosnelwegen ten opzichte van de provinciegrenzen.
-
-```{r visualisatie-autosnelwegen, fig.width=9, fig.height=7}
-ggplot() +
-  geom_sf(
-    data = Provincies_grenzen,
-    fill = NA,
-    color = "grey50",
-    linewidth = 0.3
-  ) +
-  geom_sf(
-    data = wegsegmenten,
-    linewidth = 0.4
-  ) +
-  theme_void()
-```
-
-# Voorbereiding autosnelweglaag
-
-De autosnelwegen in het Wegenregister worden weergegeven als lijngeometrieën. Voor de verdere analyse worden deze lijnen gebufferd zodat naast het wegdek ook de direct aangrenzende wegbermen worden meegenomen.
-
-Er wordt een buffer van 25 m aan weerszijden van elk wegsegment gebruikt. Overlappende buffers worden vervolgens samengevoegd tot één geometrie, zodat overlap tussen aangrenzende of parallelle wegsegmenten niet dubbel wordt geteld.
-
-```{r buffer-autosnelwegen}
-# Bufferafstand rond de middellijn van elk wegsegment, in meter
-buffer_autosnelweg <- 25
-
-# Autosnelwegen bufferen en overlappende buffers samenvoegen
-autosnelwegen_buffer <- wegsegmenten %>%
-  st_buffer(dist = buffer_autosnelweg) %>%
-  st_union() %>%
-  st_sf()
-```
-
-## Interactieve controle van de buffer
-
-Om na te gaan of de gekozen bufferafstand een realistische benadering geeft van de breedte van de autosnelwegen, worden zowel de oorspronkelijke wegsegmenten als de gebufferde autosnelwegen interactief weergegeven op een luchtfoto.
-
-Voor de visualisatie worden de ruimtelijke lagen omgezet naar WGS84 (`EPSG:4326`).
-
-```{r visualisatie-buffer-leaflet}
-library(leaflet)
-wegsegmenten_leaflet <- wegsegmenten %>%
-  st_transform(4326)
-
-autosnelwegen_buffer_leaflet <- autosnelwegen_buffer %>%
-  st_transform(4326)
-
-leaflet() %>%
-  addProviderTiles(
-    providers$Esri.WorldImagery,
-    group = "Luchtfoto"
+  st_transform(
+    crs_analysis
   ) %>%
-  addPolygons(
-    data = autosnelwegen_buffer_leaflet,
-    color = "yellow",
-    weight = 1,
-    fillColor = "yellow",
-    fillOpacity = 0.35,
-    group = "Buffer"
-  ) %>%
-  addPolylines(
-    data = wegsegmenten_leaflet,
-    color = "red",
-    weight = 2,
-    opacity = 1,
-    group = "Wegsegmenten"
-  ) %>%
-  addLayersControl(
-    overlayGroups = c("Buffer", "Wegsegmenten"),
-    options = layersControlOptions(collapsed = FALSE)
+  st_make_valid()
+
+if (nrow(wegsegmenten) == 0) {
+  stop(
+    "Er werden geen autosnelwegsegmenten ingelezen."
   )
-```
+}
 
-# Voorkomen van invasieve uitheemse soorten langs autosnelwegen
-
-Voor iedere soort wordt de verspreiding benaderd door een buffer van 100 m rond de waarnemingen. Overlappende buffers worden samengevoegd.
-
-Vervolgens wordt de overlap met de gebufferde autosnelwegcorridor berekend.
-
-De `in` metric geeft het aandeel van de gebufferde verspreiding van een soort dat binnen de autosnelwegcorridor ligt.
-
-De `of` metric geeft het aandeel van de autosnelwegcorridor dat overlapt met de gebufferde verspreiding van een soort.
-
-```{r occupancy-metrics-autosnelwegen, warning=FALSE}
-# Bufferafstand rond soortwaarnemingen, in meter
-buffer_soort <- 100
-
-# Totale oppervlakte van de gebufferde autosnelwegcorridor
-oppervlakte_autosnelwegen <- as.numeric(
-  st_area(autosnelwegen_buffer)
-)
-
-# Dataframe voor resultaten
-autosnelwegen_metrics <- tibble()
-
-# Bereken de metrics per soort
-for (i in unique(occ_flanders$Soort)) {
-  
-  message("Verwerken: ", i)
-  
-  # Waarnemingen van de soort selecteren
-  occ_species <- occ_flanders %>%
-    filter(Soort == i)
-  
-  # Waarnemingen bufferen en overlappende buffers samenvoegen
-  occ_species_buffer <- occ_species %>%
-    st_buffer(dist = buffer_soort) %>%
-    st_union() %>%
-    st_sf()
-  
-  # Totale gebufferde verspreidingsoppervlakte van de soort
-  oppervlakte_soort <- as.numeric(
-    st_area(occ_species_buffer)
-  )
-  
-  # Overlap met de autosnelwegcorridor
-  overlap <- suppressWarnings(
-    st_intersection(
-      occ_species_buffer,
-      autosnelwegen_buffer
-    )
-  )
-  
-  # Oppervlakte van de overlap
-  oppervlakte_overlap <- if (nrow(overlap) == 0) {
-    0
-  } else {
-    sum(as.numeric(st_area(overlap)))
-  }
-  
-  # Occupancy metrics berekenen
-  metric_in <- oppervlakte_overlap / oppervlakte_soort
-  metric_of <- oppervlakte_overlap / oppervlakte_autosnelwegen
-  
-  # Resultaten toevoegen
-  autosnelwegen_metrics <- bind_rows(
-    autosnelwegen_metrics,
-    tibble(
-      Soort = i,
-      Species = paste(unique(occ_species$Species), collapse = ","),
-      `in` = metric_in,
-      `of` = metric_of
+if (!"labelWegbeheerder" %in%
+    names(wegsegmenten)) {
+  stop(
+    paste0(
+      "De variabele 'labelWegbeheerder' ",
+      "ontbreekt in de Wegenregisterlaag."
     )
   )
 }
+
+# Autosnelwegcorridor
+autosnelwegen_buffer <- st_sf(
+  geometry = st_union(
+    st_buffer(
+      wegsegmenten,
+      dist = buffer_autosnelweg
+    )
+  )
+) %>%
+  st_make_valid()
+
+oppervlakte_autosnelwegen <- as.numeric(
+  st_area(
+    autosnelwegen_buffer
+  )
+)
 ```
 
-# Resultaten invasieve uitheemse planten
+## Geschat soortvoorkomen
 
-Voor de verdere analyse wordt gefocust op invasieve uitheemse planten. Deze zijn vanuit het beheerperspectief van AWV het meest relevant, aangezien AWV instaat voor het beheer van de wegbermen.
+Voor iedere plantensoort wordt een buffer van `r buffer_soort` m rond de gekende waarnemingen gebruikt als gestandaardiseerde ruimtelijke benadering van het voorkomen.
 
-```{r resultaten-planten-voorbereiden}
-# Aantal waarnemingen per soort
-aantal_waarnemingen <- occ_flanders %>%
+Overlappende buffers worden per soort samengevoegd.
+
+```{r soortbuffers-berekenen, include=FALSE}
+plantsoorten <- sort(
+  unique(
+    occ_planten$Soort
+  )
+)
+
+species_buffers_planten <- lapply(
+  plantsoorten,
+  function(soort_i) {
+    
+    occ_soort <- occ_planten %>%
+      filter(
+        Soort == soort_i
+      )
+    
+    geometrie <- occ_soort %>%
+      st_buffer(
+        dist = buffer_soort
+      ) %>%
+      st_union()
+    
+    st_sf(
+      Soort = soort_i,
+      Species = paste(
+        unique(
+          na.omit(
+            occ_soort$Species
+          )
+        ),
+        collapse = ", "
+      ),
+      geometry = geometrie
+    )
+  }
+) %>%
+  bind_rows() %>%
+  st_make_valid()
+```
+
+# Resultaten
+
+## Welke soorten komen sterk voor langs autosnelwegen?
+
+De `of` metric geeft het aandeel van de totale onderzochte autosnelwegcorridor dat overlapt met de geschatte verspreiding van een soort.
+
+Een hogere waarde betekent dat een soort potentieel over een groter deel van de autosnelwegcorridor voorkomt.
+
+```{r globale-metrics-berekenen, include=FALSE}
+# Overlap tussen soortverspreiding
+# en autosnelwegcorridor
+species_overlap <- suppressWarnings(
+  st_intersection(
+    species_buffers_planten %>%
+      select(
+        Soort,
+        Species
+      ),
+    autosnelwegen_buffer
+  )
+)
+
+species_overlap_data <- species_overlap %>%
+  mutate(
+    overlap_area = as.numeric(
+      st_area(.)
+    )
+  ) %>%
   st_drop_geometry() %>%
-  count(Soort, name = "n_obs")
+  group_by(
+    Soort,
+    Species
+  ) %>%
+  summarise(
+    overlap_area = sum(
+      overlap_area
+    ),
+    .groups = "drop"
+  )
 
-# Resultaten beperken tot planten
-autosnelwegen_planten <- autosnelwegen_metrics %>%
-  left_join(
-    species_list %>%
-      select(Soort, Groep) %>%
-      distinct(),
-    by = "Soort"
+# Globale of metric per soort
+autosnelwegen_metrics <- species_buffers_planten %>%
+  st_drop_geometry() %>%
+  select(
+    Soort,
+    Species
   ) %>%
   left_join(
-    aantal_waarnemingen,
-    by = "Soort"
+    species_overlap_data,
+    by = c(
+      "Soort",
+      "Species"
+    )
   ) %>%
-  filter(Groep == "plant")
+  mutate(
+    overlap_area = replace_na(
+      overlap_area,
+      0
+    ),
+    `of` = overlap_area /
+      oppervlakte_autosnelwegen,
+    awv_status = classificeer_awv_soort(
+      Soort,
+      Species
+    )
+  ) %>%
+  arrange(
+    desc(`of`)
+  ) %>%
+  mutate(
+    awv_status = factor(
+      awv_status,
+      levels = c(
+        "Reeds in AWV-visie",
+        "Vermeld in actualisatievraag",
+        "Overige IUS"
+      )
+    )
+  )
+
+# Alleen soorten met overlap
+soorten_berm <- autosnelwegen_metrics %>%
+  filter(
+    `of` > 0
+  ) %>%
+  pull(
+    Soort
+  )
 ```
 
-## Bezetting van de autosnelwegbermen
+De figuur toont alle invasieve uitheemse plantensoorten met geschat voorkomen langs de autosnelwegcorridor. Soorten uit de bestaande AWV-visie en soorten vermeld in de actualisatievraag worden afzonderlijk aangeduid.
 
-De `of` metric geeft aan welk aandeel van de totale gebufferde autosnelwegzone overlapt met de verspreiding van een plantensoort.
-
-Deze metric geeft daarmee een indicatie van hoe sterk een soort verspreid voorkomt binnen het areaal dat door AWV wordt beheerd.
-
-```{r of-autosnelwegen-planten}
-of_planten <- autosnelwegen_planten %>%
-  filter(`of` > 0) %>%
-  arrange(`of`)
+```{r figuur-of, fig.width=9, fig.height=10}
+of_planten <- autosnelwegen_metrics %>%
+  filter(
+    `of` > 0
+  )
 
 ggplot(
   of_planten,
   aes(
     x = `of`,
-    y = reorder(Soort, `of`)
+    y = forcats::fct_reorder(
+      Soort,
+      `of`
+    ),
+    fill = awv_status
   )
 ) +
   geom_col(
-    width = 0.7,
-    fill = "#c04384"
+    width = 0.7
+  ) +
+  scale_fill_manual(
+    values = c(
+      "Reeds in AWV-visie" =
+        kleur_awv_bestaand,
+      "Vermeld in actualisatievraag" =
+        kleur_awv_uitbreiding,
+      "Overige IUS" =
+        kleur_overig
+    ),
+    drop = FALSE
   ) +
   scale_x_continuous(
-    labels = scales::percent_format(accuracy = 0.1),
-    expand = expansion(mult = c(0, 0.05))
-  ) +
-  labs(
-    x = "Bezetting van de autosnelwegbermen",
-    y = NULL
-  ) +
-  custom_theme()
-```
-
-## Aandeel van de verspreiding in autosnelwegbermen
-
-De `in` metric geeft aan welk aandeel van de totale Vlaamse verspreiding van een plantensoort overlapt met de autosnelwegbermen.
-
-Soorten met minder dan 20 waarnemingen worden hier buiten beschouwing gelaten, omdat hun resultaat sterk kan worden bepaald door enkele individuele waarnemingen.
-
-```{r in-autosnelwegen-planten}
-in_planten <- autosnelwegen_planten %>%
-  filter(
-    `in` > 0,
-    n_obs >= 20
-  ) %>%
-  arrange(`in`)
-
-ggplot(
-  in_planten,
-  aes(
-    x = `in`,
-    y = reorder(Soort, `in`)
-  )
-) +
-  geom_col(
-    width = 0.7,
-    fill = "#c04384"
-  ) +
-  scale_x_continuous(
-    labels = scales::percent_format(accuracy = 1),
-    expand = expansion(mult = c(0, 0.05))
-  ) +
-  labs(
-    x = "Aandeel van de Vlaamse verspreiding in autosnelwegbermen",
-    y = NULL
-  ) +
-  custom_theme()
-```
-
-## Bezetting versus aandeel van de verspreiding
-
-Door beide metrics samen te bekijken kunnen plantensoorten met een verschillende beheerrelevantie worden onderscheiden.
-
-```{r in-vs-of-autosnelwegen-planten}
-in_vs_of_planten <- autosnelwegen_planten %>%
-  filter(
-    `in` > 0,
-    `of` > 0,
-    n_obs >= 20
-  )
-
-ggplot(
-  in_vs_of_planten,
-  aes(
-    x = `in`,
-    y = `of`
-  )
-) +
-  geom_point(
-    size = 2.5,
-    color = "#c04384"
-  ) +
-  ggrepel::geom_text_repel(
-    aes(label = Soort),
-    size = 3,
-    max.overlaps = Inf
-  ) +
-  scale_x_continuous(
-    labels = scales::percent_format(accuracy = 1),
-    expand = expansion(mult = c(0.05, 0.1))
-  ) +
-  scale_y_log10(
-    labels = scales::percent_format(accuracy = 0.01),
-    expand = expansion(mult = c(0.05, 0.1))
-  ) +
-  labs(
-    x = "Aandeel van de Vlaamse verspreiding in autosnelwegbermen",
-    y = "Bezetting van de autosnelwegbermen"
-  ) +
-  custom_theme()
-```
-
-## Overzicht resultaten
-
-```{r tabel-resultaten-planten}
-autosnelwegen_planten %>%
-  filter(`in` > 0 | `of` > 0) %>%
-  arrange(desc(`of`)) %>%
-  transmute(
-    Soort,
-    `Aantal waarnemingen` = n_obs,
-    `Aandeel verspreiding in bermen (%)` = round(`in` * 100, 2),
-    `Bezetting autosnelwegbermen (%)` = round(`of` * 100, 2)
-  )
-```
-
-
-# Ruimtelijke druk van IUS in autosnelwegbermen
-
-Om ruimtelijke hotspots van invasieve uitheemse planten langs autosnelwegen te identificeren, wordt Vlaanderen opgedeeld in hexagonen van 2 km.
-
-Per hexagoon wordt bepaald hoeveel verschillende invasieve uitheemse plantensoorten voorkomen in het deel van de autosnelwegberm dat binnen de hexagoon ligt.
-
-```{r drukkaart-voorbereiden, warning=FALSE, message=FALSE}
-# Grootte van de hexagonen, in meter
-grid_grootte <- 2000
-
-# Alleen invasieve uitheemse planten selecteren
-occ_planten <- occ_flanders %>%
-  left_join(
-    species_list %>%
-      select(Soort, Groep) %>%
-      distinct(),
-    by = "Soort"
-  ) %>%
-  filter(Groep == "plant")
-
-# Per soort één gebufferde verspreidingslaag maken
-species_buffers <- lapply(
-  unique(occ_planten$Soort),
-  function(i) {
-    
-    occ_soort <- occ_planten %>%
-      filter(Soort == i)
-    
-    geometrie <- occ_soort %>%
-      st_buffer(dist = buffer_soort) %>%
-      st_union()
-    
-    st_sf(
-      Soort = i,
-      geometry = geometrie
+    labels = scales::percent_format(
+      accuracy = 0.1
+    ),
+    expand = expansion(
+      mult = c(
+        0,
+        0.05
+      )
     )
-  }
-) %>%
-  do.call(rbind, .)
+  ) +
+  labs(
+    x = paste0(
+      "Aandeel autosnelwegcorridor met ",
+      "geschat voorkomen"
+    ),
+    y = NULL,
+    fill = NULL
+  ) +
+  custom_theme() +
+  theme(
+    panel.grid.major.y = element_blank(),
+    legend.position = "top"
+  )
+```
 
-# Vlaanderen samenvoegen tot één geometrie
+## Waar liggen ruimtelijke concentraties?
+
+Vlaanderen wordt opgedeeld in hexagonen van `r grid_grootte / 1000` km.
+
+Per hexagoon wordt bepaald hoeveel verschillende invasieve uitheemse plantensoorten potentieel voorkomen in het deel van de autosnelwegcorridor dat binnen de hexagoon ligt.
+
+```{r hexagonen-berekenen, include=FALSE}
+# Vlaanderen samenvoegen
 vlaanderen_union <- Provincies_grenzen %>%
   st_union()
 
-# Hexagonaal grid maken
-grid <- st_make_grid(
+# Hexagonaal grid
+hex_geometry <- st_make_grid(
   vlaanderen_union,
   cellsize = grid_grootte,
   square = FALSE
-) %>%
-  st_sf() %>%
-  mutate(grid_id = row_number())
+)
 
-# Alleen hexagonen behouden die de autosnelwegzone raken
-grid_autosnelwegen <- grid[
-  lengths(st_intersects(grid, autosnelwegen_buffer)) > 0,
+hex_grid <- st_sf(
+  grid_id = seq_along(
+    hex_geometry
+  ),
+  geometry = hex_geometry
+)
+
+# Alleen hexagonen langs autosnelwegen
+hex_grid <- hex_grid[
+  lengths(
+    st_intersects(
+      hex_grid,
+      autosnelwegen_buffer
+    )
+  ) > 0,
 ]
 
-# Werkelijke autosnelwegzone binnen iedere hexagoon bepalen
-berm_per_grid <- st_intersection(
-  grid_autosnelwegen,
-  autosnelwegen_buffer
+# Autosnelwegcorridor binnen iedere hexagoon
+berm_per_hex <- suppressWarnings(
+  st_intersection(
+    hex_grid %>%
+      select(
+        grid_id
+      ),
+    autosnelwegen_buffer
+  )
+) %>%
+  mutate(
+    berm_area = as.numeric(
+      st_area(.)
+    )
+  )
+```
+
+```{r voorkomen-per-hex, include=FALSE}
+# Overlap tussen soorten en corridor
+# binnen iedere hexagoon
+hex_soort_overlap <- suppressWarnings(
+  st_intersection(
+    berm_per_hex %>%
+      select(
+        grid_id,
+        berm_area
+      ),
+    species_buffers_planten %>%
+      filter(
+        Soort %in% soorten_berm
+      ) %>%
+      select(
+        Soort
+      )
+  )
 )
 
-# Voor iedere hexagoon bepalen welke soorten aanwezig zijn
-soorten_per_grid <- st_intersects(
-  berm_per_grid,
-  species_buffers
-)
+# Lokale of metric per soort
+hex_soort_data <- hex_soort_overlap %>%
+  mutate(
+    overlap_area = as.numeric(
+      st_area(.)
+    )
+  ) %>%
+  st_drop_geometry() %>%
+  group_by(
+    grid_id,
+    Soort,
+    berm_area
+  ) %>%
+  summarise(
+    overlap_area = sum(
+      overlap_area
+    ),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    of_hex = pmin(
+      overlap_area / berm_area,
+      1
+    )
+  )
 
-# Aantal verschillende soorten per hexagoon
-berm_per_grid$n_soorten <- lengths(soorten_per_grid)
+# Aantal soorten per hexagoon
+hex_samenvatting <- hex_soort_data %>%
+  group_by(
+    grid_id
+  ) %>%
+  summarise(
+    n_soorten = n_distinct(
+      Soort
+    ),
+    soorten = paste(
+      sort(
+        unique(
+          Soort
+        )
+      ),
+      collapse = "<br>"
+    ),
+    .groups = "drop"
+  )
 
-# Resultaten terugkoppelen aan de volledige hexagonen
-drukkaart <- grid_autosnelwegen %>%
+hex_totaal <- hex_grid %>%
   left_join(
-    berm_per_grid %>%
-      st_drop_geometry() %>%
-      select(grid_id, n_soorten),
+    hex_samenvatting,
     by = "grid_id"
   ) %>%
   mutate(
-    n_soorten = replace_na(n_soorten, 0)
+    n_soorten = replace_na(
+      n_soorten,
+      0
+    ),
+    soorten = replace_na(
+      soorten,
+      "Geen IUS-planten"
+    )
+  )
+
+# Hexagonen per soort
+hex_soort <- hex_grid %>%
+  select(
+    grid_id
+  ) %>%
+  inner_join(
+    hex_soort_data,
+    by = "grid_id"
   )
 ```
 
-## Hotspotkaart
+```{r kaartlagen-leaflet, include=FALSE}
+# WGS84 voor Leaflet
+Provincies_grenzen_leaflet <-
+  Provincies_grenzen %>%
+  st_transform(
+    4326
+  )
 
-```{r drukkaart-autosnelwegen, fig.width=10, fig.height=7}
-ggplot() +
-  geom_sf(
-    data = Provincies_grenzen,
-    fill = "grey95",
-    color = "grey70",
-    linewidth = 0.3
-  ) +
-  geom_sf(
-    data = drukkaart,
-    aes(fill = n_soorten),
-    color = "white",
-    linewidth = 0.05
-  ) +
-  geom_sf(
-    data = wegsegmenten,
-    color = "grey30",
-    linewidth = 0.15
-  ) +
-  scale_fill_gradient(
-    low = "#f2d9e6",
-    high = "#c04384",
-    name = "Aantal IUS-planten"
-  ) +
-  labs(
-    fill = "Aantal IUS-planten"
-  ) +
-  ggthemes::theme_map() +
-  theme(
-    legend.position = "right"
+wegsegmenten_leaflet <-
+  wegsegmenten %>%
+  st_transform(
+    4326
+  )
+
+autosnelwegen_buffer_leaflet <-
+  autosnelwegen_buffer %>%
+  st_transform(
+    4326
+  )
+
+hex_totaal_leaflet <-
+  hex_totaal %>%
+  st_transform(
+    4326
+  )
+
+hex_soort_leaflet <-
+  hex_soort %>%
+  st_transform(
+    4326
   )
 ```
 
-## Interactieve kaart IUS langs autosnelwegen
+### IUS-soortenrijkdom
 
-De interactieve kaart toont enerzijds de totale IUS-soortenrijkdom langs autosnelwegen en anderzijds de geschatte verspreiding van afzonderlijke plantensoorten.
+Klik op een hexagoon om te bekijken hoeveel en welke invasieve uitheemse plantensoorten er potentieel voorkomen.
 
-Via het lagenmenu kunnen individuele soorten worden geselecteerd.
+```{r interactieve-overzichtskaart}
+max_soorten <- max(
+  hex_totaal_leaflet$n_soorten,
+  na.rm = TRUE
+)
 
-```{r interactieve-kaart-autosnelwegen, message=FALSE, warning=FALSE}
-library(leaflet)
-
-# Omzetten naar WGS84 voor Leaflet
-provincies_leaflet <- Provincies_grenzen %>%
-  st_transform(4326)
-
-wegen_leaflet <- wegsegmenten %>%
-  st_transform(4326)
-
-drukkaart_leaflet <- drukkaart %>%
-  st_transform(4326)
-
-species_buffers_leaflet <- species_buffers %>%
-  st_transform(4326)
-
-# Kleurschaal voor aantal soorten
-pal_druk <- colorNumeric(
-  palette = "magma",
-  domain = drukkaart_leaflet$n_soorten,
+pal_n_soorten <- colorNumeric(
+  palette = c(
+    "#F2D9E6",
+    kleur_inbo
+  ),
+  domain = c(
+    0,
+    max_soorten
+  ),
   na.color = "transparent"
 )
 
-# Basiskaart
-kaart_awv <- leaflet(
+leaflet(
   options = leafletOptions(
     preferCanvas = TRUE
   )
 ) %>%
+  
   addProviderTiles(
-    providers$CartoDB.Positron,
-    group = "Kaart"
-  ) %>%
-  addProviderTiles(
-    providers$Esri.WorldImagery,
-    group = "Luchtfoto"
+    providers$Esri.WorldGrayCanvas
   ) %>%
   
-  # Provinciegrenzen
   addPolygons(
-    data = provincies_leaflet,
-    fill = FALSE,
-    color = "grey40",
-    weight = 1,
-    opacity = 0.7,
-    group = "Provinciegrenzen"
-  ) %>%
-  
-  # Hotspotkaart
-  addPolygons(
-    data = drukkaart_leaflet,
-    fillColor = ~pal_druk(n_soorten),
-    fillOpacity = 0.75,
-    color = "white",
-    weight = 0.4,
-    popup = ~paste0(
-      "<b>Aantal IUS-planten:</b> ",
+    data = hex_totaal_leaflet %>%
+      filter(
+        n_soorten > 0
+      ),
+    fillColor = ~pal_n_soorten(
       n_soorten
     ),
-    group = "Alle IUS-planten"
+    fillOpacity = 0.9,
+    color = "darkgrey",
+    weight = 0.5,
+    popup = ~paste0(
+      "<b>Aantal IUS-planten: ",
+      n_soorten,
+      "</b><br><br>",
+      soorten
+    )
   ) %>%
   
-  # Autosnelwegen
+  addPolygons(
+    data = autosnelwegen_buffer_leaflet,
+    fill = FALSE,
+    color = "grey",
+    weight = 4,
+    opacity = 0.3
+  ) %>%
+  
   addPolylines(
-    data = wegen_leaflet,
-    color = "grey20",
-    weight = 2,
-    opacity = 0.8,
-    group = "Autosnelwegen"
+    data = wegsegmenten_leaflet,
+    color = "darkgrey",
+    weight = 1.5,
+    opacity = 0.4
+  ) %>%
+  
+  addPolygons(
+    data = Provincies_grenzen_leaflet,
+    fill = FALSE,
+    color = "#555555",
+    weight = 1,
+    opacity = 0.8
+  ) %>%
+  
+  addLegend(
+    position = "bottomright",
+    pal = pal_n_soorten,
+    values = hex_totaal_leaflet$n_soorten,
+    title = "Aantal IUS-planten",
+    opacity = 0.8
+  )
+```
+
+## Waar komen afzonderlijke soorten voor?
+
+Voor iedere plantensoort wordt per hexagoon berekend welk aandeel van de autosnelwegcorridor overlapt met de geschatte verspreiding van de soort.
+
+Via het lagenmenu kunnen één of meerdere soorten worden weergegeven.
+
+```{r interactieve-soortenkaart}
+hex_planten_leaflet <- hex_soort_leaflet %>%
+  filter(
+    of_hex > 0
   )
 
-# Afzonderlijke soorten als selecteerbare kaartlagen toevoegen
-for (soort in sort(unique(species_buffers_leaflet$Soort))) {
+plantsoorten_leaflet <- sort(
+  unique(
+    hex_planten_leaflet$Soort
+  )
+)
+
+pal_of_hex <- colorNumeric(
+  palette = c(
+    "#F2D9E6",
+    kleur_inbo
+  ),
+  domain = c(
+    0,
+    1
+  ),
+  na.color = "transparent"
+)
+
+kaart_soorten <- leaflet(
+  options = leafletOptions(
+    preferCanvas = TRUE
+  )
+) %>%
   
-  soort_data <- species_buffers_leaflet %>%
-    filter(Soort == soort)
+  addProviderTiles(
+    providers$Esri.WorldGrayCanvas
+  ) %>%
   
-  kaart_awv <- kaart_awv %>%
+  addPolygons(
+    data = autosnelwegen_buffer_leaflet,
+    fill = FALSE,
+    color = "grey",
+    weight = 4,
+    opacity = 0.3,
+    group = "Autosnelwegcorridor"
+  ) %>%
+  
+  addPolylines(
+    data = wegsegmenten_leaflet,
+    color = "darkgrey",
+    weight = 1.5,
+    opacity = 0.4,
+    group = "Autosnelwegen"
+  ) %>%
+  
+  addPolygons(
+    data = Provincies_grenzen_leaflet,
+    fill = FALSE,
+    color = "#555555",
+    weight = 1,
+    opacity = 0.8,
+    group = "Provinciegrenzen"
+  )
+
+# Iedere soort als afzonderlijke laag
+for (soort_i in plantsoorten_leaflet) {
+  
+  soort_data <- hex_planten_leaflet %>%
+    filter(
+      Soort == soort_i
+    )
+  
+  kaart_soorten <- kaart_soorten %>%
     addPolygons(
       data = soort_data,
-      color = "#c04384",
-      fillColor = "#c04384",
-      weight = 1,
-      fillOpacity = 0.45,
-      popup = paste0(
-        "<b>", soort, "</b>"
+      group = soort_i,
+      fillColor = ~pal_of_hex(
+        of_hex
       ),
-      group = soort
+      fillOpacity = 0.9,
+      color = "darkgrey",
+      weight = 0.5,
+      popup = ~paste0(
+        "<b>",
+        Soort,
+        "</b><br><br>",
+        "Aandeel autosnelwegcorridor: ",
+        scales::percent(
+          of_hex,
+          accuracy = 0.1
+        )
+      )
     )
 }
 
-# Lagenmenu toevoegen
-kaart_awv <- kaart_awv %>%
+# Standaard één soort tonen
+if (length(plantsoorten_leaflet) > 1) {
+  
+  kaart_soorten <- kaart_soorten %>%
+    hideGroup(
+      plantsoorten_leaflet[-1]
+    )
+}
+
+kaart_soorten %>%
   addLayersControl(
-    baseGroups = c(
-      "Kaart",
-      "Luchtfoto"
-    ),
     overlayGroups = c(
-      "Alle IUS-planten",
       "Autosnelwegen",
+      "Autosnelwegcorridor",
       "Provinciegrenzen",
-      sort(unique(species_buffers_leaflet$Soort))
+      plantsoorten_leaflet
     ),
     options = layersControlOptions(
       collapsed = TRUE
     )
   ) %>%
-  
-  # Soortlagen standaard verbergen
-  hideGroup(
-    sort(unique(species_buffers_leaflet$Soort))
-  ) %>%
-  
-  # Legende
   addLegend(
     position = "bottomright",
-    pal = pal_druk,
-    values = drukkaart_leaflet$n_soorten,
-    title = "Aantal IUS-planten",
+    pal = pal_of_hex,
+    values = c(
+      0,
+      1
+    ),
+    title = "Aandeel autosnelwegcorridor",
+    labFormat = labelFormat(
+      transform = function(x) {
+        x * 100
+      },
+      suffix = "%"
+    ),
     opacity = 0.8
   )
-
-kaart_awv
 ```
+
+## Verschillen tussen AWV-districten
+
+Via `labelWegbeheerder` kan het geschatte voorkomen van invasieve uitheemse planten afzonderlijk per AWV-district worden bekeken.
+
+De lokale `of` metric geeft aan welk aandeel van de autosnelwegcorridor binnen een district overlapt met de geschatte verspreiding van een soort.
+
+```{r districtanalyse, include=FALSE}
+# Autosnelwegcorridor per district
+district_buffers <- wegsegmenten %>%
+  filter(
+    !is.na(labelWegbeheerder),
+    str_squish(labelWegbeheerder) != ""
+  ) %>%
+  mutate(
+    labelWegbeheerder = str_squish(
+      labelWegbeheerder
+    )
+  ) %>%
+  select(
+    labelWegbeheerder
+  ) %>%
+  st_buffer(
+    dist = buffer_autosnelweg
+  ) %>%
+  group_by(
+    labelWegbeheerder
+  ) %>%
+  summarise(
+    .groups = "drop"
+  ) %>%
+  st_make_valid() %>%
+  mutate(
+    berm_area = as.numeric(
+      st_area(.)
+    )
+  )
+
+# Overlap per soort en district
+district_overlap <- suppressWarnings(
+  st_intersection(
+    district_buffers %>%
+      select(
+        labelWegbeheerder
+      ),
+    species_buffers_planten %>%
+      filter(
+        Soort %in% soorten_berm
+      ) %>%
+      select(
+        Soort
+      )
+  )
+) %>%
+  mutate(
+    overlap_area = as.numeric(
+      st_area(.)
+    )
+  ) %>%
+  st_drop_geometry() %>%
+  group_by(
+    labelWegbeheerder,
+    Soort
+  ) %>%
+  summarise(
+    overlap_area = sum(
+      overlap_area
+    ),
+    .groups = "drop"
+  )
+
+# Oppervlakte corridor per district
+district_oppervlakte <- district_buffers %>%
+  st_drop_geometry() %>%
+  select(
+    labelWegbeheerder,
+    berm_area
+  )
+
+# Alle combinaties van soorten en districten
+district_metrics <- tidyr::crossing(
+  labelWegbeheerder = sort(
+    unique(
+      district_buffers$labelWegbeheerder
+    )
+  ),
+  Soort = soorten_berm
+) %>%
+  left_join(
+    district_overlap,
+    by = c(
+      "labelWegbeheerder",
+      "Soort"
+    )
+  ) %>%
+  left_join(
+    district_oppervlakte,
+    by = "labelWegbeheerder"
+  ) %>%
+  mutate(
+    overlap_area = replace_na(
+      overlap_area,
+      0
+    ),
+    of_district = pmin(
+      overlap_area / berm_area,
+      1
+    )
+  )
+
+# Volgorde van soorten
+soort_volgorde <- autosnelwegen_metrics %>%
+  filter(
+    Soort %in% soorten_berm
+  ) %>%
+  arrange(
+    `of`
+  ) %>%
+  pull(
+    Soort
+  )
+
+# Volgorde van districten
+district_volgorde <- district_metrics %>%
+  group_by(
+    labelWegbeheerder
+  ) %>%
+  summarise(
+    totale_score = sum(
+      of_district,
+      na.rm = TRUE
+    ),
+    .groups = "drop"
+  ) %>%
+  arrange(
+    totale_score
+  ) %>%
+  pull(
+    labelWegbeheerder
+  )
+
+district_heatmap <- district_metrics %>%
+  mutate(
+    Soort = factor(
+      Soort,
+      levels = soort_volgorde
+    ),
+    labelWegbeheerder = factor(
+      labelWegbeheerder,
+      levels = district_volgorde
+    )
+  )
+```
+
+### Geschat voorkomen per district
+
+```{r heatmap-districten, fig.width=12, fig.height=8}
+ggplot(
+  district_heatmap,
+  aes(
+    x = labelWegbeheerder,
+    y = Soort,
+    fill = of_district
+  )
+) +
+  geom_tile(
+    color = "white",
+    linewidth = 0.3
+  ) +
+  scale_fill_gradient(
+    low = "white",
+    high = kleur_inbo,
+    labels = scales::percent_format(
+      accuracy = 1
+    ),
+    name = "Geschat voorkomen"
+  ) +
+  scale_x_discrete(
+    labels = function(x) {
+      stringr::str_wrap(
+        x,
+        width = 18
+      )
+    }
+  ) +
+  labs(
+    x = "AWV-district",
+    y = NULL
+  ) +
+  custom_theme() +
+  theme(
+    axis.text.x = element_text(
+      angle = 45,
+      hjust = 1
+    ),
+    panel.grid = element_blank()
+  )
+```
+
+# Resultaten opslaan
+
+```{r save-results, include=FALSE}
+output_dir <- here::here(
+  "radius",
+  "test-awv",
+  "output"
+)
+
+# Tabellen
+write_csv(
+  autosnelwegen_metrics,
+  file.path(
+    output_dir,
+    "awv_autosnelwegen_metrics.csv"
+  )
+)
+
+write_csv(
+  district_metrics,
+  file.path(
+    output_dir,
+    "awv_district_metrics.csv"
+  )
+)
+
+# Ruimtelijke resultaten
+saveRDS(
+  hex_totaal_leaflet,
+  file.path(
+    output_dir,
+    "awv_hex_totaal.rds"
+  )
+)
+
+saveRDS(
+  hex_soort_leaflet,
+  file.path(
+    output_dir,
+    "awv_hex_soort.rds"
+  )
+)
+
+saveRDS(
+  wegsegmenten_leaflet,
+  file.path(
+    output_dir,
+    "awv_wegsegmenten.rds"
+  )
+)
+
+saveRDS(
+  autosnelwegen_buffer_leaflet,
+  file.path(
+    output_dir,
+    "awv_autosnelwegen_buffer.rds"
+  )
+)
+
+saveRDS(
+  Provincies_grenzen_leaflet,
+  file.path(
+    output_dir,
+    "awv_provincies.rds"
+  )
+)
+```
+
