@@ -1151,5 +1151,23 @@ saveRDS(
     "awv_provincies.rds"
   )
 )
+
+# Waarnemingen opslaan voor het dashboard
+occ_planten_leaflet <- occ_planten %>%
+  select(
+    Soort,
+    Species
+  ) %>%
+  st_transform(
+    4326
+  )
+
+saveRDS(
+  occ_planten_leaflet,
+  file.path(
+    output_dir,
+    "awv_occ_planten.rds"
+  )
+)
 ```
 
