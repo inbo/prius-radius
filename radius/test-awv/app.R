@@ -46,11 +46,7 @@ status_kleuren <- c(
 # 3. Data inlezen
 # ─────────────────────────────────────────────
 
-data_dir <- here::here(
-  "radius",
-  "test-awv",
-  "output"
-)
+data_dir <- "output"
 
 required_files <- c(
   "awv_autosnelwegen_metrics.csv",
@@ -59,7 +55,8 @@ required_files <- c(
   "awv_hex_soort.rds",
   "awv_wegsegmenten.rds",
   "awv_autosnelwegen_buffer.rds",
-  "awv_provincies.rds"
+  "awv_provincies.rds",
+  "awv_occ_planten.rds"
 )
 
 missing_files <- required_files[
@@ -137,6 +134,14 @@ Provincies_grenzen_leaflet <- readRDS(
   file.path(
     data_dir,
     "awv_provincies.rds"
+  )
+)
+
+# Puntwaarnemingen voor optionele weergave op de soortenkaart
+occ_planten_leaflet <- readRDS(
+  file.path(
+    data_dir,
+    "awv_occ_planten.rds"
   )
 )
 
@@ -608,42 +613,6 @@ ui <- page_navbar(
     fluidRow(
       
       column(
-        width = 4,
-        
-        kpi_card(
-          "Plantensoorten langs autosnelwegen",
-          "kpi_soorten",
-          "Soorten met geschatte overlap"
-        )
-      ),
-      
-      column(
-        width = 4,
-        
-        kpi_card(
-          "AWV-districten",
-          "kpi_districten",
-          "Districten opgenomen in de analyse"
-        )
-      ),
-      
-      column(
-        width = 4,
-        
-        kpi_card(
-          "Hoogste geschatte overlap",
-          "kpi_max_overlap",
-          uiOutput(
-            "kpi_max_soort"
-          )
-        )
-      )
-    ),
-    
-    
-    fluidRow(
-      
-      column(
         
         width = 5,
         
@@ -697,6 +666,37 @@ ui <- page_navbar(
           )
         )
       )
+    ),
+    
+    
+    fluidRow(
+      
+      column(
+        
+        width = 12,
+        
+        div(
+          class = "dashboard-card",
+          
+          div(
+            "Vergelijking tussen districten",
+            class = "card-title-aw"
+          ),
+          
+          div(
+            paste0(
+              "Geschat voorkomen van alle plantensoorten ",
+              "per AWV-district."
+            ),
+            class = "card-subtitle-aw"
+          ),
+          
+          highchartOutput(
+            "district_heatmap",
+            height = "700px"
+          )
+        )
+      )
     )
   ),
   
@@ -720,6 +720,16 @@ ui <- page_navbar(
           label = "Soort:",
           choices = plantsoorten,
           selected = standaard_soort
+        ),
+        
+        selectizeInput(
+          inputId = "soort_district",
+          label = "District:",
+          choices = c(
+            "Heel Vlaanderen",
+            districten
+          ),
+          selected = "Heel Vlaanderen"
         )
       ),
       
@@ -785,22 +795,26 @@ ui <- page_navbar(
             
             width = 5,
             
-            div(
-              class = "dashboard-card",
+            conditionalPanel(
+              condition = "input.soort_district == 'Heel Vlaanderen'",
               
               div(
-                "Voorkomen per AWV-district",
-                class = "card-title-aw"
-              ),
-              
-              div(
-                "Aandeel van de corridor binnen ieder district.",
-                class = "card-subtitle-aw"
-              ),
-              
-              highchartOutput(
-                "species_district_bar",
-                height = "570px"
+                class = "dashboard-card",
+                
+                div(
+                  "Voorkomen per AWV-district",
+                  class = "card-title-aw"
+                ),
+                
+                div(
+                  "Aandeel van de corridor binnen ieder district.",
+                  class = "card-subtitle-aw"
+                ),
+                
+                highchartOutput(
+                  "species_district_bar",
+                  height = "570px"
+                )
               )
             )
           )
@@ -905,60 +919,9 @@ ui <- page_navbar(
               )
             )
           )
-        ),
-        
-        
-        fluidRow(
-          
-          column(
-            
-            width = 12,
-            
-            div(
-              class = "dashboard-card",
-              
-              div(
-                "Soorten in het geselecteerde district",
-                class = "card-title-aw"
-              ),
-              
-              tableOutput(
-                "district_table"
-              )
-            )
-          )
-        ),
-        
-        
-        fluidRow(
-          
-          column(
-            
-            width = 12,
-            
-            div(
-              class = "dashboard-card",
-              
-              div(
-                "Vergelijking tussen districten",
-                class = "card-title-aw"
-              ),
-              
-              div(
-                paste0(
-                  "Geschat voorkomen van alle plantensoorten ",
-                  "per AWV-district."
-                ),
-                class = "card-subtitle-aw"
-              ),
-              
-              highchartOutput(
-                "district_heatmap",
-                height = "700px"
-              )
-            )
-          )
         )
+        
+        
       )
     )
   ),
@@ -1136,9 +1099,7 @@ server <- function(
     
     df <- autosnelwegen_metrics_dashboard %>%
       arrange(
-        desc(
-          `of`
-        )
+        desc(`of`)
       ) %>%
       mutate(
         y = `of` * 100,
@@ -1167,6 +1128,12 @@ server <- function(
         type = "bar"
       ) %>%
       
+      hc_plotOptions(
+        bar = list(
+          grouping = FALSE
+        )
+      ) %>%
+      
       hc_xAxis(
         categories = df$Soort,
         title = list(
@@ -1193,6 +1160,42 @@ server <- function(
         name = "Geschat voorkomen",
         data = punten,
         showInLegend = FALSE
+      ) %>%
+      
+      hc_add_series(
+        name = "Reeds in AWV-visie",
+        data = list(),
+        color = kleur_awv_donker,
+        showInLegend = TRUE,
+        enableMouseTracking = FALSE
+      ) %>%
+      
+      hc_add_series(
+        name = "Vermeld in actualisatievraag",
+        data = list(),
+        color = kleur_awv,
+        showInLegend = TRUE,
+        enableMouseTracking = FALSE
+      ) %>%
+      
+      hc_add_series(
+        name = "Overige IUS",
+        data = list(),
+        color = kleur_grijs,
+        showInLegend = TRUE,
+        enableMouseTracking = FALSE
+      ) %>%
+      
+      hc_legend(
+        enabled = TRUE,
+        layout = "horizontal",
+        align = "center",
+        verticalAlign = "top",
+        itemStyle = list(
+          fontFamily = "Arial",
+          fontSize = "11px",
+          fontWeight = "normal"
+        )
       ) %>%
       
       hc_tooltip(
@@ -1322,11 +1325,80 @@ server <- function(
       input$soort
     )
     
-    hex_soort_leaflet %>%
+    df <- hex_soort_leaflet %>%
       filter(
         Soort == input$soort,
         of_hex > 0
       )
+    
+    if (!is.null(input$soort_district) &&
+        input$soort_district != "Heel Vlaanderen") {
+      
+      district_polygon <- district_buffers_leaflet %>%
+        filter(
+          labelWegbeheerder == input$soort_district
+        )
+      
+      district_polygon_31370 <- district_polygon %>%
+        st_transform(31370) %>%
+        st_make_valid()
+      
+      df_31370 <- df %>%
+        st_transform(31370) %>%
+        st_make_valid()
+      
+      idx <- lengths(
+        st_intersects(
+          df_31370,
+          district_polygon_31370
+        )
+      ) > 0
+      
+      df <- df[idx, ]
+    }
+    
+    df
+  })
+  
+  
+  selected_species_occ <- reactive({
+    
+    req(
+      input$soort
+    )
+    
+    df <- occ_planten_leaflet %>%
+      filter(
+        Soort == input$soort
+      )
+    
+    if (!is.null(input$soort_district) &&
+        input$soort_district != "Heel Vlaanderen") {
+      
+      district_polygon <- district_buffers_leaflet %>%
+        filter(
+          labelWegbeheerder == input$soort_district
+        )
+      
+      district_polygon_31370 <- district_polygon %>%
+        st_transform(31370) %>%
+        st_make_valid()
+      
+      df_31370 <- df %>%
+        st_transform(31370) %>%
+        st_make_valid()
+      
+      idx <- lengths(
+        st_intersects(
+          df_31370,
+          district_polygon_31370
+        )
+      ) > 0
+      
+      df <- df[idx, ]
+    }
+    
+    df
   })
   
   
@@ -1409,6 +1481,7 @@ server <- function(
   output$species_map <- renderLeaflet({
     
     df <- selected_species_hex()
+    occ_df <- selected_species_occ()
     
     req(
       nrow(df) > 0
@@ -1431,7 +1504,7 @@ server <- function(
     )
     
     
-    leaflet(
+    kaart <- leaflet(
       options = leafletOptions(
         preferCanvas = TRUE
       )
@@ -1481,9 +1554,43 @@ server <- function(
             of_hex,
             accuracy = 0.1
           )
+        ),
+        group = "Geschat voorkomen"
+      )
+    
+    if (nrow(occ_df) > 0) {
+      
+      kaart <- kaart %>%
+        addCircleMarkers(
+          data = occ_df,
+          radius = 3,
+          stroke = TRUE,
+          color = "#333333",
+          weight = 0.7,
+          fillColor = kleur_awv_donker,
+          fillOpacity = 0.8,
+          group = "Waarnemingen",
+          popup = ~paste0(
+            "<b>",
+            Soort,
+            "</b>"
+          )
+        )
+    }
+    
+    kaart %>%
+      addLayersControl(
+        overlayGroups = c(
+          "Geschat voorkomen",
+          "Waarnemingen"
+        ),
+        options = layersControlOptions(
+          collapsed = TRUE
         )
       ) %>%
-      
+      hideGroup(
+        "Waarnemingen"
+      ) %>%
       addLegend(
         position = "bottomright",
         pal = pal,
@@ -1620,32 +1727,14 @@ server <- function(
     
     df <- selected_district_data() %>%
       filter(
-        desc(of_district > 0)
+        of_district > 0
       ) %>%
       arrange(
-        of_district
+        desc(of_district)
       ) %>%
       mutate(
-        y = of_district * 100,
-        kleur = status_kleuren[
-          awv_status
-        ]
+        y = of_district * 100
       )
-    
-    punten <- map2(
-      df$y,
-      df$kleur,
-      function(
-    waarde,
-    kleur
-      ) {
-        list(
-          y = waarde,
-          color = kleur
-        )
-      }
-    )
-    
     
     chart <- highchart() %>%
       
@@ -1675,16 +1764,50 @@ server <- function(
         min = 0
       ) %>%
       
+      hc_plotOptions(
+        bar = list(
+          grouping = FALSE
+        )
+      ) %>%
+      
       hc_add_series(
-        name = "Geschat voorkomen",
-        data = punten,
-        showInLegend = FALSE
+        name = "Reeds in AWV-visie",
+        data = ifelse(
+          df$awv_status == "Reeds in AWV-visie",
+          df$y,
+          NA_real_
+        ),
+        color = kleur_awv_donker,
+        showInLegend = TRUE
+      ) %>%
+      
+      hc_add_series(
+        name = "Vermeld in actualisatievraag",
+        data = ifelse(
+          df$awv_status == "Vermeld in actualisatievraag",
+          df$y,
+          NA_real_
+        ),
+        color = kleur_awv,
+        showInLegend = TRUE
+      ) %>%
+      
+      hc_add_series(
+        name = "Niet vermeld door AWV",
+        data = ifelse(
+          df$awv_status == "Overige IUS",
+          df$y,
+          NA_real_
+        ),
+        color = kleur_grijs,
+        showInLegend = TRUE
       ) %>%
       
       hc_tooltip(
         headerFormat = "",
         pointFormat = paste0(
           "<b>{point.category}</b><br>",
+          "{series.name}<br>",
           "{point.y:.2f}%"
         )
       )
@@ -1705,13 +1828,22 @@ server <- function(
       ) > 0
     )
     
-    district_hex <- suppressWarnings(
-      st_filter(
-        hex_totaal_leaflet,
-        district_polygon,
-        .predicate = st_intersects
+    district_polygon_31370 <- district_polygon %>%
+      st_transform(31370) %>%
+      st_make_valid()
+    
+    hex_totaal_31370 <- hex_totaal_leaflet %>%
+      st_transform(31370) %>%
+      st_make_valid()
+    
+    idx <- lengths(
+      st_intersects(
+        hex_totaal_31370,
+        district_polygon_31370
       )
-    ) %>%
+    ) > 0
+    
+    district_hex <- hex_totaal_leaflet[idx, ] %>%
       filter(
         n_soorten > 0
       )
