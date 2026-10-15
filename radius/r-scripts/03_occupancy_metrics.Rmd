@@ -17,6 +17,12 @@ library(ggthemes)
 rm(list=ls())
 ```
 
+```{r version, include=FALSE}
+# Kies de radius versie: "origineel" (2024) of "2026_10"
+radius_version <- "origineel"
+```
+
+
 ```{r function-multisurface-to-multipolygon}
 ensure_multipolygons <- function(X) {
   tmp1 <- tempfile(fileext = ".gpkg")
@@ -40,24 +46,26 @@ ensure_multilinestrings <- function(X) {
 # Read data into R
 
 ```{r import-species-list}
-species_list <- read_csv("./radius/data/input/radius_species_list.csv") 
-species_abbr <- read_csv2("./radius/data/input/species_abbr.csv")
+species_list <- read_csv(here::here("radius", "data", "input", radius_version, "radius_species_list.csv"))
+species_abbr <- read_csv2(here::here("radius", "data", "input", radius_version, "species_abbr.csv"))
 ```
 
 ```{r import-species-occ}
-occ_flanders <- read_csv("./radius/data/input/gbif_occ_flanders.csv") %>%
+occ_flanders <- read_csv(here::here("radius", "data", "input", radius_version, "gbif_occ_flanders.csv")) %>%
   left_join(species_list, by = c("speciesKey" = "GBIF_code", "Soort", "Species")) %>%
-  left_join(species_abbr, by = c( "Soort", "Species")) %>%
+  left_join(species_abbr, by = c("Soort", "Species")) %>%
   select(year, month, day, decimalLongitude, decimalLatitude, speciesKey, Soort, Species, abbr) %>%
   st_as_sf(coords = c("decimalLongitude", "decimalLatitude"), crs = "+proj=longlat +datum=WGS84") %>%
-  st_transform(31370) # st_buffer()/st_union does not correctly buffer longitude-latitude spatial data, whose distance is assumed to be in decimal degrees (arc_degrees).We transform the EPSG:4326 to Lambert 72.
+  st_transform(31370) # Omzetten naar Lambert 72 voor buffering in meters.
 ```
 
 ```{r import-toewijzing-soorten-en-habitats}
-toewijzing_soorten <- read_csv2("./radius/data/input/toewijzing_soorten.csv")
-toewijzing_habitats <- read_csv2("./radius/data/input/toewijzing_habitats.csv", col_types = cols(code = col_character()))
+toewijzing_soorten <- read_csv2(here::here("radius", "data", "input", radius_version, "toewijzing_soorten.csv"))
+toewijzing_habitats <- read_csv2(
+  here::here("radius", "data", "input", radius_version, "toewijzing_habitats.csv"),
+  col_types = cols(code = col_character())
+)
 ```
-
 
 ```{r boundaries-flanders}
 Vlaanderen_grenzen <- st_read("./prius/data/spatial/flanders_wgs84.geojson")
@@ -780,7 +788,10 @@ for (i in unique(occ_flanders$Soort)) {
 # Save output
 
 ```{r save-list-results-as-RData-file}
-saveRDS(list.results, file="./radius/data/output/list_results.RData")
+saveRDS(
+  list.results,
+  file = here::here("radius", "data", "output", radius_version, "list_results.RData")
+)
 ```
 
 ```{r assign-results-to-df}
@@ -797,16 +808,16 @@ VL_long <- list.results$VL
 ```
 
 ```{r save-dfs-in-long-format}
-write_csv(HBTRL_long, "./radius/data/output/HBTRL_long.csv", append = FALSE)
-write_csv(VGLRL_long, "./radius/data/output/VGLRL_long.csv", append = FALSE)
-write_csv(N2KHAB_long, "./radius/data/output/N2KHAB_long.csv", append = FALSE)
-write_csv(PATDAT_incl_ob_long, "./radius/data/output/PATDAT_incl_ob_long.csv", append = FALSE)
-write_csv(PATDAT_excl_ob_long, "./radius/data/output/PATDAT_excl_ob_long.csv", append = FALSE)
-write_csv(NBHP_long, "./radius/data/output/NBHP_long.csv", append = FALSE)
-write_csv(SBP_pls_long, "./radius/data/output/SBP_pls_long.csv", append = FALSE)
-write_csv(SBP_pgs_long, "./radius/data/output/SBP_pgs_long.csv", append = FALSE)
-write_csv(TOP3_long, "./radius/data/output/TOP3_long.csv", append = FALSE)
-write_csv(VL_long, "./radius/data/output/VL_long.csv", append = FALSE)
+write_csv(HBTRL_long, here::here("radius", "data", "output", radius_version, "HBTRL_long.csv"), append = FALSE)
+write_csv(VGLRL_long, here::here("radius", "data", "output", radius_version, "VGLRL_long.csv"), append = FALSE)
+write_csv(N2KHAB_long, here::here("radius", "data", "output", radius_version, "N2KHAB_long.csv"), append = FALSE)
+write_csv(PATDAT_incl_ob_long, here::here("radius", "data", "output", radius_version, "PATDAT_incl_ob_long.csv"), append = FALSE)
+write_csv(PATDAT_excl_ob_long, here::here("radius", "data", "output", radius_version, "PATDAT_excl_ob_long.csv"), append = FALSE)
+write_csv(NBHP_long, here::here("radius", "data", "output", radius_version, "NBHP_long.csv"), append = FALSE)
+write_csv(SBP_pls_long, here::here("radius", "data", "output", radius_version, "SBP_pls_long.csv"), append = FALSE)
+write_csv(SBP_pgs_long, here::here("radius", "data", "output", radius_version, "SBP_pgs_long.csv"), append = FALSE)
+write_csv(TOP3_long, here::here("radius", "data", "output", radius_version, "TOP3_long.csv"), append = FALSE)
+write_csv(VL_long, here::here("radius", "data", "output", radius_version, "VL_long.csv"), append = FALSE)
 ```
 
 ```{r column-format-long-to-wide}
@@ -870,16 +881,16 @@ VL_wide <- VL_long %>%
 ```
 
 ```{r save-separate-dfs-as-csv}
-write_csv(HBTRL_wide, "./radius/data/output/HBTRL_wide.csv", append = FALSE)
-write_csv(VGLRL_wide, "./radius/data/output/VGLRL_wide.csv", append = FALSE)
-write_csv(N2KHAB_wide, "./radius/data/output/N2KHAB_wide.csv", append = FALSE)
-write_csv(PATDAT_incl_ob_wide, "./radius/data/output/PATDAT_incl_ob_wide.csv", append = FALSE)
-write_csv(PATDAT_excl_ob_wide, "./radius/data/output/PATDAT_excl_ob_wide.csv", append = FALSE)
-write_csv(NBHP_wide, "./radius/data/output/NBHP_wide.csv", append = FALSE)
-write_csv(SBP_pgs_wide, "./radius/data/output/SBP_pgs_wide.csv", append = FALSE)
-write_csv(SBP_pls_wide, "./radius/data/output/SBP_pls_wide.csv", append = FALSE)
-#write_csv(TOP3_wide, "./radius/data/output/TOP3_wide.csv", append = FALSE)
-write_csv(VL_wide, "./radius/data/output/VL_wide.csv", append = FALSE)
+write_csv(HBTRL_wide, here::here("radius", "data", "output", radius_version, "HBTRL_wide.csv"), append = FALSE)
+write_csv(VGLRL_wide, here::here("radius", "data", "output", radius_version, "VGLRL_wide.csv"), append = FALSE)
+write_csv(N2KHAB_wide, here::here("radius", "data", "output", radius_version, "N2KHAB_wide.csv"), append = FALSE)
+write_csv(PATDAT_incl_ob_wide, here::here("radius", "data", "output", radius_version, "PATDAT_incl_ob_wide.csv"), append = FALSE)
+write_csv(PATDAT_excl_ob_wide, here::here("radius", "data", "output", radius_version, "PATDAT_excl_ob_wide.csv"), append = FALSE)
+write_csv(NBHP_wide, here::here("radius", "data", "output", radius_version, "NBHP_wide.csv"), append = FALSE)
+write_csv(SBP_pgs_wide, here::here("radius", "data", "output", radius_version, "SBP_pgs_wide.csv"), append = FALSE)
+write_csv(SBP_pls_wide, here::here("radius", "data", "output", radius_version, "SBP_pls_wide.csv"), append = FALSE)
+# write_csv(TOP3_wide, here::here("radius", "data", "output", radius_version, "TOP3_wide.csv"), append = FALSE)
+write_csv(VL_wide, here::here("radius", "data", "output", radius_version, "VL_wide.csv"), append = FALSE)
 ```
 
 
@@ -1186,6 +1197,15 @@ SBP_pls_extra <- rbind(list.results$SBP_pls, list.results$clusters_sbp, list.res
 ```
 
 ```{r save-dfs-in-long-format}
-write_csv(SBP_pls_extra, "./radius/data/output/SBP_pls_extra.csv", append = FALSE)
-st_write(sbp_intersections %>% st_as_sf(), "./radius/data/spatial/sbp_pls_intersects.shp", append = FALSE)
+write_csv(
+  SBP_pls_extra,
+  here::here("radius", "data", "output", radius_version, "SBP_pls_extra.csv"),
+  append = FALSE
+)
+
+st_write(
+  sbp_intersections %>% st_as_sf(),
+  here::here("radius", "data", "output", radius_version, "sbp_pls_intersects.shp"),
+  append = FALSE
+)
 ```

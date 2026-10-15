@@ -3,6 +3,11 @@
 rm(list=ls())
 ```
 
+```{r version, include=FALSE}
+# Kies de radius versie: "origineel" (2024) of "2026_10"
+radius_version <- "origineel"
+```
+
 ```{r load-library, message=FALSE}
 library(tidyverse)
 library(sf)
@@ -66,7 +71,7 @@ am_patdat <- read_sf("https://www.mercator.vlaanderen.be/raadpleegdienstenmercat
 ```
 
 ```{r occ-flanders, message=FALSE}
-occ_flanders <- read_csv("./radius/data/input/gbif_occ_flanders.csv") %>%
+occ_flanders <- read_csv(here::here("radius", "data", "input", radius_version, "gbif_occ_flanders.csv")) %>%
   st_as_sf(coords = c("decimalLongitude", "decimalLatitude"), crs = "+proj=longlat +datum=WGS84") %>%
   st_transform(31370) 
 ```
@@ -82,12 +87,12 @@ zeldzame_soorten <- occ_flanders %>%
 ```{r patdat-metrics, message=FALSE}
 species_abbr <- read_csv2("G:/Mijn Drive/Fleur/RadIUS/RadIUS voorbereiding/radius_species_list_abbreviations.csv")
 
-PATDAT <- read_csv("./radius/data/output/PATDAT.csv") %>%
+PATDAT <- read_csv(here::here("radius", "data", "output", radius_version, "PATDAT.csv")) %>%
   filter(! Soort %in% zeldzame_soorten) %>%
   filter(nDomeinen != 0) %>%
   left_join(species_abbr[,c(2,3)], by = "Soort")
 
-VL <- read_csv("./radius/data/output/VL.csv")
+VL <- read_csv(here::here("radius", "data", "output", radius_version, "VL.csv"))
 ```
 
 ### Aanwezigen workshop

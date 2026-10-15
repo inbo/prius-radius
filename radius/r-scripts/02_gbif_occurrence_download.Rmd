@@ -14,9 +14,16 @@ Downloading alien species occurrences for Belgium from [GBIF](https://www.gbif.o
 
 Script based on the [TrIAS species cube workflow provided by Oldoni et al.](https://github.com/trias-project/occ-cube/tree/master)
 
+```{r clear-memory}
+rm(list=ls())
+```
+
 # Setup
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+
+# Kies de radius versie: "origineel" (2024) of "2026_10"
+radius_version <- "origineel"
 ```
 
 ```{r load-libraries}
@@ -29,12 +36,8 @@ library(sf)
 library(vecsets)
 ```
 
-```{r clear-memory}
-rm(list=ls())
-```
-
 ```{r import-species-list}
-species_list <- read_csv(here("radius", "data", "input", "radius_species_list.csv"))
+species_list <- read_csv(here("radius", "data", "input", radius_version, "radius_species_list.csv"))
 ```
 
 
@@ -105,7 +108,7 @@ gbif_downloadKey <- "0012496-260208012135463" # aangepast 13/02
 ## Get GBIF download to computer
 ```{r gbif-dataset-to-computer}
 gbif_download <- occ_download_get(key = gbif_downloadKey,
-                             path = here("radius", "data", "input"), 
+                             path = here("radius", "data", "input", radius_version), 
                              overwrite = TRUE,
                              curlopts = list(verbose = TRUE,
                                                   http_version = 2,
@@ -298,8 +301,8 @@ in_flanders <- species_list %>%
 List_species_present <- unique(in_flanders$Soort)
 List_species_not_present <- vsetdiff(unique(species_list$Soort) , List_species_present)
 
-write_csv(in_flanders, here("radius", "data", "intermediate", "species_in_flanders.csv"))
-write_csv(not_in_flanders, here("radius", "data", "intermediate", "species_not_in_flanders.csv"))
+write_csv(in_flanders, here("radius", "data", "intermediate", radius_version, "species_in_flanders.csv"))
+write_csv(not_in_flanders, here("radius", "data", "intermediate", radius_version, "species_not_in_flanders.csv"))
 ```
 
 ## Remove absent species from species list
@@ -307,14 +310,14 @@ write_csv(not_in_flanders, here("radius", "data", "intermediate", "species_not_i
 species_list <- species_list %>%
   filter(Soort %in% in_flanders$Soort)
 
-write_csv(species_list, here("radius", "data", "input", "radius_species_list.csv"))
+write_csv(species_list, here("radius", "data", "input", radius_version, "radius_species_list.csv"))
 ```
 
 
 ## Save occurrence dataset flanders
 
 ```{r save-occurrence-dataset}
-write_csv(occ_flanders, here("radius", "data", "input", "gbif_occ_flanders.csv"))
+write_csv(occ_flanders, here("radius", "data", "input", radius_version, "gbif_occ_flanders.csv"))
 ```
 
 

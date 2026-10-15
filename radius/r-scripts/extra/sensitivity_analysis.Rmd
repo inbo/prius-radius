@@ -8,12 +8,17 @@ library(plotly)
 #rm(list=ls())
 ```
 
+```{r version, include=FALSE}
+# Kies de radius versie: "origineel" (2024) of "2026_10"
+radius_version <- "origineel"
+```
+
 ```{r import-species-list, include=FALSE}
-species_list <- read_csv("./radius/data/input/radius_species_list.csv")
+species_list <- read_csv(here::here("radius", "data", "output", radius_version, "radius_species_list.csv"))
 ```
 
 ```{r import-species-occ, include=FALSE}
-occ_flanders <- read.csv("./radius/data/input/gbif_occ_flanders.csv") %>%
+occ_flanders <- read.csv(here::here("radius", "data", "output", radius_version, "gbif_occ_flanders.csv")) %>%
   left_join(species_list, by = c("speciesKey" = "GBIF_code", "Soort")) %>%
   select(year, decimalLongitude, decimalLatitude, speciesKey, Soort, coordinateUncertaintyInMeters) %>%
   st_as_sf(coords = c("decimalLongitude", "decimalLatitude"), crs = "+proj=longlat +datum=WGS84") %>%
@@ -215,33 +220,34 @@ for (buffer in c(10,20,30,40,50,100,150,200,250)) { #de verschillende bufferafst
 }
 
 ```
+
 ```{r save-results}
 sa_hbtrl <- list.results$sa_hbtrl
-write.csv(sa_hbtrl,"./radius/data/intermediate/sensitiviteitsanalyse/sa_hbtrl.csv")
+write.csv(sa_hbtrl, here::here("radius", "data", "intermediate", radius_version, "sensitiviteitsanalyse", "sa_hbtrl.csv"))
 
 sa_vglrl <- list.results$sa_vglrl
-write.csv(sa_vglrl,"./radius/data/intermediate/sensitiviteitsanalyse/sa_vglrl.csv")
+write.csv(sa_vglrl, here::here("radius", "data", "intermediate", radius_version, "sensitiviteitsanalyse", "sa_vglrl.csv"))
 
 sa_patdat_regio <- list.results$sa_patdat_regio
-write.csv(sa_patdat_regio,"./radius/data/intermediate/sensitiviteitsanalyse/sa_patdat_regio.csv")
+write.csv(sa_patdat_regio, here::here("radius", "data", "intermediate", radius_version, "sensitiviteitsanalyse", "sa_patdat_regio.csv"))
 
 sa_patdat_recht <- list.results$sa_patdat_recht
-write.csv(sa_patdat_recht,"./radius/data/intermediate/sensitiviteitsanalyse/sa_patdat_recht.csv")
+write.csv(sa_patdat_recht, here::here("radius", "data", "intermediate", radius_version, "sensitiviteitsanalyse", "sa_patdat_recht.csv"))
 
 sa_nbhp_eigdm <- list.results$sa_nbhp_eigdm
-write.csv(sa_nbhp_eigdm,"./radius/data/intermediate/sensitiviteitsanalyse/sa_nbhp_eigdm.csv")
+write.csv(sa_nbhp_eigdm, here::here("radius", "data", "intermediate", radius_version, "sensitiviteitsanalyse", "sa_nbhp_eigdm.csv"))
 
 sa_nbhp_type <- list.results$sa_nbhp_type
-write.csv(sa_nbhp_type,"./radius/data/intermediate/sensitiviteitsanalyse/sa_nbhp_type.csv")
+write.csv(sa_nbhp_type, here::here("radius", "data", "intermediate", radius_version, "sensitiviteitsanalyse", "sa_nbhp_type.csv"))
 ```
 
 ```{r inlezen-data-voor-plotten}
-sa_hbtrl <- read.csv("./radius/data/intermediate/sensitiviteitsanalyse/sa_hbtrl.csv")
-sa_vglrl <- read.csv("./radius/data/intermediate/sensitiviteitsanalyse/sa_vglrl.csv")
-sa_patdat_regio <- read.csv("./radius/data/intermediate/sensitiviteitsanalyse/sa_patdat_regio.csv")
-sa_patdat_recht <- read.csv("./radius/data/intermediate/sensitiviteitsanalyse/sa_patdat_recht.csv")
-sa_nbhp_eigdm <- read.csv("./radius/data/intermediate/sensitiviteitsanalyse/sa_nbhp_eigdm.csv")
-sa_nbhp_type <- read.csv("./radius/data/intermediate/sensitiviteitsanalyse/sa_nbhp_type.csv")
+sa_hbtrl <- read.csv(here::here("radius", "data", "intermediate", radius_version, "sensitiviteitsanalyse", "sa_hbtrl.csv"))
+sa_vglrl <- read.csv(here::here("radius", "data", "intermediate", radius_version, "sensitiviteitsanalyse", "sa_vglrl.csv"))
+sa_patdat_regio <- read.csv(here::here("radius", "data", "intermediate", radius_version, "sensitiviteitsanalyse", "sa_patdat_regio.csv"))
+sa_patdat_recht <- read.csv(here::here("radius", "data", "intermediate", radius_version, "sensitiviteitsanalyse", "sa_patdat_recht.csv"))
+sa_nbhp_eigdm <- read.csv(here::here("radius", "data", "intermediate", radius_version, "sensitiviteitsanalyse", "sa_nbhp_eigdm.csv"))
+sa_nbhp_type <- read.csv(here::here("radius", "data", "intermediate", radius_version, "sensitiviteitsanalyse", "sa_nbhp_type.csv"))
 ```
 
 ```{r plot-hbtrl}

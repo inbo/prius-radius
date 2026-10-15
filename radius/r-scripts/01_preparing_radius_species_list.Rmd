@@ -15,9 +15,17 @@ Preparation RadIUS species list
 7. verifying GBIF keys against GBIF Backbone
 8. Prepare RadIUS species list for export
 
+```{r clear_memory}
+rm(list=ls())
+```
+
 # Setup
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
+# Kies de radius versie: "origineel" (2024) of "2026_10"
+radius_version <- "origineel"
+
 ```
 
 ```{r load_libraries}
@@ -25,10 +33,6 @@ library(tidyverse)
 library(rgbif)        
 library(trias)
 library(here)
-```
-
-```{r clear_memory}
-rm(list=ls())
 ```
 
 # 1. Comparison PrIUS list and Union list
@@ -133,7 +137,7 @@ list_check <- list_check %>%
 ```
 
 ```{r export-list-check}
-#write.csv2(list_check, "./radius/data/input/prius_species_list_check.csv")
+#write.csv2(list_check, here::here("radius", "data", "input", radius_version, "prius_species_list_check.csv"))
 ```
 
 
@@ -280,6 +284,6 @@ radius_list_update <- radius_list_update %>%
 
 ## Export RadIUS species list
 ```{r export-radius-list}
-write_csv(radius_list_update, here("radius", "data", "input", "radius_species_list.csv"))
+write_csv(radius_list_update, here("radius", "data", "input", radius_version, "radius_species_list.csv"))
 ```
 
