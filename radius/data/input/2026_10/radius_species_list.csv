@@ -1,51 +1,31 @@
 Groep,Species,Soort,GBIF_scientific_name,GBIF_code,COL_code
 dier,Xenopus laevis,Afrikaanse klauwkikker,"Xenopus laevis (Daudin, 1802)",5217334,5CBC9
-dier,Morone americana,Amerikaanse baars,"Morone americana (Gmelin, 1789)",2394604,6RRD2
 dier,Mustela vison,Amerikaanse nerts,"Mustela vison Schreber, 1777",5218823,R6M2J
 dier,Tamiasciurus hudsonicus,Amerikaanse rode eekhoorn,"Tamiasciurus hudsonicus (Erxleben, 1777)",2437282,54MTK
 dier,Lithobates catesbeianus,Amerikaanse stierkikker,"Lithobates catesbeianus (Shaw, 1802)",2427091,VJF78
 dier,Mulinia lateralis,Amerikaanse strandschelp,"Mulinia lateralis (Say, 1822)",2286388,44JYJ
 dier,Sciurus niger,Amerikaanse voseekhoorn,"Sciurus niger Linnaeus, 1758",5219683,4VNDM
-dier,Amynthas agrestis,Amynthas agrestis,"Amynthas agrestis (Goto & Hatai, 1899)",9225458,QWS7J
-dier,Perichaeta tokioensis,Perichaeta tokioensis,"Perichaeta tokioensis Beddard, 1892",9711540,CFFKP
 dier,Vespa velutina,Aziatische hoornaar,"Vespa velutina Lepeletier, 1836",1311477,7G3C6
 dier,Misgurnus anguillicaudatus,Aziatische modderkruiper,"Misgurnus anguillicaudatus (Cantor, 1842)",2367919,43NK4
-dier,Pachycondyla chinensis,Aziatische naaldmier,"Pachycondyla chinensis (Emery, 1895)",1319870,CLBDW
-dier,Vespa mandarinia,Aziatische reuzenhoornaar,"Vespa mandarinia Smith, 1852",5871429,5B9WT
 dier,Aedes albopictus,Aziatische tijgermug,"Aedes albopictus (Skuse, 1894)",1651430,89W76
 dier,Pacifastacus leniusculus,Californische rivierkreeft,"Pacifastacus leniusculus (Dana, 1852)",2226990,7W7FR
-dier,Castor canadensis,Canadese bever,"Castor canadensis Kuhl, 1820",2439838,RQPV
 dier,Branta canadensis,Canadese gans,"Branta canadensis (Linnaeus, 1758)",5232437,5WRC3
 dier,Muntiacus reevesi,Chinese muntjak,"Muntiacus reevesi (Ogilby, 1839)",2440946,44KXR
 dier,Pelodiscus sinensis,Chinese weekschildpad,"Pelodiscus sinensis Wiegmann, 1835",5220435,76CTF
 dier,Eriocheir sinensis,Chinese wolhandkrab,"Eriocheir sinensis H.Milne Edwards, 1853",2225776,3B3LX
 dier,Cipangopaludina chinensis,Cipangopaludina chinensis,"Cipangopaludina chinensis (J.E.Gray, 1833)",9738098,VBZ7Z
-dier,Herpestes javanicus,Indische mangoeste,"Herpestes javanicus (É.Geoffroy Saint-Hilaire, 1818)",2434271,CGHSZ
-dier,Faxonius juvenilis,Kentuckyrivierkreeft,"Faxonius juvenilis (Hagen, 1870)",8721209,7TVRD
-dier,Perichaeta hilgendorfi,Perichaeta hilgendorfi,"Perichaeta hilgendorfi Michaelsen, 1892",9565801,CKQGT
-dier,Platydemus manokwari,Nieuw-Guinese landplatworm,"Platydemus manokwari Beauchamp, 1962",5892137,78248
-dier,Arthurdendyus triangulatus,Nieuw-Zeelandse platworm,"Arthurdendyus triangulatus (Dendy, 1895)",2502792,GZPC
-dier,Asterias amurensis,Noord-Atlantische zeester,"Asterias amurensis Lutken, 1871",5187508,HRG7
 dier,Misgurnus mohoity,Noord-Aziatische modderkruiper,"Misgurnus mohoity (Dybowski, 1869)",2367911,43NKK
 dier,Callosciurus erythraeus,Pallas' eekhoorn,"Callosciurus erythraeus (Pallas, 1779)",2437394,PW5V
-dier,Procambarus zonangulus,Procambarus zonangulus,"Procambarus zonangulus Hobbs & Hobbs Iii, 1990",2227231,7WLZ4
 dier,Tamias sibiricus,Siberische grondeekhoorn,"Tamias sibiricus (Laxmann, 1769)",2437450,54MTB
-dier,Callosciurus finlaysonii,Thailandeekhoorn,"Callosciurus finlaysonii (Horsfield, 1823)",2437399,PW5W
 dier,Pontastacus leptodactylus,Turkse rivierkreeft,"Pontastacus leptodactylus (Eschscholtz, 1823)",8946295,7WKSK
-dier,Perccottus glenii,amoergrondel,"Perccottus glenii Dybowski, 1877",2390064,6V3SC
-dier,Axis axis,axishert,"Axis axis (Erxleben, 1777)",2440934,K49Z
 dier,Myocastor coypus,beverrat,"Myocastor coypus (Molina, 1782)",4264680,6RRQT
 dier,Pseudorasbora parva,blauwbandgrondel,"Pseudorasbora parva (Temminck & Schlegel, 1846)",2362868,4P9F3
-dier,Faxonius immunis,calicotrivierkreeft,"Faxonius immunis (Hagen, 1870)",8930656,7TVR8
 dier,Dama dama,damhert,"Dama dama (Linnaeus, 1758)",5220136,342N9
-dier,Wasmannia auropunctata,dwergvuurmier,"Wasmannia auropunctata (Roger, 1863)",1315391,5BV4H
 dier,Faxonius virilis,geknobbelde Amerikaanse rivierkreeft,"Faxonius virilis (Hagen, 1870)",8971201,7TVTY
 dier,Procambarus acutus,gestreepte Amerikaanse rivierkreeft,"Procambarus acutus (Girard, 1852)",2227289,7WLQN
 dier,Plotosus lineatus,gestreepte koraalmeerval,"Plotosus lineatus (Thunberg, 1787)",7965247,783MS
 dier,Faxonius limosus,gevlekte Amerikaanse rivierkreeft,"Faxonius limosus (Rafinesque, 1817)",8909595,7TVRJ
 dier,Lampropeltis getula,gewone koningsslang,"Lampropeltis getula (Linnaeus, 1766)",9799308,3S4VP
-dier,Cherax destructor,gewone yabby,"Cherax destructor Clark, 1936",4417558,7S739
-dier,Limnoperna fortunei,gouden mossel,"Limnoperna fortunei (Dunker, 1857)",5855350,6QDBQ
 dier,Sciurus carolinensis,grijze eekhoorn,"Sciurus carolinensis Gmelin, 1788",5219681,4VNCY
 dier,Psittacula eupatria,grote Alexanderparkiet,"Psittacula eupatria (Linnaeus, 1766)",5229055,4PKCF
 dier,Lissachatina fulica,grote agaatslak,"Lissachatina fulica (Bowdich, 1822)",8790531,7RXXP
@@ -56,94 +36,62 @@ dier,Threskiornis aethiopicus,heilige ibis,"Threskiornis aethiopicus (Latham, 17
 dier,Corvus splendens,huiskraai,"Corvus splendens Vieillot, 1817",2482499,YNJJ
 dier,Acridotheres cristatellus,kuifmania,"Acridotheres cristatellus (Linnaeus, 1758)",2489010,9KHM
 dier,Trachemys scripta,lettersierschildpad,"Trachemys scripta (Thunberg In Schoepff, 1792)",2443002,C8JV7
-dier,Marisa cornuarietis,marisaslak,"Marisa cornuarietis (Linnaeus, 1758)",2292586,3Y6ZH
 dier,Procambarus virginalis,marmerkreeft,"Procambarus virginalis Lyko, 2017",9442269,7WLYV
 dier,Myiopsitta monachus,monniksparkiet,"Myiopsitta monachus (Boddaert, 1783)",2479407,4532H
-dier,Fundulus heteroclitus,mummichog,"Fundulus heteroclitus (Linnaeus, 1766)",5712056,6K3GC
 dier,Ondatra zibethicus,muskusrat,"Ondatra zibethicus (Linnaeus, 1766)",5219858,49JSC
 dier,Alopochen aegyptiaca,nijlgans,"Alopochen aegyptiaca (Linnaeus, 1766)",2498252,C5KM
-dier,Channa argus,noordelijke slangekopvis,"Channa argus (Cantor, 1842)",4284921,TM2L
 dier,Gambusia holbrooki,oostelijk muskietenvisje,"Gambusia holbrooki Girard, 1859",2350570,3F7VR
 dier,Elaphe taeniura,prachtslang,"Elaphe taeniura (Cope, 1861)",8889878,886JM
 dier,Procambarus clarkii,rode Amerikaanse rivierkreeft,"Procambarus clarkii (Girard, 1852)",2227300,7WLRT
 dier,Nasua nasua,rode neusbeer,"Nasua nasua (Linnaeus, 1766)",2433536,45STB
-dier,Solenopsis invicta,rode vuurmier,"Solenopsis invicta Buren, 1972",5035230,6Z4TF
-dier,Faxonius rusticus,roestbruine Amerikaanse rivierkreeft,"Faxonius rusticus (Girard, 1852)",8979506,7TVTB
 dier,Pycnonotus cafer,roodbuikbuulbuul,"Pycnonotus cafer (Linnaeus, 1766)",2486131,4QMM8
-dier,Pycnonotus jocosus,roodoorbuulbuul,"Pycnonotus jocosus (Linnaeus, 1758)",2486151,4QMMP
 dier,Oxyura jamaicensis,rosse stekelstaart,"Oxyura jamaicensis (J.F.Gmelin, 1789)",2498305,4BMPH
 dier,Cervus nippon,sikahert,"Cervus nippon Temminck, 1838",2440954,T56N
 dier,Acridotheres tristis,treurmaina,"Acridotheres tristis (Linnaeus, 1766)",2489005,9KHT
-dier,Solenopsis geminata,tropische vuurmier,"Solenopsis geminata (Fabricius, 1804)",5035187,4Y6DX
 dier,Procyon lotor,wasbeer,"Procyon lotor (Linnaeus, 1758)",5218786,4MPXY
 dier,Nyctereutes procyonoides,wasbeerhond,"Nyctereutes procyonoides (Gray, 1834)",2434552,4859P
-dier,Gambusia affinis,westelijk muskietenvisje,"Gambusia affinis (Baird & Girard, 1853)",2350580,6K97T
 dier,Lepomis gibbosus,zonnebaars,"Lepomis gibbosus (Linnaeus, 1758)",2394486,3TG2F
 dier,Ameiurus melas,zwarte dwergmeerval,"Ameiurus melas (Rafinesque, 1820)",2340977,CQKD
-dier,Solenopsis richteri,zwarte vuurmier,"Solenopsis richteri Forel, 1909",5035017,4Y6H3
-plant,Acacia mearnsii,Acacia mearnsii,Acacia mearnsii De Wild.,2979775,8PMQ
 plant,Koenigia polystachya,Afghaanse duizendknoop,Koenigia polystachya (Wall. ex Meisn.) T.M.Schust. & Reveal,8848208,3RBY6
-plant,Andropogon virginicus,Amerikaans bezemgras,Andropogon virginicus L.,2706080,VJSBB
 plant,Celastrus orbiculatus,Aziatische boomwurger,Celastrus orbiculatus Thunb.,3169169,S2YQ
 plant,Solidago canadensis,Canadese guldenroede,Solidago canadensis L.,5389029,4Y76S
-plant,Lespedeza cuneata,Chinese struikklaver,Lespedeza cuneata (Dum.Cours.) G.Don,8114276,723GG
-plant,Delairea odorata,Delairea odorata,Delairea odorata Lem.,3134183,34FHY
 plant,Hyacinthoides massartiana,Hyacinthoides ×massartiana,Hyacinthoides ×massartiana Geerinck,5304294,3MV83
 plant,Hydrocharis laevigata,Hydrocharis laevigata,Hydrocharis laevigata (Humb. & Bonpl. ex Willd.) Byng & Christenh.,11055820,8WWNN
 plant,Petasites japonicus,Japans hoefblad,Petasites japonicus (Siebold & Zucc.) Maxim.,3088310,4FCZN
 plant,Microstegium vimineum,Japans steltgras,Microstegium vimineum (Trin.) A.Camus,5289808,43794
-plant,Zostera japonica,Japans zeegras,Zostera japonica Asch. & Graebn.,2863943,5D8HR
 plant,Reynoutria japonica,Japanse duizendknoop,Reynoutria japonica Houtt.,2889173,793ZB
-plant,Lygodium japonicum,Japanse klimvaren,Lygodium japonicum (Thunb.) Sw.,2650436,3WQ7S
 plant,Reynoutria bohemica,Japanse x Sachalinse duizendknoop,Reynoutria ×bohemica Chrtek & Chrtková,4038485,4RV9L
 plant,Aponogeton distachyos,Kaapse waterlelie,Aponogeton distachyos L.f.,5328593,5VP92
 plant,Saururus cernuus,Leidse plant,Saururus cernuus L.,5384932,6XRNV
 plant,Zizania latifolia,Mantsjoerese wilde rijst,Zizania latifolia (Griseb.) Hance ex F.Muell.,10919373,8X9SZ
-plant,Heracleum persicum,Perzische berenklauw,Heracleum persicum Desf.,3628745,3KXFD
 plant,Reynoutria sachalinensis,Sachalinse duizendknoop,Reynoutria sachalinensis (F.Schmidt) Nakai,2889088,6WRZD
-plant,Heracleum sosnowskyi,Sosnowsky's berenklauw,Heracleum sosnowskyi Manden.,3642949,3KXGJ
 plant,Hyacinthoides hispanica,Spaanse hyacint,Hyacinthoides hispanica (Mill.) Rothm.,5304257,3MV7W
 plant,Vallisneria australis,Vallisneria australis,Vallisneria australis S.W.L.Jacobs & Les,2865524,7FDKK
-plant,Alternanthera philoxeroides,alligatorkruid,Alternanthera philoxeroides (Mart.) Griseb.,3084923,C9JF
-plant,Cardiospermum grandiflorum,ballonrank,Cardiospermum grandiflorum Sw.,3189935,R5RW
 plant,Lycium barbarum,boksdoorn,Lycium barbarum L.,2928835,3WKGV
 plant,Elodea densa,egeria,Elodea densa (Planch.) Casp.,5329263,39C7S
 plant,Cenchrus setaceus,fraai lampenpoetsersgras,Cenchrus setaceus (Forssk.) Morrone,5828232,S5KP
 plant,Erythranthe guttata,gele maskerbloem,Erythranthe guttata (DC.) G.L.Nesom,7346102,3BCS5
-plant,Persicaria perfoliata,gestekelde duizendknoop,Persicaria perfoliata (L.) H.Gross,4033648,4F9VX
 plant,Gunnera tinctoria,gewone gunnera,Gunnera tinctoria (Molina) Mirb.,2984306,3HMCZ
 plant,Salvinia molesta,grote vlotvaren,Salvinia ×molesta D.S.Mitch.,5274863,79GLB
 plant,Hydrocotyle ranunculoides,grote waternavel,Hydrocotyle ranunculoides L.fil.,7978544,6MJYZ
-plant,Hakea sericea,hakea,Hakea sericea Schrad. & J.C.Wendl.,7287606,6KY8Y
 plant,Ailanthus altissima,hemelboom,Ailanthus altissima (Mill.) Swingle,3190653,BCBF
-plant,Cortaderia jubata,hoog pampagras,Cortaderia jubata (Lemoine) Stapf,2704521,YHTW
-plant,Carpobrotus edulis,hottentotvijg,Carpobrotus edulis (L.) N.E.Br.,3084842,RG7K
 plant,Ludwigia peploides,kleine waterteunisbloem,Ludwigia peploides (Kunth) P.H.Raven,5420991,3WDCZ
-plant,Pueraria montana lobata,kudzu,Pueraria montana var. lobata (Willd.) Maesen & S.M.Almeida ex Sanjappa & Predeep,2977647,CGCLG
 plant,Solidago gigantea,late guldenroede,Solidago gigantea Aiton,5389017,6Z4X2
-plant,Prosopis juliflora,mesquite,Prosopis juliflora (Sw.) DC.,5358460,465Q3
 plant,Houttuynia cordata,moerasanemoon,Houttuynia cordata Thunb.,5384931,3MR6R
 plant,Lysichiton americanus,moerasaronskelk,Lysichiton americanus Hultén & H.St.John,2869311,3WTZ6
 plant,Pontederia cordata,moerashyacint,Pontederia cordata L.,2766030,4LTW3
 plant,Myriophyllum heterophyllum,ongelijkbladig vederkruid,Myriophyllum heterophyllum Michx.,5361762,458ZB
-plant,Humulus scandens,oosterse hop,Humulus scandens (Lour.) Merr.,2984537,6MFNV
 plant,Broussonetia papyrifera,papiermoerbei,Broussonetia papyrifera (L.) L'Hér. ex Vent.,5361944,68QX8
 plant,Myriophyllum aquaticum,parelvederkruid,Myriophyllum aquaticum (Vell.) Verdc.,5361785,458YG
 plant,Impatiens glandulifera,reuzenbalsemien,Impatiens glandulifera Royle,2891770,3PJSV
 plant,Heracleum mantegazzianum,reuzenberenklauw,Heracleum mantegazzianum Sommier & Levier,3034825,6LS3M
 plant,Rosa rugosa,rimpelroos,Rosa rugosa Thunb.,3003979,4TDX9
-plant,Ehrharta calycina,roze rimpelgras,Ehrharta calycina Sm.,2702865,38V2Q
-plant,Parthenium hysterophorus,schijnambrosia,Parthenium hysterophorus L.,3086784,764TB
-plant,Gymnocoronis spilanthoides,smalle theeplant,Gymnocoronis spilanthoides DC.,6063677,3HR9B
 plant,Elodea nuttallii,smalle waterpest,Elodea nuttallii (Planch.) H.St.John,5329212,39C89
-plant,Rugulopteryx okamurae,stomp gaffelwier,"Rugulopteryx okamurae (E.Y.Dawson) I.K.Hwang, W.J.Lee & H.S.Kim, 2009",5824863,SKQNZ
 plant,Baccharis halimifolia,struikaster,Baccharis halimifolia L.,3129663,K79D
-plant,Triadica sebifera,talgboom,Triadica sebifera (L.) Small,3054399,7CP2C
 plant,Lagarosiphon major,verspreidbladige waterpest,Lagarosiphon major (Ridl.) Moss,2865565,3RVTM
 plant,Crassula helmsii,watercrassula,Crassula helmsii (Kirk) Cockayne,5362054,6BBL4
 plant,Pontederia crassipes,waterhyacint,Pontederia crassipes Mart.,2765942,4LTW6
 plant,Pistia stratiotes,watersla,Pistia stratiotes L.,2870583,4J9VH
 plant,Ludwigia grandiflora,waterteunisbloem,Ludwigia grandiflora (Michx.) Greuter & Burdet,5421039,3WDB2
 plant,Cabomba caroliniana,waterwaaier,Cabomba caroliniana A.Gray,2882443,P482
-plant,Acacia saligna,wilgacacia,Acacia saligna (Labill.) H.L.Wendl.,2978552,64BRL
 plant,Asclepias syriaca,zijdeplant,Asclepias syriaca L.,3170247,H6QS
