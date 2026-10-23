@@ -11,8 +11,6 @@ radius_version <- "2026_10"
 library(tidyverse)
 library(here)
 library(rgbif)
-
-radius_version <- "2026_10"
 ```
 
 ```{r import-prius-list}
@@ -32,7 +30,8 @@ species_list <- prius_list %>%
     Species = GBIF_canonicalName,
     Soort = soort,
     GBIF_scientific_name = GBIF_scientificName,
-    GBIF_code = GBIF_code
+    GBIF_code = GBIF_code,
+    EU_lijst = coalesce(as.integer(reg), 0L)
   )
 ```
 
