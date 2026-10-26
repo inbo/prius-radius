@@ -48,24 +48,22 @@ custom_theme <- function() {
 
 ##### DATA INLEZEN VOOR PUBLISHING
 
-# Kies de gegevensversie voor de metrics en de soort-/GBIF-input.
-# De ruimtelijke kaartlagen blijven altijd afkomstig van main.
+# Kies de gegevensversie voor metrics en soort-/GBIF-input.
 data_versie <- "2026_10"  # "origineel" of "2026_10"
 
 url_main <- "https://raw.githubusercontent.com/inbo/prius-radius/main/"
-url_update <- "https://raw.githubusercontent.com/inbo/prius-radius/84-actualisatie-radius/"
 
 url_metrics <- switch(
   data_versie,
   "origineel" = paste0(url_main, "radius/data/output/"),
-  "2026_10" = paste0(url_update, "radius/data/output/2026_10/"),
+  "2026_10" = paste0(url_main, "radius/data/output/2026_10/"),
   stop("Ongeldige data_versie: gebruik 'origineel' of '2026_10'.")
 )
 
 url_input <- switch(
   data_versie,
   "origineel" = paste0(url_main, "radius/data/input/"),
-  "2026_10" = paste0(url_update, "radius/data/input/2026_10/"),
+  "2026_10" = paste0(url_main, "radius/data/input/2026_10/"),
   stop("Ongeldige data_versie: gebruik 'origineel' of '2026_10'.")
 )
 

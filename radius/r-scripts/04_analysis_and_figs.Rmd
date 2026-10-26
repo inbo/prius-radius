@@ -47,7 +47,7 @@ rm(list=ls())
 
 ```{r version, include=FALSE}
 # Kies de radius versie: "origineel" (2024) of "2026_10"
-radius_version <- "origineel"
+radius_version <- "2026_10"
 ```
 
 ```{r define-custom-theme, echo=FALSE, include=TRUE, global=TRUE}
@@ -130,7 +130,7 @@ VGLRL_spatial <- ps_vglrl %>%
 n2khab <- st_read(here::here("radius", "data", "spatial", "n2khab.shp"))
 
 habitats <- read_csv2(
-  here::here("radius", "data", "input", radius_version, "toewijzing_habitats.csv"),
+  here::here("radius", "data", "input", "origineel", "toewijzing_habitats.csv"),
   col_types = cols(code = col_character())
 )
 
