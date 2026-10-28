@@ -1,0 +1,1461 @@
+soort,species,abbr,gebied,overlap,type
+Chinese wolhandkrab,Eriocheir sinensis,Es,Schelde- en Durme-estuarium van de Nederlandse grens tot Gent,5141437.333850115,HBTRL
+Chinese wolhandkrab,Eriocheir sinensis,Es,"Valleigebied van de Kleine Nete met brongebieden, moerassen en heiden",1852847.9730472467,HBTRL
+Chinese wolhandkrab,Eriocheir sinensis,Es,Demervallei,1282047.0725634622,HBTRL
+Chinese wolhandkrab,Eriocheir sinensis,Es,Durme en de middenloop van de Schelde,2741973.9388618814,VGLRL
+Chinese wolhandkrab,Eriocheir sinensis,Es,De Demervallei,1666105.515981192,VGLRL
+Chinese wolhandkrab,Eriocheir sinensis,Es,Schorren en polders van de Beneden-Schelde,696029.2296713025,VGLRL
+Chinese wolhandkrab,Eriocheir sinensis,Es,Groene Gordels,1337599.4677919997,anb-regio
+Chinese wolhandkrab,Eriocheir sinensis,Es,Taxandria,1060659.7070302928,anb-regio
+Chinese wolhandkrab,Eriocheir sinensis,Es,Antwerpse Kempen,1006236.6751101214,anb-regio
+Chinese wolhandkrab,Eriocheir sinensis,Es,De Polders van Kruibeke,552265.9997337107,anb-domein
+Chinese wolhandkrab,Eriocheir sinensis,Es,Prinsenpark,332071.87038165896,anb-domein
+Chinese wolhandkrab,Eriocheir sinensis,Es,Kalkense meersen,261063.87336800675,anb-domein
+Chinese wolhandkrab,Eriocheir sinensis,Es,Groene Gordels,748943.2534092763,anb-regio
+Chinese wolhandkrab,Eriocheir sinensis,Es,Demerland & Zuiderkempen,738785.1873569308,anb-regio
+Chinese wolhandkrab,Eriocheir sinensis,Es,Antwerpse Kempen,636445.3751717707,anb-regio
+Chinese wolhandkrab,Eriocheir sinensis,Es,De Polders van Kruibeke,325075.85106781946,anb-domein
+Chinese wolhandkrab,Eriocheir sinensis,Es,Kalkense meersen,261063.87336800675,anb-domein
+Chinese wolhandkrab,Eriocheir sinensis,Es,Merkembroek-Woumenbroek,171651.99440608028,anb-domein
+Chinese wolhandkrab,Eriocheir sinensis,Es,Onbevaarbare waterlopen 1e categorie,740616.1356744996,NBHP
+Chinese wolhandkrab,Eriocheir sinensis,Es,Polders van Kruibeke,532997.4907917384,NBHP
+Chinese wolhandkrab,Eriocheir sinensis,Es,Bossen van Retie,338993.726515064,NBHP
+halsbandparkiet,Psittacula krameri,Pk,Schelde- en Durme-estuarium van de Nederlandse grens tot Gent,7765351.392867119,HBTRL
+halsbandparkiet,Psittacula krameri,Pk,"Valleien van de Dijle, Laan en IJse met aangrenzende bos- en moerasgebieden",6730791.722610427,HBTRL
+halsbandparkiet,Psittacula krameri,Pk,Bossen van het zuidoosten van de Zandleemstreek,3519646.793781013,HBTRL
+halsbandparkiet,Psittacula krameri,Pk,De Dijlevallei,5776542.299564291,VGLRL
+halsbandparkiet,Psittacula krameri,Pk,Durme en de middenloop van de Schelde,4392217.60083783,VGLRL
+halsbandparkiet,Psittacula krameri,Pk,De Demervallei,1863276.0597717136,VGLRL
+halsbandparkiet,Psittacula krameri,Pk,Groene Gordels,13038141.156183682,anb-regio
+halsbandparkiet,Psittacula krameri,Pk,Antwerpse Kempen,9364898.369961003,anb-regio
+halsbandparkiet,Psittacula krameri,Pk,Brabantse Wouden,8392024.74559161,anb-regio
+halsbandparkiet,Psittacula krameri,Pk,Dijlevallei,2398463.169815712,anb-domein
+halsbandparkiet,Psittacula krameri,Pk,De Polders van Kruibeke,2209464.747314146,anb-domein
+halsbandparkiet,Psittacula krameri,Pk,De Gavers,1746410.8097097103,anb-domein
+halsbandparkiet,Psittacula krameri,Pk,Groene Gordels,7887657.468165961,anb-regio
+halsbandparkiet,Psittacula krameri,Pk,Brabantse Wouden,6420918.253401457,anb-regio
+halsbandparkiet,Psittacula krameri,Pk,Antwerpse Kempen,4018011.7782383533,anb-regio
+halsbandparkiet,Psittacula krameri,Pk,Dijlevallei,2286600.379355624,anb-domein
+halsbandparkiet,Psittacula krameri,Pk,De Polders van Kruibeke,1343347.328696194,anb-domein
+halsbandparkiet,Psittacula krameri,Pk,Het Broek,1305826.4228015593,anb-domein
+halsbandparkiet,Psittacula krameri,Pk,"Dijle-, Laan- en Ijsevallei",3119922.6043683337,NBHP
+halsbandparkiet,Psittacula krameri,Pk,Polders van Kruibeke,2245539.2264364334,NBHP
+halsbandparkiet,Psittacula krameri,Pk,Onbevaarbare waterlopen 1e categorie,1865667.6709029789,NBHP
+rimpelroos,Rosa rugosa,Rr,Duingebieden inclusief IJzermonding en Zwin,13137151.384097071,HBTRL
+rimpelroos,Rosa rugosa,Rr,Schelde- en Durme-estuarium van de Nederlandse grens tot Gent,1414009.5079239458,HBTRL
+rimpelroos,Rosa rugosa,Rr,"Valleigebied van de Kleine Nete met brongebieden, moerassen en heiden",704418.589436506,HBTRL
+rimpelroos,Rosa rugosa,Rr,Westkust,4356241.524971364,VGLRL
+rimpelroos,Rosa rugosa,Rr,Schorren en polders van de Beneden-Schelde,1418341.2401276107,VGLRL
+rimpelroos,Rosa rugosa,Rr,Het Zwin,1355788.8699032455,VGLRL
+rimpelroos,Rosa rugosa,Rr,Kust & Westhoek,8456149.725505376,anb-regio
+rimpelroos,Rosa rugosa,Rr,Taxandria,845075.5956179976,anb-regio
+rimpelroos,Rosa rugosa,Rr,Antwerpse Kempen,805080.8441972388,anb-regio
+rimpelroos,Rosa rugosa,Rr,De Westhoek,1457755.5728182818,anb-domein
+rimpelroos,Rosa rugosa,Rr,Zwinduinen en -polders,657173.2886175993,anb-domein
+rimpelroos,Rosa rugosa,Rr,Ter Yde,486741.7100626314,anb-domein
+rimpelroos,Rosa rugosa,Rr,Kust & Westhoek,7310792.22659238,anb-regio
+rimpelroos,Rosa rugosa,Rr,Taxandria,483886.1681403321,anb-regio
+rimpelroos,Rosa rugosa,Rr,Groene Gordels,383497.3323527359,anb-regio
+rimpelroos,Rosa rugosa,Rr,De Westhoek,1457755.5728182818,anb-domein
+rimpelroos,Rosa rugosa,Rr,Zwinduinen en -polders,657173.2886175993,anb-domein
+rimpelroos,Rosa rugosa,Rr,Ter Yde,486741.7100626314,anb-domein
+rimpelroos,Rosa rugosa,Rr,Duinen en Bossen van De Panne,2095841.5622326634,NBHP
+rimpelroos,Rosa rugosa,Rr,Duinbossen van De Haan,1795786.83282036,NBHP
+rimpelroos,Rosa rugosa,Rr,LIFE+ flandre,1496805.0546800739,NBHP
+heilige ibis,Threskiornis aethiopicus,Ta,Demervallei,884866.2422901987,HBTRL
+heilige ibis,Threskiornis aethiopicus,Ta,"Valleien van de Laambeek, Zonderikbeek, Slangebeek en Roosterbeek met vijvergebieden en heiden",698402.1941451319,HBTRL
+heilige ibis,Threskiornis aethiopicus,Ta,"Vennen, heiden en moerassen rond Turnhout",259394.8757665881,HBTRL
+heilige ibis,Threskiornis aethiopicus,Ta,De Demervallei,1124913.6137946232,VGLRL
+heilige ibis,Threskiornis aethiopicus,Ta,Schorren en polders van de Beneden-Schelde,1002800.2981323095,VGLRL
+heilige ibis,Threskiornis aethiopicus,Ta,Het Vijvercomplex van Midden-Limburg,727776.2276066802,VGLRL
+heilige ibis,Threskiornis aethiopicus,Ta,Demerland & Zuiderkempen,1139698.8714085014,anb-regio
+heilige ibis,Threskiornis aethiopicus,Ta,Antwerpse Kempen,998163.328337223,anb-regio
+heilige ibis,Threskiornis aethiopicus,Ta,Kust & Westhoek,169768.19488218921,anb-regio
+heilige ibis,Threskiornis aethiopicus,Ta,Vijvercomplex,642695.6846543526,anb-domein
+heilige ibis,Threskiornis aethiopicus,Ta,Linkerscheldeoever - Doelpolder Noord,560628.2850320117,anb-domein
+heilige ibis,Threskiornis aethiopicus,Ta,Webbekoms en Diesters Broek,282265.0478398383,anb-domein
+heilige ibis,Threskiornis aethiopicus,Ta,Demerland & Zuiderkempen,1127050.7609127972,anb-regio
+heilige ibis,Threskiornis aethiopicus,Ta,Antwerpse Kempen,998163.328337223,anb-regio
+heilige ibis,Threskiornis aethiopicus,Ta,Kust & Westhoek,169768.19488218921,anb-regio
+heilige ibis,Threskiornis aethiopicus,Ta,Vijvercomplex,642695.6846543526,anb-domein
+heilige ibis,Threskiornis aethiopicus,Ta,Linkerscheldeoever - Doelpolder Noord,560628.2850320117,anb-domein
+heilige ibis,Threskiornis aethiopicus,Ta,Webbekoms en Diesters Broek,282265.0478398383,anb-domein
+heilige ibis,Threskiornis aethiopicus,Ta,Vijvercomplex Midden-Limburg,650207.9548853625,NBHP
+heilige ibis,Threskiornis aethiopicus,Ta,Schulensbroek,307201.39746075973,NBHP
+heilige ibis,Threskiornis aethiopicus,Ta,Webbekomsbroek-Borchbeemden,271903.2245125856,NBHP
+Canadese gans,Branta canadensis,Bc,Schelde- en Durme-estuarium van de Nederlandse grens tot Gent,37497354.88281958,HBTRL
+Canadese gans,Branta canadensis,Bc,Demervallei,15656687.96946527,HBTRL
+Canadese gans,Branta canadensis,Bc,"Valleigebied van de Kleine Nete met brongebieden, moerassen en heiden",12917722.910477174,HBTRL
+Canadese gans,Branta canadensis,Bc,Poldercomplex,33660485.023615845,VGLRL
+Canadese gans,Branta canadensis,Bc,Schorren en polders van de Beneden-Schelde,28578845.100660145,VGLRL
+Canadese gans,Branta canadensis,Bc,Durme en de middenloop van de Schelde,21425701.98013801,VGLRL
+Canadese gans,Branta canadensis,Bc,Antwerpse Kempen,30226287.041689478,anb-regio
+Canadese gans,Branta canadensis,Bc,Taxandria,19806663.260859113,anb-regio
+Canadese gans,Branta canadensis,Bc,Kust & Westhoek,18813734.3150038,anb-regio
+Canadese gans,Branta canadensis,Bc,De Polders van Kruibeke,3945836.9964389885,anb-domein
+Canadese gans,Branta canadensis,Bc,Kalmthoutse Heide - Eig. Gem. Kalmthout,2731449.2283405783,anb-domein
+Canadese gans,Branta canadensis,Bc,Het Zwin,2529771.9527132018,anb-domein
+Canadese gans,Branta canadensis,Bc,Antwerpse Kempen,25993596.71699867,anb-regio
+Canadese gans,Branta canadensis,Bc,Kust & Westhoek,16552857.610853374,anb-regio
+Canadese gans,Branta canadensis,Bc,Taxandria,16409714.529654646,anb-regio
+Canadese gans,Branta canadensis,Bc,De Polders van Kruibeke,2910639.7351897415,anb-domein
+Canadese gans,Branta canadensis,Bc,Kalmthoutse Heide - Eig. Gem. Kalmthout,2731449.2283405783,anb-domein
+Canadese gans,Branta canadensis,Bc,Het Zwin,2529771.9527132018,anb-domein
+Canadese gans,Branta canadensis,Bc,Onbevaarbare waterlopen 1e categorie,6171781.904320959,NBHP
+Canadese gans,Branta canadensis,Bc,Kalmthoutse Heide,4519478.32218433,NBHP
+Canadese gans,Branta canadensis,Bc,Polders van Kruibeke,4073715.734357112,NBHP
+reuzenberenklauw,Heracleum mantegazzianum,Hman,Bossen van de Vlaamse Ardennen en andere Zuidvlaamse bossen,1433857.4815463673,HBTRL
+reuzenberenklauw,Heracleum mantegazzianum,Hman,Schelde- en Durme-estuarium van de Nederlandse grens tot Gent,1331945.075646346,HBTRL
+reuzenberenklauw,Heracleum mantegazzianum,Hman,"Vallei- en brongebieden van de Zwarte Beek, Bolisserbeek en Dommel met heide en vengebieden",1275789.203859732,HBTRL
+reuzenberenklauw,Heracleum mantegazzianum,Hman,Poldercomplex,1011556.7610385398,VGLRL
+reuzenberenklauw,Heracleum mantegazzianum,Hman,Durme en de middenloop van de Schelde,978225.1793552863,VGLRL
+reuzenberenklauw,Heracleum mantegazzianum,Hman,De Demervallei,907203.1028403839,VGLRL
+reuzenberenklauw,Heracleum mantegazzianum,Hman,Vlaamse Ardennen & Schelde-Leie,1904870.528583233,anb-regio
+reuzenberenklauw,Heracleum mantegazzianum,Hman,Groene Gordels,1861805.356260932,anb-regio
+reuzenberenklauw,Heracleum mantegazzianum,Hman,Antwerpse Kempen,1552748.8978488063,anb-regio
+reuzenberenklauw,Heracleum mantegazzianum,Hman,Tangebeekbos,306595.57645576686,anb-domein
+reuzenberenklauw,Heracleum mantegazzianum,Hman,De Gavers,305214.2689207224,anb-domein
+reuzenberenklauw,Heracleum mantegazzianum,Hman,Dorent,300231.1218005938,anb-domein
+reuzenberenklauw,Heracleum mantegazzianum,Hman,Groene Gordels,1171004.583049692,anb-regio
+reuzenberenklauw,Heracleum mantegazzianum,Hman,Kust & Westhoek,1012978.7291313072,anb-regio
+reuzenberenklauw,Heracleum mantegazzianum,Hman,Antwerpse Kempen,857351.537413333,anb-regio
+reuzenberenklauw,Heracleum mantegazzianum,Hman,Tangebeekbos,302104.15605874,anb-domein
+reuzenberenklauw,Heracleum mantegazzianum,Hman,Dorent,300231.1218005938,anb-domein
+reuzenberenklauw,Heracleum mantegazzianum,Hman,Rhodesgoed,185757.00560056273,anb-domein
+reuzenberenklauw,Heracleum mantegazzianum,Hman,Onbevaarbare waterlopen 1e categorie,926834.2512741497,NBHP
+reuzenberenklauw,Heracleum mantegazzianum,Hman,Dal van de Grensmaas,403462.6008460263,NBHP
+reuzenberenklauw,Heracleum mantegazzianum,Hman,"Drie Fonteinen, Tangebeekbos en Klein Hoogveld",385753.5528685487,NBHP
+nijlgans,Alopochen aegyptiaca,Aae,Schelde- en Durme-estuarium van de Nederlandse grens tot Gent,32843904.171453584,HBTRL
+nijlgans,Alopochen aegyptiaca,Aae,Demervallei,18204365.957786113,HBTRL
+nijlgans,Alopochen aegyptiaca,Aae,"Bovenloop van de Grote Nete met Zammelsbroek, Langdonken en Goor",12202304.940191366,HBTRL
+nijlgans,Alopochen aegyptiaca,Aae,Poldercomplex,41375504.498737514,VGLRL
+nijlgans,Alopochen aegyptiaca,Aae,De Demervallei,22903005.076181084,VGLRL
+nijlgans,Alopochen aegyptiaca,Aae,Schorren en polders van de Beneden-Schelde,22769387.51171084,VGLRL
+nijlgans,Alopochen aegyptiaca,Aae,Antwerpse Kempen,27638812.003421035,anb-regio
+nijlgans,Alopochen aegyptiaca,Aae,Taxandria,19116312.941210076,anb-regio
+nijlgans,Alopochen aegyptiaca,Aae,Kust & Westhoek,17412655.64689015,anb-regio
+nijlgans,Alopochen aegyptiaca,Aae,De Polders van Kruibeke,3777473.010031307,anb-domein
+nijlgans,Alopochen aegyptiaca,Aae,Vijvercomplex,2524668.446302684,anb-domein
+nijlgans,Alopochen aegyptiaca,Aae,Schietveld Helchteren,2325768.334961585,anb-domein
+nijlgans,Alopochen aegyptiaca,Aae,Antwerpse Kempen,22474289.776952334,anb-regio
+nijlgans,Alopochen aegyptiaca,Aae,Taxandria,15516671.60343538,anb-regio
+nijlgans,Alopochen aegyptiaca,Aae,Kust & Westhoek,15288742.343578564,anb-regio
+nijlgans,Alopochen aegyptiaca,Aae,De Polders van Kruibeke,2670147.825877205,anb-domein
+nijlgans,Alopochen aegyptiaca,Aae,Vijvercomplex,2524113.7826029137,anb-domein
+nijlgans,Alopochen aegyptiaca,Aae,Schietveld Helchteren,2325768.334961585,anb-domein
+nijlgans,Alopochen aegyptiaca,Aae,Onbevaarbare waterlopen 1e categorie,6435863.706759389,NBHP
+nijlgans,Alopochen aegyptiaca,Aae,Polders van Kruibeke,3913083.054753867,NBHP
+nijlgans,Alopochen aegyptiaca,Aae,Schulensbroek,3746805.3265830516,NBHP
+damhert,Dama dama,Dd,Bossen en heiden van zandig Vlaanderen: oostelijk deel,7041765.052149521,HBTRL
+damhert,Dama dama,Dd,Bossen van de Vlaamse Ardennen en andere Zuidvlaamse bossen,3871732.128960099,HBTRL
+damhert,Dama dama,Dd,Bos- en heidegebieden ten oosten van Antwerpen,2953508.33285987,HBTRL
+damhert,Dama dama,Dd,"Hamonterheide, Hageven, Buitenheide, Stamprooierbroek en Mariahof",1168531.2446437,VGLRL
+damhert,Dama dama,Dd,"Arendonk, Merksplas, Oud-Turnhout, Ravels en Turnhout",1142870.141253983,VGLRL
+damhert,Dama dama,Dd,Het Vijvercomplex van Midden-Limburg,777088.2734993252,VGLRL
+damhert,Dama dama,Dd,Zandig Vlaanderen,5684269.88419297,anb-regio
+damhert,Dama dama,Dd,Taxandria,1826611.301343226,anb-regio
+damhert,Dama dama,Dd,Vlaamse Ardennen & Schelde-Leie,1501137.7342162956,anb-regio
+damhert,Dama dama,Dd,Drongengoed,3565545.899718881,anb-domein
+damhert,Dama dama,Dd,Militair domein Ursel,1461863.4490255786,anb-domein
+damhert,Dama dama,Dd,Raspailleboscomplex: Karkoolbos,751641.5702496775,anb-domein
+damhert,Dama dama,Dd,Zandig Vlaanderen,5391013.9104146985,anb-regio
+damhert,Dama dama,Dd,Vlaamse Ardennen & Schelde-Leie,1255790.7625831815,anb-regio
+damhert,Dama dama,Dd,Taxandria,1250540.5015425768,anb-regio
+damhert,Dama dama,Dd,Drongengoed,3565545.899718881,anb-domein
+damhert,Dama dama,Dd,Militair domein Ursel,1461863.4490255786,anb-domein
+damhert,Dama dama,Dd,Raspailleboscomplex: Karkoolbos,751641.5702496775,anb-domein
+damhert,Dama dama,Dd,Drongengoed,3431316.8660067273,NBHP
+damhert,Dama dama,Dd,MD Ursel,1276428.9830273823,NBHP
+damhert,Dama dama,Dd,Maldegemveld,992333.735602902,NBHP
+verspreidbladige waterpest,Lagarosiphon major,Lm,Duingebieden inclusief IJzermonding en Zwin,78994.70376765152,HBTRL
+verspreidbladige waterpest,Lagarosiphon major,Lm,Bossen van het zuidoosten van de Zandleemstreek,33267.06257828089,HBTRL
+verspreidbladige waterpest,Lagarosiphon major,Lm,"Valleigebied van de Kleine Nete met brongebieden, moerassen en heiden",3991.294618674463,HBTRL
+verspreidbladige waterpest,Lagarosiphon major,Lm,De Demervallei,26837.03642903069,VGLRL
+verspreidbladige waterpest,Lagarosiphon major,Lm,Vlaamse Ardennen & Schelde-Leie,84992.86851576742,anb-regio
+verspreidbladige waterpest,Lagarosiphon major,Lm,Kust & Westhoek,70711.65060738203,anb-regio
+verspreidbladige waterpest,Lagarosiphon major,Lm,Demerland & Zuiderkempen,6092.650117747395,anb-regio
+verspreidbladige waterpest,Lagarosiphon major,Lm,De Noordduinen,55906.730679517976,anb-domein
+verspreidbladige waterpest,Lagarosiphon major,Lm,Parkbos Gent,51291.797080742086,anb-domein
+verspreidbladige waterpest,Lagarosiphon major,Lm,Makegemse bossen,30549.251254698745,anb-domein
+verspreidbladige waterpest,Lagarosiphon major,Lm,Vlaamse Ardennen & Schelde-Leie,84692.08671105442,anb-regio
+verspreidbladige waterpest,Lagarosiphon major,Lm,Kust & Westhoek,70711.65060738203,anb-regio
+verspreidbladige waterpest,Lagarosiphon major,Lm,Demerland & Zuiderkempen,6092.650117747395,anb-regio
+verspreidbladige waterpest,Lagarosiphon major,Lm,De Noordduinen,55906.730679517976,anb-domein
+verspreidbladige waterpest,Lagarosiphon major,Lm,Parkbos Gent,51291.797080742086,anb-domein
+verspreidbladige waterpest,Lagarosiphon major,Lm,Makegemse bossen,30549.251254698745,anb-domein
+verspreidbladige waterpest,Lagarosiphon major,Lm,"Koksijde, Simliduinen en Sint-Laureinsduinen",70826.88406950784,NBHP
+verspreidbladige waterpest,Lagarosiphon major,Lm,Parkbos Gent,58239.6837732057,NBHP
+verspreidbladige waterpest,Lagarosiphon major,Lm,Makegemse Bossen,30622.547433300686,NBHP
+zonnebaars,Lepomis gibbosus,Lgi,"Bovenloop van de Grote Nete met Zammelsbroek, Langdonken en Goor",1882199.5015081607,HBTRL
+zonnebaars,Lepomis gibbosus,Lgi,"Valleigebied van de Kleine Nete met brongebieden, moerassen en heiden",1542244.4593796846,HBTRL
+zonnebaars,Lepomis gibbosus,Lgi,Schelde- en Durme-estuarium van de Nederlandse grens tot Gent,1290073.719698878,HBTRL
+zonnebaars,Lepomis gibbosus,Lgi,De Demervallei,1261735.721446777,VGLRL
+zonnebaars,Lepomis gibbosus,Lgi,"Hamonterheide, Hageven, Buitenheide, Stamprooierbroek en Mariahof",1148939.205612135,VGLRL
+zonnebaars,Lepomis gibbosus,Lgi,Durme en de middenloop van de Schelde,983369.1536913138,VGLRL
+zonnebaars,Lepomis gibbosus,Lgi,Taxandria,3040087.508074958,anb-regio
+zonnebaars,Lepomis gibbosus,Lgi,Demerland & Zuiderkempen,1100342.395523555,anb-regio
+zonnebaars,Lepomis gibbosus,Lgi,Antwerpse Kempen,1051263.664438134,anb-regio
+zonnebaars,Lepomis gibbosus,Lgi,De Polders van Kruibeke,449780.3121333588,anb-domein
+zonnebaars,Lepomis gibbosus,Lgi,Vallei van Merkske,375547.10328583076,anb-domein
+zonnebaars,Lepomis gibbosus,Lgi,MD Groot Schietveld,336499.0472022365,anb-domein
+zonnebaars,Lepomis gibbosus,Lgi,Taxandria,2480429.102363619,anb-regio
+zonnebaars,Lepomis gibbosus,Lgi,Demerland & Zuiderkempen,804010.2252896158,anb-regio
+zonnebaars,Lepomis gibbosus,Lgi,Antwerpse Kempen,563270.7626152269,anb-regio
+zonnebaars,Lepomis gibbosus,Lgi,Vallei van Merkske,375547.10328583076,anb-domein
+zonnebaars,Lepomis gibbosus,Lgi,MD Groot Schietveld,336499.0472022365,anb-domein
+zonnebaars,Lepomis gibbosus,Lgi,Wortel Kolonie,309284.9891338968,anb-domein
+zonnebaars,Lepomis gibbosus,Lgi,Polders van Kruibeke,442383.1590512277,NBHP
+zonnebaars,Lepomis gibbosus,Lgi,De Maten,432367.82874271757,NBHP
+zonnebaars,Lepomis gibbosus,Lgi,Vallei van het Merkske,376358.08180381637,NBHP
+rosse stekelstaart,Oxyura jamaicensis,Oj,Schelde- en Durme-estuarium van de Nederlandse grens tot Gent,283198.3628871614,HBTRL
+rosse stekelstaart,Oxyura jamaicensis,Oj,Kalmthoutse Heide,230033.46323924727,HBTRL
+rosse stekelstaart,Oxyura jamaicensis,Oj,"Valleien van de Laambeek, Zonderikbeek, Slangebeek en Roosterbeek met vijvergebieden en heiden",115857.1505790843,HBTRL
+rosse stekelstaart,Oxyura jamaicensis,Oj,IJzervallei,1271255.705889727,VGLRL
+rosse stekelstaart,Oxyura jamaicensis,Oj,Schorren en polders van de Beneden-Schelde,996747.5746129184,VGLRL
+rosse stekelstaart,Oxyura jamaicensis,Oj,De Kuifeend en de Blokkersdijk,561171.4107974169,VGLRL
+rosse stekelstaart,Oxyura jamaicensis,Oj,Antwerpse Kempen,1090358.4834339786,anb-regio
+rosse stekelstaart,Oxyura jamaicensis,Oj,Kust & Westhoek,563900.3748483522,anb-regio
+rosse stekelstaart,Oxyura jamaicensis,Oj,Vlaamse Ardennen & Schelde-Leie,270705.8400519201,anb-regio
+rosse stekelstaart,Oxyura jamaicensis,Oj,Linkerscheldeoever - Drijdijck,326523.2408026654,anb-domein
+rosse stekelstaart,Oxyura jamaicensis,Oj,Linkerscheldeoever - Verrebroekse Plassen,289201.76818232826,anb-domein
+rosse stekelstaart,Oxyura jamaicensis,Oj,De Gavers,270705.8400519201,anb-domein
+rosse stekelstaart,Oxyura jamaicensis,Oj,Antwerpse Kempen,1090358.4834339786,anb-regio
+rosse stekelstaart,Oxyura jamaicensis,Oj,Kust & Westhoek,546432.5428797128,anb-regio
+rosse stekelstaart,Oxyura jamaicensis,Oj,Demerland & Zuiderkempen,80712.95700846573,anb-regio
+rosse stekelstaart,Oxyura jamaicensis,Oj,Linkerscheldeoever - Drijdijck,326523.2408026654,anb-domein
+rosse stekelstaart,Oxyura jamaicensis,Oj,Linkerscheldeoever - Verrebroekse Plassen,289201.76818232826,anb-domein
+rosse stekelstaart,Oxyura jamaicensis,Oj,Linkerscheldeoever - Groot Rietveld,197527.89033954582,anb-domein
+rosse stekelstaart,Oxyura jamaicensis,Oj,De Blankaart,712157.5096321219,NBHP
+rosse stekelstaart,Oxyura jamaicensis,Oj,Blokkersdijk,337596.50543507945,NBHP
+rosse stekelstaart,Oxyura jamaicensis,Oj,GGS-Drijdijck en Spaans Fort,324441.7001119796,NBHP
+gevlekte Amerikaanse rivierkreeft,Faxonius limosus,Fl,"Valleigebied van de Kleine Nete met brongebieden, moerassen en heiden",915350.1605369429,HBTRL
+gevlekte Amerikaanse rivierkreeft,Faxonius limosus,Fl,"Bovenloop van de Grote Nete met Zammelsbroek, Langdonken en Goor",502870.8434106609,HBTRL
+gevlekte Amerikaanse rivierkreeft,Faxonius limosus,Fl,Abeek met aangrenzende moerasgebieden,353900.48045470135,HBTRL
+gevlekte Amerikaanse rivierkreeft,Faxonius limosus,Fl,"Hamonterheide, Hageven, Buitenheide, Stamprooierbroek en Mariahof",590174.3873209518,VGLRL
+gevlekte Amerikaanse rivierkreeft,Faxonius limosus,Fl,De Ronde Put,442294.74773467216,VGLRL
+gevlekte Amerikaanse rivierkreeft,Faxonius limosus,Fl,Het Vijvercomplex van Midden-Limburg,392838.02088288206,VGLRL
+gevlekte Amerikaanse rivierkreeft,Faxonius limosus,Fl,Taxandria,775347.4270900572,anb-regio
+gevlekte Amerikaanse rivierkreeft,Faxonius limosus,Fl,Vlaamse Ardennen & Schelde-Leie,305178.41472889035,anb-regio
+gevlekte Amerikaanse rivierkreeft,Faxonius limosus,Fl,Demerland & Zuiderkempen,282354.7768281547,anb-regio
+gevlekte Amerikaanse rivierkreeft,Faxonius limosus,Fl,De Gavers,220078.6822596279,anb-domein
+gevlekte Amerikaanse rivierkreeft,Faxonius limosus,Fl,Vijvercomplex,209727.18927969655,anb-domein
+gevlekte Amerikaanse rivierkreeft,Faxonius limosus,Fl,De Melle,141463.28495164926,anb-domein
+gevlekte Amerikaanse rivierkreeft,Faxonius limosus,Fl,Taxandria,508219.4316908572,anb-regio
+gevlekte Amerikaanse rivierkreeft,Faxonius limosus,Fl,Demerland & Zuiderkempen,279255.0855432529,anb-regio
+gevlekte Amerikaanse rivierkreeft,Faxonius limosus,Fl,Antwerpse Kempen,174170.35017595752,anb-regio
+gevlekte Amerikaanse rivierkreeft,Faxonius limosus,Fl,Vijvercomplex,209727.18927969655,anb-domein
+gevlekte Amerikaanse rivierkreeft,Faxonius limosus,Fl,De Melle,141463.28495164926,anb-domein
+gevlekte Amerikaanse rivierkreeft,Faxonius limosus,Fl,Goorken,88719.57092385132,anb-domein
+gevlekte Amerikaanse rivierkreeft,Faxonius limosus,Fl,De Maat,244924.25077625498,NBHP
+gevlekte Amerikaanse rivierkreeft,Faxonius limosus,Fl,Onbevaarbare waterlopen 1e categorie,239617.56382492406,NBHP
+gevlekte Amerikaanse rivierkreeft,Faxonius limosus,Fl,Dal van de Grensmaas,230887.89282135438,NBHP
+parelvederkruid,Myriophyllum aquaticum,Maq,Demervallei,1010037.8431723829,HBTRL
+parelvederkruid,Myriophyllum aquaticum,Maq,"Bovenloop van de Grote Nete met Zammelsbroek, Langdonken en Goor",906148.2291510731,HBTRL
+parelvederkruid,Myriophyllum aquaticum,Maq,"Valleien van de Laambeek, Zonderikbeek, Slangebeek en Roosterbeek met vijvergebieden en heiden",554173.5718458797,HBTRL
+parelvederkruid,Myriophyllum aquaticum,Maq,De Demervallei,1401405.686531341,VGLRL
+parelvederkruid,Myriophyllum aquaticum,Maq,"Hamonterheide, Hageven, Buitenheide, Stamprooierbroek en Mariahof",382933.895466436,VGLRL
+parelvederkruid,Myriophyllum aquaticum,Maq,"Bocholt, Hechtel-Eksel, Meeuwen-Gruitrode, Neerpelt en Peer",260064.17545313545,VGLRL
+parelvederkruid,Myriophyllum aquaticum,Maq,Demerland & Zuiderkempen,797362.7180712535,anb-regio
+parelvederkruid,Myriophyllum aquaticum,Maq,Antwerpse Kempen,361635.7693548386,anb-regio
+parelvederkruid,Myriophyllum aquaticum,Maq,Taxandria,305077.2088278272,anb-regio
+parelvederkruid,Myriophyllum aquaticum,Maq,Demerbroeken,207509.52840490456,anb-domein
+parelvederkruid,Myriophyllum aquaticum,Maq,De Uitlegger,166020.8654932495,anb-domein
+parelvederkruid,Myriophyllum aquaticum,Maq,Vallei van de Drie Beken,159627.6398508472,anb-domein
+parelvederkruid,Myriophyllum aquaticum,Maq,Demerland & Zuiderkempen,605077.5845846735,anb-regio
+parelvederkruid,Myriophyllum aquaticum,Maq,Antwerpse Kempen,344148.022299484,anb-regio
+parelvederkruid,Myriophyllum aquaticum,Maq,Taxandria,266073.4041876361,anb-regio
+parelvederkruid,Myriophyllum aquaticum,Maq,Demerbroeken,206225.6577429591,anb-domein
+parelvederkruid,Myriophyllum aquaticum,Maq,De Uitlegger,166020.8654932495,anb-domein
+parelvederkruid,Myriophyllum aquaticum,Maq,MD Klein Schietveld,156471.53142550372,anb-domein
+parelvederkruid,Myriophyllum aquaticum,Maq,Onbevaarbare waterlopen 1e categorie,282034.110488461,NBHP
+parelvederkruid,Myriophyllum aquaticum,Maq,Vallei van de Zwarte Beek,218087.3688531961,NBHP
+parelvederkruid,Myriophyllum aquaticum,Maq,Visbeekvallei,210238.79136073997,NBHP
+late guldenroede,Solidago gigantea,Sg,Demervallei,2895522.2074934645,HBTRL
+late guldenroede,Solidago gigantea,Sg,Schelde- en Durme-estuarium van de Nederlandse grens tot Gent,2572138.6786804544,HBTRL
+late guldenroede,Solidago gigantea,Sg,"Vallei- en brongebieden van de Zwarte Beek, Bolisserbeek en Dommel met heide en vengebieden",2367774.989721895,HBTRL
+late guldenroede,Solidago gigantea,Sg,Militair domein en de vallei van de Zwarte Beek,2344472.6958420207,VGLRL
+late guldenroede,Solidago gigantea,Sg,De Demervallei,1923432.515957223,VGLRL
+late guldenroede,Solidago gigantea,Sg,"Hamonterheide, Hageven, Buitenheide, Stamprooierbroek en Mariahof",1848778.4860817166,VGLRL
+late guldenroede,Solidago gigantea,Sg,Groene Gordels,2877705.0984162497,anb-regio
+late guldenroede,Solidago gigantea,Sg,Lage tot aan Hoge Kempen,2833456.691798818,anb-regio
+late guldenroede,Solidago gigantea,Sg,Antwerpse Kempen,2780125.816969919,anb-regio
+late guldenroede,Solidago gigantea,Sg,Ophovenderheide,796695.2752933274,anb-domein
+late guldenroede,Solidago gigantea,Sg,Parkbos Gent,687366.5758681857,anb-domein
+late guldenroede,Solidago gigantea,Sg,MD Kamp Beverlo,610163.4959711912,anb-domein
+late guldenroede,Solidago gigantea,Sg,Lage tot aan Hoge Kempen,2215591.692847884,anb-regio
+late guldenroede,Solidago gigantea,Sg,Demerland & Zuiderkempen,2190811.774970016,anb-regio
+late guldenroede,Solidago gigantea,Sg,Groene Gordels,2065039.8478243633,anb-regio
+late guldenroede,Solidago gigantea,Sg,Ophovenderheide,796695.2752933274,anb-domein
+late guldenroede,Solidago gigantea,Sg,Parkbos Gent,687366.5758681857,anb-domein
+late guldenroede,Solidago gigantea,Sg,MD Kamp Beverlo,610163.4959711912,anb-domein
+late guldenroede,Solidago gigantea,Sg,Dal van de Grensmaas,1321165.742678069,NBHP
+late guldenroede,Solidago gigantea,Sg,Vallei van de Grote Nete Hullebrug-Herenbossen,1218536.691383817,NBHP
+late guldenroede,Solidago gigantea,Sg,Onbevaarbare waterlopen 1e categorie,887810.0252560474,NBHP
+grote waternavel,Hydrocotyle ranunculoides,Hr,Demervallei,1290669.5471769713,HBTRL
+grote waternavel,Hydrocotyle ranunculoides,Hr,"Bovenloop van de Grote Nete met Zammelsbroek, Langdonken en Goor",926511.4556218938,HBTRL
+grote waternavel,Hydrocotyle ranunculoides,Hr,Abeek met aangrenzende moerasgebieden,819829.5023410855,HBTRL
+grote waternavel,Hydrocotyle ranunculoides,Hr,De Demervallei,3701580.790619422,VGLRL
+grote waternavel,Hydrocotyle ranunculoides,Hr,"Hamonterheide, Hageven, Buitenheide, Stamprooierbroek en Mariahof",2107473.688302251,VGLRL
+grote waternavel,Hydrocotyle ranunculoides,Hr,Durme en de middenloop van de Schelde,344308.78860347194,VGLRL
+grote waternavel,Hydrocotyle ranunculoides,Hr,Demerland & Zuiderkempen,1463278.7346551826,anb-regio
+grote waternavel,Hydrocotyle ranunculoides,Hr,Vlaamse Ardennen & Schelde-Leie,693808.5568181215,anb-regio
+grote waternavel,Hydrocotyle ranunculoides,Hr,Groene Gordels,490389.0726333266,anb-regio
+grote waternavel,Hydrocotyle ranunculoides,Hr,Demerbroeken,447569.79298743466,anb-domein
+grote waternavel,Hydrocotyle ranunculoides,Hr,Broek De Naeyer,366440.93747774983,anb-domein
+grote waternavel,Hydrocotyle ranunculoides,Hr,Webbekoms en Diesters Broek,289919.3707547213,anb-domein
+grote waternavel,Hydrocotyle ranunculoides,Hr,Demerland & Zuiderkempen,1277882.3507431403,anb-regio
+grote waternavel,Hydrocotyle ranunculoides,Hr,Vlaamse Ardennen & Schelde-Leie,576259.64143569,anb-regio
+grote waternavel,Hydrocotyle ranunculoides,Hr,Zandig Vlaanderen,259266.71152646423,anb-regio
+grote waternavel,Hydrocotyle ranunculoides,Hr,Demerbroeken,430219.75379922264,anb-domein
+grote waternavel,Hydrocotyle ranunculoides,Hr,Webbekoms en Diesters Broek,289871.7754844158,anb-domein
+grote waternavel,Hydrocotyle ranunculoides,Hr,Vallei van de Drie Beken,144845.27798400377,anb-domein
+grote waternavel,Hydrocotyle ranunculoides,Hr,Onbevaarbare waterlopen 1e categorie,1066346.35803599,NBHP
+grote waternavel,Hydrocotyle ranunculoides,Hr,Dal van de Grensmaas,609304.3146976995,NBHP
+grote waternavel,Hydrocotyle ranunculoides,Hr,Smeetshof,576734.7310307634,NBHP
+Chinese muntjak,Muntiacus reevesi,Mr,"Vennen, heiden en moerassen rond Turnhout",529917.6099602233,HBTRL
+Chinese muntjak,Muntiacus reevesi,Mr,"Bossen, heiden en valleigebieden van zandig Vlaanderen: westelijk deel",212032.6887372087,HBTRL
+Chinese muntjak,Muntiacus reevesi,Mr,Klein en Groot Schietveld,197806.24902335208,HBTRL
+Chinese muntjak,Muntiacus reevesi,Mr,"Arendonk, Merksplas, Oud-Turnhout, Ravels en Turnhout",327833.8958125339,VGLRL
+Chinese muntjak,Muntiacus reevesi,Mr,"De Maatjes, Wuustwezelheide en Groot Schietveld",188176.27490107474,VGLRL
+Chinese muntjak,Muntiacus reevesi,Mr,De Demervallei,109450.5323496117,VGLRL
+Chinese muntjak,Muntiacus reevesi,Mr,Antwerpse Kempen,1131443.8905929192,anb-regio
+Chinese muntjak,Muntiacus reevesi,Mr,Groene Gordels,813532.3895867895,anb-regio
+Chinese muntjak,Muntiacus reevesi,Mr,Zandig Vlaanderen,266326.19217313174,anb-regio
+Chinese muntjak,Muntiacus reevesi,Mr,Vordenstein,731156.1920226763,anb-domein
+Chinese muntjak,Muntiacus reevesi,Mr,De Inslag - Eig. ANB,432090.497351689,anb-domein
+Chinese muntjak,Muntiacus reevesi,Mr,West-Beersgat,259008.82962384648,anb-domein
+Chinese muntjak,Muntiacus reevesi,Mr,Antwerpse Kempen,923255.8287841058,anb-regio
+Chinese muntjak,Muntiacus reevesi,Mr,Groene Gordels,813532.3895867895,anb-regio
+Chinese muntjak,Muntiacus reevesi,Mr,Zandig Vlaanderen,234924.61842736625,anb-regio
+Chinese muntjak,Muntiacus reevesi,Mr,Vordenstein,731156.1920226763,anb-domein
+Chinese muntjak,Muntiacus reevesi,Mr,De Inslag - Eig. ANB,432090.497351689,anb-domein
+Chinese muntjak,Muntiacus reevesi,Mr,West-Beersgat,259008.82962384648,anb-domein
+Chinese muntjak,Muntiacus reevesi,Mr,UBP/AN/10/04 - Kapellen-Schoten-Brasschaat,1223641.6783453745,NBHP
+Chinese muntjak,Muntiacus reevesi,Mr,Vordenstein,586197.8345646262,NBHP
+Chinese muntjak,Muntiacus reevesi,Mr,Landschap De Liereman,237662.04453543323,NBHP
+Japans hoefblad,Petasites japonicus,Pj,Schelde- en Durme-estuarium van de Nederlandse grens tot Gent,104107.4893085955,HBTRL
+Japans hoefblad,Petasites japonicus,Pj,Bossen van het zuidoosten van de Zandleemstreek,52878.631771595,HBTRL
+Japans hoefblad,Petasites japonicus,Pj,"Vallei- en brongebieden van de Zwarte Beek, Bolisserbeek en Dommel met heide en vengebieden",42651.72351311735,HBTRL
+Japans hoefblad,Petasites japonicus,Pj,Militair domein en de vallei van de Zwarte Beek,42651.72351311735,VGLRL
+Japans hoefblad,Petasites japonicus,Pj,Poldercomplex,31401.573745768255,VGLRL
+Japans hoefblad,Petasites japonicus,Pj,Durme en de middenloop van de Schelde,31401.573745759844,VGLRL
+Japans hoefblad,Petasites japonicus,Pj,Kust & Westhoek,130529.40574278655,anb-regio
+Japans hoefblad,Petasites japonicus,Pj,Vlaamse Ardennen & Schelde-Leie,77557.64942130685,anb-regio
+Japans hoefblad,Petasites japonicus,Pj,Zandig Vlaanderen,63353.63785999642,anb-regio
+Japans hoefblad,Petasites japonicus,Pj,t Veld,130529.40574278655,anb-domein
+Japans hoefblad,Petasites japonicus,Pj,Bieheide e.a.,56266.546824434474,anb-domein
+Japans hoefblad,Petasites japonicus,Pj,Bulskampveld provincie,36205.19455040845,anb-domein
+Japans hoefblad,Petasites japonicus,Pj,Vlaamse Ardennen & Schelde-Leie,3816.780698664632,anb-regio
+Japans hoefblad,Petasites japonicus,Pj,Makegemse bossen,3816.780698664632,anb-domein
+Japans hoefblad,Petasites japonicus,Pj,'t Veld,133504.7052937594,NBHP
+Japans hoefblad,Petasites japonicus,Pj,BP/WV/07/001/OP-PR Groenhove,82867.45286657516,NBHP
+Japans hoefblad,Petasites japonicus,Pj,Onbevaarbare waterlopen 1e categorie,36886.277703364736,NBHP
+hemelboom,Ailanthus altissima,Aalt,Duingebieden inclusief IJzermonding en Zwin,1058051.4907804576,HBTRL
+hemelboom,Ailanthus altissima,Aalt,Schelde- en Durme-estuarium van de Nederlandse grens tot Gent,333367.6728803473,HBTRL
+hemelboom,Ailanthus altissima,Aalt,Bossen van het zuidoosten van de Zandleemstreek,176160.5676551281,HBTRL
+hemelboom,Ailanthus altissima,Aalt,Westkust,585924.0045734096,VGLRL
+hemelboom,Ailanthus altissima,Aalt,Durme en de middenloop van de Schelde,257556.28369708857,VGLRL
+hemelboom,Ailanthus altissima,Aalt,Schorren en polders van de Beneden-Schelde,177085.03634188586,VGLRL
+hemelboom,Ailanthus altissima,Aalt,Kust & Westhoek,762837.0218961829,anb-regio
+hemelboom,Ailanthus altissima,Aalt,Groene Gordels,569872.6288696463,anb-regio
+hemelboom,Ailanthus altissima,Aalt,Antwerpse Kempen,419429.8390435911,anb-regio
+hemelboom,Ailanthus altissima,Aalt,Park Drie Fonteinen,136215.69546520206,anb-domein
+hemelboom,Ailanthus altissima,Aalt,De Doornpanne,114113.07851857107,anb-domein
+hemelboom,Ailanthus altissima,Aalt,Calmeynbos,110989.7614524014,anb-domein
+hemelboom,Ailanthus altissima,Aalt,Kust & Westhoek,537734.1819252104,anb-regio
+hemelboom,Ailanthus altissima,Aalt,Groene Gordels,429286.6478334122,anb-regio
+hemelboom,Ailanthus altissima,Aalt,Taxandria,106573.12373426856,anb-regio
+hemelboom,Ailanthus altissima,Aalt,Park Drie Fonteinen,136215.69546520206,anb-domein
+hemelboom,Ailanthus altissima,Aalt,De Oosthoekduinen,94996.03326171618,anb-domein
+hemelboom,Ailanthus altissima,Aalt,De Noordduinen,77352.83609783073,anb-domein
+hemelboom,Ailanthus altissima,Aalt,Duinen en Bossen van De Panne,208136.13034860507,NBHP
+hemelboom,Ailanthus altissima,Aalt,"Drie Fonteinen, Tangebeekbos en Klein Hoogveld",198371.75107699915,NBHP
+hemelboom,Ailanthus altissima,Aalt,Onbevaarbare waterlopen 1e categorie,193348.6447337406,NBHP
+Amerikaanse nerts,Mustela vison,Mvis,"Bossen, heiden en valleigebieden van zandig Vlaanderen: westelijk deel",62803.14749153613,HBTRL
+Amerikaanse nerts,Mustela vison,Mvis,Abeek met aangrenzende moerasgebieden,47763.48272440594,HBTRL
+Amerikaanse nerts,Mustela vison,Mvis,Polders,47404.815880230846,HBTRL
+Amerikaanse nerts,Mustela vison,Mvis,Poldercomplex,94561.58602567684,VGLRL
+Amerikaanse nerts,Mustela vison,Mvis,"Hamonterheide, Hageven, Buitenheide, Stamprooierbroek en Mariahof",48851.5528890976,VGLRL
+Amerikaanse nerts,Mustela vison,Mvis,Durme en de middenloop van de Schelde,33213.68464804916,VGLRL
+Amerikaanse nerts,Mustela vison,Mvis,Kust & Westhoek,20816.662069767073,anb-regio
+Amerikaanse nerts,Mustela vison,Mvis,Zandig Vlaanderen,19196.2945546752,anb-regio
+Amerikaanse nerts,Mustela vison,Mvis,Demerland & Zuiderkempen,17664.46388279157,anb-regio
+Amerikaanse nerts,Mustela vison,Mvis,Wullebos,17877.82320902872,anb-domein
+Amerikaanse nerts,Mustela vison,Mvis,Vijvercomplex,17664.46388279157,anb-domein
+Amerikaanse nerts,Mustela vison,Mvis,Sterneneiland,17134.91199107663,anb-domein
+Amerikaanse nerts,Mustela vison,Mvis,Kust & Westhoek,20816.662069767073,anb-regio
+Amerikaanse nerts,Mustela vison,Mvis,Zandig Vlaanderen,19196.2945546752,anb-regio
+Amerikaanse nerts,Mustela vison,Mvis,Demerland & Zuiderkempen,17664.46388279157,anb-regio
+Amerikaanse nerts,Mustela vison,Mvis,Wullebos,17877.82320902872,anb-domein
+Amerikaanse nerts,Mustela vison,Mvis,Vijvercomplex,17664.46388279157,anb-domein
+Amerikaanse nerts,Mustela vison,Mvis,Sterneneiland,17134.91199107663,anb-domein
+Amerikaanse nerts,Mustela vison,Mvis,Groot Molsbroek,65828.60787152698,NBHP
+Amerikaanse nerts,Mustela vison,Mvis,Uitkerkse Polder,47910.65973127463,NBHP
+Amerikaanse nerts,Mustela vison,Mvis,Stamprooierbroek,33241.57375948466,NBHP
+boksdoorn,Lycium barbarum,Lb,Duingebieden inclusief IJzermonding en Zwin,5064128.421489201,HBTRL
+boksdoorn,Lycium barbarum,Lb,Bossen en heiden van zandig Vlaanderen: oostelijk deel,25626.542641807144,HBTRL
+boksdoorn,Lycium barbarum,Lb,"Bossen, heiden en valleigebieden van zandig Vlaanderen: westelijk deel",22811.54942820233,HBTRL
+boksdoorn,Lycium barbarum,Lb,Westkust,708015.1230269781,VGLRL
+boksdoorn,Lycium barbarum,Lb,Het Zwin,295846.31499944173,VGLRL
+boksdoorn,Lycium barbarum,Lb,Poldercomplex,142666.18114797954,VGLRL
+boksdoorn,Lycium barbarum,Lb,Kust & Westhoek,2116902.3522018366,anb-regio
+boksdoorn,Lycium barbarum,Lb,Vlaamse Ardennen & Schelde-Leie,91604.05527191304,anb-regio
+boksdoorn,Lycium barbarum,Lb,Zandig Vlaanderen,59795.25983744785,anb-regio
+boksdoorn,Lycium barbarum,Lb,Sint-Laureinsduinen,299154.82478870754,anb-domein
+boksdoorn,Lycium barbarum,Lb,Raversijde,267744.0234609499,anb-domein
+boksdoorn,Lycium barbarum,Lb,IJzermonding,191012.21607317953,anb-domein
+boksdoorn,Lycium barbarum,Lb,Kust & Westhoek,1660960.1119394884,anb-regio
+boksdoorn,Lycium barbarum,Lb,Zandig Vlaanderen,28393.686091679214,anb-regio
+boksdoorn,Lycium barbarum,Lb,Lage tot aan Hoge Kempen,9570.184341668413,anb-regio
+boksdoorn,Lycium barbarum,Lb,Sint-Laureinsduinen,299154.82478870754,anb-domein
+boksdoorn,Lycium barbarum,Lb,IJzermonding,191012.21607317953,anb-domein
+boksdoorn,Lycium barbarum,Lb,Duinbos-Klemskerke,153101.31334983834,anb-domein
+boksdoorn,Lycium barbarum,Lb,Duinbossen van De Haan,962093.7495330559,NBHP
+boksdoorn,Lycium barbarum,Lb,LIFE+ flandre,525561.0422022068,NBHP
+boksdoorn,Lycium barbarum,Lb,Middelkerke-Raversijde,443467.80126510025,NBHP
+Siberische grondeekhoorn,Tamias sibiricus,Tsi,Zoniënwoud,1864404.15902049,HBTRL
+Siberische grondeekhoorn,Tamias sibiricus,Tsi,Duingebieden inclusief IJzermonding en Zwin,372395.16332514037,HBTRL
+Siberische grondeekhoorn,Tamias sibiricus,Tsi,"Hageven met Dommelvallei, Beverbeekse heide, Warmbeek en Wateringen",31401.57374576491,HBTRL
+Siberische grondeekhoorn,Tamias sibiricus,Tsi,Westkust,267970.9765336308,VGLRL
+Siberische grondeekhoorn,Tamias sibiricus,Tsi,"Hamonterheide, Hageven, Buitenheide, Stamprooierbroek en Mariahof",31401.57374576491,VGLRL
+Siberische grondeekhoorn,Tamias sibiricus,Tsi,Brabantse Wouden,2124743.0887197717,anb-regio
+Siberische grondeekhoorn,Tamias sibiricus,Tsi,Kust & Westhoek,341438.40693236387,anb-regio
+Siberische grondeekhoorn,Tamias sibiricus,Tsi,Demerland & Zuiderkempen,94085.99911818057,anb-regio
+Siberische grondeekhoorn,Tamias sibiricus,Tsi,Zonienwoud,2071856.3251351293,anb-domein
+Siberische grondeekhoorn,Tamias sibiricus,Tsi,Calmeynbos,175068.10784901158,anb-domein
+Siberische grondeekhoorn,Tamias sibiricus,Tsi,De Oosthoekduinen,135981.46086654614,anb-domein
+Siberische grondeekhoorn,Tamias sibiricus,Tsi,Brabantse Wouden,2073240.2990177902,anb-regio
+Siberische grondeekhoorn,Tamias sibiricus,Tsi,Kust & Westhoek,166370.29908335232,anb-regio
+Siberische grondeekhoorn,Tamias sibiricus,Tsi,Demerland & Zuiderkempen,94085.99911818057,anb-regio
+Siberische grondeekhoorn,Tamias sibiricus,Tsi,Zonienwoud,2071856.3251351293,anb-domein
+Siberische grondeekhoorn,Tamias sibiricus,Tsi,De Oosthoekduinen,135981.46086654614,anb-domein
+Siberische grondeekhoorn,Tamias sibiricus,Tsi,Beeltjens - Kwarekken,94085.99911818057,anb-domein
+Siberische grondeekhoorn,Tamias sibiricus,Tsi,Zoniënwoud,2124461.5817450653,NBHP
+Siberische grondeekhoorn,Tamias sibiricus,Tsi,Duinen en Bossen van De Panne,181116.19538770904,NBHP
+Siberische grondeekhoorn,Tamias sibiricus,Tsi,"UBP/AN/08/07 - Bossen Westerlo, Herselt en Laakdal",99278.29843544321,NBHP
+Japanse duizendknoop,Reynoutria japonica,Rj,Schelde- en Durme-estuarium van de Nederlandse grens tot Gent,7071360.491746376,HBTRL
+Japanse duizendknoop,Reynoutria japonica,Rj,"Valleigebied van de Kleine Nete met brongebieden, moerassen en heiden",2451781.1058161454,HBTRL
+Japanse duizendknoop,Reynoutria japonica,Rj,"Valleien van de Laambeek, Zonderikbeek, Slangebeek en Roosterbeek met vijvergebieden en heiden",2395791.371208758,HBTRL
+Japanse duizendknoop,Reynoutria japonica,Rj,Durme en de middenloop van de Schelde,3781453.696806892,VGLRL
+Japanse duizendknoop,Reynoutria japonica,Rj,De Demervallei,3596655.8367688893,VGLRL
+Japanse duizendknoop,Reynoutria japonica,Rj,"Hamonterheide, Hageven, Buitenheide, Stamprooierbroek en Mariahof",3008424.172042265,VGLRL
+Japanse duizendknoop,Reynoutria japonica,Rj,Antwerpse Kempen,5803583.986200639,anb-regio
+Japanse duizendknoop,Reynoutria japonica,Rj,Groene Gordels,4570147.062968852,anb-regio
+Japanse duizendknoop,Reynoutria japonica,Rj,Lage tot aan Hoge Kempen,4547610.144179662,anb-regio
+Japanse duizendknoop,Reynoutria japonica,Rj,MD Kamp Beverlo,1101137.7566531787,anb-domein
+Japanse duizendknoop,Reynoutria japonica,Rj,Demerbroeken,547193.8523000625,anb-domein
+Japanse duizendknoop,Reynoutria japonica,Rj,Vijvercomplex,515837.42024825484,anb-domein
+Japanse duizendknoop,Reynoutria japonica,Rj,Antwerpse Kempen,3416121.2472789553,anb-regio
+Japanse duizendknoop,Reynoutria japonica,Rj,Lage tot aan Hoge Kempen,3048632.377251656,anb-regio
+Japanse duizendknoop,Reynoutria japonica,Rj,Demerland & Zuiderkempen,2919968.8140043644,anb-regio
+Japanse duizendknoop,Reynoutria japonica,Rj,MD Kamp Beverlo,1101137.7566531787,anb-domein
+Japanse duizendknoop,Reynoutria japonica,Rj,Vijvercomplex,515837.42024825484,anb-domein
+Japanse duizendknoop,Reynoutria japonica,Rj,Dijlevallei,486558.8864560581,anb-domein
+Japanse duizendknoop,Reynoutria japonica,Rj,Onbevaarbare waterlopen 1e categorie,2604402.175761738,NBHP
+Japanse duizendknoop,Reynoutria japonica,Rj,Dal van de Grensmaas,1157274.8661407705,NBHP
+Japanse duizendknoop,Reynoutria japonica,Rj,Kamp van Beverlo,1082384.0130308387,NBHP
+lettersierschildpad,Trachemys scripta,Tsc,Schelde- en Durme-estuarium van de Nederlandse grens tot Gent,2994167.0837868014,HBTRL
+lettersierschildpad,Trachemys scripta,Tsc,Demervallei,1570273.4297739805,HBTRL
+lettersierschildpad,Trachemys scripta,Tsc,Historische fortengordels van Antwerpen als vleermuizenhabitats,1093335.76913252,HBTRL
+lettersierschildpad,Trachemys scripta,Tsc,De Demervallei,2342390.5092456318,VGLRL
+lettersierschildpad,Trachemys scripta,Tsc,Durme en de middenloop van de Schelde,1897029.485014892,VGLRL
+lettersierschildpad,Trachemys scripta,Tsc,"Hamonterheide, Hageven, Buitenheide, Stamprooierbroek en Mariahof",826882.3496692803,VGLRL
+lettersierschildpad,Trachemys scripta,Tsc,Antwerpse Kempen,2945357.0180070177,anb-regio
+lettersierschildpad,Trachemys scripta,Tsc,Groene Gordels,2641678.5349330716,anb-regio
+lettersierschildpad,Trachemys scripta,Tsc,Vlaamse Ardennen & Schelde-Leie,1794328.3174750002,anb-regio
+lettersierschildpad,Trachemys scripta,Tsc,Zonienwoud,570367.6140804781,anb-domein
+lettersierschildpad,Trachemys scripta,Tsc,De Polders van Kruibeke,450922.6693570907,anb-domein
+lettersierschildpad,Trachemys scripta,Tsc,Dijlevallei,385076.18555545626,anb-domein
+lettersierschildpad,Trachemys scripta,Tsc,Groene Gordels,1557326.8121443368,anb-regio
+lettersierschildpad,Trachemys scripta,Tsc,Antwerpse Kempen,1457790.0345636765,anb-regio
+lettersierschildpad,Trachemys scripta,Tsc,Brabantse Wouden,1427247.1889041748,anb-regio
+lettersierschildpad,Trachemys scripta,Tsc,Zonienwoud,570367.6140804781,anb-domein
+lettersierschildpad,Trachemys scripta,Tsc,Dijlevallei,385076.18555545626,anb-domein
+lettersierschildpad,Trachemys scripta,Tsc,Het Broek,269857.33992467826,anb-domein
+lettersierschildpad,Trachemys scripta,Tsc,Onbevaarbare waterlopen 1e categorie,1267788.7366678396,NBHP
+lettersierschildpad,Trachemys scripta,Tsc,Zoniënwoud,661749.063368525,NBHP
+lettersierschildpad,Trachemys scripta,Tsc,Schulensbroek,637718.8502716671,NBHP
+muskusrat,Ondatra zibethicus,Oz,"Valleien van de Dijle, Laan en IJse met aangrenzende bos- en moerasgebieden",4350574.932646971,HBTRL
+muskusrat,Ondatra zibethicus,Oz,Bossen van de Vlaamse Ardennen en andere Zuidvlaamse bossen,3141543.2392258956,HBTRL
+muskusrat,Ondatra zibethicus,Oz,Polders,2827267.2485691872,HBTRL
+muskusrat,Ondatra zibethicus,Oz,IJzervallei,9425774.279142579,VGLRL
+muskusrat,Ondatra zibethicus,Oz,Poldercomplex,6035611.737977752,VGLRL
+muskusrat,Ondatra zibethicus,Oz,De Dijlevallei,4739644.763347126,VGLRL
+muskusrat,Ondatra zibethicus,Oz,Kust & Westhoek,5613205.418931361,anb-regio
+muskusrat,Ondatra zibethicus,Oz,Vlaamse Ardennen & Schelde-Leie,3201918.132327387,anb-regio
+muskusrat,Ondatra zibethicus,Oz,Brabantse Wouden,2693212.968203141,anb-regio
+muskusrat,Ondatra zibethicus,Oz,Dijlevallei,1892487.101927838,anb-domein
+muskusrat,Ondatra zibethicus,Oz,Merkembroek-Woumenbroek,1050483.5244032932,anb-domein
+muskusrat,Ondatra zibethicus,Oz,IJzerbroeken stroomopwaarts Elzendamme,749413.4056041216,anb-domein
+muskusrat,Ondatra zibethicus,Oz,Kust & Westhoek,5416504.484938343,anb-regio
+muskusrat,Ondatra zibethicus,Oz,Brabantse Wouden,2535035.3577939332,anb-regio
+muskusrat,Ondatra zibethicus,Oz,Vlaamse Ardennen & Schelde-Leie,2350265.5105433445,anb-regio
+muskusrat,Ondatra zibethicus,Oz,Dijlevallei,1854827.36454467,anb-domein
+muskusrat,Ondatra zibethicus,Oz,Merkembroek-Woumenbroek,1050483.5244032932,anb-domein
+muskusrat,Ondatra zibethicus,Oz,IJzerbroeken stroomopwaarts Elzendamme,749413.4056041216,anb-domein
+muskusrat,Ondatra zibethicus,Oz,IJzer- en Handzamevallei,2902467.5714709703,NBHP
+muskusrat,Ondatra zibethicus,Oz,Onbevaarbare waterlopen 1e categorie,2555457.010216391,NBHP
+muskusrat,Ondatra zibethicus,Oz,"Dijle-, Laan- en Ijsevallei",2504930.710112501,NBHP
+blauwbandgrondel,Pseudorasbora parva,Pp,"Bovenloop van de Grote Nete met Zammelsbroek, Langdonken en Goor",1498907.120064277,HBTRL
+blauwbandgrondel,Pseudorasbora parva,Pp,Schelde- en Durme-estuarium van de Nederlandse grens tot Gent,1190502.8815287447,HBTRL
+blauwbandgrondel,Pseudorasbora parva,Pp,"Valleien van de Laambeek, Zonderikbeek, Slangebeek en Roosterbeek met vijvergebieden en heiden",944106.2929641264,HBTRL
+blauwbandgrondel,Pseudorasbora parva,Pp,De Demervallei,1016344.7315206236,VGLRL
+blauwbandgrondel,Pseudorasbora parva,Pp,Het Vijvercomplex van Midden-Limburg,752944.332787395,VGLRL
+blauwbandgrondel,Pseudorasbora parva,Pp,"Hamonterheide, Hageven, Buitenheide, Stamprooierbroek en Mariahof",619124.5548010968,VGLRL
+blauwbandgrondel,Pseudorasbora parva,Pp,Demerland & Zuiderkempen,1262674.5729195406,anb-regio
+blauwbandgrondel,Pseudorasbora parva,Pp,Taxandria,872741.78927625,anb-regio
+blauwbandgrondel,Pseudorasbora parva,Pp,Zandig Vlaanderen,567907.7281347369,anb-regio
+blauwbandgrondel,Pseudorasbora parva,Pp,Vijvercomplex,467335.34671400907,anb-domein
+blauwbandgrondel,Pseudorasbora parva,Pp,Vallei van Merkske,325787.0024625438,anb-domein
+blauwbandgrondel,Pseudorasbora parva,Pp,Vallei van de Drie Beken,211769.14022053854,anb-domein
+blauwbandgrondel,Pseudorasbora parva,Pp,Demerland & Zuiderkempen,1115200.2599772955,anb-regio
+blauwbandgrondel,Pseudorasbora parva,Pp,Taxandria,840525.9774829191,anb-regio
+blauwbandgrondel,Pseudorasbora parva,Pp,Zandig Vlaanderen,495594.41637113335,anb-regio
+blauwbandgrondel,Pseudorasbora parva,Pp,Vijvercomplex,465036.07930869004,anb-domein
+blauwbandgrondel,Pseudorasbora parva,Pp,Vallei van Merkske,325787.0024625438,anb-domein
+blauwbandgrondel,Pseudorasbora parva,Pp,Vallei van de Drie Beken,207076.50587772898,anb-domein
+blauwbandgrondel,Pseudorasbora parva,Pp,Vijvercomplex Midden-Limburg,466732.42220190656,NBHP
+blauwbandgrondel,Pseudorasbora parva,Pp,Onbevaarbare waterlopen 1e categorie,366543.12912061246,NBHP
+blauwbandgrondel,Pseudorasbora parva,Pp,Vallei van het Merkske,326555.530137668,NBHP
+watercrassula,Crassula helmsii,Ch,"Vennen, heiden en moerassen rond Turnhout",2157632.1305975704,HBTRL
+watercrassula,Crassula helmsii,Ch,"Het Blak, Kievitsheide, Ekstergoor en nabijgelegen Kamsalamanderhabitats",1499365.816842206,HBTRL
+watercrassula,Crassula helmsii,Ch,"Bovenloop van de Grote Nete met Zammelsbroek, Langdonken en Goor",953514.3696890259,HBTRL
+watercrassula,Crassula helmsii,Ch,Schorren en polders van de Beneden-Schelde,4417769.058129361,VGLRL
+watercrassula,Crassula helmsii,Ch,"Arendonk, Merksplas, Oud-Turnhout, Ravels en Turnhout",1862096.0016991133,VGLRL
+watercrassula,Crassula helmsii,Ch,"Hamonterheide, Hageven, Buitenheide, Stamprooierbroek en Mariahof",1167735.5585961738,VGLRL
+watercrassula,Crassula helmsii,Ch,Antwerpse Kempen,5002991.832573206,anb-regio
+watercrassula,Crassula helmsii,Ch,Taxandria,3641979.720022426,anb-regio
+watercrassula,Crassula helmsii,Ch,Zandig Vlaanderen,1682933.4076860442,anb-regio
+watercrassula,Crassula helmsii,Ch,Linkerscheldeoever - Doelpolder Noord,723769.0030847907,anb-domein
+watercrassula,Crassula helmsii,Ch,Linkerscheldeoever - Haasop,585389.0327755593,anb-domein
+watercrassula,Crassula helmsii,Ch,Merkembroek-Woumenbroek,567155.4278830556,anb-domein
+watercrassula,Crassula helmsii,Ch,Antwerpse Kempen,4755322.592598719,anb-regio
+watercrassula,Crassula helmsii,Ch,Taxandria,3319907.9907054454,anb-regio
+watercrassula,Crassula helmsii,Ch,Kust & Westhoek,1410082.207460128,anb-regio
+watercrassula,Crassula helmsii,Ch,Linkerscheldeoever - Doelpolder Noord,723769.0030847907,anb-domein
+watercrassula,Crassula helmsii,Ch,Linkerscheldeoever - Haasop,585389.0327755593,anb-domein
+watercrassula,Crassula helmsii,Ch,Merkembroek-Woumenbroek,567155.4278830556,anb-domein
+watercrassula,Crassula helmsii,Ch,Turnhouts Vennengebied,827738.5966420057,NBHP
+watercrassula,Crassula helmsii,Ch,Eksterheide en omgeving,783596.318671936,NBHP
+watercrassula,Crassula helmsii,Ch,Vallei van het Merkske,501661.1493689732,NBHP
+smalle waterpest,Elodea nuttallii,En,"Valleigebied van de Kleine Nete met brongebieden, moerassen en heiden",1318758.4565866825,HBTRL
+smalle waterpest,Elodea nuttallii,En,Demervallei,1181455.5056116395,HBTRL
+smalle waterpest,Elodea nuttallii,En,"Bovenloop van de Grote Nete met Zammelsbroek, Langdonken en Goor",1031813.4498420521,HBTRL
+smalle waterpest,Elodea nuttallii,En,"Hamonterheide, Hageven, Buitenheide, Stamprooierbroek en Mariahof",1673960.9228952138,VGLRL
+smalle waterpest,Elodea nuttallii,En,De Demervallei,1292227.9077301116,VGLRL
+smalle waterpest,Elodea nuttallii,En,IJzervallei,664503.7284796837,VGLRL
+smalle waterpest,Elodea nuttallii,En,Demerland & Zuiderkempen,1083692.2427175608,anb-regio
+smalle waterpest,Elodea nuttallii,En,Taxandria,1020004.439615603,anb-regio
+smalle waterpest,Elodea nuttallii,En,Antwerpse Kempen,734075.5334748692,anb-regio
+smalle waterpest,Elodea nuttallii,En,Vallei van de Drie Beken,316007.07183109206,anb-domein
+smalle waterpest,Elodea nuttallii,En,De Melle,291038.66214601445,anb-domein
+smalle waterpest,Elodea nuttallii,En,Volharding,247673.25442476996,anb-domein
+smalle waterpest,Elodea nuttallii,En,Demerland & Zuiderkempen,1000207.8113909846,anb-regio
+smalle waterpest,Elodea nuttallii,En,Taxandria,807685.7505165066,anb-regio
+smalle waterpest,Elodea nuttallii,En,Antwerpse Kempen,519508.71377605136,anb-regio
+smalle waterpest,Elodea nuttallii,En,Vallei van de Drie Beken,316007.07183109206,anb-domein
+smalle waterpest,Elodea nuttallii,En,De Melle,291038.66214601445,anb-domein
+smalle waterpest,Elodea nuttallii,En,Volharding,247673.25442476996,anb-domein
+smalle waterpest,Elodea nuttallii,En,Dal van de Grensmaas,669968.9074348252,NBHP
+smalle waterpest,Elodea nuttallii,En,Onbevaarbare waterlopen 1e categorie,612539.9555187721,NBHP
+smalle waterpest,Elodea nuttallii,En,De Maat,453620.3297362158,NBHP
+Hyacinthoides ×massartiana,Hyacinthoides massartiana,Hmas,Duingebieden inclusief IJzermonding en Zwin,4053139.1931238375,HBTRL
+Hyacinthoides ×massartiana,Hyacinthoides massartiana,Hmas,Schelde- en Durme-estuarium van de Nederlandse grens tot Gent,2345879.8499126523,HBTRL
+Hyacinthoides ×massartiana,Hyacinthoides massartiana,Hmas,Bossen van de Vlaamse Ardennen en andere Zuidvlaamse bossen,1343435.0946641152,HBTRL
+Hyacinthoides ×massartiana,Hyacinthoides massartiana,Hmas,Durme en de middenloop van de Schelde,1703932.6566621335,VGLRL
+Hyacinthoides ×massartiana,Hyacinthoides massartiana,Hmas,Westkust,1379255.101773067,VGLRL
+Hyacinthoides ×massartiana,Hyacinthoides massartiana,Hmas,De Demervallei,1008993.4247509285,VGLRL
+Hyacinthoides ×massartiana,Hyacinthoides massartiana,Hmas,Kust & Westhoek,4452245.512641683,anb-regio
+Hyacinthoides ×massartiana,Hyacinthoides massartiana,Hmas,Groene Gordels,3274833.47772813,anb-regio
+Hyacinthoides ×massartiana,Hyacinthoides massartiana,Hmas,Zandig Vlaanderen,2955776.1608934593,anb-regio
+Hyacinthoides ×massartiana,Hyacinthoides massartiana,Hmas,Duinbos-Klemskerke,335010.0078690074,anb-domein
+Hyacinthoides ×massartiana,Hyacinthoides massartiana,Hmas,Zonienwoud,332332.35737200925,anb-domein
+Hyacinthoides ×massartiana,Hyacinthoides massartiana,Hmas,Vijvercomplex,270826.0081241039,anb-domein
+Hyacinthoides ×massartiana,Hyacinthoides massartiana,Hmas,Kust & Westhoek,3053885.0501802787,anb-regio
+Hyacinthoides ×massartiana,Hyacinthoides massartiana,Hmas,Groene Gordels,1706013.7864361987,anb-regio
+Hyacinthoides ×massartiana,Hyacinthoides massartiana,Hmas,Zandig Vlaanderen,1431826.4034842432,anb-regio
+Hyacinthoides ×massartiana,Hyacinthoides massartiana,Hmas,Duinbos-Klemskerke,335010.0078690074,anb-domein
+Hyacinthoides ×massartiana,Hyacinthoides massartiana,Hmas,Zonienwoud,332332.35737200925,anb-domein
+Hyacinthoides ×massartiana,Hyacinthoides massartiana,Hmas,Vijvercomplex,268526.74071878486,anb-domein
+Hyacinthoides ×massartiana,Hyacinthoides massartiana,Hmas,Duinbossen van De Haan,903056.0811151083,NBHP
+Hyacinthoides ×massartiana,Hyacinthoides massartiana,Hmas,Duinen en Bossen van De Panne,578304.8779104353,NBHP
+Hyacinthoides ×massartiana,Hyacinthoides massartiana,Hmas,Onbevaarbare waterlopen 1e categorie,509344.7674065443,NBHP
+Canadese guldenroede,Solidago canadensis,Scan,Demervallei,1852247.373893503,HBTRL
+Canadese guldenroede,Solidago canadensis,Scan,"Valleien van de Dijle, Laan en IJse met aangrenzende bos- en moerasgebieden",1167766.7747127735,HBTRL
+Canadese guldenroede,Solidago canadensis,Scan,Bossen van het zuidoosten van de Zandleemstreek,790704.9595690141,HBTRL
+Canadese guldenroede,Solidago canadensis,Scan,De Demervallei,1242817.6656222646,VGLRL
+Canadese guldenroede,Solidago canadensis,Scan,"Hamonterheide, Hageven, Buitenheide, Stamprooierbroek en Mariahof",755262.5429329559,VGLRL
+Canadese guldenroede,Solidago canadensis,Scan,De Dijlevallei,596080.4495258977,VGLRL
+Canadese guldenroede,Solidago canadensis,Scan,Demerland & Zuiderkempen,1636397.404875569,anb-regio
+Canadese guldenroede,Solidago canadensis,Scan,Brabantse Wouden,936565.3569352777,anb-regio
+Canadese guldenroede,Solidago canadensis,Scan,Lage tot aan Hoge Kempen,760020.4445525946,anb-regio
+Canadese guldenroede,Solidago canadensis,Scan,Meerdaalwoud,257320.6844020365,anb-domein
+Canadese guldenroede,Solidago canadensis,Scan,Demerbroeken,224380.4890316085,anb-domein
+Canadese guldenroede,Solidago canadensis,Scan,Dijlevallei,214639.545954249,anb-domein
+Canadese guldenroede,Solidago canadensis,Scan,Demerland & Zuiderkempen,1477465.520575588,anb-regio
+Canadese guldenroede,Solidago canadensis,Scan,Brabantse Wouden,806246.9893647294,anb-regio
+Canadese guldenroede,Solidago canadensis,Scan,Lage tot aan Hoge Kempen,506185.86148113955,anb-regio
+Canadese guldenroede,Solidago canadensis,Scan,Meerdaalwoud,257320.6844020365,anb-domein
+Canadese guldenroede,Solidago canadensis,Scan,Demerbroeken,221522.1813497719,anb-domein
+Canadese guldenroede,Solidago canadensis,Scan,Dijlevallei,206750.75611941118,anb-domein
+Canadese guldenroede,Solidago canadensis,Scan,Averbode Bos en Heide,591397.7956124312,NBHP
+Canadese guldenroede,Solidago canadensis,Scan,Dal van de Grensmaas,429096.7532003514,NBHP
+Canadese guldenroede,Solidago canadensis,Scan,Doode Bemde,342375.00819161674,NBHP
+reuzenbalsemien,Impatiens glandulifera,Ig,Schelde- en Durme-estuarium van de Nederlandse grens tot Gent,13144602.775885897,HBTRL
+reuzenbalsemien,Impatiens glandulifera,Ig,Bos- en heidegebieden ten oosten van Antwerpen,4966312.575496855,HBTRL
+reuzenbalsemien,Impatiens glandulifera,Ig,"Valleien van de Dijle, Laan en IJse met aangrenzende bos- en moerasgebieden",4688647.571362088,HBTRL
+reuzenbalsemien,Impatiens glandulifera,Ig,Durme en de middenloop van de Schelde,9088637.609617623,VGLRL
+reuzenbalsemien,Impatiens glandulifera,Ig,De Demervallei,5264689.702100313,VGLRL
+reuzenbalsemien,Impatiens glandulifera,Ig,De Dijlevallei,3706645.8796596085,VGLRL
+reuzenbalsemien,Impatiens glandulifera,Ig,Groene Gordels,6248937.660098927,anb-regio
+reuzenbalsemien,Impatiens glandulifera,Ig,Demerland & Zuiderkempen,4240761.209351685,anb-regio
+reuzenbalsemien,Impatiens glandulifera,Ig,Antwerpse Kempen,3999409.4100445393,anb-regio
+reuzenbalsemien,Impatiens glandulifera,Ig,Dijlevallei,1498497.074849396,anb-domein
+reuzenbalsemien,Impatiens glandulifera,Ig,Demerbroeken,1263951.7396251792,anb-domein
+reuzenbalsemien,Impatiens glandulifera,Ig,Zoerselbos,888018.4251125815,anb-domein
+reuzenbalsemien,Impatiens glandulifera,Ig,Groene Gordels,4056722.205726126,anb-regio
+reuzenbalsemien,Impatiens glandulifera,Ig,Demerland & Zuiderkempen,3472781.481853027,anb-regio
+reuzenbalsemien,Impatiens glandulifera,Ig,Brabantse Wouden,3272051.40603999,anb-regio
+reuzenbalsemien,Impatiens glandulifera,Ig,Dijlevallei,1384427.5961332778,anb-domein
+reuzenbalsemien,Impatiens glandulifera,Ig,Demerbroeken,1107335.301486081,anb-domein
+reuzenbalsemien,Impatiens glandulifera,Ig,Zoerselbos,860498.927967404,anb-domein
+reuzenbalsemien,Impatiens glandulifera,Ig,Onbevaarbare waterlopen 1e categorie,3259860.6682417705,NBHP
+reuzenbalsemien,Impatiens glandulifera,Ig,"Dijle-, Laan- en Ijsevallei",2420444.6135133663,NBHP
+reuzenbalsemien,Impatiens glandulifera,Ig,Zoerselbos,1073050.1261888684,NBHP
+prachtslang,Elaphe taeniura,Et,Bosbeekvallei en aangrenzende bos- en heidegebieden te As-Opglabbeek-Maaseik,11660.430345110304,HBTRL
+prachtslang,Elaphe taeniura,Et,Tommelen,25288.2686209329,NBHP
+prachtslang,Elaphe taeniura,Et,Onbevaarbare waterlopen 1e categorie,7402.015636175949,NBHP
+prachtslang,Elaphe taeniura,Et,Vallei van de Bosbeek,3544.789487814022,NBHP
+grote Alexanderparkiet,Psittacula eupatria,Pe,Bossen van het zuidoosten van de Zandleemstreek,295878.41433959117,HBTRL
+grote Alexanderparkiet,Psittacula eupatria,Pe,Hallerbos en nabije boscomplexen met brongebieden en heiden,275254.8506516855,HBTRL
+grote Alexanderparkiet,Psittacula eupatria,Pe,Bossen van de Vlaamse Ardennen en andere Zuidvlaamse bossen,48319.52571665279,HBTRL
+grote Alexanderparkiet,Psittacula eupatria,Pe,"Bocholt, Hechtel-Eksel, Meeuwen-Gruitrode, Neerpelt en Peer",36117.29130749498,VGLRL
+grote Alexanderparkiet,Psittacula eupatria,Pe,Westkust,33088.91698175826,VGLRL
+grote Alexanderparkiet,Psittacula eupatria,Pe,Schorren en polders van de Beneden-Schelde,31401.573745769274,VGLRL
+grote Alexanderparkiet,Psittacula eupatria,Pe,Groene Gordels,2038522.2774706236,anb-regio
+grote Alexanderparkiet,Psittacula eupatria,Pe,Kust & Westhoek,86317.3875090717,anb-regio
+grote Alexanderparkiet,Psittacula eupatria,Pe,Vlaamse Ardennen & Schelde-Leie,85254.9544588458,anb-regio
+grote Alexanderparkiet,Psittacula eupatria,Pe,Plantentuin Meise,684672.9994051636,anb-domein
+grote Alexanderparkiet,Psittacula eupatria,Pe,Park Drie Fonteinen,222043.15650047536,anb-domein
+grote Alexanderparkiet,Psittacula eupatria,Pe,Dorent,180964.22162524133,anb-domein
+grote Alexanderparkiet,Psittacula eupatria,Pe,Groene Gordels,1035583.760921015,anb-regio
+grote Alexanderparkiet,Psittacula eupatria,Pe,Brabantse Wouden,81697.59891701619,anb-regio
+grote Alexanderparkiet,Psittacula eupatria,Pe,Vlaamse Ardennen & Schelde-Leie,26569.641533460497,anb-regio
+grote Alexanderparkiet,Psittacula eupatria,Pe,Park Drie Fonteinen,222043.15650047536,anb-domein
+grote Alexanderparkiet,Psittacula eupatria,Pe,Dorent,180964.22162524133,anb-domein
+grote Alexanderparkiet,Psittacula eupatria,Pe,Wolfsputten,143628.95417579912,anb-domein
+grote Alexanderparkiet,Psittacula eupatria,Pe,"Drie Fonteinen, Tangebeekbos en Klein Hoogveld",398242.4400321726,NBHP
+grote Alexanderparkiet,Psittacula eupatria,Pe,Wolfsputten,197980.81788170984,NBHP
+grote Alexanderparkiet,Psittacula eupatria,Pe,Dorent,173014.86456073367,NBHP
+Japanse x Sachalinse duizendknoop,Reynoutria bohemica,Rb,Schelde- en Durme-estuarium van de Nederlandse grens tot Gent,251870.7562841202,HBTRL
+Japanse x Sachalinse duizendknoop,Reynoutria bohemica,Rb,Bos- en heidegebieden ten oosten van Antwerpen,247915.19385076172,HBTRL
+Japanse x Sachalinse duizendknoop,Reynoutria bohemica,Rb,Uiterwaarden langs de Limburgse Maas en Vijverbroek,169364.9308837136,HBTRL
+Japanse x Sachalinse duizendknoop,Reynoutria bohemica,Rb,Schorren en polders van de Beneden-Schelde,557579.6867345618,VGLRL
+Japanse x Sachalinse duizendknoop,Reynoutria bohemica,Rb,Poldercomplex,189551.13561179602,VGLRL
+Japanse x Sachalinse duizendknoop,Reynoutria bohemica,Rb,Kalmthoutse Heide,69526.66787968943,VGLRL
+Japanse x Sachalinse duizendknoop,Reynoutria bohemica,Rb,Antwerpse Kempen,763711.5320064262,anb-regio
+Japanse x Sachalinse duizendknoop,Reynoutria bohemica,Rb,Groene Gordels,174368.84892069834,anb-regio
+Japanse x Sachalinse duizendknoop,Reynoutria bohemica,Rb,Taxandria,170320.8585761848,anb-regio
+Japanse x Sachalinse duizendknoop,Reynoutria bohemica,Rb,Horendonkse Bossen,80886.16647673008,anb-domein
+Japanse x Sachalinse duizendknoop,Reynoutria bohemica,Rb,Linkerscheldeoever - MIDA-Zone,59308.245209830246,anb-domein
+Japanse x Sachalinse duizendknoop,Reynoutria bohemica,Rb,Thiebroek,53174.18841863726,anb-domein
+Japanse x Sachalinse duizendknoop,Reynoutria bohemica,Rb,Antwerpse Kempen,325255.8808779129,anb-regio
+Japanse x Sachalinse duizendknoop,Reynoutria bohemica,Rb,Taxandria,112213.75514410042,anb-regio
+Japanse x Sachalinse duizendknoop,Reynoutria bohemica,Rb,Groene Gordels,76465.05104358363,anb-regio
+Japanse x Sachalinse duizendknoop,Reynoutria bohemica,Rb,Linkerscheldeoever - MIDA-Zone,59308.245209830246,anb-domein
+Japanse x Sachalinse duizendknoop,Reynoutria bohemica,Rb,De Maatjes,44595.084298127826,anb-domein
+Japanse x Sachalinse duizendknoop,Reynoutria bohemica,Rb,Merodebossen,35818.26049978669,anb-domein
+Japanse x Sachalinse duizendknoop,Reynoutria bohemica,Rb,Onbevaarbare waterlopen 1e categorie,167497.50724148215,NBHP
+Japanse x Sachalinse duizendknoop,Reynoutria bohemica,Rb,Hobokense Polder,145683.38380471247,NBHP
+Japanse x Sachalinse duizendknoop,Reynoutria bohemica,Rb,Dal van de Grensmaas,136598.25843901085,NBHP
+Spaanse hyacint,Hyacinthoides hispanica,Hh,Duingebieden inclusief IJzermonding en Zwin,371796.7590906963,HBTRL
+Spaanse hyacint,Hyacinthoides hispanica,Hh,Schelde- en Durme-estuarium van de Nederlandse grens tot Gent,200721.59749803192,HBTRL
+Spaanse hyacint,Hyacinthoides hispanica,Hh,"Bossen, heiden en valleigebieden van zandig Vlaanderen: westelijk deel",149872.375579748,HBTRL
+Spaanse hyacint,Hyacinthoides hispanica,Hh,Durme en de middenloop van de Schelde,162302.20231069575,VGLRL
+Spaanse hyacint,Hyacinthoides hispanica,Hh,Westkust,100553.52030199661,VGLRL
+Spaanse hyacint,Hyacinthoides hispanica,Hh,Poldercomplex,98873.59337495462,VGLRL
+Spaanse hyacint,Hyacinthoides hispanica,Hh,Kust & Westhoek,387115.7564082309,anb-regio
+Spaanse hyacint,Hyacinthoides hispanica,Hh,Antwerpse Kempen,385534.35187198914,anb-regio
+Spaanse hyacint,Hyacinthoides hispanica,Hh,Zandig Vlaanderen,296735.2221060501,anb-regio
+Spaanse hyacint,Hyacinthoides hispanica,Hh,Zonienwoud,73032.45765538621,anb-domein
+Spaanse hyacint,Hyacinthoides hispanica,Hh,De Westhoek,71743.980132403085,anb-domein
+Spaanse hyacint,Hyacinthoides hispanica,Hh,Kloosterbos,62207.06183709542,anb-domein
+Spaanse hyacint,Hyacinthoides hispanica,Hh,Kust & Westhoek,289755.3448379891,anb-regio
+Spaanse hyacint,Hyacinthoides hispanica,Hh,Zandig Vlaanderen,169170.96898342858,anb-regio
+Spaanse hyacint,Hyacinthoides hispanica,Hh,Groene Gordels,166682.5922769245,anb-regio
+Spaanse hyacint,Hyacinthoides hispanica,Hh,Zonienwoud,73032.45765538621,anb-domein
+Spaanse hyacint,Hyacinthoides hispanica,Hh,De Westhoek,71743.980132403085,anb-domein
+Spaanse hyacint,Hyacinthoides hispanica,Hh,Drongengoed,47405.825427445874,anb-domein
+Spaanse hyacint,Hyacinthoides hispanica,Hh,Duinen en Bossen van De Panne,133841.56985770518,NBHP
+Spaanse hyacint,Hyacinthoides hispanica,Hh,Zoniënwoud,92261.598043425,NBHP
+Spaanse hyacint,Hyacinthoides hispanica,Hh,Kloosterbos,67465.70281073151,NBHP
+struikaster,Baccharis halimifolia,Bh,Duingebieden inclusief IJzermonding en Zwin,2125684.1669069165,HBTRL
+struikaster,Baccharis halimifolia,Bh,Polders,114383.0548868317,HBTRL
+struikaster,Baccharis halimifolia,Bh,"Valleigebied van de Kleine Nete met brongebieden, moerassen en heiden",54883.14882206927,HBTRL
+struikaster,Baccharis halimifolia,Bh,Westkust,477121.2623238183,VGLRL
+struikaster,Baccharis halimifolia,Bh,Poldercomplex,198283.3659775529,VGLRL
+struikaster,Baccharis halimifolia,Bh,Het Zwin,186636.09852627563,VGLRL
+struikaster,Baccharis halimifolia,Bh,Kust & Westhoek,1239602.5349099818,anb-regio
+struikaster,Baccharis halimifolia,Bh,Zandig Vlaanderen,98126.78190526325,anb-regio
+struikaster,Baccharis halimifolia,Bh,Vlaamse Ardennen & Schelde-Leie,20890.5575746405,anb-regio
+struikaster,Baccharis halimifolia,Bh,Ter Yde,157808.07212379985,anb-domein
+struikaster,Baccharis halimifolia,Bh,De Westhoek,141414.63930387225,anb-domein
+struikaster,Baccharis halimifolia,Bh,Het Zwin,123832.95103473982,anb-domein
+struikaster,Baccharis halimifolia,Bh,Kust & Westhoek,974142.6941209709,anb-regio
+struikaster,Baccharis halimifolia,Bh,Zandig Vlaanderen,97368.15400215721,anb-regio
+struikaster,Baccharis halimifolia,Bh,Vlaamse Ardennen & Schelde-Leie,20890.5575746405,anb-regio
+struikaster,Baccharis halimifolia,Bh,Ter Yde,157808.07212379985,anb-domein
+struikaster,Baccharis halimifolia,Bh,De Westhoek,141414.63930387225,anb-domein
+struikaster,Baccharis halimifolia,Bh,Het Zwin,123832.95103473982,anb-domein
+struikaster,Baccharis halimifolia,Bh,"Koksijde, Simliduinen en Sint-Laureinsduinen",244650.70890033233,NBHP
+struikaster,Baccharis halimifolia,Bh,Koninklijke Golfclub Oostende,214770.87242737564,NBHP
+struikaster,Baccharis halimifolia,Bh,Duinen en Bossen van De Panne,162080.0633961556,NBHP
+moerashyacint,Pontederia cordata,Pco,"Valleien van de Laambeek, Zonderikbeek, Slangebeek en Roosterbeek met vijvergebieden en heiden",458142.8807540684,HBTRL
+moerashyacint,Pontederia cordata,Pco,"Bovenloop van de Grote Nete met Zammelsbroek, Langdonken en Goor",441190.43449150416,HBTRL
+moerashyacint,Pontederia cordata,Pco,"Vallei- en brongebieden van de Zwarte Beek, Bolisserbeek en Dommel met heide en vengebieden",253402.04760539572,HBTRL
+moerashyacint,Pontederia cordata,Pco,Het Vijvercomplex van Midden-Limburg,310220.1655571055,VGLRL
+moerashyacint,Pontederia cordata,Pco,"Bocholt, Hechtel-Eksel, Meeuwen-Gruitrode, Neerpelt en Peer",201780.74398881517,VGLRL
+moerashyacint,Pontederia cordata,Pco,De Maten,196249.35600553488,VGLRL
+moerashyacint,Pontederia cordata,Pco,Taxandria,216136.82093901263,anb-regio
+moerashyacint,Pontederia cordata,Pco,Lage tot aan Hoge Kempen,134149.23972463273,anb-regio
+moerashyacint,Pontederia cordata,Pco,Groene Gordels,131263.14841673957,anb-regio
+moerashyacint,Pontederia cordata,Pco,Teut-Ten Haagdoorn,76760.22259293095,anb-domein
+moerashyacint,Pontederia cordata,Pco,Plantentuin Meise,61048.06670536997,anb-domein
+moerashyacint,Pontederia cordata,Pco,Vijvercomplex,60616.151832628246,anb-domein
+moerashyacint,Pontederia cordata,Pco,Taxandria,184809.53222690875,anb-regio
+moerashyacint,Pontederia cordata,Pco,Demerland & Zuiderkempen,104873.38972339896,anb-regio
+moerashyacint,Pontederia cordata,Pco,Lage tot aan Hoge Kempen,93165.95450711495,anb-regio
+moerashyacint,Pontederia cordata,Pco,Teut-Ten Haagdoorn,76760.22259293095,anb-domein
+moerashyacint,Pontederia cordata,Pco,Vijvercomplex,60616.151832628246,anb-domein
+moerashyacint,Pontederia cordata,Pco,Zammelsbroek,58476.76700677074,anb-domein
+moerashyacint,Pontederia cordata,Pco,Onbevaarbare waterlopen 1e categorie,82981.29278885304,NBHP
+moerashyacint,Pontederia cordata,Pco,Teut-Tenhaagdoornheide-Kelchterhoef,76957.3895896824,NBHP
+moerashyacint,Pontederia cordata,Pco,Landschapspark Frijthout,71867.16376901773,NBHP
+Amerikaanse stierkikker,Lithobates catesbeianus,Lc,"Bovenloop van de Grote Nete met Zammelsbroek, Langdonken en Goor",4923904.921103603,HBTRL
+Amerikaanse stierkikker,Lithobates catesbeianus,Lc,"Valleien van de Dijle, Laan en IJse met aangrenzende bos- en moerasgebieden",194831.55999534775,HBTRL
+Amerikaanse stierkikker,Lithobates catesbeianus,Lc,"Vennen, heiden en moerassen rond Turnhout",187714.9709364935,HBTRL
+Amerikaanse stierkikker,Lithobates catesbeianus,Lc,De Dijlevallei,225802.686751917,VGLRL
+Amerikaanse stierkikker,Lithobates catesbeianus,Lc,De Demervallei,191730.4968204718,VGLRL
+Amerikaanse stierkikker,Lithobates catesbeianus,Lc,Schorren en polders van de Beneden-Schelde,62803.147491540585,VGLRL
+Amerikaanse stierkikker,Lithobates catesbeianus,Lc,Taxandria,869621.2342560688,anb-regio
+Amerikaanse stierkikker,Lithobates catesbeianus,Lc,Demerland & Zuiderkempen,226270.53385821418,anb-regio
+Amerikaanse stierkikker,Lithobates catesbeianus,Lc,Brabantse Wouden,160512.82034673862,anb-regio
+Amerikaanse stierkikker,Lithobates catesbeianus,Lc,Zammelsbroek,402213.0458063234,anb-domein
+Amerikaanse stierkikker,Lithobates catesbeianus,Lc,Scheps,179863.80237863673,anb-domein
+Amerikaanse stierkikker,Lithobates catesbeianus,Lc,Dijlevallei,160512.82034673862,anb-domein
+Amerikaanse stierkikker,Lithobates catesbeianus,Lc,Taxandria,859281.3973578283,anb-regio
+Amerikaanse stierkikker,Lithobates catesbeianus,Lc,Brabantse Wouden,158418.4210214598,anb-regio
+Amerikaanse stierkikker,Lithobates catesbeianus,Lc,Groene Gordels,134352.4249644996,anb-regio
+Amerikaanse stierkikker,Lithobates catesbeianus,Lc,Zammelsbroek,402213.0458063234,anb-domein
+Amerikaanse stierkikker,Lithobates catesbeianus,Lc,Scheps,179863.80237863673,anb-domein
+Amerikaanse stierkikker,Lithobates catesbeianus,Lc,Dijlevallei,158418.4210214598,anb-domein
+Amerikaanse stierkikker,Lithobates catesbeianus,Lc,Laakvalleien,570641.6661546484,NBHP
+Amerikaanse stierkikker,Lithobates catesbeianus,Lc,Sigmacluster Zammelsbroek,434004.9421504923,NBHP
+Amerikaanse stierkikker,Lithobates catesbeianus,Lc,Griesbroek,284348.4086887129,NBHP
+beverrat,Myocastor coypus,Mc,Uiterwaarden langs de Limburgse Maas en Vijverbroek,683374.3643572951,HBTRL
+beverrat,Myocastor coypus,Mc,Abeek met aangrenzende moerasgebieden,564555.5335820334,HBTRL
+beverrat,Myocastor coypus,Mc,Schelde- en Durme-estuarium van de Nederlandse grens tot Gent,147703.06777355733,HBTRL
+beverrat,Myocastor coypus,Mc,"Hamonterheide, Hageven, Buitenheide, Stamprooierbroek en Mariahof",599912.6041990444,VGLRL
+beverrat,Myocastor coypus,Mc,De Demervallei,186254.1310826969,VGLRL
+beverrat,Myocastor coypus,Mc,IJzervallei,103016.27464526883,VGLRL
+beverrat,Myocastor coypus,Mc,Demerland & Zuiderkempen,187011.02354862442,anb-regio
+beverrat,Myocastor coypus,Mc,Brabantse Wouden,107161.35275524529,anb-regio
+beverrat,Myocastor coypus,Mc,Hoge Kempen tot Voeren,95336.14044510412,anb-regio
+beverrat,Myocastor coypus,Mc,Webbekoms en Diesters Broek,83573.70778002798,anb-domein
+beverrat,Myocastor coypus,Mc,Dijlevallei,78299.2382399058,anb-domein
+beverrat,Myocastor coypus,Mc,Vijvercomplex,54169.37763448572,anb-domein
+beverrat,Myocastor coypus,Mc,Demerland & Zuiderkempen,175513.06930556407,anb-regio
+beverrat,Myocastor coypus,Mc,Brabantse Wouden,107161.35275524529,anb-regio
+beverrat,Myocastor coypus,Mc,Hoge Kempen tot Voeren,49029.7874780508,anb-regio
+beverrat,Myocastor coypus,Mc,Webbekoms en Diesters Broek,83573.70778002798,anb-domein
+beverrat,Myocastor coypus,Mc,Dijlevallei,78299.2382399058,anb-domein
+beverrat,Myocastor coypus,Mc,Vijvercomplex,54169.37763448572,anb-domein
+beverrat,Myocastor coypus,Mc,Dal van de Grensmaas,507475.99100812746,NBHP
+beverrat,Myocastor coypus,Mc,Sint-Maartensheide - De Luysen,415370.2856297175,NBHP
+beverrat,Myocastor coypus,Mc,Maasweerden,386081.070752181,NBHP
+Sachalinse duizendknoop,Reynoutria sachalinensis,Rs,"Valleigebied van de Kleine Nete met brongebieden, moerassen en heiden",191255.7065093831,HBTRL
+Sachalinse duizendknoop,Reynoutria sachalinensis,Rs,Bossen van het zuidoosten van de Zandleemstreek,120047.23395826537,HBTRL
+Sachalinse duizendknoop,Reynoutria sachalinensis,Rs,Bos- en heidegebieden ten oosten van Antwerpen,75891.98501521253,HBTRL
+Sachalinse duizendknoop,Reynoutria sachalinensis,Rs,"Arendonk, Merksplas, Oud-Turnhout, Ravels en Turnhout",90469.29548624909,VGLRL
+Sachalinse duizendknoop,Reynoutria sachalinensis,Rs,De Ronde Put,78038.15803342153,VGLRL
+Sachalinse duizendknoop,Reynoutria sachalinensis,Rs,Poldercomplex,32643.649912370965,VGLRL
+Sachalinse duizendknoop,Reynoutria sachalinensis,Rs,Groene Gordels,89576.84013522639,anb-regio
+Sachalinse duizendknoop,Reynoutria sachalinensis,Rs,Antwerpse Kempen,67312.0133007724,anb-regio
+Sachalinse duizendknoop,Reynoutria sachalinensis,Rs,Taxandria,55365.43598572214,anb-regio
+Sachalinse duizendknoop,Reynoutria sachalinensis,Rs,Park Drie Fonteinen,55665.5323305816,anb-domein
+Sachalinse duizendknoop,Reynoutria sachalinensis,Rs,Lappersfortbos,35300.054558386735,anb-domein
+Sachalinse duizendknoop,Reynoutria sachalinensis,Rs,Demermeanders,26578.604286273126,anb-domein
+Sachalinse duizendknoop,Reynoutria sachalinensis,Rs,Groene Gordels,74387.26913131528,anb-regio
+Sachalinse duizendknoop,Reynoutria sachalinensis,Rs,Taxandria,43245.15449126941,anb-regio
+Sachalinse duizendknoop,Reynoutria sachalinensis,Rs,Zandig Vlaanderen,35300.054558386735,anb-regio
+Sachalinse duizendknoop,Reynoutria sachalinensis,Rs,Park Drie Fonteinen,55665.5323305816,anb-domein
+Sachalinse duizendknoop,Reynoutria sachalinensis,Rs,Lappersfortbos,35300.054558386735,anb-domein
+Sachalinse duizendknoop,Reynoutria sachalinensis,Rs,Demermeanders,26578.604286273126,anb-domein
+Sachalinse duizendknoop,Reynoutria sachalinensis,Rs,Molenbos - De Dennen,162030.2963350187,NBHP
+Sachalinse duizendknoop,Reynoutria sachalinensis,Rs,Vaanders,84090.681866155,NBHP
+Sachalinse duizendknoop,Reynoutria sachalinensis,Rs,Bos van Aa-Kollintenbos,65848.46077240237,NBHP
+Afghaanse duizendknoop,Koenigia polystachya,Kp,"Valleigebied van de Kleine Nete met brongebieden, moerassen en heiden",148162.10959931707,HBTRL
+Afghaanse duizendknoop,Koenigia polystachya,Kp,"Bovenloop van de Grote Nete met Zammelsbroek, Langdonken en Goor",44702.169412536896,HBTRL
+Afghaanse duizendknoop,Koenigia polystachya,Kp,Bossen van de Vlaamse Ardennen en andere Zuidvlaamse bossen,39552.80158239862,HBTRL
+Afghaanse duizendknoop,Koenigia polystachya,Kp,De Ronde Put,91130.04057180946,VGLRL
+Afghaanse duizendknoop,Koenigia polystachya,Kp,"Bocholt, Hechtel-Eksel, Meeuwen-Gruitrode, Neerpelt en Peer",41812.16044994054,VGLRL
+Afghaanse duizendknoop,Koenigia polystachya,Kp,Westkust,11724.71443925181,VGLRL
+Afghaanse duizendknoop,Koenigia polystachya,Kp,Antwerpse Kempen,153259.25936375742,anb-regio
+Afghaanse duizendknoop,Koenigia polystachya,Kp,Groene Gordels,67280.84950646559,anb-regio
+Afghaanse duizendknoop,Koenigia polystachya,Kp,Taxandria,58917.33285510332,anb-regio
+Afghaanse duizendknoop,Koenigia polystachya,Kp,Averegten,66285.9756788516,anb-domein
+Afghaanse duizendknoop,Koenigia polystachya,Kp,MD Klein Schietveld,35658.46081651207,anb-domein
+Afghaanse duizendknoop,Koenigia polystachya,Kp,De Inslag - Eig. ANB,31401.57374578138,anb-domein
+Afghaanse duizendknoop,Koenigia polystachya,Kp,Antwerpse Kempen,91057.44145261543,anb-regio
+Afghaanse duizendknoop,Koenigia polystachya,Kp,Taxandria,27082.85897388555,anb-regio
+Afghaanse duizendknoop,Koenigia polystachya,Kp,Demerland & Zuiderkempen,16883.19890529904,anb-regio
+Afghaanse duizendknoop,Koenigia polystachya,Kp,MD Klein Schietveld,35658.46081651207,anb-domein
+Afghaanse duizendknoop,Koenigia polystachya,Kp,De Inslag - Eig. ANB,31401.57374578138,anb-domein
+Afghaanse duizendknoop,Koenigia polystachya,Kp,De Most - Balen,19672.917999909318,anb-domein
+Afghaanse duizendknoop,Koenigia polystachya,Kp,De Averegten,66285.9756788516,NBHP
+Afghaanse duizendknoop,Koenigia polystachya,Kp,UBP/AN/10/04 - Kapellen-Schoten-Brasschaat,41909.687942172735,NBHP
+Afghaanse duizendknoop,Koenigia polystachya,Kp,Vrieselhof,31057.81583402492,NBHP
+wasbeer,Procyon lotor,Plo,"Bovenloop van de Grote Nete met Zammelsbroek, Langdonken en Goor",1381522.413048743,HBTRL
+wasbeer,Procyon lotor,Plo,Demervallei,1178583.7892388366,HBTRL
+wasbeer,Procyon lotor,Plo,Bos- en heidegebieden ten oosten van Antwerpen,1118083.6039974357,HBTRL
+wasbeer,Procyon lotor,Plo,De Demervallei,1640029.4983957673,VGLRL
+wasbeer,Procyon lotor,Plo,Het Vijvercomplex van Midden-Limburg,325711.3399788176,VGLRL
+wasbeer,Procyon lotor,Plo,Militair domein en de vallei van de Zwarte Beek,217955.76893449656,VGLRL
+wasbeer,Procyon lotor,Plo,Demerland & Zuiderkempen,892687.0643023384,anb-regio
+wasbeer,Procyon lotor,Plo,Antwerpse Kempen,735536.7358034496,anb-regio
+wasbeer,Procyon lotor,Plo,Brabantse Wouden,519642.3793731439,anb-regio
+wasbeer,Procyon lotor,Plo,Vrieselhof,283338.05265274283,anb-domein
+wasbeer,Procyon lotor,Plo,Vallei van de Drie Beken,254588.61087273472,anb-domein
+wasbeer,Procyon lotor,Plo,Zoerselbos,198777.28166785606,anb-domein
+wasbeer,Procyon lotor,Plo,Demerland & Zuiderkempen,742468.9578211848,anb-regio
+wasbeer,Procyon lotor,Plo,Brabantse Wouden,451957.79651796387,anb-regio
+wasbeer,Procyon lotor,Plo,Antwerpse Kempen,348094.9562318642,anb-regio
+wasbeer,Procyon lotor,Plo,Vallei van de Drie Beken,253298.5393417721,anb-domein
+wasbeer,Procyon lotor,Plo,Zonienwoud,191132.66432952677,anb-domein
+wasbeer,Procyon lotor,Plo,Zoerselbos,188896.68229008527,anb-domein
+wasbeer,Procyon lotor,Plo,Langdonken,372753.8476047041,NBHP
+wasbeer,Procyon lotor,Plo,Demerbroeken,326577.9607539937,NBHP
+wasbeer,Procyon lotor,Plo,Laakvalleien,301698.51173188596,NBHP
+gele maskerbloem,Erythranthe guttata,Eg,"Bovenloop van de Grote Nete met Zammelsbroek, Langdonken en Goor",314292.594353394,HBTRL
+gele maskerbloem,Erythranthe guttata,Eg,"Valleigebied van de Kleine Nete met brongebieden, moerassen en heiden",173425.1758406444,HBTRL
+gele maskerbloem,Erythranthe guttata,Eg,"Vallei- en brongebieden van de Zwarte Beek, Bolisserbeek en Dommel met heide en vengebieden",162905.2135259361,HBTRL
+gele maskerbloem,Erythranthe guttata,Eg,De Ronde Put,169005.58838911506,VGLRL
+gele maskerbloem,Erythranthe guttata,Eg,Militair domein en de vallei van de Zwarte Beek,118964.99787867453,VGLRL
+gele maskerbloem,Erythranthe guttata,Eg,Durme en de middenloop van de Schelde,107639.29317769228,VGLRL
+gele maskerbloem,Erythranthe guttata,Eg,Taxandria,566740.7633264993,anb-regio
+gele maskerbloem,Erythranthe guttata,Eg,Antwerpse Kempen,194986.76117421305,anb-regio
+gele maskerbloem,Erythranthe guttata,Eg,Vlaamse Ardennen & Schelde-Leie,127557.81489935714,anb-regio
+gele maskerbloem,Erythranthe guttata,Eg,Postels Natuurgebied - Deelgebied Watering NZ,125789.11476234697,anb-domein
+gele maskerbloem,Erythranthe guttata,Eg,De Most - Balen,124627.35298529145,anb-domein
+gele maskerbloem,Erythranthe guttata,Eg,Scheps,51426.228830083,anb-domein
+gele maskerbloem,Erythranthe guttata,Eg,Taxandria,525701.2706482898,anb-regio
+gele maskerbloem,Erythranthe guttata,Eg,Antwerpse Kempen,143022.6695966651,anb-regio
+gele maskerbloem,Erythranthe guttata,Eg,Demerland & Zuiderkempen,83595.97991357182,anb-regio
+gele maskerbloem,Erythranthe guttata,Eg,Postels Natuurgebied - Deelgebied Watering NZ,125789.11476234697,anb-domein
+gele maskerbloem,Erythranthe guttata,Eg,De Most - Balen,124627.35298529145,anb-domein
+gele maskerbloem,Erythranthe guttata,Eg,Scheps,51426.228830083,anb-domein
+gele maskerbloem,Erythranthe guttata,Eg,Vallei van de Zwarte Beek,125613.6994693403,NBHP
+gele maskerbloem,Erythranthe guttata,Eg,Postelse reservaten,108004.84967125847,NBHP
+gele maskerbloem,Erythranthe guttata,Eg,Onbevaarbare waterlopen 1e categorie,95916.02648642958,NBHP
+rode Amerikaanse rivierkreeft,Procambarus clarkii,Pcl,Polders,779177.3659687979,HBTRL
+rode Amerikaanse rivierkreeft,Procambarus clarkii,Pcl,Schelde- en Durme-estuarium van de Nederlandse grens tot Gent,427577.2634263986,HBTRL
+rode Amerikaanse rivierkreeft,Procambarus clarkii,Pcl,Bossen en heiden van zandig Vlaanderen: oostelijk deel,358014.86248228385,HBTRL
+rode Amerikaanse rivierkreeft,Procambarus clarkii,Pcl,Poldercomplex,3068827.256362858,VGLRL
+rode Amerikaanse rivierkreeft,Procambarus clarkii,Pcl,Krekengebied,331862.669808079,VGLRL
+rode Amerikaanse rivierkreeft,Procambarus clarkii,Pcl,Durme en de middenloop van de Schelde,292306.76971397694,VGLRL
+rode Amerikaanse rivierkreeft,Procambarus clarkii,Pcl,Kust & Westhoek,654379.4181685636,anb-regio
+rode Amerikaanse rivierkreeft,Procambarus clarkii,Pcl,Groene Gordels,380065.6765363623,anb-regio
+rode Amerikaanse rivierkreeft,Procambarus clarkii,Pcl,Demerland & Zuiderkempen,177328.2201218661,anb-regio
+rode Amerikaanse rivierkreeft,Procambarus clarkii,Pcl,Domein Hofstade,315964.95516521466,anb-domein
+rode Amerikaanse rivierkreeft,Procambarus clarkii,Pcl,Kwetshage,189184.86603227453,anb-domein
+rode Amerikaanse rivierkreeft,Procambarus clarkii,Pcl,Lage Moere van Meetkerke,121399.72304599456,anb-domein
+rode Amerikaanse rivierkreeft,Procambarus clarkii,Pcl,Kust & Westhoek,586555.2342227465,anb-regio
+rode Amerikaanse rivierkreeft,Procambarus clarkii,Pcl,Brabantse Wouden,91692.22646061017,anb-regio
+rode Amerikaanse rivierkreeft,Procambarus clarkii,Pcl,Demerland & Zuiderkempen,59486.79587837081,anb-regio
+rode Amerikaanse rivierkreeft,Procambarus clarkii,Pcl,Kwetshage,189184.86603227453,anb-domein
+rode Amerikaanse rivierkreeft,Procambarus clarkii,Pcl,Lage Moere van Meetkerke,121399.72304599456,anb-domein
+rode Amerikaanse rivierkreeft,Procambarus clarkii,Pcl,Floordambos,91943.65431097067,anb-domein
+rode Amerikaanse rivierkreeft,Procambarus clarkii,Pcl,Blankenbergse Polder Zuid,409786.5305666617,NBHP
+rode Amerikaanse rivierkreeft,Procambarus clarkii,Pcl,Stadswallen van Damme,286933.7218502701,NBHP
+rode Amerikaanse rivierkreeft,Procambarus clarkii,Pcl,Laakvalleien,276115.6947125526,NBHP
+kleine waterteunisbloem,Ludwigia peploides,Lp,Demervallei,41289.717634976725,HBTRL
+kleine waterteunisbloem,Ludwigia peploides,Lp,"Valleien van de Laambeek, Zonderikbeek, Slangebeek en Roosterbeek met vijvergebieden en heiden",19844.846022194994,HBTRL
+kleine waterteunisbloem,Ludwigia peploides,Lp,Historische fortengordels van Antwerpen als vleermuizenhabitats,16898.923997774895,HBTRL
+kleine waterteunisbloem,Ludwigia peploides,Lp,Schorren en polders van de Beneden-Schelde,523079.87493881065,VGLRL
+kleine waterteunisbloem,Ludwigia peploides,Lp,"Hamonterheide, Hageven, Buitenheide, Stamprooierbroek en Mariahof",85444.74404762837,VGLRL
+kleine waterteunisbloem,Ludwigia peploides,Lp,IJzervallei,60846.79397793718,VGLRL
+kleine waterteunisbloem,Ludwigia peploides,Lp,Antwerpse Kempen,373418.25221759046,anb-regio
+kleine waterteunisbloem,Ludwigia peploides,Lp,Lage tot aan Hoge Kempen,83642.53959929378,anb-regio
+kleine waterteunisbloem,Ludwigia peploides,Lp,Groene Gordels,72801.84098593428,anb-regio
+kleine waterteunisbloem,Ludwigia peploides,Lp,Linkerscheldeoever - Drijdijck,368915.0716163923,anb-domein
+kleine waterteunisbloem,Ludwigia peploides,Lp,Lozerheide,83642.53959929378,anb-domein
+kleine waterteunisbloem,Ludwigia peploides,Lp,Vallei van de Grote Nete - Regio SN - Eig. ANB,36458.72189028044,anb-domein
+kleine waterteunisbloem,Ludwigia peploides,Lp,Antwerpse Kempen,373418.25221759046,anb-regio
+kleine waterteunisbloem,Ludwigia peploides,Lp,Lage tot aan Hoge Kempen,83642.53959929378,anb-regio
+kleine waterteunisbloem,Ludwigia peploides,Lp,Groene Gordels,72801.84098593428,anb-regio
+kleine waterteunisbloem,Ludwigia peploides,Lp,Linkerscheldeoever - Drijdijck,368915.0716163923,anb-domein
+kleine waterteunisbloem,Ludwigia peploides,Lp,Lozerheide,83642.53959929378,anb-domein
+kleine waterteunisbloem,Ludwigia peploides,Lp,Vallei van de Grote Nete - Regio SN - Eig. ANB,36458.72189028044,anb-domein
+kleine waterteunisbloem,Ludwigia peploides,Lp,GGS-Drijdijck en Spaans Fort,364057.20365449635,NBHP
+kleine waterteunisbloem,Ludwigia peploides,Lp,Bourgoyen-Ossemeersen,242846.39146980245,NBHP
+kleine waterteunisbloem,Ludwigia peploides,Lp,Vallei van de Grote Nete Hullebrug-Herenbossen,93703.72538265129,NBHP
+egeria,Elodea densa,Ed,Klein en Groot Schietveld,27192.22264053428,HBTRL
+egeria,Elodea densa,Ed,Uiterwaarden langs de Limburgse Maas en Vijverbroek,15818.919972553966,HBTRL
+egeria,Elodea densa,Ed,"De Maatjes, Wuustwezelheide en Groot Schietveld",27652.34740737395,VGLRL
+egeria,Elodea densa,Ed,Taxandria,58559.54193841029,anb-regio
+egeria,Elodea densa,Ed,Groene Gordels,32452.804513720912,anb-regio
+egeria,Elodea densa,Ed,Antwerpse Kempen,28596.186361105112,anb-regio
+egeria,Elodea densa,Ed,Ginnekenshoek,50010.488584110106,anb-domein
+egeria,Elodea densa,Ed,De Reukens,32452.804513720912,anb-domein
+egeria,Elodea densa,Ed,MD Groot Schietveld,28596.186361105112,anb-domein
+egeria,Elodea densa,Ed,Groene Gordels,32452.804513720912,anb-regio
+egeria,Elodea densa,Ed,Antwerpse Kempen,28596.186361105112,anb-regio
+egeria,Elodea densa,Ed,Taxandria,4764.383908144897,anb-regio
+egeria,Elodea densa,Ed,De Reukens,32452.804513720912,anb-domein
+egeria,Elodea densa,Ed,MD Groot Schietveld,28596.186361105112,anb-domein
+egeria,Elodea densa,Ed,Molse Nete,4764.383908144897,anb-domein
+egeria,Elodea densa,Ed,UBBP/AN/12/10 - gemeentebossen Beerse,54038.71949966664,NBHP
+egeria,Elodea densa,Ed,MD Groot Schietveld,29067.01279776266,NBHP
+egeria,Elodea densa,Ed,Wolvenberg-Brilschans,13269.927425504851,NBHP
+waterteunisbloem,Ludwigia grandiflora,Lgr,Demervallei,3411979.914640632,HBTRL
+waterteunisbloem,Ludwigia grandiflora,Lgr,"Valleigebied van de Kleine Nete met brongebieden, moerassen en heiden",2183627.491917271,HBTRL
+waterteunisbloem,Ludwigia grandiflora,Lgr,Schelde- en Durme-estuarium van de Nederlandse grens tot Gent,887680.0764979228,HBTRL
+waterteunisbloem,Ludwigia grandiflora,Lgr,De Demervallei,6850535.401915926,VGLRL
+waterteunisbloem,Ludwigia grandiflora,Lgr,IJzervallei,3706073.699770946,VGLRL
+waterteunisbloem,Ludwigia grandiflora,Lgr,Durme en de middenloop van de Schelde,621424.0601630142,VGLRL
+waterteunisbloem,Ludwigia grandiflora,Lgr,Demerland & Zuiderkempen,2177608.1737001105,anb-regio
+waterteunisbloem,Ludwigia grandiflora,Lgr,Taxandria,1113599.693880471,anb-regio
+waterteunisbloem,Ludwigia grandiflora,Lgr,Kust & Westhoek,932301.3541927005,anb-regio
+waterteunisbloem,Ludwigia grandiflora,Lgr,Demerbroeken,1051083.0403695034,anb-domein
+waterteunisbloem,Ludwigia grandiflora,Lgr,Olens Broek - Langendonk - Eig. ANB,453403.6256850546,anb-domein
+waterteunisbloem,Ludwigia grandiflora,Lgr,Merkembroek-Woumenbroek,359794.957166007,anb-domein
+waterteunisbloem,Ludwigia grandiflora,Lgr,Demerland & Zuiderkempen,2007698.2016430518,anb-regio
+waterteunisbloem,Ludwigia grandiflora,Lgr,Taxandria,908912.4353493936,anb-regio
+waterteunisbloem,Ludwigia grandiflora,Lgr,Kust & Westhoek,866631.5687985233,anb-regio
+waterteunisbloem,Ludwigia grandiflora,Lgr,Demerbroeken,996141.1747774776,anb-domein
+waterteunisbloem,Ludwigia grandiflora,Lgr,Olens Broek - Langendonk - Eig. ANB,453403.6256850546,anb-domein
+waterteunisbloem,Ludwigia grandiflora,Lgr,Merkembroek-Woumenbroek,359794.957166007,anb-domein
+waterteunisbloem,Ludwigia grandiflora,Lgr,De Blankaart,2494236.320176479,NBHP
+waterteunisbloem,Ludwigia grandiflora,Lgr,Onbevaarbare waterlopen 1e categorie,1711989.1591921116,NBHP
+waterteunisbloem,Ludwigia grandiflora,Lgr,Schulensbroek,1177069.7627080178,NBHP
+Aziatische tijgermug,Aedes albopictus,Aalb,Schorren en polders van de Beneden-Schelde,31401.573745764967,VGLRL
+Aziatische tijgermug,Aedes albopictus,Aalb,Vlaamse Ardennen & Schelde-Leie,901.9766300336487,anb-regio
+Aziatische tijgermug,Aedes albopictus,Aalb,Het Groene Lint Zuid,901.9766300336487,anb-domein
+ongelijkbladig vederkruid,Myriophyllum heterophyllum,Mh,"Het Blak, Kievitsheide, Ekstergoor en nabijgelegen Kamsalamanderhabitats",202575.64377202681,HBTRL
+ongelijkbladig vederkruid,Myriophyllum heterophyllum,Mh,"Vennen, heiden en moerassen rond Turnhout",151355.21421824774,HBTRL
+ongelijkbladig vederkruid,Myriophyllum heterophyllum,Mh,Klein en Groot Schietveld,129493.7777325249,HBTRL
+ongelijkbladig vederkruid,Myriophyllum heterophyllum,Mh,"Arendonk, Merksplas, Oud-Turnhout, Ravels en Turnhout",187612.20867574122,VGLRL
+ongelijkbladig vederkruid,Myriophyllum heterophyllum,Mh,De Ronde Put,138791.09071079368,VGLRL
+ongelijkbladig vederkruid,Myriophyllum heterophyllum,Mh,"Hamonterheide, Hageven, Buitenheide, Stamprooierbroek en Mariahof",125606.29498304822,VGLRL
+ongelijkbladig vederkruid,Myriophyllum heterophyllum,Mh,Taxandria,246716.1682206591,anb-regio
+ongelijkbladig vederkruid,Myriophyllum heterophyllum,Mh,Antwerpse Kempen,215228.3011917681,anb-regio
+ongelijkbladig vederkruid,Myriophyllum heterophyllum,Mh,Zandig Vlaanderen,37778.46343180115,anb-regio
+ongelijkbladig vederkruid,Myriophyllum heterophyllum,Mh,MD Klein Schietveld,125204.44259410127,anb-domein
+ongelijkbladig vederkruid,Myriophyllum heterophyllum,Mh,Postels Natuurgebied - Deelgebied Watering NZ,94664.36244932252,anb-domein
+ongelijkbladig vederkruid,Myriophyllum heterophyllum,Mh,Gewestbos Ravels,41483.23274973832,anb-domein
+ongelijkbladig vederkruid,Myriophyllum heterophyllum,Mh,Taxandria,235582.02814485718,anb-regio
+ongelijkbladig vederkruid,Myriophyllum heterophyllum,Mh,Antwerpse Kempen,183235.94217271492,anb-regio
+ongelijkbladig vederkruid,Myriophyllum heterophyllum,Mh,Groene Gordels,16030.756869788362,anb-regio
+ongelijkbladig vederkruid,Myriophyllum heterophyllum,Mh,MD Klein Schietveld,125204.44259410127,anb-domein
+ongelijkbladig vederkruid,Myriophyllum heterophyllum,Mh,Postels Natuurgebied - Deelgebied Watering NZ,94664.36244932252,anb-domein
+ongelijkbladig vederkruid,Myriophyllum heterophyllum,Mh,Gewestbos Ravels,41483.23274973832,anb-domein
+ongelijkbladig vederkruid,Myriophyllum heterophyllum,Mh,Onbevaarbare waterlopen 1e categorie,155784.30799075184,NBHP
+ongelijkbladig vederkruid,Myriophyllum heterophyllum,Mh,MD Klein Schietveld,132812.51832978366,NBHP
+ongelijkbladig vederkruid,Myriophyllum heterophyllum,Mh,Postelse reservaten,87135.19414404419,NBHP
+Amerikaanse rode eekhoorn,Tamiasciurus hudsonicus,Th,Bossen en heiden van zandig Vlaanderen: oostelijk deel,47482.57050316816,HBTRL
+Amerikaanse rode eekhoorn,Tamiasciurus hudsonicus,Th,Bossen van het zuidoosten van de Zandleemstreek,31401.573745776608,HBTRL
+Amerikaanse rode eekhoorn,Tamiasciurus hudsonicus,Th,Bossen en kalkgraslanden van Haspengouw,20569.83129819598,HBTRL
+Amerikaanse rode eekhoorn,Tamiasciurus hudsonicus,Th,Zandig Vlaanderen,31401.57374576456,anb-regio
+Amerikaanse rode eekhoorn,Tamiasciurus hudsonicus,Th,Drongengoed,31401.57374576456,anb-domein
+Amerikaanse rode eekhoorn,Tamiasciurus hudsonicus,Th,Zandig Vlaanderen,31401.57374576456,anb-regio
+Amerikaanse rode eekhoorn,Tamiasciurus hudsonicus,Th,Drongengoed,31401.57374576456,anb-domein
+Amerikaanse rode eekhoorn,Tamiasciurus hudsonicus,Th,Drongengoed,31401.57374576456,NBHP
+Amerikaanse rode eekhoorn,Tamiasciurus hudsonicus,Th,Thaborberg,28472.701614491147,NBHP
+Amerikaanse rode eekhoorn,Tamiasciurus hudsonicus,Th,Maldegemveld,15880.764248300406,NBHP
+Californische rivierkreeft,Pacifastacus leniusculus,Plen,"Valleigebied tussen Melsbroek, Kampenhout, Kortenberg en Veltem",15320.625455087691,HBTRL
+gestreepte Amerikaanse rivierkreeft,Procambarus acutus,Pa,"Valleien van de Laambeek, Zonderikbeek, Slangebeek en Roosterbeek met vijvergebieden en heiden",917571.3590327842,HBTRL
+gestreepte Amerikaanse rivierkreeft,Procambarus acutus,Pa,"Valleigebied van de Kleine Nete met brongebieden, moerassen en heiden",180488.4013799863,HBTRL
+gestreepte Amerikaanse rivierkreeft,Procambarus acutus,Pa,Mechelse heide en vallei van de Ziepbeek,88897.69584019341,HBTRL
+gestreepte Amerikaanse rivierkreeft,Procambarus acutus,Pa,Het Vijvercomplex van Midden-Limburg,1009429.892741964,VGLRL
+gestreepte Amerikaanse rivierkreeft,Procambarus acutus,Pa,Schorren en polders van de Beneden-Schelde,256144.3205759886,VGLRL
+gestreepte Amerikaanse rivierkreeft,Procambarus acutus,Pa,Mechelse Heide en de Vallei van de Ziepbeek,53996.96522660147,VGLRL
+gestreepte Amerikaanse rivierkreeft,Procambarus acutus,Pa,Demerland & Zuiderkempen,405030.2396239291,anb-regio
+gestreepte Amerikaanse rivierkreeft,Procambarus acutus,Pa,Hoge Kempen tot Voeren,90992.92558820681,anb-regio
+gestreepte Amerikaanse rivierkreeft,Procambarus acutus,Pa,Antwerpse Kempen,82673.30869557073,anb-regio
+gestreepte Amerikaanse rivierkreeft,Procambarus acutus,Pa,Vijvercomplex,405030.2396239291,anb-domein
+gestreepte Amerikaanse rivierkreeft,Procambarus acutus,Pa,Isaekshoef,90992.92558820681,anb-domein
+gestreepte Amerikaanse rivierkreeft,Procambarus acutus,Pa,Linkerscheldeoever - Spaans Fort,57637.42765093435,anb-domein
+gestreepte Amerikaanse rivierkreeft,Procambarus acutus,Pa,Demerland & Zuiderkempen,404475.57592415833,anb-regio
+gestreepte Amerikaanse rivierkreeft,Procambarus acutus,Pa,Hoge Kempen tot Voeren,90992.92558820681,anb-regio
+gestreepte Amerikaanse rivierkreeft,Procambarus acutus,Pa,Antwerpse Kempen,82673.30869557073,anb-regio
+gestreepte Amerikaanse rivierkreeft,Procambarus acutus,Pa,Vijvercomplex,404475.57592415833,anb-domein
+gestreepte Amerikaanse rivierkreeft,Procambarus acutus,Pa,Isaekshoef,90992.92558820681,anb-domein
+gestreepte Amerikaanse rivierkreeft,Procambarus acutus,Pa,Linkerscheldeoever - Spaans Fort,57637.42765093435,anb-domein
+gestreepte Amerikaanse rivierkreeft,Procambarus acutus,Pa,Vijvercomplex Midden-Limburg,403718.74343459914,NBHP
+gestreepte Amerikaanse rivierkreeft,Procambarus acutus,Pa,GGS-Drijdijck en Spaans Fort,95942.6724698827,NBHP
+gestreepte Amerikaanse rivierkreeft,Procambarus acutus,Pa,Kleine Netevallei,69125.11255457529,NBHP
+Kaapse waterlelie,Aponogeton distachyos,Ad,Demervallei,108261.59505329403,HBTRL
+Kaapse waterlelie,Aponogeton distachyos,Ad,De Demervallei,985984.7639545652,VGLRL
+Kaapse waterlelie,Aponogeton distachyos,Ad,Demerland & Zuiderkempen,105310.9466657548,anb-regio
+Kaapse waterlelie,Aponogeton distachyos,Ad,Borchbeemden,93518.44245184472,anb-domein
+Kaapse waterlelie,Aponogeton distachyos,Ad,Mellaer,9495.390647994413,anb-domein
+Kaapse waterlelie,Aponogeton distachyos,Ad,Houterveld,1595.241939925705,anb-domein
+Kaapse waterlelie,Aponogeton distachyos,Ad,Demerland & Zuiderkempen,86551.41250653146,anb-regio
+Kaapse waterlelie,Aponogeton distachyos,Ad,Borchbeemden,86551.41250653146,anb-domein
+Kaapse waterlelie,Aponogeton distachyos,Ad,Vallei van de Zwarte Beek,464639.2582617393,NBHP
+Kaapse waterlelie,Aponogeton distachyos,Ad,Onbevaarbare waterlopen 1e categorie,102912.48911381615,NBHP
+Kaapse waterlelie,Aponogeton distachyos,Ad,Schulensbroek,102649.92158904669,NBHP
+watersla,Pistia stratiotes,Pst,"Valleigebied van de Kleine Nete met brongebieden, moerassen en heiden",144877.89490853812,HBTRL
+watersla,Pistia stratiotes,Pst,"Bovenloop van de Grote Nete met Zammelsbroek, Langdonken en Goor",36320.490043172846,HBTRL
+watersla,Pistia stratiotes,Pst,Schelde- en Durme-estuarium van de Nederlandse grens tot Gent,33686.673654128375,HBTRL
+watersla,Pistia stratiotes,Pst,De Demervallei,31401.573745774862,VGLRL
+watersla,Pistia stratiotes,Pst,"Hamonterheide, Hageven, Buitenheide, Stamprooierbroek en Mariahof",31401.57374577003,VGLRL
+watersla,Pistia stratiotes,Pst,Durme en de middenloop van de Schelde,27313.79296354775,VGLRL
+watersla,Pistia stratiotes,Pst,Taxandria,191761.73049340237,anb-regio
+watersla,Pistia stratiotes,Pst,Groene Gordels,49223.37782298523,anb-regio
+watersla,Pistia stratiotes,Pst,Zandig Vlaanderen,28703.11968374627,anb-regio
+watersla,Pistia stratiotes,Pst,Neerheyden,80799.19608392869,anb-domein
+watersla,Pistia stratiotes,Pst,Ponfort,31401.573745773232,anb-domein
+watersla,Pistia stratiotes,Pst,Breeven,31362.792736872972,anb-domein
+watersla,Pistia stratiotes,Pst,Taxandria,65863.47035846082,anb-regio
+watersla,Pistia stratiotes,Pst,Zandig Vlaanderen,28703.11968374627,anb-regio
+watersla,Pistia stratiotes,Pst,Groene Gordels,17860.58508611226,anb-regio
+watersla,Pistia stratiotes,Pst,Groenpool Oud Vliegveld Oostakker,28703.11968374627,anb-domein
+watersla,Pistia stratiotes,Pst,Olens Broek - Langendonk - Eig. ANB,26879.349393868535,anb-domein
+watersla,Pistia stratiotes,Pst,Wolfsputten,17860.58508611226,anb-domein
+watersla,Pistia stratiotes,Pst,OCMW Herentals,93532.07925907016,NBHP
+watersla,Pistia stratiotes,Pst,Onbevaarbare waterlopen 1e categorie,69522.26555253676,NBHP
+watersla,Pistia stratiotes,Pst,Schupleer-Vuilvoort,35684.87140244535,NBHP
+grijze eekhoorn,Sciurus carolinensis,Scar,Bossen en heiden van zandig Vlaanderen: oostelijk deel,28061.20113890324,HBTRL
+grijze eekhoorn,Sciurus carolinensis,Scar,"Valleien van de Dijle, Laan en IJse met aangrenzende bos- en moerasgebieden",9772.339765695855,HBTRL
+grijze eekhoorn,Sciurus carolinensis,Scar,De Dijlevallei,31401.5737457606,VGLRL
+grijze eekhoorn,Sciurus carolinensis,Scar,Lage tot aan Hoge Kempen,27869.816029491813,anb-regio
+grijze eekhoorn,Sciurus carolinensis,Scar,Zandig Vlaanderen,26623.771003088183,anb-regio
+grijze eekhoorn,Sciurus carolinensis,Scar,Demerland & Zuiderkempen,19051.2814906407,anb-regio
+grijze eekhoorn,Sciurus carolinensis,Scar,Openbaar bos Lokeren: Verloren Bos,26623.771003088183,anb-domein
+grijze eekhoorn,Sciurus carolinensis,Scar,Kwakkelsnest,19051.2814906407,anb-domein
+grijze eekhoorn,Sciurus carolinensis,Scar,Dijlevallei,16000.334430862553,anb-domein
+grijze eekhoorn,Sciurus carolinensis,Scar,Lage tot aan Hoge Kempen,27869.816029491813,anb-regio
+grijze eekhoorn,Sciurus carolinensis,Scar,Brabantse Wouden,14237.415765304064,anb-regio
+grijze eekhoorn,Sciurus carolinensis,Scar,Demerland & Zuiderkempen,13963.344086320634,anb-regio
+grijze eekhoorn,Sciurus carolinensis,Scar,Heide achter de Steenweg,14947.712082640943,anb-domein
+grijze eekhoorn,Sciurus carolinensis,Scar,Kwakkelsnest,13963.344086320634,anb-domein
+grijze eekhoorn,Sciurus carolinensis,Scar,Dorper- en Houtmolenheide,12922.103946850868,anb-domein
+grijze eekhoorn,Sciurus carolinensis,Scar,Openbare bossen Overpelt,27909.596156037936,NBHP
+grijze eekhoorn,Sciurus carolinensis,Scar,Bossen Stad Lokeren,26653.113620191958,NBHP
+grijze eekhoorn,Sciurus carolinensis,Scar,"Dijle-, Laan- en Ijsevallei",18839.582661096236,NBHP
+Mantsjoerese wilde rijst,Zizania latifolia,Zl,"Valleien van de Dijle, Laan en IJse met aangrenzende bos- en moerasgebieden",49079.23858636711,HBTRL
+Mantsjoerese wilde rijst,Zizania latifolia,Zl,Bossen en heiden van zandig Vlaanderen: oostelijk deel,31401.573745765054,HBTRL
+Mantsjoerese wilde rijst,Zizania latifolia,Zl,Schelde- en Durme-estuarium van de Nederlandse grens tot Gent,21836.208000547253,HBTRL
+Mantsjoerese wilde rijst,Zizania latifolia,Zl,De Dijlevallei,31401.573745768284,VGLRL
+Mantsjoerese wilde rijst,Zizania latifolia,Zl,Durme en de middenloop van de Schelde,22795.894299629144,VGLRL
+Mantsjoerese wilde rijst,Zizania latifolia,Zl,Zandig Vlaanderen,43027.05254244015,anb-regio
+Mantsjoerese wilde rijst,Zizania latifolia,Zl,Vlaamse Ardennen & Schelde-Leie,13045.788351551804,anb-regio
+Mantsjoerese wilde rijst,Zizania latifolia,Zl,Brabantse Wouden,11636.819098851876,anb-regio
+Mantsjoerese wilde rijst,Zizania latifolia,Zl,Moervaartvallei,41868.83170292559,anb-domein
+Mantsjoerese wilde rijst,Zizania latifolia,Zl,Buggenhoutbos,13045.788351551804,anb-domein
+Mantsjoerese wilde rijst,Zizania latifolia,Zl,Heverleebos,11636.819098851876,anb-domein
+Mantsjoerese wilde rijst,Zizania latifolia,Zl,Zandig Vlaanderen,41868.83170292559,anb-regio
+Mantsjoerese wilde rijst,Zizania latifolia,Zl,Vlaamse Ardennen & Schelde-Leie,13045.788351551804,anb-regio
+Mantsjoerese wilde rijst,Zizania latifolia,Zl,Brabantse Wouden,11636.819098851876,anb-regio
+Mantsjoerese wilde rijst,Zizania latifolia,Zl,Moervaartvallei,41868.83170292559,anb-domein
+Mantsjoerese wilde rijst,Zizania latifolia,Zl,Buggenhoutbos,13045.788351551804,anb-domein
+Mantsjoerese wilde rijst,Zizania latifolia,Zl,Heverleebos,11636.819098851876,anb-domein
+Mantsjoerese wilde rijst,Zizania latifolia,Zl,Leiemeersen van Deinze,35645.07751095228,NBHP
+Mantsjoerese wilde rijst,Zizania latifolia,Zl,Doode Bemde,24935.477737461624,NBHP
+Mantsjoerese wilde rijst,Zizania latifolia,Zl,Buggenhoutbos,13088.057100155565,NBHP
+monniksparkiet,Myiopsitta monachus,Mmon,Schelde- en Durme-estuarium van de Nederlandse grens tot Gent,14815.876940384447,HBTRL
+monniksparkiet,Myiopsitta monachus,Mmon,Hallerbos en nabije boscomplexen met brongebieden en heiden,8034.35246481697,HBTRL
+monniksparkiet,Myiopsitta monachus,Mmon,Schorren en polders van de Beneden-Schelde,122438.70341028692,VGLRL
+monniksparkiet,Myiopsitta monachus,Mmon,De Dijlevallei,31401.573745772243,VGLRL
+monniksparkiet,Myiopsitta monachus,Mmon,Poldercomplex,19231.005963476753,VGLRL
+monniksparkiet,Myiopsitta monachus,Mmon,Antwerpse Kempen,75309.93028021176,anb-regio
+monniksparkiet,Myiopsitta monachus,Mmon,Brabantse Wouden,27636.809874860966,anb-regio
+monniksparkiet,Myiopsitta monachus,Mmon,Vlaamse Ardennen & Schelde-Leie,17989.033684373426,anb-regio
+monniksparkiet,Myiopsitta monachus,Mmon,Linkerscheldeoever - Putten Weiden,37654.80823786449,anb-domein
+monniksparkiet,Myiopsitta monachus,Mmon,Linkerscheldeoever - Putten West,28248.039944733056,anb-domein
+monniksparkiet,Myiopsitta monachus,Mmon,Zonienwoud,27636.809874860966,anb-domein
+monniksparkiet,Myiopsitta monachus,Mmon,Antwerpse Kempen,65902.84818259755,anb-regio
+monniksparkiet,Myiopsitta monachus,Mmon,Brabantse Wouden,27636.809874860966,anb-regio
+monniksparkiet,Myiopsitta monachus,Mmon,Groene Gordels,9423.68030952131,anb-regio
+monniksparkiet,Myiopsitta monachus,Mmon,Linkerscheldeoever - Putten Weiden,37654.80823786449,anb-domein
+monniksparkiet,Myiopsitta monachus,Mmon,Linkerscheldeoever - Putten West,28248.039944733056,anb-domein
+monniksparkiet,Myiopsitta monachus,Mmon,Zonienwoud,27636.809874860966,anb-domein
+monniksparkiet,Myiopsitta monachus,Mmon,Doode Bemde,31228.74668144062,NBHP
+monniksparkiet,Myiopsitta monachus,Mmon,Zoniënwoud,27764.67748402706,NBHP
+monniksparkiet,Myiopsitta monachus,Mmon,Bonte Os,23858.903604633728,NBHP
+moerasaronskelk,Lysichiton americanus,La,"Valleien van de Laambeek, Zonderikbeek, Slangebeek en Roosterbeek met vijvergebieden en heiden",69229.47424285702,HBTRL
+moerasaronskelk,Lysichiton americanus,La,Abeek met aangrenzende moerasgebieden,68284.1348835508,HBTRL
+moerasaronskelk,Lysichiton americanus,La,Bossen van de Vlaamse Ardennen en andere Zuidvlaamse bossen,38067.30787918577,HBTRL
+moerasaronskelk,Lysichiton americanus,La,Bokrijk en omgeving,132833.41407599626,VGLRL
+moerasaronskelk,Lysichiton americanus,La,"Bocholt, Hechtel-Eksel, Meeuwen-Gruitrode, Neerpelt en Peer",104422.55092797182,VGLRL
+moerasaronskelk,Lysichiton americanus,La,Groene Gordels,226162.54761111116,anb-regio
+moerasaronskelk,Lysichiton americanus,La,Lage tot aan Hoge Kempen,61951.53556441646,anb-regio
+moerasaronskelk,Lysichiton americanus,La,Brabantse Wouden,58863.25057501391,anb-regio
+moerasaronskelk,Lysichiton americanus,La,Plantentuin Meise,191843.85907875356,anb-domein
+moerasaronskelk,Lysichiton americanus,La,Provinciedomein Huizingen,57102.22967028746,anb-domein
+moerasaronskelk,Lysichiton americanus,La,Teut-Ten Haagdoorn,56451.092751118354,anb-domein
+moerasaronskelk,Lysichiton americanus,La,Lage tot aan Hoge Kempen,61951.53556441646,anb-regio
+moerasaronskelk,Lysichiton americanus,La,Antwerpse Kempen,2254.9561480271223,anb-regio
+moerasaronskelk,Lysichiton americanus,La,Brabantse Wouden,1761.0209047264539,anb-regio
+moerasaronskelk,Lysichiton americanus,La,Teut-Ten Haagdoorn,56451.092751118354,anb-domein
+moerasaronskelk,Lysichiton americanus,La,Ortolaan,5500.442813298105,anb-domein
+moerasaronskelk,Lysichiton americanus,La,Kalmthoutse Heide - Eig. ANB,2254.9561480271223,anb-domein
+moerasaronskelk,Lysichiton americanus,La,Bos- en aanvullend landschapsbeheerplan Bokrijk,115931.36005308716,NBHP
+moerasaronskelk,Lysichiton americanus,La,Teut-Tenhaagdoornheide-Kelchterhoef,55736.803142797784,NBHP
+moerasaronskelk,Lysichiton americanus,La,Ter Biezen,21633.7269909857,NBHP
+waterwaaier,Cabomba caroliniana,Cca,Uiterwaarden langs de Limburgse Maas en Vijverbroek,37481.51596971569,HBTRL
+waterwaaier,Cabomba caroliniana,Cca,"Itterbeek met Brand, Jagersborg en Schootsheide en Bergerven",13680.453345507718,HBTRL
+waterwaaier,Cabomba caroliniana,Cca,Demerland & Zuiderkempen,3703.3265797735658,anb-regio
+waterwaaier,Cabomba caroliniana,Cca,Hoge Kempen tot Voeren,3556.928799211746,anb-regio
+waterwaaier,Cabomba caroliniana,Cca,Herkvallei,3703.3265797735658,anb-domein
+waterwaaier,Cabomba caroliniana,Cca,Wateringen,3556.928799211746,anb-domein
+waterwaaier,Cabomba caroliniana,Cca,Demerland & Zuiderkempen,3703.3265797735658,anb-regio
+waterwaaier,Cabomba caroliniana,Cca,Hoge Kempen tot Voeren,3556.928799211746,anb-regio
+waterwaaier,Cabomba caroliniana,Cca,Herkvallei,3703.3265797735658,anb-domein
+waterwaaier,Cabomba caroliniana,Cca,Wateringen,3556.928799211746,anb-domein
+waterwaaier,Cabomba caroliniana,Cca,Bergerven,21941.990673087756,NBHP
+waterwaaier,Cabomba caroliniana,Cca,Dal van de Grensmaas,14533.408330899794,NBHP
+waterwaaier,Cabomba caroliniana,Cca,Herkvallei,7533.129406165914,NBHP
+Cipangopaludina chinensis,Cipangopaludina chinensis,Cch,"Bovenloop van de Grote Nete met Zammelsbroek, Langdonken en Goor",62803.147491527605,HBTRL
+Cipangopaludina chinensis,Cipangopaludina chinensis,Cch,"Valleien van de Laambeek, Zonderikbeek, Slangebeek en Roosterbeek met vijvergebieden en heiden",62279.73249286483,HBTRL
+Cipangopaludina chinensis,Cipangopaludina chinensis,Cch,Uiterwaarden langs de Limburgse Maas en Vijverbroek,18336.58185940134,HBTRL
+Cipangopaludina chinensis,Cipangopaludina chinensis,Cch,Het Vijvercomplex van Midden-Limburg,62803.14749152283,VGLRL
+Cipangopaludina chinensis,Cipangopaludina chinensis,Cch,De Demervallei,31401.57374575513,VGLRL
+Cipangopaludina chinensis,Cipangopaludina chinensis,Cch,Demerland & Zuiderkempen,44602.76801768535,anb-regio
+Cipangopaludina chinensis,Cipangopaludina chinensis,Cch,Taxandria,12792.699389299785,anb-regio
+Cipangopaludina chinensis,Cipangopaludina chinensis,Cch,Antwerpse Kempen,12406.73812928528,anb-regio
+Cipangopaludina chinensis,Cipangopaludina chinensis,Cch,Vijvercomplex,44602.76801768535,anb-domein
+Cipangopaludina chinensis,Cipangopaludina chinensis,Cch,Straalmolen,12792.699389299785,anb-domein
+Cipangopaludina chinensis,Cipangopaludina chinensis,Cch,Mastenbos,12406.73812928528,anb-domein
+Cipangopaludina chinensis,Cipangopaludina chinensis,Cch,Demerland & Zuiderkempen,44602.76801768535,anb-regio
+Cipangopaludina chinensis,Cipangopaludina chinensis,Cch,Taxandria,12792.699389299785,anb-regio
+Cipangopaludina chinensis,Cipangopaludina chinensis,Cch,Antwerpse Kempen,12406.73812928528,anb-regio
+Cipangopaludina chinensis,Cipangopaludina chinensis,Cch,Vijvercomplex,44602.76801768535,anb-domein
+Cipangopaludina chinensis,Cipangopaludina chinensis,Cch,Straalmolen,12792.699389299785,anb-domein
+Cipangopaludina chinensis,Cipangopaludina chinensis,Cch,Mastenbos,12406.73812928528,anb-domein
+Cipangopaludina chinensis,Cipangopaludina chinensis,Cch,Dal van de Grensmaas,46105.01478386868,NBHP
+Cipangopaludina chinensis,Cipangopaludina chinensis,Cch,Vijvercomplex Midden-Limburg,43562.80648597049,NBHP
+Cipangopaludina chinensis,Cipangopaludina chinensis,Cch,Schulensbroek,19439.323996262276,NBHP
+zijdeplant,Asclepias syriaca,As,Voerstreek,75379.10842612002,HBTRL
+zijdeplant,Asclepias syriaca,As,Mechelse heide en vallei van de Ziepbeek,32453.8077218408,HBTRL
+zijdeplant,Asclepias syriaca,As,Demervallei,32058.661015546575,HBTRL
+zijdeplant,Asclepias syriaca,As,De Demervallei,32589.787534426578,VGLRL
+zijdeplant,Asclepias syriaca,As,Mechelse Heide en de Vallei van de Ziepbeek,32453.8077218408,VGLRL
+zijdeplant,Asclepias syriaca,As,Vlaamse Ardennen & Schelde-Leie,58508.5155028671,anb-regio
+zijdeplant,Asclepias syriaca,As,Hoge Kempen tot Voeren,30837.281859682407,anb-regio
+zijdeplant,Asclepias syriaca,As,Taxandria,26063.70765984902,anb-regio
+zijdeplant,Asclepias syriaca,As,Hospicegoed,58508.5155028671,anb-domein
+zijdeplant,Asclepias syriaca,As,Kikbeekbron,28550.936318087042,anb-domein
+zijdeplant,Asclepias syriaca,As,Hoge Rielen,18914.873832449197,anb-domein
+zijdeplant,Asclepias syriaca,As,Hoge Kempen tot Voeren,30837.281859682407,anb-regio
+zijdeplant,Asclepias syriaca,As,Taxandria,19410.02242635909,anb-regio
+zijdeplant,Asclepias syriaca,As,Vlaamse Ardennen & Schelde-Leie,6510.99556694075,anb-regio
+zijdeplant,Asclepias syriaca,As,Kikbeekbron,28550.936318087042,anb-domein
+zijdeplant,Asclepias syriaca,As,Hoge Rielen,18914.873832449197,anb-domein
+zijdeplant,Asclepias syriaca,As,Hospicegoed,6510.99556694075,anb-domein
+zijdeplant,Asclepias syriaca,As,Hospicebossen,52076.139842184064,NBHP
+zijdeplant,Asclepias syriaca,As,Hoge Kempen,28567.04867316282,NBHP
+zijdeplant,Asclepias syriaca,As,Hoge Rielen,19322.577642328204,NBHP
+Vallisneria australis,Vallisneria australis,Va,"Valleigebied van de Kleine Nete met brongebieden, moerassen en heiden",98034.16723066683,HBTRL
+Vallisneria australis,Vallisneria australis,Va,Taxandria,2351.3383360202934,anb-regio
+Vallisneria australis,Vallisneria australis,Va,Mosselgoren - De Zegge,2351.3383360202934,anb-domein
+Vallisneria australis,Vallisneria australis,Va,Taxandria,2351.3383360202934,anb-regio
+Vallisneria australis,Vallisneria australis,Va,Mosselgoren - De Zegge,2351.3383360202934,anb-domein
+Vallisneria australis,Vallisneria australis,Va,Neerhelst - De Botten,29896.129946554225,NBHP
+waterhyacint,Pontederia crassipes,Pcr,"Valleigebied van de Kleine Nete met brongebieden, moerassen en heiden",91368.72827508475,HBTRL
+waterhyacint,Pontederia crassipes,Pcr,Kalmthoutse Heide,31401.573745773698,HBTRL
+waterhyacint,Pontederia crassipes,Pcr,"Valleien van de Laambeek, Zonderikbeek, Slangebeek en Roosterbeek met vijvergebieden en heiden",18520.960283876106,HBTRL
+waterhyacint,Pontederia crassipes,Pcr,Kalmthoutse Heide,31401.573745773698,VGLRL
+waterhyacint,Pontederia crassipes,Pcr,Schorren en polders van de Beneden-Schelde,31401.573745767993,VGLRL
+waterhyacint,Pontederia crassipes,Pcr,Het Vijvercomplex van Midden-Limburg,31401.573745754664,VGLRL
+waterhyacint,Pontederia crassipes,Pcr,Taxandria,61004.970253202766,anb-regio
+waterhyacint,Pontederia crassipes,Pcr,Antwerpse Kempen,2760.9768774558906,anb-regio
+waterhyacint,Pontederia crassipes,Pcr,Ponfort,31401.57374576421,anb-domein
+waterhyacint,Pontederia crassipes,Pcr,Olens Broek - Langendonk - Eig. ANB,15389.16512051809,anb-domein
+waterhyacint,Pontederia crassipes,Pcr,Neerheyden,14214.231386920466,anb-domein
+waterhyacint,Pontederia crassipes,Pcr,Taxandria,15389.16512051809,anb-regio
+waterhyacint,Pontederia crassipes,Pcr,Antwerpse Kempen,2760.9768774558906,anb-regio
+waterhyacint,Pontederia crassipes,Pcr,Olens Broek - Langendonk - Eig. ANB,15389.16512051809,anb-domein
+waterhyacint,Pontederia crassipes,Pcr,Linkerscheldeoever - Drijdijck,2760.9768774558906,anb-domein
+waterhyacint,Pontederia crassipes,Pcr,Kasteelhoeve en Banmolen,41246.268671496844,NBHP
+waterhyacint,Pontederia crassipes,Pcr,Onbevaarbare waterlopen 1e categorie,39804.99445266049,NBHP
+waterhyacint,Pontederia crassipes,Pcr,Bossen van Retie,31401.57374576421,NBHP
+wasbeerhond,Nyctereutes procyonoides,Np,Plateau van Caestert met hellingbossen en mergelgrotten,29463.48600871628,HBTRL
+wasbeerhond,Nyctereutes procyonoides,Np,Valleien van de Winge en de Motte met valleihellingen,15605.055631921996,HBTRL
+wasbeerhond,Nyctereutes procyonoides,Np,Voerstreek,4282.432737180219,HBTRL
+wasbeerhond,Nyctereutes procyonoides,Np,Durme en de middenloop van de Schelde,9992.131773458852,VGLRL
+wasbeerhond,Nyctereutes procyonoides,Np,Zandig Vlaanderen,6208.658223552338,anb-regio
+wasbeerhond,Nyctereutes procyonoides,Np,Demerland & Zuiderkempen,4117.490768874494,anb-regio
+wasbeerhond,Nyctereutes procyonoides,Np,Hoge Kempen tot Voeren,697.5338380819303,anb-regio
+wasbeerhond,Nyctereutes procyonoides,Np,Duvelsnest (Ter Heide),6208.658223552338,anb-domein
+wasbeerhond,Nyctereutes procyonoides,Np,Walenbos,4117.490768874494,anb-domein
+wasbeerhond,Nyctereutes procyonoides,Np,Broekbos,697.5338380819303,anb-domein
+wasbeerhond,Nyctereutes procyonoides,Np,Demerland & Zuiderkempen,4117.490768874494,anb-regio
+wasbeerhond,Nyctereutes procyonoides,Np,Hoge Kempen tot Voeren,697.5338380819303,anb-regio
+wasbeerhond,Nyctereutes procyonoides,Np,Walenbos,4117.490768874494,anb-domein
+wasbeerhond,Nyctereutes procyonoides,Np,Broekbos,697.5338380819303,anb-domein
+wasbeerhond,Nyctereutes procyonoides,Np,Tiendeberg-Caestert,10582.084887077363,NBHP
+wasbeerhond,Nyctereutes procyonoides,Np,Rode Dophei,6246.811344544869,NBHP
+wasbeerhond,Nyctereutes procyonoides,Np,Walenbos en Vallei van de Tieltse Motte,4215.397878012089,NBHP
+Aziatische hoornaar,Vespa velutina,Vv,Schelde- en Durme-estuarium van de Nederlandse grens tot Gent,11838160.749014549,HBTRL
+Aziatische hoornaar,Vespa velutina,Vv,Duingebieden inclusief IJzermonding en Zwin,9514743.275781268,HBTRL
+Aziatische hoornaar,Vespa velutina,Vv,Bossen van de Vlaamse Ardennen en andere Zuidvlaamse bossen,8505226.799621781,HBTRL
+Aziatische hoornaar,Vespa velutina,Vv,Durme en de middenloop van de Schelde,8777624.588512814,VGLRL
+Aziatische hoornaar,Vespa velutina,Vv,"Bocholt, Hechtel-Eksel, Meeuwen-Gruitrode, Neerpelt en Peer",8251988.051365333,VGLRL
+Aziatische hoornaar,Vespa velutina,Vv,De Demervallei,7505423.122186521,VGLRL
+Aziatische hoornaar,Vespa velutina,Vv,Kust & Westhoek,13272568.159450488,anb-regio
+Aziatische hoornaar,Vespa velutina,Vv,Vlaamse Ardennen & Schelde-Leie,8903562.64124208,anb-regio
+Aziatische hoornaar,Vespa velutina,Vv,Groene Gordels,8866433.523152273,anb-regio
+Aziatische hoornaar,Vespa velutina,Vv,De Polders van Kruibeke,1203566.9403047464,anb-domein
+Aziatische hoornaar,Vespa velutina,Vv,Zonienwoud,1119541.0177553676,anb-domein
+Aziatische hoornaar,Vespa velutina,Vv,Heverleebos,1064907.0065170059,anb-domein
+Aziatische hoornaar,Vespa velutina,Vv,Kust & Westhoek,9282663.623696584,anb-regio
+Aziatische hoornaar,Vespa velutina,Vv,Brabantse Wouden,5794650.726821614,anb-regio
+Aziatische hoornaar,Vespa velutina,Vv,Demerland & Zuiderkempen,4994846.201791519,anb-regio
+Aziatische hoornaar,Vespa velutina,Vv,Zonienwoud,1119541.0177553676,anb-domein
+Aziatische hoornaar,Vespa velutina,Vv,Heverleebos,1064907.0065170059,anb-domein
+Aziatische hoornaar,Vespa velutina,Vv,Meerdaalwoud,976225.9185770709,anb-domein
+Aziatische hoornaar,Vespa velutina,Vv,Onbevaarbare waterlopen 1e categorie,3138895.5293768845,NBHP
+Aziatische hoornaar,Vespa velutina,Vv,Duinen en Bossen van De Panne,2105772.414231694,NBHP
+Aziatische hoornaar,Vespa velutina,Vv,Meerdaalwoud-Heverleebos,2047044.6351186403,NBHP
+treurmaina,Acridotheres tristis,At,Uiterwaarden langs de Limburgse Maas en Vijverbroek,9502.512648606556,HBTRL
+treurmaina,Acridotheres tristis,At,Duingebieden inclusief IJzermonding en Zwin,7245.080833647255,HBTRL
+treurmaina,Acridotheres tristis,At,Geraardsbergse natuur op de ZO-flank van de Dender,3927.2546597360456,NBHP
+Leidse plant,Saururus cernuus,Sce,Schelde- en Durme-estuarium van de Nederlandse grens tot Gent,46063.087792690734,HBTRL
+Leidse plant,Saururus cernuus,Sce,Bokrijk en omgeving,31878.093935566838,VGLRL
+Leidse plant,Saururus cernuus,Sce,Durme en de middenloop van de Schelde,23522.805962571256,VGLRL
+Leidse plant,Saururus cernuus,Sce,Zandig Vlaanderen,19061.08936285369,anb-regio
+Leidse plant,Saururus cernuus,Sce,Demerland & Zuiderkempen,1299.6977902284125,anb-regio
+Leidse plant,Saururus cernuus,Sce,Berlarebroek,19061.08936285369,anb-domein
+Leidse plant,Saururus cernuus,Sce,Bokrijk,1299.6977902284125,anb-domein
+Leidse plant,Saururus cernuus,Sce,Zandig Vlaanderen,19061.08936285369,anb-regio
+Leidse plant,Saururus cernuus,Sce,Berlarebroek,19061.08936285369,anb-domein
+Leidse plant,Saururus cernuus,Sce,Bos- en aanvullend landschapsbeheerplan Bokrijk,29656.038516607194,NBHP
+Leidse plant,Saururus cernuus,Sce,Berlare Broek - Donkmeer,18989.85583760715,NBHP
+Leidse plant,Saururus cernuus,Sce,Onbevaarbare waterlopen 1e categorie,4293.0872053957755,NBHP
+kuifmania,Acridotheres cristatellus,Ac,Schelde- en Durme-estuarium van de Nederlandse grens tot Gent,45100.40677312827,HBTRL
+kuifmania,Acridotheres cristatellus,Ac,Bossen van het zuidoosten van de Zandleemstreek,31401.573745770263,HBTRL
+kuifmania,Acridotheres cristatellus,Ac,Kalmthoutse Heide,31401.573745768983,HBTRL
+kuifmania,Acridotheres cristatellus,Ac,Schorren en polders van de Beneden-Schelde,95667.3149320592,VGLRL
+kuifmania,Acridotheres cristatellus,Ac,Kalmthoutse Heide,31401.573745768983,VGLRL
+kuifmania,Acridotheres cristatellus,Ac,Antwerpse Kempen,103310.85980419493,anb-regio
+kuifmania,Acridotheres cristatellus,Ac,Zandig Vlaanderen,31401.573745764414,anb-regio
+kuifmania,Acridotheres cristatellus,Ac,Lage tot aan Hoge Kempen,28653.682046256727,anb-regio
+kuifmania,Acridotheres cristatellus,Ac,Linkerscheldeoever - Paardenschor-Schor Ouden Doel,37210.345083840235,anb-domein
+kuifmania,Acridotheres cristatellus,Ac,Kalmthoutse Heide - Eig. ANB,31401.573745768983,anb-domein
+kuifmania,Acridotheres cristatellus,Ac,Vagevuurbos,31401.573745764414,anb-domein
+kuifmania,Acridotheres cristatellus,Ac,Antwerpse Kempen,103310.85980419493,anb-regio
+kuifmania,Acridotheres cristatellus,Ac,Zandig Vlaanderen,31401.573745764414,anb-regio
+kuifmania,Acridotheres cristatellus,Ac,Linkerscheldeoever - Paardenschor-Schor Ouden Doel,37210.345083840235,anb-domein
+kuifmania,Acridotheres cristatellus,Ac,Kalmthoutse Heide - Eig. ANB,31401.573745768983,anb-domein
+kuifmania,Acridotheres cristatellus,Ac,Vagevuurbos,31401.573745764414,anb-domein
+kuifmania,Acridotheres cristatellus,Ac,"GGS Hedwige-Prosperschor, Schor Ouden Doel en Paa*",33638.75539101349,NBHP
+kuifmania,Acridotheres cristatellus,Ac,Vagevuurbos,31401.573745764414,NBHP
+kuifmania,Acridotheres cristatellus,Ac,Kalmthoutse Heide,30840.415447179694,NBHP
+moerasanemoon,Houttuynia cordata,Hc,Schelde- en Durme-estuarium van de Nederlandse grens tot Gent,81277.87408430944,HBTRL
+moerasanemoon,Houttuynia cordata,Hc,"Valleigebied van de Kleine Nete met brongebieden, moerassen en heiden",34603.41989493278,HBTRL
+moerasanemoon,Houttuynia cordata,Hc,Bossen van de Vlaamse Ardennen en andere Zuidvlaamse bossen,31401.573745763948,HBTRL
+moerasanemoon,Houttuynia cordata,Hc,Het Vijvercomplex van Midden-Limburg,31401.573745767353,VGLRL
+moerasanemoon,Houttuynia cordata,Hc,Durme en de middenloop van de Schelde,31401.573745763337,VGLRL
+moerasanemoon,Houttuynia cordata,Hc,"Hamonterheide, Hageven, Buitenheide, Stamprooierbroek en Mariahof",30118.870043707197,VGLRL
+moerasanemoon,Houttuynia cordata,Hc,Zandig Vlaanderen,37328.57972314156,anb-regio
+moerasanemoon,Houttuynia cordata,Hc,Groene Gordels,28719.884789696353,anb-regio
+moerasanemoon,Houttuynia cordata,Hc,Kust & Westhoek,13213.92322835567,anb-regio
+moerasanemoon,Houttuynia cordata,Hc,Grote Wal - Zwijn,37328.57972314156,anb-domein
+moerasanemoon,Houttuynia cordata,Hc,Spildoorn,28719.884789696353,anb-domein
+moerasanemoon,Houttuynia cordata,Hc,Den Brandt,9165.266255145063,anb-domein
+moerasanemoon,Houttuynia cordata,Hc,Groene Gordels,28719.884789696353,anb-regio
+moerasanemoon,Houttuynia cordata,Hc,Taxandria,5704.631602580037,anb-regio
+moerasanemoon,Houttuynia cordata,Hc,Kust & Westhoek,4996.782917141434,anb-regio
+moerasanemoon,Houttuynia cordata,Hc,Spildoorn,28719.884789696353,anb-domein
+moerasanemoon,Houttuynia cordata,Hc,Goor en omgeving,5704.631602580037,anb-domein
+moerasanemoon,Houttuynia cordata,Hc,De Keignaart,3078.6601027492034,anb-domein
+moerasanemoon,Houttuynia cordata,Hc,Stiemerbeekvallei,29042.545947309933,NBHP
+moerasanemoon,Houttuynia cordata,Hc,Vallei van de Bosbeek,19047.35958394123,NBHP
+moerasanemoon,Houttuynia cordata,Hc,Park en Tuinen van Hoegaarden,17441.013441802177,NBHP
+Amerikaanse voseekhoorn,Sciurus niger,Sn,Zandig Vlaanderen,5858.556761442222,anb-regio
+Amerikaanse voseekhoorn,Sciurus niger,Sn,Praatbos,5858.556761442222,anb-domein
+Amerikaanse voseekhoorn,Sciurus niger,Sn,Zandig Vlaanderen,5858.556761442222,anb-regio
+Amerikaanse voseekhoorn,Sciurus niger,Sn,Praatbos,5858.556761442222,anb-domein
+Amerikaanse voseekhoorn,Sciurus niger,Sn,Koekelarebos,5879.0080992459625,NBHP
+Turkse rivierkreeft,Pontastacus leptodactylus,Plep,Hallerbos en nabije boscomplexen met brongebieden en heiden,14272.603317718953,HBTRL
+Turkse rivierkreeft,Pontastacus leptodactylus,Plep,"Valleien van de Dijle, Laan en IJse met aangrenzende bos- en moerasgebieden",6776.43159545706,HBTRL
+Turkse rivierkreeft,Pontastacus leptodactylus,Plep,Poldercomplex,157007.86872883147,VGLRL
+Turkse rivierkreeft,Pontastacus leptodactylus,Plep,Groene Gordels,109451.26072784256,anb-regio
+Turkse rivierkreeft,Pontastacus leptodactylus,Plep,Brabantse Wouden,28238.826571906582,anb-regio
+Turkse rivierkreeft,Pontastacus leptodactylus,Plep,Kust & Westhoek,12201.839595170237,anb-regio
+Turkse rivierkreeft,Pontastacus leptodactylus,Plep,Ter Rijst,62637.303549080156,anb-domein
+Turkse rivierkreeft,Pontastacus leptodactylus,Plep,Plantentuin Meise,30584.889351273687,anb-domein
+Turkse rivierkreeft,Pontastacus leptodactylus,Plep,Provinciedomein Huizingen,27164.042953046737,anb-domein
+Turkse rivierkreeft,Pontastacus leptodactylus,Plep,Groene Gordels,78866.37137656887,anb-regio
+Turkse rivierkreeft,Pontastacus leptodactylus,Plep,Kust & Westhoek,12201.839595170237,anb-regio
+Turkse rivierkreeft,Pontastacus leptodactylus,Plep,Brabantse Wouden,1074.7836188598449,anb-regio
+Turkse rivierkreeft,Pontastacus leptodactylus,Plep,Ter Rijst,62637.303549080156,anb-domein
+Turkse rivierkreeft,Pontastacus leptodactylus,Plep,Eglegemvijver,16229.067827488718,anb-domein
+Turkse rivierkreeft,Pontastacus leptodactylus,Plep,Kanaal Ieper-Komen,10844.968508860857,anb-domein
+Turkse rivierkreeft,Pontastacus leptodactylus,Plep,Stadswallen van Damme,25017.259732351813,NBHP
+Turkse rivierkreeft,Pontastacus leptodactylus,Plep,Onbevaarbare waterlopen 1e categorie,12966.361936845184,NBHP
+Turkse rivierkreeft,Pontastacus leptodactylus,Plep,Kanaal Ieper-Komen,10887.145911299289,NBHP
+marmerkreeft,Procambarus virginalis,Pv,De Maten,40646.743442012725,HBTRL
+marmerkreeft,Procambarus virginalis,Pv,Bosbeekvallei en aangrenzende bos- en heidegebieden te As-Opglabbeek-Maaseik,31103.184470407665,HBTRL
+marmerkreeft,Procambarus virginalis,Pv,Klein en Groot Schietveld,30558.5905668333,HBTRL
+marmerkreeft,Procambarus virginalis,Pv,"De Maatjes, Wuustwezelheide en Groot Schietveld",44057.07563670425,VGLRL
+marmerkreeft,Procambarus virginalis,Pv,De Maten,43453.61801964671,VGLRL
+marmerkreeft,Procambarus virginalis,Pv,Antwerpse Kempen,71845.0096461318,anb-regio
+marmerkreeft,Procambarus virginalis,Pv,Hoge Kempen tot Voeren,173.61951618570674,anb-regio
+marmerkreeft,Procambarus virginalis,Pv,MD Klein Schietveld,41995.1053962784,anb-domein
+marmerkreeft,Procambarus virginalis,Pv,Begraafplaats Schoonselhof,23410.8378910065,anb-domein
+marmerkreeft,Procambarus virginalis,Pv,Boekenberg,6439.066358846903,anb-domein
+marmerkreeft,Procambarus virginalis,Pv,Antwerpse Kempen,41995.1053962784,anb-regio
+marmerkreeft,Procambarus virginalis,Pv,MD Klein Schietveld,41995.1053962784,anb-domein
+marmerkreeft,Procambarus virginalis,Pv,Provinciaal domein Kessel-Lo,246913.50005155263,NBHP
+marmerkreeft,Procambarus virginalis,Pv,MD Klein Schietveld,45331.857706260664,NBHP
+marmerkreeft,Procambarus virginalis,Pv,Schoonselhof,39281.53005768449,NBHP
+sikahert,Cervus nippon,Cn,"Valleien van de Laambeek, Zonderikbeek, Slangebeek en Roosterbeek met vijvergebieden en heiden",763923.2649293139,HBTRL
+sikahert,Cervus nippon,Cn,"Bovenloop van de Grote Nete met Zammelsbroek, Langdonken en Goor",124769.67010020034,HBTRL
+sikahert,Cervus nippon,Cn,"Vennen, heiden en moerassen rond Turnhout",94204.72123730753,HBTRL
+sikahert,Cervus nippon,Cn,Het Vijvercomplex van Midden-Limburg,1162201.6037026518,VGLRL
+sikahert,Cervus nippon,Cn,"Arendonk, Merksplas, Oud-Turnhout, Ravels en Turnhout",94204.72123730753,VGLRL
+sikahert,Cervus nippon,Cn,"Hamonterheide, Hageven, Buitenheide, Stamprooierbroek en Mariahof",31401.57374575571,VGLRL
+sikahert,Cervus nippon,Cn,Demerland & Zuiderkempen,836241.5285894632,anb-regio
+sikahert,Cervus nippon,Cn,Brabantse Wouden,60999.22987383413,anb-regio
+sikahert,Cervus nippon,Cn,Lage tot aan Hoge Kempen,14126.72639934381,anb-regio
+sikahert,Cervus nippon,Cn,Vijvercomplex,820338.6581533367,anb-domein
+sikahert,Cervus nippon,Cn,Rodebos en Laanvallei,60999.22987383413,anb-domein
+sikahert,Cervus nippon,Cn,Rijnrodeberg en de Meerkens,15902.87043612654,anb-domein
+sikahert,Cervus nippon,Cn,Demerland & Zuiderkempen,820338.6581533367,anb-regio
+sikahert,Cervus nippon,Cn,Brabantse Wouden,53529.123488910045,anb-regio
+sikahert,Cervus nippon,Cn,Lage tot aan Hoge Kempen,14126.72639934381,anb-regio
+sikahert,Cervus nippon,Cn,Vijvercomplex,820338.6581533367,anb-domein
+sikahert,Cervus nippon,Cn,Rodebos en Laanvallei,53529.123488910045,anb-domein
+sikahert,Cervus nippon,Cn,Loods Houthalen,14126.72639934381,anb-domein
+sikahert,Cervus nippon,Cn,Vijvercomplex Midden-Limburg,819274.3189584875,NBHP
+sikahert,Cervus nippon,Cn,Landschap De Liereman,75993.34431612198,NBHP
+sikahert,Cervus nippon,Cn,"Dijle-, Laan- en Ijsevallei",70914.25809388924,NBHP
+gewone gunnera,Gunnera tinctoria,Gt,"Bovenloop van de Grote Nete met Zammelsbroek, Langdonken en Goor",31401.57374576613,HBTRL
+gewone gunnera,Gunnera tinctoria,Gt,"Valleigebied tussen Melsbroek, Kampenhout, Kortenberg en Veltem",23095.76980574819,HBTRL
+gewone gunnera,Gunnera tinctoria,Gt,Antwerpse Kempen,16299.307068929003,anb-regio
+gewone gunnera,Gunnera tinctoria,Gt,Brabantse Wouden,329.2721486497903,anb-regio
+gewone gunnera,Gunnera tinctoria,Gt,Vrieselhof,16299.307068929003,anb-domein
+gewone gunnera,Gunnera tinctoria,Gt,Molenbeekvallei,329.2721486497903,anb-domein
+gewone gunnera,Gunnera tinctoria,Gt,Brabantse Wouden,329.2721486497903,anb-regio
+gewone gunnera,Gunnera tinctoria,Gt,Molenbeekvallei,329.2721486497903,anb-domein
+gewone gunnera,Gunnera tinctoria,Gt,Vrieselhof,23235.193724176144,NBHP
+gewone gunnera,Gunnera tinctoria,Gt,Boshoek,10461.782959740085,NBHP
+gewone gunnera,Gunnera tinctoria,Gt,"Leie, sectie Deinze - Sint-Baafs-Vijve",5037.2577918653915,NBHP
+papiermoerbei,Broussonetia papyrifera,Bp,Schelde- en Durme-estuarium van de Nederlandse grens tot Gent,15768.906546715094,HBTRL
+papiermoerbei,Broussonetia papyrifera,Bp,Zandig Vlaanderen,31401.573745767528,anb-regio
+papiermoerbei,Broussonetia papyrifera,Bp,Bulskampveld provincie,31401.573745767528,anb-domein
+papiermoerbei,Broussonetia papyrifera,Bp,BP/WV/05/001/OP Bulskampveld,31401.573745767528,NBHP
+papiermoerbei,Broussonetia papyrifera,Bp,Bossen Lubbeek,4612.9150256619905,NBHP
+papiermoerbei,Broussonetia papyrifera,Bp,Onbevaarbare waterlopen 1e categorie,1918.322841097077,NBHP
+Noord-Aziatische modderkruiper,Misgurnus mohoity,Mmoh,Abeek met aangrenzende moerasgebieden,1329.7314496309264,HBTRL
+Noord-Aziatische modderkruiper,Misgurnus mohoity,Mmoh,"Hamonterheide, Hageven, Buitenheide, Stamprooierbroek en Mariahof",337054.83585217653,VGLRL
+Noord-Aziatische modderkruiper,Misgurnus mohoity,Mmoh,Lage tot aan Hoge Kempen,3431.3561592938604,anb-regio
+Noord-Aziatische modderkruiper,Misgurnus mohoity,Mmoh,Broeksbeemden,3431.3561592938604,anb-domein
+Noord-Aziatische modderkruiper,Misgurnus mohoity,Mmoh,Lage tot aan Hoge Kempen,3431.3561592938604,anb-regio
+Noord-Aziatische modderkruiper,Misgurnus mohoity,Mmoh,Broeksbeemden,3431.3561592938604,anb-domein
+Noord-Aziatische modderkruiper,Misgurnus mohoity,Mmoh,Smeetshof,119071.35197191568,NBHP
+Noord-Aziatische modderkruiper,Misgurnus mohoity,Mmoh,Lozerheide,3450.526435091084,NBHP
+Noord-Aziatische modderkruiper,Misgurnus mohoity,Mmoh,Onbevaarbare waterlopen 1e categorie,2639.0355622152565,NBHP
+grote gevlekte landplatworm,Obama nungara,On,Schelde- en Durme-estuarium van de Nederlandse grens tot Gent,1378.6807476333706,HBTRL
+grote gevlekte landplatworm,Obama nungara,On,Antwerpse Kempen,11875.728632221639,anb-regio
+grote gevlekte landplatworm,Obama nungara,On,Groene Gordels,11280.09032543093,anb-regio
+grote gevlekte landplatworm,Obama nungara,On,Taxandria,4653.703197345329,anb-regio
+grote gevlekte landplatworm,Obama nungara,On,Hof Ter Linden,11875.728632221639,anb-domein
+grote gevlekte landplatworm,Obama nungara,On,Nieuw Molenbeek,11280.09032543093,anb-domein
+grote gevlekte landplatworm,Obama nungara,On,Merodebossen,2748.0534355866403,anb-domein
+grote gevlekte landplatworm,Obama nungara,On,Antwerpse Kempen,11875.728632221639,anb-regio
+grote gevlekte landplatworm,Obama nungara,On,Groene Gordels,11280.09032543093,anb-regio
+grote gevlekte landplatworm,Obama nungara,On,Taxandria,4653.703197345329,anb-regio
+grote gevlekte landplatworm,Obama nungara,On,Hof Ter Linden,11875.728632221639,anb-domein
+grote gevlekte landplatworm,Obama nungara,On,Nieuw Molenbeek,11280.09032543093,anb-domein
+grote gevlekte landplatworm,Obama nungara,On,Merodebossen,2748.0534355866403,anb-domein
+grote gevlekte landplatworm,Obama nungara,On,Hof ter Linden,11650.949985559768,NBHP
+grote gevlekte landplatworm,Obama nungara,On,0204(5/01) - Boscomplex Eindhout,4902.921601622267,NBHP
+grote gevlekte landplatworm,Obama nungara,On,Merksplas-Kolonie,2179.1642092298134,NBHP
+rode neusbeer,Nasua nasua,Nn,Berkenbos-Wezel,8324.286532439979,NBHP
+Amerikaanse strandschelp,Mulinia lateralis,Ml,Duingebieden inclusief IJzermonding en Zwin,433431.30952165474,HBTRL
+Amerikaanse strandschelp,Mulinia lateralis,Ml,Schelde- en Durme-estuarium van de Nederlandse grens tot Gent,93079.10990885967,HBTRL
+Amerikaanse strandschelp,Mulinia lateralis,Ml,Kustbroedvogels te Zeebrugge-Heist,273593.1537933819,VGLRL
+Amerikaanse strandschelp,Mulinia lateralis,Ml,Het Zwin,94204.72123729164,VGLRL
+Amerikaanse strandschelp,Mulinia lateralis,Ml,Schorren en polders van de Beneden-Schelde,34950.300480153644,VGLRL
+Amerikaanse strandschelp,Mulinia lateralis,Ml,Kust & Westhoek,362241.1246550682,anb-regio
+Amerikaanse strandschelp,Mulinia lateralis,Ml,Baai van Heist,234826.7215951928,anb-domein
+Amerikaanse strandschelp,Mulinia lateralis,Ml,Het Zwin,59091.715653072635,anb-domein
+Amerikaanse strandschelp,Mulinia lateralis,Ml,IJzermonding,31401.573745765316,anb-domein
+Amerikaanse strandschelp,Mulinia lateralis,Ml,Kust & Westhoek,362241.1246550682,anb-regio
+Amerikaanse strandschelp,Mulinia lateralis,Ml,Baai van Heist,234826.7215951928,anb-domein
+Amerikaanse strandschelp,Mulinia lateralis,Ml,Het Zwin,59091.715653072635,anb-domein
+Amerikaanse strandschelp,Mulinia lateralis,Ml,IJzermonding,31401.573745765316,anb-domein
+Amerikaanse strandschelp,Mulinia lateralis,Ml,Groene Gordel Heist West,238202.6371230785,NBHP
+Amerikaanse strandschelp,Mulinia lateralis,Ml,Zwinduinen en Polders,59131.06279175967,NBHP
+Amerikaanse strandschelp,Mulinia lateralis,Ml,IJzermonding en Kamp Lombardsijde,31401.573745765316,NBHP
+Chinese weekschildpad,Pelodiscus sinensis,Psi,Schelde- en Durme-estuarium van de Nederlandse grens tot Gent,27256.03536165155,HBTRL
+Chinese weekschildpad,Pelodiscus sinensis,Psi,Antwerpse Kempen,31401.573745777074,anb-regio
+Chinese weekschildpad,Pelodiscus sinensis,Psi,Zandig Vlaanderen,26149.680711512046,anb-regio
+Chinese weekschildpad,Pelodiscus sinensis,Psi,Park De Mick,31401.573745777074,anb-domein
+Chinese weekschildpad,Pelodiscus sinensis,Psi,Oude Durme,26149.680711512046,anb-domein
+Chinese weekschildpad,Pelodiscus sinensis,Psi,Zandig Vlaanderen,26149.680711512046,anb-regio
+Chinese weekschildpad,Pelodiscus sinensis,Psi,Oude Durme,26149.680711512046,anb-domein
+Chinese weekschildpad,Pelodiscus sinensis,Psi,UBP/AN/10/04 - Kapellen-Schoten-Brasschaat,44275.91844834626,NBHP
+grote agaatslak,Lissachatina fulica,Lf,Oude Landen,21319.275419692538,NBHP
+grote agaatslak,Lissachatina fulica,Lf,Onbevaarbare waterlopen 1e categorie,1813.487587591735,NBHP
+roodbuikbuulbuul,Pycnonotus cafer,Pca,"Vennen, heiden en moerassen rond Turnhout",31401.573745754897,HBTRL
+roodbuikbuulbuul,Pycnonotus cafer,Pca,"Houthalen-Helchteren, Meeuwen-Gruitrode en Peer",31401.573745757574,VGLRL
+roodbuikbuulbuul,Pycnonotus cafer,Pca,"Arendonk, Merksplas, Oud-Turnhout, Ravels en Turnhout",31401.573745754897,VGLRL
+roodbuikbuulbuul,Pycnonotus cafer,Pca,Antwerpse Kempen,4902.69527873378,anb-regio
+roodbuikbuulbuul,Pycnonotus cafer,Pca,Te Boelaer,4902.69527873378,anb-domein
+roodbuikbuulbuul,Pycnonotus cafer,Pca,Turnhouts Vennengebied,14357.503633068683,NBHP
+zwarte dwergmeerval,Ameiurus melas,Am,Abeek met aangrenzende moerasgebieden,62803.14749152586,HBTRL
+zwarte dwergmeerval,Ameiurus melas,Am,"Bovenloop van de Grote Nete met Zammelsbroek, Langdonken en Goor",36064.80466683704,HBTRL
+zwarte dwergmeerval,Ameiurus melas,Am,"Valleigebied van de Kleine Nete met brongebieden, moerassen en heiden",31401.573745765723,HBTRL
+zwarte dwergmeerval,Ameiurus melas,Am,"Hamonterheide, Hageven, Buitenheide, Stamprooierbroek en Mariahof",62803.14749152586,VGLRL
+zwarte dwergmeerval,Ameiurus melas,Am,De Zegge,31401.573745765723,VGLRL
+zwarte dwergmeerval,Ameiurus melas,Am,De Maten,31401.573745764792,VGLRL
+zwarte dwergmeerval,Ameiurus melas,Am,Demerland & Zuiderkempen,30409.97987588223,anb-regio
+zwarte dwergmeerval,Ameiurus melas,Am,Vijvercomplex,30409.97987588223,anb-domein
+zwarte dwergmeerval,Ameiurus melas,Am,Demerland & Zuiderkempen,30409.97987588223,anb-regio
+zwarte dwergmeerval,Ameiurus melas,Am,Vijvercomplex,30409.97987588223,anb-domein
+zwarte dwergmeerval,Ameiurus melas,Am,Sint-Maartensheide - De Luysen,58529.06981611252,NBHP
+zwarte dwergmeerval,Ameiurus melas,Am,De Maten,31401.573745764792,NBHP
+zwarte dwergmeerval,Ameiurus melas,Am,De Zegge,30811.600832389755,NBHP
+hamerhoofdplatworm,Bipalium kewense,Bk,Groene Gordels,108892.72397071042,anb-regio
+hamerhoofdplatworm,Bipalium kewense,Bk,Plantentuin Meise,108892.72397071042,anb-domein
+Afrikaanse klauwkikker,Xenopus laevis,Xl,Westvlaams Heuvelland,35526.8552953178,HBTRL
+Afrikaanse klauwkikker,Xenopus laevis,Xl,Kust & Westhoek,27981.129977149445,anb-regio
+Afrikaanse klauwkikker,Xenopus laevis,Xl,Eeuwenhout,27981.129977149445,anb-domein
+Afrikaanse klauwkikker,Xenopus laevis,Xl,Kust & Westhoek,27981.129977149445,anb-regio
+Afrikaanse klauwkikker,Xenopus laevis,Xl,Eeuwenhout,27981.129977149445,anb-domein
+Afrikaanse klauwkikker,Xenopus laevis,Xl,Heuvelland,28493.84356779806,NBHP
+fraai lampenpoetsersgras,Cenchrus setaceus,Cse,Onbevaarbare waterlopen 1e categorie,2478.39309441781,NBHP
+Aziatische boomwurger,Celastrus orbiculatus,Co,CVA De Vijvers,10725.48553301343,NBHP
+Aziatische boomwurger,Celastrus orbiculatus,Co,Wolvenberg-Brilschans,9848.892855283859,NBHP
+gestreepte koraalmeerval,Plotosus lineatus,Pli,"Valleien van de Laambeek, Zonderikbeek, Slangebeek en Roosterbeek met vijvergebieden en heiden",31401.573745775968,HBTRL
+gestreepte koraalmeerval,Plotosus lineatus,Pli,Lage tot aan Hoge Kempen,31401.573745775968,anb-regio
+gestreepte koraalmeerval,Plotosus lineatus,Pli,Teut-Ten Haagdoorn,31401.573745775968,anb-domein
+gestreepte koraalmeerval,Plotosus lineatus,Pli,Lage tot aan Hoge Kempen,31401.573745775968,anb-regio
+gestreepte koraalmeerval,Plotosus lineatus,Pli,Teut-Ten Haagdoorn,31401.573745775968,anb-domein
+gestreepte koraalmeerval,Plotosus lineatus,Pli,Teut-Tenhaagdoornheide-Kelchterhoef,31401.573745775968,NBHP
+Hydrocharis laevigata,Hydrocharis laevigata,Hl,Zandig Vlaanderen,35302.94501731683,anb-regio
+Hydrocharis laevigata,Hydrocharis laevigata,Hl,Lage tot aan Hoge Kempen,4500.540057045844,anb-regio
+Hydrocharis laevigata,Hydrocharis laevigata,Hl,Groenpool Oud Vliegveld Oostakker,35302.94501731683,anb-domein
+Hydrocharis laevigata,Hydrocharis laevigata,Hl,In het Wedel,4500.540057045844,anb-domein
+Hydrocharis laevigata,Hydrocharis laevigata,Hl,Zandig Vlaanderen,35302.94501731683,anb-regio
+Hydrocharis laevigata,Hydrocharis laevigata,Hl,Lage tot aan Hoge Kempen,4500.540057045844,anb-regio
+Hydrocharis laevigata,Hydrocharis laevigata,Hl,Groenpool Oud Vliegveld Oostakker,35302.94501731683,anb-domein
+Hydrocharis laevigata,Hydrocharis laevigata,Hl,In het Wedel,4500.540057045844,anb-domein
+Hydrocharis laevigata,Hydrocharis laevigata,Hl,Openbare bossen Overpelt,4524.994787580101,NBHP
+Hydrocharis laevigata,Hydrocharis laevigata,Hl,Onbevaarbare waterlopen 1e categorie,1773.6548391503839,NBHP
+Aziatische modderkruiper,Misgurnus anguillicaudatus,Man,Overgang Kempen-Haspengouw,4249.8849033675215,HBTRL
+Aziatische modderkruiper,Misgurnus anguillicaudatus,Man,"Hamonterheide, Hageven, Buitenheide, Stamprooierbroek en Mariahof",32452.257527847774,VGLRL
+Aziatische modderkruiper,Misgurnus anguillicaudatus,Man,Hoge Kempen tot Voeren,17827.7596070585,anb-regio
+Aziatische modderkruiper,Misgurnus anguillicaudatus,Man,Hesselsberg,9419.928761852309,anb-domein
+Aziatische modderkruiper,Misgurnus anguillicaudatus,Man,Stelebos,8407.83084520619,anb-domein
+Aziatische modderkruiper,Misgurnus anguillicaudatus,Man,Hoge Kempen tot Voeren,4472.143444049914,anb-regio
+Aziatische modderkruiper,Misgurnus anguillicaudatus,Man,Hesselsberg,4472.143444049914,anb-domein
+Aziatische modderkruiper,Misgurnus anguillicaudatus,Man,Smeetshof,24987.039085790137,NBHP
+Aziatische modderkruiper,Misgurnus anguillicaudatus,Man,Zutendaal,13397.565735553133,NBHP
+Aziatische modderkruiper,Misgurnus anguillicaudatus,Man,Hesselsberg,8507.629934649653,NBHP
+oostelijk muskietenvisje,Gambusia holbrooki,Gh,Onbevaarbare waterlopen 1e categorie,1799.6528576061846,NBHP

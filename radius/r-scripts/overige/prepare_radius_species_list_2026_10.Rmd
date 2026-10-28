@@ -1,0 +1,67 @@
+
+```{r prep memory}
+rm(list = ls())
+```
+
+```{r version, include=FALSE}
+radius_version <- "2026_10"
+```
+
+```{r setup, message=FALSE}
+library(tidyverse)
+library(here)
+library(rgbif)
+```
+
+```{r import-prius-list}
+prius_list <- read_csv(
+  here("prius2", "temp", "prius2_list_v26-02-06.csv"),
+  col_types = cols(GBIF_code = col_character())
+)
+
+species_list <- prius_list
+```
+
+```{r align-species-list-columns}
+#De PrIUS II lijst bevat meer kolommen en gebruikt andere kolomnamen dan de bestaande RadIUS soortenlijst. We selecteren de vijf benodigde kolommen en nemen de namen en volgorde uit RadIUS over, zodat de lijst aansluit op de bestaande analysescripts.
+species_list <- prius_list %>%
+  transmute(
+    Groep = groep,
+    Species = GBIF_canonicalName,
+    Soort = soort,
+    GBIF_scientific_name = GBIF_scientificName,
+    GBIF_code = GBIF_code,
+    EU_lijst = coalesce(as.integer(reg), 0L)
+  )
+```
+
+```{r}
+#We koppelen de oorspronkelijke GBIF codes aan de taxonomie van Catalogue of Life Extended Release. De oorspronkelijke soortenlijst blijft behouden. In een afzonderlijke tabel vergelijken we de gevonden namen, taxonomische rang en matchkwaliteit voordat we de codes voor de nieuwe download vastleggen.
+
+# GBIF codes koppelen aan COL XR en de matchkwaliteit controleren.
+col_mapping <- purrr::map_dfr(unique(na.omit(species_list$GBIF_code)), function(code) {
+  match <- rgbif::gbif_to_col(code)
+
+  tibble(
+    GBIF_code = code,
+    COL_code = as.character(purrr::pluck(match, "usage", "key", .default = NA_character_)),
+    match_type = purrr::pluck(match, "diagnostics", "matchType", .default = NA_character_),
+    confidence = purrr::pluck(match, "diagnostics", "confidence", .default = NA_real_)
+  )
+})
+
+col_mapping
+# Alle gecontroleerde koppelingen zijn EXACT met confidence 100.
+
+# Alleen de COL code toevoegen aan de bestaande soortenlijst.
+species_list <- species_list %>%
+  left_join(
+    col_mapping %>% select(GBIF_code, COL_code),
+    by = "GBIF_code"
+  )
+```
+
+```{r opslaan}
+write_csv(species_list, here::here("radius", "data", "input", radius_version, "radius_species_list.csv"))
+```
+

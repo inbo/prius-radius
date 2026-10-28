@@ -45,6 +45,11 @@ loadfonts(device = "win")
 rm(list=ls())
 ```
 
+```{r version, include=FALSE}
+# Kies de radius versie: "origineel" (2024) of "2026_10"
+radius_version <- "2026_10"
+```
+
 ```{r define-custom-theme, echo=FALSE, include=TRUE, global=TRUE}
 custom_theme <- function() {
   theme_few() +
@@ -70,28 +75,28 @@ custom_theme <- function() {
 ```
 
 ```{r load-data, include=FALSE, message=FALSE}
-# Species data 
-species_list <- read_csv("./radius/data/input/radius_species_list.csv") 
-species_abbr <- read_csv2("G:/Mijn Drive/Fleur/RadIUS/RadIUS voorbereiding/species_abbr.csv")
+# Species data
+species_list <- read_csv(here::here("radius", "data", "input", radius_version, "radius_species_list.csv"))
+species_abbr <- read_csv2(here::here("radius", "data", "input", radius_version, "species_abbr.csv"))
 
-occ_flanders <- read_csv("./radius/data/input/gbif_occ_flanders.csv") %>%
+occ_flanders <- read_csv(here::here("radius", "data", "input", radius_version, "gbif_occ_flanders.csv")) %>%
   st_as_sf(coords = c("decimalLongitude", "decimalLatitude"), crs = "+proj=longlat +datum=WGS84")
 
-# VLAANDEREN 
+# VLAANDEREN
 ## spatial
-Provincies_grenzen <- st_read("./prius/data/spatial/Provincies.geojson") %>%
+Provincies_grenzen <- st_read(here::here("prius", "data", "spatial", "Provincies.geojson")) %>%
   st_transform(4326)
 
-Vlaanderen_grenzen <- st_read("./prius/data/spatial/flanders_wgs84.geojson")
+Vlaanderen_grenzen <- st_read(here::here("prius", "data", "spatial", "flanders_wgs84.geojson"))
 
 ## metrics
-VL <- read_csv("./radius/data/output/VL_long.csv")
-VL_wide <- read_csv("./radius/data/output/VL_wide.csv")
+VL <- read_csv(here::here("radius", "data", "output", radius_version, "VL_long.csv"))
+VL_wide <- read_csv(here::here("radius", "data", "output", radius_version, "VL_wide.csv"))
 
 # HABITATRICHTLIJN
 ## spatial
 ### habitatrichtlijnkaart (incl. deelgebieden)
-ps_hbtrl_deel <- st_read("./radius/data/spatial/ps_hbtrl_deel.shp")
+ps_hbtrl_deel <- st_read(here::here("radius", "data", "spatial", "ps_hbtrl_deel.shp"))
 
 ### habitatrichtlijnkaart (excl. deelgebieden)
 ps_hbtrl <- ps_hbtrl_deel %>%
@@ -102,76 +107,74 @@ ps_hbtrl <- ps_hbtrl_deel %>%
   st_as_sf()
 
 ## metrics
-HBTRL <- read_csv("./radius/data/output/HBTRL_long.csv")
-
-HBTRL_wide <- read_csv("./radius/data/output/HBTRL_wide.csv")
+HBTRL <- read_csv(here::here("radius", "data", "output", radius_version, "HBTRL_long.csv"))
+HBTRL_wide <- read_csv(here::here("radius", "data", "output", radius_version, "HBTRL_wide.csv"))
 
 HBTRL_spatial <- ps_hbtrl %>%
   right_join(HBTRL, by = c("gebcode" = "gebied"), keep = TRUE)
 
 # VOGELRICHTLIJN
 ## spatial
-ps_vglrl <- st_read("./radius/data/spatial/ps_vglrl.shp") %>%
+ps_vglrl <- st_read(here::here("radius", "data", "spatial", "ps_vglrl.shp")) %>%
   mutate(oppervlakte = round(as.numeric(st_area(geometry))/10000, 1))
 
 ## metrics
-VGLRL <- read_csv("./radius/data/output/VGLRL_long.csv")
-
-VGLRL_wide <- read_csv("./radius/data/output/VGLRL_wide.csv")
+VGLRL <- read_csv(here::here("radius", "data", "output", radius_version, "VGLRL_long.csv"))
+VGLRL_wide <- read_csv(here::here("radius", "data", "output", radius_version, "VGLRL_wide.csv"))
 
 VGLRL_spatial <- ps_vglrl %>%
   right_join(VGLRL, by = c("na2000code" = "gebied"), keep = TRUE)
 
 # N2000 HABITATS
 ## spatial
-n2khab <- st_read("./radius/data/spatial/n2khab.shp")
+n2khab <- st_read(here::here("radius", "data", "spatial", "n2khab.shp"))
 
-habitats <- read_csv2("./radius/data/input/toewijzing_habitats.csv", col_types = cols(code = col_character()))
+habitats <- read_csv2(
+  here::here("radius", "data", "input", "origineel", "toewijzing_habitats.csv"),
+  col_types = cols(code = col_character())
+)
 
 n2khab <- n2khab %>%
   left_join(habitats, by = c("type" = "code")) %>%
   transmute(code = type, habitat = name, shortname, oppervlak = area, groep, geometry)
 
 ## metrics
-N2KHAB <- read_csv("./radius/data/output/N2KHAB_long.csv")
-
-N2KHAB_wide <- read_csv("./radius/data/output/N2KHAB_wide.csv")
+N2KHAB <- read_csv(here::here("radius", "data", "output", radius_version, "N2KHAB_long.csv"))
+N2KHAB_wide <- read_csv(here::here("radius", "data", "output", radius_version, "N2KHAB_wide.csv"))
 
 #### Natuurbeheerplannen
 ## spatial
-ps_nbhp <- st_read("./radius/data/spatial/ps_nbhp.shp")
+ps_nbhp <- st_read(here::here("radius", "data", "spatial", "ps_nbhp.shp"))
 
 ## metrics
-NBHP <- read_csv("./radius/data/output/NBHP_long.csv")
-
-NBHP_wide <- read_csv("./radius/data/output/NBHP_wide.csv")
+NBHP <- read_csv(here::here("radius", "data", "output", radius_version, "NBHP_long.csv"))
+NBHP_wide <- read_csv(here::here("radius", "data", "output", radius_version, "NBHP_wide.csv"))
 
 #### ANB patrimonium
 ## spatial
-am_patdat <- st_read("./radius/data/spatial/am_patdat.shp")
+am_patdat <- st_read(here::here("radius", "data", "spatial", "am_patdat.shp"))
 
 ## metrics
-PATDAT <- read_csv("./radius/data/output/PATDAT_incl_ob_long.csv")
-PATDAT_excl <- read_csv("./radius/data/output/PATDAT_excl_ob_long.csv")
-PATDAT_wide <- read_csv("./radius/data/output/PATDAT_incl_ob_wide.csv")
-PATDAT_excl_wide <- read_csv("./radius/data/output/PATDAT_excl_ob_wide.csv")
+PATDAT <- read_csv(here::here("radius", "data", "output", radius_version, "PATDAT_incl_ob_long.csv"))
+PATDAT_excl <- read_csv(here::here("radius", "data", "output", radius_version, "PATDAT_excl_ob_long.csv"))
+PATDAT_wide <- read_csv(here::here("radius", "data", "output", radius_version, "PATDAT_incl_ob_wide.csv"))
+PATDAT_excl_wide <- read_csv(here::here("radius", "data", "output", radius_version, "PATDAT_excl_ob_wide.csv"))
 
-TOP3 <- read_csv("./radius/data/output/TOP3_long.csv")
+TOP3 <- read_csv(here::here("radius", "data", "output", radius_version, "TOP3_long.csv"))
 
 #### Soortenbeschermingsprogramma's (SBP)
-
 ## spatial
-lu_sbp_pgs <- st_read("./radius/data/spatial/lu_sbp_pgs.shp")
-lu_sbp_pls <- st_read("./radius/data/spatial/lu_sbp_pls.shp")
-sbp_pls_intersects <- st_read("./radius/data/spatial/sbp_pls_intersects.shp")
+lu_sbp_pgs <- st_read(here::here("radius", "data", "spatial", "lu_sbp_pgs.shp"))
+lu_sbp_pls <- st_read(here::here("radius", "data", "spatial", "lu_sbp_pls.shp"))
+sbp_pls_intersects <- st_read(here::here("radius", "data", "output", radius_version, "sbp_pls_intersects.shp"))
 
 ## metrics
-SBP_pgs <- read_csv("./radius/data/output/SBP_pgs_long.csv")
-SBP_pls <- read_csv("./radius/data/output/SBP_pls_long.csv")
-SBP_pls_extra <- read_csv("./radius/data/output/SBP_pls_extra.csv")
+SBP_pgs <- read_csv(here::here("radius", "data", "output", radius_version, "SBP_pgs_long.csv"))
+SBP_pls <- read_csv(here::here("radius", "data", "output", radius_version, "SBP_pls_long.csv"))
+SBP_pls_extra <- read_csv(here::here("radius", "data", "output", radius_version, "SBP_pls_extra.csv"))
 
-SBP_pgs_wide <- read_csv("./radius/data/output/SBP_pgs_wide.csv")
-SBP_pls_wide <- read_csv("./radius/data/output/SBP_pls_wide.csv")
+SBP_pgs_wide <- read_csv(here::here("radius", "data", "output", radius_version, "SBP_pgs_wide.csv"))
+SBP_pls_wide <- read_csv(here::here("radius", "data", "output", radius_version, "SBP_pls_wide.csv"))
 ```
 
 # FIGUUR PUNT TOT WOLK
@@ -328,8 +331,8 @@ ggplot(VL, aes(x = (overlap * 100) + 0.04, y = reorder(soort, overlap))) +
     strip.background = element_blank()
   )
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/VL/vl_bezetting_update.png", width = 23, height = 20, units = "cm", dpi=300)
-ggsave("./radius/data/output/figuren/vl_bezetting_update.png", width = 23, height = 20, units = "cm", dpi=300)
+# ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/VL/vl_bezetting_update.png", width = 23, height = 20, units = "cm", dpi=300)
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "vl_bezetting_update.png"), width = 23, height = 20, units = "cm", dpi=300)
 
 
 ggplot(VL, aes(x = reorder(soort, overlap), y = (overlap * 100) + 0.04)) +
@@ -345,8 +348,8 @@ ggplot(VL, aes(x = reorder(soort, overlap), y = (overlap * 100) + 0.04)) +
 
 # ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/VL/vl_bezetting2.png", 
 #        width = 23, height = 13, units = "cm", dpi=300)
-# ggsave("./radius/data/output/figuren/vl_bezetting2.png", 
-#        width = 23, height = 13, units = "cm", dpi=300)
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "vl_bezetting2.png"),
+       width = 23, height = 13, units = "cm", dpi=300)
 ```
 
 Top 10 meest wijdverspreide soorten (soort + (perc. van Vlaamse oppervlak waarop soort voorkomt)):  
@@ -491,10 +494,10 @@ ggplot() +
     legend.box.spacing = unit(0.1, "cm")
   )
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/HBTRL/Fig_23_update.png", 
-       width = 23, height = 10, units = "cm", dpi=300)
-# ggsave("./radius/data/output/figuren/hbtrl_nspec_update.png", 
+# ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/HBTRL/Fig_23_update.png", 
 #        width = 23, height = 10, units = "cm", dpi=300)
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "hbtrl_nspec_update.png"),
+       width = 23, height = 10, units = "cm", dpi=300)
 ```
 
 Komt in bepaalde mate overeen met rapportage Natuurrapport (zie pagina 20-21 van https://publicaties.vlaanderen.be/view-file/39618)  
@@ -555,10 +558,10 @@ ggplot(x, aes(x = overlap * 100, y = reorder_within(soort, overlap, gebied))) +
   scale_x_continuous(labels = percent_format(scale = 1), expand = c(0, 0.1)) +  
   custom_theme() 
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/HBTRL/Fig_22_update.png", 
-       width = 23, height = 17, units = "cm", dpi=300)
-# ggsave("./radius/data/output/figuren/hbtrl_spec_per_gebied_update.png", 
+# ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/HBTRL/Fig_22_update.png", 
 #        width = 23, height = 17, units = "cm", dpi=300)
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "hbtrl_spec_per_gebied_update.png"),
+       width = 23, height = 17, units = "cm", dpi=300)
 ```
 
 ### Soortgericht
@@ -621,10 +624,10 @@ ggplot(x, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort, fill =
     )
   )
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/HBTRL/Fig_20_update.png", 
-       width = 23, height = 27, units = "cm", dpi=300)
-# ggsave("./radius/data/output/figuren/hbtrl_bezetting_update.png", 
+# ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/HBTRL/Fig_20_update.png", 
 #        width = 23, height = 27, units = "cm", dpi=300)
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "hbtrl_bezetting_update.png"),
+       width = 23, height = 27, units = "cm", dpi=300)
 ```
 
 #### In hoeveel habitatrichtlijngebieden komen de soorten voor?
@@ -705,10 +708,10 @@ ggplot() +
   labs( x = "Specificiteit voor Habitatrichtlijngebieden",  y = "Bezetting van Habitatrichtlijngebieden") +
   custom_theme()
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/HBTRL/Fig_21_update.png", 
-       width = 23, height = 15, units = "cm", dpi=300)
-# ggsave("./radius/data/output/figuren/hbtrl_in_vs_of_update.png", 
+# ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/HBTRL/Fig_21_update.png", 
 #        width = 23, height = 15, units = "cm", dpi=300)
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "hbtrl_in_vs_of_update.png"),
+       width = 23, height = 15, units = "cm", dpi=300)
 ```
 
 -   De soorten die in grote mate overlappen met habitatrichtlijngebieden/soorten die het totaal areaal aan habitatrichtlijngebieden het sterkt impacteren: nijlgans (Aae), Canadese gans (Bc), Amerikaanse vogelkers (Pse), reuzenbalsemien (Ig). Echter, deze soorten vertonen een algemeen lagere specificiteit voor de habitatrichtlijngebieden. Het zijn wijdverspreide soorten die niet specifiek voorkeur geven aan habitatrichtlijngebieden.  
@@ -843,10 +846,10 @@ combined_plot +
     plot.tag = element_text(size = 9)
   )
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/HBTRL/Fig_22_update.png", 
-       width = 23, height = 20, units = "cm", dpi=300)
-# ggsave("./radius/data/output/figuren/hbtrl_Up_Cn_Tsi_update.png", 
+# ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/HBTRL/Fig_22_update.png", 
 #        width = 23, height = 20, units = "cm", dpi=300)
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "hbtrl_Up_Cn_Tsi_update.png"),
+       width = 23, height = 20, units = "cm", dpi=300)
 ```
 
 
@@ -958,10 +961,10 @@ ggplot() +
     legend.box.spacing = unit(0.1, "cm")
   )
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/VGLRL/Fig_19_update.png", 
-       width = 23, height = 10, units = "cm", dpi=300)
-# ggsave("./radius/data/output/figuren/vglrl_nspec_update.png", 
+# ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/VGLRL/Fig_19_update.png", 
 #        width = 23, height = 10, units = "cm", dpi=300)
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "vglrl_nspec_update.png"),
+       width = 23, height = 10, units = "cm", dpi=300)
 
 # VGLRL_nspec <- VGLRL %>%
 #   dplyr::filter(gebied != "VGLRL" & type == "of" & overlap != 0) %>%
@@ -1035,8 +1038,8 @@ ggplot(x, aes(x = overlap * 100, y = reorder_within(soort, overlap, gebied))) +
 
 # ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/VGLRL/vglrl_spec_per_gebied_update.png", 
 #        width = 23, height = 17, units = "cm", dpi=300)
-# ggsave("./radius/data/output/figuren/vglrl_spec_per_gebied_update.png", 
-#        width = 23, height = 17, units = "cm", dpi=300)
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "vglrl_spec_per_gebied_update.png"),
+       width = 23, height = 17, units = "cm", dpi=300)
 ```
 
 ### Soortgericht
@@ -1101,8 +1104,8 @@ ggplot(x, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort, fill =
 
 # ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/VGLRL/Fig_16_update.png",
 #        width = 23, height = 10, units = "cm", dpi=300)
-# ggsave("./radius/data/output/figuren/vglrl_bezetting_update.png", 
-#        width = 23, height = 10, units = "cm", dpi=300)
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "vglrl_bezetting_update.png"),
+       width = 23, height = 10, units = "cm", dpi=300)
 ```
 
 treurmaina en wasbeerhond komen tot op heden niet voor in vogelrichtlijngebied.
@@ -1161,10 +1164,10 @@ ggplot() +
   labs( x = "Specificiteit voor Vogelrichtlijngebieden",  y = "Bezetting van Vogelrichtlijngebieden") +
   custom_theme() 
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/VGLRL/Fig_17_update.png", 
-       width = 23, height = 15, units = "cm", dpi=300)
-# ggsave("./radius/data/output/figuren/vglrl_in_vs_of_update.png", 
+# ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/VGLRL/Fig_17_update.png", 
 #        width = 23, height = 15, units = "cm", dpi=300)
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "vglrl_in_vs_of_update.png"),
+       width = 23, height = 15, units = "cm", dpi=300)
 ```
 
 #### In welke  vogelrichtlijngebieden komt een soort voor? {.tabset}
@@ -1331,10 +1334,10 @@ combined_plot +
     plot.tag = element_text(size = 90)
   )
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/VGLRL/Fig_18_update.png", 
-       width = 23, height = 17, units = "cm", dpi=300)
-# ggsave("./radius/data/output/figuren/vglrl_Oj_Ta_update.png", 
+# ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/VGLRL/Fig_18_update.png", 
 #        width = 23, height = 17, units = "cm", dpi=300)
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "vglrl_Oj_Ta_update.png"),
+       width = 23, height = 17, units = "cm", dpi=300)
 ```
 
 # NATURA 2000 HABITATS
@@ -1477,8 +1480,8 @@ ggplot(N2KHAB_nspec_pertype, aes(x = reorder(gebied, n_spec), y = n_spec, fill =
 
 # ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/N2KHAB/n2khab_nspec_update.png", 
 #        width = 23, height = 15, units = "cm", dpi=300)
-# ggsave("./radius/data/output/figuren/n2khab_nspec_update.png", 
-#        width = 23, height = 15, units = "cm", dpi=300)
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "n2khab_nspec_update.png"),
+       width = 23, height = 15, units = "cm", dpi=300)
 ```
 
 Habitattypes zonder IUS?
@@ -1583,10 +1586,10 @@ ggplot(data = y, aes(x = gebied, y = value, fill = metric)) +
     panel.grid.minor.y=element_line(color="grey90", linewidth=0.25)
 )
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/N2KHAB/Fig_28_update.png",
-       width = 23, height = 13, units = "cm", dpi=300)
-# ggsave("./radius/data/output/figuren/2khab_bezetting_per_type_update.png", 
+# ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/N2KHAB/Fig_28_update.png",
 #        width = 23, height = 13, units = "cm", dpi=300)
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "2khab_bezetting_per_type_update.png"),
+       width = 23, height = 13, units = "cm", dpi=300)
 
 ### Bezetting per habitatgroep
 y <- N2KHAB %>%
@@ -1657,10 +1660,10 @@ ggplot(data = y, aes(x = groep, y = waarde_scaled, fill = variabele)) +
     panel.grid.minor.y=element_line(color="grey90", linewidth=0.25)
 )
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/N2KHAB/Fig_27_update.png",
-       width = 23, height = 13, units = "cm", dpi=300)
-# ggsave("./radius/data/output/figuren/2khab_bezetting_per_groep_update.png", 
+# ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/N2KHAB/Fig_27_update.png",
 #        width = 23, height = 13, units = "cm", dpi=300)
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "2khab_bezetting_per_groep_update.png"),
+       width = 23, height = 13, units = "cm", dpi=300)
 ```
 
 ##### Kaartje
@@ -1954,10 +1957,10 @@ ggplot(x, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort, fill =
     )
   )
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/N2KHAB/Fig_25_update.png",
-       width = 23, height = 27, units = "cm", dpi=300)
-# ggsave("./radius/data/output/figuren/n2khab_bezetting_update.png", 
+# ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/N2KHAB/Fig_25_update.png",
 #        width = 23, height = 27, units = "cm", dpi=300)
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "n2khab_bezetting_update.png"),
+       width = 23, height = 27, units = "cm", dpi=300)
 ```
 
 #### Voorkomen IAS in percentage {.tabset}
@@ -2016,8 +2019,8 @@ ggplot() +
 
 # ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/N2KHAB/n2khab_in_vs_of_update.png", 
 #        width = 23, height = 15, units = "cm", dpi=300)
-# ggsave("./radius/data/output/figuren/n2khab_in_vs_of_update.png", 
-#        width = 23, height = 15, units = "cm", dpi=300)
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "n2khab_in_vs_of_update.png"),
+       width = 23, height = 15, units = "cm", dpi=300)
 ```
 
 #### Generalist vs. specialist
@@ -2061,8 +2064,8 @@ ggplot(data = x, aes(x = reorder_within(gebied, overlap, groep), y = overlap * 1
 
 # ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/N2KHAB/n2khab_gen_vs_spec.png", 
 #        width = 23, height = 17, units = "cm", dpi=300)
-# ggsave("./radius/data/output/figuren/n2khab_gen_vs_spec.png", 
-#        width = 23, height = 17, units = "cm", dpi=300)
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "n2khab_gen_vs_spec.png"),
+       width = 23, height = 17, units = "cm", dpi=300)
 ```
 
 ```{r n2khab-vglk-spec-ZT, echo = FALSE, warning=FALSE}
@@ -2100,7 +2103,7 @@ ggplot(data = x, aes(x = reorder_within(gebied, overlap, groep), y = ifelse(over
 
 # ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/N2KHAB/n2khab_gen_vs_spec.png", 
 #        width = 23, height = 17, units = "cm", dpi=300)
-ggsave("./radius/data/output/figuren/n2khab_vgl_ZT_pl.png",
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "n2khab_vgl_ZT_pl.png"),
        width = 23, height = 17, units = "cm", dpi=300)
 ```
 
@@ -2139,7 +2142,7 @@ ggplot(data = x, aes(x = reorder_within(gebied, overlap, groep), y = ifelse(over
 
 # ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/N2KHAB/n2khab_gen_vs_spec.png", 
 #        width = 23, height = 17, units = "cm", dpi=300)
-ggsave("./radius/data/output/figuren/n2khab_vgl_zoogd.png",
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "n2khab_vgl_zoogd.png"),
        width = 23, height = 17, units = "cm", dpi=300)
 ```
 
@@ -2178,7 +2181,7 @@ ggplot(data = x, aes(x = reorder_within(gebied, overlap, groep), y = ifelse(over
 
 # ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/N2KHAB/n2khab_gen_vs_spec.png", 
 #        width = 23, height = 17, units = "cm", dpi=300)
-ggsave("./radius/data/output/figuren/n2khab_vgl_terr_pl.png",
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "n2khab_vgl_terr_pl.png"),
        width = 23, height = 17, units = "cm", dpi=300)
 ```
 
@@ -2216,10 +2219,10 @@ ggplot(data = x, aes(x = reorder_within(gebied, overlap, groep), y = ifelse(over
     plot.margin = margin(r = 5, unit = "mm")
   )
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/N2KHAB/Fig_26_update.png",
-       width = 23, height = 20, units = "cm", dpi=300)
-# ggsave("./radius/data/output/figuren/n2khab_vgl_species_update.png",
+# ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/N2KHAB/Fig_26_update.png",
 #        width = 23, height = 20, units = "cm", dpi=300)
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "n2khab_vgl_species_update.png"),
+       width = 23, height = 20, units = "cm", dpi=300)
 ```
 
 #### Aquatisch vs. terrestrisch
@@ -2416,8 +2419,8 @@ ggplot(x, aes(x = n_spec, y = reorder(gebied,n_spec))) +
 
 # ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/NBHP/NBHP_nspec_per_type_update.png", 
 #        width = 23, height = 15, units = "cm", dpi=300)
-# ggsave("./radius/data/output/figuren/nbhp_nspec_per_type_update.png", 
-#        width = 23, height = 15, units = "cm", dpi=300)
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "nbhp_nspec_per_type_update.png"),
+       width = 23, height = 15, units = "cm", dpi=300)
 ```
 
 Het hoogste aantal exoten in natuurbeheerplan type 4 (~natuurreservaat): 68 IUS!! Opgelet: type 4 natuurbeheerplannen hebben ook het hoogste oppervlak in Vlaanderen.
@@ -2570,9 +2573,9 @@ ggplot(x, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort, fill =
     )
   )
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/NBHP/Fig_29_update.png", width = 23, height = 10, units = "cm", dpi=300)
-# ggsave("./radius/data/output/figuren/nbhp_bezetting_top10_update.png", 
-#        width = 23, height = 10, units = "cm", dpi=300)
+# ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/NBHP/Fig_29_update.png", width = 23, height = 10, units = "cm", dpi=300)
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "nbhp_bezetting_top10_update.png"),
+       width = 23, height = 10, units = "cm", dpi=300)
 ```
 
 #### In hoeveel natuurbeheerplannen komt een soort voor?
@@ -2681,10 +2684,10 @@ ggplot(in_NBHP, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort, 
 #     axis.title.y = element_blank()
 #   )
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/NBHP/Fig_30_update.png",
-       width = 23, height = 15, units = "cm", dpi=300)
-# ggsave("./radius/data/output/figuren/nbhp_top10_voorkomen_update.png", 
+# ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/NBHP/Fig_30_update.png",
 #        width = 23, height = 15, units = "cm", dpi=300)
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "nbhp_top10_voorkomen_update.png"),
+       width = 23, height = 15, units = "cm", dpi=300)
 ```
 
 
@@ -2705,8 +2708,8 @@ ggplot() +
 
 # ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/NBHP/nbhp_in_vs_of_update.png", 
 #        width = 23, height = 15, units = "cm", dpi=300)
-# ggsave("./radius/data/output/figuren/nbhp_in_vs_of_update.png", 
-#        width = 23, height = 15, units = "cm", dpi=300)
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "nbhp_in_vs_of_update.png"),
+       width = 23, height = 15, units = "cm", dpi=300)
 ```
 
 #### Waar liggen de verantwoordelijkheden per soort?
@@ -2771,10 +2774,10 @@ ggplot(data_filtered, aes(x = overlap * 100, y = soort, fill = gebied)) +
   theme(legend.position = "bottom",
         axis.title.y = element_blank())
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/NBHP/Fig_31_update.png", 
-       width = 23, height = 15, units = "cm", dpi=300)
-# ggsave("./radius/data/output/figuren/nbhp_resp_update.png", 
+# ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/NBHP/Fig_31_update.png", 
 #        width = 23, height = 15, units = "cm", dpi=300)
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "nbhp_resp_update.png"),
+       width = 23, height = 15, units = "cm", dpi=300)
 ```
 
 # ANB PATRIMONIUM
@@ -2924,9 +2927,9 @@ ggplot(x, aes(x = n_spec, y = reorder(gebied, n_spec))) +
   theme(axis.text.x = element_text(angle = 0, hjust = 1),
         axis.title.y = element_blank())
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/PATDAT/Fig_33_update.png", width = 23, height = 10, units = "cm", dpi=300)
-# ggsave("./radius/data/output/figuren/patdat_nspec_per_br_update.png",
-#        width = 23, height = 10, units = "cm", dpi=300)
+# ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/PATDAT/Fig_33_update.png", width = 23, height = 10, units = "cm", dpi=300)
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "patdat_nspec_per_br_update.png"),
+       width = 23, height = 10, units = "cm", dpi=300)
 
 ggplot() +
   geom_sf(data = Provincies_grenzen, fill= "#f0f0f0", color = "black", linewidth = 0.2) +
@@ -3042,8 +3045,8 @@ ggplot(x, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort, fill =
 
 # ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/PATDAT/patdat_bezetting_top10_update.png",
 #        width = 23, height = 10, units = "cm", dpi=300)
-# ggsave("./radius/data/output/figuren/patdat_bezetting_top10_update.png", 
-#        width = 23, height = 10, units = "cm", dpi=300)
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "patdat_bezetting_top10_update.png"),
+       width = 23, height = 10, units = "cm", dpi=300)
 ```
 
 ##### Exclusief openbare bossen 
@@ -3098,7 +3101,7 @@ ggplot(x, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort, fill =
 
 # ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/PATDAT/patdat_bezetting_top5.png", 
 #        width = 23, height = 10, units = "cm", dpi=300)
-ggsave("./radius/data/output/figuren/patdat_bezetting_top5.png", 
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "patdat_bezetting_top5.png"), 
        width = 23, height = 10, units = "cm", dpi=300)
 ```
 
@@ -3227,8 +3230,8 @@ ggplot(in_PATDAT, aes(x = ifelse(overlap < 1, overlap * 100, overlap), y = soort
 
 # ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/PATDAT/patdat_spec_top5_update.png",
 #        width = 23, height = 10, units = "cm", dpi=300)
-# ggsave("./radius/data/output/figuren/patdat_spec_top5_update.png", 
-#        width = 23, height = 10, units = "cm", dpi=300)
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "patdat_spec_top5_update.png"),
+       width = 23, height = 10, units = "cm", dpi=300)
 
 ```
 
@@ -3396,7 +3399,7 @@ ggplot(data_filtered, aes(x = overlap, y = soort, fill = gebied)) +
 
 # ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/PATDAT/patdat_ndom_per_recht_update.png", 
 #        width = 23, height = 10, units = "cm", dpi=300)
-ggsave("./radius/data/output/figuren/patdat_ndom_per_recht_update.png", 
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "patdat_ndom_per_recht_update.png"), 
        width = 23, height = 10, units = "cm", dpi=300)
 ```
 
@@ -3461,7 +3464,7 @@ ggplot(data_filtered, aes(x = overlap * 100, y = soort, fill = gebied)) +
   theme(legend.position = "right",
         axis.title.y = element_blank())
 
-ggsave("./radius/data/output/figuren/patdat_perc_per_br.png",
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "patdat_perc_per_br.png"),
        width = 23, height = 13, units = "cm", dpi=300)
 ```
 
@@ -3487,10 +3490,10 @@ ggplot() +
   custom_theme() +
   theme(aspect.ratio = 0.6)
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/PATDAT/Fig_32_update.png",
-       width = 23, height = 13, units = "cm", dpi=300)
-# ggsave("./radius/data/output/figuren/ofVl_vs_ofPATDATr_update.png",
+# ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/PATDAT/Fig_32_update.png",
 #        width = 23, height = 13, units = "cm", dpi=300)
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "ofVl_vs_ofPATDATr_update.png"),
+       width = 23, height = 13, units = "cm", dpi=300)
 ```
 
 #### Voorkomen van soorten per beheerregio
@@ -3580,8 +3583,8 @@ ggplot(data = PATDAT_max5, aes(x = factor + 0.0001, y = reorder_within(soort, fa
         strip.text.x = element_text(size = 6, hjust = -0.01, vjust = 0),
         strip.text.y = element_text(size = 6, hjust = 0, vjust = 0))
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/PATDAT/PATDAT_max5_per_br_update.png",  width = 3.1, height = 8, units = "in", dpi=300)
-ggsave("./radius/data/output/figuren/patdat_max5_per_br_update.png",
+# ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/PATDAT/PATDAT_max5_per_br_update.png",  width = 3.1, height = 8, units = "in", dpi=300)
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "patdat_max5_per_br_update.png"),
        width = 3.1, height = 8, units = "in", dpi=300)
 
 ## min 5
@@ -3603,8 +3606,8 @@ ggplot(data = PATDAT_min5, aes(x = factor + 0.0001, y = reorder_within(soort, fa
         strip.text.x = element_text(size = 6, hjust = -0.01, vjust = 0),
         strip.text.y = element_text(size = 6, hjust = 0, vjust = 0))
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/PATDAT/PATDAT_min5_per_br_update.png",  width = 3.1, height = 8, units = "in", dpi=300)
-ggsave("./radius/data/output/figuren/patdat_min5_per_br_update.png",
+# ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/PATDAT/PATDAT_min5_per_br_update.png",  width = 3.1, height = 8, units = "in", dpi=300)
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "patdat_min5_per_br_update.png"),
        width = 3.1, height = 8, units = "in", dpi=300)
 
 ## min/max combined
@@ -3623,7 +3626,7 @@ ggsave("./radius/data/output/figuren/patdat_min5_per_br_update.png",
 # 
 # ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/PATDAT/PATDAT_min_max_per_br.png",
 #        width = 23, height = 25, units = "cm", dpi=300)
-# ggsave("./radius/data/output/figuren/patdat_min_max_per_br.png",
+# ggsave(here::here("radius", "data", "output", radius_version, "figuren", "patdat_min_max_per_br.png"),
 #        width = 23, height = 27, units = "cm", dpi=300)
 ```
 
@@ -3708,7 +3711,7 @@ ggplot() +
     legend.title = element_blank()
   )
 
-ggsave("./radius/data/output/fig_maps/map_sbp_pls.png", width = 23, height = 8, units = "cm")
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "map_sbp_pls.png"), width = 23, height = 8, units = "cm")
 
 ggplot() +
   geom_sf(data = Provincies_grenzen, fill = "#f0f0f0", linewidth = 0.2) +
@@ -3757,8 +3760,8 @@ ggplot(data, aes(x = overlap * 100, y = reorder(soort, overlap))) +
 
 # ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/SBP/sbp_bezetting_update.png",
 #        width = 23, height = 16, units = "cm", dpi=300)
-# ggsave("./radius/data/output/figuren/sbp_bezetting_update.png",
-#        width = 23, height = 16, units = "cm", dpi=300)
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "sbp_bezetting_update.png"),
+       width = 23, height = 16, units = "cm", dpi=300)
 
 data <- SBP_pls_extra %>%
   filter(gebied == "clusters" & type == "of_clust") %>%
@@ -3781,8 +3784,8 @@ ggplot(data, aes(x = overlap * 100, y = reorder(soort, overlap))) +
     axis.text.y = element_markdown(size = 10)
   )
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/SBP/Fig_35_update.png",
-       width = 23, height = 10, units = "cm", dpi=300)
+# ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/SBP/Fig_35_update.png",
+#        width = 23, height = 10, units = "cm", dpi=300)
 ```
 
 
@@ -3944,10 +3947,10 @@ ggplot() +
     legend.box.spacing = unit(0.1, "cm")
   )
 
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/SBP/Fig_36_update.png",
-       width = 23, height = 10, units = "cm", dpi=300)
-# ggsave("./radius/data/output/figuren/sbp_nspec_per_cluster_update.png",
+# ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/SBP/Fig_36_update.png",
 #        width = 23, height = 10, units = "cm", dpi=300)
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "sbp_nspec_per_cluster_update.png"),
+       width = 23, height = 10, units = "cm", dpi=300)
 
 ggplot() +
   geom_sf(data = Provincies_grenzen, fill = "#f0f0f0", linewidth = 0.2) +
@@ -4021,11 +4024,11 @@ ggplot() +
     crs = st_crs(cluster_nete)
   )
 
-# ggsave("./radius/data/output/figuren/sbp_nete_update.png",
-#        width = 23, height = 10, units = "cm", dpi=300)
-
-ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/SBP/Fig_37_update.png",
+ggsave(here::here("radius", "data", "output", radius_version, "figuren", "sbp_nete_update.png"),
        width = 23, height = 10, units = "cm", dpi=300)
+
+# ggsave("G:/.shortcut-targets-by-id/0B0xcP-eNvJ9dMGhEZjVoT28tVVk/PRJ_FAUNABEHEER/INBOPRJ-21105 - RadIUS/5_Rapport/Figuren & tabellen/Resultaten/SBP/Fig_37_update.png",
+#        width = 23, height = 10, units = "cm", dpi=300)
 
 
 ```

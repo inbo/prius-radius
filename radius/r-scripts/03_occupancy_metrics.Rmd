@@ -9,13 +9,34 @@ library(ggplot2)
 library(n2khab)
 library(units)
 library(gtools)
-library(rgdal)
+#library(rgdal)
 library(ggthemes)
 ```
 
 ```{r clear-memory}
 rm(list=ls())
 ```
+
+```{r version, include=FALSE}
+radius_version <- "2026_10"
+taxonomy <- "COL"
+
+stopifnot(taxonomy %in% c("GBIF", "COL"))
+
+code_column <- switch(
+  taxonomy,
+  GBIF = "GBIF_code",
+  COL = "COL_code"
+)
+
+species_join <- setNames(code_column, "speciesKey")
+
+dir.create(
+  here::here("radius", "data", "output", radius_version),
+  recursive = TRUE, showWarnings = FALSE
+)
+```
+
 
 ```{r function-multisurface-to-multipolygon}
 ensure_multipolygons <- function(X) {
@@ -40,35 +61,81 @@ ensure_multilinestrings <- function(X) {
 # Read data into R
 
 ```{r import-species-list}
-species_list <- read_csv("./radius/data/input/radius_species_list.csv") 
-species_abbr <- read_csv2("./radius/data/input/species_abbr.csv")
+species_list <- read_csv(
+  here::here("radius", "data", "input", radius_version, "radius_species_list.csv"),
+  col_types = cols(.default = col_character())
+)
+
+species_abbr <- read_csv2(
+  here::here("radius", "data", "input", radius_version, "species_abbr.csv"),
+  col_types = cols(.default = col_character())
+)
 ```
 
 ```{r import-species-occ}
-occ_flanders <- read_csv("./radius/data/input/gbif_occ_flanders.csv") %>%
-  left_join(species_list, by = c("speciesKey" = "GBIF_code", "Soort", "Species")) %>%
-  left_join(species_abbr, by = c( "Soort", "Species")) %>%
-  select(year, month, day, decimalLongitude, decimalLatitude, speciesKey, Soort, Species, abbr) %>%
-  st_as_sf(coords = c("decimalLongitude", "decimalLatitude"), crs = "+proj=longlat +datum=WGS84") %>%
-  st_transform(31370) # st_buffer()/st_union does not correctly buffer longitude-latitude spatial data, whose distance is assumed to be in decimal degrees (arc_degrees).We transform the EPSG:4326 to Lambert 72.
+occ_flanders <- read_csv(
+  here::here("radius", "data", "input", radius_version, "gbif_occ_flanders.csv"),
+  col_types = cols(speciesKey = col_character())
+) %>%
+  select(-any_of(c("Soort", "Species", "abbr"))) %>%
+  left_join(
+    species_list %>% select(all_of(code_column), Soort, Species),
+    by = species_join,
+    relationship = "many-to-one"
+  )
+
+
+occ_flanders <- occ_flanders %>%
+  left_join(
+    species_abbr %>% select(Soort, abbr),
+    by = "Soort",
+    relationship = "many-to-one"
+  )
+
+occ_flanders <- occ_flanders %>%
+  select(
+    year, month, day,
+    decimalLongitude, decimalLatitude,
+    speciesKey, Soort, Species,
+    abbr
+  ) %>%
+  st_as_sf(
+    coords = c("decimalLongitude", "decimalLatitude"),
+    crs = 4326
+  ) %>%
+  st_transform(31370)
 ```
 
 ```{r import-toewijzing-soorten-en-habitats}
-toewijzing_soorten <- read_csv2("./radius/data/input/toewijzing_soorten.csv")
-toewijzing_habitats <- read_csv2("./radius/data/input/toewijzing_habitats.csv", col_types = cols(code = col_character()))
+toewijzing_soorten <- read_csv2(
+  here::here("radius", "data", "input", radius_version, "toewijzing_soorten.csv")
+)
+
+toewijzing_habitats <- read_csv2(
+  here::here("radius", "data", "input", "origineel", "toewijzing_habitats.csv"),
+  col_types = cols(code = col_character())
+)
+
+milieus <- c("marien", "brak", "zoetwater", "terrestrisch")
 ```
 
-
 ```{r boundaries-flanders}
-Vlaanderen_grenzen <- st_read("./prius/data/spatial/flanders_wgs84.geojson")
-Provincies_grenzen <- st_read("./prius/data/spatial/Provincies.geojson")
+Vlaanderen_grenzen <- st_read(
+  here::here("prius", "data", "spatial", "flanders_wgs84.geojson")
+)
+
+Provincies_grenzen <- st_read(
+  here::here("prius", "data", "spatial", "Provincies.geojson")
+)
 ```
 
 # Inlezen spatial data from local location
 ```{r load-data, include=FALSE, message=FALSE}
 # HABITATRICHTLIJN
 ### habitatrichtlijnkaart (incl. deelgebieden)
-ps_hbtrl_deel <- st_read("./radius/data/spatial/ps_hbtrl_deel.shp")
+ps_hbtrl_deel <- st_read(
+  here::here("radius", "data", "spatial", "ps_hbtrl_deel.shp")
+)
 
 ### habitatrichtlijnkaart (excl. deelgebieden)
 ps_hbtrl <- ps_hbtrl_deel %>%
@@ -79,206 +146,45 @@ ps_hbtrl <- ps_hbtrl_deel %>%
   st_as_sf()
 
 # VOGELRICHTLIJN
-ps_vglrl <- st_read("./radius/data/spatial/ps_vglrl.shp") %>%
+ps_vglrl <- st_read(
+  here::here("radius", "data", "spatial", "ps_vglrl.shp")
+) %>%
   mutate(oppervlakte = round(as.numeric(st_area(geometry))/10000, 1))
 
 # N2000 HABITATS
-n2khab <- st_read("./radius/data/spatial/n2khab.shp")
+n2khab <- st_read(
+  here::here("radius", "data", "spatial", "n2khab.shp")
+)
 
-#### Natuurbeheerplannen
-ps_nbhp <- st_read("./radius/data/spatial/ps_nbhp.shp")
+# Natuurbeheerplannen
+ps_nbhp <- st_read(
+  here::here("radius", "data", "spatial", "ps_nbhp.shp")
+)
 
-#### ANB patrimonium
-am_patdat <- st_read("./radius/data/spatial/am_patdat.shp")
+# ANB patrimonium
+am_patdat <- st_read(
+  here::here("radius", "data", "spatial", "am_patdat.shp")
+)
 ```
-
-<!-- # Habitatrichtlijndeelgebieden (ps:ps_hbtrl_deel) -->
-
-<!-- ```{r get-ps-hbtrl-deel} -->
-<!-- wfs_ANB <- "https://www.mercator.vlaanderen.be/raadpleegdienstenmercatorpubliek/wfs" -->
-
-<!-- #generate URL for WFS download -->
-<!-- url <- parse_url(wfs_ANB) -->
-<!-- url$query <- list(service = "WFS", -->
-<!--                   version = "2.0.0",  -->
-<!--                   request = "GetFeature", -->
-<!--                   typename = "ps:ps_hbtrl_deel") -->
-<!-- request <- build_url(url) -->
-
-<!-- ps_hbtrl_deel <- read_sf(request) %>% -->
-<!--   st_set_crs(31370) %>%  # omzetten naar Lambert72 -->
-<!--   ensure_multipolygons()   # multisurface to multipolygon -->
-
-<!-- #st_write(ps_hbtrl_deel, "./radius/data/spatial/ps_hbtrl_deel.shp", append = FALSE) -->
-
-<!-- ps_hbtrl_deel_wgs84 <- ps_hbtrl_deel %>% -->
-<!--   st_transform(4326) -->
-
-<!-- #st_write(ps_hbtrl_deel_wgs84, "./radius/data/spatial/WGS84/ps_hbtrl_deel_wgs84.shp", append = FALSE) -->
-<!-- ``` -->
-
-<!-- ```{r quick-visual-check} -->
-<!-- ggplot() + geom_sf(data = ps_hbtrl_deel, aes(color = gebcode)) -->
-<!-- ``` -->
-
-<!-- # Vogelrichtlijngebieden (ps:ps_vglrl) -->
-
-<!-- ```{r get-ps-vgrl} -->
-<!-- url <- parse_url(wfs_ANB) -->
-<!-- url$query <- list(service = "WFS", -->
-<!--                   version = "2.0.0",  -->
-<!--                   request = "GetFeature", -->
-<!--                   typename = "ps:ps_vglrl") -->
-<!-- request <- build_url(url) -->
-
-<!-- ps_vglrl <- read_sf(request) %>% -->
-<!--   st_set_crs(31370) %>%   -->
-<!--   ensure_multipolygons()   -->
-
-<!-- #st_write(ps_vglrl, "./radius/data/spatial/ps_vglrl.shp", append = FALSE) -->
-
-<!-- ps_vglrl_wgs84 <- ps_vglrl %>% -->
-<!--   st_transform(4326) -->
-
-<!-- #st_write(ps_vglrl_wgs84, "./radius/data/spatial/WGS84/ps_vglrl_wgs84.shp", append = FALSE) -->
-<!-- ``` -->
-
-<!-- ```{r quick-visual-check} -->
-<!-- ggplot() + geom_sf(data = ps_vglrl, aes(color = na2000code)) -->
-<!-- ``` -->
-
-<!-- # Natura 2000 Habitatkaart -->
-
-<!-- # Toon en Floris hebben een gestandaardiseerde versie van de BWK/N2000 habitatkaart gemaakt waarin uitsluitend N2000 habitattypes en rbbs worden weergegeven (https://zenodo.org/records/3355193). Hierbij hoort ook de package n2khab voor efficiënt gebruik.  -->
-<!-- ```{r import-habitatmap_stdized} -->
-<!-- # fileman_folders(root = "git", path = "./radius/data/spatial") -->
-
-<!-- # load processed habitatdata -->
-<!-- hms <- read_habitatmap_stdized("./radius/data/spatial/n2khab_data/20_processed/habitatmap_stdized.gpkg") -->
-
-<!-- hms_pol <- hms$habitatmap_polygons  -->
-
-<!-- hms_types <- hms$habitatmap_types  -->
-
-<!-- #surface area per type -->
-<!-- # x <- hms_pol %>% -->
-<!-- #   mutate(area = st_area(.)) %>% -->
-<!-- #   st_drop_geometry() %>% -->
-<!-- #   inner_join(hms_types, by = "polygon_id") %>% -->
-<!-- #   filter(grepl('^[0-9]', type)) %>%   # we gebruiken uitsluitend de n2000 habitattypes (beginnen met cijfer 0-9, niet de rbbs) -->
-<!-- #   mutate(type = substr(type, 1, 4)) %>% # only select type codes, remove subtypes -->
-<!-- #   # area of type within polygon: -->
-<!-- #   mutate(area_type = area * phab / 100) %>% -->
-<!-- #   group_by(type) %>% -->
-<!-- #   summarise(area = sum(area_type) %>% -->
-<!-- #     set_units("ha") %>% -->
-<!-- #     round(2)) -->
-
-<!-- n2khab <- hms_pol %>% -->
-<!--   inner_join(hms_types, by = "polygon_id") %>% # hms_types en hms_pol samenvoegen -->
-<!--   filter(certain == TRUE) %>%  # hms_types en hms_pol samenvoegen -->
-<!--   filter(grepl('^[0-9]', type)) %>%   # we gebruiken uitsluitend de n2000 habitattypes (beginnen met cijfer 0-9, niet de rbbs) -->
-<!--   mutate(type = substr(type, 1, 4)) %>% # only select type codes, remove subtypes -->
-<!--   filter(phab >= 50) %>% -->
-<!--   group_by(type) %>% -->
-<!--   summarise(geom = sf::st_union(geom)) %>% -->
-<!--   mutate(area = as.numeric(st_area(.))) -->
-
-<!-- #area_type = sum(area_type) %>%   -->
-<!-- #  set_units("ha") %>% -->
-<!-- #  round(2), -->
-<!-- #  area = sum(area) %>% -->
-<!-- #  set_units("ha") %>% -->
-<!-- #  round(2) -->
-
-<!-- # naam van habitattypes toevoegen -->
-<!-- hab_names <- read_namelist(lang = "nl")  %>% -->
-<!--   filter(grepl('^[0-9]', code)) -->
-
-<!-- n2khab <- n2khab %>% -->
-<!--   left_join(read_namelist(lang = "nl"), by = c("type" = "code")) -->
-
-<!-- #st_write(n2khab, "./radius/data/spatial/n2khab.shp", append = FALSE) -->
-
-<!-- n2khab_wgs84 <- n2khab %>% -->
-<!--   st_transform(4326) -->
-
-<!-- #st_write(n2khab_wgs84, "./radius/data/spatial/WGS84/n2khab_wgs84.shp", append = FALSE) -->
-<!-- ``` -->
-
-<!-- ```{r} -->
-<!-- ggplot() +  -->
-<!--   geom_sf(data = Provincies_grenzen) + -->
-<!--   geom_sf(data = n2khab, aes(color = type)) -->
-<!-- ``` -->
-
-<!-- # ANB Patrimonium databank (am:am_patdat) -->
-
-<!-- ```{r ANB patrimonium databank (am:am_patdat)} -->
-<!-- url <- parse_url(wfs_ANB) -->
-<!-- url$query <- list(service = "WFS", -->
-<!--                   version = "2.0.0",  -->
-<!--                   request = "GetFeature", -->
-<!--                   typename = "am:am_patdat") -->
-<!-- request <- build_url(url) -->
-
-<!-- am_patdat <- read_sf(request) %>% -->
-<!--   st_set_crs(31370) %>%   -->
-<!--   ensure_multipolygons()    -->
-
-<!-- #st_write(am_patdat, "./radius/data/spatial/am_patdat.shp", append = FALSE) -->
-
-<!-- am_patdat_wgs84 <- am_patdat %>% -->
-<!--   st_transform(4326) -->
-
-<!-- #st_write(am_patdat_wgs84, "./radius/data/spatial/WGS84/am_patdat_wgs84.shp", append = FALSE) -->
-<!-- ``` -->
-
-<!-- ```{r quick-visual-check} -->
-<!-- ggplot() + geom_sf(data = am_patdat, aes(color = regio)) -->
-<!-- # Oppassen : er (b)lijken enkel NA's onder regio te zitten? -->
-<!-- ``` -->
-
-<!-- # Natuurbeheerplannen (ps:ps_nbhp) -->
-
-<!-- ```{r get-ps-nbhp} -->
-<!-- url <- parse_url(wfs_ANB) -->
-<!-- url$query <- list(service = "WFS", -->
-<!--                   version = "2.0.0",  -->
-<!--                   request = "GetFeature", -->
-<!--                   typename = "ps:ps_nbhp") -->
-<!-- request <- build_url(url) -->
-
-<!-- ps_nbhp <- read_sf(request) %>% -->
-<!--   st_set_crs(31370) %>%   -->
-<!--   ensure_multipolygons()    -->
-
-<!-- st_write(ps_nbhp, "./radius/data/spatial/ps_nbhp.shp", append = FALSE) -->
-
-<!-- ps_nbhp_wgs84 <- ps_nbhp %>% -->
-<!--   st_transform(4326) -->
-
-<!-- #st_write(ps_nbhp_wgs84, "./radius/data/spatial/WGS84/ps_nbhp_wgs84.shp", append = FALSE) -->
-<!-- ``` -->
-
-<!-- ```{r quick-visual-check} -->
-<!-- ggplot() + geom_sf(data = ps_nbhp) -->
-<!-- ``` -->
 
 # Soortenbeschermingsprogramma's (SBPs)
 ```{r}
 wfs_ANB <- "https://www.mercator.vlaanderen.be/raadpleegdienstenmercatorpubliek/wfs"
 
 url <- parse_url(wfs_ANB)
-url$query <- list(service = "WFS",
-                  version = "2.0.0", 
-                  request = "GetFeature",
-                  typename = "lu:lu_sbp_pls")
+url$query <- list(
+  service = "WFS",
+  version = "2.0.0",
+  request = "GetFeature",
+  typename = "lu:lu_sbp_pls",
+  srsName = "EPSG:31370"
+)
+
 request <- build_url(url)
 
-lu_sbp_pls <- read_sf(request) %>%
-  st_set_crs(31370) %>%  
-  ensure_multilinestrings()   
+lu_sbp_pls <- st_read(request, as_tibble = FALSE, quiet = TRUE) %>%
+  st_set_crs(31370) %>%
+  ensure_multilinestrings()
 
 lu_sbp_pls_wgs84 <- lu_sbp_pls %>%
   st_transform(4326)
@@ -290,15 +196,19 @@ lu_sbp_pls_buffered <- lu_sbp_pls %>%
 
 #st_write(lu_sbp_pls, "./radius/data/spatial/lu_sbp_pls.shp", append = FALSE)
 
-url$query <- list(service = "WFS",
-                  version = "2.0.0", 
-                  request = "GetFeature",
-                  typename = "lu:lu_sbp_pgs")
+url$query <- list(
+  service = "WFS",
+  version = "2.0.0",
+  request = "GetFeature",
+  typename = "lu:lu_sbp_pgs",
+  srsName = "EPSG:31370"
+)
+
 request <- build_url(url)
 
-lu_sbp_pgs <- read_sf(request) %>%
-  st_set_crs(31370) %>%  
-  ensure_multipolygons() 
+lu_sbp_pgs <- st_read(request, as_tibble = FALSE, quiet = TRUE) %>%
+  st_set_crs(31370) %>%
+  ensure_multipolygons()
 
 #st_write(lu_sbp_pgs, "./radius/data/spatial/lu_sbp_pgs.shp", append = FALSE)
 ```
@@ -388,6 +298,8 @@ ps_nbhp <- ps_nbhp %>%
   filter(!is.na(egndmty))
 ```
 
+# TEST 16/10
+
 # Calculating occupancy metrics
 ```{r calculate-occupancy-metrics, warning=FALSE}
 # list wfs-maps
@@ -405,21 +317,30 @@ list.dfs <- list(
 )
 
 # initialize a list for results
-list.results <- lapply(list.dfs, function(x) data.frame())
+list.results <- lapply(list.dfs, function(x) data.frame(
+  soort = character(), species = character(), abbr = character(),
+  gebied = character(), overlap = character(), type = character()
+))
 
 # loop through unique species
 for (i in unique(occ_flanders$Soort)) {
   print(i)
   
-  # in welk milieu komt de soort voor (marien, brak, zoetwater, terrestrisch)
-  soort_milieu <- names(toewijzing_soorten)[toewijzing_soorten[toewijzing_soorten$soort == i, ] == 1]
-  
-  # subset van n2k habitattypes obv milieu waarin de soort voorkomt (soort_milieu)
+  # Selecteer uitsluitend de milieukolommen van deze soort.
+  milieuwaarden <- toewijzing_soorten %>%
+    filter(soort == i) %>%
+    select(all_of(milieus)) %>%
+    unlist(use.names = FALSE)
+  soort_milieu <- milieus[milieuwaarden == 1]
+  if (length(soort_milieu) == 0) {
+    stop("Geen milieu toegewezen aan: ", i)
+  }
+
+  # Behoud habitattypes die bij minstens één toegewezen milieu passen.
   n2khab_subset <- toewijzing_habitats %>%
-    select(code, soort_milieu) %>%
-    filter_at(vars(soort_milieu), any_vars(. == 1)) %>%
+    filter(if_any(all_of(soort_milieu), ~ .x == 1)) %>%
     pull(code)
-  
+
   # extract species occurrence
   occ_species <- occ_flanders[occ_flanders$Soort == i,]
   
@@ -469,7 +390,7 @@ for (i in unique(occ_flanders$Soort)) {
     overlap_intersection <- sum(occ_species_intersection$intersect_area)
     percentage_overlap_in <- overlap_intersection / total_area
     percentage_overlap_of <- overlap_intersection / sum(gebied$geb_area)
-    selectivity <- percentage_overlap_in / (sum(gebied$geb_area) / sum(Vlaanderen_grenzen$OPPERVL))
+
     
     if (nrow(occ_species_intersection) != 0) {  # skip following steps if there's no overlap 
       # Standard occupancy metrics across all wfs-maps
@@ -479,8 +400,8 @@ for (i in unique(occ_flanders$Soort)) {
         species = paste(unique(occ_species$Species), collapse = ","), 
         abbr = unique(na.omit(occ_species$abbr)),
         gebied = names(list.dfs)[j],
-        overlap = format(round(c(percentage_overlap_in, percentage_overlap_of, selectivity), 6), scientific = FALSE), 
-        type = paste0(c("in", "of", "sel")))
+        overlap = format(round(c(percentage_overlap_in, percentage_overlap_of), 6), scientific = FALSE), 
+        type = paste0(c("in", "of")))
       
       list.results[[j]] <- rbind(list.results[[j]], metrics_df)
       
@@ -493,9 +414,9 @@ for (i in unique(occ_flanders$Soort)) {
           summarise(intersect_area = sum(intersect_area)) %>%
           st_drop_geometry() %>%
           full_join(gebied_summary, by = "code") %>%
-          na.replace(0)
+          mutate(intersect_area = replace_na(intersect_area, 0))
         
-        for (row in 1:nrow(overlap_per_gebied)) {
+        for (row in seq_len(nrow(overlap_per_gebied))) {
           # OPTIE 1: percentage van overlap dat in bepaald gebied valt
           # percentage_overlap_in = as.numeric(overlap_per_gebied[row,]$intersect_area / overlap_intersection)
           # OPTIE 2: percentage van totale verspreiding dat in bepaald gebied valt
@@ -503,15 +424,15 @@ for (i in unique(occ_flanders$Soort)) {
           
           # percentage van oppervlakte HBTRL/VLRL/BWKHAB gebied dat overlapt met soortverspreiding
           percentage_overlap_of = overlap_per_gebied[row,]$intersect_area / overlap_per_gebied[row,]$geb_area
-          selectivity = percentage_overlap_in / (overlap_per_gebied[row,]$geb_area / sum(Vlaanderen_grenzen$OPPERVL))
+
           
           metrics_df <- data.frame(
             soort = i,
             species = paste(unique(occ_species$Species), collapse = ","), 
             abbr = unique(na.omit(occ_species$abbr)), 
             gebied = as.character(overlap_per_gebied[row,1]),
-            overlap = format(round(c(percentage_overlap_in, percentage_overlap_of, selectivity), 6), scientific = FALSE), 
-            type = paste0(c("in", "of", "sel")))
+            overlap = format(round(c(percentage_overlap_in, percentage_overlap_of), 6), scientific = FALSE), 
+            type = paste0(c("in", "of")))
           
           list.results[[j]] <- rbind(list.results[[j]], metrics_df)
         }
@@ -537,7 +458,7 @@ for (i in unique(occ_flanders$Soort)) {
           group_by(rchtnnb_abb) %>%
           summarise(n = n()) 
         
-        for (row in 1:nrow(anb_rechten)) {
+        for (row in seq_len(nrow(anb_rechten))) {
           list.results[[j]] <- rbind(list.results[[j]], data.frame(
             soort = i,
             species = paste(unique(occ_species$Species), collapse = ","), 
@@ -557,24 +478,24 @@ for (i in unique(occ_flanders$Soort)) {
           arrange() %>%
           full_join(gebied_summary, by = c("regio_abb" = "code")) %>%
           filter(!is.na(regio_abb)) %>%
-          na.replace(0)
+          mutate(intersect_area = replace_na(intersect_area, 0))
         
-        for (row in 1: nrow(overlap_per_anb_regio)) {
+        for (row in seq_len(nrow(overlap_per_anb_regio))) {
           # OPTIE 1: percentage van overlap met PATDAT per anb regio
           #percentage_overlap_in = as.numeric(overlap_per_anb_regio[row,]$intersect_area / overlap_intersection)
           # OPTIE 2: percentage van totale verspreiding dat overlapt per anb regio
           percentage_overlap_in = overlap_per_anb_regio[row,]$intersect_area / total_area
           
           percentage_overlap_of = overlap_per_anb_regio[row,]$intersect_area / overlap_per_anb_regio[row,]$geb_area
-          selectivity = percentage_overlap_in / (overlap_per_anb_regio[row,]$geb_area / sum(Vlaanderen_grenzen$OPPERVL))
+
 
           metrics_df <- data.frame(
             soort = i,
             species = paste(unique(occ_species$Species), collapse = ","), 
             abbr = unique(na.omit(occ_species$abbr)),
             gebied = as.character(overlap_per_anb_regio[row,1]),
-            overlap = format(round(c(percentage_overlap_in, percentage_overlap_of, selectivity), 6), scientific = FALSE), 
-            type = paste0(c("in", "of", "sel")))
+            overlap = format(round(c(percentage_overlap_in, percentage_overlap_of), 6), scientific = FALSE), 
+            type = paste0(c("in", "of")))
           
           list.results[[j]] <- rbind(list.results[[j]], metrics_df)
         }
@@ -601,7 +522,7 @@ for (i in unique(occ_flanders$Soort)) {
           group_by(ntrbhrp_abb) %>%
           summarise(n = n())
         
-        for (row in 1:nrow(n_per_beheerplantype)) {
+        for (row in seq_len(nrow(n_per_beheerplantype))) {
           list.results[[j]] <- rbind(list.results[[j]], data.frame(
             soort = i,
             species = paste(unique(occ_species$Species), collapse = ","), 
@@ -621,9 +542,9 @@ for (i in unique(occ_flanders$Soort)) {
           summarise(intersect_area = sum(intersect_area)) %>%
           arrange() %>%
           full_join(gebied_summary, by = c("egndmty_abb" = "code")) %>%
-          na.replace(0)
+          mutate(intersect_area = replace_na(intersect_area, 0))
         
-        for (row in 1: nrow(overlap_per_egndmty)) {
+        for (row in seq_len(nrow(overlap_per_egndmty))) {
           # OPTIE 1: percentage van overlap met NBHP dat overlapt per eigendomtype
           # percentage_overlap_in = as.numeric(overlap_per_egndmty[row,]$intersect_area / overlap_intersection)
           # OPTIE 2: percentage van totale verspreiding dat overlapt per eigendomtype
@@ -652,13 +573,13 @@ for (i in unique(occ_flanders$Soort)) {
           slice_max(order_by = intersect_area, n = 3, na_rm = TRUE) %>%
           st_drop_geometry()
         
-        for (row in 1:nrow(top_3)) {
+        for (row in seq_len(nrow(top_3))) {
           list.results[[9]] <- rbind(list.results[[9]], data.frame(
             soort = i,
             species = paste(unique(occ_species$Species), collapse = ","), 
             abbr = unique(na.omit(occ_species$abbr)),
             gebied = as.character(top_3[row, 1]),
-            overlap = drop_units(top_3[row, 2]),
+            overlap = top_3$intersect_area[row],
             type = names(list.dfs)[j]))
         }
       }
@@ -672,13 +593,13 @@ for (i in unique(occ_flanders$Soort)) {
           slice_max(order_by = intersect_area, n = 3, na_rm = TRUE) %>%
           st_drop_geometry()
         
-        for (row in 1:nrow(top_3_regio)) {
+        for (row in seq_len(nrow(top_3_regio))) {
           list.results[[9]] <- rbind(list.results[[9]], data.frame(
             soort = i,
             species = paste(unique(occ_species$Species), collapse = ","), 
             abbr = unique(na.omit(occ_species$abbr)),
             gebied = as.character(top_3_regio[row, 1]),
-            overlap = drop_units(top_3_regio[row,2]),
+            overlap = top_3_regio$intersect_area[row],
             type = "anb-regio"))
         }
         print("top 3 anb regio: DONE")
@@ -689,13 +610,13 @@ for (i in unique(occ_flanders$Soort)) {
           slice_max(order_by = intersect_area, n = 3, na_rm = TRUE) %>%
           st_drop_geometry()
         
-        for (row in 1:nrow(top_3_domein)) {
+        for (row in seq_len(nrow(top_3_domein))) {
           list.results[[9]] <- rbind(list.results[[9]], data.frame(
             soort = i,
             species = paste(unique(occ_species$Species), collapse = ","), 
             abbr = unique(na.omit(occ_species$abbr)),
             gebied = as.character(top_3_domein[row, 1]),
-            overlap = drop_units(top_3_domein[row,2]),
+            overlap = top_3_domein$intersect_area[row],
             type = "anb-domein"))
         }
         print("top 3 anb domein: DONE")
@@ -708,7 +629,7 @@ for (i in unique(occ_flanders$Soort)) {
         species = paste(unique(occ_species$Species), collapse = ","), 
         abbr = unique(na.omit(occ_species$abbr)),
         gebied = names(list.dfs)[j],
-        overlap = 0, 
+        overlap = "0", 
         type = paste0(c("in", "of")))
       
       list.results[[j]] <- rbind(list.results[[j]], metrics_df)
@@ -732,16 +653,16 @@ for (i in unique(occ_flanders$Soort)) {
       
       overlap_intersection <- sum(occ_species_intersection$intersect_area)
       percentage_overlap_in <- overlap_intersection / total_area
-      percentage_overlap_of <- overlap_intersection / sum(gebied$geb_area)
-      selectivity <- percentage_overlap_in / (sum(gebied$geb_area) / sum(Vlaanderen_grenzen$OPPERVL))
+      percentage_overlap_of <- overlap_intersection / sum(gebied_sbp$geb_area)
+
       
       metrics_df <- data.frame(
         soort = i,
         species = paste(unique(occ_species$Species), collapse = ","), 
         abbr = unique(na.omit(occ_species$abbr)),
         gebied = paste("SBP ", k),
-        overlap = format(round(c(percentage_overlap_in, percentage_overlap_of, selectivity), 6), scientific = FALSE), 
-        type = paste0(c("in", "of", "sel")))
+        overlap = format(round(c(percentage_overlap_in, percentage_overlap_of), 6), scientific = FALSE), 
+        type = paste0(c("in", "of")))
       
       list.results[[j]] <- rbind(list.results[[j]], metrics_df)
       
@@ -751,22 +672,22 @@ for (i in unique(occ_flanders$Soort)) {
           group_by(gebied, geb_area) %>%
           summarise(intersect_area = sum(intersect_area)) %>%
           ungroup() %>%
-          full_join(gebied %>% filter(soort == k), by = c("gebied", "geb_area")) %>%
+          full_join(gebied %>% filter(soort == k) %>% st_drop_geometry(), by = c("gebied", "geb_area")) %>%
           select(gebied, geb_area, intersect_area) %>%
-          na.replace(0)
+          mutate(intersect_area = replace_na(intersect_area, 0))
         
-        for (row in 1:nrow(overlap_per_gebied)) {
+        for (row in seq_len(nrow(overlap_per_gebied))) {
           percentage_overlap_in = overlap_per_gebied[row,]$intersect_area / total_area
           percentage_overlap_of = overlap_per_gebied[row,]$intersect_area / overlap_per_gebied[row,]$geb_area
-          selectivity = percentage_overlap_in / (overlap_per_gebied[row,]$geb_area / sum(Vlaanderen_grenzen$OPPERVL))
+
           
           metrics_df <- data.frame(
             soort = i,
             species = paste(unique(occ_species$Species), collapse = ","), 
             abbr = unique(na.omit(occ_species$abbr)), 
             gebied = paste0("SBP ", k, " (", as.character(overlap_per_gebied[row,1]), ")"),
-            overlap = format(round(c(percentage_overlap_in, percentage_overlap_of, selectivity), 6), scientific = FALSE), 
-            type = paste0(c("in", "of", "sel")))
+            overlap = format(round(c(percentage_overlap_in, percentage_overlap_of), 6), scientific = FALSE), 
+            type = paste0(c("in", "of")))
           
           list.results[[j]] <- rbind(list.results[[j]], metrics_df)
         }
@@ -780,7 +701,10 @@ for (i in unique(occ_flanders$Soort)) {
 # Save output
 
 ```{r save-list-results-as-RData-file}
-saveRDS(list.results, file="./radius/data/output/list_results.RData")
+saveRDS(
+  list.results,
+  file = here::here("radius", "data", "output", radius_version, "list_results.RData")
+)
 ```
 
 ```{r assign-results-to-df}
@@ -797,16 +721,16 @@ VL_long <- list.results$VL
 ```
 
 ```{r save-dfs-in-long-format}
-write_csv(HBTRL_long, "./radius/data/output/HBTRL_long.csv", append = FALSE)
-write_csv(VGLRL_long, "./radius/data/output/VGLRL_long.csv", append = FALSE)
-write_csv(N2KHAB_long, "./radius/data/output/N2KHAB_long.csv", append = FALSE)
-write_csv(PATDAT_incl_ob_long, "./radius/data/output/PATDAT_incl_ob_long.csv", append = FALSE)
-write_csv(PATDAT_excl_ob_long, "./radius/data/output/PATDAT_excl_ob_long.csv", append = FALSE)
-write_csv(NBHP_long, "./radius/data/output/NBHP_long.csv", append = FALSE)
-write_csv(SBP_pls_long, "./radius/data/output/SBP_pls_long.csv", append = FALSE)
-write_csv(SBP_pgs_long, "./radius/data/output/SBP_pgs_long.csv", append = FALSE)
-write_csv(TOP3_long, "./radius/data/output/TOP3_long.csv", append = FALSE)
-write_csv(VL_long, "./radius/data/output/VL_long.csv", append = FALSE)
+write_csv(HBTRL_long, here::here("radius", "data", "output", radius_version, "HBTRL_long.csv"), append = FALSE)
+write_csv(VGLRL_long, here::here("radius", "data", "output", radius_version, "VGLRL_long.csv"), append = FALSE)
+write_csv(N2KHAB_long, here::here("radius", "data", "output", radius_version, "N2KHAB_long.csv"), append = FALSE)
+write_csv(PATDAT_incl_ob_long, here::here("radius", "data", "output", radius_version, "PATDAT_incl_ob_long.csv"), append = FALSE)
+write_csv(PATDAT_excl_ob_long, here::here("radius", "data", "output", radius_version, "PATDAT_excl_ob_long.csv"), append = FALSE)
+write_csv(NBHP_long, here::here("radius", "data", "output", radius_version, "NBHP_long.csv"), append = FALSE)
+write_csv(SBP_pls_long, here::here("radius", "data", "output", radius_version, "SBP_pls_long.csv"), append = FALSE)
+write_csv(SBP_pgs_long, here::here("radius", "data", "output", radius_version, "SBP_pgs_long.csv"), append = FALSE)
+write_csv(TOP3_long, here::here("radius", "data", "output", radius_version, "TOP3_long.csv"), append = FALSE)
+write_csv(VL_long, here::here("radius", "data", "output", radius_version, "VL_long.csv"), append = FALSE)
 ```
 
 ```{r column-format-long-to-wide}
@@ -870,22 +794,22 @@ VL_wide <- VL_long %>%
 ```
 
 ```{r save-separate-dfs-as-csv}
-write_csv(HBTRL_wide, "./radius/data/output/HBTRL_wide.csv", append = FALSE)
-write_csv(VGLRL_wide, "./radius/data/output/VGLRL_wide.csv", append = FALSE)
-write_csv(N2KHAB_wide, "./radius/data/output/N2KHAB_wide.csv", append = FALSE)
-write_csv(PATDAT_incl_ob_wide, "./radius/data/output/PATDAT_incl_ob_wide.csv", append = FALSE)
-write_csv(PATDAT_excl_ob_wide, "./radius/data/output/PATDAT_excl_ob_wide.csv", append = FALSE)
-write_csv(NBHP_wide, "./radius/data/output/NBHP_wide.csv", append = FALSE)
-write_csv(SBP_pgs_wide, "./radius/data/output/SBP_pgs_wide.csv", append = FALSE)
-write_csv(SBP_pls_wide, "./radius/data/output/SBP_pls_wide.csv", append = FALSE)
-#write_csv(TOP3_wide, "./radius/data/output/TOP3_wide.csv", append = FALSE)
-write_csv(VL_wide, "./radius/data/output/VL_wide.csv", append = FALSE)
+write_csv(HBTRL_wide, here::here("radius", "data", "output", radius_version, "HBTRL_wide.csv"), append = FALSE)
+write_csv(VGLRL_wide, here::here("radius", "data", "output", radius_version, "VGLRL_wide.csv"), append = FALSE)
+write_csv(N2KHAB_wide, here::here("radius", "data", "output", radius_version, "N2KHAB_wide.csv"), append = FALSE)
+write_csv(PATDAT_incl_ob_wide, here::here("radius", "data", "output", radius_version, "PATDAT_incl_ob_wide.csv"), append = FALSE)
+write_csv(PATDAT_excl_ob_wide, here::here("radius", "data", "output", radius_version, "PATDAT_excl_ob_wide.csv"), append = FALSE)
+write_csv(NBHP_wide, here::here("radius", "data", "output", radius_version, "NBHP_wide.csv"), append = FALSE)
+write_csv(SBP_pgs_wide, here::here("radius", "data", "output", radius_version, "SBP_pgs_wide.csv"), append = FALSE)
+write_csv(SBP_pls_wide, here::here("radius", "data", "output", radius_version, "SBP_pls_wide.csv"), append = FALSE)
+# write_csv(TOP3_wide, here::here("radius", "data", "output", radius_version, "TOP3_wide.csv"), append = FALSE)
+write_csv(VL_wide, here::here("radius", "data", "output", radius_version, "VL_wide.csv"), append = FALSE)
 ```
 
 
 # Calculating extra occupancy metrics SBP beekvissen (sbp_pls)
 ```{r watersystemen-vlaanderen}
-clusters_sbp <- st_read("G:/Mijn Drive/Fleur/RadIUS/SBPs/Shapefile/Vhazone.shp") %>%
+clusters_sbp <- st_read("G:/Mijn Drive/Fleur/INBO/PROJECTEN/RadIUS/SBPs/Shapefile/Vhazone.shp") %>%
   st_transform(4326) %>%
   ensure_multipolygons() %>%
   transmute(CLUSTERNR = as.numeric(VHAZONENR), CLUSTERNAAM = NAAMVHAZON, OPPERVL)
@@ -961,6 +885,27 @@ ggplot() +
 sbp_pls_species <- c("Amerikaanse stierkikker", "Kesslergrondel", "Pontische stroomgrondel", "marmergrondel", "zwartbekgrondel", "Californische rivierkreeft", "gestreepte Amerikaanse rivierkreeft", "gevlekte Amerikaanse rivierkreeft","geknobbelde Amerikaanse rivierkreeft", "rode Amerikaanse rivierkreeft", "Turkse rivierkreeft","Chinese wolhandkrab"
 ) 
 
+# Bijkomende relevante soorten uit PrIUS-II
+if (radius_version == "2026_10") {
+
+  sbp_pls_species_extra <- c(
+    "blauwbandgrondel",
+    "amoergrondel",
+    "Noord-Aziatische modderkruiper",
+    "zonnebaars",
+    "zwarte dwergmeerval",
+    "noordelijke slangekopvis",
+    "marmerkreeft",
+    "roestbruine Amerikaanse rivierkreeft",
+    "Afrikaanse klauwkikker"
+  )
+
+  sbp_pls_species <- unique(c(
+    sbp_pls_species,
+    sbp_pls_species_extra
+  ))
+}
+
 list.dfs <- list(
   SBP_pls = lu_sbp_pls_buffered,
   clusters_sbp = clusters_sbp,
@@ -973,10 +918,25 @@ sbp_intersections <- list()
 list.results <- lapply(list.dfs, function(x) data.frame())
 
 for (i in sbp_pls_species) {
-  
+
   print(i)
-  
+
   occ_species <- occ_flanders[occ_flanders$Soort == i,]
+
+  # Soorten zonder waarnemingen overslaan
+  if (nrow(occ_species) == 0) {
+    warning(paste("Geen waarnemingen voor:", i))
+    next
+  }
+
+  # Afkorting bepalen, met NA indien niet beschikbaar
+  abbr_value <- unique(na.omit(occ_species$abbr))
+
+  abbr_value <- if (length(abbr_value) == 0) {
+    NA_character_
+  } else {
+    paste(abbr_value, collapse = ", ")
+  }
   
   occ_species_buf <- occ_species %>%
     st_buffer(dist = 100) %>%
@@ -1186,6 +1146,15 @@ SBP_pls_extra <- rbind(list.results$SBP_pls, list.results$clusters_sbp, list.res
 ```
 
 ```{r save-dfs-in-long-format}
-write_csv(SBP_pls_extra, "./radius/data/output/SBP_pls_extra.csv", append = FALSE)
-st_write(sbp_intersections %>% st_as_sf(), "./radius/data/spatial/sbp_pls_intersects.shp", append = FALSE)
+write_csv(
+  SBP_pls_extra,
+  here::here("radius", "data", "output", radius_version, "SBP_pls_extra.csv"),
+  append = FALSE
+)
+
+st_write(
+  sbp_intersections %>% st_as_sf(),
+  here::here("radius", "data", "output", radius_version, "sbp_pls_intersects.shp"),
+  append = FALSE
+)
 ```

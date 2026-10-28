@@ -13,7 +13,7 @@ library(colorspace)
 ```
 
 ```{r resultaten-oost-west, message=FALSE}
-data_oost <- read_csv("./radius/data/input/survey/bevraging_oost.csv", name_repair = make.names)
+data_oost <- read_csv(here::here("radius", "data", "input", radius_version, "survey", "bevraging_oost.csv"), name_repair = make.names)
 data_west <- read_sheet("https://docs.google.com/spreadsheets/d/12_YYdx6bpXab77QTPwTVE0xcljUVtmUF0HeQ-wbMGZ8/edit", .name_repair = make.names) 
 ```
 
@@ -24,7 +24,7 @@ anb_bw_oud <- data.frame(
   n = c(8,8,8,5,9,7,10,11,5,6)
 )
 
-anb_bw_2023 <- readxl::read_excel("./radius/data/input/survey/Contactenlijst BW en RB.xlsx") %>%
+anb_bw_2023 <- readxl::read_excel(here::here("radius", "data", "input", radius_version, "survey", "Contactenlijst BW en RB.xlsx")) %>%
   filter(Job == "Boswachter") %>%
   group_by(Regio) %>%
   summarise(n = n()) %>%
@@ -217,9 +217,9 @@ ggsave("G:/Mijn Drive/Fleur/RadIUS/Rapport/map_patdat.png", plot = plot_patdat, 
 
 
 ```{r load-gbif-occurrences, message=FALSE}
-species_list <- read_csv("./radius/data/input/radius_species_list.csv")
+species_list <- read_csv(here::here("radius", "data", "input", radius_version, "radius_species_list.csv"))
 
-occ_flanders <- read_csv("./radius/data/input/gbif_occ_flanders.csv") %>%
+occ_flanders <- read_csv(here::here("radius", "data", "input", radius_version, "gbif_occ_flanders.csv")) %>%
   left_join(species_list, by = c("speciesKey" = "GBIF_code", "Soort")) %>%
   select(year, decimalLongitude, decimalLatitude, Soort) %>%
   st_as_sf(coords = c("decimalLongitude", "decimalLatitude"), crs = "+proj=longlat +datum=WGS84") %>%
