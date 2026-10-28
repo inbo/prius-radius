@@ -1,0 +1,175 @@
+
+Inlezen en controleren van de twee door VMM aangeleverde bestanden met waterlopen (5 m buffer), samen met de openbaar beschikbare bekkenindeling (`WsBekken`). Alle kaartlagen worden voor de latere RadIUS-overlapberekeningen omgezet naar **Belgian Lambert 72 (EPSG:31370)**. De oorspronkelijke shapefiles blijven ongewijzigd.
+
+**Bronnen**
+
+- VMM: `wtz22092026_cat1_met_buffer_diss` en `wtz22092026_cat1_met_buffer_diss_multi` (aangeleverde shapefiles).
+- VMM / Digitaal Vlaanderen: [Geografische indeling van watersystemen](https://www.vlaanderen.be/datavindplaats/catalogus/geografische-indeling-van-watersystemen-28-04-2023), WFS-laag `Watersystemen:WsBekken`.
+
+```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
+library(sf)
+library(dplyr)
+library(here)
+library(knitr)
+library(ggplot2)
+library(leaflet)
+
+# Vlaanderen 
+vlaanderen <- st_read(here("prius", "data", "spatial", "flanders_wgs84.geojson"), quiet = TRUE) %>%
+  st_transform(31370)
+
+# directories
+vmm_dir <- here("radius", "toepassingen", "vmm")
+spatial_dir <- file.path(vmm_dir, "data", "spatial")
+waterlopen_dir <- file.path(spatial_dir, "Wtzmetbuffer")
+```
+
+```{r vmm-waterlopen-inlezen, echo=FALSE, message=FALSE, warning=FALSE}
+waterlopen_diss <- st_read(file.path(waterlopen_dir, "wtz22092026_cat1_met_buffer_diss.shp"), quiet = TRUE)
+waterlopen_diss_multi <- st_read(file.path(waterlopen_dir, "wtz22092026_cat1_met_buffer_diss_multi.shp"), quiet = TRUE)
+```
+
+```{r wsbekken-inlezen, echo=FALSE, message=FALSE, warning=FALSE}
+wfs_watersystemen <- "https://geo.api.vlaanderen.be/Watersystemen/wfs"
+bekken_cache <- file.path(spatial_dir, "ws_bekken.gpkg")
+
+ws_bekken <- st_read(
+    dsn = paste0("WFS:", wfs_watersystemen),
+    layer = "Watersystemen:WsBekken",
+    quiet = TRUE
+  )
+
+st_write(ws_bekken, bekken_cache, layer = "ws_bekken", quiet = TRUE, append = FALSE)
+
+# MULTISURFACE omzetten naar MULTIPOLYGON
+ws_bekken <- ws_bekken %>%
+  st_cast("GEOMETRYCOLLECTION") %>%
+  st_collection_extract("POLYGON") %>%
+  st_cast("MULTIPOLYGON")
+```
+
+# statische plots kaartlagen
+```{r kaartlagen-ggplot, echo=FALSE, message=FALSE, warning=FALSE}
+# waterlopen_diss
+ggplot() +
+  geom_sf(data = vlaanderen, fill = "grey95", color = "grey70") +
+  geom_sf(data = waterlopen_diss,
+          fill = "#4A90B2", color = "#4A90B2", linewidth = 0.1) +
+  labs(title = "waterlopen_diss") +
+  theme_void()
+
+# waterlopen_diss_multi
+ggplot() +
+  geom_sf(data = vlaanderen, fill = "grey95", color = "grey70") +
+  geom_sf(data = waterlopen_diss_multi,
+          fill = "#4A90B2", color = "#4A90B2", linewidth = 0.1) +
+  labs(title = "waterlopen_diss_multi") +
+  theme_void()
+
+# ws_bekken
+ggplot() +
+  geom_sf(data = ws_bekken, aes(fill = BEKNAAM),
+          color = "white", linewidth = 0.3) +
+  geom_sf(data = vlaanderen, fill = NA, color = "grey40") +
+  labs(title = "ws_bekken", fill = "Bekken") +
+  theme_void()
+```
+
+# interactieve plot kaartlagen
+```{r kaartlagen-leaflet, echo=FALSE, message=FALSE, warning=FALSE}
+leaflet() %>%
+  addTiles() %>%
+
+  # Vlaanderen
+  addPolygons(
+    data = vlaanderen %>% st_transform(4326),
+    fill = FALSE,
+    color = "grey40",
+    weight = 1
+  ) %>%
+
+  # waterlopen_diss
+  addPolygons(
+    data = waterlopen_diss %>% st_transform(4326),
+    color = "#297EA6",
+    weight = 2,
+    fillOpacity = 0.7,
+    group = "waterlopen_diss"
+  ) %>%
+
+  # waterlopen_diss_multi
+  addPolygons(
+    data = waterlopen_diss_multi %>% st_transform(4326),
+    color = "#D99A00",
+    weight = 2,
+    fillOpacity = 0.7,
+    group = "waterlopen_diss_multi"
+  ) %>%
+
+  # ws_bekken
+  addPolygons(
+    data = ws_bekken %>% st_transform(4326),
+    fill = FALSE,
+    color = "#555555",
+    weight = 2,
+    label = ~BEKNAAM,
+    group = "ws_bekken"
+  ) %>%
+
+  addLayersControl(
+    overlayGroups = c(
+      "waterlopen_diss",
+      "waterlopen_diss_multi",
+      "ws_bekken"
+    ),
+    options = layersControlOptions(collapsed = FALSE)
+  ) %>%
+
+  hideGroup(c("waterlopen_diss", "ws_bekken"))
+```
+
+# waterlopen knippen op bekken-niveau
+```{r waterlopen-knippen-op-ws-bekken, echo=FALSE, message=FALSE, warning=FALSE}
+waterlopen_bekken <- st_intersection(
+  ws_bekken %>% select(BEKNR, BEKNAAM),
+  waterlopen_diss
+) %>%
+  select(BEKNR, BEKNAAM) %>%
+  group_by(BEKNR, BEKNAAM) %>%
+  summarise(.groups = "drop")
+
+ggplot() +
+  geom_sf(data = vlaanderen, fill = "grey95", color = "grey80") +
+  geom_sf(
+    data = waterlopen_bekken,
+    aes(color = BEKNAAM),
+    fill = NA,
+    linewidth = 0.35
+  ) +
+  geom_sf(
+    data = ws_bekken,
+    fill = NA,
+    color = "grey40",
+    linewidth = 0.2
+  ) +
+  labs(
+    title = "Gebufferde waterlopen per bekken",
+    color = "Bekken"
+  ) +
+  theme_void()
+
+st_write(
+  waterlopen_bekken,
+  file.path(spatial_dir, "waterlopen_per_bekken.gpkg"),
+  delete_dsn = TRUE
+)
+```
+
+Bij het knippen van de waterlopen op bekkenniveau blijft 98,91% van de oorspronkelijke gebufferde waterloopoppervlakte behouden. De overige 1,09% (ca. 32,8 ha) valt buiten de bekkenafbakening. Mogelijke verklaringen zijn:  
+
+- De 5 m buffers reiken op sommige plaatsen voorbij de grenzen van de bekkenpolygonen.  
+- De waterlooplaag en de bekkenindeling hebben niet exact dezelfde ruimtelijke dekking, bijvoorbeeld langs gewestgrenzen of in kustgebieden.  
+- Kleine geometrische onnauwkeurigheden of hiaten in de bekkenafbakening.  
+
+Het beperkte oppervlakteverlies lijkt aanvaardbaar voor de verdere analyse
+
