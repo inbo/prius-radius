@@ -1,0 +1,48 @@
+
+GBIF-download opstarten voor de geselecteerde VMM-soorten, op basis van de COL-codes. We gebruiken dezelfde basisfilters als bij de RadIUS-actualisatie: waarnemingen sinds 2015, met coördinaten en zonder geospatiale problemen.
+
+De GBIF-aanvraag wordt beperkt tot **België**. De selectie van waarnemingen **binnen Vlaanderen** gebeurt na het downloaden aan de hand van de Vlaamse grenslaag, zoals in de RadIUS-verwerking.
+
+## 1. Setup
+
+```{r setup, message=FALSE}
+library(here)
+library(readr)
+library(dplyr)
+library(rgbif)
+
+input_dir <- here("radius", "toepassingen", "vmm", "data", "input")
+```
+
+```{r soortenlijst}
+species_list_vmm <- read_csv(
+  file.path(input_dir, "radius_species_list_vmm.csv"),
+  col_types = cols(col_code = col_character(), gbif_code = col_character())
+)
+
+col_keys <- species_list_vmm %>%
+  filter(!is.na(col_code), col_code != "") %>%
+  pull(col_code) %>%
+  unique()
+
+length(col_keys)
+```
+
+```{r gbif-download, eval=FALSE}
+gbif_download <- occ_download(
+  pred_in("taxonKey", col_keys),
+  pred("country", "BE"),
+  pred_gte("year", 2015),
+  pred("hasCoordinate", TRUE),
+  pred("hasGeospatialIssue", FALSE),
+  checklistKey = "7ddf754f-d193-4cc9-b351-99906754a03b",
+  format = "DWCA",
+  user = rstudioapi::askForPassword("GBIF username"),
+  pwd = rstudioapi::askForPassword("GBIF password"),
+  email = rstudioapi::askForPassword("Email address for notification")
+)
+
+paste0("https://www.gbif.org/occurrence/download/", gbif_download)
+```
+
+De aanvraag start een download op de GBIF-servers, maar haalt het resultaat nog niet naar de lokale computer. Bewaar de downloadkey en gebruik die in de volgende verwerkingsstap.
