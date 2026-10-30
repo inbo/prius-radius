@@ -1,0 +1,69 @@
+groep,species,soort,EU_lijst,gbif_code,col_code
+dieren,Xenopus laevis,Afrikaanse klauwkikker,4,5217334,5CBC9
+dieren,Neovison vison,Amerikaanse Nerts,5,5218823,R6M2J
+dieren,Lithobates catesbeianus,Amerikaanse Stierkikker,1,2427091,VJF78
+dieren,Umbra pygmaea,Amerikaanse hondsvis,NA,NA,7DGKY
+dieren,Sciurus niger,Amerikaanse voseekhoorn,1,5219683,4VNDM
+dieren,Vespa velutina,Aziatische hoornaar,1,1311477,7G3C6
+dieren,Myocastor coypus,Beverrat,1,4264680,6RRQT
+dieren,Pseudorasbora parva,Blauwbandgrondel,1,2362868,4P9F3
+dieren,Ameiurus nebulosus,Bruine amerikaanse dwergmeerval,NA,NA,CQKG
+dieren,Pacifastacus leniusculus,Californische rivierkreeft,1,2226990,7W7FR
+dieren,Branta canadensis,Canadese gans,0,5232437,5WRC3
+dieren,Sinanodonta woodiana,Chinese vijvermossel,NA,NA,4XJB8
+dieren,Eriocheir sinensis,Chinese wolhandkrab,1,2225776,3B3LX
+dieren,Pimephales promelas,Dikkopelrits,NA,NA,4HWST
+dieren,Pseudemys nelsoni,Florida roodbuikschildpad,NA,NA,6WCBF
+dieren,Trachemys scripta scripta,Geelbuikschildpad,1,2443002,C8JV7
+dieren,Trachemys scripta troostii,Geelwangschildpad,1,2443002,C8JV7
+dieren,Procambarus acutus,Gestreepte Amerikaanse rivierkreeft,0,2227289,7WLQN
+dieren,Faxonius limosus,Gevlekte Amerikaanse rivierkreeft,1,8909595,7TVRJ
+dieren,Sciurus carolinensis,Grijze eekhoorn,1,5219681,4VNCY
+dieren,Threskiornis aethiopicus,Heilige ibis,1,2480764,56LQB
+dieren,Pseudemys concinna,Hiëroglyfensierschildpad,NA,NA,4NM9N
+dieren,Trachemys scripta,Lettersierschildpad,1,2443002,C8JV7
+dieren,Marisa cornuarietis,Marisa slak,5,2292586,3Y6ZH
+dieren,Procambarus virginalis,Marmerkreeft,1,9442269,7WLYV
+dieren,Pelophylax ridibundus,Meerkikker,NA,NA,76CHR
+dieren,Ondatra zibethicus,Muskusrat,2,5219858,49JSC
+dieren,Alopochen aegyptiaca,Nijlgans,2,2498252,C5KM
+dieren,Misgurnus bipartitus,Noord-Aziatische modderkruiper,5,2367911,43NKK
+dieren,Procambarus clarkii,Rode Amerikaanse rivierkreeft,1,2227300,7WLRT
+dieren,Trachemys scripta elegans,Roodwangschildpad,1,2443002,C8JV7
+dieren,Oxyura jamaicensis,Rosse stekelstaart,1,2498305,4BMPH
+dieren,Procyon lotor,Wasbeer,1,5218786,4MPXY
+dieren,Graptemys pseudogeographica,Zaagrugschildpad,NA,NA,6KT7C
+dieren,Lepomis gibbosus,Zonnebaars,3,2394486,3TG2F
+planten,Koenigia polystachya,Afghaanse duizendknoop  ,4,8848208,3RBY6
+planten,Reynoutria x bohemica,Boheemse duizendknoop,NA,NA,4RV9L
+planten,Sagittaria latifolia,Breedbladig pijlkruid,NA,NA,4TYQL
+planten,Elodea canadensis,Canadese waterpest,NA,NA,39C7P
+planten,Egeria densa,Egeria,0,5329263,39C7S
+planten,Erythranthe guttata,Gele maskerbloem,0,7346102,3BCS5
+planten,Hydrocotyle ranunculoides,Grote waternavel,1,7978544,6MJYZ
+planten,Ludwigia grandiflora,Grote waterteunisbloem,1,5421039,3WDB2
+planten,Hydrilla verticillata,Hydrilla,NA,NA,3N52R
+planten,Petasites japonicus,Japans hoefblad,0,3088310,4FCZN
+planten,Reynoutria japonica,Japanse duizendknoop,5,2889173,793ZB
+planten,Aponogeton distachyos,Kaapse waterlelie,0,5328593,5VP92
+planten,Ludwigia peploides,Kleine waterteunisbloem,1,5420991,3WDCZ
+planten,Saururus cernuus,Leids plantje,0,5384932,6XRNV
+planten,Houttuynia cordata,Moerasanemoon,0,5384931,3MR6R
+planten,Lysichiton americanus,Moerasaronskelk,1,2869311,3WTZ6
+planten,Myriophyllum heterophyllum,Ongelijkbladig vederkruid,2,5361762,458ZB
+planten,Myriophyllum aquaticum,Parelvederkruid,1,5361785,458YG
+planten,Impatiens glandulifera,Reuzenbalsemien,2,2891770,3PJSV
+planten,Heracleum mantegazzianum,Reuzenberenklauw,2,3034825,6LS3M
+planten,Gunnera tinctoria,Reuzenrabarber,2,2984306,3HMCZ
+planten,Reynoutria sachalinensis,Sachalinse duizendknoop,5,2889088,6WRZD
+planten,Elodea nuttallii,Smalle waterpest,2,5329212,39C89
+planten,Pontederia cordata,Snoekkruid,0,2766030,4LTW3
+planten,Elodea callitrichoides,Sterrenkrooswaterpest,NA,NA,39C7N
+planten,Vallisneria spiralis,Vallisneria,NA,NA,7FDNP
+planten,Lagarosiphon major,Verspreidbladige waterpest,1,2865565,3RVTM
+planten,Crassula helmsii,Watercrassula,5,5362054,6BBL4
+planten,Pontederia crassipes,Waterhyacint,1,2765942,4LTW6
+planten,Pistia stratiotes,Watersla,4,2870583,4J9VH
+planten,Cabomba caroliniana,Waterwaaier,1,2882443,P482
+planten,Zizania latifolia,Wilde rijst,0,10919373,8X9SZ
+planten,Salvinia auriculata,geen Nederlandse naam,NA,NA,79GL6

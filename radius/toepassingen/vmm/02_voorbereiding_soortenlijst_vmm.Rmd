@@ -1,0 +1,123 @@
+
+Inlezen van de door VMM aangeleverde ambitietabel en selecteren van de soorten die met een `x` aangeduid zijn voor RadIUS.
+
+```{r setup, message=FALSE}
+library(readxl)
+library(dplyr)
+library(readr)
+library(here)
+library(rgbif)
+library(purrr)
+
+vmm_dir <- here("radius", "toepassingen", "vmm")
+input_dir <- file.path(vmm_dir, "data", "input")
+```
+
+```{r soortenlijst-inlezen}
+ambitietabel <- read_excel(
+  file.path(input_dir, "Ambitietabel2025.xlsx"),
+  sheet = "Lijst invasieve exoten"
+)
+```
+
+```{r soortenlijst-selecteren}
+species_list_vmm <- ambitietabel %>%
+  filter(tolower(trimws(`op te nemen RADIUS`)) == "x") %>%
+  transmute(
+    groep = Soortgroep,
+    species = `Wetenschappelijke naam`,
+    soort = `Nederlandse naam`
+  ) %>%
+  arrange(groep, soort)
+
+species_list_vmm
+```
+
+```{r unielijst-koppelen}
+prius2 <- read_csv(
+  here("prius2", "temp", "prius2_list_v26-02-06.csv"),
+  col_types = cols(GBIF_code = col_character())
+)
+
+prius_lookup <- prius2 %>%
+  transmute(
+    species_match = tolower(trimws(GBIF_canonicalName)),
+    soort_match = tolower(trimws(soort)),
+    EU_lijst = coalesce(as.integer(reg), 0L),
+    gbif_code = GBIF_code
+  )
+
+species_list_vmm <- species_list_vmm %>%
+  mutate(
+    species_match = tolower(trimws(if_else(
+      grepl("^Trachemys scripta ", species),
+      "Trachemys scripta", species
+    ))),
+    soort_match = tolower(trimws(soort))
+  ) %>%
+  left_join(
+    prius_lookup %>%
+      select(species_match, EU_sci = EU_lijst, GBIF_sci = gbif_code),
+    by = "species_match"
+  ) %>%
+  left_join(
+    prius_lookup %>%
+      select(soort_match, EU_nl = EU_lijst, GBIF_nl = gbif_code),
+    by = "soort_match"
+  ) %>%
+  transmute(
+    groep,
+    species,
+    soort,
+    EU_lijst = coalesce(EU_sci, EU_nl),
+    gbif_code = coalesce(GBIF_sci, GBIF_nl)
+  )
+
+species_list_vmm
+```
+
+```{r link-species-to-gbif-col-keys}
+# COL-code ophalen via bestaande GBIF-code
+species_list_vmm <- species_list_vmm %>%
+  mutate(
+    gbif_code = as.character(gbif_code),
+    col_code = map_chr(gbif_code, function(code) {
+
+      if (is.na(code) || !grepl("^[0-9]+$", code)) return(NA_character_)
+
+      result <- tryCatch(gbif_to_col(code), error = function(e) NULL)
+
+      pluck(result, "usage", "key", .default = NA_character_)
+    })
+  )
+
+# Voor ontbrekende COL-codes zoeken op wetenschappelijke naam
+missing <- which(is.na(species_list_vmm$col_code))
+
+species_list_vmm$col_code[missing] <- map_chr(
+  species_list_vmm$species[missing],
+  function(naam) {
+
+    if (is.na(naam) || !nzchar(naam)) return(NA_character_)
+
+    result <- tryCatch(name_backbone(name = naam), error = function(e) NULL)
+
+    if (is.null(result) || nrow(result) == 0 ||
+        !"usageKey" %in% names(result) ||
+        !identical(result$matchType[1], "EXACT")) {
+      return(NA_character_)
+    }
+
+    as.character(result$usageKey[1])
+  }
+)
+```
+
+```{r opslaan-vmm-soortenlijst}
+write_csv(
+  species_list_vmm,
+  file.path(input_dir, "radius_species_list_vmm.csv")
+)
+```
+
+
